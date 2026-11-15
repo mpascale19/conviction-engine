@@ -1,31 +1,51 @@
-name: Pubblica il sito
+name: Aggiorna i dati
 
 on:
+  # Per ora l'aggiornamento parte solo quando lo chiedi tu, dal pulsante
+  # "Run workflow" nella scheda Actions.
+  workflow_dispatch:
+  # Per farlo partire da solo, togli il cancelletto alle tre righe qui sotto:
+  # 22:30 UTC nei giorni feriali, cioe' dopo la chiusura di New York.
+  # schedule:
+  #   - cron: "30 22 * * 1-5"
   push:
     branches: [main]
-    paths: ["site/**"]
-  workflow_dispatch:
+    paths: ["pipeline/**", "config.json", ".github/workflows/update.yml"]
 
 permissions:
-  contents: read
-  pages: write
-  id-token: write
+  contents: write
 
 concurrency:
-  group: pages
-  cancel-in-progress: true
+  group: update
+  cancel-in-progress: false
 
 jobs:
-  deploy:
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
+  update:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/configure-pages@v5
-      - uses: actions/upload-pages-artifact@v3
+
+      - uses: actions/setup-python@v5
         with:
-          path: site
-      - id: deployment
-        uses: actions/deploy-pages@v4
+          python-version: "3.12"
+          cache: pip
+
+      - run: pip install -r requirements.txt
+
+      - name: Test delle regole (senza rete)
+        run: python -m tests.test_offline
+
+      - name: Raccolta dati e calcolo
+        env:
+          SEC_UA: ${{ secrets.SEC_UA }}
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: python -m pipeline.build
+
+      - name: Salva il risultato
+        run: |
+          git config user.name  "conviction-engine-bot"
+          git config user.email "actions@github.com"
+          git add site/data.json
+          git diff --staged --quiet && echo "nessuna variazione" && exit 0
+          git commit -m "dati aggiornati al $(date -u +'%Y-%m-%d %H:%M UTC')"
+          git push
