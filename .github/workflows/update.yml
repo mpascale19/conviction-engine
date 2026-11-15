@@ -35,6 +35,17 @@ jobs:
 
       - run: pip install -r requirements.txt
 
+      # I Form 4 gia' letti non si riscaricano: dal secondo giro in poi
+      # l'aggiornamento dura un minuto invece di dieci.
+      - name: Cache dei documenti SEC
+        uses: actions/cache@v4
+        with:
+          path: cache
+          key: sec-${{ hashFiles('config.json') }}-${{ github.run_id }}
+          restore-keys: |
+            sec-${{ hashFiles('config.json') }}-
+            sec-
+
       - name: Test delle regole (senza rete)
         run: python -m tests.test_offline
 
@@ -48,7 +59,7 @@ jobs:
         run: |
           git config user.name  "conviction-engine-bot"
           git config user.email "actions@github.com"
-          git add site/data.json
+          git add -A site
           if git diff --staged --quiet; then
             echo "nessuna variazione da salvare"
           else
