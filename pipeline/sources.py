@@ -20,7 +20,9 @@ from datetime import date, datetime, timedelta
 import requests
 
 SEC_UA = os.environ.get("SEC_UA", "Conviction Engine (studente) nome@example.com")
-HEAD = {"User-Agent": SEC_UA, "Accept-Encoding": "gzip, deflate"}
+HEAD = {
+    "User-Agent": "Michele Pascale pascalem368@gmail.com"
+}
 _last_call = 0.0
 
 
