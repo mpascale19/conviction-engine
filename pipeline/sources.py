@@ -72,8 +72,10 @@ def parse_prices_csv(text):
 
 def prices(ticker, market="us"):
     url = f"https://stooq.com/q/d/l/?s={ticker.lower()}.{market}&i=d"
-    return parse_prices_csv(_get(url, headers={"User-Agent": SEC_UA}).text)
-
+    txt = _get(url, headers={"User-Agent": SEC_UA}).text
+    print("URL:", url)
+    print(txt[:500])
+    return parse_prices_csv(txt)
 
 # ----------------------------------------------------------------- EDGAR
 def cik_for(ticker):
