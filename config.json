@@ -1,0 +1,29 @@
+{
+  "ticker": "NVDA",
+  "cik": "0001045810",
+  "benchmark": "SMH",
+  "months_of_history": 24,
+  "rules": {
+    "cluster_days": 30,
+    "cluster_min_people": 3,
+    "track_record_prior": 3,
+    "track_record_horizon_days": 60,
+    "net_flow_cap_musd": 5.0,
+    "senior_titles": [
+      "chief executive",
+      "ceo",
+      "chief financial",
+      "cfo",
+      "president"
+    ]
+  },
+  "weights": {
+    "insider": 30,
+    "guid": 20,
+    "market": 15,
+    "sector": 10,
+    "news": 10,
+    "price": 10,
+    "social": 5
+  }
+}
