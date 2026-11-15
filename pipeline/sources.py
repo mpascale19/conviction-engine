@@ -19,7 +19,7 @@ from datetime import date, datetime, timedelta
 
 import requests
 
-SEC_UA = os.environ.get("SEC_UA", "Conviction Engine (studente) nome@example.com")
+SEC_UA = os.environ.get("SEC_UA", "ConvictionEngine/1.0 pascalem368@email.com")
 HEAD = {
     "User-Agent": "Michele Pascale pascalem368@gmail.com"
 }
