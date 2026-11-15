@@ -1,0 +1,246 @@
+<!doctype html>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Conviction Engine</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;650&display=swap">
+<style>
+  :root{color-scheme:light dark;
+    --bg:#f9f9f7;--card:#fff;--sunken:#f2f1ec;--ink:#0b0b0b;--ink2:#52514e;--ink3:#86857e;
+    --line:#e1e0d9;--axis:#cfcec6;--blue:#2a78d6;--bull:#2a78d6;--bear:#c0392b;--mid:#86857e;
+    --good:#1b7f4b;--goodbg:#e6f3ec;--warnbg:#fdf2e3;--warnink:#8a5a12;--infobg:#e8f0fb}
+  @media (prefers-color-scheme:dark){:root{
+    --bg:#0d0d0d;--card:#1a1a19;--sunken:#242422;--ink:#f0efec;--ink2:#c3c2b7;--ink3:#8e8d85;
+    --line:#2c2c2a;--axis:#3d3d3a;--blue:#3987e5;--bull:#3987e5;--bear:#e06354;--mid:#8e8d85;
+    --good:#4ab87a;--goodbg:#15301f;--warnbg:#3a2a12;--warnink:#f0c478;--infobg:#132236}}
+  *{box-sizing:border-box}
+  body{margin:0;padding:24px 16px 56px;background:var(--bg);color:var(--ink);
+       font:15px/1.5 Inter,system-ui,-apple-system,"Segoe UI",sans-serif;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:940px;margin:auto;display:grid;gap:16px;min-width:0}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:20px;min-width:0}
+  h1{font-size:21px;margin:0;letter-spacing:-.01em}
+  h2{font-size:15px;margin:0 0 2px}
+  .sub{color:var(--ink2);font-size:13px;margin:2px 0 0}
+  .top{display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between}
+  button{appearance:none;border:1px solid var(--axis);background:var(--card);color:var(--ink);
+         border-radius:8px;padding:8px 14px;font:600 13.5px inherit;cursor:pointer}
+  button:hover{border-color:var(--ink3)}
+  button[disabled]{opacity:.5;cursor:default}
+  table{width:100%;border-collapse:collapse;font-size:13.5px;min-width:440px}
+  th{font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--ink2);
+     text-align:left;padding:0 8px 8px;font-weight:600}
+  td{padding:10px 8px;border-top:1px solid var(--line);vertical-align:middle}
+  .num{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+  tbody tr{cursor:pointer}
+  tbody tr:hover td{background:var(--sunken)}
+  .tk{font-weight:650}
+  .nm{color:var(--ink2);font-size:12.5px}
+  .sc{display:inline-flex;align-items:center;gap:8px;font-variant-numeric:tabular-nums}
+  .sc b{font-size:16px;font-weight:650;min-width:26px;display:inline-block;text-align:right}
+  .dot{width:8px;height:8px;border-radius:50%;flex:none}
+  .chip{display:inline-flex;align-items:center;gap:5px;border-radius:99px;padding:2px 9px;
+        font-size:12px;font-weight:600;background:var(--sunken);color:var(--ink2);white-space:nowrap}
+  .chip.good{background:var(--goodbg);color:var(--good)}
+  .chip.info{background:var(--infobg);color:var(--blue)}
+  .chip.warn{background:var(--warnbg);color:var(--warnink)}
+  .warn-card{background:var(--warnbg);color:var(--warnink);border:0}
+  .warn-card ul{margin:8px 0 0;padding-left:18px}
+  .warn-card li{font-size:13px;margin:3px 0;word-break:break-word}
+  .bar{height:6px;border-radius:99px;background:var(--line);overflow:hidden;min-width:60px;width:100%}
+  .bar i{display:block;height:100%}
+  .big{font-size:56px;font-weight:650;letter-spacing:-.03em;line-height:1;margin:6px 0 2px}
+  .subs li{list-style:none;display:grid;grid-template-columns:150px 54px minmax(0,1fr);
+           gap:4px 14px;padding:12px 0;border-top:1px solid var(--line);align-items:start}
+  .subs{margin:0;padding:0}
+  .subs li:first-child{border-top:0}
+  .subs .w{color:var(--ink2);font-size:12.5px;text-align:right;font-variant-numeric:tabular-nums}
+  .subs p{margin:0;font-size:13px;color:var(--ink2)}
+  .subs b{font-size:13.5px}
+  .scroll{overflow-x:auto;min-width:0;-webkit-overflow-scrolling:touch}
+  .back{margin-bottom:2px}
+  .gf{padding:6px 12px;font-size:12.5px}
+  .spark{width:100%;height:56px;display:block}
+  @media (max-width:620px){
+    .hide-s{display:none}
+    .subs li{grid-template-columns:minmax(0,1fr) 54px}
+    .subs p{grid-column:1/-1}
+  }
+</style>
+<div class="wrap" id="app"><div class="card">Carico i dati…</div></div>
+<script>
+var app = document.getElementById('app'), IDX = null, CACHE = {}, GRP = '';
+function esc(s){ return String(s == null ? '' : s).replace(/[&<>"]/g, function(c){
+  return ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'})[c]; }); }
+function n2(v){ return (typeof v === 'number' && isFinite(v)) ? v.toFixed(2) : '—'; }
+function sg(v, d){ return (typeof v === 'number' && isFinite(v))
+  ? (v > 0 ? '+' : v < 0 ? '−' : '') + Math.abs(v).toFixed(d === undefined ? 2 : d) : '—'; }
+function money(v){ return (typeof v === 'number' && isFinite(v))
+  ? '$' + Math.round(v).toLocaleString('it-IT') : '—'; }
+function when(s){ return String(s || '').replace('T', ' alle ').replace('+00:00', ' UTC'); }
+function tone(v){ return v == null ? 'var(--mid)' : v >= 65 ? 'var(--bull)' : v < 35 ? 'var(--bear)' : 'var(--mid)'; }
+function scoreCell(v){
+  return '<span class="sc"><span class="dot" style="background:' + tone(v) + '"></span>' +
+         '<b>' + (v == null ? '—' : v) + '</b></span>';
+}
+function problems(list){
+  if (!list || !list.length) return '';
+  return '<div class="card warn-card"><b>La raccolta dei dati ha avuto problemi</b><ul>' +
+    list.map(function(e){ return '<li>' + esc(e) + '</li>'; }).join('') + '</ul></div>';
+}
+function spark(series){
+  if (!series || series.length < 2) return '';
+  var w = 600, h = 56, cs = series.map(function(p){ return p[1]; });
+  var lo = Math.min.apply(null, cs), hi = Math.max.apply(null, cs), rg = (hi - lo) || 1;
+  var d = series.map(function(p, i){
+    return (i ? 'L' : 'M') + (i / (series.length - 1) * w).toFixed(1) + ',' +
+           (h - 4 - (p[1] - lo) / rg * (h - 8)).toFixed(1); }).join('');
+  return '<svg class="spark" viewBox="0 0 ' + w + ' ' + h + '" preserveAspectRatio="none" ' +
+    'role="img" aria-label="Andamento del prezzo"><path d="' + d +
+    '" fill="none" stroke="var(--blue)" stroke-width="2" vector-effect="non-scaling-stroke"/></svg>';
+}
+
+/* ------------------------------------------------------------------ elenco */
+function renderList(){
+  var all = IDX.companies || [];
+  var groups = (IDX.groups || []).map(function(g){ return g.nome; });
+  var cs = GRP ? all.filter(function(c){ return c.group === GRP; }) : all;
+  var withBuy = cs.filter(function(c){ return c.buyers > 0; });
+  var clusters = cs.filter(function(c){ return c.cluster; });
+  var chips = groups.length > 1
+    ? '<div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:12px">' +
+      [''].concat(groups).map(function(g){
+        return '<button class="gf" data-g="' + esc(g) + '"' +
+          (g === GRP ? ' style="background:var(--sunken);border-color:var(--axis)"' : '') +
+          '>' + esc(g || 'Tutte') + '</button>';
+      }).join('') + '</div>'
+    : '';
+  app.innerHTML = problems(IDX.errors) +
+    '<div class="card"><div class="top"><div>' +
+      '<h1>Conviction Engine</h1>' +
+      '<p class="sub">' + all.length + ' aziende in ' + groups.length + ' universi · ' +
+      'aggiornato il ' + esc(when(IDX.generated_at)) + '</p></div>' +
+      '<button id="rl">Ricarica</button></div>' + chips + '</div>' +
+    '<div class="card"><div class="top" style="margin-bottom:12px"><div>' +
+      '<h2>' + esc(GRP || 'Tutte le aziende') + '</h2><p class="sub">' +
+      withBuy.length + ' aziende su ' + cs.length + ' hanno acquisti degli insider negli ultimi 90 giorni, ' +
+      clusters.length + ' hanno un cluster.</p></div></div>' +
+      '<div class="scroll"><table><thead><tr>' +
+        '<th>Azienda</th><th class="num">Score</th><th class="hide-s">Lettura</th>' +
+        '<th class="num">Compra/Vende</th><th class="num">Flusso netto 90g</th>' +
+        '<th class="num hide-s">Prezzo</th></tr></thead><tbody>' +
+      cs.map(function(c){
+        return '<tr data-t="' + esc(c.ticker) + '">' +
+          '<td><span class="tk">' + esc(c.ticker) + '</span>' +
+            (c.cluster ? ' <span class="chip good">cluster</span>' : '') +
+            '<div class="nm">' + esc(c.name) + '</div></td>' +
+          '<td class="num">' + scoreCell(c.score) + '</td>' +
+          '<td class="hide-s">' + esc(c.verdict) +
+            '<div class="nm">confidenza ' + esc(String(c.confidence || '').toLowerCase()) + '</div></td>' +
+          '<td class="num">' + c.buyers + ' / ' + c.sellers + '</td>' +
+          '<td class="num" style="color:' + (c.net_musd > 0 ? 'var(--bull)' : c.net_musd < 0 ? 'var(--bear)' : 'inherit') + '">' +
+            sg(c.net_musd, 2) + ' M$</td>' +
+          '<td class="num hide-s">' + (c.last ? '$' + n2(c.last.c) : '—') + '</td></tr>';
+      }).join('') +
+      '</tbody></table></div></div>' +
+    '<div class="card sub">Il punteggio di settore confronta ogni azienda con le altre dello stesso universo. ' +
+      'Guidance, stime degli analisti e sentiment non sono ancora alimentati, quindi la confidenza resta bassa. ' +
+      'Strumento didattico, non è una raccomandazione di investimento.</div>';
+  document.getElementById('rl').addEventListener('click', function(){ CACHE = {}; load(true); });
+  [].forEach.call(app.querySelectorAll('.gf'), function(b){
+    b.addEventListener('click', function(){ GRP = b.dataset.g; renderList(); });
+  });
+  [].forEach.call(app.querySelectorAll('tbody tr'), function(tr){
+    tr.addEventListener('click', function(){ location.hash = tr.dataset.t; });
+  });
+}
+
+/* ------------------------------------------------------------------ dettaglio */
+function renderDetail(d){
+  var s = d.score || {}, co = d.company || {}, last = (d.price || {}).last;
+  var tx = (d.tx || []).slice(-25).reverse();
+  var tracks = d.tracks || {};
+  app.innerHTML = problems(d.errors) +
+    '<div class="card"><button class="back" id="bk">← Tutte le aziende</button>' +
+      '<div class="top" style="margin-top:12px"><div>' +
+        '<h1>' + esc(co.name || co.ticker) + ' <span class="nm">' + esc(co.ticker) + '</span></h1>' +
+        '<p class="sub">' + (last ? 'Ultima chiusura ' + esc(last.d) + ': $' + n2(last.c) : 'Prezzo non disponibile') +
+        (d.price_source ? ' · fonte ' + esc(d.price_source) : '') +
+        ' · CIK ' + esc(co.cik || '—') + (d.group ? ' · ' + esc(d.group) : '') + '</p></div></div>' +
+      '<div class="big" style="color:' + tone(s.value) + '">' + (s.value == null ? '—' : s.value) +
+        '<span class="sub" style="font-size:17px"> / 100</span></div>' +
+      '<div><b>' + esc(s.verdict || '') + '</b>' +
+        (s.confidence ? ' · confidenza ' + esc(String(s.confidence).toLowerCase()) : '') +
+        (s.covered_pct != null ? ' · copertura dei dati ' + s.covered_pct + '%' : '') + '</div>' +
+      spark((d.price || {}).series) + '</div>' +
+    '<div class="card"><h2>Come si compone</h2><p class="sub">I pesi si ridistribuiscono sulle voci disponibili.</p>' +
+      '<ul class="subs">' + (s.subs || []).map(function(x){
+        return '<li><div><b>' + esc(x.name) + '</b>' +
+          (x.v == null ? ' <span class="chip">non disponibile</span>'
+                       : '<div class="bar" style="margin-top:6px"><i style="width:' +
+                         Math.max(0, Math.min(100, x.v)) + '%;background:' + tone(x.v) + '"></i></div>') +
+          '</div><div class="w">' + (x.v == null ? '—' : x.v) + '<div style="font-size:11px">' + x.w + '%</div></div>' +
+          '<p>' + (x.why || []).map(esc).join('<br>') + '</p></li>';
+      }).join('') + '</ul></div>' +
+    (Object.keys(tracks).length
+      ? '<div class="card"><h2>Storico dei compratori</h2><p class="sub">Rendimento a 60 giorni dopo i loro acquisti passati, rispetto al settore.</p>' +
+        '<div class="scroll"><table><thead><tr><th>Insider</th><th class="num">Acquisti</th>' +
+        '<th class="num">Positivi</th><th class="num">Medio</th><th class="num">Moltiplicatore</th></tr></thead><tbody>' +
+        Object.keys(tracks).map(function(k){ var t = tracks[k];
+          return '<tr><td>' + esc(k) + '</td><td class="num">' + t.n + '</td><td class="num">' + t.pos +
+            '</td><td class="num">' + sg(t.avg, 1) + '%</td><td class="num">×' + t.mult + '</td></tr>';
+        }).join('') + '</tbody></table></div></div>'
+      : '') +
+    '<div class="card"><h2>Operazioni degli insider</h2>' +
+      '<p class="sub">Ultime ' + tx.length + ' di ' + ((d.counts || {}).tx || 0) +
+      ' negli ultimi due anni. La colonna di destra dice perché un\'operazione pesa o no.</p>' +
+      (tx.length ? '<div class="scroll"><table><thead><tr><th>Data</th><th>Insider</th>' +
+        '<th class="num">Valore</th><th>Lettura</th></tr></thead><tbody>' +
+        tx.map(function(t){
+          return '<tr style="cursor:default"><td class="num">' + esc(t.date) + '</td>' +
+            '<td>' + esc(t.who) + '<div class="nm">' + esc(t.role) + '</div></td>' +
+            '<td class="num">' + money(t.value) + '</td>' +
+            '<td><span class="chip ' + (t.kind === 'BUY' ? 'good' : t.weight ? 'warn' : '') + '">' +
+            esc(t.kind) + '</span><div class="nm">' + esc(t.read) + '</div></td></tr>';
+        }).join('') + '</tbody></table></div>'
+        : '<p class="sub">Nessuna operazione trovata nel periodo.</p>') + '</div>' +
+    '<div class="card sub">' + (d.sources || []).map(function(x){
+      return '<b>' + esc(x.t) + '</b> — ' + esc(x.m) + '. ' + esc(x.x); }).join('<br>') +
+      '<br>Dati aggiornati il ' + esc(when(d.generated_at)) + '.</div>';
+  document.getElementById('bk').addEventListener('click', function(){ location.hash = ''; });
+  window.scrollTo(0, 0);
+}
+
+/* ------------------------------------------------------------------ rotta */
+function show(){
+  var t = (location.hash || '').replace('#', '').toUpperCase();
+  if (!IDX) return;
+  if (!t) return renderList();
+  if (CACHE[t]) return renderDetail(CACHE[t]);
+  app.innerHTML = '<div class="card">Carico ' + esc(t) + '…</div>';
+  fetch('data/' + encodeURIComponent(t) + '.json?' + Date.now())
+    .then(function(r){ if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); })
+    .then(function(d){ CACHE[t] = d; renderDetail(d); })
+    .catch(function(e){
+      app.innerHTML = '<div class="card">Non trovo i dati di <b>' + esc(t) + '</b>.' +
+        '<div class="sub">' + esc(e) + '</div><div style="margin-top:12px">' +
+        '<button id="bk2">Torna all\u2019elenco</button></div></div>';
+      document.getElementById('bk2').addEventListener('click', function(){ location.hash = ''; });
+    });
+}
+
+function load(force){
+  if (!force && IDX) return show();
+  fetch('index.json?' + Date.now())
+    .then(function(r){ if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); })
+    .then(function(j){ IDX = j; show(); })
+    .catch(function(e){
+      app.innerHTML = '<div class="card"><b>Nessun index.json</b><div class="sub" style="margin-top:6px">' +
+        esc(e) + '</div><div style="margin-top:10px;font-size:13.5px">Fai girare ' +
+        '<code>python -m pipeline.build</code>, oppure il workflow <b>Aggiorna i dati</b> ' +
+        'dalla scheda Actions.</div></div>';
+    });
+}
+window.addEventListener('hashchange', show);
+load();
+</script>
