@@ -48,4 +48,5 @@ jobs:
           git add site/data.json
           git diff --staged --quiet && echo "nessuna variazione" && exit 0
           git commit -m "dati aggiornati al $(date -u +'%Y-%m-%d %H:%M UTC')"
-          git push
+          git pull --rebase origin main
+          git push origin main
