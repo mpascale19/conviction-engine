@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-11-15T19:16:45+00:00",
+ "generated_at": "2026-11-15T19:17:42+00:00",
  "errors": [
   "Il secret SEC_UA deve essere nome ed email separati da uno spazio, per esempio: Nome Cognome nome@email.it",
   "Form 4 di NVDA: richiesta fallita: 403 su https://data.sec.gov/submissions/CIK0001045810.json"
