@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-11-16T12:22:52+00:00",
+ "generated_at": "2026-11-16T14:08:00+00:00",
  "groups": [
   {
    "nome": {
@@ -29,39 +29,13 @@
  },
  "companies": [
   {
-   "ticker": "INTC",
-   "name": "INTEL CORP",
-   "group": {
-    "it": "Semiconduttori e apparecchiature",
-    "en": "Semiconductors and equipment"
-   },
-   "score": 61,
-   "verdict": {
-    "it": "Leggermente rialzista",
-    "en": "Mildly bullish"
-   },
-   "confidence": "Alta",
-   "covered_pct": 85,
-   "last": {
-    "d": "2026-11-13",
-    "c": 59.66,
-    "v": 102322800
-   },
-   "tx": 154,
-   "buyers": 1,
-   "sellers": 0,
-   "net_musd": 9.71,
-   "cluster": false,
-   "errors": 0
-  },
-  {
    "ticker": "ORCL",
    "name": "ORACLE CORP",
    "group": {
     "it": "Grandi capitalizzazioni USA",
     "en": "US large caps"
    },
-   "score": 60,
+   "score": 61,
    "verdict": {
     "it": "Leggermente rialzista",
     "en": "Mildly bullish"
@@ -77,6 +51,32 @@
    "buyers": 1,
    "sellers": 1,
    "net_musd": 3.085,
+   "cluster": false,
+   "errors": 0
+  },
+  {
+   "ticker": "INTC",
+   "name": "INTEL CORP",
+   "group": {
+    "it": "Semiconduttori e apparecchiature",
+    "en": "Semiconductors and equipment"
+   },
+   "score": 60,
+   "verdict": {
+    "it": "Leggermente rialzista",
+    "en": "Mildly bullish"
+   },
+   "confidence": "Alta",
+   "covered_pct": 85,
+   "last": {
+    "d": "2026-11-13",
+    "c": 59.66,
+    "v": 102322800
+   },
+   "tx": 154,
+   "buyers": 1,
+   "sellers": 0,
+   "net_musd": 9.71,
    "cluster": false,
    "errors": 0
   },
