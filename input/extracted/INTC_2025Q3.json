@@ -1,0 +1,60 @@
+{
+ "ticker": "INTC",
+ "quarter": "T3 '25",
+ "call_date": "2025-10-23",
+ "tone": 55,
+ "tone_why": "Quarto trimestre sopra la guidance e bilancio risanato, ma il management ripete di avere molta strada davanti e guida il trimestre successivo con margine in calo.",
+ "guidance": [
+  {
+   "metric": "Ricavi Q4 2025",
+   "value": "12,8-13,8 miliardi $ (centro 13,3)",
+   "direction": "prima"
+  },
+  {
+   "metric": "Margine lordo Q4 2025",
+   "value": "circa 36,5%",
+   "direction": "prima"
+  },
+  {
+   "metric": "EPS Q4 2025",
+   "value": "0,08 $",
+   "direction": "prima"
+  },
+  {
+   "metric": "Capex 2025",
+   "value": "circa 18 miliardi $",
+   "direction": "confermata"
+  },
+  {
+   "metric": "OpEx 2026",
+   "value": "16 miliardi $",
+   "direction": "confermata"
+  }
+ ],
+ "qa": [
+  {
+   "question": "La maggiore fiducia sulla foundry viene dagli accordi annunciati o da progressi tecnici?",
+   "answer_summary": "Cita sia gli accordi (SoftBank) sia progressi su 18A e 14A, ma senza numeri di resa.",
+   "directness": 3
+  },
+  {
+   "question": "Dove nasce la scarsita' di fornitura, visto che la crescita e' solo +5%?",
+   "answer_summary": "Ammette che la carenza e' trasversale, soprattutto Intel 10 e 7, e che vivono di scorte.",
+   "directness": 4
+  },
+  {
+   "question": "A che punto sono le rese di 18A rispetto a un nodo riuscito del passato?",
+   "answer_summary": "Dice che le rese bastano per la fornitura ma non per i margini, e servira' tutto il 2026.",
+   "directness": 4
+  },
+  {
+   "question": "Quale sarebbe il margine lordo senza Intel 10 e 7?",
+   "answer_summary": "Non normalizza il numero, elenca i fattori: costo dei nodi vecchi e competitivita' dei prodotti.",
+   "directness": 2
+  }
+ ],
+ "language_changes": [],
+ "file": "INTC_2025Q3.json",
+ "source": "Bloomberg transcript export (non ridistribuito)",
+ "extracted_by": "Claude (estrazione manuale, stessa forma del passo automatico)"
+}

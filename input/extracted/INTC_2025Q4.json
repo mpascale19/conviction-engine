@@ -1,0 +1,78 @@
+{
+ "ticker": "INTC",
+ "quarter": "T4 '25",
+ "call_date": "2026-01-22",
+ "tone": 52,
+ "tone_why": "Quinto trimestre sopra la guidance, ma la guida di Q1 e' la piu' debole dell'anno (margine 34,5%, EPS a zero) e il CEO dice apertamente di essere deluso dalle rese.",
+ "guidance": [
+  {
+   "metric": "Ricavi Q1 2026",
+   "value": "11,7-12,7 miliardi $ (centro 12,2)",
+   "direction": "prima"
+  },
+  {
+   "metric": "Margine lordo Q1 2026",
+   "value": "circa 34,5%",
+   "direction": "prima"
+  },
+  {
+   "metric": "EPS Q1 2026",
+   "value": "in pareggio",
+   "direction": "prima"
+  },
+  {
+   "metric": "OpEx 2026",
+   "value": "16 miliardi $",
+   "direction": "confermata"
+  },
+  {
+   "metric": "Capex 2026",
+   "value": "da 'in calo' a 'piatto o in leggero calo'",
+   "direction": "alzata"
+  },
+  {
+   "metric": "Free cash flow 2026",
+   "value": "positivo per l'intero anno",
+   "direction": "prima"
+  }
+ ],
+ "qa": [
+  {
+   "question": "Quando allenterete i freni sul capex per servire una domanda strutturalmente piu' alta?",
+   "answer_summary": "Spesa su strumenti in aumento, ma niente capacita' su 14A finche' non ci sono clienti firmati.",
+   "directness": 5
+  },
+  {
+   "question": "Che cosa implica per il margine lordo dell'anno?",
+   "answer_summary": "Ammette che 34,5% non e' accettabile e indica 40% come primo obiettivo, senza percorso trimestrale.",
+   "directness": 4
+  },
+  {
+   "question": "Avete fabbriche vostre: perche' vi trovate in questa situazione di scorte?",
+   "answer_summary": "Risposta diretta: sei mesi fa i clienti segnalavano core in crescita ma unita' ferme, e si sono sbagliati.",
+   "directness": 5
+  },
+  {
+   "question": "Quando l'esterno della foundry diventa ricavo rilevante?",
+   "answer_summary": "Rimanda: impegni dei clienti nel secondo semestre 2026, produzione di volume nel 2028.",
+   "directness": 3
+  }
+ ],
+ "language_changes": [
+  {
+   "topic": "Capex 2026",
+   "from": "in calo rispetto al 2025",
+   "to": "piatto o in leggero calo",
+   "note": "Prima revisione al rialzo: la motivazione sono i segnali di domanda, non un cambio di strategia."
+  },
+  {
+   "topic": "Clienti esterni 14A",
+   "from": "engagement attivi",
+   "to": "decisioni di fornitura dal secondo semestre 2026",
+   "note": "La data della prima firma si sposta in avanti rispetto alla call precedente."
+  }
+ ],
+ "file": "INTC_2025Q4.json",
+ "source": "Bloomberg transcript export (non ridistribuito)",
+ "extracted_by": "Claude (estrazione manuale, stessa forma del passo automatico)"
+}

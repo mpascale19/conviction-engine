@@ -1,0 +1,110 @@
+{
+ "ticker": "ORCL",
+ "quarter": "T1 '27 (anno fiscale)",
+ "call_date": "2026-09-10",
+ "tone": 78,
+ "tone_why": "La parola scelta dal CFO per il trimestre e' 'accelerazione': ricavi e EPS sopra la guida, guida annuale alzata. Restano il flusso di cassa negativo (-5 miliardi) e il margine lordo in calo.",
+ "guidance": [
+  {
+   "metric": "Ricavi anno fiscale 2027",
+   "value": "almeno 90 miliardi $ (+34%)",
+   "direction": "alzata"
+  },
+  {
+   "metric": "EPS non-GAAP 2027",
+   "value": "8,10 $ (da 8,05)",
+   "direction": "alzata"
+  },
+  {
+   "metric": "Ricavi Q2 2027",
+   "value": "+30-34%",
+   "direction": "prima"
+  },
+  {
+   "metric": "Ricavi cloud Q2 2027",
+   "value": "+65-71%",
+   "direction": "prima"
+  },
+  {
+   "metric": "EPS non-GAAP Q2 2027",
+   "value": "1,85-1,93 $ (+21-25%)",
+   "direction": "prima"
+  },
+  {
+   "metric": "Capex 2027",
+   "value": "90-95 miliardi $ lordi, non piu' di 70 miliardi netti",
+   "direction": "confermata"
+  },
+  {
+   "metric": "Conversione dell'RPO",
+   "value": "circa meta' in ricavi nei prossimi 36 mesi",
+   "direction": "prima"
+  },
+  {
+   "metric": "Free cash flow",
+   "value": "nessuna data indicata",
+   "direction": "prima"
+  }
+ ],
+ "qa": [
+  {
+   "question": "Quando Oracle torna a generare flusso di cassa positivo?",
+   "answer_summary": "'Non abbiamo dato una tempistica e non pensiamo di darla oggi'. Dice solo che i progetti, a regime, convertono circa il 100% dell'EBITDA post-tasse.",
+   "directness": 2
+  },
+  {
+   "question": "I ritardi sui data center di New Mexico e Wisconsin mettono a rischio la guida 2027?",
+   "answer_summary": "Risposta lunga ma conclusiva: nessuno dei due siti era previsto nella guida 2027.",
+   "directness": 4
+  },
+  {
+   "question": "Il rincaro dei componenti intacca i margini?",
+   "answer_summary": "Dice che i prezzi salgono e vengono ribaltati sul cliente, e che la guida precedente resta valida.",
+   "directness": 4
+  },
+  {
+   "question": "La crescita dell'RPO che non richiede capex e' AI labs, semiconduttori o sovereign?",
+   "answer_summary": "Corregge l'impostazione della domanda: non e' che non serve capex, e' che non serve cassa aggiuntiva di Oracle. Poi elenca i tre meccanismi.",
+   "directness": 4
+  },
+  {
+   "question": "Il margine lordo continuera' a scendere?",
+   "answer_summary": "Nessuna guida sul margine lordo; dice che nei prossimi due anni si appiattira' e rimanda all'Investor Day.",
+   "directness": 2
+  },
+  {
+   "question": "Qual e' il modello di business della AI data platform?",
+   "answer_summary": "'La risposta sul modello di business e' tutte le precedenti'. Nessuna quantificazione.",
+   "directness": 2
+  }
+ ],
+ "language_changes": [
+  {
+   "topic": "Guida annuale 2027",
+   "from": "+34% di ricavi, EPS 8,05 $",
+   "to": "almeno 90 miliardi $ di ricavi, EPS 8,10 $",
+   "note": "Alzata dopo un solo trimestre: i numeri seguono le parole, qui le promesse vengono mantenute."
+  },
+  {
+   "topic": "Margine lordo",
+   "from": "'scendera' nel 2027 per la salita a regime dei data center'",
+   "to": "'nei prossimi due anni ci aspettiamo che si appiattisca'",
+   "note": "L'orizzonte del recupero si allunga da un anno a due, e sul trimestre non viene data nessuna guida."
+  },
+  {
+   "topic": "Free cash flow",
+   "from": "non affrontato nella call precedente",
+   "to": "'non abbiamo dato una tempistica e non pensiamo di darla oggi'",
+   "note": "Nel trimestre il flusso di cassa libero e' negativo per 5 miliardi, con 28 miliardi di capex. E' la domanda piu' evitata della call."
+  },
+  {
+   "topic": "Capex 2027",
+   "from": "circa 70 miliardi netti, dichiarato 20-25 piu' alto",
+   "to": "90-95 miliardi lordi, non piu' di 70 netti",
+   "note": "Stesso impegno, detto in modo piu' esplicito: la cifra lorda viene finalmente pronunciata."
+  }
+ ],
+ "file": "ORCL_2027Q1.json",
+ "source": "Bloomberg transcript export (non ridistribuito)",
+ "extracted_by": "Claude (estrazione manuale, stessa forma del passo automatico)"
+}
