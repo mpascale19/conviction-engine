@@ -246,6 +246,32 @@ def market_score(rows, today=None, shares=None):
     return round(_clamp(v)), why, cov
 
 
+def market_peers(sub, me_pct, peer_pcts):
+    """Aggiunge al sotto-punteggio Mercato il confronto con i simili.
+
+    Lo short interest in percentuale delle azioni in circolazione e' l'unica
+    misura che si puo' mettere a fianco fra aziende di dimensioni diverse.
+    Essere shortati molto piu' della mediana del settore e' un segnale contro;
+    molto meno, un segnale a favore.
+    """
+    peers = [p for p in peer_pcts if isinstance(p, (int, float))]
+    if sub.get("v") is None or me_pct is None or len(peers) < 3:
+        return sub
+    med = _median(peers)
+    if not med:
+        return sub
+    ratio = me_pct / med
+    sub["v"] = round(_clamp(sub["v"] - _clamp((ratio - 1) * 12, -8, 8)))
+    sub["why"] = list(sub["why"]) + [L(
+        f"Nel settore la mediana e' {med:.2f}% delle azioni: "
+        f"{me_pct:.2f}% vale {ratio:.1f} volte "
+        f"({len(peers)} aziende confrontate).",
+        f"The sector median is {med:.2f}% of shares: "
+        f"{me_pct:.2f}% is {ratio:.1f} times that "
+        f"({len(peers)} companies compared).")]
+    return sub
+
+
 def combine(subs, weights):
     """Media pesata sui soli sotto-punteggi disponibili."""
     avail = {k: s for k, s in subs.items() if s["v"] is not None}

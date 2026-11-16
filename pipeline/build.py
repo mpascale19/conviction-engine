@@ -134,9 +134,12 @@ def build_one(cfg, raw, extracted=None):
     buys_90d = any(t["kind"] == "BUY" for t in recent)
 
     si = market.load_short_interest(raw["ticker"])
+    si_pct = None
     if si:
         v, why, cov = score.market_score(si, today, raw.get("shares"))
         subs["market"] = {"v": v, "why": why, "coverage": cov}
+        if raw.get("shares"):
+            si_pct = round(si[-1]["si"] / raw["shares"] * 100, 3)
 
     if extracted:
         tones = [e.get("tone") for e in extracted if isinstance(e.get("tone"), (int, float))]
@@ -181,6 +184,7 @@ def build_one(cfg, raw, extracted=None):
         "sell_musd": round(sum(t["value"] for t in sells) / 1e6, 3),
         "net_musd": round((sum(t["value"] for t in buys) - sum(t["value"] for t in sells)) / 1e6, 3),
         "cluster": bool(cluster),
+        "si_pct": si_pct,                 # per il confronto con i simili
     }
 
     return {
@@ -210,6 +214,10 @@ def finish(cfg, data, universe):
     if data["company"]["cik"]:
         v, why, cov = score.sector_score(me, universe, cfg)
         subs["sector"] = {"v": v, "why": why, "coverage": cov}
+    if "market" in subs:
+        subs["market"] = score.market_peers(
+            subs["market"], me.get("si_pct"),
+            [u.get("si_pct") for u in universe if u["ticker"] != me["ticker"]])
     total, conf, missing, covered = score.combine(subs, cfg["weights"])
     data["score"] = {
         "value": total,

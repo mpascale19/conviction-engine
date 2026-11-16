@@ -220,6 +220,23 @@ check("la dimensione dell'azienda non cambia il punteggio",
       market_score(small)[0] == vf, (market_score(small)[0], vf))
 
 
+# --------------------------- confronto dello short interest con i simili
+from pipeline.score import market_peers
+
+base = {"v": 50, "why": [], "coverage": "Alta"}
+piu_shortata = market_peers(dict(base, why=[]), 6.0, [2.0, 2.0, 2.0, 2.0])
+meno_shortata = market_peers(dict(base, why=[]), 1.0, [2.0, 2.0, 2.0, 2.0])
+check("essere shortati piu' dei simili abbassa il punteggio", piu_shortata["v"] < 50, piu_shortata["v"])
+check("esserlo meno lo alza", meno_shortata["v"] > 50, meno_shortata["v"])
+check("l'effetto e' limitato a otto punti", abs(piu_shortata["v"] - 50) <= 8, piu_shortata["v"])
+check("con meno di tre simili non si confronta",
+      market_peers(dict(base, why=[]), 6.0, [2.0, 2.0])["v"] == 50)
+check("senza la percentuale propria non si confronta",
+      market_peers(dict(base, why=[]), None, [2.0, 2.0, 2.0, 2.0])["v"] == 50)
+check("il confronto e' scritto in due lingue",
+      set(piu_shortata["why"][-1]) == {"it", "en"}, piu_shortata["why"])
+
+
 # ------------------------- divergenza: comprano mentre tagliano la guidance
 def call(tone, up=0, dn=0, q="T3 '26"):
     g = [{"metric": "x", "value": "y", "direction": "alzata"} for _ in range(up)]

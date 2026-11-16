@@ -100,6 +100,19 @@ percentuale vera sul flottante e' un po' piu' alta. Per le grandi societa' la
 differenza e' piccola, ma il sito scrive "azioni in circolazione" e non
 "flottante", perche' e' quello che il dato dice davvero.
 
+### Il confronto con i simili
+
+Quando piu' aziende dello stesso universo hanno il file dello short interest, il
+sotto-punteggio Mercato aggiunge un confronto: la percentuale sulle azioni in
+circolazione di questa azienda contro la **mediana del suo gruppo**. Essere
+shortati molto piu' dei simili toglie punti, molto meno li aggiunge, con un
+tetto di otto. Servono almeno tre aziende confrontabili, altrimenti il confronto
+non si fa.
+
+E' la differenza fra "e' shortata piu' del solito" (confronto con la propria
+storia) e "e' shortata piu' delle altre" (confronto con il settore). Le due cose
+insieme dicono molto di piu' di ciascuna da sola.
+
 Lo short interest nasce da FINRA e dalle borse, non e' un prodotto proprietario
 Bloomberg: per questo i numeri stanno nel repo. Le revisioni delle stime e il
 consenso EPS, quando arriveranno, seguiranno la regola delle trascrizioni.
