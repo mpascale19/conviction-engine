@@ -1,0 +1,1073 @@
+{
+ "generated_at": "2026-11-16T09:42:24+00:00",
+ "groups": [
+  {
+   "nome": {
+    "it": "Semiconduttori e apparecchiature",
+    "en": "Semiconductors and equipment"
+   },
+   "benchmark": "SMH",
+   "n": 20
+  },
+  {
+   "nome": {
+    "it": "Grandi capitalizzazioni USA",
+    "en": "US large caps"
+   },
+   "benchmark": "SPY",
+   "n": 20
+  }
+ ],
+ "weights": {
+  "insider": 30,
+  "guid": 20,
+  "market": 15,
+  "sector": 10,
+  "news": 10,
+  "price": 10,
+  "social": 5
+ },
+ "companies": [
+  {
+   "ticker": "INTC",
+   "name": "INTC",
+   "group": {
+    "it": "Semiconduttori e apparecchiature",
+    "en": "Semiconductors and equipment"
+   },
+   "score": 69,
+   "verdict": {
+    "it": "Convinzione rialzista moderata",
+    "en": "Moderate bullish conviction"
+   },
+   "confidence": "Bassa",
+   "covered_pct": 50,
+   "last": {
+    "d": "2026-11-13",
+    "c": 59.66,
+    "v": 102322800
+   },
+   "tx": 154,
+   "buyers": 1,
+   "sellers": 0,
+   "net_musd": 9.71,
+   "cluster": false,
+   "errors": 0
+  },
+  {
+   "ticker": "ORCL",
+   "name": "ORCL",
+   "group": {
+    "it": "Grandi capitalizzazioni USA",
+    "en": "US large caps"
+   },
+   "score": 61,
+   "verdict": {
+    "it": "Leggermente rialzista",
+    "en": "Mildly bullish"
+   },
+   "confidence": "Bassa",
+   "covered_pct": 50,
+   "last": {
+    "d": "2026-11-13",
+    "c": 125.35,
+    "v": 22547400
+   },
+   "tx": 226,
+   "buyers": 1,
+   "sellers": 1,
+   "net_musd": 3.085,
+   "cluster": false,
+   "errors": 0
+  },
+  {
+   "ticker": "BAC",
+   "name": "BAC",
+   "group": {
+    "it": "Grandi capitalizzazioni USA",
+    "en": "US large caps"
+   },
+   "score": 56,
+   "verdict": {
+    "it": "Leggermente rialzista",
+    "en": "Mildly bullish"
+   },
+   "confidence": "Bassa",
+   "covered_pct": 50,
+   "last": {
+    "d": "2026-11-13",
+    "c": 51.02,
+    "v": 19994700
+   },
+   "tx": 436,
+   "buyers": 1,
+   "sellers": 1,
+   "net_musd": 0.042,
+   "cluster": false,
+   "errors": 0
+  },
+  {
+   "ticker": "AVGO",
+   "name": "AVGO",
+   "group": {
+    "it": "Semiconduttori e apparecchiature",
+    "en": "Semiconductors and equipment"
+   },
+   "score": 53,
+   "verdict": {
+    "it": "Nessuna convinzione chiara",
+    "en": "No clear conviction"
+   },
+   "confidence": "Bassa",
+   "covered_pct": 50,
+   "last": {
+    "d": "2026-11-13",
+    "c": 347.01,
+    "v": 31602000
+   },
+   "tx": 461,
+   "buyers": 0,
+   "sellers": 0,
+   "net_musd": 0.0,
+   "cluster": false,
+   "errors": 0
+  },
+  {
+   "ticker": "KLAC",
+   "name": "KLAC",
+   "group": {
+    "it": "Semiconduttori e apparecchiature",
+    "en": "Semiconductors and equipment"
+   },
+   "score": 53,
+   "verdict": {
+    "it": "Nessuna convinzione chiara",
+    "en": "No clear conviction"
+   },
+   "confidence": "Bassa",
+   "covered_pct": 50,
+   "last": {
+    "d": "2026-11-13",
+    "c": 152.32,
+    "v": 12502200
+   },
+   "tx": 207,
+   "buyers": 0,
+   "sellers": 0,
+   "net_musd": 0.0,
+   "cluster": false,
+   "errors": 0
+  },
+  {
+   "ticker": "ACLS",
+   "name": "ACLS",
+   "group": {
+    "it": "Semiconduttori e apparecchiature",
+    "en": "Semiconductors and equipment"
+   },
+   "score": 53,
+   "verdict": {
+    "it": "Nessuna convinzione chiara",
+    "en": "No clear conviction"
+   },
+   "confidence": "Bassa",
+   "covered_pct": 50,
+   "last": {
+    "d": "2026-11-13",
+    "c": 104.42,
+    "v": 242700
+   },
+   "tx": 131,
+   "buyers": 0,
+   "sellers": 0,
+   "net_musd": 0.0,
+   "cluster": false,
+   "errors": 0
+  },
+  {
+   "ticker": "GOOGL",
+   "name": "GOOGL",
+   "group": {
+    "it": "Grandi capitalizzazioni USA",
+    "en": "US large caps"
+   },
+   "score": 53,
+   "verdict": {
+    "it": "Nessuna convinzione chiara",
+    "en": "No clear conviction"
+   },
+   "confidence": "Bassa",
+   "covered_pct": 50,
+   "last": {
+    "d": "2026-11-13",
+    "c": 295.77,
+    "v": 30712800
+   },
+   "tx": 520,
+   "buyers": 0,
+   "sellers": 0,
+   "net_musd": 0.0,
+   "cluster": false,
+   "errors": 0
+  },
+  {
+   "ticker": "TER",
+   "name": "TER",
+   "group": {
+    "it": "Semiconduttori e apparecchiature",
+    "en": "Semiconductors and equipment"
+   },
+   "score": 52,
+   "verdict": {
+    "it": "Nessuna convinzione chiara",
+    "en": "No clear conviction"
+   },
+   "confidence": "Bassa",
+   "covered_pct": 50,
+   "last": {
+    "d": "2026-11-13",
+    "c": 249.55,
+    "v": 3076100
+   },
+   "tx": 140,
+   "buyers": 0,
+   "sellers": 0,
+   "net_musd": 0.0,
+   "cluster": false,
+   "errors": 0
+  },
+  {
+   "ticker": "ONTO",
+   "name": "ONTO",
+   "group": {
+    "it": "Semiconduttori e apparecchiature",
+    "en": "Semiconductors and equipment"
+   },
+   "score": 52,
+   "verdict": {
+    "it": "Nessuna convinzione chiara",
+    "en": "No clear conviction"
+   },
+   "confidence": "Bassa",
+   "covered_pct": 50,
+   "last": {
+    "d": "2026-11-13",
+    "c": 203.62,
+    "v": 806900
+   },
+   "tx": 94,
+   "buyers": 0,
+   "sellers": 0,
+   "net_musd": 0.0,
+   "cluster": false,
+   "errors": 0
+  },
+  {
+   "ticker": "FORM",
+   "name": "FORM",
+   "group": {
+    "it": "Semiconduttori e apparecchiature",
+    "en": "Semiconductors and equipment"
+   },
+   "score": 52,
+   "verdict": {
+    "it": "Nessuna convinzione chiara",
+    "en": "No clear conviction"
+   },
+   "confidence": "Bassa",
+   "covered_pct": 50,
+   "last": {
+    "d": "2026-11-13",
+    "c": 87.53,
+    "v": 1296300
+   },
+   "tx": 207,
+   "buyers": 0,
+   "sellers": 1,
+   "net_musd": -0.202,
+   "cluster": false,
+   "errors": 0
+  },
+  {
+   "ticker": "UCTT",
+   "name": "UCTT",
+   "group": {
+    "it": "Semiconduttori e apparecchiature",
+    "en": "Semiconductors and equipment"
+   },
+   "score": 52,
+   "verdict": {
+    "it": "Nessuna convinzione chiara",
+    "en": "No clear conviction"
+   },
+   "confidence": "Bassa",
+   "covered_pct": 50,
+   "last": {
+    "d": "2026-11-13",
+    "c": 46.35,
+    "v": 699200
+   },
+   "tx": 190,
+   "buyers": 0,
+   "sellers": 0,
+   "net_musd": 0.0,
+   "cluster": false,
+   "errors": 0
+  },
+  {
+   "ticker": "ICHR",
+   "name": "ICHR",
+   "group": {
+    "it": "Semiconduttori e apparecchiature",
+    "en": "Semiconductors and equipment"
+   },
+   "score": 52,
+   "verdict": {
+    "it": "Nessuna convinzione chiara",
+    "en": "No clear conviction"
+   },
+   "confidence": "Bassa",
+   "covered_pct": 50,
+   "last": {
+    "d": "2026-11-13",
+    "c": 35.72,
+    "v": 749300
+   },
+   "tx": 108,
+   "buyers": 0,
+   "sellers": 0,
+   "net_musd": 0.0,
+   "cluster": false,
+   "errors": 0
+  },
+  {
+   "ticker": "AAPL",
+   "name": "AAPL",
+   "group": {
+    "it": "Grandi capitalizzazioni USA",
+    "en": "US large caps"
+   },
+   "score": 52,
+   "verdict": {
+    "it": "Nessuna convinzione chiara",
+    "en": "No clear conviction"
+   },
+   "confidence": "Bassa",
+   "covered_pct": 50,
+   "last": {
+    "d": "2026-11-13",
+    "c": 356.27,
+    "v": 39985300
+   },
+   "tx": 162,
+   "buyers": 0,
+   "sellers": 0,
+   "net_musd": 0.0,
+   "cluster": false,
+   "errors": 0
+  },
+  {
+   "ticker": "AMZN",
+   "name": "AMZN",
+   "group": {
+    "it": "Grandi capitalizzazioni USA",
+    "en": "US large caps"
+   },
+   "score": 52,
+   "verdict": {
+    "it": "Nessuna convinzione chiara",
+    "en": "No clear conviction"
+   },
+   "confidence": "Bassa",
+   "covered_pct": 50,
+   "last": {
+    "d": "2026-11-13",
+    "c": 266.66,
+    "v": 31076200
+   },
+   "tx": 345,
+   "buyers": 0,
+   "sellers": 0,
+   "net_musd": 0.0,
+   "cluster": false,
+   "errors": 0
+  },
+  {
+   "ticker": "MA",
+   "name": "MA",
+   "group": {
+    "it": "Grandi capitalizzazioni USA",
+    "en": "US large caps"
+   },
+   "score": 52,
+   "verdict": {
+    "it": "Nessuna convinzione chiara",
+    "en": "No clear conviction"
+   },
+   "confidence": "Bassa",
+   "covered_pct": 50,
+   "last": {
+    "d": "2026-11-13",
+    "c": 661.19,
+    "v": 1936300
+   },
+   "tx": 349,
+   "buyers": 0,
+   "sellers": 0,
+   "net_musd": 0.0,
+   "cluster": false,
+   "errors": 0
+  },
+  {
+   "ticker": "XOM",
+   "name": "XOM",
+   "group": {
+    "it": "Grandi capitalizzazioni USA",
+    "en": "US large caps"
+   },
+   "score": 52,
+   "verdict": {
+    "it": "Nessuna convinzione chiara",
+    "en": "No clear conviction"
+   },
+   "confidence": "Bassa",
+   "covered_pct": 50,
+   "last": {
+    "d": "2026-11-13",
+    "c": 170.59,
+    "v": 11474700
+   },
+   "tx": 0,
+   "buyers": 0,
+   "sellers": 0,
+   "net_musd": 0.0,
+   "cluster": false,
+   "errors": 0
+  },
+  {
+   "ticker": "WMT",
+   "name": "WMT",
+   "group": {
+    "it": "Grandi capitalizzazioni USA",
+    "en": "US large caps"
+   },
+   "score": 52,
+   "verdict": {
+    "it": "Nessuna convinzione chiara",
+    "en": "No clear conviction"
+   },
+   "confidence": "Bassa",
+   "covered_pct": 50,
+   "last": {
+    "d": "2026-11-13",
+    "c": 128.09,
+    "v": 16619500
+   },
+   "tx": 148,
+   "buyers": 0,
+   "sellers": 0,
+   "net_musd": 0.0,
+   "cluster": false,
+   "errors": 0
+  },
+  {
+   "ticker": "LLY",
+   "name": "LLY",
+   "group": {
+    "it": "Grandi capitalizzazioni USA",
+    "en": "US large caps"
+   },
+   "score": 52,
+   "verdict": {
+    "it": "Nessuna convinzione chiara",
+    "en": "No clear conviction"
+   },
+   "confidence": "Bassa",
+   "covered_pct": 50,
+   "last": {
+    "d": "2026-11-13",
+    "c": 1443.5,
+    "v": 2081600
+   },
+   "tx": 298,
+   "buyers": 0,
+   "sellers": 0,
+   "net_musd": 0.0,
+   "cluster": false,
+   "errors": 0
+  },
+  {
+   "ticker": "COHU",
+   "name": "COHU",
+   "group": {
+    "it": "Semiconduttori e apparecchiature",
+    "en": "Semiconductors and equipment"
+   },
+   "score": 50,
+   "verdict": {
+    "it": "Nessuna convinzione chiara",
+    "en": "No clear conviction"
+   },
+   "confidence": "Bassa",
+   "covered_pct": 50,
+   "last": {
+    "d": "2026-11-13",
+    "c": 43.59,
+    "v": 814600
+   },
+   "tx": 109,
+   "buyers": 0,
+   "sellers": 1,
+   "net_musd": -0.558,
+   "cluster": false,
+   "errors": 0
+  },
+  {
+   "ticker": "QCOM",
+   "name": "QCOM",
+   "group": {
+    "it": "Semiconduttori e apparecchiature",
+    "en": "Semiconductors and equipment"
+   },
+   "score": 49,
+   "verdict": {
+    "it": "Nessuna convinzione chiara",
+    "en": "No clear conviction"
+   },
+   "confidence": "Bassa",
+   "covered_pct": 50,
+   "last": {
+    "d": "2026-11-13",
+    "c": 172.47,
+    "v": 10420900
+   },
+   "tx": 310,
+   "buyers": 0,
+   "sellers": 2,
+   "net_musd": -0.035,
+   "cluster": false,
+   "errors": 0
+  },
+  {
+   "ticker": "AEHR",
+   "name": "AEHR",
+   "group": {
+    "it": "Semiconduttori e apparecchiature",
+    "en": "Semiconductors and equipment"
+   },
+   "score": 49,
+   "verdict": {
+    "it": "Nessuna convinzione chiara",
+    "en": "No clear conviction"
+   },
+   "confidence": "Bassa",
+   "covered_pct": 50,
+   "last": {
+    "d": "2026-11-13",
+    "c": 56.98,
+    "v": 2026800
+   },
+   "tx": 181,
+   "buyers": 0,
+   "sellers": 1,
+   "net_musd": -0.574,
+   "cluster": false,
+   "errors": 0
+  },
+  {
+   "ticker": "JPM",
+   "name": "JPM",
+   "group": {
+    "it": "Grandi capitalizzazioni USA",
+    "en": "US large caps"
+   },
+   "score": 48,
+   "verdict": {
+    "it": "Nessuna convinzione chiara",
+    "en": "No clear conviction"
+   },
+   "confidence": "Bassa",
+   "covered_pct": 50,
+   "last": {
+    "d": "2026-11-13",
+    "c": 346.19,
+    "v": 4198800
+   },
+   "tx": 130,
+   "buyers": 0,
+   "sellers": 1,
+   "net_musd": -0.882,
+   "cluster": false,
+   "errors": 0
+  },
+  {
+   "ticker": "LRCX",
+   "name": "LRCX",
+   "group": {
+    "it": "Semiconduttori e apparecchiature",
+    "en": "Semiconductors and equipment"
+   },
+   "score": 46,
+   "verdict": {
+    "it": "Nessuna convinzione chiara",
+    "en": "No clear conviction"
+   },
+   "confidence": "Bassa",
+   "covered_pct": 50,
+   "last": {
+    "d": "2026-11-13",
+    "c": 225.92,
+    "v": 11025600
+   },
+   "tx": 230,
+   "buyers": 0,
+   "sellers": 1,
+   "net_musd": -3.008,
+   "cluster": false,
+   "errors": 0
+  },
+  {
+   "ticker": "ADI",
+   "name": "ADI",
+   "group": {
+    "it": "Semiconduttori e apparecchiature",
+    "en": "Semiconductors and equipment"
+   },
+   "score": 45,
+   "verdict": {
+    "it": "Leggermente ribassista",
+    "en": "Mildly bearish"
+   },
+   "confidence": "Bassa",
+   "covered_pct": 50,
+   "last": {
+    "d": "2026-11-13",
+    "c": 397.97,
+    "v": 3114600
+   },
+   "tx": 409,
+   "buyers": 0,
+   "sellers": 2,
+   "net_musd": -3.495,
+   "cluster": false,
+   "errors": 0
+  },
+  {
+   "ticker": "UNH",
+   "name": "UNH",
+   "group": {
+    "it": "Grandi capitalizzazioni USA",
+    "en": "US large caps"
+   },
+   "score": 45,
+   "verdict": {
+    "it": "Leggermente ribassista",
+    "en": "Mildly bearish"
+   },
+   "confidence": "Bassa",
+   "covered_pct": 50,
+   "last": {
+    "d": "2026-11-13",
+    "c": 407.46,
+    "v": 3469100
+   },
+   "tx": 134,
+   "buyers": 0,
+   "sellers": 1,
+   "net_musd": -0.456,
+   "cluster": false,
+   "errors": 0
+  },
+  {
+   "ticker": "AMD",
+   "name": "AMD",
+   "group": {
+    "it": "Semiconduttori e apparecchiature",
+    "en": "Semiconductors and equipment"
+   },
+   "score": 44,
+   "verdict": {
+    "it": "Leggermente ribassista",
+    "en": "Mildly bearish"
+   },
+   "confidence": "Bassa",
+   "covered_pct": 50,
+   "last": {
+    "d": "2026-11-13",
+    "c": 534.06,
+    "v": 49163200
+   },
+   "tx": 399,
+   "buyers": 0,
+   "sellers": 2,
+   "net_musd": -12.808,
+   "cluster": false,
+   "errors": 0
+  },
+  {
+   "ticker": "MU",
+   "name": "MU",
+   "group": {
+    "it": "Semiconduttori e apparecchiature",
+    "en": "Semiconductors and equipment"
+   },
+   "score": 44,
+   "verdict": {
+    "it": "Leggermente ribassista",
+    "en": "Mildly bearish"
+   },
+   "confidence": "Bassa",
+   "covered_pct": 50,
+   "last": {
+    "d": "2026-11-13",
+    "c": 778.31,
+    "v": 27792200
+   },
+   "tx": 643,
+   "buyers": 0,
+   "sellers": 1,
+   "net_musd": -14.014,
+   "cluster": false,
+   "errors": 0
+  },
+  {
+   "ticker": "TSLA",
+   "name": "TSLA",
+   "group": {
+    "it": "Grandi capitalizzazioni USA",
+    "en": "US large caps"
+   },
+   "score": 44,
+   "verdict": {
+    "it": "Leggermente ribassista",
+    "en": "Mildly bearish"
+   },
+   "confidence": "Bassa",
+   "covered_pct": 50,
+   "last": {
+    "d": "2026-11-13",
+    "c": 390.22,
+    "v": 32268400
+   },
+   "tx": 392,
+   "buyers": 0,
+   "sellers": 1,
+   "net_musd": -0.938,
+   "cluster": false,
+   "errors": 0
+  },
+  {
+   "ticker": "NVDA",
+   "name": "NVDA",
+   "group": {
+    "it": "Semiconduttori e apparecchiature",
+    "en": "Semiconductors and equipment"
+   },
+   "score": 43,
+   "verdict": {
+    "it": "Leggermente ribassista",
+    "en": "Mildly bearish"
+   },
+   "confidence": "Bassa",
+   "covered_pct": 50,
+   "last": {
+    "d": "2026-11-13",
+    "c": 162.85,
+    "v": 363819700
+   },
+   "tx": 628,
+   "buyers": 0,
+   "sellers": 1,
+   "net_musd": -946.628,
+   "cluster": false,
+   "errors": 0
+  },
+  {
+   "ticker": "JNJ",
+   "name": "JNJ",
+   "group": {
+    "it": "Grandi capitalizzazioni USA",
+    "en": "US large caps"
+   },
+   "score": 42,
+   "verdict": {
+    "it": "Leggermente ribassista",
+    "en": "Mildly bearish"
+   },
+   "confidence": "Bassa",
+   "covered_pct": 50,
+   "last": {
+    "d": "2026-11-13",
+    "c": 285.75,
+    "v": 6282000
+   },
+   "tx": 249,
+   "buyers": 0,
+   "sellers": 3,
+   "net_musd": -16.898,
+   "cluster": false,
+   "errors": 0
+  },
+  {
+   "ticker": "AMAT",
+   "name": "AMAT",
+   "group": {
+    "it": "Semiconduttori e apparecchiature",
+    "en": "Semiconductors and equipment"
+   },
+   "score": 38,
+   "verdict": {
+    "it": "Leggermente ribassista",
+    "en": "Mildly bearish"
+   },
+   "confidence": "Bassa",
+   "covered_pct": 50,
+   "last": {
+    "d": "2026-11-13",
+    "c": 370.5,
+    "v": 11937400
+   },
+   "tx": 149,
+   "buyers": 0,
+   "sellers": 3,
+   "net_musd": -4.454,
+   "cluster": false,
+   "errors": 0
+  },
+  {
+   "ticker": "META",
+   "name": "META",
+   "group": {
+    "it": "Grandi capitalizzazioni USA",
+    "en": "US large caps"
+   },
+   "score": 38,
+   "verdict": {
+    "it": "Leggermente ribassista",
+    "en": "Mildly bearish"
+   },
+   "confidence": "Bassa",
+   "covered_pct": 50,
+   "last": {
+    "d": "2026-11-13",
+    "c": 641.69,
+    "v": 15127500
+   },
+   "tx": 405,
+   "buyers": 0,
+   "sellers": 2,
+   "net_musd": -14.242,
+   "cluster": false,
+   "errors": 0
+  },
+  {
+   "ticker": "HD",
+   "name": "HD",
+   "group": {
+    "it": "Grandi capitalizzazioni USA",
+    "en": "US large caps"
+   },
+   "score": 38,
+   "verdict": {
+    "it": "Leggermente ribassista",
+    "en": "Mildly bearish"
+   },
+   "confidence": "Bassa",
+   "covered_pct": 50,
+   "last": {
+    "d": "2026-11-13",
+    "c": 348.69,
+    "v": 4473100
+   },
+   "tx": 148,
+   "buyers": 0,
+   "sellers": 4,
+   "net_musd": -3.339,
+   "cluster": false,
+   "errors": 0
+  },
+  {
+   "ticker": "TXN",
+   "name": "TXN",
+   "group": {
+    "it": "Semiconduttori e apparecchiature",
+    "en": "Semiconductors and equipment"
+   },
+   "score": 37,
+   "verdict": {
+    "it": "Leggermente ribassista",
+    "en": "Mildly bearish"
+   },
+   "confidence": "Bassa",
+   "covered_pct": 50,
+   "last": {
+    "d": "2026-11-13",
+    "c": 303.6,
+    "v": 5229700
+   },
+   "tx": 225,
+   "buyers": 0,
+   "sellers": 6,
+   "net_musd": -10.942,
+   "cluster": false,
+   "errors": 0
+  },
+  {
+   "ticker": "VECO",
+   "name": "VECO",
+   "group": {
+    "it": "Semiconduttori e apparecchiature",
+    "en": "Semiconductors and equipment"
+   },
+   "score": 37,
+   "verdict": {
+    "it": "Leggermente ribassista",
+    "en": "Mildly bearish"
+   },
+   "confidence": "Bassa",
+   "covered_pct": 50,
+   "last": {
+    "d": "2026-11-13",
+    "c": 39.06,
+    "v": 453700
+   },
+   "tx": 145,
+   "buyers": 0,
+   "sellers": 2,
+   "net_musd": -10.916,
+   "cluster": false,
+   "errors": 0
+  },
+  {
+   "ticker": "MSFT",
+   "name": "MSFT",
+   "group": {
+    "it": "Grandi capitalizzazioni USA",
+    "en": "US large caps"
+   },
+   "score": 37,
+   "verdict": {
+    "it": "Leggermente ribassista",
+    "en": "Mildly bearish"
+   },
+   "confidence": "Bassa",
+   "covered_pct": 50,
+   "last": {
+    "d": "2026-11-13",
+    "c": 523.88,
+    "v": 26155900
+   },
+   "tx": 82,
+   "buyers": 0,
+   "sellers": 3,
+   "net_musd": -74.769,
+   "cluster": false,
+   "errors": 0
+  },
+  {
+   "ticker": "V",
+   "name": "V",
+   "group": {
+    "it": "Grandi capitalizzazioni USA",
+    "en": "US large caps"
+   },
+   "score": 37,
+   "verdict": {
+    "it": "Leggermente ribassista",
+    "en": "Mildly bearish"
+   },
+   "confidence": "Bassa",
+   "covered_pct": 50,
+   "last": {
+    "d": "2026-11-13",
+    "c": 425.76,
+    "v": 4641200
+   },
+   "tx": 215,
+   "buyers": 0,
+   "sellers": 2,
+   "net_musd": -36.234,
+   "cluster": false,
+   "errors": 0
+  },
+  {
+   "ticker": "PG",
+   "name": "PG",
+   "group": {
+    "it": "Grandi capitalizzazioni USA",
+    "en": "US large caps"
+   },
+   "score": 37,
+   "verdict": {
+    "it": "Leggermente ribassista",
+    "en": "Mildly bearish"
+   },
+   "confidence": "Bassa",
+   "covered_pct": 50,
+   "last": {
+    "d": "2026-11-13",
+    "c": 169.8,
+    "v": 6943100
+   },
+   "tx": 126,
+   "buyers": 0,
+   "sellers": 12,
+   "net_musd": -38.01,
+   "cluster": false,
+   "errors": 0
+  },
+  {
+   "ticker": "COST",
+   "name": "COST",
+   "group": {
+    "it": "Grandi capitalizzazioni USA",
+    "en": "US large caps"
+   },
+   "score": 37,
+   "verdict": {
+    "it": "Leggermente ribassista",
+    "en": "Mildly bearish"
+   },
+   "confidence": "Bassa",
+   "covered_pct": 50,
+   "last": {
+    "d": "2026-11-13",
+    "c": 1106.21,
+    "v": 1874100
+   },
+   "tx": 184,
+   "buyers": 0,
+   "sellers": 5,
+   "net_musd": -5.607,
+   "cluster": false,
+   "errors": 0
+  },
+  {
+   "ticker": "KO",
+   "name": "KO",
+   "group": {
+    "it": "Grandi capitalizzazioni USA",
+    "en": "US large caps"
+   },
+   "score": 36,
+   "verdict": {
+    "it": "Leggermente ribassista",
+    "en": "Mildly bearish"
+   },
+   "confidence": "Bassa",
+   "covered_pct": 50,
+   "last": {
+    "d": "2026-11-13",
+    "c": 99.25,
+    "v": 18022500
+   },
+   "tx": 155,
+   "buyers": 0,
+   "sellers": 3,
+   "net_musd": -24.495,
+   "cluster": false,
+   "errors": 0
+  }
+ ],
+ "errors": []
+}
