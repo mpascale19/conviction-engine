@@ -181,7 +181,7 @@ def _median(xs):
     return xs[n // 2] if n % 2 else (xs[n // 2 - 1] + xs[n // 2]) / 2
 
 
-def market_score(rows, today=None):
+def market_score(rows, today=None, shares=None):
     """Short interest: quanto il mercato scommette contro il titolo.
 
     L'export non da' la percentuale sul flottante, quindi ogni misura e' presa
@@ -203,6 +203,13 @@ def market_score(rows, today=None):
                  f"Short interest at {last['si']/1e6:.1f} million shares, "
                  f"{dev:+.1f}% against the median of the last year "
                  f"({med/1e6:.1f} million)."))
+
+    if shares:
+        pct = last["si"] / shares * 100
+        why.append(L(f"Sono il {pct:.2f}% delle azioni in circolazione "
+                     f"({shares/1e6:.0f} milioni, fonte SEC).",
+                     f"That is {pct:.2f}% of shares outstanding "
+                     f"({shares/1e6:.0f} million, source SEC)."))
 
     back = rows[-7] if len(rows) >= 7 else rows[0]
     mom = (last["si"] / back["si"] - 1) * 100 if back["si"] else 0.0

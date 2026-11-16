@@ -225,6 +225,35 @@ def cik_for(ticker, fallback_cik=None):
                       " | rimedio: scrivi il numero nel campo \"cik\" di config.json")
 
 
+def parse_shares(payload):
+    """Dal JSON della SEC: le azioni in circolazione piu' recenti.
+
+    Il dato sta in copertina a ogni 10-Q e 10-K ("EntityCommonStockSharesOutstanding").
+    Prendiamo la rilevazione con la data di fine periodo piu' recente.
+    """
+    units = (payload.get("units") or {})
+    rows = []
+    for vals in units.values():
+        for v in vals:
+            n, end = v.get("val"), v.get("end") or v.get("fy")
+            if isinstance(n, (int, float)) and n > 0 and end:
+                rows.append((str(end), float(n)))
+    if not rows:
+        return None, None
+    rows.sort()
+    return rows[-1][1], rows[-1][0]
+
+
+def shares_outstanding(cik):
+    """Azioni in circolazione di un CIK: (numero, data). Non solleva: (None, None)."""
+    url = ("https://data.sec.gov/api/xbrl/companyconcept/"
+           f"CIK{str(cik).zfill(10)}/dei/EntityCommonStockSharesOutstanding.json")
+    try:
+        return parse_shares(_get(url).json())
+    except Exception:
+        return None, None
+
+
 def raw_xml_url(cik, accession, primary_doc):
     """L'URL del Form 4 in XML grezzo (senza il foglio di stile XSL)."""
     doc = re.sub(r"^xsl[^/]+/", "", primary_doc)

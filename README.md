@@ -51,6 +51,24 @@ Il sotto-punteggio **Guidance e tono** usa la media delle ultime quattro call
 estratte di quella azienda. Prima di questa parte la sua copertura era zero e il
 peso (20%) veniva ridistribuito sugli altri.
 
+## La divergenza, senza comprare le stime degli analisti
+
+Il consenso degli analisti e' un prodotto a pagamento: la SEC non lo pubblica,
+perche' non e' un dato dell'azienda. Ma la tesi del progetto -- *gli insider
+comprano mentre le aspettative peggiorano* -- non ha bisogno degli analisti:
+l'azienda stessa dice a ogni call se alza o abbassa la propria guidance, e
+quella frase e' pubblica.
+
+Ogni voce di guidance estratta porta una `direction`: `alzata`, `ridotta`,
+`confermata`, `prima` (data per la prima volta). Il sotto-punteggio
+**Guidance e tono** parte dal tono medio delle ultime quattro call e lo corregge
+di 2,5 punti per ogni voce alzata o ridotta nell'ultima call, con un massimo di
+dieci punti in piu' o in meno.
+
+Quando l'azienda taglia la guidance *e* un insider ha comprato negli ultimi 90
+giorni, il sito lo scrive: "gli insider hanno comprato mentre l'azienda tagliava
+la guidance". E' il segnale che il progetto esiste per trovare, e costa zero.
+
 ## Short interest
 
 Export manuale da Bloomberg (`SI <GO>`), un file per azienda:
@@ -67,6 +85,20 @@ mesi, giorni per ricoprire rispetto alla loro mediana). Cosi' un'azienda grande
 e una piccola restano confrontabili, e un numero non pesa per il fatto di essere
 grande. Un test lo verifica: la stessa serie moltiplicata per dieci da' lo
 stesso punteggio.
+
+### Percentuale sul circolante
+
+Le azioni in circolazione non arrivano da Bloomberg: stanno in copertina a ogni
+10-Q e 10-K, e la SEC le espone in un endpoint pubblico
+(`companyconcept/.../dei/EntityCommonStockSharesOutstanding`). La pipeline le
+scarica da sola per tutte le aziende, insieme ai Form 4.
+
+Attenzione a come si chiama il numero: quello che esce e' lo short interest in
+**percentuale delle azioni in circolazione**, non del flottante. Il flottante
+esclude le azioni vincolate e quelle in mano a insider e grandi soci, quindi la
+percentuale vera sul flottante e' un po' piu' alta. Per le grandi societa' la
+differenza e' piccola, ma il sito scrive "azioni in circolazione" e non
+"flottante", perche' e' quello che il dato dice davvero.
 
 Lo short interest nasce da FINRA e dalle borse, non e' un prodotto proprietario
 Bloomberg: per questo i numeri stanno nel repo. Le revisioni delle stime e il

@@ -220,6 +220,50 @@ check("la dimensione dell'azienda non cambia il punteggio",
       market_score(small)[0] == vf, (market_score(small)[0], vf))
 
 
+# ------------------------- divergenza: comprano mentre tagliano la guidance
+def call(tone, up=0, dn=0, q="T3 '26"):
+    g = [{"metric": "x", "value": "y", "direction": "alzata"} for _ in range(up)]
+    g += [{"metric": "x", "value": "y", "direction": "ridotta"} for _ in range(dn)]
+    return {"ticker": "AAAA", "quarter": q, "tone": tone, "guidance": g}
+
+
+taglia = build_one(cfg, fake("AAAA", buyers=["Tizio"]), [call(60, up=0, dn=4)])
+alza = build_one(cfg, fake("AAAA", buyers=["Tizio"]), [call(60, up=4, dn=0)])
+check("tagliare la guidance abbassa il punteggio del tono",
+      taglia["_subs"]["guid"]["v"] < alza["_subs"]["guid"]["v"],
+      (taglia["_subs"]["guid"]["v"], alza["_subs"]["guid"]["v"]))
+check("l'effetto e' limitato a dieci punti",
+      abs(taglia["_subs"]["guid"]["v"] - 60) <= 10, taglia["_subs"]["guid"]["v"])
+righe = " ".join(w["it"] for w in taglia["_subs"]["guid"]["why"])
+check("la divergenza viene scritta a parole", "divergenza" in righe, righe)
+senza_acquisti = build_one(cfg, fake("AAAA"), [call(60, up=0, dn=4)])
+check("senza acquisti non si parla di divergenza",
+      "divergenza" not in " ".join(w["it"] for w in senza_acquisti["_subs"]["guid"]["why"]))
+check("alzare la guidance senza acquisti viene segnalato",
+      "nessun insider compra" in " ".join(
+          w["it"] for w in build_one(cfg, fake("AAAA"), [call(60, up=3)])["_subs"]["guid"]["why"]))
+
+
+# -------------------------- azioni in circolazione dalla SEC (senza rete)
+from pipeline.sources import parse_shares
+
+payload = {"units": {"shares": [
+    {"end": "2026-04-24", "val": 4_380_000_000, "fy": 2026},
+    {"end": "2026-10-24", "val": 5_440_000_000, "fy": 2026},
+    {"end": "2025-10-24", "val": 4_330_000_000, "fy": 2025}]}}
+n, when = parse_shares(payload)
+check("prende la rilevazione piu' recente", (n, when) == (5.44e9, "2026-10-24"), (n, when))
+check("un payload vuoto non rompe niente", parse_shares({}) == (None, None))
+check("scarta i valori non numerici",
+      parse_shares({"units": {"shares": [{"end": "2026-01-01", "val": None}]}}) == (None, None))
+
+vs, ws, _ = market_score(falling, shares=1e9)
+pct = [w for w in ws if "circolazione" in w["it"]]
+check("la percentuale sul circolante compare fra le ragioni", len(pct) == 1, ws)
+check("ed e' calcolata giusta", "7.00%" in pct[0]["it"], pct[0]["it"] if pct else None)
+check("senza il dato, il punteggio non cambia", market_score(falling)[0] == vs)
+
+
 # ---------------------------------- ogni trascrizione va alla sua azienda
 from pipeline.extract import ticker_of
 

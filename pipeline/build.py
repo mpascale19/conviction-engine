@@ -48,7 +48,7 @@ def gather(cfg, ticker, bench, offline=False):
 
     from . import sources
     errors, failed, px, tx, src = [], [], [], [], None
-    name, cik = ticker, ""
+    name, cik, shares, sh_date = ticker, "", None, None
 
     try:
         px, src = sources.prices(ticker)
@@ -71,8 +71,14 @@ def gather(cfg, ticker, bench, offline=False):
         failed.append("tx")
         print(f"  ! Form 4: {e}")
 
+    if cik:                               # azioni in circolazione: dalla copertina dei 10-Q/10-K
+        shares, sh_date = sources.shares_outstanding(cik)
+        if shares:
+            print(f"  azioni in circolazione: {shares/1e6:.0f} milioni (al {sh_date})")
+
     raw = {"ticker": ticker, "name": name, "cik": cik, "prices": px, "bench": bench,
            "tx": tx, "errors": errors, "failed": failed, "price_source": src,
+           "shares": shares, "shares_date": sh_date,
            "fetched_at": datetime.now(timezone.utc).isoformat(timespec="seconds")}
     os.makedirs(CACHE, exist_ok=True)
     with open(raw_path, "w", encoding="utf-8") as f:
@@ -125,9 +131,11 @@ def build_one(cfg, raw, extracted=None):
     ]:
         subs[k] = {"v": None, "why": [note], "coverage": "Assente"}
 
+    buys_90d = any(t["kind"] == "BUY" for t in recent)
+
     si = market.load_short_interest(raw["ticker"])
     if si:
-        v, why, cov = score.market_score(si, today)
+        v, why, cov = score.market_score(si, today, raw.get("shares"))
         subs["market"] = {"v": v, "why": why, "coverage": cov}
 
     if extracted:
@@ -135,9 +143,31 @@ def build_one(cfg, raw, extracted=None):
         if tones:
             last = tones[-4:]
             avg = round(sum(last) / len(last))
-            subs["guid"] = {"v": avg, "coverage": "Media",
-                            "why": [L(f"Tono medio delle ultime {len(last)} call estratte: {avg}.",
-                                      f"Average tone of the last {len(last)} extracted calls: {avg}.")]}
+            why = [L(f"Tono medio delle ultime {len(last)} call estratte: {avg}.",
+                     f"Average tone of the last {len(last)} extracted calls: {avg}.")]
+            v = avg
+
+            # Direzione della guidance nell'ultima call: quante voci alzate e
+            # quante ridotte. E' l'azienda che parla di se stessa, non un analista.
+            ultima = extracted[-1]
+            dirs = [g.get("direction") for g in (ultima.get("guidance") or [])]
+            up, dn = dirs.count("alzata"), dirs.count("ridotta")
+            if up or dn:
+                v = max(0, min(100, v + max(-10, min(10, (up - dn) * 2.5))))
+                q = ultima.get("quarter", "")
+                why.append(L(f"Nell'ultima call ({q}) l'azienda ha alzato {up} voci di guidance "
+                             f"e ne ha ridotte {dn}.",
+                             f"In the latest call ({q}) the company raised {up} guidance items "
+                             f"and lowered {dn}."))
+                if dn > up and buys_90d:
+                    why.append(L("Gli insider hanno comprato mentre l'azienda tagliava la guidance: "
+                                 "e' una divergenza fra quello che dice e quello che fa.",
+                                 "Insiders bought while the company was cutting guidance: "
+                                 "a divergence between what it says and what it does."))
+                elif up > dn and not buys_90d:
+                    why.append(L("L'azienda alza la guidance ma nessun insider compra.",
+                                 "The company raises guidance but no insider is buying."))
+            subs["guid"] = {"v": round(v), "coverage": "Media", "why": why}
 
     # riassunto degli insider degli ultimi 90 giorni: serve al punteggio di settore
     win = recent
