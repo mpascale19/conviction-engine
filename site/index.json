@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-11-16T09:16:25+00:00",
+ "generated_at": "2026-11-16T09:17:49+00:00",
  "groups": [
   {
    "nome": "Semiconduttori e apparecchiature",
@@ -40,26 +40,6 @@
    "sellers": 0,
    "net_musd": 9.71,
    "cluster": false,
-   "errors": 0
-  },
-  {
-   "ticker": "UCTT",
-   "name": "Ultra Clean Holdings, Inc.",
-   "group": "Semiconduttori e apparecchiature",
-   "score": 63,
-   "verdict": "Leggermente rialzista",
-   "confidence": "Bassa",
-   "covered_pct": 50,
-   "last": {
-    "d": "2026-11-13",
-    "c": 46.35,
-    "v": 699200
-   },
-   "tx": 190,
-   "buyers": 0,
-   "sellers": 0,
-   "net_musd": 0.0,
-   "cluster": true,
    "errors": 0
   },
   {
@@ -239,6 +219,26 @@
    "buyers": 0,
    "sellers": 1,
    "net_musd": -0.202,
+   "cluster": false,
+   "errors": 0
+  },
+  {
+   "ticker": "UCTT",
+   "name": "Ultra Clean Holdings, Inc.",
+   "group": "Semiconduttori e apparecchiature",
+   "score": 52,
+   "verdict": "Nessuna convinzione chiara",
+   "confidence": "Bassa",
+   "covered_pct": 50,
+   "last": {
+    "d": "2026-11-13",
+    "c": 46.35,
+    "v": 699200
+   },
+   "tx": 190,
+   "buyers": 0,
+   "sellers": 0,
+   "net_musd": 0.0,
    "cluster": false,
    "errors": 0
   },
