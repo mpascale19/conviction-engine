@@ -1,0 +1,100 @@
+{
+ "ticker": "INTC",
+ "quarter": "T2 '25",
+ "call_date": "2025-07-25",
+ "tone": 48,
+ "tone_why": "La call piu' dura di tutte: il CEO definisce gli investimenti in capacita' degli anni precedenti 'imprudenti ed eccessivi', cancella Germania e Polonia e ricorda che l'ultimo anno con flusso di cassa positivo e' stato il 2021, 'del tutto inaccettabile'. I risultati pero' battono la guida.",
+ "guidance": [
+  {
+   "metric": "Ricavi Q3 2025",
+   "value": "12,6-13,6 miliardi $ (-2% / +6%)",
+   "direction": "prima"
+  },
+  {
+   "metric": "Margine lordo Q3 2025",
+   "value": "circa 36%",
+   "direction": "prima"
+  },
+  {
+   "metric": "EPS Q3 2025",
+   "value": "in pareggio",
+   "direction": "prima"
+  },
+  {
+   "metric": "OpEx 2025 e 2026",
+   "value": "17 e 16 miliardi $",
+   "direction": "confermata"
+  },
+  {
+   "metric": "Capex lordo 2025",
+   "value": "circa 18 miliardi $",
+   "direction": "confermata"
+  },
+  {
+   "metric": "Organico a fine anno",
+   "value": "75.000 persone, livelli di management ridotti del 50%",
+   "direction": "confermata"
+  },
+  {
+   "metric": "Stabilimenti di Germania e Polonia",
+   "value": "progetti cancellati",
+   "direction": "ridotta"
+  },
+  {
+   "metric": "Ohio",
+   "value": "costruzione ulteriormente rallentata",
+   "direction": "ridotta"
+  },
+  {
+   "metric": "Intel 14A",
+   "value": "investimento solo con un cliente esterno rilevante",
+   "direction": "prima"
+  },
+  {
+   "metric": "Secondo semestre 2025",
+   "value": "sotto la stagionalita'",
+   "direction": "ridotta"
+  }
+ ],
+ "qa": [
+  {
+   "question": "Quanto ci vuole a ricostruire la fiducia necessaria perche' la foundry decolli?",
+   "answer_summary": "Nessuna data: riunioni due volte a settimana su 18A, Panther Lake entro fine anno, poi 'un processo per costruire la fiducia'.",
+   "directness": 2
+  },
+  {
+   "question": "Quali sono i fattori sul margine lordo del terzo trimestre e del prossimo anno?",
+   "answer_summary": "Spiega nel dettaglio l'effetto Lunar Lake (memoria nel package rivenduta al costo).",
+   "directness": 5
+  }
+ ],
+ "language_changes": [
+  {
+   "topic": "Investimenti in capacita'",
+   "from": "capacita' costruita in anticipo sulla domanda",
+   "to": "'imprudenti ed eccessivi'; la capacita' crescera' solo su impegni di volume",
+   "note": "Il cambio di rotta piu' netto della serie: un CEO che giudica sbagliata la strategia dei quattro anni precedenti."
+  },
+  {
+   "topic": "Stabilimenti europei",
+   "from": "progetti in Germania e Polonia",
+   "to": "cancellati",
+   "note": "Da impegno pluriennale a cancellazione, nello spazio di tre trimestri."
+  },
+  {
+   "topic": "Intel 14A",
+   "from": "nodo in sviluppo, investimento previsto",
+   "to": "'non credo che se lo costruisci, loro arriveranno'",
+   "note": "L'investimento su 14A diventa condizionato a un cliente esterno. E' la premessa di tutte le domande senza risposta sui clienti foundry nei trimestri successivi."
+  },
+  {
+   "topic": "Pareggio di Intel Foundry",
+   "from": "'entro la fine del 2027' (T4 '24)",
+   "to": "non ripetuto in questa call",
+   "note": "L'obiettivo annunciato a gennaio 2025 non viene piu' menzionato; nelle cinque call successive che ho letto non ricompare, mentre la perdita operativa della foundry resta sopra 1,9 miliardi a trimestre."
+  }
+ ],
+ "file": "INTC_2025Q2.json",
+ "source": "Bloomberg transcript export (non ridistribuito)",
+ "extracted_by": "Claude (estrazione manuale, stessa forma del passo automatico)"
+}

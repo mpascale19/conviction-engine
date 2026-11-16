@@ -1,0 +1,83 @@
+{
+ "ticker": "INTC",
+ "quarter": "T1 '25",
+ "call_date": "2025-04-25",
+ "tone": 50,
+ "tone_why": "Prima call di Lip-Bu Tan, cinque settimane dopo l'arrivo. Trimestre sopra la guida, ma la guida successiva e' piu' ampia del normale per i dazi, e il tono e' deliberatamente sobrio: 'non ci sono soluzioni rapide', 'promettere meno e dare di piu''.",
+ "guidance": [
+  {
+   "metric": "Ricavi Q2 2025",
+   "value": "11,2-12,4 miliardi $ (-2% / -12%), forchetta piu' ampia del solito",
+   "direction": "prima"
+  },
+  {
+   "metric": "Margine lordo Q2 2025",
+   "value": "circa 36,5%",
+   "direction": "prima"
+  },
+  {
+   "metric": "EPS Q2 2025",
+   "value": "in pareggio",
+   "direction": "prima"
+  },
+  {
+   "metric": "OpEx 2025",
+   "value": "17 miliardi $ (da 17,5)",
+   "direction": "ridotta"
+  },
+  {
+   "metric": "OpEx 2026",
+   "value": "16 miliardi $",
+   "direction": "prima"
+  },
+  {
+   "metric": "Capex lordo 2025",
+   "value": "circa 18 miliardi $ (da 20)",
+   "direction": "ridotta"
+  },
+  {
+   "metric": "Capex netto 2025",
+   "value": "8-11 miliardi $",
+   "direction": "confermata"
+  },
+  {
+   "metric": "Altera",
+   "value": "ceduto il 51% a Silver Lake, incasso netto 4,4 miliardi $",
+   "direction": "prima"
+  }
+ ],
+ "qa": [
+  {
+   "question": "Come si tiene insieme il risanamento dei prodotti con il riempimento della foundry?",
+   "answer_summary": "Appiattire l'organizzazione e consegnare in tempo; i prodotti devono scegliere il meglio per se', dentro o fuori.",
+   "directness": 3
+  },
+  {
+   "question": "Qual e' il numero 'pulito' del margine lordo del primo trimestre?",
+   "answer_summary": "Scompone il beat: ricavi piu' alti e mix Raptor Lake; senza quei due sarebbe stato vicino alla guida.",
+   "directness": 5
+  },
+  {
+   "question": "Annuncerete un cliente foundry di primo livello quest'anno?",
+   "answer_summary": "Non risponde sulla tempistica: priorita' al cliente interno, poi fiducia, PDK, resa. 'Un passo, due passi'.",
+   "directness": 2
+  }
+ ],
+ "language_changes": [
+  {
+   "topic": "OpEx 2025",
+   "from": "17,5 miliardi $",
+   "to": "17 miliardi $",
+   "note": "Primo taglio del nuovo CEO, annunciato cinque settimane dopo l'arrivo."
+  },
+  {
+   "topic": "Capex lordo 2025",
+   "from": "circa 20 miliardi $",
+   "to": "circa 18 miliardi $",
+   "note": "Due miliardi in meno trovati 'nella rete manifatturiera': la disciplina sul capitale diventa il tema."
+  }
+ ],
+ "file": "INTC_2025Q1.json",
+ "source": "Bloomberg transcript export (non ridistribuito)",
+ "extracted_by": "Claude (estrazione manuale, stessa forma del passo automatico)"
+}

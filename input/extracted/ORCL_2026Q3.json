@@ -1,0 +1,84 @@
+{
+ "ticker": "ORCL",
+ "quarter": "T3 '26 (anno fiscale)",
+ "call_date": "2026-03-10",
+ "tone": 76,
+ "tone_why": "Primo trimestre in oltre quindici anni con ricavi organici ed EPS organico entrambi sopra il 20%. Margine lordo sulla capacita' AI al 32%, sopra la guida del 30%. Resta il nodo del finanziamento: 50 miliardi annunciati, 30 gia' raccolti.",
+ "guidance": [
+  {
+   "metric": "RPO",
+   "value": "553 miliardi $",
+   "direction": "prima"
+  },
+  {
+   "metric": "Margine lordo sulla capacita' AI consegnata",
+   "value": "32%, sopra la guida del 30%",
+   "direction": "confermata"
+  },
+  {
+   "metric": "Finanziamento",
+   "value": "fino a 50 miliardi $ fra debito e capitale; 30 gia' raccolti; nessuna altra obbligazione nel 2026",
+   "direction": "prima"
+  },
+  {
+   "metric": "Capacita' da partner",
+   "value": "oltre 10 gigawatt nei prossimi tre anni, finanziata per oltre il 90%",
+   "direction": "prima"
+  },
+  {
+   "metric": "Capex 2027",
+   "value": "nessuna indicazione: se ne parla dopo la chiusura dell'anno fiscale",
+   "direction": "prima"
+  },
+  {
+   "metric": "Contratti con hardware del cliente o pagamento anticipato",
+   "value": "oltre 29 miliardi $ firmati dal trimestre precedente",
+   "direction": "prima"
+  }
+ ],
+ "qa": [
+  {
+   "question": "Ci date visibilita' sul capex dell'anno fiscale 2027?",
+   "answer_summary": "Rinviato: 'ne riparliamo dopo la fine dell'anno fiscale'. Insiste sul fatto che il capex non richiede cassa di Oracle.",
+   "directness": 2
+  },
+  {
+   "question": "Con l'inferenza che cresce, conviene spostare i data center vicino agli utenti?",
+   "answer_summary": "Risposta tecnica e argomentata: la latenza conta poco per questi carichi, conta il tipo di hardware.",
+   "directness": 4
+  },
+  {
+   "question": "Quanto e' profittevole il data center AI, al netto del costo del capitale?",
+   "answer_summary": "Da' i numeri: 30-40% di margine sugli acceleratori, 10-20% della spesa in servizi adiacenti a margine piu' alto, database multicloud al 60-80%.",
+   "directness": 5
+  },
+  {
+   "question": "L'AI uccidera' il SaaS?",
+   "answer_summary": "Posizione netta e motivata: 'siamo noi il disruptor', con mille agenti gia' in produzione.",
+   "directness": 4
+  }
+ ],
+ "language_changes": [
+  {
+   "topic": "Raccolta di capitale",
+   "from": "'meno, se non molto meno, di 100 miliardi'",
+   "to": "fino a 50 miliardi annunciati, 30 raccolti in pochi giorni",
+   "note": "La cifra vaga del trimestre prima diventa un programma preciso. Qui le parole si trasformano in fatti."
+  },
+  {
+   "topic": "Margine lordo AI",
+   "from": "30-40% sulla vita del contratto",
+   "to": "32% realizzato sulla capacita' consegnata",
+   "note": "Promessa verificabile e verificata: e' il contrario del caso Intel sui clienti foundry."
+  },
+  {
+   "topic": "Capex futuro",
+   "from": "capex 2026 alzato di 15 miliardi",
+   "to": "sul 2027 nessun numero fino a dopo la chiusura dell'anno",
+   "note": "Il capex si alza quando la notizia e' buona e si rimanda quando il numero sarebbe grande."
+  }
+ ],
+ "file": "ORCL_2026Q3.json",
+ "source": "Bloomberg transcript export (non ridistribuito)",
+ "extracted_by": "Claude (estrazione manuale, stessa forma del passo automatico)"
+}

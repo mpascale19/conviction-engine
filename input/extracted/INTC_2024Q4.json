@@ -1,0 +1,75 @@
+{
+ "ticker": "INTC",
+ "quarter": "T4 '24",
+ "call_date": "2025-01-31",
+ "tone": 45,
+ "tone_why": "Il punto piu' basso della serie: azienda guidata da due co-CEO ad interim, anno chiuso in perdita (EPS -0,13 $), foundry con oltre 13 miliardi di perdita operativa, e guida del Q1 in calo dell'11-18%.",
+ "guidance": [
+  {
+   "metric": "Ricavi Q1 2025",
+   "value": "11,7-12,7 miliardi $ (-11% / -18% sequenziale)",
+   "direction": "prima"
+  },
+  {
+   "metric": "Margine lordo Q1 2025",
+   "value": "circa 36%",
+   "direction": "prima"
+  },
+  {
+   "metric": "EPS Q1 2025",
+   "value": "in pareggio",
+   "direction": "prima"
+  },
+  {
+   "metric": "OpEx 2025",
+   "value": "17,5 miliardi $, con ulteriori riduzioni nel 2026",
+   "direction": "confermata"
+  },
+  {
+   "metric": "Capex lordo 2025",
+   "value": "circa 20 miliardi $ (estremo basso della forchetta 20-23)",
+   "direction": "ridotta"
+  },
+  {
+   "metric": "Capex netto 2025",
+   "value": "8-11 miliardi $",
+   "direction": "prima"
+  },
+  {
+   "metric": "Pareggio operativo di Intel Foundry",
+   "value": "entro la fine del 2027",
+   "direction": "prima"
+  },
+  {
+   "metric": "Falcon Shores",
+   "value": "solo chip di test interno, non portato sul mercato",
+   "direction": "ridotta"
+  }
+ ],
+ "qa": [
+  {
+   "question": "Quanto sta recuperando Granite Rapids sul divario con la concorrenza?",
+   "answer_summary": "'Uno o due anni di esecuzione costante'; ammette che Clearwater Forest slitta al primo semestre 2026.",
+   "directness": 4
+  },
+  {
+   "question": "Perche' tutti e tre i segmenti calano nello stesso modo nel Q1?",
+   "answer_summary": "Macro e stagionalita', senza scomporre per segmento.",
+   "directness": 2
+  },
+  {
+   "question": "La concorrenza sui prezzi continuera' tutto l'anno?",
+   "answer_summary": "Ammette pressione sui margini di Lunar Lake e dice che combatteranno 'per ogni socket'.",
+   "directness": 4
+  },
+  {
+   "question": "A che punto e' la ricerca del CEO definitivo?",
+   "answer_summary": "'Nulla di nuovo da riferire', nessun dettaglio.",
+   "directness": 1
+  }
+ ],
+ "language_changes": [],
+ "file": "INTC_2024Q4.json",
+ "source": "Bloomberg transcript export (non ridistribuito)",
+ "extracted_by": "Claude (estrazione manuale, stessa forma del passo automatico)"
+}
