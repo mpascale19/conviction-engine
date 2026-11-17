@@ -25,6 +25,64 @@ ridistribuito sugli altri, lo score esce lo stesso e `data.json` dice che cosa
 mancava e con quale confidenza. Oggi la parte pubblica copre circa il 40% dei
 pesi; con le trascrizioni si arriva al 60%.
 
+## Manutenzione
+
+### Il gesto normale
+
+**Actions -> Aggiorna i dati -> Run workflow.** Due o tre minuti e il sito e'
+aggiornato. Parte da solo anche quando carichi file in `pipeline/`, `input/`,
+`config.json` o `site/`: in quel caso non devi premere niente.
+
+### Cosa invecchia, e ogni quanto
+
+| Dato | Come si aggiorna | Ogni quanto serve |
+|---|---|---|
+| Prezzi di chiusura | da solo, Yahoo | a ogni giro |
+| Operazioni Form 4 | da solo, SEC EDGAR | a ogni giro |
+| Azioni in circolazione | da solo, SEC | a ogni giro |
+| Short interest | export manuale | due volte al mese |
+| Trascrizioni delle call | export manuale | una volta a trimestre |
+
+Lo short interest lo pubblicano FINRA e le borse due volte al mese, a meta' e a
+fine mese, e compare sui terminali qualche giorno dopo. Per aggiornarlo si
+riesporta e si sostituisce il CSV intero: il file e' piccolo e la pipeline usa
+sempre l'ultima riga.
+
+Le trascrizioni servono solo dopo una earnings call, e solo per le aziende che
+segui davvero. Il tono usa le ultime quattro call: se ne salti una, il
+sotto-punteggio continua a funzionare con quelle che ci sono.
+
+### Aggiungere un'azienda
+
+Si mette il ticker nella lista giusta dentro `config.json` e si lancia il
+workflow. Se nel log compare un errore di verifica del CIK, vuol dire che la
+mappa della SEC sbaglia su quel ticker: si aggiunge il numero a mano nel campo
+`cik` dello stesso file.
+
+### Farlo partire da solo
+
+In `.github/workflows/update.yml` ci sono due righe commentate sotto
+`schedule`. Togliendo il cancelletto l'aggiornamento parte ogni giorno feriale
+alle 22:30 UTC, dopo la chiusura di New York. Da sapere: GitHub sospende le
+pianificazioni nei repository fermi da 60 giorni, avvisando per email; basta
+riattivarle dalla scheda Actions.
+
+### Se qualcosa si rompe
+
+| Sintomo | Causa quasi certa |
+|---|---|
+| 403 dalla SEC | il secret `SEC_UA` non e' "Nome Cognome email@dominio" |
+| un ticker salta con errore sul CIK | la mappa SEC sbaglia: metti il CIK in `config.json` |
+| un'azienda resta senza prezzi | Yahoo e stooq hanno entrambi rifiutato; l'errore e' scritto in `errors[]` e nessun punteggio viene inventato |
+| il workflow si ferma sui test | un errore nel codice: i test girano **prima** di scaricare qualsiasi cosa, quindi i dati pubblicati non si rovinano mai |
+| il sito mostra dati vecchi | il secondo riquadro del workflow (`pubblica`) non e' ancora verde |
+
+### Il controllo dopo ogni giro
+
+Tre cose, trenta secondi: la data in alto nel sito deve essere quella di adesso,
+il riquadro rosso degli errori non deve comparire, e nel log del workflow ogni
+riga `CIK` deve avere accanto il nome giusto dell'azienda.
+
 ## Le trascrizioni delle call
 
 Il testo delle earnings call arriva dall'export di Bloomberg ed e' materiale
