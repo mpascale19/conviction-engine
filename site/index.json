@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-11-16T14:27:15+00:00",
+ "generated_at": "2026-11-17T07:53:58+00:00",
  "groups": [
   {
    "nome": {
@@ -43,9 +43,9 @@
    "confidence": "Alta",
    "covered_pct": 85,
    "last": {
-    "d": "2026-11-13",
-    "c": 125.35,
-    "v": 22547400
+    "d": "2026-11-16",
+    "c": 119.09,
+    "v": 20071100
    },
    "tx": 226,
    "buyers": 1,
@@ -69,9 +69,9 @@
    "confidence": "Alta",
    "covered_pct": 85,
    "last": {
-    "d": "2026-11-13",
-    "c": 59.66,
-    "v": 102322800
+    "d": "2026-11-16",
+    "c": 55.47,
+    "v": 103100900
    },
    "tx": 154,
    "buyers": 1,
@@ -95,9 +95,9 @@
    "confidence": "Media",
    "covered_pct": 65,
    "last": {
-    "d": "2026-11-13",
-    "c": 152.32,
-    "v": 12502200
+    "d": "2026-11-16",
+    "c": 143.96,
+    "v": 10946400
    },
    "tx": 207,
    "buyers": 0,
@@ -121,9 +121,9 @@
    "confidence": "Media",
    "covered_pct": 65,
    "last": {
-    "d": "2026-11-13",
-    "c": 347.01,
-    "v": 31602000
+    "d": "2026-11-16",
+    "c": 333.4,
+    "v": 26056800
    },
    "tx": 461,
    "buyers": 0,
@@ -147,9 +147,9 @@
    "confidence": "Media",
    "covered_pct": 65,
    "last": {
-    "d": "2026-11-13",
-    "c": 104.42,
-    "v": 242700
+    "d": "2026-11-16",
+    "c": 99.22,
+    "v": 241900
    },
    "tx": 131,
    "buyers": 0,
@@ -173,40 +173,14 @@
    "confidence": "Bassa",
    "covered_pct": 50,
    "last": {
-    "d": "2026-11-13",
-    "c": 51.02,
-    "v": 19994700
+    "d": "2026-11-16",
+    "c": 50.08,
+    "v": 30657000
    },
    "tx": 436,
    "buyers": 1,
    "sellers": 1,
    "net_musd": 0.042,
-   "cluster": false,
-   "errors": 0
-  },
-  {
-   "ticker": "QCOM",
-   "name": "QUALCOMM INC/DE",
-   "group": {
-    "it": "Semiconduttori e apparecchiature",
-    "en": "Semiconductors and equipment"
-   },
-   "score": 53,
-   "verdict": {
-    "it": "Nessuna convinzione chiara",
-    "en": "No clear conviction"
-   },
-   "confidence": "Media",
-   "covered_pct": 65,
-   "last": {
-    "d": "2026-11-13",
-    "c": 172.47,
-    "v": 10420900
-   },
-   "tx": 310,
-   "buyers": 0,
-   "sellers": 2,
-   "net_musd": -0.035,
    "cluster": false,
    "errors": 0
   },
@@ -225,14 +199,40 @@
    "confidence": "Bassa",
    "covered_pct": 50,
    "last": {
-    "d": "2026-11-13",
-    "c": 295.77,
-    "v": 30712800
+    "d": "2026-11-16",
+    "c": 283.72,
+    "v": 34643200
    },
-   "tx": 520,
+   "tx": 517,
    "buyers": 0,
    "sellers": 0,
    "net_musd": 0.0,
+   "cluster": false,
+   "errors": 0
+  },
+  {
+   "ticker": "QCOM",
+   "name": "QUALCOMM INC/DE",
+   "group": {
+    "it": "Semiconduttori e apparecchiature",
+    "en": "Semiconductors and equipment"
+   },
+   "score": 52,
+   "verdict": {
+    "it": "Nessuna convinzione chiara",
+    "en": "No clear conviction"
+   },
+   "confidence": "Media",
+   "covered_pct": 65,
+   "last": {
+    "d": "2026-11-16",
+    "c": 168.52,
+    "v": 11831200
+   },
+   "tx": 310,
+   "buyers": 0,
+   "sellers": 2,
+   "net_musd": -0.035,
    "cluster": false,
    "errors": 0
   },
@@ -251,9 +251,9 @@
    "confidence": "Bassa",
    "covered_pct": 50,
    "last": {
-    "d": "2026-11-13",
-    "c": 356.27,
-    "v": 39985300
+    "d": "2026-11-16",
+    "c": 352.78,
+    "v": 45945500
    },
    "tx": 162,
    "buyers": 0,
@@ -277,11 +277,11 @@
    "confidence": "Bassa",
    "covered_pct": 50,
    "last": {
-    "d": "2026-11-13",
-    "c": 266.66,
-    "v": 31076200
+    "d": "2026-11-16",
+    "c": 257.75,
+    "v": 47865100
    },
-   "tx": 345,
+   "tx": 342,
    "buyers": 0,
    "sellers": 0,
    "net_musd": 0.0,
@@ -303,9 +303,9 @@
    "confidence": "Bassa",
    "covered_pct": 50,
    "last": {
-    "d": "2026-11-13",
-    "c": 661.19,
-    "v": 1936300
+    "d": "2026-11-16",
+    "c": 661.71,
+    "v": 2399400
    },
    "tx": 349,
    "buyers": 0,
@@ -329,9 +329,9 @@
    "confidence": "Bassa",
    "covered_pct": 50,
    "last": {
-    "d": "2026-11-13",
-    "c": 170.59,
-    "v": 11474700
+    "d": "2026-11-16",
+    "c": 166.87,
+    "v": 14286200
    },
    "tx": 0,
    "buyers": 0,
@@ -355,11 +355,11 @@
    "confidence": "Bassa",
    "covered_pct": 50,
    "last": {
-    "d": "2026-11-13",
-    "c": 128.09,
-    "v": 16619500
+    "d": "2026-11-16",
+    "c": 128.41,
+    "v": 17761800
    },
-   "tx": 148,
+   "tx": 147,
    "buyers": 0,
    "sellers": 0,
    "net_musd": 0.0,
@@ -381,9 +381,9 @@
    "confidence": "Bassa",
    "covered_pct": 50,
    "last": {
-    "d": "2026-11-13",
-    "c": 1443.5,
-    "v": 2081600
+    "d": "2026-11-16",
+    "c": 1431.67,
+    "v": 3207400
    },
    "tx": 298,
    "buyers": 0,
@@ -407,40 +407,14 @@
    "confidence": "Media",
    "covered_pct": 65,
    "last": {
-    "d": "2026-11-13",
-    "c": 778.31,
-    "v": 27792200
+    "d": "2026-11-16",
+    "c": 719.02,
+    "v": 26712100
    },
    "tx": 643,
    "buyers": 0,
    "sellers": 1,
    "net_musd": -14.014,
-   "cluster": false,
-   "errors": 0
-  },
-  {
-   "ticker": "FORM",
-   "name": "FORMFACTOR INC",
-   "group": {
-    "it": "Semiconduttori e apparecchiature",
-    "en": "Semiconductors and equipment"
-   },
-   "score": 50,
-   "verdict": {
-    "it": "Nessuna convinzione chiara",
-    "en": "No clear conviction"
-   },
-   "confidence": "Media",
-   "covered_pct": 65,
-   "last": {
-    "d": "2026-11-13",
-    "c": 87.53,
-    "v": 1296300
-   },
-   "tx": 207,
-   "buyers": 0,
-   "sellers": 1,
-   "net_musd": -0.202,
    "cluster": false,
    "errors": 0
   },
@@ -459,14 +433,40 @@
    "confidence": "Bassa",
    "covered_pct": 50,
    "last": {
-    "d": "2026-11-13",
-    "c": 43.59,
-    "v": 814600
+    "d": "2026-11-16",
+    "c": 40.11,
+    "v": 1227800
    },
    "tx": 109,
    "buyers": 0,
    "sellers": 1,
    "net_musd": -0.558,
+   "cluster": false,
+   "errors": 0
+  },
+  {
+   "ticker": "VECO",
+   "name": "VEECO INSTRUMENTS INC",
+   "group": {
+    "it": "Semiconduttori e apparecchiature",
+    "en": "Semiconductors and equipment"
+   },
+   "score": 50,
+   "verdict": {
+    "it": "Nessuna convinzione chiara",
+    "en": "No clear conviction"
+   },
+   "confidence": "Media",
+   "covered_pct": 65,
+   "last": {
+    "d": "2026-11-16",
+    "c": 37.2,
+    "v": 762700
+   },
+   "tx": 145,
+   "buyers": 0,
+   "sellers": 1,
+   "net_musd": -0.08,
    "cluster": false,
    "errors": 0
   },
@@ -485,9 +485,9 @@
    "confidence": "Media",
    "covered_pct": 65,
    "last": {
-    "d": "2026-11-13",
-    "c": 397.97,
-    "v": 3114600
+    "d": "2026-11-16",
+    "c": 383.17,
+    "v": 3959800
    },
    "tx": 409,
    "buyers": 0,
@@ -511,14 +511,40 @@
    "confidence": "Media",
    "covered_pct": 65,
    "last": {
-    "d": "2026-11-13",
-    "c": 225.92,
-    "v": 11025600
+    "d": "2026-11-16",
+    "c": 210.83,
+    "v": 12282400
    },
    "tx": 230,
    "buyers": 0,
    "sellers": 1,
    "net_musd": -3.008,
+   "cluster": false,
+   "errors": 0
+  },
+  {
+   "ticker": "FORM",
+   "name": "FORMFACTOR INC",
+   "group": {
+    "it": "Semiconduttori e apparecchiature",
+    "en": "Semiconductors and equipment"
+   },
+   "score": 48,
+   "verdict": {
+    "it": "Nessuna convinzione chiara",
+    "en": "No clear conviction"
+   },
+   "confidence": "Media",
+   "covered_pct": 65,
+   "last": {
+    "d": "2026-11-16",
+    "c": 81.14,
+    "v": 1389300
+   },
+   "tx": 207,
+   "buyers": 0,
+   "sellers": 1,
+   "net_musd": -0.202,
    "cluster": false,
    "errors": 0
   },
@@ -537,14 +563,40 @@
    "confidence": "Bassa",
    "covered_pct": 50,
    "last": {
-    "d": "2026-11-13",
-    "c": 346.19,
-    "v": 4198800
+    "d": "2026-11-16",
+    "c": 338.21,
+    "v": 7229000
    },
    "tx": 130,
    "buyers": 0,
    "sellers": 1,
    "net_musd": -0.882,
+   "cluster": false,
+   "errors": 0
+  },
+  {
+   "ticker": "AEHR",
+   "name": "AEHR TEST SYSTEMS",
+   "group": {
+    "it": "Semiconduttori e apparecchiature",
+    "en": "Semiconductors and equipment"
+   },
+   "score": 47,
+   "verdict": {
+    "it": "Nessuna convinzione chiara",
+    "en": "No clear conviction"
+   },
+   "confidence": "Media",
+   "covered_pct": 65,
+   "last": {
+    "d": "2026-11-16",
+    "c": 50.98,
+    "v": 2419900
+   },
+   "tx": 181,
+   "buyers": 0,
+   "sellers": 0,
+   "net_musd": 0.0,
    "cluster": false,
    "errors": 0
   },
@@ -563,14 +615,40 @@
    "confidence": "Media",
    "covered_pct": 65,
    "last": {
-    "d": "2026-11-13",
-    "c": 249.55,
-    "v": 3076100
+    "d": "2026-11-16",
+    "c": 231.9,
+    "v": 3249700
    },
    "tx": 140,
    "buyers": 0,
    "sellers": 0,
    "net_musd": 0.0,
+   "cluster": false,
+   "errors": 0
+  },
+  {
+   "ticker": "UNH",
+   "name": "UNITEDHEALTH GROUP INC",
+   "group": {
+    "it": "Grandi capitalizzazioni USA",
+    "en": "US large caps"
+   },
+   "score": 46,
+   "verdict": {
+    "it": "Nessuna convinzione chiara",
+    "en": "No clear conviction"
+   },
+   "confidence": "Bassa",
+   "covered_pct": 50,
+   "last": {
+    "d": "2026-11-16",
+    "c": 412.02,
+    "v": 4422800
+   },
+   "tx": 134,
+   "buyers": 0,
+   "sellers": 1,
+   "net_musd": -0.456,
    "cluster": false,
    "errors": 0
   },
@@ -589,14 +667,14 @@
    "confidence": "Media",
    "covered_pct": 65,
    "last": {
-    "d": "2026-11-13",
-    "c": 534.06,
-    "v": 49163200
+    "d": "2026-11-16",
+    "c": 504.28,
+    "v": 35890100
    },
-   "tx": 399,
+   "tx": 398,
    "buyers": 0,
-   "sellers": 2,
-   "net_musd": -12.808,
+   "sellers": 1,
+   "net_musd": -5.084,
    "cluster": false,
    "errors": 0
   },
@@ -615,40 +693,14 @@
    "confidence": "Media",
    "covered_pct": 65,
    "last": {
-    "d": "2026-11-13",
-    "c": 46.35,
-    "v": 699200
+    "d": "2026-11-16",
+    "c": 42.87,
+    "v": 790000
    },
    "tx": 190,
    "buyers": 0,
    "sellers": 0,
    "net_musd": 0.0,
-   "cluster": false,
-   "errors": 0
-  },
-  {
-   "ticker": "UNH",
-   "name": "UNITEDHEALTH GROUP INC",
-   "group": {
-    "it": "Grandi capitalizzazioni USA",
-    "en": "US large caps"
-   },
-   "score": 45,
-   "verdict": {
-    "it": "Leggermente ribassista",
-    "en": "Mildly bearish"
-   },
-   "confidence": "Bassa",
-   "covered_pct": 50,
-   "last": {
-    "d": "2026-11-13",
-    "c": 407.46,
-    "v": 3469100
-   },
-   "tx": 134,
-   "buyers": 0,
-   "sellers": 1,
-   "net_musd": -0.456,
    "cluster": false,
    "errors": 0
   },
@@ -667,9 +719,9 @@
    "confidence": "Media",
    "covered_pct": 65,
    "last": {
-    "d": "2026-11-13",
-    "c": 203.62,
-    "v": 806900
+    "d": "2026-11-16",
+    "c": 196.77,
+    "v": 1327000
    },
    "tx": 94,
    "buyers": 0,
@@ -679,34 +731,8 @@
    "errors": 0
   },
   {
-   "ticker": "AEHR",
-   "name": "AEHR TEST SYSTEMS",
-   "group": {
-    "it": "Semiconduttori e apparecchiature",
-    "en": "Semiconductors and equipment"
-   },
-   "score": 44,
-   "verdict": {
-    "it": "Leggermente ribassista",
-    "en": "Mildly bearish"
-   },
-   "confidence": "Media",
-   "covered_pct": 65,
-   "last": {
-    "d": "2026-11-13",
-    "c": 56.98,
-    "v": 2026800
-   },
-   "tx": 181,
-   "buyers": 0,
-   "sellers": 1,
-   "net_musd": -0.574,
-   "cluster": false,
-   "errors": 0
-  },
-  {
-   "ticker": "TSLA",
-   "name": "Tesla, Inc.",
+   "ticker": "META",
+   "name": "Meta Platforms, Inc.",
    "group": {
     "it": "Grandi capitalizzazioni USA",
     "en": "US large caps"
@@ -719,14 +745,14 @@
    "confidence": "Bassa",
    "covered_pct": 50,
    "last": {
-    "d": "2026-11-13",
-    "c": 390.22,
-    "v": 32268400
+    "d": "2026-11-16",
+    "c": 626.41,
+    "v": 11541500
    },
-   "tx": 392,
+   "tx": 405,
    "buyers": 0,
    "sellers": 1,
-   "net_musd": -0.938,
+   "net_musd": -12.775,
    "cluster": false,
    "errors": 0
   },
@@ -745,14 +771,40 @@
    "confidence": "Bassa",
    "covered_pct": 50,
    "last": {
-    "d": "2026-11-13",
-    "c": 162.85,
-    "v": 363819700
+    "d": "2026-11-16",
+    "c": 156.14,
+    "v": 331405000
    },
    "tx": 628,
    "buyers": 0,
    "sellers": 1,
    "net_musd": -946.628,
+   "cluster": false,
+   "errors": 0
+  },
+  {
+   "ticker": "TSLA",
+   "name": "Tesla, Inc.",
+   "group": {
+    "it": "Grandi capitalizzazioni USA",
+    "en": "US large caps"
+   },
+   "score": 43,
+   "verdict": {
+    "it": "Leggermente ribassista",
+    "en": "Mildly bearish"
+   },
+   "confidence": "Bassa",
+   "covered_pct": 50,
+   "last": {
+    "d": "2026-11-16",
+    "c": 379.74,
+    "v": 30156600
+   },
+   "tx": 392,
+   "buyers": 0,
+   "sellers": 1,
+   "net_musd": -0.938,
    "cluster": false,
    "errors": 0
   },
@@ -771,11 +823,11 @@
    "confidence": "Media",
    "covered_pct": 65,
    "last": {
-    "d": "2026-11-13",
-    "c": 35.72,
-    "v": 749300
+    "d": "2026-11-16",
+    "c": 33.65,
+    "v": 947300
    },
-   "tx": 108,
+   "tx": 110,
    "buyers": 0,
    "sellers": 0,
    "net_musd": 0.0,
@@ -797,14 +849,14 @@
    "confidence": "Bassa",
    "covered_pct": 50,
    "last": {
-    "d": "2026-11-13",
-    "c": 285.75,
-    "v": 6282000
+    "d": "2026-11-16",
+    "c": 282.55,
+    "v": 8101700
    },
    "tx": 249,
    "buyers": 0,
-   "sellers": 3,
-   "net_musd": -16.898,
+   "sellers": 2,
+   "net_musd": -12.948,
    "cluster": false,
    "errors": 0
   },
@@ -823,9 +875,9 @@
    "confidence": "Media",
    "covered_pct": 65,
    "last": {
-    "d": "2026-11-13",
-    "c": 303.6,
-    "v": 5229700
+    "d": "2026-11-16",
+    "c": 294.21,
+    "v": 6743000
    },
    "tx": 225,
    "buyers": 0,
@@ -849,66 +901,14 @@
    "confidence": "Media",
    "covered_pct": 65,
    "last": {
-    "d": "2026-11-13",
-    "c": 370.5,
-    "v": 11937400
+    "d": "2026-11-16",
+    "c": 350.25,
+    "v": 7105000
    },
    "tx": 149,
    "buyers": 0,
    "sellers": 3,
    "net_musd": -4.454,
-   "cluster": false,
-   "errors": 0
-  },
-  {
-   "ticker": "VECO",
-   "name": "VEECO INSTRUMENTS INC",
-   "group": {
-    "it": "Semiconduttori e apparecchiature",
-    "en": "Semiconductors and equipment"
-   },
-   "score": 40,
-   "verdict": {
-    "it": "Leggermente ribassista",
-    "en": "Mildly bearish"
-   },
-   "confidence": "Media",
-   "covered_pct": 65,
-   "last": {
-    "d": "2026-11-13",
-    "c": 39.06,
-    "v": 453700
-   },
-   "tx": 145,
-   "buyers": 0,
-   "sellers": 2,
-   "net_musd": -10.916,
-   "cluster": false,
-   "errors": 0
-  },
-  {
-   "ticker": "META",
-   "name": "Meta Platforms, Inc.",
-   "group": {
-    "it": "Grandi capitalizzazioni USA",
-    "en": "US large caps"
-   },
-   "score": 38,
-   "verdict": {
-    "it": "Leggermente ribassista",
-    "en": "Mildly bearish"
-   },
-   "confidence": "Bassa",
-   "covered_pct": 50,
-   "last": {
-    "d": "2026-11-13",
-    "c": 641.69,
-    "v": 15127500
-   },
-   "tx": 405,
-   "buyers": 0,
-   "sellers": 2,
-   "net_musd": -14.242,
    "cluster": false,
    "errors": 0
   },
@@ -927,9 +927,9 @@
    "confidence": "Bassa",
    "covered_pct": 50,
    "last": {
-    "d": "2026-11-13",
-    "c": 348.69,
-    "v": 4473100
+    "d": "2026-11-16",
+    "c": 347.51,
+    "v": 6204200
    },
    "tx": 148,
    "buyers": 0,
@@ -953,11 +953,11 @@
    "confidence": "Bassa",
    "covered_pct": 50,
    "last": {
-    "d": "2026-11-13",
-    "c": 523.88,
-    "v": 26155900
+    "d": "2026-11-16",
+    "c": 517.99,
+    "v": 30198800
    },
-   "tx": 82,
+   "tx": 83,
    "buyers": 0,
    "sellers": 3,
    "net_musd": -74.769,
@@ -979,9 +979,9 @@
    "confidence": "Bassa",
    "covered_pct": 50,
    "last": {
-    "d": "2026-11-13",
-    "c": 425.76,
-    "v": 4641200
+    "d": "2026-11-16",
+    "c": 426.46,
+    "v": 7395300
    },
    "tx": 215,
    "buyers": 0,
@@ -1005,9 +1005,9 @@
    "confidence": "Bassa",
    "covered_pct": 50,
    "last": {
-    "d": "2026-11-13",
-    "c": 169.8,
-    "v": 6943100
+    "d": "2026-11-16",
+    "c": 173.02,
+    "v": 14068200
    },
    "tx": 126,
    "buyers": 0,
@@ -1031,9 +1031,9 @@
    "confidence": "Bassa",
    "covered_pct": 50,
    "last": {
-    "d": "2026-11-13",
-    "c": 1106.21,
-    "v": 1874100
+    "d": "2026-11-16",
+    "c": 1113.74,
+    "v": 3044300
    },
    "tx": 184,
    "buyers": 0,
@@ -1057,9 +1057,9 @@
    "confidence": "Bassa",
    "covered_pct": 50,
    "last": {
-    "d": "2026-11-13",
-    "c": 99.25,
-    "v": 18022500
+    "d": "2026-11-16",
+    "c": 99.48,
+    "v": 18577400
    },
    "tx": 155,
    "buyers": 0,
