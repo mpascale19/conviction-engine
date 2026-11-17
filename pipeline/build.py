@@ -263,6 +263,63 @@ def finish(cfg, data, universe):
 
 
 # ----------------------------------------------------------------- scrittura
+def _stats(items):
+    """Riassume un gruppo di acquisti.
+
+    `ep` conta gli episodi, non le firme: cinque dirigenti che comprano lo
+    stesso giorno nella stessa azienda sono un fatto solo, e contarli come
+    cinque prove indipendenti gonfierebbe la statistica.
+    """
+    if not items:
+        return None
+    xs = sorted(x["car"] for x in items)
+    n = len(xs)
+    med = xs[n // 2] if n % 2 else (xs[n // 2 - 1] + xs[n // 2]) / 2
+    return {"n": n, "ep": len({(x["t"], x["d"]) for x in items}),
+            "pos": sum(1 for x in xs if x > 0),
+            "avg": round(sum(xs) / n, 2), "med": round(med, 2)}
+
+
+def backtest(results, cfg):
+    """Gli acquisti degli insider degli ultimi due anni, e come sono andati.
+
+    Non è il backtest del punteggio: guidance e short interest non esistono
+    giorno per giorno all'indietro, quindi il punteggio storico non si può
+    ricostruire senza inventarlo. Qui si verifica la parte che i dati
+    permettono di verificare davvero, cioè la più pesante: un acquisto di un
+    insider ha anticipato qualcosa nei 60 giorni successivi, rispetto al suo
+    settore? E le due regole che la formula applica — il cluster conta più di
+    un acquisto isolato, un dirigente apicale più di un altro — reggono sui
+    dati di questo universo?
+    """
+    nd = cfg["rules"]["cluster_days"]
+    minp = cfg["rules"]["cluster_min_people"]
+    rows = []
+    for d in results:
+        tx = [t for t in (d.get("tx") or []) if t["kind"] == "BUY"]
+        car = {(w, b["date"]): b["car"]
+               for w, tr in (d.get("tracks") or {}).items() for b in tr["buys"]}
+        for t in tx:
+            r = car.get((t["who"], t["date"]))
+            if r is None:
+                continue                      # 60 giorni non ancora trascorsi
+            day = date.fromisoformat(t["date"])
+            near = {x["who"] for x in tx
+                    if abs((date.fromisoformat(x["date"]) - day).days) <= nd}
+            rows.append({"car": r, "t": d["company"]["ticker"], "d": t["date"],
+                         "cluster": len(near) >= minp,
+                         "senior": bool(t.get("is_senior"))})
+    if len(rows) < 10:
+        return None
+    pick = lambda f: [r for r in rows if f(r)]
+    return {"horizon": cfg["rules"]["track_record_horizon_days"],
+            "all": _stats(rows),
+            "cluster": _stats(pick(lambda r: r["cluster"])),
+            "solo": _stats(pick(lambda r: not r["cluster"])),
+            "senior": _stats(pick(lambda r: r["senior"])),
+            "other": _stats(pick(lambda r: not r["senior"]))}
+
+
 def write_all(results, cfg, outdir=OUTDIR):
     ddir = os.path.join(outdir, "data")
     os.makedirs(ddir, exist_ok=True)
@@ -287,6 +344,7 @@ def write_all(results, cfg, outdir=OUTDIR):
         "generated_at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
         "groups": [{"nome": group_name(g), "benchmark": g["benchmark"],
                     "n": len(g["tickers"])} for g in cfg["universi"]],
+        "backtest": backtest(results, cfg),
         "weights": cfg["weights"],
         "companies": rows,
         "errors": sorted({e for d in results for e in d["errors"]}),
