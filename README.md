@@ -29,7 +29,7 @@ pesi; con le trascrizioni si arriva al 60%.
 
 ### Il gesto normale
 
-**Actions -> Aggiorna i dati -> Run workflow.** Due o tre minuti e il sito e'
+**Actions -> Aggiorna i dati -> Run workflow.** Due o tre minuti e il sito è
 aggiornato. Parte da solo anche quando carichi file in `pipeline/`, `input/`,
 `config.json` o `site/`: in quel caso non devi premere niente.
 
@@ -43,9 +43,9 @@ aggiornato. Parte da solo anche quando carichi file in `pipeline/`, `input/`,
 | Short interest | export manuale | due volte al mese |
 | Trascrizioni delle call | export manuale | una volta a trimestre |
 
-Lo short interest lo pubblicano FINRA e le borse due volte al mese, a meta' e a
+Lo short interest lo pubblicano FINRA e le borse due volte al mese, a metà e a
 fine mese, e compare sui terminali qualche giorno dopo. Per aggiornarlo si
-riesporta e si sostituisce il CSV intero: il file e' piccolo e la pipeline usa
+riesporta e si sostituisce il CSV intero: il file è piccolo e la pipeline usa
 sempre l'ultima riga.
 
 Le trascrizioni servono solo dopo una earnings call, e solo per le aziende che
@@ -71,23 +71,23 @@ riattivarle dalla scheda Actions.
 
 | Sintomo | Causa quasi certa |
 |---|---|
-| 403 dalla SEC | il secret `SEC_UA` non e' "Nome Cognome email@dominio" |
+| 403 dalla SEC | il secret `SEC_UA` non è "Nome Cognome email@dominio" |
 | un ticker salta con errore sul CIK | la mappa SEC sbaglia: metti il CIK in `config.json` |
-| un'azienda resta senza prezzi | Yahoo e stooq hanno entrambi rifiutato; l'errore e' scritto in `errors[]` e nessun punteggio viene inventato |
+| un'azienda resta senza prezzi | Yahoo e stooq hanno entrambi rifiutato; l'errore è scritto in `errors[]` e nessun punteggio viene inventato |
 | il workflow si ferma sui test | un errore nel codice: i test girano **prima** di scaricare qualsiasi cosa, quindi i dati pubblicati non si rovinano mai |
-| il sito mostra dati vecchi | il secondo riquadro del workflow (`pubblica`) non e' ancora verde |
-| un giro fallisce sul salvataggio | due giri ravvicinati: il piu' recente ha gia' scritto. Non si perde niente, i dati li rigenera il giro dopo |
+| il sito mostra dati vecchi | il secondo riquadro del workflow (`pubblica`) non è ancora verde |
+| un giro fallisce sul salvataggio | due giri ravvicinati: il più recente ha già scritto. Non si perde niente, i dati li rigenera il giro dopo |
 
-### Perche' i dati non si fondono mai
+### Perché i dati non si fondono mai
 
 I file in `site/` sono generati per intero a ogni giro: la versione appena
-calcolata e' sempre quella buona. Per questo il workflow non fa `git pull
+calcolata è sempre quella buona. Per questo il workflow non fa `git pull
 --rebase` ma riparte da `origin/main` e riscrive sopra. Un rebase proverebbe a
 fondere due versioni degli stessi 41 file, che differiscono su ogni riga per
 l'orario, e finirebbe in conflitto su tutti.
 
-Allo stesso modo, se parte un giro mentre un altro e' in corso, il vecchio viene
-fermato (`cancel-in-progress`): il nuovo rifa' tutto comunque.
+Allo stesso modo, se parte un giro mentre un altro è in corso, il vecchio viene
+fermato (`cancel-in-progress`): il nuovo rifà tutto comunque.
 
 ### Il controllo dopo ogni giro
 
@@ -97,19 +97,30 @@ riga `CIK` deve avere accanto il nome giusto dell'azienda.
 
 ## Le trascrizioni delle call
 
-Il testo delle earnings call arriva dall'export di Bloomberg ed e' materiale
+Il testo delle earnings call arriva dall'export di Bloomberg ed è materiale
 sotto licenza: **non va nel repository pubblico**. Per questo la pipeline legge
 due cartelle diverse.
 
 ```
 input/transcripts/INTC_2026Q3.txt    il testo: resta sul tuo computer (.gitignore)
-input/extracted/INTC_2026Q3.json     i fatti estratti: questi si', nel repo
+input/extracted/INTC_2026Q3.json     i fatti estratti: questi sì, nel repo
 ```
 
 Il nome del file decide a quale azienda appartiene la call: il ticker sta
 all'inizio, prima del primo trattino o underscore. `INTC_2026Q3.txt` finisce su
-Intel, `transcript (3).txt` su nessuno. Se un export contiene piu' call
+Intel, `transcript (3).txt` su nessuno. Se un export contiene più call
 accodate, va diviso in un file per trimestre.
+
+**Che cosa c'è dentro oggi.** 24 call estratte su 5 aziende: Intel (8 trimestri),
+Oracle, NVIDIA, Bank of America e Coca-Cola (4 ciascuna). Per ogni azienda si
+tengono le quattro call più recenti, che sono quelle che il punteggio usa
+davvero: la media del tono sulle ultime quattro e la guidance dell'ultima. Le
+call più vecchie restano archiviate in `input/transcripts/` e si possono
+estrarre quando servono.
+
+**Lo short interest** copre 36 aziende su 40. Mancano PG, UNH, WMT e XOM: per
+loro il punteggio redistribuisce il peso sulle altre componenti invece di
+inventare un numero, e la scheda lo dichiara.
 
 Da `input/extracted/` escono tono, guidance e direttezza delle risposte senza
 nessuna chiamata al modello: serve a far girare la pipeline senza chiave API e a
@@ -131,21 +142,21 @@ peso (20%) veniva ridistribuito sugli altri.
 
 ## La divergenza, senza comprare le stime degli analisti
 
-Il consenso degli analisti e' un prodotto a pagamento: la SEC non lo pubblica,
-perche' non e' un dato dell'azienda. Ma la tesi del progetto -- *gli insider
+Il consenso degli analisti è un prodotto a pagamento: la SEC non lo pubblica,
+perché non è un dato dell'azienda. Ma la tesi del progetto -- *gli insider
 comprano mentre le aspettative peggiorano* -- non ha bisogno degli analisti:
 l'azienda stessa dice a ogni call se alza o abbassa la propria guidance, e
-quella frase e' pubblica.
+quella frase è pubblica.
 
 Ogni voce di guidance estratta porta una `direction`: `alzata`, `ridotta`,
 `confermata`, `prima` (data per la prima volta). Il sotto-punteggio
 **Guidance e tono** parte dal tono medio delle ultime quattro call e lo corregge
 di 2,5 punti per ogni voce alzata o ridotta nell'ultima call, con un massimo di
-dieci punti in piu' o in meno.
+dieci punti in più o in meno.
 
 Quando l'azienda taglia la guidance *e* un insider ha comprato negli ultimi 90
 giorni, il sito lo scrive: "gli insider hanno comprato mentre l'azienda tagliava
-la guidance". E' il segnale che il progetto esiste per trovare, e costa zero.
+la guidance". È il segnale che il progetto esiste per trovare, e costa zero.
 
 ## Short interest
 
@@ -159,9 +170,9 @@ date,short_interest,close,avg_volume,days_to_cover
 L'export non contiene la percentuale sul flottante, quindi il sotto-punteggio
 **Mercato** non la usa: misura lo short interest contro la storia del titolo
 stesso (scostamento dalla mediana dell'ultimo anno, direzione negli ultimi tre
-mesi, giorni per ricoprire rispetto alla loro mediana). Cosi' un'azienda grande
+mesi, giorni per ricoprire rispetto alla loro mediana). Così un'azienda grande
 e una piccola restano confrontabili, e un numero non pesa per il fatto di essere
-grande. Un test lo verifica: la stessa serie moltiplicata per dieci da' lo
+grande. Un test lo verifica: la stessa serie moltiplicata per dieci dà lo
 stesso punteggio.
 
 ### Percentuale sul circolante
@@ -171,27 +182,27 @@ Le azioni in circolazione non arrivano da Bloomberg: stanno in copertina a ogni
 (`companyconcept/.../dei/EntityCommonStockSharesOutstanding`). La pipeline le
 scarica da sola per tutte le aziende, insieme ai Form 4.
 
-Attenzione a come si chiama il numero: quello che esce e' lo short interest in
+Attenzione a come si chiama il numero: quello che esce è lo short interest in
 **percentuale delle azioni in circolazione**, non del flottante. Il flottante
 esclude le azioni vincolate e quelle in mano a insider e grandi soci, quindi la
-percentuale vera sul flottante e' un po' piu' alta. Per le grandi societa' la
-differenza e' piccola, ma il sito scrive "azioni in circolazione" e non
-"flottante", perche' e' quello che il dato dice davvero.
+percentuale vera sul flottante è un po' più alta. Per le grandi società la
+differenza è piccola, ma il sito scrive "azioni in circolazione" e non
+"flottante", perché è quello che il dato dice davvero.
 
 ### Il confronto con i simili
 
-Quando piu' aziende dello stesso universo hanno il file dello short interest, il
+Quando più aziende dello stesso universo hanno il file dello short interest, il
 sotto-punteggio Mercato aggiunge un confronto: la percentuale sulle azioni in
 circolazione di questa azienda contro la **mediana del suo gruppo**. Essere
-shortati molto piu' dei simili toglie punti, molto meno li aggiunge, con un
+shortati molto più dei simili toglie punti, molto meno li aggiunge, con un
 tetto di otto. Servono almeno tre aziende confrontabili, altrimenti il confronto
 non si fa.
 
-E' la differenza fra "e' shortata piu' del solito" (confronto con la propria
-storia) e "e' shortata piu' delle altre" (confronto con il settore). Le due cose
-insieme dicono molto di piu' di ciascuna da sola.
+È la differenza fra "è shortata più del solito" (confronto con la propria
+storia) e "è shortata più delle altre" (confronto con il settore). Le due cose
+insieme dicono molto di più di ciascuna da sola.
 
-Lo short interest nasce da FINRA e dalle borse, non e' un prodotto proprietario
+Lo short interest nasce da FINRA e dalle borse, non è un prodotto proprietario
 Bloomberg: per questo i numeri stanno nel repo. Le revisioni delle stime e il
 consenso EPS, quando arriveranno, seguiranno la regola delle trascrizioni.
 
@@ -206,7 +217,7 @@ Ora un CIK viene accettato solo se il JSON dei depositi di quel CIK elenca
 davvero quel ticker (`sources.confirms`). Se non torna, la pipeline prova la
 ricerca di EDGAR e poi il numero scritto a mano in `config.json`, campo `cik`;
 se non torna niente, l'azienda viene saltata con un errore che dice che cosa ha
-trovato al posto suo. Il controllo non costa richieste in piu': quel JSON serve
+trovato al posto suo. Il controllo non costa richieste in più: quel JSON serve
 comunque subito dopo per scaricare i Form 4.
 
 ## Italiano e inglese
@@ -232,6 +243,45 @@ entrambe le lingue e fallisce se te ne dimentichi una.
 
 Per i nomi degli universi la traduzione sta in `config.json`, nel campo
 `nome_en` accanto a `nome`.
+
+## Il backtest: che cosa misura e che cosa no
+
+La pagina **Backtest** del sito prende ogni acquisto di un insider degli ultimi
+due anni e guarda come è andato il titolo nei 60 giorni successivi, al netto del
+suo settore. Serve a una cosa sola: controllare se le due regole che la formula
+usa per dare più peso ad alcuni acquisti trovano riscontro nei dati.
+
+**Gli episodi contano, non le firme.** Cinque dirigenti che comprano lo stesso
+giorno nella stessa azienda sono un fatto solo, osservato cinque volte: se li
+conti come cinque osservazioni indipendenti, un singolo episodio fortunato o
+sfortunato diventa una regolarità che non esiste. Per questo ogni riga riporta
+sia `n` (le firme) sia `ep` (gli episodi distinti, cioè le coppie
+ticker + data), e quando gli episodi sono meno di cinque il sito lo dice e
+toglie il colore al numero, invece di far sembrare un segnale quello che è un
+aneddoto.
+
+Quello che il backtest **non** è:
+
+- **Non è il backtest del punteggio.** Guidance e short interest non esistono
+  giorno per giorno all'indietro: la guidance la estraiamo dalle call che
+  abbiamo scaricato, lo short interest parte dal 2024. Ricostruire il punteggio
+  di due anni fa vorrebbe dire inventarlo, e un backtest costruito su un
+  punteggio inventato è peggio di nessun backtest.
+- **Non è una strategia.** Niente costi, niente slittamento di prezzo, nessuna
+  dimensione delle posizioni, nessuna regola di uscita diversa dai 60 giorni
+  fissi.
+- **Non è un campione grande.** Poche decine di episodi su 40 aziende e due
+  anni: abbastanza per farsi un'idea, non per sostenere una tesi.
+
+Il rendimento è sempre al netto del settore di appartenenza (lo stesso
+riferimento usato per il track record dei singoli insider), non del mercato:
+misura la scelta dell'azienda, non l'andamento generale.
+
+Il calcolo sta in `backtest()` dentro `pipeline/build.py`, gira a ogni
+aggiornamento e finisce in `index.json` sotto la chiave `backtest`. Se gli
+acquisti misurabili sono meno di dieci, la chiave resta `null` e la pagina
+dice che non c'è ancora abbastanza per parlare, invece di mostrare un numero
+costruito su tre casi.
 
 ## Gli universi di titoli
 
