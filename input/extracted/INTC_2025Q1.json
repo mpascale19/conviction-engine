@@ -3,11 +3,14 @@
  "quarter": "T1 '25",
  "call_date": "2025-04-25",
  "tone": 50,
- "tone_why": "Prima call di Lip-Bu Tan, cinque settimane dopo l'arrivo. Trimestre sopra la guida, ma la guida successiva e' piu' ampia del normale per i dazi, e il tono e' deliberatamente sobrio: 'non ci sono soluzioni rapide', 'promettere meno e dare di piu''.",
+ "tone_why": {
+  "it": "Prima call di Lip-Bu Tan, cinque settimane dopo l'arrivo. Trimestre sopra la guida, ma la guida successiva è più ampia del normale per i dazi, e il tono è deliberatamente sobrio: 'non ci sono soluzioni rapide', 'promettere meno e dare di più'.",
+  "en": "Lip-Bu Tan's first call, five weeks in. The quarter beat the guide, but the next one is guided wider than usual because of tariffs, and the tone is deliberately sober: 'there are no quick fixes', 'under-promise and over-deliver'."
+ },
  "guidance": [
   {
    "metric": "Ricavi Q2 2025",
-   "value": "11,2-12,4 miliardi $ (-2% / -12%), forchetta piu' ampia del solito",
+   "value": "11,2-12,4 miliardi $ (-2% / -12%), forchetta più ampia del solito",
    "direction": "prima"
   },
   {
@@ -49,32 +52,56 @@
  "qa": [
   {
    "question": "Come si tiene insieme il risanamento dei prodotti con il riempimento della foundry?",
-   "answer_summary": "Appiattire l'organizzazione e consegnare in tempo; i prodotti devono scegliere il meglio per se', dentro o fuori.",
+   "answer_summary": "Appiattire l'organizzazione e consegnare in tempo; i prodotti devono scegliere il meglio per sé, dentro o fuori.",
    "directness": 3
   },
   {
-   "question": "Qual e' il numero 'pulito' del margine lordo del primo trimestre?",
-   "answer_summary": "Scompone il beat: ricavi piu' alti e mix Raptor Lake; senza quei due sarebbe stato vicino alla guida.",
+   "question": "Qual è il numero 'pulito' del margine lordo del primo trimestre?",
+   "answer_summary": "Scompone il beat: ricavi più alti e mix Raptor Lake; senza quei due sarebbe stato vicino alla guida.",
    "directness": 5
   },
   {
    "question": "Annuncerete un cliente foundry di primo livello quest'anno?",
-   "answer_summary": "Non risponde sulla tempistica: priorita' al cliente interno, poi fiducia, PDK, resa. 'Un passo, due passi'.",
+   "answer_summary": "Non risponde sulla tempistica: priorità al cliente interno, poi fiducia, PDK, resa. 'Un passo, due passi'.",
    "directness": 2
   }
  ],
  "language_changes": [
   {
-   "topic": "OpEx 2025",
-   "from": "17,5 miliardi $",
-   "to": "17 miliardi $",
-   "note": "Primo taglio del nuovo CEO, annunciato cinque settimane dopo l'arrivo."
+   "topic": {
+    "it": "OpEx 2025",
+    "en": "OpEx 2025"
+   },
+   "from": {
+    "it": "17,5 miliardi $",
+    "en": "$17.5 billion"
+   },
+   "to": {
+    "it": "17 miliardi $",
+    "en": "$17 billion"
+   },
+   "note": {
+    "it": "Primo taglio del nuovo CEO, annunciato cinque settimane dopo l'arrivo.",
+    "en": "The new CEO's first cut, announced five weeks after arriving."
+   }
   },
   {
-   "topic": "Capex lordo 2025",
-   "from": "circa 20 miliardi $",
-   "to": "circa 18 miliardi $",
-   "note": "Due miliardi in meno trovati 'nella rete manifatturiera': la disciplina sul capitale diventa il tema."
+   "topic": {
+    "it": "Capex lordo 2025",
+    "en": "Gross capex 2025"
+   },
+   "from": {
+    "it": "circa 20 miliardi $",
+    "en": "about $20 billion"
+   },
+   "to": {
+    "it": "circa 18 miliardi $",
+    "en": "about $18 billion"
+   },
+   "note": {
+    "it": "Due miliardi in meno trovati 'nella rete manifatturiera': la disciplina sul capitale diventa il tema.",
+    "en": "Two billion found 'in the manufacturing network': capital discipline becomes the theme."
+   }
   }
  ],
  "file": "INTC_2025Q1.json",

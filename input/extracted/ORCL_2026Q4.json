@@ -3,7 +3,10 @@
  "quarter": "T4 '26 (anno fiscale)",
  "call_date": "2026-06-11",
  "tone": 75,
- "tone_why": "Trimestre record, RPO a 638 miliardi (+363%) e conferma degli obiettivi di lungo periodo. Il nuovo CFO e' in carica da due mesi e ricon­ferma tutto; nota negativa dichiarata: il margine lordo e' sceso di circa 5 punti nell'anno e scendera' ancora.",
+ "tone_why": {
+  "it": "Trimestre record, RPO a 638 miliardi (+363%) e conferma degli obiettivi di lungo periodo. Il nuovo CFO è in carica da due mesi e riconferma tutto; nota negativa dichiarata: il margine lordo è sceso di circa 5 punti nell'anno e scenderà ancora.",
+  "en": "A record quarter, RPO at $638 billion (+363%) and the long-term targets reconfirmed. The new CFO has been in post two months and reconfirms everything; the stated negative: gross margin fell about 5 points over the year and will fall further."
+ },
  "guidance": [
   {
    "metric": "Ricavi anno fiscale 2027",
@@ -32,12 +35,12 @@
   },
   {
    "metric": "Capex netto 2027",
-   "value": "circa 70 miliardi $ (capex dichiarato 20-25 miliardi piu' alto)",
+   "value": "circa 70 miliardi $ (capex dichiarato 20-25 miliardi più alto)",
    "direction": "prima"
   },
   {
    "metric": "Raccolta di debito e capitale 2027",
-   "value": "circa 40 miliardi $, inclusi i 20 gia' annunciati",
+   "value": "circa 40 miliardi $, inclusi i 20 già annunciati",
    "direction": "prima"
   },
   {
@@ -58,8 +61,8 @@
  ],
  "qa": [
   {
-   "question": "Il capex e' salito piu' delle attese: dipende dal prezzo dei componenti?",
-   "answer_summary": "No, dice che e' questione di tempistica; sui componenti spiega che non fanno contratti a prezzo fisso e ribaltano i costi.",
+   "question": "Il capex è salito più delle attese: dipende dal prezzo dei componenti?",
+   "answer_summary": "No, dice che è questione di tempistica; sui componenti spiega che non fanno contratti a prezzo fisso e ribaltano i costi.",
    "directness": 5
   },
   {
@@ -68,12 +71,12 @@
    "directness": 5
   },
   {
-   "question": "Come valutare i ritorni in una fase di investimento cosi' pesante?",
-   "answer_summary": "Da' un ordine di grandezza: ROIC 'high 20s' a regime di progetto, con il calcolo esplicitato.",
+   "question": "Come valutare i ritorni in una fase di investimento così pesante?",
+   "answer_summary": "Dà un ordine di grandezza: ROIC 'high 20s' a regime di progetto, con il calcolo esplicitato.",
    "directness": 4
   },
   {
-   "question": "Con tanti nuovi concorrenti nei data center AI, che ne e' di rinnovi e margini?",
+   "question": "Con tanti nuovi concorrenti nei data center AI, che ne è di rinnovi e margini?",
    "answer_summary": "Risponde sulla relazione con il cliente e sull'utilizzo al 97,5%, non quantifica l'effetto sui margini.",
    "directness": 3
   },

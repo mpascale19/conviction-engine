@@ -3,7 +3,10 @@
  "quarter": "T2 '25",
  "call_date": "2025-07-25",
  "tone": 48,
- "tone_why": "La call piu' dura di tutte: il CEO definisce gli investimenti in capacita' degli anni precedenti 'imprudenti ed eccessivi', cancella Germania e Polonia e ricorda che l'ultimo anno con flusso di cassa positivo e' stato il 2021, 'del tutto inaccettabile'. I risultati pero' battono la guida.",
+ "tone_why": {
+  "it": "La call più dura di tutte: il CEO definisce gli investimenti in capacità degli anni precedenti 'imprudenti ed eccessivi', cancella Germania e Polonia e ricorda che l'ultimo anno con flusso di cassa positivo è stato il 2021, 'del tutto inaccettabile'. I risultati però battono la guida.",
+  "en": "The hardest call of them all: the CEO calls the capacity investments of the preceding years 'unwise and excessive', cancels Germany and Poland, and points out that the last year of positive free cash flow was 2021, 'completely unacceptable'. The results, though, beat the guide."
+ },
  "guidance": [
   {
    "metric": "Ricavi Q3 2025",
@@ -58,7 +61,7 @@
  ],
  "qa": [
   {
-   "question": "Quanto ci vuole a ricostruire la fiducia necessaria perche' la foundry decolli?",
+   "question": "Quanto ci vuole a ricostruire la fiducia necessaria perché la foundry decolli?",
    "answer_summary": "Nessuna data: riunioni due volte a settimana su 18A, Panther Lake entro fine anno, poi 'un processo per costruire la fiducia'.",
    "directness": 2
   },
@@ -70,28 +73,76 @@
  ],
  "language_changes": [
   {
-   "topic": "Investimenti in capacita'",
-   "from": "capacita' costruita in anticipo sulla domanda",
-   "to": "'imprudenti ed eccessivi'; la capacita' crescera' solo su impegni di volume",
-   "note": "Il cambio di rotta piu' netto della serie: un CEO che giudica sbagliata la strategia dei quattro anni precedenti."
+   "topic": {
+    "it": "Investimenti in capacità",
+    "en": "Capacity investment"
+   },
+   "from": {
+    "it": "capacità costruita in anticipo sulla domanda",
+    "en": "capacity built ahead of demand"
+   },
+   "to": {
+    "it": "'imprudenti ed eccessivi'; la capacità crescerà solo su impegni di volume",
+    "en": "'unwise and excessive'; capacity will grow only against volume commitments"
+   },
+   "note": {
+    "it": "Il cambio di rotta più netto della serie: un CEO che giudica sbagliata la strategia dei quattro anni precedenti.",
+    "en": "The sharpest change of course in the series: a CEO judging the strategy of the previous four years to have been wrong."
+   }
   },
   {
-   "topic": "Stabilimenti europei",
-   "from": "progetti in Germania e Polonia",
-   "to": "cancellati",
-   "note": "Da impegno pluriennale a cancellazione, nello spazio di tre trimestri."
+   "topic": {
+    "it": "Stabilimenti europei",
+    "en": "European plants"
+   },
+   "from": {
+    "it": "progetti in Germania e Polonia",
+    "en": "projects in Germany and Poland"
+   },
+   "to": {
+    "it": "cancellati",
+    "en": "cancelled"
+   },
+   "note": {
+    "it": "Da impegno pluriennale a cancellazione, nello spazio di tre trimestri.",
+    "en": "From a multi-year commitment to cancellation, in the space of three quarters."
+   }
   },
   {
-   "topic": "Intel 14A",
-   "from": "nodo in sviluppo, investimento previsto",
-   "to": "'non credo che se lo costruisci, loro arriveranno'",
-   "note": "L'investimento su 14A diventa condizionato a un cliente esterno. E' la premessa di tutte le domande senza risposta sui clienti foundry nei trimestri successivi."
+   "topic": {
+    "it": "Intel 14A",
+    "en": "Intel 14A"
+   },
+   "from": {
+    "it": "nodo in sviluppo, investimento previsto",
+    "en": "node in development, investment planned"
+   },
+   "to": {
+    "it": "'non credo che se lo costruisci, loro arriveranno'",
+    "en": "'I do not subscribe to the belief that if you build it, they will come'"
+   },
+   "note": {
+    "it": "L'investimento su 14A diventa condizionato a un cliente esterno. È la premessa di tutte le domande senza risposta sui clienti foundry nei trimestri successivi.",
+    "en": "Investment in 14A becomes conditional on an external customer. It is the premise of every unanswered question about foundry customers in the quarters that follow."
+   }
   },
   {
-   "topic": "Pareggio di Intel Foundry",
-   "from": "'entro la fine del 2027' (T4 '24)",
-   "to": "non ripetuto in questa call",
-   "note": "L'obiettivo annunciato a gennaio 2025 non viene piu' menzionato; nelle cinque call successive che ho letto non ricompare, mentre la perdita operativa della foundry resta sopra 1,9 miliardi a trimestre."
+   "topic": {
+    "it": "Pareggio di Intel Foundry",
+    "en": "Intel Foundry break-even"
+   },
+   "from": {
+    "it": "'entro la fine del 2027' (T4 '24)",
+    "en": "'by the end of 2027' (Q4 '24)"
+   },
+   "to": {
+    "it": "non ripetuto in questa call",
+    "en": "not repeated in this call"
+   },
+   "note": {
+    "it": "L'obiettivo annunciato a gennaio 2025 non viene più menzionato; nelle cinque call successive che ho letto non ricompare, mentre la perdita operativa della foundry resta sopra 1,9 miliardi a trimestre.",
+    "en": "The target announced in January 2025 is never mentioned again; it does not reappear in the five later calls I read, while the foundry's operating loss stays above $1.9 billion a quarter."
+   }
   }
  ],
  "file": "INTC_2025Q2.json",

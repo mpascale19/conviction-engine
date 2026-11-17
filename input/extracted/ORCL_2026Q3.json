@@ -3,7 +3,10 @@
  "quarter": "T3 '26 (anno fiscale)",
  "call_date": "2026-03-10",
  "tone": 76,
- "tone_why": "Primo trimestre in oltre quindici anni con ricavi organici ed EPS organico entrambi sopra il 20%. Margine lordo sulla capacita' AI al 32%, sopra la guida del 30%. Resta il nodo del finanziamento: 50 miliardi annunciati, 30 gia' raccolti.",
+ "tone_why": {
+  "it": "Primo trimestre in oltre quindici anni con ricavi organici ed EPS organico entrambi sopra il 20%. Margine lordo sulla capacità AI al 32%, sopra la guida del 30%. Resta il nodo del finanziamento: 50 miliardi annunciati, 30 già raccolti.",
+  "en": "The first quarter in over fifteen years with both organic revenue and organic EPS above 20%. Gross margin on AI capacity at 32%, above the 30% guided. The funding question remains: $50 billion announced, $30 billion already raised."
+ },
  "guidance": [
   {
    "metric": "RPO",
@@ -11,17 +14,17 @@
    "direction": "prima"
   },
   {
-   "metric": "Margine lordo sulla capacita' AI consegnata",
+   "metric": "Margine lordo sulla capacità AI consegnata",
    "value": "32%, sopra la guida del 30%",
    "direction": "confermata"
   },
   {
    "metric": "Finanziamento",
-   "value": "fino a 50 miliardi $ fra debito e capitale; 30 gia' raccolti; nessuna altra obbligazione nel 2026",
+   "value": "fino a 50 miliardi $ fra debito e capitale; 30 già raccolti; nessuna altra obbligazione nel 2026",
    "direction": "prima"
   },
   {
-   "metric": "Capacita' da partner",
+   "metric": "Capacità da partner",
    "value": "oltre 10 gigawatt nei prossimi tre anni, finanziata per oltre il 90%",
    "direction": "prima"
   },
@@ -38,7 +41,7 @@
  ],
  "qa": [
   {
-   "question": "Ci date visibilita' sul capex dell'anno fiscale 2027?",
+   "question": "Ci date visibilità sul capex dell'anno fiscale 2027?",
    "answer_summary": "Rinviato: 'ne riparliamo dopo la fine dell'anno fiscale'. Insiste sul fatto che il capex non richiede cassa di Oracle.",
    "directness": 2
   },
@@ -48,34 +51,70 @@
    "directness": 4
   },
   {
-   "question": "Quanto e' profittevole il data center AI, al netto del costo del capitale?",
-   "answer_summary": "Da' i numeri: 30-40% di margine sugli acceleratori, 10-20% della spesa in servizi adiacenti a margine piu' alto, database multicloud al 60-80%.",
+   "question": "Quanto è profittevole il data center AI, al netto del costo del capitale?",
+   "answer_summary": "Dà i numeri: 30-40% di margine sugli acceleratori, 10-20% della spesa in servizi adiacenti a margine più alto, database multicloud al 60-80%.",
    "directness": 5
   },
   {
-   "question": "L'AI uccidera' il SaaS?",
-   "answer_summary": "Posizione netta e motivata: 'siamo noi il disruptor', con mille agenti gia' in produzione.",
+   "question": "L'AI ucciderà il SaaS?",
+   "answer_summary": "Posizione netta e motivata: 'siamo noi il disruptor', con mille agenti già in produzione.",
    "directness": 4
   }
  ],
  "language_changes": [
   {
-   "topic": "Raccolta di capitale",
-   "from": "'meno, se non molto meno, di 100 miliardi'",
-   "to": "fino a 50 miliardi annunciati, 30 raccolti in pochi giorni",
-   "note": "La cifra vaga del trimestre prima diventa un programma preciso. Qui le parole si trasformano in fatti."
+   "topic": {
+    "it": "Raccolta di capitale",
+    "en": "Raising capital"
+   },
+   "from": {
+    "it": "'meno, se non molto meno, di 100 miliardi'",
+    "en": "'less, if not substantially less, than $100 billion'"
+   },
+   "to": {
+    "it": "fino a 50 miliardi annunciati, 30 raccolti in pochi giorni",
+    "en": "up to $50 billion announced, $30 billion raised within days"
+   },
+   "note": {
+    "it": "La cifra vaga del trimestre prima diventa un programma preciso. Qui le parole si trasformano in fatti.",
+    "en": "The vague figure of the previous quarter becomes a precise programme. Here the words turn into facts."
+   }
   },
   {
-   "topic": "Margine lordo AI",
-   "from": "30-40% sulla vita del contratto",
-   "to": "32% realizzato sulla capacita' consegnata",
-   "note": "Promessa verificabile e verificata: e' il contrario del caso Intel sui clienti foundry."
+   "topic": {
+    "it": "Margine lordo AI",
+    "en": "AI gross margin"
+   },
+   "from": {
+    "it": "30-40% sulla vita del contratto",
+    "en": "30-40% over the life of the contract"
+   },
+   "to": {
+    "it": "32% realizzato sulla capacità consegnata",
+    "en": "32% delivered on the capacity handed over"
+   },
+   "note": {
+    "it": "Promessa verificabile e verificata: è il contrario del caso Intel sui clienti foundry.",
+    "en": "A promise that can be checked, and was: the opposite of the Intel case on foundry customers."
+   }
   },
   {
-   "topic": "Capex futuro",
-   "from": "capex 2026 alzato di 15 miliardi",
-   "to": "sul 2027 nessun numero fino a dopo la chiusura dell'anno",
-   "note": "Il capex si alza quando la notizia e' buona e si rimanda quando il numero sarebbe grande."
+   "topic": {
+    "it": "Capex futuro",
+    "en": "Future capex"
+   },
+   "from": {
+    "it": "capex 2026 alzato di 15 miliardi",
+    "en": "capex 2026 raised by $15 billion"
+   },
+   "to": {
+    "it": "sul 2027 nessun numero fino a dopo la chiusura dell'anno",
+    "en": "no number for 2027 until after the year closes"
+   },
+   "note": {
+    "it": "Il capex si alza quando la notizia è buona e si rimanda quando il numero sarebbe grande.",
+    "en": "Capex is raised when the news is good and deferred when the number would be large."
+   }
   }
  ],
  "file": "ORCL_2026Q3.json",

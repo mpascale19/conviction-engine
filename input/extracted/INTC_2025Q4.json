@@ -3,7 +3,10 @@
  "quarter": "T4 '25",
  "call_date": "2026-01-22",
  "tone": 52,
- "tone_why": "Quinto trimestre sopra la guidance, ma la guida di Q1 e' la piu' debole dell'anno (margine 34,5%, EPS a zero) e il CEO dice apertamente di essere deluso dalle rese.",
+ "tone_why": {
+  "it": "Quinto trimestre sopra la guidance, ma la guida di Q1 è la più debole dell'anno (margine 34,5%, EPS a zero) e il CEO dice apertamente di essere deluso dalle rese.",
+  "en": "A fifth quarter above guidance, but the Q1 guide is the weakest of the year (34.5% margin, EPS at zero) and the CEO says plainly that he is disappointed with the yields."
+ },
  "guidance": [
   {
    "metric": "Ricavi Q1 2026",
@@ -38,18 +41,18 @@
  ],
  "qa": [
   {
-   "question": "Quando allenterete i freni sul capex per servire una domanda strutturalmente piu' alta?",
-   "answer_summary": "Spesa su strumenti in aumento, ma niente capacita' su 14A finche' non ci sono clienti firmati.",
+   "question": "Quando allenterete i freni sul capex per servire una domanda strutturalmente più alta?",
+   "answer_summary": "Spesa su strumenti in aumento, ma niente capacità su 14A finché non ci sono clienti firmati.",
    "directness": 5
   },
   {
    "question": "Che cosa implica per il margine lordo dell'anno?",
-   "answer_summary": "Ammette che 34,5% non e' accettabile e indica 40% come primo obiettivo, senza percorso trimestrale.",
+   "answer_summary": "Ammette che 34,5% non è accettabile e indica 40% come primo obiettivo, senza percorso trimestrale.",
    "directness": 4
   },
   {
-   "question": "Avete fabbriche vostre: perche' vi trovate in questa situazione di scorte?",
-   "answer_summary": "Risposta diretta: sei mesi fa i clienti segnalavano core in crescita ma unita' ferme, e si sono sbagliati.",
+   "question": "Avete fabbriche vostre: perché vi trovate in questa situazione di scorte?",
+   "answer_summary": "Risposta diretta: sei mesi fa i clienti segnalavano core in crescita ma unità ferme, e si sono sbagliati.",
    "directness": 5
   },
   {
@@ -60,16 +63,40 @@
  ],
  "language_changes": [
   {
-   "topic": "Capex 2026",
-   "from": "in calo rispetto al 2025",
-   "to": "piatto o in leggero calo",
-   "note": "Prima revisione al rialzo: la motivazione sono i segnali di domanda, non un cambio di strategia."
+   "topic": {
+    "it": "Capex 2026",
+    "en": "Capex 2026"
+   },
+   "from": {
+    "it": "in calo rispetto al 2025",
+    "en": "down against 2025"
+   },
+   "to": {
+    "it": "piatto o in leggero calo",
+    "en": "flat to slightly down"
+   },
+   "note": {
+    "it": "Prima revisione al rialzo: la motivazione sono i segnali di domanda, non un cambio di strategia.",
+    "en": "The first upward revision: the reason given is demand signals, not a change of strategy."
+   }
   },
   {
-   "topic": "Clienti esterni 14A",
-   "from": "engagement attivi",
-   "to": "decisioni di fornitura dal secondo semestre 2026",
-   "note": "La data della prima firma si sposta in avanti rispetto alla call precedente."
+   "topic": {
+    "it": "Clienti esterni 14A",
+    "en": "External 14A customers"
+   },
+   "from": {
+    "it": "engagement attivi",
+    "en": "active engagements"
+   },
+   "to": {
+    "it": "decisioni di fornitura dal secondo semestre 2026",
+    "en": "supplier decisions from the second half of 2026"
+   },
+   "note": {
+    "it": "La data della prima firma si sposta in avanti rispetto alla call precedente.",
+    "en": "The date of the first signature moves further out than in the previous call."
+   }
   }
  ],
  "file": "INTC_2025Q4.json",

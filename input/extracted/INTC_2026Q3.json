@@ -3,121 +3,280 @@
  "quarter": "T3 '26",
  "call_date": "2026-10-22",
  "tone": 63,
- "tone_why": "Ottavo trimestre sopra la guidance e margine al 44,1%, ma la guida di Q4 scende su tutta la linea (ricavi, margine al 38%, EPS) e il CFO ammette che il 2027 non avra' flusso di cassa positivo.",
+ "tone_why": {
+  "it": "Ottavo trimestre sopra la guidance e margine al 44,1%, ma la guida di Q4 scende su tutta la linea (ricavi, margine al 38%, EPS) e il CFO ammette che il 2027 non avrà flusso di cassa positivo.",
+  "en": "An eighth quarter above guidance and a 44.1% margin, but the Q4 guide falls across the board (revenue, margin at 38%, EPS) and the CFO admits that 2027 will not have positive cash flow."
+ },
  "guidance": [
   {
-   "metric": "Ricavi Q4 2026",
-   "value": "15-16 miliardi $ (centro 15,5), in calo sequenziale",
+   "metric": {
+    "it": "Ricavi Q4 2026",
+    "en": "Q4 2026 revenue"
+   },
+   "value": {
+    "it": "15-16 miliardi $ (centro 15,5), in calo sequenziale",
+    "en": "$15-16 billion (midpoint 15.5), down sequentially"
+   },
    "direction": "ridotta"
   },
   {
-   "metric": "Margine lordo Q4 2026",
-   "value": "38% (da 44,1% realizzato)",
+   "metric": {
+    "it": "Margine lordo Q4 2026",
+    "en": "Q4 2026 gross margin"
+   },
+   "value": {
+    "it": "38% (da 44,1% realizzato)",
+    "en": "38% (from 44.1% delivered)"
+   },
    "direction": "ridotta"
   },
   {
-   "metric": "EPS Q4 2026",
-   "value": "0,25 $ (da 0,52 realizzato)",
+   "metric": {
+    "it": "EPS Q4 2026",
+    "en": "Q4 2026 EPS"
+   },
+   "value": {
+    "it": "0,25 $ (da 0,52 realizzato)",
+    "en": "$0.25 (from $0.52 delivered)"
+   },
    "direction": "ridotta"
   },
   {
-   "metric": "Impatto incidente Fab 28",
-   "value": "circa 300 milioni $ di ricavi e 200 punti base di margine, simile nel Q1",
+   "metric": {
+    "it": "Impatto incidente Fab 28",
+    "en": "Impact of the Fab 28 incident"
+   },
+   "value": {
+    "it": "circa 300 milioni $ di ricavi e 200 punti base di margine, simile nel Q1",
+    "en": "about $300 million of revenue and 200 basis points of margin, similar in Q1"
+   },
    "direction": "prima"
   },
   {
-   "metric": "Capex 2026",
-   "value": "20 miliardi $ lordi, confermato",
+   "metric": {
+    "it": "Capex 2026",
+    "en": "Capex 2026"
+   },
+   "value": {
+    "it": "20 miliardi $ lordi, confermato",
+    "en": "$20 billion gross, confirmed"
+   },
    "direction": "confermata"
   },
   {
-   "metric": "Capex 2027",
-   "value": "in forte aumento",
+   "metric": {
+    "it": "Capex 2027",
+    "en": "Capex 2027"
+   },
+   "value": {
+    "it": "in forte aumento",
+    "en": "rising sharply"
+   },
    "direction": "alzata"
   },
   {
-   "metric": "TAM PC 2026 (unita')",
-   "value": "in calo di circa il 12%, secondo semestre oltre -20%",
+   "metric": {
+    "it": "TAM PC 2026 (unità)",
+    "en": "PC TAM 2026 (units)"
+   },
+   "value": {
+    "it": "in calo di circa il 12%, secondo semestre oltre -20%",
+    "en": "down about 12%, second half beyond -20%"
+   },
    "direction": "ridotta"
   },
   {
-   "metric": "TAM PC 2027 (unita')",
-   "value": "in calo di circa il 10%",
+   "metric": {
+    "it": "TAM PC 2027 (unità)",
+    "en": "PC TAM 2027 (units)"
+   },
+   "value": {
+    "it": "in calo di circa il 10%",
+    "en": "down about 10%"
+   },
    "direction": "prima"
   },
   {
-   "metric": "Unita' CPU server del settore",
-   "value": "oltre +30% nel 2026 e nel 2027",
+   "metric": {
+    "it": "Unità CPU server del settore",
+    "en": "Industry server CPU units"
+   },
+   "value": {
+    "it": "oltre +30% nel 2026 e nel 2027",
+    "en": "above +30% in 2026 and in 2027"
+   },
    "direction": "alzata"
   },
   {
-   "metric": "Free cash flow 2027",
-   "value": "probabilmente non positivo",
+   "metric": {
+    "it": "Free cash flow 2027",
+    "en": "Free cash flow 2027"
+   },
+   "value": {
+    "it": "probabilmente non positivo",
+    "en": "probably not positive"
+   },
    "direction": "ridotta"
   }
  ],
  "qa": [
   {
-   "question": "Potete dare dei paletti sul 2027 fra crescita del data center e calo del PC?",
-   "answer_summary": "Non guida, ma da' molto colore: 2027 anno di crescita, primo semestre ancora vincolato.",
+   "question": {
+    "it": "Potete dare dei paletti sul 2027 fra crescita del data center e calo del PC?",
+    "en": "Can you give any guardrails on 2027 between data-centre growth and the PC decline?"
+   },
+   "answer_summary": {
+    "it": "Non guida, ma dà molto colore: 2027 anno di crescita, primo semestre ancora vincolato.",
+    "en": "Does not guide, but gives plenty of colour: 2027 a growth year, first half still constrained."
+   },
    "directness": 4
   },
   {
-   "question": "Siete impegnati a generare flusso di cassa positivo l'anno prossimo?",
-   "answer_summary": "Risposta diretta e negativa: 'probabilmente non sara' un anno di free cash flow positivo'.",
+   "question": {
+    "it": "Siete impegnati a generare flusso di cassa positivo l'anno prossimo?",
+    "en": "Are you committed to generating positive cash flow next year?"
+   },
+   "answer_summary": {
+    "it": "Risposta diretta e negativa: 'probabilmente non sarà un anno di free cash flow positivo'.",
+    "en": "A direct and negative answer: 'probably not a year of positive free cash flow'."
+   },
    "directness": 5
   },
   {
-   "question": "Quanto pesano Israele, il client e l'esecuzione sul taglio di 1,8 miliardi rispetto al consenso?",
-   "answer_summary": "Quantifica Israele (300 milioni nel Q4, simile nel Q1) e descrive il client, senza scomporre il resto.",
+   "question": {
+    "it": "Quanto pesano Israele, il client e l'esecuzione sul taglio di 1,8 miliardi rispetto al consenso?",
+    "en": "How much do Israel, client and execution weigh in the $1.8 billion cut against consensus?"
+   },
+   "answer_summary": {
+    "it": "Quantifica Israele (300 milioni nel Q4, simile nel Q1) e descrive il client, senza scomporre il resto.",
+    "en": "Quantifies Israel ($300 million in Q4, similar in Q1) and describes client, without breaking out the rest."
+   },
    "directness": 3
   },
   {
-   "question": "Che cosa vi fa pensare che la fornitura di memoria migliori?",
-   "answer_summary": "Capovolge la premessa: non sono ottimisti, si aspettano che nel 2027 non migliori.",
+   "question": {
+    "it": "Che cosa vi fa pensare che la fornitura di memoria migliori?",
+    "en": "What makes you think memory supply will improve?"
+   },
+   "answer_summary": {
+    "it": "Capovolge la premessa: non sono ottimisti, si aspettano che nel 2027 non migliori.",
+    "en": "Turns the premise around: they are not optimistic, they expect no improvement in 2027."
+   },
    "directness": 5
   },
   {
-   "question": "Quando arrivano gli annunci dei clienti foundry esterni?",
-   "answer_summary": "Ripete che non rivelera' i nomi dei clienti; dice di essere incoraggiato dai progressi su 14A.",
+   "question": {
+    "it": "Quando arrivano gli annunci dei clienti foundry esterni?",
+    "en": "When do the external foundry customer announcements arrive?"
+   },
+   "answer_summary": {
+    "it": "Ripete che non rivelerà i nomi dei clienti; dice di essere incoraggiato dai progressi su 14A.",
+    "en": "Repeats that he will not reveal customer names; says he is encouraged by progress on 14A."
+   },
    "directness": 2
   },
   {
-   "question": "La debolezza del PC vi permette di spostare wafer sul data center?",
-   "answer_summary": "Si', e spiega quali wafer (18A destinati a Panther Lake), con il limite dei substrati.",
+   "question": {
+    "it": "La debolezza del PC vi permette di spostare wafer sul data center?",
+    "en": "Does PC weakness let you shift wafers to the data centre?"
+   },
+   "answer_summary": {
+    "it": "Sì, e spiega quali wafer (18A destinati a Panther Lake), con il limite dei substrati.",
+    "en": "Yes, and explains which wafers (18A meant for Panther Lake), with substrates as the limit."
+   },
    "directness": 5
   }
  ],
  "language_changes": [
   {
-   "topic": "Free cash flow",
-   "from": "positivo per l'intero 2026 (T1 '26)",
-   "to": "probabilmente non positivo nel 2027",
-   "note": "Il cambiamento piu' importante del trimestre: da impegno esplicito a esclusione esplicita, motivato con l'investimento invece che con la redditivita'."
+   "topic": {
+    "it": "Free cash flow",
+    "en": "Free cash flow"
+   },
+   "from": {
+    "it": "positivo per l'intero 2026 (T1 '26)",
+    "en": "positive for the whole of 2026 (Q1 '26)"
+   },
+   "to": {
+    "it": "probabilmente non positivo nel 2027",
+    "en": "probably not positive in 2027"
+   },
+   "note": {
+    "it": "Il cambiamento più importante del trimestre: da impegno esplicito a esclusione esplicita, motivato con l'investimento invece che con la redditività.",
+    "en": "The most important change of the quarter: from an explicit commitment to an explicit exclusion, justified by investment rather than by profitability."
+   }
   },
   {
-   "topic": "Margine lordo",
-   "from": "'comodamente sopra il 40% in ogni trimestre' (T2 '26)",
-   "to": "guida al 38% per il Q4",
-   "note": "L'obiettivo dichiarato come priorita' numero uno viene mancato dalla guida un trimestre dopo averlo rivendicato; 200 punti base sono spiegati dall'incidente in Israele, il resto no."
+   "topic": {
+    "it": "Margine lordo",
+    "en": "Gross margin"
+   },
+   "from": {
+    "it": "'comodamente sopra il 40% in ogni trimestre' (T2 '26)",
+    "en": "'comfortably above 40% in every quarter' (Q2 '26)"
+   },
+   "to": {
+    "it": "guida al 38% per il Q4",
+    "en": "guided to 38% for Q4"
+   },
+   "note": {
+    "it": "L'obiettivo dichiarato come priorità numero uno viene mancato dalla guida un trimestre dopo averlo rivendicato; 200 punti base sono spiegati dall'incidente in Israele, il resto no.",
+    "en": "The target stated as priority number one is missed by the guide one quarter after being claimed; 200 basis points are explained by the incident in Israel, the rest is not."
+   }
   },
   {
-   "topic": "Domanda PC",
-   "from": "in calo a doppia cifra bassa nel 2026",
-   "to": "-12% nel 2026 e -10% nel 2027, secondo semestre oltre -20%",
-   "note": "La debolezza passa da temporanea a estesa anche al 2027."
+   "topic": {
+    "it": "Domanda PC",
+    "en": "PC demand"
+   },
+   "from": {
+    "it": "in calo a doppia cifra bassa nel 2026",
+    "en": "down low double digits in 2026"
+   },
+   "to": {
+    "it": "-12% nel 2026 e -10% nel 2027, secondo semestre oltre -20%",
+    "en": "-12% in 2026 and -10% in 2027, second half beyond -20%"
+   },
+   "note": {
+    "it": "La debolezza passa da temporanea a estesa anche al 2027.",
+    "en": "The weakness goes from temporary to extending into 2027 as well."
+   }
   },
   {
-   "topic": "Memoria",
-   "from": "prezzi in aumento da monitorare",
-   "to": "non ci aspettiamo miglioramenti nel 2027",
-   "note": "Da rischio sorvegliato a ipotesi di base del piano."
+   "topic": {
+    "it": "Memoria",
+    "en": "Memory"
+   },
+   "from": {
+    "it": "prezzi in aumento da monitorare",
+    "en": "rising prices to be watched"
+   },
+   "to": {
+    "it": "non ci aspettiamo miglioramenti nel 2027",
+    "en": "we do not expect improvement in 2027"
+   },
+   "note": {
+    "it": "Da rischio sorvegliato a ipotesi di base del piano.",
+    "en": "From a watched risk to a base case of the plan."
+   }
   },
   {
-   "topic": "Clienti foundry esterni",
-   "from": "'un paio di clienti pronti da annunciare nei prossimi due trimestri'",
-   "to": "'non divulgheremo i dettagli dei clienti'",
-   "note": "Promessa fatta e poi ritirata nella stessa call: il CEO annuncia annunci imminenti e poco dopo ricorda di aver sempre detto che non fara' nomi. Cinque trimestri di attesa, nessun nome."
+   "topic": {
+    "it": "Clienti foundry esterni",
+    "en": "External foundry customers"
+   },
+   "from": {
+    "it": "'un paio di clienti pronti da annunciare nei prossimi due trimestri'",
+    "en": "'a couple of customers ready to announce in the next two quarters'"
+   },
+   "to": {
+    "it": "'non divulgheremo i dettagli dei clienti'",
+    "en": "'we will not disclose customer details'"
+   },
+   "note": {
+    "it": "Promessa fatta e poi ritirata nella stessa call: il CEO annuncia annunci imminenti e poco dopo ricorda di aver sempre detto che non farà nomi. Cinque trimestri di attesa, nessun nome.",
+    "en": "A promise made and then withdrawn in the same call: the CEO announces imminent announcements and shortly after recalls having always said he would name no names. Five quarters of waiting, no name."
+   }
   }
  ],
  "file": "INTC_2026Q3.json",

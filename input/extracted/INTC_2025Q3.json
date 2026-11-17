@@ -3,7 +3,10 @@
  "quarter": "T3 '25",
  "call_date": "2025-10-23",
  "tone": 55,
- "tone_why": "Quarto trimestre sopra la guidance e bilancio risanato, ma il management ripete di avere molta strada davanti e guida il trimestre successivo con margine in calo.",
+ "tone_why": {
+  "it": "Quarto trimestre sopra la guidance e bilancio risanato, ma il management ripete di avere molta strada davanti e guida il trimestre successivo con margine in calo.",
+  "en": "A fourth quarter above guidance and a repaired balance sheet, but management keeps saying it has a long way to go, and guides the next quarter with the margin going down."
+ },
  "guidance": [
   {
    "metric": "Ricavi Q4 2025",
@@ -38,18 +41,18 @@
    "directness": 3
   },
   {
-   "question": "Dove nasce la scarsita' di fornitura, visto che la crescita e' solo +5%?",
-   "answer_summary": "Ammette che la carenza e' trasversale, soprattutto Intel 10 e 7, e che vivono di scorte.",
+   "question": "Dove nasce la scarsità di fornitura, visto che la crescita è solo +5%?",
+   "answer_summary": "Ammette che la carenza è trasversale, soprattutto Intel 10 e 7, e che vivono di scorte.",
    "directness": 4
   },
   {
    "question": "A che punto sono le rese di 18A rispetto a un nodo riuscito del passato?",
-   "answer_summary": "Dice che le rese bastano per la fornitura ma non per i margini, e servira' tutto il 2026.",
+   "answer_summary": "Dice che le rese bastano per la fornitura ma non per i margini, e servirà tutto il 2026.",
    "directness": 4
   },
   {
    "question": "Quale sarebbe il margine lordo senza Intel 10 e 7?",
-   "answer_summary": "Non normalizza il numero, elenca i fattori: costo dei nodi vecchi e competitivita' dei prodotti.",
+   "answer_summary": "Non normalizza il numero, elenca i fattori: costo dei nodi vecchi e competitività dei prodotti.",
    "directness": 2
   }
  ],

@@ -3,7 +3,10 @@
  "quarter": "T1 '26",
  "call_date": "2026-04-23",
  "tone": 60,
- "tone_why": "Trimestre migliore delle attese e linguaggio piu' sicuro ('la nostra fiducia sta crescendo'), ma compaiono i primi avvertimenti su memoria, substrati e domanda PC nel secondo semestre.",
+ "tone_why": {
+  "it": "Trimestre migliore delle attese e linguaggio più sicuro ('la nostra fiducia sta crescendo'), ma compaiono i primi avvertimenti su memoria, substrati e domanda PC nel secondo semestre.",
+  "en": "A quarter better than expected and more confident language ('our confidence is growing'), but the first warnings appear on memory, substrates and PC demand in the second half."
+ },
  "guidance": [
   {
    "metric": "Ricavi Q2 2026",
@@ -31,8 +34,8 @@
    "direction": "alzata"
   },
   {
-   "metric": "TAM PC 2026 (unita')",
-   "value": "in calo di circa il 10% o piu'",
+   "metric": "TAM PC 2026 (unità)",
+   "value": "in calo di circa il 10% o più",
    "direction": "ridotta"
   },
   {
@@ -53,39 +56,75 @@
    "directness": 2
   },
   {
-   "question": "Perche' il margine lordo non sale nonostante la crescita del data center?",
+   "question": "Perché il margine lordo non sale nonostante la crescita del data center?",
    "answer_summary": "Spiega il mix: Panther Lake su 18A cresce sei-sette volte e resta sotto la media aziendale.",
    "directness": 4
   },
   {
-   "question": "Terafab e' una foundry normale o una licenza di processo?",
+   "question": "Terafab è una foundry normale o una licenza di processo?",
    "answer_summary": "Non chiarisce la struttura dell'accordo, parla di visione condivisa e rimanda.",
    "directness": 2
   },
   {
    "question": "Di quanto sono migliorate le rese di 18A?",
-   "answer_summary": "Definisce il dato proprietario; dice solo che l'obiettivo di fine anno arrivera' a meta' anno.",
+   "answer_summary": "Definisce il dato proprietario; dice solo che l'obiettivo di fine anno arriverà a metà anno.",
    "directness": 3
   }
  ],
  "language_changes": [
   {
-   "topic": "Capex 2026",
-   "from": "piatto o in leggero calo",
-   "to": "piatto rispetto al 2025",
-   "note": "Secondo rialzo consecutivo del capex, sempre giustificato con la domanda."
+   "topic": {
+    "it": "Capex 2026",
+    "en": "Capex 2026"
+   },
+   "from": {
+    "it": "piatto o in leggero calo",
+    "en": "flat to slightly down"
+   },
+   "to": {
+    "it": "piatto rispetto al 2025",
+    "en": "flat against 2025"
+   },
+   "note": {
+    "it": "Secondo rialzo consecutivo del capex, sempre giustificato con la domanda.",
+    "en": "A second consecutive increase in capex, again justified by demand."
+   }
   },
   {
-   "topic": "OpEx 2026",
-   "from": "obiettivo 16 miliardi $",
-   "to": "probabilmente sopra i 16 miliardi $",
-   "note": "Il numero resta citato come riferimento ma smette di essere un impegno."
+   "topic": {
+    "it": "OpEx 2026",
+    "en": "OpEx 2026"
+   },
+   "from": {
+    "it": "obiettivo 16 miliardi $",
+    "en": "target of $16 billion"
+   },
+   "to": {
+    "it": "probabilmente sopra i 16 miliardi $",
+    "en": "likely above $16 billion"
+   },
+   "note": {
+    "it": "Il numero resta citato come riferimento ma smette di essere un impegno.",
+    "en": "The number is still quoted as a reference but stops being a commitment."
+   }
   },
   {
-   "topic": "Domanda PC",
-   "from": "ecosistema PC in salute",
-   "to": "ci prepariamo con prudenza a un indebolimento nel secondo semestre",
-   "note": "Primo segnale negativo sul PC, tre trimestri prima del taglio vero."
+   "topic": {
+    "it": "Domanda PC",
+    "en": "PC demand"
+   },
+   "from": {
+    "it": "ecosistema PC in salute",
+    "en": "a healthy PC ecosystem"
+   },
+   "to": {
+    "it": "ci prepariamo con prudenza a un indebolimento nel secondo semestre",
+    "en": "we are preparing prudently for a weakening in the second half"
+   },
+   "note": {
+    "it": "Primo segnale negativo sul PC, tre trimestri prima del taglio vero.",
+    "en": "The first negative signal on the PC, three quarters before the real cut."
+   }
   }
  ],
  "file": "INTC_2026Q1.json",

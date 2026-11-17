@@ -3,7 +3,10 @@
  "quarter": "T2 '26",
  "call_date": "2026-07-23",
  "tone": 72,
- "tone_why": "Il trimestre piu' convinto della serie: ricavi 1,8 miliardi sopra il centro della guida, settimo superamento consecutivo, capex alzato e impegno alla produzione di volume su 14A nel 2028.",
+ "tone_why": {
+  "it": "Il trimestre più convinto della serie: ricavi 1,8 miliardi sopra il centro della guida, settimo superamento consecutivo, capex alzato e impegno alla produzione di volume su 14A nel 2028.",
+  "en": "The most confident quarter of the series: revenue $1.8 billion above the midpoint, a seventh consecutive beat, capex raised and a commitment to high-volume production on 14A in 2028."
+ },
  "guidance": [
   {
    "metric": "Ricavi Q3 2026",
@@ -42,28 +45,28 @@
   },
   {
    "metric": "Consumo PC secondo semestre",
-   "value": "sotto la stagionalita', anno in calo a doppia cifra bassa",
+   "value": "sotto la stagionalità, anno in calo a doppia cifra bassa",
    "direction": "ridotta"
   }
  ],
  "qa": [
   {
    "question": "L'aumento di capex significa ordini fermi da clienti foundry su 14A o 18A-P?",
-   "answer_summary": "Non conferma ordini: dice che l'investimento e' un segnale di fiducia sui clienti di tutte le divisioni.",
+   "answer_summary": "Non conferma ordini: dice che l'investimento è un segnale di fiducia sui clienti di tutte le divisioni.",
    "directness": 2
   },
   {
-   "question": "Quando la fiducia sui clienti foundry sara' confermata da annunci veri?",
+   "question": "Quando la fiducia sui clienti foundry sarà confermata da annunci veri?",
    "answer_summary": "Elenca i progressi tecnici di 14A e ripete 'stay tuned'; nessuna data, nessun nome.",
    "directness": 1
   },
   {
-   "question": "La forza del client e' tutta prezzo?",
-   "answer_summary": "Risposta diretta: si', in gran parte ASP e mix verso l'alto, con il mercato sottostante piu' debole.",
+   "question": "La forza del client è tutta prezzo?",
+   "answer_summary": "Risposta diretta: sì, in gran parte ASP e mix verso l'alto, con il mercato sottostante più debole.",
    "directness": 5
   },
   {
-   "question": "Un Q4 molto forte e' la lettura giusta, vista la capacita' in arrivo?",
+   "question": "Un Q4 molto forte è la lettura giusta, vista la capacità in arrivo?",
    "answer_summary": "Conferma la direzione ma avverte che non recupereranno il ritardo nel quarto trimestre.",
    "directness": 4
   },
@@ -75,22 +78,58 @@
  ],
  "language_changes": [
   {
-   "topic": "Capex 2026",
-   "from": "piatto rispetto al 2025",
-   "to": "oltre 20 miliardi $",
-   "note": "Terzo rialzo consecutivo in tre trimestri: da 'piatto' a 'molto sopra le attese di inizio anno'."
+   "topic": {
+    "it": "Capex 2026",
+    "en": "Capex 2026"
+   },
+   "from": {
+    "it": "piatto rispetto al 2025",
+    "en": "flat against 2025"
+   },
+   "to": {
+    "it": "oltre 20 miliardi $",
+    "en": "more than $20 billion"
+   },
+   "note": {
+    "it": "Terzo rialzo consecutivo in tre trimestri: da 'piatto' a 'molto sopra le attese di inizio anno'.",
+    "en": "A third consecutive increase in three quarters: from 'flat' to 'well above what was expected at the start of the year'."
+   }
   },
   {
-   "topic": "Intel 14A",
-   "from": "produzione di rischio nel 2027",
-   "to": "impegno alla produzione di volume nel 2028",
-   "note": "Qui l'impegno diventa piu' forte, ed e' coerente con l'aumento di capex."
+   "topic": {
+    "it": "Intel 14A",
+    "en": "Intel 14A"
+   },
+   "from": {
+    "it": "produzione di rischio nel 2027",
+    "en": "risk production in 2027"
+   },
+   "to": {
+    "it": "impegno alla produzione di volume nel 2028",
+    "en": "commitment to high-volume production in 2028"
+   },
+   "note": {
+    "it": "Qui l'impegno diventa più forte, ed è coerente con l'aumento di capex.",
+    "en": "Here the commitment gets stronger, and it is consistent with the rise in capex."
+   }
   },
   {
-   "topic": "Margine lordo",
-   "from": "obiettivo: portarlo al 40%",
-   "to": "obiettivo raggiunto, 41,8% nel trimestre",
-   "note": "L'impegno preso nel T4 '25 viene mantenuto: utile come controprova del fatto che non tutte le promesse slittano."
+   "topic": {
+    "it": "Margine lordo",
+    "en": "Gross margin"
+   },
+   "from": {
+    "it": "obiettivo: portarlo al 40%",
+    "en": "target: get it to 40%"
+   },
+   "to": {
+    "it": "obiettivo raggiunto, 41,8% nel trimestre",
+    "en": "target met, 41.8% in the quarter"
+   },
+   "note": {
+    "it": "L'impegno preso nel T4 '25 viene mantenuto: utile come controprova del fatto che non tutte le promesse slittano.",
+    "en": "The commitment made in Q4 '25 is kept: useful as counter-evidence that not every promise slips."
+   }
   }
  ],
  "file": "INTC_2026Q2.json",

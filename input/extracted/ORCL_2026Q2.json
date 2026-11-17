@@ -3,7 +3,10 @@
  "quarter": "T2 '26 (anno fiscale)",
  "call_date": "2025-12-10",
  "tone": 74,
- "tone_why": "RPO a 523 miliardi (+433%) e cloud in forte accelerazione, ma il flusso di cassa libero e' negativo per 10 miliardi nel trimestre e l'azienda non ha un CFO titolare.",
+ "tone_why": {
+  "it": "RPO a 523 miliardi (+433%) e cloud in forte accelerazione, ma il flusso di cassa libero è negativo per 10 miliardi nel trimestre e l'azienda non ha un CFO titolare.",
+  "en": "RPO at $523 billion (+433%) and cloud accelerating sharply, but free cash flow is negative by $10 billion in the quarter and the company has no permanent CFO."
+ },
  "guidance": [
   {
    "metric": "Ricavi anno fiscale 2026",
@@ -12,7 +15,7 @@
   },
   {
    "metric": "Capex 2026",
-   "value": "circa 15 miliardi $ in piu' rispetto alla stima dopo il Q1",
+   "value": "circa 15 miliardi $ in più rispetto alla stima dopo il Q1",
    "direction": "alzata"
   },
   {
@@ -54,27 +57,27 @@
  "qa": [
   {
    "question": "Quanti soldi deve raccogliere Oracle per finanziare la crescita AI?",
-   "answer_summary": "Non da' una cifra: elenca i modelli alternativi (hardware del cliente, noleggio dai fornitori) e dice solo che servira' meno dei 100 miliardi che il mercato stima.",
+   "answer_summary": "Non dà una cifra: elenca i modelli alternativi (hardware del cliente, noleggio dai fornitori) e dice solo che servirà meno dei 100 miliardi che il mercato stima.",
    "directness": 3
   },
   {
-   "question": "Quanto tempo serve perche' i margini AI arrivino al 30-40%?",
-   "answer_summary": "'Dipende': spiega che il periodo senza ricavi dura un paio di mesi per data center, e che conta il mix fra centri gia' a regime e in costruzione.",
+   "question": "Quanto tempo serve perché i margini AI arrivino al 30-40%?",
+   "answer_summary": "'Dipende': spiega che il periodo senza ricavi dura un paio di mesi per data center, e che conta il mix fra centri già a regime e in costruzione.",
    "directness": 3
   },
   {
-   "question": "Qual e' il flusso di cassa di un singolo data center?",
+   "question": "Qual è il flusso di cassa di un singolo data center?",
    "answer_summary": "Descrive i tre modelli di finanziamento e dice che si sommano, 'basta l'aritmetica'. Nessun numero.",
    "directness": 2
   },
   {
-   "question": "Che succede se un grande cliente non paga? L'infrastruttura e' riutilizzabile?",
-   "answer_summary": "Risposta concreta: capacita' trasferita in ore, 700 clienti AI, lo fanno gia' ogni giorno.",
+   "question": "Che succede se un grande cliente non paga? L'infrastruttura è riutilizzabile?",
+   "answer_summary": "Risposta concreta: capacità trasferita in ore, 700 clienti AI, lo fanno già ogni giorno.",
    "directness": 5
   },
   {
-   "question": "Perche' le applicazioni dovrebbero accelerare mentre i concorrenti SaaS rallentano?",
-   "answer_summary": "Suite complete contro best-of-breed, piu' il ricavo differito che cresce (+14%) piu' del fatturato (+11%).",
+   "question": "Perché le applicazioni dovrebbero accelerare mentre i concorrenti SaaS rallentano?",
+   "answer_summary": "Suite complete contro best-of-breed, più il ricavo differito che cresce (+14%) più del fatturato (+11%).",
    "directness": 4
   }
  ],

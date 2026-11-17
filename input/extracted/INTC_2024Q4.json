@@ -3,7 +3,10 @@
  "quarter": "T4 '24",
  "call_date": "2025-01-31",
  "tone": 45,
- "tone_why": "Il punto piu' basso della serie: azienda guidata da due co-CEO ad interim, anno chiuso in perdita (EPS -0,13 $), foundry con oltre 13 miliardi di perdita operativa, e guida del Q1 in calo dell'11-18%.",
+ "tone_why": {
+  "it": "Il punto più basso della serie: azienda guidata da due co-CEO ad interim, anno chiuso in perdita (EPS -0,13 $), foundry con oltre 13 miliardi di perdita operativa, e guida del Q1 in calo dell'11-18%.",
+  "en": "The low point of the series: the company is run by two interim co-CEOs, the year closed at a loss (EPS -$0.13), the foundry lost over $13 billion at the operating line, and Q1 is guided down 11-18%."
+ },
  "guidance": [
   {
    "metric": "Ricavi Q1 2025",
@@ -53,17 +56,17 @@
    "directness": 4
   },
   {
-   "question": "Perche' tutti e tre i segmenti calano nello stesso modo nel Q1?",
-   "answer_summary": "Macro e stagionalita', senza scomporre per segmento.",
+   "question": "Perché tutti e tre i segmenti calano nello stesso modo nel Q1?",
+   "answer_summary": "Macro e stagionalità, senza scomporre per segmento.",
    "directness": 2
   },
   {
-   "question": "La concorrenza sui prezzi continuera' tutto l'anno?",
+   "question": "La concorrenza sui prezzi continuerà tutto l'anno?",
    "answer_summary": "Ammette pressione sui margini di Lunar Lake e dice che combatteranno 'per ogni socket'.",
    "directness": 4
   },
   {
-   "question": "A che punto e' la ricerca del CEO definitivo?",
+   "question": "A che punto è la ricerca del CEO definitivo?",
    "answer_summary": "'Nulla di nuovo da riferire', nessun dettaglio.",
    "directness": 1
   }

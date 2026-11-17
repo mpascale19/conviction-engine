@@ -3,105 +3,240 @@
  "quarter": "T1 '27 (anno fiscale)",
  "call_date": "2026-09-10",
  "tone": 78,
- "tone_why": "La parola scelta dal CFO per il trimestre e' 'accelerazione': ricavi e EPS sopra la guida, guida annuale alzata. Restano il flusso di cassa negativo (-5 miliardi) e il margine lordo in calo.",
+ "tone_why": {
+  "it": "La parola scelta dal CFO per il trimestre è 'accelerazione': ricavi e EPS sopra la guida, guida annuale alzata. Restano il flusso di cassa negativo (-5 miliardi) e il margine lordo in calo.",
+  "en": "The word the CFO chose for the quarter is 'acceleration': revenue and EPS above the guide, full-year guidance raised. What remains is the negative cash flow (-$5 billion) and the falling gross margin."
+ },
  "guidance": [
   {
-   "metric": "Ricavi anno fiscale 2027",
-   "value": "almeno 90 miliardi $ (+34%)",
+   "metric": {
+    "it": "Ricavi anno fiscale 2027",
+    "en": "Fiscal 2027 revenue"
+   },
+   "value": {
+    "it": "almeno 90 miliardi $ (+34%)",
+    "en": "at least $90 billion (+34%)"
+   },
    "direction": "alzata"
   },
   {
-   "metric": "EPS non-GAAP 2027",
-   "value": "8,10 $ (da 8,05)",
+   "metric": {
+    "it": "EPS non-GAAP 2027",
+    "en": "Fiscal 2027 non-GAAP EPS"
+   },
+   "value": {
+    "it": "8,10 $ (da 8,05)",
+    "en": "$8.10 (from $8.05)"
+   },
    "direction": "alzata"
   },
   {
-   "metric": "Ricavi Q2 2027",
-   "value": "+30-34%",
+   "metric": {
+    "it": "Ricavi Q2 2027",
+    "en": "Q2 2027 revenue"
+   },
+   "value": {
+    "it": "+30-34%",
+    "en": "+30-34%"
+   },
    "direction": "prima"
   },
   {
-   "metric": "Ricavi cloud Q2 2027",
-   "value": "+65-71%",
+   "metric": {
+    "it": "Ricavi cloud Q2 2027",
+    "en": "Q2 2027 cloud revenue"
+   },
+   "value": {
+    "it": "+65-71%",
+    "en": "+65-71%"
+   },
    "direction": "prima"
   },
   {
-   "metric": "EPS non-GAAP Q2 2027",
-   "value": "1,85-1,93 $ (+21-25%)",
+   "metric": {
+    "it": "EPS non-GAAP Q2 2027",
+    "en": "Q2 2027 non-GAAP EPS"
+   },
+   "value": {
+    "it": "1,85-1,93 $ (+21-25%)",
+    "en": "$1.85-1.93 (+21-25%)"
+   },
    "direction": "prima"
   },
   {
-   "metric": "Capex 2027",
-   "value": "90-95 miliardi $ lordi, non piu' di 70 miliardi netti",
+   "metric": {
+    "it": "Capex 2027",
+    "en": "Capex 2027"
+   },
+   "value": {
+    "it": "90-95 miliardi $ lordi, non più di 70 miliardi netti",
+    "en": "$90-95 billion gross, no more than $70 billion net"
+   },
    "direction": "confermata"
   },
   {
-   "metric": "Conversione dell'RPO",
-   "value": "circa meta' in ricavi nei prossimi 36 mesi",
+   "metric": {
+    "it": "Conversione dell'RPO",
+    "en": "RPO conversion"
+   },
+   "value": {
+    "it": "circa metà in ricavi nei prossimi 36 mesi",
+    "en": "about half into revenue over the next 36 months"
+   },
    "direction": "prima"
   },
   {
-   "metric": "Free cash flow",
-   "value": "nessuna data indicata",
+   "metric": {
+    "it": "Free cash flow",
+    "en": "Free cash flow"
+   },
+   "value": {
+    "it": "nessuna data indicata",
+    "en": "no date given"
+   },
    "direction": "prima"
   }
  ],
  "qa": [
   {
-   "question": "Quando Oracle torna a generare flusso di cassa positivo?",
-   "answer_summary": "'Non abbiamo dato una tempistica e non pensiamo di darla oggi'. Dice solo che i progetti, a regime, convertono circa il 100% dell'EBITDA post-tasse.",
+   "question": {
+    "it": "Quando Oracle torna a generare flusso di cassa positivo?",
+    "en": "When does Oracle go back to generating positive cash flow?"
+   },
+   "answer_summary": {
+    "it": "'Non abbiamo dato una tempistica e non pensiamo di darla oggi'. Dice solo che i progetti, a regime, convertono circa il 100% dell'EBITDA post-tasse.",
+    "en": "'We haven't given a particular timeframe and we don't expect to give that today.' Says only that the projects, at steady state, convert about 100% of after-tax EBITDA."
+   },
    "directness": 2
   },
   {
-   "question": "I ritardi sui data center di New Mexico e Wisconsin mettono a rischio la guida 2027?",
-   "answer_summary": "Risposta lunga ma conclusiva: nessuno dei due siti era previsto nella guida 2027.",
+   "question": {
+    "it": "I ritardi sui data center di New Mexico e Wisconsin mettono a rischio la guida 2027?",
+    "en": "Do the delays at the New Mexico and Wisconsin data centres put the 2027 guidance at risk?"
+   },
+   "answer_summary": {
+    "it": "Risposta lunga ma conclusiva: nessuno dei due siti era previsto nella guida 2027.",
+    "en": "A long answer, but conclusive: neither site was in the 2027 guidance."
+   },
    "directness": 4
   },
   {
-   "question": "Il rincaro dei componenti intacca i margini?",
-   "answer_summary": "Dice che i prezzi salgono e vengono ribaltati sul cliente, e che la guida precedente resta valida.",
+   "question": {
+    "it": "Il rincaro dei componenti intacca i margini?",
+    "en": "Does the rise in component prices eat into margins?"
+   },
+   "answer_summary": {
+    "it": "Dice che i prezzi salgono e vengono ribaltati sul cliente, e che la guida precedente resta valida.",
+    "en": "Says prices are going up and are passed on to the customer, and that the previous guidance still holds."
+   },
    "directness": 4
   },
   {
-   "question": "La crescita dell'RPO che non richiede capex e' AI labs, semiconduttori o sovereign?",
-   "answer_summary": "Corregge l'impostazione della domanda: non e' che non serve capex, e' che non serve cassa aggiuntiva di Oracle. Poi elenca i tre meccanismi.",
+   "question": {
+    "it": "La crescita dell'RPO che non richiede capex è AI labs, semiconduttori o sovereign?",
+    "en": "Is the RPO growth that needs no capex AI labs, semiconductors or sovereign?"
+   },
+   "answer_summary": {
+    "it": "Corregge l'impostazione della domanda: non è che non serve capex, è che non serve cassa aggiuntiva di Oracle. Poi elenca i tre meccanismi.",
+    "en": "Corrects the framing of the question: it is not that no capex is needed, it is that no additional cash from Oracle is needed. Then lists the three mechanisms."
+   },
    "directness": 4
   },
   {
-   "question": "Il margine lordo continuera' a scendere?",
-   "answer_summary": "Nessuna guida sul margine lordo; dice che nei prossimi due anni si appiattira' e rimanda all'Investor Day.",
+   "question": {
+    "it": "Il margine lordo continuerà a scendere?",
+    "en": "Will the gross margin keep falling?"
+   },
+   "answer_summary": {
+    "it": "Nessuna guida sul margine lordo; dice che nei prossimi due anni si appiattirà e rimanda all'Investor Day.",
+    "en": "No guidance on gross margin; says it will flatten over the next two years and defers to the Investor Day."
+   },
    "directness": 2
   },
   {
-   "question": "Qual e' il modello di business della AI data platform?",
-   "answer_summary": "'La risposta sul modello di business e' tutte le precedenti'. Nessuna quantificazione.",
+   "question": {
+    "it": "Qual è il modello di business della AI data platform?",
+    "en": "What is the business model of the AI data platform?"
+   },
+   "answer_summary": {
+    "it": "'La risposta sul modello di business è tutte le precedenti'. Nessuna quantificazione.",
+    "en": "'The answer really to the business model is all the above.' No quantification."
+   },
    "directness": 2
   }
  ],
  "language_changes": [
   {
-   "topic": "Guida annuale 2027",
-   "from": "+34% di ricavi, EPS 8,05 $",
-   "to": "almeno 90 miliardi $ di ricavi, EPS 8,10 $",
-   "note": "Alzata dopo un solo trimestre: i numeri seguono le parole, qui le promesse vengono mantenute."
+   "topic": {
+    "it": "Guida annuale 2027",
+    "en": "Full-year guidance 2027"
+   },
+   "from": {
+    "it": "+34% di ricavi, EPS 8,05 $",
+    "en": "+34% revenue, EPS $8.05"
+   },
+   "to": {
+    "it": "almeno 90 miliardi $ di ricavi, EPS 8,10 $",
+    "en": "at least $90 billion of revenue, EPS $8.10"
+   },
+   "note": {
+    "it": "Alzata dopo un solo trimestre: i numeri seguono le parole, qui le promesse vengono mantenute.",
+    "en": "Raised after a single quarter: the numbers follow the words, and here the promises are kept."
+   }
   },
   {
-   "topic": "Margine lordo",
-   "from": "'scendera' nel 2027 per la salita a regime dei data center'",
-   "to": "'nei prossimi due anni ci aspettiamo che si appiattisca'",
-   "note": "L'orizzonte del recupero si allunga da un anno a due, e sul trimestre non viene data nessuna guida."
+   "topic": {
+    "it": "Margine lordo",
+    "en": "Gross margin"
+   },
+   "from": {
+    "it": "'scenderà nel 2027 per la salita a regime dei data center'",
+    "en": "'it will fall in 2027 as the data centres ramp'"
+   },
+   "to": {
+    "it": "'nei prossimi due anni ci aspettiamo che si appiattisca'",
+    "en": "'over the next couple of years we expect it to flatten'"
+   },
+   "note": {
+    "it": "L'orizzonte del recupero si allunga da un anno a due, e sul trimestre non viene data nessuna guida.",
+    "en": "The horizon for the recovery stretches from one year to two, and no guidance at all is given for the quarter."
+   }
   },
   {
-   "topic": "Free cash flow",
-   "from": "non affrontato nella call precedente",
-   "to": "'non abbiamo dato una tempistica e non pensiamo di darla oggi'",
-   "note": "Nel trimestre il flusso di cassa libero e' negativo per 5 miliardi, con 28 miliardi di capex. E' la domanda piu' evitata della call."
+   "topic": {
+    "it": "Free cash flow",
+    "en": "Free cash flow"
+   },
+   "from": {
+    "it": "non affrontato nella call precedente",
+    "en": "not addressed in the previous call"
+   },
+   "to": {
+    "it": "'non abbiamo dato una tempistica e non pensiamo di darla oggi'",
+    "en": "'we haven't given a particular timeframe and we don't expect to give that today'"
+   },
+   "note": {
+    "it": "Nel trimestre il flusso di cassa libero è negativo per 5 miliardi, con 28 miliardi di capex. È la domanda più evitata della call.",
+    "en": "In the quarter free cash flow is negative by $5 billion, with $28 billion of capex. It is the most avoided question of the call."
+   }
   },
   {
-   "topic": "Capex 2027",
-   "from": "circa 70 miliardi netti, dichiarato 20-25 piu' alto",
-   "to": "90-95 miliardi lordi, non piu' di 70 netti",
-   "note": "Stesso impegno, detto in modo piu' esplicito: la cifra lorda viene finalmente pronunciata."
+   "topic": {
+    "it": "Capex 2027",
+    "en": "Capex 2027"
+   },
+   "from": {
+    "it": "circa 70 miliardi netti, dichiarato 20-25 più alto",
+    "en": "about $70 billion net, reported $20-25 billion higher"
+   },
+   "to": {
+    "it": "90-95 miliardi lordi, non più di 70 netti",
+    "en": "$90-95 billion gross, no more than $70 billion net"
+   },
+   "note": {
+    "it": "Stesso impegno, detto in modo più esplicito: la cifra lorda viene finalmente pronunciata.",
+    "en": "The same commitment, said more plainly: the gross figure is finally spoken out loud."
+   }
   }
  ],
  "file": "ORCL_2027Q1.json",
