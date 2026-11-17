@@ -97,6 +97,49 @@
   .dots{display:inline-flex;gap:3px;vertical-align:middle;margin-left:7px}
   .dots i{width:6px;height:6px;border-radius:50%;background:var(--line);display:block}
   .dots i.on{background:var(--blue)}
+  .nav{display:flex;gap:2px;flex-wrap:wrap;margin:0 0 2px}
+  .nav a{padding:8px 15px;border-radius:99px;font:600 13.5px inherit;color:var(--ink2);text-decoration:none}
+  .nav a:hover{background:var(--sunken);color:var(--ink)}
+  .nav a.on{background:var(--ink);color:var(--bg)}
+  .hero h1{font-size:28px;letter-spacing:-.02em;margin:0 0 10px;line-height:1.2}
+  .lead{font-size:15.5px;line-height:1.6;color:var(--ink2);margin:0 0 4px;max-width:64ch}
+  .tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(148px,1fr));gap:12px;margin:20px 0 14px}
+  .tile{background:var(--sunken);border-radius:10px;padding:14px}
+  .tile b{display:block;font-size:30px;font-weight:650;letter-spacing:-.02em;line-height:1;
+          font-variant-numeric:tabular-nums}
+  .tile span{display:block;font-size:12.5px;color:var(--ink2);margin-top:6px}
+  .tile em{display:block;font-style:normal;font-size:11.5px;color:var(--ink3);margin-top:2px}
+  .cta{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}
+  .btn{display:inline-block;background:var(--ink);color:var(--bg);border:1px solid var(--ink);
+       border-radius:8px;padding:10px 18px;font:600 13.5px inherit;text-decoration:none;cursor:pointer}
+  .btn.ghost{background:transparent;color:var(--ink);border-color:var(--axis)}
+  .btn:hover{opacity:.87}
+  .steps{counter-reset:s;list-style:none;margin:0;padding:0}
+  .steps li{counter-increment:s;position:relative;padding:14px 0 14px 46px;border-top:1px solid var(--line)}
+  .steps li:first-child{border-top:0}
+  .steps li::before{content:counter(s);position:absolute;left:0;top:15px;width:28px;height:28px;
+    border-radius:50%;background:var(--sunken);color:var(--ink2);font-size:13px;font-weight:650;
+    display:grid;place-items:center}
+  .steps b{font-size:14.5px}
+  .steps p{margin:4px 0 0;font-size:13.5px;color:var(--ink2);line-height:1.55}
+  .faq{border-top:1px solid var(--line)}
+  .faq:first-of-type{border-top:0}
+  .faq summary{cursor:pointer;padding:13px 0;font-weight:600;font-size:14px;list-style:none}
+  .faq summary::-webkit-details-marker{display:none}
+  .faq summary::before{content:'+';display:inline-block;width:18px;color:var(--ink3);font-weight:400}
+  .faq[open] summary::before{content:'\2013'}
+  .faq p{margin:0 0 14px 18px;font-size:13.5px;color:var(--ink2);line-height:1.55}
+  .field{margin:14px 0}
+  .field label{display:block;font-size:12.5px;color:var(--ink2);margin-bottom:5px;font-weight:600}
+  .field input,.field textarea{width:100%;background:var(--card);color:var(--ink);font:14px inherit;
+    border:1px solid var(--axis);border-radius:8px;padding:10px 12px;resize:vertical}
+  .field input{text-transform:uppercase}
+  .field input::placeholder,.field textarea::placeholder{text-transform:none;color:var(--ink3)}
+  .field input:focus,.field textarea:focus{outline:2px solid var(--blue);outline-offset:-1px;
+    border-color:var(--blue)}
+  ul.plain{margin:10px 0 0;padding-left:18px}
+  ul.plain li{font-size:13.5px;color:var(--ink2);margin:7px 0;line-height:1.5}
+  @media (max-width:620px){.hero h1{font-size:23px}.tile b{font-size:25px}}
 </style>
 <div class="wrap">
   <div class="langbar"><div class="lang" id="lang" role="group" aria-label="Lingua / Language">
@@ -140,7 +183,7 @@ var WORDS = {
 function wd(s){ s = String(s || ''); return LANG === 'it' ? s.toLowerCase() : (WORDS[s] || s.toLowerCase()); }
 
 /* ------------------------------------------------------------------ formato */
-var app = document.getElementById('app'), IDX = null, CACHE = {}, GRP = '';
+var app = document.getElementById('app'), IDX = null, CACHE = {}, GRP = '', CUR = '';
 function esc(s){ return String(s == null ? '' : s).replace(/[&<>"]/g, function(c){
   return ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'})[c]; }); }
 function n2(v){ return (typeof v === 'number' && isFinite(v)) ? nu(v.toFixed(2)) : '—'; }
@@ -184,6 +227,271 @@ function spark(series){
     '" fill="none" stroke="var(--blue)" stroke-width="2" vector-effect="non-scaling-stroke"/></svg>';
 }
 
+/* ------------------------------------------------------------------ pagine */
+var REPO = 'https://github.com/mpascale19/conviction-engine';
+var PAGES = ['home', 'aziende', 'guida', 'richieste'];
+
+function navBar(cur){
+  var items = [['home', T('Home', 'Home')], ['aziende', T('Aziende', 'Companies')],
+               ['guida', T('Come funziona', 'How it works')],
+               ['richieste', T('Richieste', 'Requests')]];
+  return '<nav class="nav">' + items.map(function(p){
+    return '<a href="#' + p[0] + '"' + (p[0] === cur ? ' class="on"' : '') + '>' +
+      esc(p[1]) + '</a>'; }).join('') + '</nav>';
+}
+
+function statTile(n, label, note){
+  return '<div class="tile"><b>' + n + '</b><span>' + esc(label) + '</span>' +
+    (note ? '<em>' + esc(note) + '</em>' : '') + '</div>';
+}
+
+function renderHome(){
+  var cs = (IDX.companies || []), buy = cs.filter(function(c){ return c.buyers > 0; });
+  var cl = cs.filter(function(c){ return c.cluster; });
+  var full = cs.filter(function(c){ return (c.covered_pct || 0) >= 80; });
+  var top = cs.slice(0, 3);
+  app.innerHTML = navBar('home') + problems(IDX.errors) +
+    '<div class="card hero">' +
+      '<h1>' + T('Un punteggio di convinzione, costruito a vista',
+                 'A conviction score, built in the open') + '</h1>' +
+      '<p class="lead">' +
+      T('Legge i Form 4 depositati alla SEC, i prezzi, lo short interest e le earnings call di ' +
+        cs.length + ' aziende americane, e ne ricava un punteggio da 0 a 100. ' +
+        'Il modello linguistico estrae i fatti dai documenti; il punteggio lo calcola una formula ' +
+        'scritta a mano, con i pesi in chiaro. Due giri sugli stessi documenti danno lo stesso numero.',
+        'It reads the Form 4 filings at the SEC, prices, short interest and earnings calls of ' +
+        cs.length + ' US companies, and turns them into a score from 0 to 100. ' +
+        'The language model extracts facts from the documents; the score is computed by a formula ' +
+        'written by hand, with the weights in plain sight. Two runs on the same documents give the same number.') +
+      '</p>' +
+      '<div class="tiles">' +
+        statTile(cs.length, T('aziende seguite', 'companies followed'),
+                 T((IDX.groups || []).length + ' universi', (IDX.groups || []).length + ' universes')) +
+        statTile(buy.length, T('con acquisti insider', 'with insider buying'),
+                 T('ultimi 90 giorni', 'last 90 days')) +
+        statTile(cl.length, T('cluster attivi', 'active clusters'),
+                 T('3+ compratori in 30 giorni', '3+ buyers in 30 days')) +
+        statTile(full.length, T('con copertura piena', 'with full coverage'),
+                 T('call e short interest inclusi', 'calls and short interest included')) +
+      '</div>' +
+      '<p class="sub">' + T('Aggiornato il ', 'Updated ') + esc(when(IDX.generated_at)) +
+      T('. Tre aggiornamenti al giorno nei giorni feriali.',
+        '. Three updates a day on weekdays.') + '</p>' +
+      '<div class="cta"><a class="btn" href="#aziende">' +
+      T('Vedi tutte le aziende', 'See all companies') + '</a>' +
+      '<a class="btn ghost" href="#guida">' + T('Come funziona', 'How it works') + '</a></div>' +
+    '</div>' +
+
+    '<div class="card"><h2>' + T('I punteggi più alti di oggi', 'Today’s highest scores') +
+    '</h2><p class="sub">' +
+    T('Un punteggio alto non è un consiglio: è un invito a guardare la scheda.',
+      'A high score is not advice: it is an invitation to open the page.') + '</p>' +
+    '<div class="scroll"><table><thead><tr><th>' + T('Azienda', 'Company') + '</th>' +
+    '<th class="num">' + T('Punteggio', 'Score') + '</th><th class="hide-s">' +
+    T('Lettura', 'Reading') + '</th><th class="num">' + T('Copertura', 'Coverage') +
+    '</th></tr></thead><tbody>' + top.map(function(c){
+      return '<tr data-t="' + esc(c.ticker) + '"><td><span class="tk">' + esc(c.ticker) +
+        '</span><div class="nm">' + esc(c.name) + '</div></td>' +
+        '<td class="num">' + scoreCell(c.score) + '</td>' +
+        '<td class="hide-s">' + esc(txt(c.verdict)) + '</td>' +
+        '<td class="num">' + (c.covered_pct || 0) + '%</td></tr>';
+    }).join('') + '</tbody></table></div></div>' +
+
+    '<div class="card sub">' + T(
+      'Strumento didattico, non una raccomandazione di investimento. Il codice, i dati e la ' +
+      'formula sono pubblici: ', 'A teaching tool, not investment advice. The code, the data and ' +
+      'the formula are public: ') + '<a href="' + REPO + '" target="_blank" rel="noopener">GitHub</a>.</div>';
+  [].forEach.call(app.querySelectorAll('tbody tr'), function(tr){
+    tr.addEventListener('click', function(){ location.hash = tr.dataset.t; });
+  });
+}
+
+function renderGuide(){
+  var steps = T([
+    ['Si scaricano i documenti',
+     'Per ogni azienda: i Form 4 degli ultimi due anni da SEC EDGAR, i prezzi di chiusura, le azioni ' +
+     'in circolazione dalla copertina dei 10-Q, e lo short interest pubblicato da FINRA.'],
+    ['Il modello estrae, non giudica',
+     'Dalle trascrizioni delle earnings call ricava fatti strutturati: il tono, ogni voce di guidance ' +
+     'con la sua direzione, quanto sono dirette le risposte agli analisti. Numeri e frasi, non opinioni.'],
+    ['Ogni operazione viene classificata',
+     'Un acquisto sul mercato pesa. Una vendita programmata da un piano 10b5-1, le azioni trattenute ' +
+     'per le imposte, un esercizio di opzioni: non pesano. Restano visibili, ma con peso zero.'],
+    ['Si applica la formula',
+     'Sette sotto-punteggi, ognuno con un peso fisso. Se una fonte manca, il suo peso si ridistribuisce ' +
+     'sugli altri e il sito dichiara quanta parte dei dati aveva a disposizione.'],
+    ['Si scrive perché',
+     'Ogni sotto-punteggio porta le frasi che lo giustificano, con i numeri dentro. Nessuna riga del ' +
+     'sito è un giudizio senza una fonte dietro.']
+  ], [
+    ['The documents are downloaded',
+     'For each company: the Form 4 filings of the last two years from SEC EDGAR, closing prices, shares ' +
+     'outstanding from the cover of the 10-Q, and the short interest published by FINRA.'],
+    ['The model extracts, it does not judge',
+     'From the earnings-call transcripts it draws structured facts: the tone, every guidance item with ' +
+     'its direction, how direct the answers to analysts are. Numbers and phrases, not opinions.'],
+    ['Every transaction is classified',
+     'An open-market purchase counts. A sale scheduled under a 10b5-1 plan, shares withheld for taxes, ' +
+     'an option exercise: they do not. They stay visible, at zero weight.'],
+    ['The formula is applied',
+     'Seven sub-scores, each with a fixed weight. If a source is missing, its weight is redistributed ' +
+     'over the others and the site states how much of the data it actually had.'],
+    ['The reasons are written down',
+     'Every sub-score carries the sentences that justify it, numbers included. No line on this site is ' +
+     'a verdict without a source behind it.']
+  ]);
+  var subs = T([
+    ['Insider', 30, 'Chi compra, quanto, se è un dirigente apicale, se più persone comprano nello stesso ' +
+     'periodo, e come sono andati i loro acquisti passati.'],
+    ['Guidance e tono', 20, 'Il tono delle ultime quattro call e quante voci di guidance l’azienda ha ' +
+     'alzato o ridotto nell’ultima.'],
+    ['Mercato', 15, 'Lo short interest: contro la storia del titolo e contro la mediana del suo settore.'],
+    ['Settore', 10, 'Se il segnale è isolato o se lo stanno facendo anche i concorrenti.'],
+    ['News', 10, 'Non ancora alimentato.'],
+    ['Contesto di prezzo', 10, 'Distanza dai massimi e dai minimi di sei mesi, momentum a tre mesi.'],
+    ['Social', 5, 'Non ancora alimentato.']
+  ], [
+    ['Insiders', 30, 'Who buys, how much, whether they are a top executive, whether several people buy in ' +
+     'the same window, and how their past purchases turned out.'],
+    ['Guidance and tone', 20, 'The tone of the last four calls and how many guidance items the company ' +
+     'raised or lowered in the latest one.'],
+    ['Market', 15, 'Short interest: against the stock’s own history and against its sector median.'],
+    ['Sector', 10, 'Whether the signal is isolated or the peers are doing the same.'],
+    ['News', 10, 'Not fed yet.'],
+    ['Price context', 10, 'Distance from the six-month high and low, three-month momentum.'],
+    ['Social', 5, 'Not fed yet.']
+  ]);
+  var faq = T([
+    ['Il punteggio dice di comprare?',
+     'No. Dice quanto sono allineati i segnali che il sistema sa leggere, e lascia a te la lettura. ' +
+     'Un punteggio alto con copertura bassa vale meno di un punteggio medio con copertura piena.'],
+    ['Che cos’è la copertura?',
+     'La percentuale dei pesi effettivamente alimentata da dati. Un’azienda con solo i dati SEC sta ' +
+     'al 50%; con call e short interest arriva all’85%. Il resto manca e viene dichiarato.'],
+    ['Perché una vendita a volte non conta?',
+     'Perché era già programmata. Un piano 10b5-1 si firma mesi prima: la vendita di oggi non dice ' +
+     'niente su quello che il dirigente pensa oggi. Resta scritta nella tabella, con peso zero.'],
+    ['Che cos’è un cluster?',
+     'Tre o più persone diverse che comprano entro 30 giorni. Pesa più di un singolo acquisto grande, ' +
+     'perché è difficile che tre persone sbaglino insieme per caso.'],
+    ['Perché il moltiplicatore storico?',
+     'Perché non tutti gli insider sono ugualmente informati. Ogni compratore porta con sé il rendimento ' +
+     'a 60 giorni dei suoi acquisti passati, rispetto al settore: chi ci ha preso pesa di più.'],
+    ['Da dove vengono i dati?',
+     'Form 4, azioni in circolazione: SEC EDGAR. Prezzi: Yahoo Finance, con stooq come riserva. ' +
+     'Short interest: FINRA, via export da terminale. Trascrizioni: export da terminale, e nel ' +
+     'repository finiscono solo i fatti estratti, non il testo.'],
+    ['Ogni quanto si aggiorna?',
+     'Tre volte al giorno nei giorni feriali. Short interest e trascrizioni richiedono un export ' +
+     'manuale: due volte al mese il primo, una volta a trimestre le seconde.'],
+    ['Posso vedere il codice?',
+     'Sì, tutto. Compresa la formula del punteggio e i 67 test che la controllano.']
+  ], [
+    ['Does the score tell me to buy?',
+     'No. It says how aligned the signals it can read are, and leaves the reading to you. A high score ' +
+     'with low coverage is worth less than a middling score with full coverage.'],
+    ['What is coverage?',
+     'The share of the weights actually fed by data. A company with only SEC data sits at 50%; with ' +
+     'calls and short interest it reaches 85%. The rest is missing, and said so.'],
+    ['Why does a sale sometimes not count?',
+     'Because it was already scheduled. A 10b5-1 plan is signed months ahead: today’s sale says ' +
+     'nothing about what the executive thinks today. It stays in the table, at zero weight.'],
+    ['What is a cluster?',
+     'Three or more separate people buying within 30 days. It counts for more than one large purchase, ' +
+     'because three people rarely get it wrong together by chance.'],
+    ['Why the track-record multiplier?',
+     'Because not all insiders are equally informed. Each buyer carries the 60-day return of their past ' +
+     'purchases against the sector: those who were right weigh more.'],
+    ['Where does the data come from?',
+     'Form 4 filings and shares outstanding: SEC EDGAR. Prices: Yahoo Finance, with stooq as a fallback. ' +
+     'Short interest: FINRA, via a terminal export. Transcripts: a terminal export, and only the ' +
+     'extracted facts go into the repository, never the text.'],
+    ['How often does it update?',
+     'Three times a day on weekdays. Short interest and transcripts need a manual export: twice a month ' +
+     'for the first, once a quarter for the second.'],
+    ['Can I see the code?',
+     'All of it. Including the scoring formula and the 67 tests that check it.']
+  ]);
+
+  app.innerHTML = navBar('guida') +
+    '<div class="card"><h1>' + T('Come funziona', 'How it works') + '</h1>' +
+    '<p class="lead">' + T(
+      'Il principio è uno solo: l’LLM estrae, non decide. Il modello legge i documenti e ne tira ' +
+      'fuori fatti; il punteggio lo calcola una formula che puoi leggere, contestare e ricalcolare.',
+      'There is one principle: the LLM extracts, it does not decide. The model reads the documents and ' +
+      'pulls out facts; the score is computed by a formula you can read, dispute and recompute.') +
+    '</p></div>' +
+
+    '<div class="card"><h2>' + T('I cinque passaggi', 'The five steps') + '</h2>' +
+    '<ol class="steps">' + steps.map(function(s){
+      return '<li><b>' + esc(s[0]) + '</b><p>' + esc(s[1]) + '</p></li>'; }).join('') + '</ol></div>' +
+
+    '<div class="card"><h2>' + T('I sette sotto-punteggi', 'The seven sub-scores') + '</h2>' +
+    '<p class="sub">' + T('I pesi sommano a 100. Quelli non alimentati si ridistribuiscono.',
+                          'The weights add up to 100. Those not fed are redistributed.') + '</p>' +
+    '<div class="scroll"><table><thead><tr><th>' + T('Voce', 'Item') + '</th>' +
+    '<th class="num">' + T('Peso', 'Weight') + '</th><th>' + T('Che cosa guarda', 'What it looks at') +
+    '</th></tr></thead><tbody>' + subs.map(function(r){
+      return '<tr style="cursor:default"><td><b>' + esc(r[0]) + '</b></td>' +
+        '<td class="num">' + r[1] + '%</td><td class="nm">' + esc(r[2]) + '</td></tr>';
+    }).join('') + '</tbody></table></div></div>' +
+
+    '<div class="card"><h2>' + T('Domande frequenti', 'Frequently asked') + '</h2>' +
+    faq.map(function(q){
+      return '<details class="faq"><summary>' + esc(q[0]) + '</summary><p>' + esc(q[1]) + '</p></details>';
+    }).join('') + '</div>';
+}
+
+function renderRequests(){
+  app.innerHTML = navBar('richieste') +
+    '<div class="card"><h1>' + T('Chiedi un’azienda', 'Request a company') + '</h1>' +
+    '<p class="lead">' + T(
+      'Il database segue ' + ((IDX && IDX.companies) || []).length + ' aziende americane. Se ne manca ' +
+      'una che ti interessa, scrivila qui: la richiesta diventa una issue pubblica su GitHub, e la ' +
+      'vedi avanzare.',
+      'The database follows ' + ((IDX && IDX.companies) || []).length + ' US companies. If one you care ' +
+      'about is missing, write it here: the request becomes a public issue on GitHub, and you can ' +
+      'follow it.') + '</p>' +
+    '<div class="field"><label for="rq-t">' + T('Ticker', 'Ticker') + '</label>' +
+    '<input id="rq-t" maxlength="8" placeholder="' + T('es. NVDA', 'e.g. NVDA') + '"></div>' +
+    '<div class="field"><label for="rq-w">' + T('Perché ti interessa (facoltativo)',
+      'Why it interests you (optional)') + '</label>' +
+    '<textarea id="rq-w" rows="3" placeholder="' +
+    T('Un insider ha comprato, un settore da coprire…', 'An insider bought, a sector to cover…') +
+    '"></textarea></div>' +
+    '<button id="rq-go" class="btn">' + T('Apri la richiesta', 'Open the request') + '</button>' +
+    '<p class="sub" id="rq-msg" style="margin-top:10px"></p></div>' +
+
+    '<div class="card"><h2>' + T('Quando non possiamo coprirla', 'When we cannot cover one') +
+    '</h2><ul class="plain">' + T([
+      'Non è quotata negli Stati Uniti: i Form 4 esistono solo alla SEC.',
+      'Non ha depositi Form 4 recenti: senza operazioni degli insider il punteggio principale non esiste.',
+      'È troppo poco scambiata: i rendimenti a 60 giorni diventano rumore e il moltiplicatore storico non ha senso.',
+      'Non ha trascrizioni accessibili: resta coperta, ma senza la parte su guidance e tono.'
+    ], [
+      'It is not listed in the United States: Form 4 filings only exist at the SEC.',
+      'It has no recent Form 4 filings: without insider transactions the main sub-score does not exist.',
+      'It is too thinly traded: 60-day returns become noise and the track-record multiplier is meaningless.',
+      'It has no accessible transcripts: it can still be covered, without the guidance and tone part.'
+    ]).map(function(x){ return '<li>' + esc(x) + '</li>'; }).join('') + '</ul></div>';
+
+  document.getElementById('rq-go').addEventListener('click', function(){
+    var t = (document.getElementById('rq-t').value || '').trim().toUpperCase();
+    var w = (document.getElementById('rq-w').value || '').trim();
+    var msg = document.getElementById('rq-msg');
+    if (!/^[A-Z.\-]{1,8}$/.test(t)) {
+      msg.textContent = T('Scrivi un ticker, da una a otto lettere.',
+                          'Write a ticker, one to eight letters.');
+      return;
+    }
+    var body = T('Richiesta di copertura per ' + t + '.', 'Coverage request for ' + t + '.') +
+      (w ? '\n\n' + w : '');
+    msg.textContent = T('Apro GitHub in una scheda nuova…', 'Opening GitHub in a new tab…');
+    window.open(REPO + '/issues/new?title=' + encodeURIComponent('Copertura: ' + t) +
+                '&body=' + encodeURIComponent(body), '_blank', 'noopener');
+  });
+}
+
 /* ------------------------------------------------------------------ elenco */
 function renderList(){
   var all = IDX.companies || [];
@@ -202,9 +510,9 @@ function renderList(){
     : '';
   var hit = groups.filter(function(g){ return key(g) === GRP; })[0];
   var gname = GRP ? (hit ? txt(hit) : GRP) : '';
-  app.innerHTML = problems(IDX.errors) +
+  app.innerHTML = navBar('aziende') + problems(IDX.errors) +
     '<div class="card"><div class="top"><div>' +
-      '<h1>Conviction Engine</h1>' +
+      '<h1>' + T('Le aziende', 'The companies') + '</h1>' +
       '<p class="sub">' + all.length + T(' aziende in ', ' companies in ') + groups.length +
       T(' universi · aggiornato il ', ' universes · updated ') + esc(when(IDX.generated_at)) + '</p></div>' +
       '<button id="rl">' + T('Ricarica', 'Reload') + '</button></div>' + chips + '</div>' +
@@ -472,7 +780,7 @@ function renderDetail(d){
           (t[0] === TAB) + '">' + esc(t[1]) + '</button>'; }).join('') + '</div></div>' +
     pane;
 
-  document.getElementById('bk').addEventListener('click', function(){ location.hash = ''; });
+  document.getElementById('bk').addEventListener('click', function(){ location.hash = 'aziende'; });
   [].forEach.call(app.querySelectorAll('.tabs button'), function(b){
     b.addEventListener('click', function(){ TAB = b.dataset.tab; renderDetail(d); });
   });
@@ -480,9 +788,15 @@ function renderDetail(d){
 
 /* ------------------------------------------------------------------ rotta */
 function show(){
-  var t = (location.hash || '').replace('#', '').toUpperCase();
+  var raw = (location.hash || '').replace('#', '');
   if (!IDX) return;
-  if (!t) return renderList();
+  var p = raw.toLowerCase();
+  if (!raw || p === 'home') return renderHome();
+  if (p === 'aziende') return renderList();
+  if (p === 'guida') return renderGuide();
+  if (p === 'richieste') return renderRequests();
+  var t = raw.toUpperCase();
+  if (t !== CUR) { CUR = t; TAB = 'panoramica'; }
   if (CACHE[t]) return renderDetail(CACHE[t]);
   app.innerHTML = '<div class="card">' + T('Carico ', 'Loading ') + esc(t) + '…</div>';
   fetch('data/' + encodeURIComponent(t) + '.json?' + Date.now())
@@ -493,7 +807,7 @@ function show(){
         T('Non trovo i dati di <b>' + esc(t) + '</b>.', 'No data found for <b>' + esc(t) + '</b>.') +
         '<div class="sub">' + esc(e) + '</div><div style="margin-top:12px">' +
         '<button id="bk2">' + T('Torna all’elenco', 'Back to the list') + '</button></div></div>';
-      document.getElementById('bk2').addEventListener('click', function(){ location.hash = ''; });
+      document.getElementById('bk2').addEventListener('click', function(){ location.hash = 'aziende'; });
     });
 }
 
