@@ -76,6 +76,18 @@ riattivarle dalla scheda Actions.
 | un'azienda resta senza prezzi | Yahoo e stooq hanno entrambi rifiutato; l'errore e' scritto in `errors[]` e nessun punteggio viene inventato |
 | il workflow si ferma sui test | un errore nel codice: i test girano **prima** di scaricare qualsiasi cosa, quindi i dati pubblicati non si rovinano mai |
 | il sito mostra dati vecchi | il secondo riquadro del workflow (`pubblica`) non e' ancora verde |
+| un giro fallisce sul salvataggio | due giri ravvicinati: il piu' recente ha gia' scritto. Non si perde niente, i dati li rigenera il giro dopo |
+
+### Perche' i dati non si fondono mai
+
+I file in `site/` sono generati per intero a ogni giro: la versione appena
+calcolata e' sempre quella buona. Per questo il workflow non fa `git pull
+--rebase` ma riparte da `origin/main` e riscrive sopra. Un rebase proverebbe a
+fondere due versioni degli stessi 41 file, che differiscono su ogni riga per
+l'orario, e finirebbe in conflitto su tutti.
+
+Allo stesso modo, se parte un giro mentre un altro e' in corso, il vecchio viene
+fermato (`cancel-in-progress`): il nuovo rifa' tutto comunque.
 
 ### Il controllo dopo ogni giro
 
