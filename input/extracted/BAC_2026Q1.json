@@ -1,0 +1,70 @@
+{
+  "ticker": "BAC",
+  "quarter": "T1 '26",
+  "tone": 74,
+  "tone_why": {
+    "it": "Ricavi a 30,3 miliardi $ (+7%), utile per azione +25%, rendimento sul capitale tangibile al 16%: dentro la fascia 16-18% che la banca si era data, e più presto del previsto. Il margine di interesse va meglio delle attese e la guidance dell'anno sale da 5-7% a 6-8%. Il personale scende di 1.070 persone per attrito mentre i ricavi crescono. Le riserve sono due: la leva operativa resta promessa «oltre 200 punti base» anche dopo l'alzata del margine, e la banca dedica due slide a spiegare il proprio credito privato, segno che il mercato lo stava chiedendo.",
+    "en": "Revenue of $30.3bn (+7%), earnings per share +25%, return on tangible common equity at 16%: inside the 16-18% band the bank set itself, and earlier than expected. Net interest income beats expectations and full-year guidance rises from 5-7% to 6-8%. Headcount falls by 1,070 through attrition while revenue grows. Two reservations: operating leverage is still promised at \"more than 200 basis points\" even after the NII raise, and the bank devotes two slides to explaining its private-credit exposure, a sign the market was asking."
+  },
+  "guidance": [
+    {
+      "metric": {"it": "Margine di interesse 2026", "en": "2026 net interest income"},
+      "value": {"it": "crescita del 6-8% sul 2025; la curva è passata da due tagli attesi a nessuno", "en": "6-8% growth over 2025; the curve has shifted from two expected cuts to none"},
+      "direction": "alzata"
+    },
+    {
+      "metric": {"it": "Leva operativa 2026", "en": "2026 operating leverage"},
+      "value": {"it": "oltre 200 punti base, come indicato prima", "en": "more than 200 basis points, as previously indicated"},
+      "direction": "confermata"
+    },
+    {
+      "metric": {"it": "Aliquota fiscale 2026", "en": "2026 effective tax rate"},
+      "value": {"it": "poco più del 20%", "en": "a little more than 20%"},
+      "direction": "confermata"
+    },
+    {
+      "metric": {"it": "Requisiti di capitale", "en": "Capital requirements"},
+      "value": {"it": "se Basilea III e le regole G-SIB passano come proposte, i requisiti complessivi dovrebbero scendere", "en": "if Basel III and the G-SIB rules are adopted as proposed, overall requirements should fall"},
+      "direction": "prima"
+    }
+  ],
+  "qa": [
+    {
+      "question": {"it": "Il margine di interesse più alto arriva alla riga finale o viene speso?", "en": "Does the higher net interest income drop to the bottom line or get spent?"},
+      "answer_summary": {"it": "Moynihan risponde in due righe: arriva alla riga finale, e se sale ci si deve aspettare la parte alta della fascia di leva operativa.", "en": "Moynihan answers in two lines: it drops to the bottom line, and if it rises you should expect the higher end of the operating-leverage range."},
+      "directness": 5
+    },
+    {
+      "question": {"it": "Perché la crescita di prestiti e depositi al consumo è così fiacca, se la spesa è forte?", "en": "Why are consumer loan and deposit growth so sluggish if spending is strong?"},
+      "answer_summary": {"it": "Risposta concreta e con una ammissione: «potremmo mettere a segno più depositi se volessimo», ma scelgono di non rincorrere i certificati di deposito e di restare disciplinati sul tasso pagato.", "en": "A concrete answer with an admission: \"we could put up more deposit growth if we wanted to\", but they choose not to chase CDs and to stay disciplined on rate paid."},
+      "directness": 5
+    },
+    {
+      "question": {"it": "Quanto può spingersi l'AI sulla riduzione del personale?", "en": "How far can AI push headcount down?"},
+      "answer_summary": {"it": "Nessun numero prospettico. Moynihan guarda indietro (meno dipendenti di prima dell'acquisto di Merrill e Countrywide) e dice che sono «ancora nelle fasi iniziali».", "en": "No forward number. Moynihan looks backwards (fewer employees than before buying Merrill and Countrywide) and says they are \"still in the early stages\"."},
+      "directness": 2
+    },
+    {
+      "question": {"it": "Quanto siete esposti al credito privato?", "en": "What is your private-credit exposure?"},
+      "answer_summary": {"it": "Dichiarano nessuna perdita rilevante e spiegano la struttura: la base di garanzia si restringe prima che le perdite arrivino alla banca, e non si affidano alle valutazioni degli sponsor. Spiegazione volontaria, con due nuove slide.", "en": "They state no material losses and explain the structure: the borrowing base contracts before losses migrate to the bank, and they do not rely on sponsor marks. A volunteered explanation, with two new slides."},
+      "directness": 4
+    }
+  ],
+  "language_changes": [
+    {
+      "topic": {"it": "Margine di interesse 2026", "en": "2026 net interest income"},
+      "from": {"it": "crescita del 5-7% (T4 '25)", "en": "5-7% growth (Q4 '25)"},
+      "to": {"it": "crescita del 6-8%", "en": "6-8% growth"},
+      "note": {"it": "Prima revisione al rialzo dell'anno, motivata anche dalla curva dei tassi che non prevede più tagli.", "en": "The first upward revision of the year, partly driven by a rate curve that no longer prices cuts."}
+    },
+    {
+      "topic": {"it": "Credito privato", "en": "Private credit"},
+      "from": {"it": "non trattato nelle call precedenti", "en": "not covered in prior calls"},
+      "to": {"it": "due slide dedicate al portafoglio prestiti di global markets e alla struttura di protezione", "en": "two dedicated slides on the global markets loan portfolio and its protection structure"},
+      "note": {"it": "La banca apre un argomento che nessuno le aveva ancora chiesto in call: di solito si fa quando la domanda sta arrivando.", "en": "The bank opens a topic nobody had yet asked about on a call: usually done when the question is coming."}
+    }
+  ],
+  "file": "BAC_2026Q1.json",
+  "source": "Bloomberg transcript export (non ridistribuito)",
+  "extracted_by": "Claude (estrazione manuale, stessa forma del passo automatico)"
+}

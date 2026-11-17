@@ -1,0 +1,62 @@
+{
+  "ticker": "KO",
+  "quarter": "T4 '25",
+  "tone": 66,
+  "tone_why": {
+    "it": "Trimestre di passaggio: James Quincey lascia e Henrique Braun prende il posto di amministratore delegato. I numeri sono ordinati ma non brillanti: ricavi organici +5% con volumi a +1% e un prezzo/mix a +1% dovuto a 4 punti di prezzo meno 3 di mix sfavorevole. La guidance 2026 è deliberatamente prudente: ricavi organici 4-5% e utile per azione +7-8%, con il nuovo CEO che dice apertamente che «l'innovazione oggi non è dove dovrebbe essere». Quincey chiede agli analisti di guardare il mix su quattro trimestri e non su uno: utile come metodo, comodo come difesa.",
+    "en": "A handover quarter: James Quincey steps down and Henrique Braun becomes chief executive. The numbers are orderly but not brilliant: organic revenue +5% with volume at +1% and price/mix at +1%, from 4 points of pricing less 3 points of adverse mix. The 2026 guidance is deliberately prudent: organic revenue 4-5% and earnings per share +7-8%, with the incoming CEO saying openly that \"our innovation today is not where it needs to be\". Quincey asks analysts to look at mix over four quarters rather than one: useful as a method, convenient as a defence."
+  },
+  "guidance": [
+    {
+      "metric": {"it": "Ricavi organici 2026", "en": "2026 organic revenue"},
+      "value": {"it": "crescita del 4-5%, in linea con l'algoritmo di lungo periodo", "en": "4-5% growth, in line with the long-term algorithm"},
+      "direction": "prima"
+    },
+    {
+      "metric": {"it": "Utile per azione 2026 (valuta costante, al netto di acquisizioni e cessioni)", "en": "2026 EPS (currency-neutral, ex-M&A)"},
+      "value": {"it": "crescita del 5-6%", "en": "5-6% growth"},
+      "direction": "prima"
+    },
+    {
+      "metric": {"it": "Utile per azione 2026 (comparabile)", "en": "2026 comparable EPS"},
+      "value": {"it": "crescita del 7-8% su 3,00 $ del 2025", "en": "7-8% growth over $3.00 in 2025"},
+      "direction": "prima"
+    },
+    {
+      "metric": {"it": "Flusso di cassa libero 2026", "en": "2026 free cash flow"},
+      "value": {"it": "circa 12,2 miliardi $", "en": "about $12.2bn"},
+      "direction": "prima"
+    },
+    {
+      "metric": {"it": "Aliquota fiscale 2026", "en": "2026 effective tax rate"},
+      "value": {"it": "20,9%", "en": "20.9%"},
+      "direction": "prima"
+    },
+    {
+      "metric": {"it": "Cessioni", "en": "Divestitures"},
+      "value": {"it": "circa 4 punti di freno sui ricavi e 1 punto sull'utile per azione; la vendita di Coca-Cola Beverages Africa è attesa nella seconda metà del 2026", "en": "about a 4-point headwind to revenue and 1 point to EPS; the sale of Coca-Cola Beverages Africa expected in the second half of 2026"},
+      "direction": "prima"
+    },
+    {
+      "metric": {"it": "Costo delle materie prime", "en": "Commodity cost basket"},
+      "value": {"it": "impatto complessivo gestibile", "en": "overall impact manageable"},
+      "direction": "prima"
+    }
+  ],
+  "qa": [
+    {
+      "question": {"it": "Come si divide il 4-5% fra volumi e prezzo/mix, con il nuovo dazio messicano e il consumatore sotto pressione?", "en": "How does the 4-5% split between volume and price/mix, with the Mexican tax and the consumer under pressure?"},
+      "answer_summary": {"it": "Quincey non dà la divisione ma spiega il metodo: su quattro trimestri il mix si annulla e resta 4% di prezzo e 1% di volume. Ammette che la guidance è «realistica e prudente» e che alcune debolezze (India, Cina, ASEAN, Europa) devono ancora risolversi.", "en": "Quincey does not give the split but explains the method: over four quarters mix nets out, leaving 4% price and 1% volume. He concedes the guidance is \"realistic and prudent\" and that some weaknesses (India, China, ASEAN, Europe) still need to resolve."},
+      "directness": 3
+    },
+    {
+      "question": {"it": "Che cosa cambia con il nuovo amministratore delegato?", "en": "What changes under the new chief executive?"},
+      "answer_summary": {"it": "Braun indica tre aree e, cosa inusuale, dichiara una debolezza: l'innovazione «non è dove dovrebbe essere» e la velocità verso il mercato va migliorata. Un'ammissione volontaria, non estratta da una domanda.", "en": "Braun names three areas and, unusually, states a weakness: innovation \"is not where it needs to be\" and speed to market must improve. A volunteered admission, not extracted by a question."},
+      "directness": 4
+    }
+  ],
+  "language_changes": [],
+  "file": "KO_2025Q4.json",
+  "source": "Bloomberg transcript export (non ridistribuito)",
+  "extracted_by": "Claude (estrazione manuale, stessa forma del passo automatico)"
+}

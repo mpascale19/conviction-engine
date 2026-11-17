@@ -1,0 +1,114 @@
+{
+  "ticker": "NVDA",
+  "quarter": "T1 '27 (anno fiscale)",
+  "call_date": "2026-05-20",
+  "tone": 85,
+  "tone_why": {
+    "it": "Ricavi a 82 miliardi $ (+85%), terzo trimestre consecutivo di accelerazione, flusso di cassa libero record a 49 miliardi $. La società alza il dividendo e autorizza altri 80 miliardi $ di riacquisto: segnali che si danno quando si è sicuri della cassa futura. Huang chiude con «la domanda è diventata parabolica». Il punto debole non è nei numeri ma nella trasparenza: cambia la segmentazione dei ricavi proprio nel trimestre migliore, e la Cina resta a zero.",
+    "en": "Revenue of $82bn (+85%), a third consecutive quarter of acceleration, record free cash flow of $49bn. The company raises the dividend and authorises another $80bn of buybacks: signals given when you are sure of future cash. Huang closes with \"demand has gone parabolic\". The weak spot is not in the numbers but in transparency: the revenue segmentation changes in the best quarter, and China stays at zero."
+  },
+  "guidance": [
+    {
+      "metric": {"it": "Ricavi T2 2027", "en": "Q2 2027 revenue"},
+      "value": {"it": "91 miliardi $ ±2%", "en": "$91bn ±2%"},
+      "direction": "alzata"
+    },
+    {
+      "metric": {"it": "Margine lordo T2 (non-GAAP)", "en": "Q2 gross margin (non-GAAP)"},
+      "value": {"it": "75% ±50 punti base", "en": "75% ±50 basis points"},
+      "direction": "confermata"
+    },
+    {
+      "metric": {"it": "Margine lordo anno intero", "en": "Full-year gross margin"},
+      "value": {"it": "«ci aspettiamo ancora» metà 70", "en": "\"still expecting\" the mid-70s"},
+      "direction": "confermata"
+    },
+    {
+      "metric": {"it": "Dividendo trimestrale", "en": "Quarterly dividend"},
+      "value": {"it": "da 0,01 a 0,25 $ per azione", "en": "from $0.01 to $0.25 per share"},
+      "direction": "alzata"
+    },
+    {
+      "metric": {"it": "Riacquisto di azioni", "en": "Share repurchase"},
+      "value": {"it": "nuova autorizzazione da 80 miliardi $, oltre ai 39 residui; circa il 50% del flusso di cassa libero restituito quest'anno", "en": "new $80bn authorisation on top of $39bn remaining; about 50% of free cash flow returned this year"},
+      "direction": "alzata"
+    },
+    {
+      "metric": {"it": "Aliquota fiscale anno fiscale 2027", "en": "FY2027 tax rate"},
+      "value": {"it": "16-18%, giù dal 17-19% precedente", "en": "16-18%, down from the prior 17-19%"},
+      "direction": "ridotta"
+    },
+    {
+      "metric": {"it": "Costi operativi anno fiscale 2027 (non-GAAP)", "en": "FY2027 operating expenses (non-GAAP)"},
+      "value": {"it": "crescita nella fascia alta del 40%", "en": "growth in the upper-40s percent"},
+      "direction": "alzata"
+    },
+    {
+      "metric": {"it": "Vera Rubin", "en": "Vera Rubin"},
+      "value": {"it": "spedizioni di produzione dal T3, salita nel T4", "en": "production shipments from Q3, ramping in Q4"},
+      "direction": "confermata"
+    }
+  ],
+  "qa": [
+    {
+      "question": {"it": "Perché avete cambiato la segmentazione dei ricavi e che cosa cambia nella concorrenza fra i due segmenti?", "en": "Why change the revenue segmentation, and what changes competitively between the two segments?"},
+      "answer_summary": {"it": "Risposta lunga sulla diversità dell'AI, ma la ragione data è solo «volevamo che capiste meglio il nostro business». Non dice che cosa la vecchia segmentazione nascondeva.", "en": "A long answer on the diversity of AI, but the stated reason is only \"we wanted you to understand our business better\". He does not say what the old segmentation obscured."},
+      "directness": 2
+    },
+    {
+      "question": {"it": "Continuerete a crescere più del CapEx degli hyperscaler?", "en": "Will you keep growing faster than hyperscaler capex?"},
+      "answer_summary": {"it": "Sì, e spiega perché: metà del data center è il secondo segmento (cloud regionali, sovrani, imprese) che non compra chip su misura e cresce più in fretta. Risposta diretta e argomentata.", "en": "Yes, and he explains why: half the data centre is the second segment (regional clouds, sovereigns, enterprises) that does not buy custom silicon and grows faster. A direct, argued answer."},
+      "directness": 5
+    },
+    {
+      "question": {"it": "I 20 miliardi $ di CPU sono Vera da sola o inclusi in Vera Rubin?", "en": "Is the $20bn CPU figure standalone Vera or included in Vera Rubin?"},
+      "answer_summary": {"it": "«I 20 miliardi sono per la CPU autonoma». Risposta secca, con l'elenco dei quattro modi in cui Vera viene venduta.", "en": "\"The $20 billion is for standalone CPU.\" A crisp answer, with the four ways Vera is sold listed."},
+      "directness": 5
+    },
+    {
+      "question": {"it": "La salita di Vera Rubin sarà rapida come quella di GB300?", "en": "Will the Vera Rubin ramp be as fast as GB300's?"},
+      "answer_summary": {"it": "«È difficile dire a questo punto quale sarà la salita più rapida». Conferma solo le date (T3 inizio, T4 salita) e che gli ordini ci sono.", "en": "\"It is hard to say at this point what will be a faster ramp.\" She confirms only the dates (start Q3, ramp Q4) and that orders exist."},
+      "directness": 3
+    },
+    {
+      "question": {"it": "Che cosa può far superare il miliardo di miliardi (1 trilione $) di visibilità?", "en": "What could push revenue above the $1 trillion visibility?"},
+      "answer_summary": {"it": "Tre voci in ordine: quota crescente sui modelli di frontiera, la CPU Vera autonoma (non inclusa in quel numero) e LPX. Risposta ordinata, senza cifre nuove.", "en": "Three items in order: growing share of frontier models, the standalone Vera CPU (not included in that figure), and LPX. An orderly answer, with no new figures."},
+      "directness": 4
+    }
+  ],
+  "language_changes": [
+    {
+      "topic": {"it": "Segmentazione dei ricavi", "en": "Revenue segmentation"},
+      "from": {"it": "data center, gaming, visualizzazione professionale, automotive", "en": "data centre, gaming, professional visualisation, automotive"},
+      "to": {"it": "due piattaforme, data center (Hyperscale e ACIE) ed Edge Computing", "en": "two platforms, data centre (Hyperscale and ACIE) and Edge Computing"},
+      "note": {"it": "Il confronto con i trimestri passati diventa più difficile proprio nel trimestre migliore. Hanno pubblicato nove trimestri ricostruiti, il che attenua il problema.", "en": "Comparison with past quarters gets harder in the best quarter. They published nine restated quarters, which softens the problem."}
+    },
+    {
+      "topic": {"it": "Visibilità sui ricavi", "en": "Revenue visibility"},
+      "from": {"it": "500 miliardi $ di Blackwell e Rubin fino a fine 2026 (T3 '26)", "en": "$500bn of Blackwell and Rubin through end-2026 (Q3 '26)"},
+      "to": {"it": "1.000 miliardi $ di Blackwell e Rubin dal 2025 al 2027", "en": "$1 trillion of Blackwell and Rubin from 2025 through calendar 2027"},
+      "note": {"it": "Raddoppio della cifra e un anno in più di orizzonte in due trimestri.", "en": "The figure doubles and the horizon extends a year, in two quarters."}
+    },
+    {
+      "topic": {"it": "Dividendo", "en": "Dividend"},
+      "from": {"it": "0,01 $ per azione, invariato da anni", "en": "$0.01 per share, unchanged for years"},
+      "to": {"it": "0,25 $ per azione", "en": "$0.25 per share"},
+      "note": {"it": "Il CFO legge 0,20 e Huang corregge in diretta a 0,25.", "en": "The CFO reads out $0.20 and Huang corrects it live to $0.25."}
+    },
+    {
+      "topic": {"it": "Cina", "en": "China"},
+      "from": {"it": "piccole quantità di H200 approvate, nessun ricavo generato (T4 '26)", "en": "small amounts of H200 approved, no revenue generated (Q4 '26)"},
+      "to": {"it": "licenze approvate ma «non sappiamo se le importazioni saranno permesse»", "en": "licences approved but \"we are uncertain whether any imports will be allowed\""},
+      "note": {"it": "Terzo trimestre di fila con la Cina a zero nelle previsioni.", "en": "A third consecutive quarter with China at zero in the outlook."}
+    },
+    {
+      "topic": {"it": "Giorni di credito ai clienti", "en": "Days sales outstanding"},
+      "from": {"it": "45 giorni, per tempistiche favorevoli degli incassi", "en": "45 days, on favourable timing of collections"},
+      "to": {"it": "attesi di nuovo a metà 50 nel T2", "en": "expected back to the mid-50s in Q2"},
+      "note": {"it": "Dichiarato in anticipo invece di lasciarlo scoprire: voce a favore sulla trasparenza.", "en": "Flagged in advance rather than left to be discovered: a point in favour on transparency."}
+    }
+  ],
+  "file": "NVDA_2027Q1.json",
+  "source": "Bloomberg transcript export (non ridistribuito)",
+  "extracted_by": "Claude (estrazione manuale, stessa forma del passo automatico)"
+}

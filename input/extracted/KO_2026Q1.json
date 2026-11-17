@@ -1,0 +1,70 @@
+{
+  "ticker": "KO",
+  "quarter": "T1 '26",
+  "tone": 70,
+  "tone_why": {
+    "it": "Volumi +3% in tutti i segmenti, ventesimo trimestre consecutivo di guadagno di quota, utile per azione +18%. Ma due cose vanno lette con attenzione: i ricavi organici a +10% contengono sei giorni di calendario in più, e la società stessa dice che al netto di quelli e della tempistica delle spedizioni la crescita è semplicemente in linea con la guidance. Soprattutto, l'alzata della guidance sull'utile (da 7-8% a 8-9%) arriva da un'aliquota fiscale più bassa, non dall'operatività: il margine lordo scende di 30 punti base per tè e caffè. Il tono è buono, il motore dell'alzata è contabile.",
+    "en": "Volume +3% across all segments, a twentieth consecutive quarter of value share gains, earnings per share +18%. But two things need care: organic revenue at +10% includes six extra calendar days, and the company itself says that net of those and of shipment timing, growth is simply in line with guidance. Above all, the EPS guidance raise (from 7-8% to 8-9%) comes from a lower tax rate, not from operations: gross margin falls 30 basis points on tea and coffee. The tone is good; the engine of the raise is accounting."
+  },
+  "guidance": [
+    {
+      "metric": {"it": "Ricavi organici 2026", "en": "2026 organic revenue"},
+      "value": {"it": "crescita del 4-5%, invariata", "en": "4-5% growth, unchanged"},
+      "direction": "confermata"
+    },
+    {
+      "metric": {"it": "Utile per azione (valuta costante, al netto di acquisizioni e cessioni)", "en": "EPS (currency-neutral, ex-M&A)"},
+      "value": {"it": "crescita del 6-7%", "en": "6-7% growth"},
+      "direction": "alzata"
+    },
+    {
+      "metric": {"it": "Utile per azione 2026 (comparabile)", "en": "2026 comparable EPS"},
+      "value": {"it": "crescita dell'8-9%, alzata «per via dell'aliquota fiscale più bassa»", "en": "8-9% growth, raised \"due to the lower effective tax rate\""},
+      "direction": "alzata"
+    },
+    {
+      "metric": {"it": "Aliquota fiscale 2026", "en": "2026 effective tax rate"},
+      "value": {"it": "19,9%, un punto in meno della stima precedente", "en": "19.9%, a point below the prior estimate"},
+      "direction": "ridotta"
+    },
+    {
+      "metric": {"it": "Effetto cambi sui ricavi", "en": "Currency effect on revenue"},
+      "value": {"it": "da circa 1 punto a 1-2 punti di vento a favore", "en": "from about 1 point to 1-2 points of tailwind"},
+      "direction": "alzata"
+    },
+    {
+      "metric": {"it": "Margini nella seconda metà", "en": "Second-half margins"},
+      "value": {"it": "possibile ulteriore espansione se la cessione di CCBA si chiude", "en": "scope for further expansion if the CCBA sale closes"},
+      "direction": "prima"
+    }
+  ],
+  "qa": [
+    {
+      "question": {"it": "Quanto del prezzo/mix più debole è dovuto all'affordability, che resta, e quanto a variazioni di trimestre?", "en": "How much of the weaker price/mix is the affordability focus, which persists, and how much is quarterly variance?"},
+      "answer_summary": {"it": "Braun non separa le due componenti. Dice che l'algoritmo resterà bilanciato e che può essere «3 e 2 o 2 e 3» a seconda del trimestre. La domanda chiedeva quanto è strutturale e la risposta resta sul generale.", "en": "Braun does not separate the two. He says the algorithm will stay balanced and may be \"3 to 2 or 2 to 3\" depending on the quarter. The question asked what is structural and the answer stays general."},
+      "directness": 2
+    },
+    {
+      "question": {"it": "Perché il margine lordo scende?", "en": "Why is gross margin down?"},
+      "answer_summary": {"it": "Dichiarato nelle osservazioni preparate con le cause: tè e caffè, tempistica dei costi di magazzino e della spesa commerciale. Il margine operativo sale comunque di 70 punti base per efficienze sui costi operativi.", "en": "Stated in the prepared remarks with the causes: tea and coffee, inventory cost phasing and trade-spend timing. Operating margin still rises 70 basis points on operating expense efficiencies."},
+      "directness": 5
+    }
+  ],
+  "language_changes": [
+    {
+      "topic": {"it": "Utile per azione 2026", "en": "2026 earnings per share"},
+      "from": {"it": "crescita del 7-8% (T4 '25)", "en": "7-8% growth (Q4 '25)"},
+      "to": {"it": "crescita dell'8-9%", "en": "8-9% growth"},
+      "note": {"it": "Alzata attribuita esplicitamente all'aliquota fiscale scesa dal 20,9% al 19,9%: l'operatività sottostante non è stata rivista.", "en": "The raise is explicitly attributed to the tax rate falling from 20.9% to 19.9%: the underlying operations were not revised."}
+    },
+    {
+      "topic": {"it": "Materie prime", "en": "Commodities"},
+      "from": {"it": "impatto complessivo gestibile (T4 '25)", "en": "overall impact manageable (Q4 '25)"},
+      "to": {"it": "gestibile «al momento», con volatilità citata su tè e caffè e un margine lordo già in calo", "en": "manageable \"at this time\", with volatility named in tea and coffee and gross margin already falling"},
+      "note": {"it": "Compare l'inciso temporale e compaiono le categorie: il rischio passa da generico a nominato.", "en": "A time qualifier appears and the categories are named: the risk moves from generic to specific."}
+    }
+  ],
+  "file": "KO_2026Q1.json",
+  "source": "Bloomberg transcript export (non ridistribuito)",
+  "extracted_by": "Claude (estrazione manuale, stessa forma del passo automatico)"
+}

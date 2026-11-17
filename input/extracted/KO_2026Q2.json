@@ -1,0 +1,76 @@
+{
+  "ticker": "KO",
+  "quarter": "T2 '26",
+  "tone": 77,
+  "tone_why": {
+    "it": "Volumi +5% e ricavi organici +6%, margine lordo in crescita di 120 punti base, utile per azione +11%. Il marchio Coca-Cola segna la crescita di volume più forte in diciassette anni esclusa la ripresa post-pandemia, spinta dai Mondiali di calcio. La guidance sale su tutta la linea. La società dichiara però da sola i due aiuti: un confronto facile con l'anno prima e il meteo favorevole. Resta aperta la causa con il fisco americano, su cui la società ha già discusso in appello e aspetta la decisione.",
+    "en": "Volume +5% and organic revenue +6%, gross margin up 120 basis points, earnings per share +11%. Trademark Coca-Cola posts its strongest volume growth in seventeen years excluding the post-pandemic recovery, driven by the football World Cup. Guidance rises across the board. The company itself names the two helpers: an easy prior-year comparison and favourable weather. The dispute with the US tax authority remains open; the company has argued the appeal and awaits the decision."
+  },
+  "guidance": [
+    {
+      "metric": {"it": "Ricavi organici 2026", "en": "2026 organic revenue"},
+      "value": {"it": "circa 5%, cioè la parte alta della fascia precedente", "en": "about 5%, the high end of the prior range"},
+      "direction": "alzata"
+    },
+    {
+      "metric": {"it": "Utile per azione (valuta costante, al netto di acquisizioni e cessioni)", "en": "EPS (currency-neutral, ex-M&A)"},
+      "value": {"it": "crescita del 7-8%", "en": "7-8% growth"},
+      "direction": "alzata"
+    },
+    {
+      "metric": {"it": "Utile per azione 2026 (comparabile)", "en": "2026 comparable EPS"},
+      "value": {"it": "crescita del 9-10%", "en": "9-10% growth"},
+      "direction": "alzata"
+    },
+    {
+      "metric": {"it": "Aliquota fiscale 2026", "en": "2026 effective tax rate"},
+      "value": {"it": "19,9%, invariata", "en": "19.9%, unchanged"},
+      "direction": "confermata"
+    },
+    {
+      "metric": {"it": "Cessioni", "en": "Divestitures"},
+      "value": {"it": "2-3 punti di freno sui ricavi, circa 1 punto sull'utile per azione", "en": "2-3 points of headwind to revenue, about 1 point to EPS"},
+      "direction": "ridotta"
+    },
+    {
+      "metric": {"it": "Spedizioni di concentrato", "en": "Concentrate shipments"},
+      "value": {"it": "un punto sotto i volumi nel T3 e leggermente sotto per l'intero anno", "en": "one point behind volume in Q3 and slightly behind for the full year"},
+      "direction": "prima"
+    }
+  ],
+  "qa": [
+    {
+      "question": {"it": "Il trimestre ha avuto il confronto più facile dell'anno: come pesate il consumatore nella seconda metà?", "en": "This was the easiest comparison of the year: how do you weigh the consumer into the second half?"},
+      "answer_summary": {"it": "Braun conferma la pressione sui redditi bassi in tutto il mondo e indica i due fattori del secondo semestre: confronto più duro e sei giorni in meno. Risposta che accetta la premessa della domanda invece di aggirarla.", "en": "Braun confirms pressure on lower incomes worldwide and names the two second-half factors: a tougher comparison and six fewer days. An answer that accepts the question's premise rather than dodging it."},
+      "directness": 4
+    },
+    {
+      "question": {"it": "La capacità aggiuntiva di fairlife e ancora nei tempi dopo l'incidente agli impianti?", "en": "Is the additional fairlife capacity still on schedule after the plant incident?"},
+      "answer_summary": {"it": "Si, con numeri: crescita del 18%, produzione ripresa in tutti e quattro gli stabilimenti, nessun impatto sui risultati del trimestre né atteso nel secondo semestre. Dichiarazione netta e verificabile.", "en": "Yes, with numbers: 18% growth, production resumed at all four plants, no impact on the quarter's results nor expected in the second half. A clean, checkable statement."},
+      "directness": 5
+    }
+  ],
+  "language_changes": [
+    {
+      "topic": {"it": "Ricavi organici 2026", "en": "2026 organic revenue"},
+      "from": {"it": "crescita del 4-5% (T4 '25 e T1 '26)", "en": "4-5% growth (Q4 '25 and Q1 '26)"},
+      "to": {"it": "circa 5%", "en": "about 5%"},
+      "note": {"it": "Prima revisione della riga dei ricavi dopo due trimestri di conferma: stavolta l'alzata viene dall'operativita, non dall'aliquota fiscale.", "en": "The first revision of the revenue line after two quarters of confirmation: this time the raise comes from operations, not from the tax rate."}
+    },
+    {
+      "topic": {"it": "Utile per azione 2026", "en": "2026 earnings per share"},
+      "from": {"it": "crescita dell'8-9% (T1 '26)", "en": "8-9% growth (Q1 '26)"},
+      "to": {"it": "crescita del 9-10%", "en": "9-10% growth"},
+      "note": {"it": "Seconda alzata consecutiva, a parità di aliquota fiscale.", "en": "A second consecutive raise, with the tax rate unchanged."}
+    },
+    {
+      "topic": {"it": "Causa con il fisco americano", "en": "US tax dispute"},
+      "from": {"it": "in attesa, bilancio gestito con prudenza (T1 '26)", "en": "pending, balance sheet managed judiciously (Q1 '26)"},
+      "to": {"it": "discussione orale già tenuta davanti alla Corte d'appello dell'undicesimo circuito, si attende la decisione", "en": "oral arguments already presented before the Eleventh Circuit, awaiting the decision"},
+      "note": {"it": "Il rischio si avvicina a una data: la società continua a tenere la leva finanziaria sotto la fascia obiettivo per essere pronta.", "en": "The risk moves closer to a date: the company keeps leverage below its target range to be ready."}
+    }
+  ],
+  "file": "KO_2026Q2.json",
+  "source": "Bloomberg transcript export (non ridistribuito)",
+  "extracted_by": "Claude (estrazione manuale, stessa forma del passo automatico)"
+}

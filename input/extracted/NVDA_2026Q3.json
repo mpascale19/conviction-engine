@@ -1,0 +1,68 @@
+{
+  "ticker": "NVDA",
+  "quarter": "T3 '26 (anno fiscale)",
+  "call_date": "2025-11-19",
+  "tone": 78,
+  "tone_why": {
+    "it": "Ricavi a 57 miliardi $ (+62%), i cloud sono esauriti e anche le schede di sei anni fa girano a pieno carico. Il management dichiara visibilità su 500 miliardi $ di Blackwell e Rubin fino a fine 2026. Il freno è il margine: la società ammette che i costi degli input salgono e per il 2027 dice di «lavorare per tenere» il margine a metà 70, formula più debole di una conferma. La Cina resta azzerata nelle previsioni.",
+    "en": "Revenue of $57bn (+62%), the clouds are sold out and even six-year-old cards run at full utilisation. Management claims visibility on $500bn of Blackwell and Rubin through the end of 2026. The brake is margin: the company admits input costs are rising and for 2027 says it is \"working to hold\" gross margin in the mid-70s, a weaker formula than a confirmation. China stays at zero in the outlook."
+  },
+  "guidance": [
+    {
+      "metric": {"it": "Ricavi T4 2026", "en": "Q4 2026 revenue"},
+      "value": {"it": "65 miliardi $ ±2% (+14% sequenziale)", "en": "$65bn ±2% (+14% sequential)"},
+      "direction": "alzata"
+    },
+    {
+      "metric": {"it": "Margine lordo T4 (non-GAAP)", "en": "Q4 gross margin (non-GAAP)"},
+      "value": {"it": "75% ±50 punti base", "en": "75% ±50 basis points"},
+      "direction": "confermata"
+    },
+    {
+      "metric": {"it": "Margine lordo anno fiscale 2027", "en": "FY2027 gross margin"},
+      "value": {"it": "«lavoriamo per tenerlo» a metà 70, con costi degli input in aumento", "en": "\"working to hold\" in the mid-70s, with input costs rising"},
+      "direction": "prima"
+    },
+    {
+      "metric": {"it": "Ricavi data center dalla Cina", "en": "China data centre revenue"},
+      "value": {"it": "zero nelle previsioni, come il trimestre scorso", "en": "zero in the outlook, as last quarter"},
+      "direction": "confermata"
+    },
+    {
+      "metric": {"it": "Visibilità Blackwell + Rubin", "en": "Blackwell + Rubin visibility"},
+      "value": {"it": "500 miliardi $ da inizio 2025 a fine 2026, «con l'opportunità di aggiungerne altri»", "en": "$500bn from the start of 2025 to the end of 2026, \"with the opportunity for more on top\""},
+      "direction": "confermata"
+    }
+  ],
+  "qa": [
+    {
+      "question": {"it": "I 500 miliardi $ restano validi? Ci sono margini di rialzo?", "en": "Does the $500bn still stand? Is there room for upside?"},
+      "answer_summary": {"it": "Confermati e in linea; il CFO aggiunge che l'accordo con l'Arabia Saudita vale altri 400-600 mila GPU in tre anni e che Anthropic è tutto nuovo, quindi «c'e' sicuramente l'opportunità di avere di più».", "en": "Confirmed and on track; the CFO adds that the Saudi agreement is worth another 400,000-600,000 GPUs over three years and that Anthropic is entirely new, so \"there is definitely an opportunity for more\"."},
+      "directness": 5
+    },
+    {
+      "question": {"it": "L'offerta riuscirà a raggiungere la domanda nei prossimi 12-18 mesi?", "en": "Can supply catch up with demand over the next 12 to 18 months?"},
+      "answer_summary": {"it": "Nessuna data. Huang elenca le tre transizioni in corso e la qualità della pianificazione della catena di fornitura, ma non dice se e quando il divario si chiude.", "en": "No date given. Huang lists the three transitions underway and the quality of supply-chain planning, but does not say whether or when the gap closes."},
+      "directness": 2
+    },
+    {
+      "question": {"it": "Quanto contenuto NVIDIA c'e' per gigawatt dentro i 500 miliardi $?", "en": "What NVIDIA content per gigawatt is assumed in the $500bn?"},
+      "answer_summary": {"it": "Risponde per generazioni: circa 20-25 miliardi $ con Hopper, circa 30 con Grace Blackwell, «probabilmente di più» con Rubin. Non dice quale numero è dentro la previsione.", "en": "He answers by generation: about $20-25bn with Hopper, about $30bn with Grace Blackwell, \"probably higher\" with Rubin. He does not say which figure sits inside the forecast."},
+      "directness": 3
+    },
+    {
+      "question": {"it": "Qual è il collo di bottiglia che preoccupa di più: energia, finanziamenti, memoria o fonderia?", "en": "What is the single biggest bottleneck: power, financing, memory or foundry?"},
+      "answer_summary": {"it": "«Sono tutti vincoli». Non ne indica uno prevalente e sposta il discorso sulla pianificazione e sui partner di lunga data.", "en": "\"These are all constraints.\" He names no dominant one and moves on to planning and long-standing partners."},
+      "directness": 2
+    },
+    {
+      "question": {"it": "Che cosa fa salire i costi e come difenderete il margine l'anno prossimo?", "en": "What is driving costs up and how will you defend margin next year?"},
+      "answer_summary": {"it": "Il CFO parla di «prezzi degli input ben noti nel settore» senza nominare la memoria, e ripete la formula «lavoreremo per cercare di tenere» il margine a metà 70.", "en": "The CFO speaks of \"input prices that are well known in industries\" without naming memory, and repeats the formula \"we will work to try and hold\" margin in the mid-70s."},
+      "directness": 2
+    }
+  ],
+  "language_changes": [],
+  "file": "NVDA_2026Q3.json",
+  "source": "Bloomberg transcript export (non ridistribuito)",
+  "extracted_by": "Claude (estrazione manuale, stessa forma del passo automatico)"
+}

@@ -1,0 +1,108 @@
+{
+  "ticker": "KO",
+  "quarter": "T3 '26",
+  "tone": 79,
+  "tone_why": {
+    "it": "Quarto trimestre consecutivo con la guidance alzata: ricavi organici ad «almeno 5%», utile per azione ad «almeno 11%», flusso di cassa libero ad «almeno 13 miliardi $» contro i 12,2 promessi a febbraio. Volumi +5%, ricavi organici +7%, margine lordo +170 punti base, ventiduesimo trimestre di fila di guadagno di quota. Due note di cautela, entrambe dichiarate dalla società: i costi sono «accelerati», trainati da logistica e trasporti, e il prezzo/mix resta a +1% perché 4 punti di prezzo vengono quasi annullati da 3 di mix sfavorevole. In Nord America il volume e piatto e in Europa occidentale la società ammette di aver perso quota.",
+    "en": "A fourth consecutive quarter of raised guidance: organic revenue \"at least 5%\", earnings per share \"at least 11%\", free cash flow \"at least $13bn\" against the $12.2bn promised in February. Volume +5%, organic revenue +7%, gross margin +170 basis points, a twenty-second consecutive quarter of value share gains. Two notes of caution, both volunteered: costs have \"accelerated\", driven by logistics and transport, and price/mix stays at +1% because 4 points of pricing are nearly cancelled by 3 points of adverse mix. In North America volume is flat and in Western Europe the company admits losing share."
+  },
+  "guidance": [
+    {
+      "metric": {"it": "Ricavi organici 2026", "en": "2026 organic revenue"},
+      "value": {"it": "almeno 5%, incluso un leggero svuotamento delle scorte e sei giorni in meno nel T4", "en": "at least 5%, including slight destocking and six fewer days in Q4"},
+      "direction": "alzata"
+    },
+    {
+      "metric": {"it": "Utile per azione (valuta costante, al netto di acquisizioni e cessioni)", "en": "EPS (currency-neutral, ex-M&A)"},
+      "value": {"it": "almeno 9%", "en": "at least 9%"},
+      "direction": "alzata"
+    },
+    {
+      "metric": {"it": "Utile per azione 2026 (comparabile)", "en": "2026 comparable EPS"},
+      "value": {"it": "almeno 11%", "en": "at least 11%"},
+      "direction": "alzata"
+    },
+    {
+      "metric": {"it": "Flusso di cassa libero 2026", "en": "2026 free cash flow"},
+      "value": {"it": "almeno 13 miliardi $", "en": "at least $13bn"},
+      "direction": "alzata"
+    },
+    {
+      "metric": {"it": "Aliquota fiscale 2026", "en": "2026 effective tax rate"},
+      "value": {"it": "19,7%, con benefici che «non ci aspettiamo si ripetano»", "en": "19.7%, with benefits \"we do not expect to repeat going forward\""},
+      "direction": "ridotta"
+    },
+    {
+      "metric": {"it": "Costi", "en": "Costs"},
+      "value": {"it": "pressioni elevate e accelerate, trainate da logistica e trasporti; le materie prime restano gestibili", "en": "elevated and accelerated pressure, driven by logistics and transport; commodities remain manageable"},
+      "direction": "ridotta"
+    },
+    {
+      "metric": {"it": "Cessione di CCBA nel 2027", "en": "CCBA disposal in 2027"},
+      "value": {"it": "8 punti di freno sui ricavi e 2 sull'utile per azione, con beneficio su margini e rendimento del capitale", "en": "an 8-point headwind to revenue and 2 points to EPS, with benefits to margins and returns"},
+      "direction": "prima"
+    },
+    {
+      "metric": {"it": "Effetto cambi 2027", "en": "2027 currency effect"},
+      "value": {"it": "leggero freno su ricavi e utile per azione, ai tassi attuali", "en": "a slight headwind to revenue and EPS, at current rates"},
+      "direction": "prima"
+    }
+  ],
+  "qa": [
+    {
+      "question": {"it": "Il prezzo/mix di quest'anno potrebbe essere il più basso in dieci anni: quanto lo controllate davvero?", "en": "This year's price/mix could be the lowest in a decade: how much of it do you actually control?"},
+      "answer_summary": {"it": "Murphy scompone: 4 punti di prezzo sottostante, e due terzi del mix negativo derivano da azioni prese volontariamente o dal caso Topo Chico. Al netto di questi, dice, il prezzo/mix sarebbe dentro la fascia desiderata. Risposta con numeri, anche se la parte 2027 resta rinviata a febbraio.", "en": "Murphy breaks it down: 4 points of underlying pricing, and two thirds of the adverse mix comes from actions taken deliberately or from the Topo Chico situation. Net of these, he says, price/mix would sit inside the desired band. An answer with numbers, though the 2027 part is deferred to February."},
+      "directness": 4
+    },
+    {
+      "question": {"it": "Lo svuotamento delle scorte per l'intero anno sarà sotto, in linea o sopra?", "en": "Will full-year shipments run below, in line with, or above volume?"},
+      "answer_summary": {"it": "«Se me lo chiede ora»: spedizioni leggermente sotto i volumi per l'intero anno, ma ammette che e un anno anomalo e che il dato può cambiare. Onesto sull'incertezza più che preciso.", "en": "\"Right now, if you ask me\": shipments slightly behind volume for the full year, but he concedes it is an anomalous year and the figure may deviate. Honest about the uncertainty rather than precise."},
+      "directness": 3
+    },
+    {
+      "question": {"it": "La previsione sui cambi per il 2027 tiene conto dei movimenti delle ultime 48 ore?", "en": "Does the 2027 currency outlook account for the moves of the last 48 hours?"},
+      "answer_summary": {"it": "«La risposta breve e no». Ammette subito che i numeri letti non comprendono il movimento recente del real brasiliano. Correzione immediata e non richiesta.", "en": "\"The short answer is no.\" He immediately concedes the figures read out do not include the recent move in the Brazilian real. An immediate and unprompted correction."},
+      "directness": 5
+    },
+    {
+      "question": {"it": "Come stanno le economie degli imbottigliatori, che subiscono l'inflazione più di voi?", "en": "How are bottler economics, given they bear inflation more than the concentrate business?"},
+      "answer_summary": {"it": "Braun risponde a livello di sistema e di leve (acquisti congiunti, produttivita, gestione dei ricavi) senza dare nessun indicatore sulla salute economica degli imbottigliatori. La domanda chiedeva uno stato, la risposta descrive un metodo.", "en": "Braun answers at the level of the system and its levers (joint procurement, productivity, revenue growth management) without giving any indicator of bottler economic health. The question asked for a state; the answer describes a method."},
+      "directness": 2
+    }
+  ],
+  "language_changes": [
+    {
+      "topic": {"it": "Costi", "en": "Costs"},
+      "from": {"it": "materie prime gestibili, volatilità su tè e caffè (T1 '26); impatto complessivo gestibile (T2 '26)", "en": "commodities manageable, volatility in tea and coffee (Q1 '26); overall impact manageable (Q2 '26)"},
+      "to": {"it": "«le pressioni sui costi sono accelerate», trainate da logistica e trasporti", "en": "\"cost pressures have accelerated\", driven by logistics and transport"},
+      "note": {"it": "Il verbo cambia da gestibile ad accelerato, e la causa si sposta dalle materie prime al trasporto: e il peggioramento più netto dell'anno in una società che per il resto alza tutto.", "en": "The verb moves from manageable to accelerated, and the cause shifts from commodities to transport: the clearest deterioration of the year in a company that otherwise raises everything."}
+    },
+    {
+      "topic": {"it": "Flusso di cassa libero 2026", "en": "2026 free cash flow"},
+      "from": {"it": "circa 12,2 miliardi $ (T4 '25)", "en": "about $12.2bn (Q4 '25)"},
+      "to": {"it": "almeno 13 miliardi $", "en": "at least $13bn"},
+      "note": {"it": "Quasi un miliardo sopra la promessa di febbraio, con 11,4 miliardi già realizzati nei primi nove mesi.", "en": "Nearly a billion above the February promise, with $11.4bn already generated in the first nine months."}
+    },
+    {
+      "topic": {"it": "Aliquota fiscale", "en": "Effective tax rate"},
+      "from": {"it": "19,9% (T1 e T2 '26)", "en": "19.9% (Q1 and Q2 '26)"},
+      "to": {"it": "19,7%, con l'avvertenza che i benefici non si ripeteranno", "en": "19.7%, with the warning that the benefits will not repeat"},
+      "note": {"it": "Terza riduzione dell'aliquota in un anno, stavolta accompagnata dall'avvertenza: un aiuto che viene dichiarato temporaneo mentre lo si incassa.", "en": "A third tax-rate reduction in a year, this time with a warning attached: a benefit declared temporary while being booked."}
+    },
+    {
+      "topic": {"it": "Europa occidentale", "en": "Western Europe"},
+      "from": {"it": "quota guadagnata in Europa, crescita allargata alla regione (T2 '26)", "en": "share gained in Europe, growth broadening across the region (Q2 '26)"},
+      "to": {"it": "«abbiamo perso quota in alcuni mercati chiave dell'Europa occidentale e stiamo prendendo provvedimenti»", "en": "\"we lost value share in a few key markets in Western Europe, and we are taking actions\""},
+      "note": {"it": "Ammissione di una perdita di quota dichiarata spontaneamente nelle osservazioni preparate, non estratta da una domanda.", "en": "An admission of share loss volunteered in the prepared remarks, not extracted by a question."}
+    },
+    {
+      "topic": {"it": "India", "en": "India"},
+      "from": {"it": "crescita e affordability (T1 e T2 '26)", "en": "growth and affordability (Q1 and Q2 '26)"},
+      "to": {"it": "si valuta una possibile quotazione in borsa delle operazioni di imbottigliamento", "en": "a potential IPO of the bottling operations is being explored"},
+      "note": {"it": "Continua la direzione già vista con CCBA: uscire dall'imbottigliamento per tenere margini e rendimento del capitale più alti.", "en": "It continues the direction already seen with CCBA: stepping out of bottling to keep margins and returns higher."}
+    }
+  ],
+  "file": "KO_2026Q3.json",
+  "source": "Bloomberg transcript export (non ridistribuito)",
+  "extracted_by": "Claude (estrazione manuale, stessa forma del passo automatico)"
+}

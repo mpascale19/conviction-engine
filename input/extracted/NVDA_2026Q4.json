@@ -1,0 +1,98 @@
+{
+  "ticker": "NVDA",
+  "quarter": "T4 '26 (anno fiscale)",
+  "call_date": "2026-02-25",
+  "tone": 82,
+  "tone_why": {
+    "it": "Ricavi a 68 miliardi $ (+73%, in accelerazione sul trimestre prima) e margine lordo salito al 75,2%. La società alza l'asticella: crescita sequenziale per tutto il 2026 «oltre» i 500 miliardi $ annunciati, impegni d'acquisto estesi fino al 2027. Annuncia 10 miliardi $ investiti in Anthropic e include per la prima volta i compensi in azioni nei numeri non-GAAP, una scelta che peggiora i conti riportati. L'ombra è il gaming, dato in difficoltà per la memoria.",
+    "en": "Revenue of $68bn (+73%, accelerating from the prior quarter) and gross margin up to 75.2%. The company raises the bar: sequential growth through all of 2026 \"exceeding\" the $500bn announced, with purchase commitments extending into 2027. It announces $10bn invested in Anthropic and, for the first time, includes stock-based compensation in non-GAAP results, a choice that makes reported figures worse. The shadow is gaming, flagged as supply-constrained on memory."
+  },
+  "guidance": [
+    {
+      "metric": {"it": "Ricavi T1 2027", "en": "Q1 2027 revenue"},
+      "value": {"it": "78 miliardi $ ±2%", "en": "$78bn ±2%"},
+      "direction": "alzata"
+    },
+    {
+      "metric": {"it": "Margine lordo T1 (non-GAAP)", "en": "Q1 gross margin (non-GAAP)"},
+      "value": {"it": "75% ±50 punti base", "en": "75% ±50 basis points"},
+      "direction": "confermata"
+    },
+    {
+      "metric": {"it": "Margine lordo anno intero", "en": "Full-year gross margin"},
+      "value": {"it": "«continuiamo a vedere» metà 70", "en": "\"we continue to see\" the mid-70s"},
+      "direction": "confermata"
+    },
+    {
+      "metric": {"it": "Crescita dei ricavi nel 2026", "en": "Revenue growth through 2026"},
+      "value": {"it": "crescita sequenziale per tutto l'anno solare, oltre i 500 miliardi $ di opportunità Blackwell e Rubin", "en": "sequential growth through the calendar year, exceeding the $500bn Blackwell and Rubin opportunity"},
+      "direction": "alzata"
+    },
+    {
+      "metric": {"it": "Costi operativi anno fiscale 2027 (non-GAAP)", "en": "FY2027 operating expenses (non-GAAP)"},
+      "value": {"it": "crescita nella fascia bassa del 40%", "en": "growth in the low-40s percent"},
+      "direction": "prima"
+    },
+    {
+      "metric": {"it": "Gaming", "en": "Gaming"},
+      "value": {"it": "vincoli di fornitura come freno in T1 e oltre", "en": "supply constraints a headwind in Q1 and beyond"},
+      "direction": "ridotta"
+    }
+  ],
+  "qa": [
+    {
+      "question": {"it": "I vostri clienti cloud riusciranno a far crescere ancora gli investimenti, con un CapEx già vicino a 700 miliardi $?", "en": "Can your cloud customers keep growing capex, already near $700bn?"},
+      "answer_summary": {"it": "«Sono fiducioso che il loro flusso di cassa crescerà». L'argomento è logico, non numerico: il calcolo è revenues, senza calcolo non ci sono token, senza token non ci sono ricavi.", "en": "\"I am confident in their cash flow growing.\" The argument is logical, not numerical: compute is revenues, without compute there are no tokens, without tokens there is no revenue."},
+      "directness": 3
+    },
+    {
+      "question": {"it": "La crescita sequenziale continuerà anche quando Rubin entrerà in produzione nella seconda metà?", "en": "Will sequential growth continue as Rubin ramps in the second half?"},
+      "answer_summary": {"it": "Il CFO non quantifica: «è troppo presto per dire quanto» della salita di Vera Rubin cadrà nella seconda metà. Conferma solo che la domanda c'e' e che gli ordini sono già firmati.", "en": "The CFO does not quantify: \"it is too early yet to determine how much\" of the Vera Rubin ramp falls in the second half. She confirms only that demand is there and orders are already signed."},
+      "directness": 2
+    },
+    {
+      "question": {"it": "Il margine a metà 70 è sostenibile oltre il 2027?", "en": "Is the mid-70s margin sustainable beyond 2027?"},
+      "answer_summary": {"it": "Huang non risponde sul 2027: sposta tutto sulla leva che considera unica, cioè consegnare ogni anno salti generazionali di prestazioni per watt. Nessun impegno oltre l'anno in corso.", "en": "Huang does not answer on 2027: he moves everything onto what he considers the one lever, delivering generational leaps in performance per watt every year. No commitment beyond the current year."},
+      "directness": 2
+    },
+    {
+      "question": {"it": "Il gaming può ancora crescere su base annua nel 2027 vista la memoria?", "en": "Can gaming still grow year over year in FY27 given memory?"},
+      "answer_summary": {"it": "«Per un paio di trimestri sarà molto stretto». Se le cose migliorano a fine anno ci sarà un'occasione, ma «è ancora troppo presto per saperlo».", "en": "\"For a couple quarters it is going to be very tight.\" If things improve by year end there is an opportunity, but \"it is still too early for us to know\"."},
+      "directness": 4
+    },
+    {
+      "question": {"it": "Perché non fare un riacquisto di azioni molto più grande, visti i 100 miliardi $ di cassa attesi?", "en": "Why not do a much bigger buyback, given the ~$100bn of cash expected?"},
+      "answer_summary": {"it": "Il CFO mette l'ecosistema e i fornitori davanti al riacquisto: continueranno a comprare azioni e a pagare il dividendo, ma «troveremo le occasioni giuste nel corso dell'anno». Nessun impegno di importo.", "en": "The CFO puts the ecosystem and suppliers ahead of buybacks: they will keep repurchasing and paying the dividend, but \"we will find the right unique opportunities within the year\". No amount committed."},
+      "directness": 2
+    }
+  ],
+  "language_changes": [
+    {
+      "topic": {"it": "Opportunità Blackwell e Rubin", "en": "Blackwell and Rubin opportunity"},
+      "from": {"it": "visibilità su 500 miliardi $ fino a fine 2026 (T3 '26)", "en": "visibility on $500bn through the end of 2026 (Q3 '26)"},
+      "to": {"it": "crescita sequenziale per tutto il 2026 «oltre» quei 500 miliardi $", "en": "sequential growth through 2026 \"exceeding\" that $500bn"},
+      "note": {"it": "Da tetto dichiarato a pavimento: la stessa cifra passa da obiettivo a minimo.", "en": "From stated ceiling to floor: the same figure moves from target to minimum."}
+    },
+    {
+      "topic": {"it": "Margine lordo 2027", "en": "FY2027 gross margin"},
+      "from": {"it": "«lavoriamo per tenerlo» a metà 70 (T3 '26)", "en": "\"working to hold\" the mid-70s (Q3 '26)"},
+      "to": {"it": "«continuiamo a vedere» metà 70", "en": "\"we continue to see\" the mid-70s"},
+      "note": {"it": "Formula più sicura di un trimestre fa, sugli stessi costi di input.", "en": "A more confident formula than a quarter ago, on the same input costs."}
+    },
+    {
+      "topic": {"it": "Compensi in azioni", "en": "Stock-based compensation"},
+      "from": {"it": "esclusi dai numeri non-GAAP", "en": "excluded from non-GAAP results"},
+      "to": {"it": "inclusi a partire da questo trimestre (1,9 miliardi $ in T1)", "en": "included starting this quarter ($1.9bn in Q1)"},
+      "note": {"it": "Cambio di criterio che peggiora i numeri riportati: raro, e nella direzione scomoda.", "en": "An accounting-presentation change that worsens reported figures: rare, and in the uncomfortable direction."}
+    },
+    {
+      "topic": {"it": "Cina", "en": "China"},
+      "from": {"it": "ordini mai materializzati per ragioni geopolitiche (T3 '26)", "en": "orders never materialised for geopolitical reasons (Q3 '26)"},
+      "to": {"it": "i concorrenti cinesi, rafforzati dalle quotazioni in borsa, «possono disturbare la struttura dell'industria globale»", "en": "Chinese competitors, bolstered by recent IPOs, \"have the potential to disrupt the structure of the global AI industry\""},
+      "note": {"it": "Il problema cambia natura: da ostacolo normativo a concorrenza strutturale.", "en": "The problem changes nature: from a regulatory obstacle to structural competition."}
+    }
+  ],
+  "file": "NVDA_2026Q4.json",
+  "source": "Bloomberg transcript export (non ridistribuito)",
+  "extracted_by": "Claude (estrazione manuale, stessa forma del passo automatico)"
+}

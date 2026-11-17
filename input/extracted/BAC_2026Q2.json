@@ -1,0 +1,87 @@
+{
+  "ticker": "BAC",
+  "quarter": "T2 '26",
+  "tone": 84,
+  "tone_why": {
+    "it": "Il trimestre migliore della serie: ricavi +15% a 31,6 miliardi $, utile per azione +34%, rendimento sul capitale tangibile al 17%, 660 punti base di leva operativa. Ogni singolo segmento cresce ricavi, utile, prestiti e depositi. Le commissioni di investment banking salgono del 50% e il trading mette a segno il diciassettesimo trimestre consecutivo di crescita. La guidance sulla leva operativa sale da «oltre 200» a 300-400 punti base. L'unica cautela viene da Moynihan stesso, che cita la guerra in Iran come fattore non prevedibile.",
+    "en": "The best quarter of the series: revenue +15% to $31.6bn, earnings per share +34%, return on tangible common equity at 17%, 660 basis points of operating leverage. Every single segment grew revenue, earnings, loans and deposits. Investment banking fees rose 50% and trading posted its seventeenth consecutive quarter of growth. Operating-leverage guidance rises from \"more than 200\" to 300-400 basis points. The only note of caution comes from Moynihan himself, who cites the war in Iran as an unpredictable factor."
+  },
+  "guidance": [
+    {
+      "metric": {"it": "Margine di interesse 2026", "en": "2026 net interest income"},
+      "value": {"it": "parte alta della fascia 6-8%, cioè circa l'8%", "en": "upper end of the 6-8% range, that is about 8%"},
+      "direction": "alzata"
+    },
+    {
+      "metric": {"it": "Leva operativa 2026", "en": "2026 operating leverage"},
+      "value": {"it": "300-400 punti base, dopo 450 nel primo semestre", "en": "300-400 basis points, after 450 in the first half"},
+      "direction": "alzata"
+    },
+    {
+      "metric": {"it": "Margine di interesse netto (obiettivo)", "en": "Net interest yield (target)"},
+      "value": {"it": "2,30%, «siamo un anno più vicini», probabilmente entro un paio d'anni", "en": "2.30%, \"we are a year closer\", probably within a couple of years"},
+      "direction": "confermata"
+    },
+    {
+      "metric": {"it": "Crescita dei prestiti", "en": "Loan growth"},
+      "value": {"it": "circa 20 miliardi $ al trimestre, senza cambiamenti attesi nel secondo semestre", "en": "about $20bn per quarter, with no change expected in the second half"},
+      "direction": "confermata"
+    },
+    {
+      "metric": {"it": "Guidance sui costi", "en": "Expense guidance"},
+      "value": {"it": "abbandonata: la banca guida solo sulla leva operativa", "en": "dropped: the bank guides on operating leverage only"},
+      "direction": "ridotta"
+    }
+  ],
+  "qa": [
+    {
+      "question": {"it": "La leva operativa è sostenibile o è un effetto dei ricavi eccezionali?", "en": "Is the operating leverage sustainable, or an effect of exceptional revenue?"},
+      "answer_summary": {"it": "Risposta onesta sui due motori: il margine di interesse che continua a salire e un semestre eccezionale sulle commissioni. Ammette i confronti più difficili nel secondo semestre.", "en": "An honest answer on the two engines: net interest income grinding higher and an exceptional half on fees. He acknowledges tougher comparisons in the second half."},
+      "directness": 4
+    },
+    {
+      "question": {"it": "Date la guidance sui costi per l'anno o per il semestre?", "en": "Will you give expense guidance for the year or the half?"},
+      "answer_summary": {"it": "No, e spiega perché: con ricavi che salgono così in fretta, i costi legati a incentivi e compensazione seguono, quindi preferiscono guidare sulla leva operativa. Indica il personale come la misura di riferimento.", "en": "No, and he explains why: with revenue rising this fast, incentive and transaction costs follow, so they prefer to guide on operating leverage. He points to headcount as the reference measure."},
+      "directness": 4
+    },
+    {
+      "question": {"it": "Quanto vale il margine di interesse al netto del trading?", "en": "What is net interest income excluding markets?"},
+      "answer_summary": {"it": "Il CFO non ha il numero e offre di darlo fuori dalla call. Dice che il trading sarà «piatto o leggermente in calo», quindi la crescita viene dal banking.", "en": "The CFO does not have the number and offers it offline. He says markets will be \"flat to slightly down\", so growth comes from the banking book."},
+      "directness": 3
+    },
+    {
+      "question": {"it": "Con questi ricavi rischiate di investire troppo poco?", "en": "With revenue this strong, do you risk underinvesting?"},
+      "answer_summary": {"it": "Moynihan risponde di no e spiega il meccanismo: una parte del costo incrementale è legata a incentivi e commissioni di borsa, non a investimenti rinviati. Nessun impegno a spendere di più.", "en": "Moynihan says no and explains the mechanism: part of the incremental cost is incentives and exchange fees, not deferred investment. No commitment to spend more."},
+      "directness": 4
+    }
+  ],
+  "language_changes": [
+    {
+      "topic": {"it": "Margine di interesse 2026", "en": "2026 net interest income"},
+      "from": {"it": "crescita del 6-8% (T1 '26)", "en": "6-8% growth (Q1 '26)"},
+      "to": {"it": "parte alta del 6-8%", "en": "the upper end of 6-8%"},
+      "note": {"it": "Seconda revisione al rialzo in due trimestri, partendo dal 5-7% di gennaio.", "en": "A second upward revision in two quarters, from January's 5-7%."}
+    },
+    {
+      "topic": {"it": "Leva operativa", "en": "Operating leverage"},
+      "from": {"it": "oltre 200 punti base (T1 '26)", "en": "more than 200 basis points (Q1 '26)"},
+      "to": {"it": "300-400 punti base", "en": "300-400 basis points"},
+      "note": {"it": "Primo semestre già a 450 punti base: la revisione segue i fatti invece di anticiparli.", "en": "The first half already ran at 450 basis points: the revision follows the facts rather than anticipating them."}
+    },
+    {
+      "topic": {"it": "Direzione dei tassi attesa", "en": "Expected rate direction"},
+      "from": {"it": "due tagli attesi nel 2026 (T4 '25), poi nessun taglio (T1 '26)", "en": "two cuts expected in 2026 (Q4 '25), then no cuts (Q1 '26)"},
+      "to": {"it": "un rialzo di 25 punti base a settembre nella curva", "en": "one 25 basis point hike in September in the curve"},
+      "note": {"it": "In sei mesi l'ipotesi passa da due tagli a un rialzo: la guidance sale su uno scenario macro che si è capovolto.", "en": "In six months the assumption moves from two cuts to one hike: guidance rises on a macro scenario that flipped."}
+    },
+    {
+      "topic": {"it": "AI", "en": "AI"},
+      "from": {"it": "citata come fonte di produttività (T1 '26)", "en": "mentioned as a source of productivity (Q1 '26)"},
+      "to": {"it": "slide dedicata: oltre 300 casi d'uso approvati, 114 generativi attivi, 400 mila richieste al giorno", "en": "a dedicated slide: over 300 approved use cases, 114 live generative ones, 400,000 prompts a day"},
+      "note": {"it": "Da affermazione generica a numeri verificabili nel giro di un trimestre.", "en": "From a generic claim to checkable figures within a single quarter."}
+    }
+  ],
+  "file": "BAC_2026Q2.json",
+  "source": "Bloomberg transcript export (non ridistribuito)",
+  "extracted_by": "Claude (estrazione manuale, stessa forma del passo automatico)"
+}

@@ -1,0 +1,120 @@
+{
+  "ticker": "NVDA",
+  "quarter": "T2 '27 (anno fiscale)",
+  "call_date": "2026-08-26",
+  "tone": 74,
+  "tone_why": {
+    "it": "Ricavi a 96 miliardi $, più che raddoppiati su base annua, e un T3 guidato a 108 miliardi $. Ma questo è il primo trimestre in cui la società taglia il margine in modo esplicito e numerico: 74% nel T3, minimo al 71-72% nel T4, poi 72-73% nel 2028, per il prezzo della memoria che «ha superato le nostre attese precedenti». Il CFO dice «vogliamo essere diretti su questo invece di lasciarlo come una domanda aperta». La crescita 2028 è fissata al 70% pur con domanda al 100%: è l'offerta a decidere. Si aggiunge il tema del finanziamento ai laboratori di frontiera, che la società affronta di petto nominando l'accusa di «finanziamento circolare».",
+    "en": "Revenue of $96bn, more than doubling year over year, and Q3 guided to $108bn. But this is the first quarter in which the company cuts margin explicitly and numerically: 74% in Q3, bottoming at 71-72% in Q4, then 72-73% in FY28, because memory prices have \"exceeded our prior expectations\". The CFO says \"we want to be direct about this rather than let it linger as an open question\". FY28 growth is set at 70% while demand runs at 100%: supply decides. On top sits the financing of frontier AI labs, which the company meets head on by naming the \"circular financing\" accusation itself."
+  },
+  "guidance": [
+    {
+      "metric": {"it": "Ricavi T3 2027", "en": "Q3 2027 revenue"},
+      "value": {"it": "108 miliardi $ ±2%", "en": "$108bn ±2%"},
+      "direction": "alzata"
+    },
+    {
+      "metric": {"it": "Margine lordo T3 (non-GAAP)", "en": "Q3 gross margin (non-GAAP)"},
+      "value": {"it": "74% ±50 punti base", "en": "74% ±50 basis points"},
+      "direction": "ridotta"
+    },
+    {
+      "metric": {"it": "Margine lordo T4", "en": "Q4 gross margin"},
+      "value": {"it": "minimo al 71-72%", "en": "bottoming at 71-72%"},
+      "direction": "ridotta"
+    },
+    {
+      "metric": {"it": "Margine lordo anno fiscale 2028", "en": "FY2028 gross margin"},
+      "value": {"it": "72-73%, dopo gli aumenti di prezzo già decisi che partono dal T1", "en": "72-73%, after already-executed price increases take effect in Q1"},
+      "direction": "ridotta"
+    },
+    {
+      "metric": {"it": "Ricavi anno fiscale 2028", "en": "FY2028 revenue"},
+      "value": {"it": "circa +70% su base annua, previsione limitata dall'offerta", "en": "approximately +70% year over year, a supply-constrained outlook"},
+      "direction": "prima"
+    },
+    {
+      "metric": {"it": "Costi operativi anno intero (non-GAAP)", "en": "Full-year operating expenses (non-GAAP)"},
+      "value": {"it": "crescita nella fascia bassa del 50%", "en": "growth in the low-50s percent"},
+      "direction": "alzata"
+    },
+    {
+      "metric": {"it": "Ricavi CPU anno fiscale 2028", "en": "FY2028 CPU revenue"},
+      "value": {"it": "attesi a più del doppio", "en": "expected to more than double"},
+      "direction": "prima"
+    },
+    {
+      "metric": {"it": "Ricavi data center dalla Cina", "en": "China data centre revenue"},
+      "value": {"it": "zero nelle previsioni; le spedizioni Hopper correnti diluiscono il margine", "en": "zero in the outlook; current Hopper shipments are dilutive to margin"},
+      "direction": "confermata"
+    }
+  ],
+  "qa": [
+    {
+      "question": {"it": "Che cosa vi dà la sicurezza di guidare un anno intero, e che cosa separa il 70% dalla domanda al 100%?", "en": "What gives you confidence to guide a full year out, and what separates 70% from 100% demand growth?"},
+      "answer_summary": {"it": "Risposta diretta: la domanda è molto maggiore del 70%, ma «la nostra offerta ci permette di consegnare con sicurezza il 70%». Dichiara anche perché guidano per la prima volta a un anno: far vedere lo stesso quadro a clienti, azionisti e fornitori.", "en": "A direct answer: demand is much greater than 70%, but \"our supply allows us to confidently deliver 70%\". He also states why they guide a year out for the first time: so customers, shareholders and the supply chain all see the same picture."},
+      "directness": 5
+    },
+    {
+      "question": {"it": "Qual è il vincolo più acuto: energia, involucri dei data center, DRAM, capacità di fonderia?", "en": "Which constraint is most acute: power, data-centre shell, DRAM, foundry capacity?"},
+      "answer_summary": {"it": "Evita la graduatoria: «tutta la nostra catena di fornitura è sotto sforzo». Era la stessa domanda posta in T3 '26 e ha ricevuto la stessa non-risposta.", "en": "He avoids ranking them: \"our entire supply chain is challenged\". It is the same question asked in Q3 '26, and it gets the same non-answer."},
+      "directness": 2
+    },
+    {
+      "question": {"it": "Sommando tutto si arriva a circa 500 miliardi $ di impegni verso l'ecosistema: è quello il totale? E come gestite il fatto che i laboratori che finanziate progettano chip concorrenti?", "en": "Adding it all up gives about $500bn of ecosystem commitments: is that the total? And how do you handle financing labs that design competing chips?"},
+      "answer_summary": {"it": "Sulla concorrenza Huang risponde a lungo e con sicurezza (quelli sono chip per l'inferenza di un solo cloud, NVIDIA è una piattaforma). Sulla cifra non risponde: interviene il CFO e parla degli impegni di fornitura, non del totale chiesto.", "en": "On competition Huang answers at length and confidently (those are inference-specific chips for one cloud, NVIDIA is a platform). On the figure there is no answer: the CFO steps in and talks about supply commitments, not the total asked about."},
+      "directness": 2
+    },
+    {
+      "question": {"it": "Da dove arrivano i circa 200 miliardi $ in più rispetto alla previsione precedente, e quanto è prezzo?", "en": "Where does the roughly $200bn uplift versus the prior outlook come from, and how much is pricing?"},
+      "answer_summary": {"it": "Huang spiega la ripartizione fra hyperscaler e secondo segmento e il valore per gigawatt, ma la domanda sul prezzo resta senza risposta esplicita.", "en": "Huang explains the split between hyperscalers and the second segment and the value per gigawatt, but the pricing part of the question goes explicitly unanswered."},
+      "directness": 2
+    },
+    {
+      "question": {"it": "I modelli aperti sono un bene o un male per voi?", "en": "Are open models good or bad for NVIDIA?"},
+      "answer_summary": {"it": "Un bene, con la ragione: quasi tutti i modelli aperti girano su NVIDIA perché CUDA è ovunque. Risposta chiara anche se interessata.", "en": "Good, with a reason: nearly all open models run on NVIDIA because CUDA is everywhere. A clear answer, if an interested one."},
+      "directness": 4
+    }
+  ],
+  "language_changes": [
+    {
+      "topic": {"it": "Margine lordo", "en": "Gross margin"},
+      "from": {"it": "«ci aspettiamo ancora» metà 70 per l'anno intero (T1 '27)", "en": "\"still expecting\" the mid-70s for the full year (Q1 '27)"},
+      "to": {"it": "74% nel T3, minimo 71-72% nel T4, 72-73% nel 2028", "en": "74% in Q3, bottoming 71-72% in Q4, 72-73% in FY28"},
+      "note": {"it": "Primo taglio numerico del margine dopo cinque trimestri di conferme. Dichiarato in anticipo e per esteso, non estratto da una domanda.", "en": "The first numerical margin cut after five quarters of confirmations. Stated up front and in full, not extracted by a question."}
+    },
+    {
+      "topic": {"it": "Prezzo della memoria", "en": "Memory pricing"},
+      "from": {"it": "«prezzi degli input ben noti nel settore», senza nominare la memoria (T3 '26)", "en": "\"input prices well known in industries\", without naming memory (Q3 '26)"},
+      "to": {"it": "«condizioni di prezzo estreme nella memoria», oltre le attese e in ulteriore aumento", "en": "\"extreme pricing conditions in memory\", beyond expectations and heading higher"},
+      "note": {"it": "Il problema viene finalmente chiamato con il suo nome, tre trimestri dopo la prima allusione.", "en": "The problem is finally named, three quarters after the first allusion."}
+    },
+    {
+      "topic": {"it": "Orizzonte della guidance", "en": "Guidance horizon"},
+      "from": {"it": "solo il trimestre successivo; «non abbiamo mai guidato a un anno»", "en": "the next quarter only; \"we've never guided to a year in advance\""},
+      "to": {"it": "previsione di crescita per l'intero anno fiscale 2028 (+70%)", "en": "a full-year FY2028 growth outlook (+70%)"},
+      "note": {"it": "Rompe una prassi dichiarata. Dato positivo sulla trasparenza, ma alza l'asticella su cui saranno misurati.", "en": "It breaks a stated practice. A positive on transparency, but it raises the bar they will be measured against."}
+    },
+    {
+      "topic": {"it": "Finanziamento dei laboratori di frontiera", "en": "Frontier-lab financing"},
+      "from": {"it": "investimenti strategici per «espandere l'ecosistema CUDA» (T3 '26)", "en": "strategic investments to \"expand the CUDA ecosystem\" (Q3 '26)"},
+      "to": {"it": "quasi 50 miliardi $ investiti, piattaforme con sei gestori di capitali per oltre 500 miliardi $, garanzie di ricavo minimo ai neocloud e supporto al credito per quasi 2 gigawatt", "en": "nearly $50bn invested, platforms with six capital providers for over $500bn, minimum revenue guarantees to neoclouds and credit support for nearly 2 gigawatts"},
+      "note": {"it": "La società nomina da sola l'obiezione: «sappiamo che qualcuno lo chiamerà finanziamento circolare». Dichiara che quei clienti varranno circa un quarto del business dell'anno prossimo.", "en": "The company names the objection itself: \"we know some will call this circular financing\". It states those customers will be worth roughly a quarter of next year's business."}
+    },
+    {
+      "topic": {"it": "Giorni di credito ai clienti", "en": "Days sales outstanding"},
+      "from": {"it": "45 giorni, attesi a metà 50 (T1 '27)", "en": "45 days, expected to return to the mid-50s (Q1 '27)"},
+      "to": {"it": "60 giorni, per termini di pagamento allungati ad alcuni clienti con merito di credito elevato", "en": "60 days, on extended payment terms for certain investment-grade customers"},
+      "note": {"it": "Sopra la fascia che avevano indicato un trimestre prima: l'incasso si allontana mentre i ricavi corrono.", "en": "Above the range they indicated a quarter earlier: collection stretches out while revenue races ahead."}
+    },
+    {
+      "topic": {"it": "Restituzione agli azionisti", "en": "Shareholder returns"},
+      "from": {"it": "circa il 50% del flusso di cassa libero (T1 '27)", "en": "about 50% of free cash flow (Q1 '27)"},
+      "to": {"it": "60% da inizio anno, con l'intenzione di aumentare e restituire la cassa in eccesso", "en": "60% year to date, with the intention to increase and return excess free cash flow"},
+      "note": {"it": "Sopra l'impegno preso, mentre il margine scende: segnale di fiducia nella cassa.", "en": "Above the stated commitment, while margin falls: a signal of confidence in cash."}
+    }
+  ],
+  "file": "NVDA_2027Q2.json",
+  "source": "Bloomberg transcript export (non ridistribuito)",
+  "extracted_by": "Claude (estrazione manuale, stessa forma del passo automatico)"
+}

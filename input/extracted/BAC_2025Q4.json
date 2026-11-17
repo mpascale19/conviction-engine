@@ -1,0 +1,62 @@
+{
+  "ticker": "BAC",
+  "quarter": "T4 '25",
+  "tone": 70,
+  "tone_why": {
+    "it": "Utile netto a 7,6 miliardi $ (+12%) e 330 punti base di leva operativa nel trimestre. La banca chiude il 2025 avendo mantenuto quello che aveva promesso sul margine di interesse e conferma per il 2026 la crescita del 5-7% indicata all'Investor Day. Il tono è di esecuzione ordinata, non di accelerazione: i numeri sono buoni, le previsioni sono le stesse di novembre. Nel trimestre cambia il criterio contabile sugli investimenti fiscali e i conti passati vengono ricostruiti, il che toglie un po' di confrontabilità.",
+    "en": "Net income of $7.6bn (+12%) and 330 basis points of operating leverage in the quarter. The bank closes 2025 having delivered what it promised on net interest income and confirms 5-7% growth for 2026, as indicated at Investor Day. The tone is one of orderly execution rather than acceleration: the numbers are good, the guidance is the same as in November. During the quarter the accounting method for tax equity investments changes and prior periods are restated, which costs some comparability."
+  },
+  "guidance": [
+    {
+      "metric": {"it": "Margine di interesse 2026", "en": "2026 net interest income"},
+      "value": {"it": "crescita del 5-7% sul 2025, con due tagli dei tassi nella curva", "en": "5-7% growth over 2025, with two rate cuts in the curve"},
+      "direction": "confermata"
+    },
+    {
+      "metric": {"it": "Leva operativa 2026", "en": "2026 operating leverage"},
+      "value": {"it": "circa 200 punti base", "en": "about 200 basis points"},
+      "direction": "confermata"
+    },
+    {
+      "metric": {"it": "Margine di interesse T1 2026", "en": "Q1 2026 net interest income"},
+      "value": {"it": "circa +7% sul T1 2025", "en": "about +7% over Q1 2025"},
+      "direction": "prima"
+    },
+    {
+      "metric": {"it": "Costi T1 2026", "en": "Q1 2026 expenses"},
+      "value": {"it": "circa +4% sul T1 2025", "en": "about +4% over Q1 2025"},
+      "direction": "prima"
+    },
+    {
+      "metric": {"it": "Aliquota fiscale 2026", "en": "2026 effective tax rate"},
+      "value": {"it": "circa 20%", "en": "roughly 20%"},
+      "direction": "prima"
+    },
+    {
+      "metric": {"it": "Perdite su crediti", "en": "Net charge-offs"},
+      "value": {"it": "stabilità attesa nel breve", "en": "continued stability expected in the near term"},
+      "direction": "confermata"
+    }
+  ],
+  "qa": [
+    {
+      "question": {"it": "Il cambio contabile vi fa rivedere l'obiettivo di rapporto costi/ricavi del 55-59%?", "en": "Does the accounting change make you revise the 55-59% efficiency-ratio target?"},
+      "answer_summary": {"it": "No, perché i periodi precedenti sono stati ricostruiti. Aggiunge che quei numeri «non sono un tetto alla nostra ambizione» e che rivedranno l'obiettivo una volta dentro la fascia.", "en": "No, because prior periods were restated. He adds those numbers \"aren't a cap on our ambition\" and that they will reassess once inside the range."},
+      "directness": 4
+    },
+    {
+      "question": {"it": "Come si arriva alla leva operativa con i costi in crescita del 4% nel T1?", "en": "How do you get operating leverage with expenses up 4% in Q1?"},
+      "answer_summary": {"it": "La risposta è meccanica e dichiarata in anticipo: i costi legati ai ricavi scendono se i ricavi scendono. Nessuna promessa su un numero di costo assoluto.", "en": "The answer is mechanical and stated in advance: revenue-related expense falls if revenue falls. No promise on an absolute expense figure."},
+      "directness": 4
+    },
+    {
+      "question": {"it": "Che cosa sostiene il 5-7% di crescita del margine di interesse?", "en": "What supports the 5-7% net interest income growth?"},
+      "answer_summary": {"it": "Dichiarato con numeri: 12-15 miliardi $ al trimestre di titoli e mutui in scadenza che si reinvestono a 150-200 punti base di rendimento in più.", "en": "Stated with numbers: $12-15bn per quarter of maturing mortgages and securities reinvested at 150-200 basis points higher yield."},
+      "directness": 5
+    }
+  ],
+  "language_changes": [],
+  "file": "BAC_2025Q4.json",
+  "source": "Bloomberg transcript export (non ridistribuito)",
+  "extracted_by": "Claude (estrazione manuale, stessa forma del passo automatico)"
+}
