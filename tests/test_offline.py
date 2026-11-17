@@ -48,7 +48,7 @@ check("vendita con piano riconosciuta", sale[0]["plan"] is True)
 
 mix = parse_form4(read("form4_mixed.xml"))
 check("due operazioni nello stesso documento", len(mix) == 2, len(mix))
-check("la riga con la nota 10b5-1 e' programmata", mix[0]["plan"] is True)
+check("la riga con la nota 10b5-1 è programmata", mix[0]["plan"] is True)
 check("l'altra riga resta discrezionale", mix[1]["plan"] is False)
 
 print("\nClassificazione e pesi")
@@ -133,7 +133,7 @@ for i, who in enumerate(["Uno", "Due", "Tre"]):
                               "value": 50000.0, "ad": "A", "is_senior": False, "is_director": True})
 e = finish(cfg, build_one(cfg, old_cluster), universe)
 check("un cluster di un anno fa non viene segnalato", not e["cluster"], e["cluster"])
-check("il cluster e' solo in AAAA", bool(a["cluster"]) and not b["cluster"])
+check("il cluster è solo in AAAA", bool(a["cluster"]) and not b["cluster"])
 check("config con due universi", len(cfg["universi"]) == 2 and
       sum(len(g["tickers"]) for g in cfg["universi"]) == 40,
       [len(g["tickers"]) for g in cfg["universi"]])
@@ -141,10 +141,10 @@ check("nessun ticker ripetuto fra gli universi",
       len({t for g in cfg["universi"] for t in g["tickers"]}) == 40)
 check("il settore ora ha un valore", a["score"]["subs"][3]["v"] is not None,
       a["score"]["subs"][3])
-check("chi compra da solo prende piu' settore di chi non compra",
+check("chi compra da solo prende più settore di chi non compra",
       a["score"]["subs"][3]["v"] > b["score"]["subs"][3]["v"],
       (a["score"]["subs"][3]["v"], b["score"]["subs"][3]["v"]))
-check("il punteggio di AAAA e' piu' alto di quello di DDDD",
+check("il punteggio di AAAA è più alto di quello di DDDD",
       a["score"]["value"] > built[3]["score"]["value"],
       (a["score"]["value"], built[3]["score"]["value"]))
 check("la copertura sale con il settore", a["score"]["covered_pct"] == 50,
@@ -174,7 +174,7 @@ for d in built:
     d["group"] = {"it": "Prova", "en": "Test"}
 bad = [t for d in built for t in all_texts(d) if not bilingual(t)]
 check("ogni testo generato esiste in italiano e in inglese", not bad, bad[:3])
-check("l'inglese e' diverso dall'italiano",
+check("l'inglese è diverso dall'italiano",
       a["score"]["verdict"]["en"] == "Moderate bullish conviction", a["score"]["verdict"])
 check("le ragioni del punteggio insider sono tradotte",
       a["score"]["subs"][0]["why"][0]["en"].startswith("Cluster of 3 separate buyers"),
@@ -184,7 +184,7 @@ import tempfile
 with tempfile.TemporaryDirectory() as tmp:
     idx = write_all(built, cfg, tmp)
     check("index.json elenca tutte le aziende", len(idx["companies"]) == 4)
-    check("ordinate dal punteggio piu' alto",
+    check("ordinate dal punteggio più alto",
           idx["companies"][0]["score"] >= idx["companies"][-1]["score"])
     check("un file per azienda", all(os.path.exists(os.path.join(tmp, "data", t + ".json"))
                                      for t in ["AAAA", "BBBB", "CCCC", "DDDD"]))
@@ -206,7 +206,7 @@ falling = si_series([100e6] * 20 + [95e6, 90e6, 85e6, 70e6])
 rising = si_series([100e6] * 20 + [110e6, 125e6, 140e6, 160e6])
 vf, wf, cf = market_score(falling)
 vr, wr, cr = market_score(rising)
-check("short interest in calo vale piu' di short interest in crescita", vf > vr, (vf, vr))
+check("short interest in calo vale più di short interest in crescita", vf > vr, (vf, vr))
 check("lo short interest in crescita penalizza", vr < 50, vr)
 check("storico lungo = copertura alta", cf == "Alta", cf)
 check("storico corto non produce un punteggio",
@@ -226,14 +226,14 @@ from pipeline.score import market_peers
 base = {"v": 50, "why": [], "coverage": "Alta"}
 piu_shortata = market_peers(dict(base, why=[]), 6.0, [2.0, 2.0, 2.0, 2.0])
 meno_shortata = market_peers(dict(base, why=[]), 1.0, [2.0, 2.0, 2.0, 2.0])
-check("essere shortati piu' dei simili abbassa il punteggio", piu_shortata["v"] < 50, piu_shortata["v"])
+check("essere shortati più dei simili abbassa il punteggio", piu_shortata["v"] < 50, piu_shortata["v"])
 check("esserlo meno lo alza", meno_shortata["v"] > 50, meno_shortata["v"])
-check("l'effetto e' limitato a otto punti", abs(piu_shortata["v"] - 50) <= 8, piu_shortata["v"])
+check("l'effetto è limitato a otto punti", abs(piu_shortata["v"] - 50) <= 8, piu_shortata["v"])
 check("con meno di tre simili non si confronta",
       market_peers(dict(base, why=[]), 6.0, [2.0, 2.0])["v"] == 50)
 check("senza la percentuale propria non si confronta",
       market_peers(dict(base, why=[]), None, [2.0, 2.0, 2.0, 2.0])["v"] == 50)
-check("il confronto e' scritto in due lingue",
+check("il confronto è scritto in due lingue",
       set(piu_shortata["why"][-1]) == {"it", "en"}, piu_shortata["why"])
 
 
@@ -249,7 +249,7 @@ alza = build_one(cfg, fake("AAAA", buyers=["Tizio"]), [call(60, up=4, dn=0)])
 check("tagliare la guidance abbassa il punteggio del tono",
       taglia["_subs"]["guid"]["v"] < alza["_subs"]["guid"]["v"],
       (taglia["_subs"]["guid"]["v"], alza["_subs"]["guid"]["v"]))
-check("l'effetto e' limitato a dieci punti",
+check("l'effetto è limitato a dieci punti",
       abs(taglia["_subs"]["guid"]["v"] - 60) <= 10, taglia["_subs"]["guid"]["v"])
 righe = " ".join(w["it"] for w in taglia["_subs"]["guid"]["why"])
 check("la divergenza viene scritta a parole", "divergenza" in righe, righe)
@@ -269,7 +269,7 @@ payload = {"units": {"shares": [
     {"end": "2026-10-24", "val": 5_440_000_000, "fy": 2026},
     {"end": "2025-10-24", "val": 4_330_000_000, "fy": 2025}]}}
 n, when = parse_shares(payload)
-check("prende la rilevazione piu' recente", (n, when) == (5.44e9, "2026-10-24"), (n, when))
+check("prende la rilevazione più recente", (n, when) == (5.44e9, "2026-10-24"), (n, when))
 check("un payload vuoto non rompe niente", parse_shares({}) == (None, None))
 check("scarta i valori non numerici",
       parse_shares({"units": {"shares": [{"end": "2026-01-01", "val": None}]}}) == (None, None))
@@ -277,7 +277,7 @@ check("scarta i valori non numerici",
 vs, ws, _ = market_score(falling, shares=1e9)
 pct = [w for w in ws if "circolazione" in w["it"]]
 check("la percentuale sul circolante compare fra le ragioni", len(pct) == 1, ws)
-check("ed e' calcolata giusta", "7.00%" in pct[0]["it"], pct[0]["it"] if pct else None)
+check("ed è calcolata giusta", "7.00%" in pct[0]["it"], pct[0]["it"] if pct else None)
 check("senza il dato, il punteggio non cambia", market_score(falling)[0] == vs)
 
 
