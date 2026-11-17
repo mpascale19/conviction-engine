@@ -24,9 +24,11 @@ permissions:
   pages: write
   id-token: write
 
+# Due giri ravvicinati non servono a niente: il piu' recente rigenera tutto
+# comunque. Se ne parte uno mentre un altro e' in corso, il vecchio si ferma.
 concurrency:
   group: update
-  cancel-in-progress: false
+  cancel-in-progress: true
 
 jobs:
   update:
@@ -61,18 +63,31 @@ jobs:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
         run: python -m pipeline.build
 
+      # I file di site/ li rigenera per intero questo giro, quindi non vanno MAI
+      # fusi con quelli di un altro giro: ogni riga differisce per l'orario e il
+      # rebase finirebbe in conflitto su tutti e 41. Qui si riparte da origin e
+      # si riscrive sopra: l'ultimo calcolo vince, che e' quello che vogliamo.
       - name: Salva il risultato
         run: |
           git config user.name  "conviction-engine-bot"
           git config user.email "actions@github.com"
-          git add -A site
-          if git diff --staged --quiet; then
-            echo "nessuna variazione da salvare"
-          else
-            git commit -m "dati aggiornati al $(date -u +'%Y-%m-%d %H:%M UTC')"
-            git pull --rebase origin main
-            git push origin main
-          fi
+          for i in 1 2 3; do
+            git fetch --quiet origin main
+            git reset --quiet --soft origin/main   # i file restano, cambia solo il punto di partenza
+            git add -A site
+            if git diff --staged --quiet; then
+              echo "nessuna variazione da salvare"
+              exit 0
+            fi
+            git commit --quiet -m "dati aggiornati al $(date -u +'%Y-%m-%d %H:%M UTC')"
+            if git push --quiet origin HEAD:main; then
+              echo "salvato al tentativo $i"
+              exit 0
+            fi
+            echo "qualcuno ha scritto nel frattempo: riprovo ($i di 3)"
+            sleep 5
+          done
+          echo "::warning::dati non salvati dopo tre tentativi; il prossimo giro riprova"
 
       # Il sito va pubblicato qui dentro: un commit fatto dal workflow non
       # fa partire altri workflow, quindi pages.yml da solo non basterebbe.
