@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-11-17T08:38:30+00:00",
+ "generated_at": "2026-11-17T09:09:02+00:00",
  "groups": [
   {
    "nome": {
@@ -29,6 +29,58 @@
  },
  "companies": [
   {
+   "ticker": "ACLS",
+   "name": "ACLS",
+   "group": {
+    "it": "Semiconduttori e apparecchiature",
+    "en": "Semiconductors and equipment"
+   },
+   "score": 68,
+   "verdict": {
+    "it": "Convinzione rialzista moderata",
+    "en": "Moderate bullish conviction"
+   },
+   "confidence": "Bassa",
+   "covered_pct": 25,
+   "last": {
+    "d": "2026-11-16",
+    "c": 99.22,
+    "v": 241900
+   },
+   "tx": 0,
+   "buyers": 0,
+   "sellers": 0,
+   "net_musd": 0.0,
+   "cluster": false,
+   "errors": 1
+  },
+  {
+   "ticker": "QCOM",
+   "name": "QCOM",
+   "group": {
+    "it": "Semiconduttori e apparecchiature",
+    "en": "Semiconductors and equipment"
+   },
+   "score": 65,
+   "verdict": {
+    "it": "Convinzione rialzista moderata",
+    "en": "Moderate bullish conviction"
+   },
+   "confidence": "Bassa",
+   "covered_pct": 25,
+   "last": {
+    "d": "2026-11-16",
+    "c": 168.52,
+    "v": 11831200
+   },
+   "tx": 0,
+   "buyers": 0,
+   "sellers": 0,
+   "net_musd": 0.0,
+   "cluster": false,
+   "errors": 1
+  },
+  {
    "ticker": "ORCL",
    "name": "ORACLE CORP",
    "group": {
@@ -53,6 +105,32 @@
    "net_musd": 3.085,
    "cluster": false,
    "errors": 0
+  },
+  {
+   "ticker": "AVGO",
+   "name": "AVGO",
+   "group": {
+    "it": "Semiconduttori e apparecchiature",
+    "en": "Semiconductors and equipment"
+   },
+   "score": 60,
+   "verdict": {
+    "it": "Leggermente rialzista",
+    "en": "Mildly bullish"
+   },
+   "confidence": "Bassa",
+   "covered_pct": 25,
+   "last": {
+    "d": "2026-11-16",
+    "c": 333.4,
+    "v": 26056800
+   },
+   "tx": 0,
+   "buyers": 0,
+   "sellers": 0,
+   "net_musd": 0.0,
+   "cluster": false,
+   "errors": 1
   },
   {
    "ticker": "INTC",
@@ -107,56 +185,56 @@
    "errors": 0
   },
   {
-   "ticker": "AVGO",
-   "name": "Broadcom Inc.",
+   "ticker": "GOOGL",
+   "name": "GOOGL",
    "group": {
-    "it": "Semiconduttori e apparecchiature",
-    "en": "Semiconductors and equipment"
+    "it": "Grandi capitalizzazioni USA",
+    "en": "US large caps"
    },
-   "score": 56,
+   "score": 58,
    "verdict": {
     "it": "Leggermente rialzista",
     "en": "Mildly bullish"
    },
-   "confidence": "Media",
-   "covered_pct": 65,
+   "confidence": "Bassa",
+   "covered_pct": 10,
    "last": {
     "d": "2026-11-16",
-    "c": 333.4,
-    "v": 26056800
+    "c": 283.72,
+    "v": 34643200
    },
-   "tx": 461,
+   "tx": 0,
    "buyers": 0,
    "sellers": 0,
    "net_musd": 0.0,
    "cluster": false,
-   "errors": 0
+   "errors": 1
   },
   {
-   "ticker": "ACLS",
-   "name": "AXCELIS TECHNOLOGIES INC",
+   "ticker": "WMT",
+   "name": "WMT",
    "group": {
-    "it": "Semiconduttori e apparecchiature",
-    "en": "Semiconductors and equipment"
+    "it": "Grandi capitalizzazioni USA",
+    "en": "US large caps"
    },
    "score": 56,
    "verdict": {
     "it": "Leggermente rialzista",
     "en": "Mildly bullish"
    },
-   "confidence": "Media",
-   "covered_pct": 65,
+   "confidence": "Bassa",
+   "covered_pct": 10,
    "last": {
     "d": "2026-11-16",
-    "c": 99.22,
-    "v": 241900
+    "c": 128.41,
+    "v": 17761800
    },
-   "tx": 131,
+   "tx": 0,
    "buyers": 0,
    "sellers": 0,
    "net_musd": 0.0,
    "cluster": false,
-   "errors": 0
+   "errors": 1
   },
   {
    "ticker": "BAC",
@@ -185,82 +263,56 @@
    "errors": 0
   },
   {
-   "ticker": "GOOGL",
-   "name": "Alphabet Inc.",
+   "ticker": "MSFT",
+   "name": "MSFT",
    "group": {
     "it": "Grandi capitalizzazioni USA",
     "en": "US large caps"
    },
-   "score": 53,
+   "score": 55,
    "verdict": {
-    "it": "Nessuna convinzione chiara",
-    "en": "No clear conviction"
+    "it": "Leggermente rialzista",
+    "en": "Mildly bullish"
    },
    "confidence": "Bassa",
-   "covered_pct": 50,
+   "covered_pct": 10,
    "last": {
     "d": "2026-11-16",
-    "c": 283.72,
-    "v": 34643200
+    "c": 517.99,
+    "v": 30198800
    },
-   "tx": 517,
+   "tx": 0,
    "buyers": 0,
    "sellers": 0,
    "net_musd": 0.0,
    "cluster": false,
-   "errors": 0
-  },
-  {
-   "ticker": "QCOM",
-   "name": "QUALCOMM INC/DE",
-   "group": {
-    "it": "Semiconduttori e apparecchiature",
-    "en": "Semiconductors and equipment"
-   },
-   "score": 52,
-   "verdict": {
-    "it": "Nessuna convinzione chiara",
-    "en": "No clear conviction"
-   },
-   "confidence": "Media",
-   "covered_pct": 65,
-   "last": {
-    "d": "2026-11-16",
-    "c": 168.52,
-    "v": 11831200
-   },
-   "tx": 310,
-   "buyers": 0,
-   "sellers": 2,
-   "net_musd": -0.035,
-   "cluster": false,
-   "errors": 0
+   "errors": 1
   },
   {
    "ticker": "AAPL",
-   "name": "Apple Inc.",
+   "name": "AAPL",
    "group": {
     "it": "Grandi capitalizzazioni USA",
     "en": "US large caps"
    },
-   "score": 52,
+   "score": 54,
    "verdict": {
     "it": "Nessuna convinzione chiara",
     "en": "No clear conviction"
    },
    "confidence": "Bassa",
-   "covered_pct": 50,
+   "covered_pct": 10,
    "last": {
     "d": "2026-11-16",
     "c": 352.78,
     "v": 45945500
    },
-   "tx": 162,
+   "tx": 0,
    "buyers": 0,
    "sellers": 0,
    "net_musd": 0.0,
    "cluster": false,
-   "errors": 0
+   "errors": 1
   },
   {
    "ticker": "AMZN",
@@ -334,32 +386,6 @@
     "v": 14286200
    },
    "tx": 0,
-   "buyers": 0,
-   "sellers": 0,
-   "net_musd": 0.0,
-   "cluster": false,
-   "errors": 0
-  },
-  {
-   "ticker": "WMT",
-   "name": "Walmart Inc.",
-   "group": {
-    "it": "Grandi capitalizzazioni USA",
-    "en": "US large caps"
-   },
-   "score": 52,
-   "verdict": {
-    "it": "Nessuna convinzione chiara",
-    "en": "No clear conviction"
-   },
-   "confidence": "Bassa",
-   "covered_pct": 50,
-   "last": {
-    "d": "2026-11-16",
-    "c": 128.41,
-    "v": 17761800
-   },
-   "tx": 147,
    "buyers": 0,
    "sellers": 0,
    "net_musd": 0.0,
@@ -497,58 +523,6 @@
    "errors": 0
   },
   {
-   "ticker": "LRCX",
-   "name": "LAM RESEARCH CORP",
-   "group": {
-    "it": "Semiconduttori e apparecchiature",
-    "en": "Semiconductors and equipment"
-   },
-   "score": 48,
-   "verdict": {
-    "it": "Nessuna convinzione chiara",
-    "en": "No clear conviction"
-   },
-   "confidence": "Media",
-   "covered_pct": 65,
-   "last": {
-    "d": "2026-11-16",
-    "c": 210.83,
-    "v": 12282400
-   },
-   "tx": 230,
-   "buyers": 0,
-   "sellers": 1,
-   "net_musd": -3.008,
-   "cluster": false,
-   "errors": 0
-  },
-  {
-   "ticker": "FORM",
-   "name": "FORMFACTOR INC",
-   "group": {
-    "it": "Semiconduttori e apparecchiature",
-    "en": "Semiconductors and equipment"
-   },
-   "score": 48,
-   "verdict": {
-    "it": "Nessuna convinzione chiara",
-    "en": "No clear conviction"
-   },
-   "confidence": "Media",
-   "covered_pct": 65,
-   "last": {
-    "d": "2026-11-16",
-    "c": 81.14,
-    "v": 1389300
-   },
-   "tx": 207,
-   "buyers": 0,
-   "sellers": 1,
-   "net_musd": -0.202,
-   "cluster": false,
-   "errors": 0
-  },
-  {
    "ticker": "JPM",
    "name": "JPMORGAN CHASE & CO",
    "group": {
@@ -575,8 +549,8 @@
    "errors": 0
   },
   {
-   "ticker": "AEHR",
-   "name": "AEHR TEST SYSTEMS",
+   "ticker": "LRCX",
+   "name": "LAM RESEARCH CORP",
    "group": {
     "it": "Semiconduttori e apparecchiature",
     "en": "Semiconductors and equipment"
@@ -590,13 +564,39 @@
    "covered_pct": 65,
    "last": {
     "d": "2026-11-16",
-    "c": 50.98,
-    "v": 2419900
+    "c": 210.83,
+    "v": 12282400
    },
-   "tx": 181,
+   "tx": 230,
    "buyers": 0,
-   "sellers": 0,
-   "net_musd": 0.0,
+   "sellers": 1,
+   "net_musd": -3.008,
+   "cluster": false,
+   "errors": 0
+  },
+  {
+   "ticker": "FORM",
+   "name": "FORMFACTOR INC",
+   "group": {
+    "it": "Semiconduttori e apparecchiature",
+    "en": "Semiconductors and equipment"
+   },
+   "score": 47,
+   "verdict": {
+    "it": "Nessuna convinzione chiara",
+    "en": "No clear conviction"
+   },
+   "confidence": "Media",
+   "covered_pct": 65,
+   "last": {
+    "d": "2026-11-16",
+    "c": 81.14,
+    "v": 1389300
+   },
+   "tx": 207,
+   "buyers": 0,
+   "sellers": 1,
+   "net_musd": -0.202,
    "cluster": false,
    "errors": 0
   },
@@ -627,32 +627,6 @@
    "errors": 0
   },
   {
-   "ticker": "UNH",
-   "name": "UNITEDHEALTH GROUP INC",
-   "group": {
-    "it": "Grandi capitalizzazioni USA",
-    "en": "US large caps"
-   },
-   "score": 46,
-   "verdict": {
-    "it": "Nessuna convinzione chiara",
-    "en": "No clear conviction"
-   },
-   "confidence": "Bassa",
-   "covered_pct": 50,
-   "last": {
-    "d": "2026-11-16",
-    "c": 412.02,
-    "v": 4422800
-   },
-   "tx": 134,
-   "buyers": 0,
-   "sellers": 1,
-   "net_musd": -0.456,
-   "cluster": false,
-   "errors": 0
-  },
-  {
    "ticker": "AMD",
    "name": "ADVANCED MICRO DEVICES INC",
    "group": {
@@ -675,32 +649,6 @@
    "buyers": 0,
    "sellers": 1,
    "net_musd": -5.084,
-   "cluster": false,
-   "errors": 0
-  },
-  {
-   "ticker": "UCTT",
-   "name": "Ultra Clean Holdings, Inc.",
-   "group": {
-    "it": "Semiconduttori e apparecchiature",
-    "en": "Semiconductors and equipment"
-   },
-   "score": 45,
-   "verdict": {
-    "it": "Leggermente ribassista",
-    "en": "Mildly bearish"
-   },
-   "confidence": "Media",
-   "covered_pct": 65,
-   "last": {
-    "d": "2026-11-16",
-    "c": 42.87,
-    "v": 790000
-   },
-   "tx": 190,
-   "buyers": 0,
-   "sellers": 0,
-   "net_musd": 0.0,
    "cluster": false,
    "errors": 0
   },
@@ -729,6 +677,32 @@
    "net_musd": 0.0,
    "cluster": false,
    "errors": 0
+  },
+  {
+   "ticker": "AEHR",
+   "name": "AEHR",
+   "group": {
+    "it": "Semiconduttori e apparecchiature",
+    "en": "Semiconductors and equipment"
+   },
+   "score": 44,
+   "verdict": {
+    "it": "Leggermente ribassista",
+    "en": "Mildly bearish"
+   },
+   "confidence": "Bassa",
+   "covered_pct": 25,
+   "last": {
+    "d": "2026-11-16",
+    "c": 50.98,
+    "v": 2419900
+   },
+   "tx": 0,
+   "buyers": 0,
+   "sellers": 0,
+   "net_musd": 0.0,
+   "cluster": false,
+   "errors": 1
   },
   {
    "ticker": "META",
@@ -805,6 +779,32 @@
    "buyers": 0,
    "sellers": 1,
    "net_musd": -0.938,
+   "cluster": false,
+   "errors": 0
+  },
+  {
+   "ticker": "UNH",
+   "name": "UNITEDHEALTH GROUP INC",
+   "group": {
+    "it": "Grandi capitalizzazioni USA",
+    "en": "US large caps"
+   },
+   "score": 43,
+   "verdict": {
+    "it": "Leggermente ribassista",
+    "en": "Mildly bearish"
+   },
+   "confidence": "Bassa",
+   "covered_pct": 50,
+   "last": {
+    "d": "2026-11-16",
+    "c": 412.02,
+    "v": 4422800
+   },
+   "tx": 134,
+   "buyers": 0,
+   "sellers": 1,
+   "net_musd": -0.456,
    "cluster": false,
    "errors": 0
   },
@@ -913,6 +913,32 @@
    "errors": 0
   },
   {
+   "ticker": "UCTT",
+   "name": "UCTT",
+   "group": {
+    "it": "Semiconduttori e apparecchiature",
+    "en": "Semiconductors and equipment"
+   },
+   "score": 40,
+   "verdict": {
+    "it": "Leggermente ribassista",
+    "en": "Mildly bearish"
+   },
+   "confidence": "Bassa",
+   "covered_pct": 25,
+   "last": {
+    "d": "2026-11-16",
+    "c": 42.87,
+    "v": 790000
+   },
+   "tx": 0,
+   "buyers": 0,
+   "sellers": 0,
+   "net_musd": 0.0,
+   "cluster": false,
+   "errors": 1
+  },
+  {
    "ticker": "HD",
    "name": "HOME DEPOT, INC.",
    "group": {
@@ -935,32 +961,6 @@
    "buyers": 0,
    "sellers": 4,
    "net_musd": -3.339,
-   "cluster": false,
-   "errors": 0
-  },
-  {
-   "ticker": "MSFT",
-   "name": "MICROSOFT CORP",
-   "group": {
-    "it": "Grandi capitalizzazioni USA",
-    "en": "US large caps"
-   },
-   "score": 37,
-   "verdict": {
-    "it": "Leggermente ribassista",
-    "en": "Mildly bearish"
-   },
-   "confidence": "Bassa",
-   "covered_pct": 50,
-   "last": {
-    "d": "2026-11-16",
-    "c": 517.99,
-    "v": 30198800
-   },
-   "tx": 83,
-   "buyers": 0,
-   "sellers": 3,
-   "net_musd": -74.769,
    "cluster": false,
    "errors": 0
   },
@@ -1069,5 +1069,15 @@
    "errors": 0
   }
  ],
- "errors": []
+ "errors": [
+  "Form 4 di AAPL: CIK non trovato -> company_tickers.json: richiesta fallita: 404 Client Error: Not Found for url: https://www.sec.gov/files/company_tickers.json; browse-edgar: richiesta fallita: 400 Client Error: Bad Request for url: https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=AAPL&type=4&dateb=&owner=include&count=1&output=atom | rimedio: scrivi il numero nel campo \"cik\" di config.json",
+  "Form 4 di ACLS: CIK non trovato -> company_tickers.json: richiesta fallita: 404 Client Error: Not Found for url: https://www.sec.gov/files/company_tickers.json; browse-edgar: richiesta fallita: 400 Client Error: Bad Request for url: https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=ACLS&type=4&dateb=&owner=include&count=1&output=atom | rimedio: scrivi il numero nel campo \"cik\" di config.json",
+  "Form 4 di AEHR: CIK non trovato -> company_tickers.json: richiesta fallita: 404 Client Error: Not Found for url: https://www.sec.gov/files/company_tickers.json; browse-edgar: richiesta fallita: 400 Client Error: Bad Request for url: https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=AEHR&type=4&dateb=&owner=include&count=1&output=atom | rimedio: scrivi il numero nel campo \"cik\" di config.json",
+  "Form 4 di AVGO: CIK non trovato -> company_tickers.json: richiesta fallita: 404 Client Error: Not Found for url: https://www.sec.gov/files/company_tickers.json; browse-edgar: richiesta fallita: 400 Client Error: Bad Request for url: https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=AVGO&type=4&dateb=&owner=include&count=1&output=atom | rimedio: scrivi il numero nel campo \"cik\" di config.json",
+  "Form 4 di GOOGL: CIK non trovato -> company_tickers.json: richiesta fallita: 404 Client Error: Not Found for url: https://www.sec.gov/files/company_tickers.json; browse-edgar: richiesta fallita: 400 Client Error: Bad Request for url: https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=GOOGL&type=4&dateb=&owner=include&count=1&output=atom | rimedio: scrivi il numero nel campo \"cik\" di config.json",
+  "Form 4 di MSFT: CIK non trovato -> company_tickers.json: richiesta fallita: 404 Client Error: Not Found for url: https://www.sec.gov/files/company_tickers.json; browse-edgar: richiesta fallita: 400 Client Error: Bad Request for url: https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=MSFT&type=4&dateb=&owner=include&count=1&output=atom | rimedio: scrivi il numero nel campo \"cik\" di config.json",
+  "Form 4 di QCOM: CIK non trovato -> company_tickers.json: richiesta fallita: 404 Client Error: Not Found for url: https://www.sec.gov/files/company_tickers.json; browse-edgar: richiesta fallita: 400 Client Error: Bad Request for url: https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=QCOM&type=4&dateb=&owner=include&count=1&output=atom | rimedio: scrivi il numero nel campo \"cik\" di config.json",
+  "Form 4 di UCTT: CIK non trovato -> company_tickers.json: richiesta fallita: 404 Client Error: Not Found for url: https://www.sec.gov/files/company_tickers.json; browse-edgar: richiesta fallita: 400 Client Error: Bad Request for url: https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=UCTT&type=4&dateb=&owner=include&count=1&output=atom | rimedio: scrivi il numero nel campo \"cik\" di config.json",
+  "Form 4 di WMT: CIK non trovato -> company_tickers.json: richiesta fallita: 404 Client Error: Not Found for url: https://www.sec.gov/files/company_tickers.json; browse-edgar: richiesta fallita: 400 Client Error: Bad Request for url: https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=WMT&type=4&dateb=&owner=include&count=1&output=atom | rimedio: scrivi il numero nel campo \"cik\" di config.json"
+ ]
 }
