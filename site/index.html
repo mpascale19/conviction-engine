@@ -72,6 +72,31 @@
     .subs li{grid-template-columns:minmax(0,1fr) 54px}
     .subs p{grid-column:1/-1}
   }
+  .tabs{display:flex;gap:4px;flex-wrap:wrap;margin:16px 0 0;border-bottom:1px solid var(--line)}
+  .tabs button{border:0;border-radius:8px 8px 0 0;background:transparent;color:var(--ink2);
+               padding:9px 14px;font:600 13.5px inherit;border-bottom:2px solid transparent;margin-bottom:-1px}
+  .tabs button[aria-selected="true"]{color:var(--ink);border-bottom-color:var(--blue)}
+  .tabs button:hover{color:var(--ink);border-color:transparent}
+  .tabs button[aria-selected="true"]:hover{border-bottom-color:var(--blue)}
+  .chart{width:100%;height:auto;display:block;margin-top:6px}
+  .chart text{font:11px Inter,system-ui,sans-serif;fill:var(--ink3)}
+  .bars{display:grid;grid-auto-flow:column;grid-auto-columns:1fr;gap:6px;align-items:end;margin-top:12px}
+  .bars>div{display:flex;flex-direction:column;justify-content:flex-end;gap:4px;min-width:0}
+  .bars i{display:block;border-radius:3px 3px 0 0}
+  .bars b{font-size:12px;font-weight:650;text-align:center;font-variant-numeric:tabular-nums}
+  .bars span{font-size:10.5px;color:var(--ink3);text-align:center;white-space:nowrap;
+             overflow:hidden;text-overflow:ellipsis}
+  .chg{border-left:2px solid var(--axis);padding:2px 0 2px 12px;margin:14px 0}
+  .chg .ft{font-size:13px;color:var(--ink2);margin-top:4px}
+  .chg .ft i{font-style:normal;color:var(--ink3)}
+  .chg .nt{font-size:12.5px;color:var(--ink2);margin-top:5px}
+  .qa{border-top:1px solid var(--line);padding:11px 0}
+  .qa:first-of-type{border-top:0}
+  .qa .q{font-size:13.5px;font-weight:600}
+  .qa .a{font-size:13px;color:var(--ink2);margin-top:3px}
+  .dots{display:inline-flex;gap:3px;vertical-align:middle;margin-left:7px}
+  .dots i{width:6px;height:6px;border-radius:50%;background:var(--line);display:block}
+  .dots i.on{background:var(--blue)}
 </style>
 <div class="wrap">
   <div class="langbar"><div class="lang" id="lang" role="group" aria-label="Lingua / Language">
@@ -228,12 +253,207 @@ function renderList(){
 }
 
 /* ------------------------------------------------------------------ dettaglio */
+var TAB = 'panoramica';
+
+/* etichette dei trimestri: nelle estrazioni sono scritte all'italiana */
+function qLabel(q){
+  q = String(q || '');
+  if (LANG === 'en') q = q.replace(/^T(\d)/, 'Q$1').replace('(anno fiscale)', '(fiscal year)');
+  return q;
+}
+function qShort(q){ return qLabel(q).replace(/\s*\(.*\)\s*/, ''); }
+
+var DIRS = {
+  alzata:     ['alzata', 'raised', 'good'],
+  ridotta:    ['ridotta', 'lowered', 'warn'],
+  confermata: ['confermata', 'confirmed', ''],
+  prima:      ['data per la prima volta', 'first given', 'info']
+};
+function dirChip(d){
+  var x = DIRS[d];
+  if (!x) return '';
+  return '<span class="chip ' + x[2] + '">' + esc(LANG === 'en' ? x[1] : x[0]) + '</span>';
+}
+function dots(n){
+  var out = '';
+  for (var i = 1; i <= 5; i++) out += '<i class="' + (i <= n ? 'on' : '') + '"></i>';
+  return '<span class="dots" title="' + T('direttezza ', 'directness ') + n + '/5">' + out + '</span>';
+}
+
+/* grafico a linea: coppie [data, valore]. Scala in modo uniforme, niente testo stirato. */
+function lineChart(pts, fmt, label){
+  if (!pts || pts.length < 2) return '';
+  var W = 600, H = 170, L = 56, R = 12, TT = 14, B = 26;
+  var vs = pts.map(function(p){ return p[1]; });
+  var lo = Math.min.apply(null, vs), hi = Math.max.apply(null, vs), rg = (hi - lo) || 1;
+  var x = function(i){ return L + i / (pts.length - 1) * (W - L - R); };
+  var y = function(v){ return TT + (1 - (v - lo) / rg) * (H - TT - B); };
+  var line = pts.map(function(p, i){
+    return (i ? 'L' : 'M') + x(i).toFixed(1) + ',' + y(p[1]).toFixed(1); }).join('');
+  var area = line + 'L' + x(pts.length - 1).toFixed(1) + ',' + (H - B) +
+             'L' + L + ',' + (H - B) + 'Z';
+  var last = pts[pts.length - 1];
+  return '<svg class="chart" viewBox="0 0 ' + W + ' ' + H + '" role="img" aria-label="' +
+    esc(label || '') + '">' +
+    '<line x1="' + L + '" y1="' + (H - B) + '" x2="' + (W - R) + '" y2="' + (H - B) +
+      '" stroke="var(--axis)" stroke-width="1"/>' +
+    '<path d="' + area + '" fill="var(--blue)" opacity=".09"/>' +
+    '<path d="' + line + '" fill="none" stroke="var(--blue)" stroke-width="2"/>' +
+    '<circle cx="' + x(pts.length - 1).toFixed(1) + '" cy="' + y(last[1]).toFixed(1) +
+      '" r="3.5" fill="var(--blue)"/>' +
+    '<text x="' + (L - 8) + '" y="' + (y(hi) + 4).toFixed(1) + '" text-anchor="end">' + fmt(hi) + '</text>' +
+    '<text x="' + (L - 8) + '" y="' + (y(lo) + 4).toFixed(1) + '" text-anchor="end">' + fmt(lo) + '</text>' +
+    '<text x="' + L + '" y="' + (H - 8) + '">' + esc(day(pts[0][0])) + '</text>' +
+    '<text x="' + (W - R) + '" y="' + (H - 8) + '" text-anchor="end">' + esc(day(last[0])) + '</text>' +
+    '</svg>';
+}
+
+/* tono delle call, una barra per trimestre */
+function toneBars(calls){
+  return '<div class="bars">' + calls.map(function(c){
+    var h = Math.max(4, Math.round(c.tone / 100 * 108));
+    return '<div><b>' + c.tone + '</b>' +
+      '<i style="height:' + h + 'px;background:' + tone(c.tone) + '"></i>' +
+      '<span>' + esc(qShort(c.quarter)) + '</span></div>';
+  }).join('') + '</div>';
+}
+
+/* ---------------------------------------------------------------- i pannelli */
+function paneOverview(d){
+  var s = d.score || {};
+  return '<div class="card"><h2>' + T('Come si compone', 'How it adds up') + '</h2><p class="sub">' +
+    T('I pesi si ridistribuiscono sulle voci disponibili.',
+      'The weights are redistributed over the inputs that are available.') + '</p>' +
+    '<ul class="subs">' + (s.subs || []).map(function(x){
+      return '<li><div><b>' + esc(txt(x.name)) + '</b>' +
+        (x.v == null ? ' <span class="chip">' + T('non disponibile', 'not available') + '</span>'
+                     : '<div class="bar" style="margin-top:6px"><i style="width:' +
+                       Math.max(0, Math.min(100, x.v)) + '%;background:' + tone(x.v) + '"></i></div>') +
+        '</div><div class="w">' + (x.v == null ? '—' : x.v) +
+        '<div style="font-size:11px">' + x.w + '%</div></div>' +
+        '<p>' + (x.why || []).map(function(w){ return esc(txt(w)); }).join('<br>') + '</p></li>';
+    }).join('') + '</ul></div>' +
+    '<div class="card sub">' + (d.sources || []).map(function(x){
+      return '<b>' + esc(txt(x.t)) + '</b> — ' + esc(txt(x.m)) + '. ' + esc(txt(x.x)); }).join('<br>') +
+      '<br>' + T('Dati aggiornati il ', 'Data updated ') + esc(when(d.generated_at)) + '.</div>';
+}
+
+function paneInsider(d){
+  var tx = (d.tx || []).slice(-25).reverse(), tracks = d.tracks || {};
+  return (Object.keys(tracks).length
+    ? '<div class="card"><h2>' + T('Storico dei compratori', 'Buyers’ track record') + '</h2>' +
+      '<p class="sub">' + T('Rendimento a 60 giorni dopo i loro acquisti passati, rispetto al settore.',
+        'Return over the 60 days after their past purchases, against the sector.') + '</p>' +
+      '<div class="scroll"><table><thead><tr><th>' + T('Insider', 'Insider') + '</th>' +
+      '<th class="num">' + T('Acquisti', 'Purchases') + '</th>' +
+      '<th class="num">' + T('Positivi', 'Positive') + '</th>' +
+      '<th class="num">' + T('Medio', 'Average') + '</th>' +
+      '<th class="num">' + T('Moltiplicatore', 'Multiplier') + '</th></tr></thead><tbody>' +
+      Object.keys(tracks).map(function(k){ var t = tracks[k];
+        return '<tr style="cursor:default"><td>' + esc(k) + '</td><td class="num">' + t.n +
+          '</td><td class="num">' + t.pos + '</td><td class="num">' + sg(t.avg, 1) +
+          '%</td><td class="num">×' + nu(t.mult) + '</td></tr>';
+      }).join('') + '</tbody></table></div></div>'
+    : '') +
+  '<div class="card"><h2>' + T('Operazioni degli insider', 'Insider transactions') + '</h2>' +
+    '<p class="sub">' +
+    T('Ultime ' + tx.length + ' di ' + ((d.counts || {}).tx || 0) + ' negli ultimi due anni. ' +
+        'La colonna di destra dice perché un’operazione pesa o no.',
+      'The last ' + tx.length + ' of ' + ((d.counts || {}).tx || 0) + ' over the last two years. ' +
+        'The right-hand column says why a transaction counts or not.') + '</p>' +
+    (tx.length ? '<div class="scroll"><table><thead><tr><th>' + T('Data', 'Date') + '</th>' +
+      '<th>' + T('Insider', 'Insider') + '</th><th class="num">' + T('Valore', 'Value') + '</th>' +
+      '<th>' + T('Lettura', 'Reading') + '</th></tr></thead><tbody>' +
+      tx.map(function(t){
+        return '<tr style="cursor:default"><td class="num">' + esc(day(t.date)) + '</td>' +
+          '<td>' + esc(t.who) + '<div class="nm">' + esc(t.role) + '</div></td>' +
+          '<td class="num">' + money(t.value) + '</td>' +
+          '<td><span class="chip ' + (t.kind === 'BUY' ? 'good' : t.weight ? 'warn' : '') + '">' +
+          esc(t.kind) + '</span><div class="nm">' + esc(txt(t.read)) + '</div></td></tr>';
+      }).join('') + '</tbody></table></div>'
+      : '<p class="sub">' + T('Nessuna operazione trovata nel periodo.',
+                              'No transaction found in the period.') + '</p>') + '</div>';
+}
+
+function paneMarket(d){
+  var pts = (d.si_series || []).map(function(r){ return [r[0], r[1] / 1e6]; });
+  var dtc = (d.si_series || []).map(function(r){ return [r[0], r[2]]; });
+  var m = ((d.score || {}).subs || []).filter(function(s){ return s.id === 'market'; })[0] || {};
+  return '<div class="card"><h2>' + T('Short interest', 'Short interest') + '</h2><p class="sub">' +
+    T('Azioni vendute allo scoperto e non ancora ricoperte, in milioni. ' +
+        'Due rilevazioni al mese da FINRA.',
+      'Shares sold short and not yet covered, in millions. ' +
+        'Two readings a month, from FINRA.') + '</p>' +
+    lineChart(pts, function(v){ return nu(v.toFixed(1)) + 'M'; },
+              T('Short interest nel tempo', 'Short interest over time')) +
+    '<p class="sub" style="margin-top:12px">' +
+    (m.why || []).map(function(w){ return esc(txt(w)); }).join('<br>') + '</p></div>' +
+    '<div class="card"><h2>' + T('Giorni per ricoprire', 'Days to cover') + '</h2><p class="sub">' +
+    T('Quanti giorni di scambi servirebbero a chi è short per uscire.',
+      'How many days of trading it would take the shorts to get out.') + '</p>' +
+    lineChart(dtc, function(v){ return nu(v.toFixed(1)); },
+              T('Giorni per ricoprire', 'Days to cover')) + '</div>';
+}
+
+function paneCalls(d){
+  var calls = d.calls || [], last = calls[calls.length - 1] || {};
+  var chg = [];
+  calls.slice().reverse().forEach(function(c){
+    (c.language_changes || []).forEach(function(x){ chg.push([c.quarter, x]); });
+  });
+  return '<div class="card"><h2>' + T('Tono delle call', 'Tone of the calls') + '</h2><p class="sub">' +
+    T('Da 0 a 100, estratto dal linguaggio del management. Non è il prezzo: è come parlano.',
+      'From 0 to 100, extracted from how management speaks. Not the price: the words.') + '</p>' +
+    toneBars(calls) +
+    (last.tone_why ? '<p class="sub" style="margin-top:14px"><b>' + esc(qLabel(last.quarter)) +
+      '</b> — ' + esc(txt(last.tone_why)) + '</p>' : '') + '</div>' +
+
+    '<div class="card"><h2>' + T('Guidance dell’ultima call', 'Guidance in the latest call') +
+    '</h2><p class="sub">' + esc(qLabel(last.quarter)) +
+    (last.call_date ? ' · ' + esc(day(last.call_date)) : '') + '</p>' +
+    '<div class="scroll"><table><thead><tr><th>' + T('Voce', 'Item') + '</th>' +
+    '<th>' + T('Valore', 'Value') + '</th><th>' + T('Direzione', 'Direction') + '</th></tr></thead><tbody>' +
+    (last.guidance || []).map(function(g){
+      return '<tr style="cursor:default"><td>' + esc(txt(g.metric)) + '</td>' +
+        '<td class="nm">' + esc(txt(g.value)) + '</td><td>' + dirChip(g.direction) + '</td></tr>';
+    }).join('') + '</tbody></table></div></div>' +
+
+    (chg.length ? '<div class="card"><h2>' + T('Che cosa è cambiato nelle parole',
+      'What changed in the words') + '</h2><p class="sub">' +
+      T('Le promesse confrontate con quelle dei trimestri precedenti.',
+        'Promises set against those of the previous quarters.') + '</p>' +
+      chg.map(function(r){
+        var x = r[1];
+        return '<div class="chg"><b>' + esc(txt(x.topic)) + '</b> <span class="nm">' +
+          esc(qShort(r[0])) + '</span>' +
+          '<div class="ft"><i>' + T('prima:', 'before:') + '</i> ' + esc(txt(x.from)) + '<br>' +
+          '<i>' + T('poi:', 'after:') + '</i> ' + esc(txt(x.to)) + '</div>' +
+          (x.note ? '<div class="nt">' + esc(txt(x.note)) + '</div>' : '') + '</div>';
+      }).join('') + '</div>' : '') +
+
+    ((last.qa || []).length ? '<div class="card"><h2>' +
+      T('Domande e risposte', 'Questions and answers') + '</h2><p class="sub">' +
+      T('I pallini misurano quanto la risposta è diretta, da 1 a 5.',
+        'The dots measure how direct the answer is, from 1 to 5.') + '</p>' +
+      (last.qa || []).map(function(q){
+        return '<div class="qa"><div class="q">' + esc(txt(q.question)) + dots(q.directness) + '</div>' +
+          '<div class="a">' + esc(txt(q.answer_summary)) + '</div></div>';
+      }).join('') + '</div>' : '');
+}
+
 function renderDetail(d){
   var s = d.score || {}, co = d.company || {}, last = (d.price || {}).last;
-  var tx = (d.tx || []).slice(-25).reverse();
-  var tracks = d.tracks || {};
+  var tabs = [['panoramica', T('Panoramica', 'Overview')], ['insider', T('Insider', 'Insiders')]];
+  if ((d.si_series || []).length) tabs.push(['mercato', T('Mercato', 'Market')]);
+  if ((d.calls || []).length) tabs.push(['call', T('Call', 'Calls')]);
+  if (!tabs.some(function(t){ return t[0] === TAB; })) TAB = 'panoramica';
+  var pane = TAB === 'insider' ? paneInsider(d)
+           : TAB === 'mercato' ? paneMarket(d)
+           : TAB === 'call' ? paneCalls(d) : paneOverview(d);
+
   app.innerHTML = problems(d.errors) +
-    '<div class="card"><button class="back" id="bk">← ' + T('Tutte le aziende', 'All companies') + '</button>' +
+    '<div class="card"><button class="back" id="bk">← ' +
+      T('Tutte le aziende', 'All companies') + '</button>' +
       '<div class="top" style="margin-top:12px"><div>' +
         '<h1>' + esc(co.name || co.ticker) + ' <span class="nm">' + esc(co.ticker) + '</span></h1>' +
         '<p class="sub">' + (last
@@ -245,58 +465,17 @@ function renderDetail(d){
         '<span class="sub" style="font-size:17px"> / 100</span></div>' +
       '<div><b>' + esc(txt(s.verdict)) + '</b>' +
         (s.confidence ? T(' · confidenza ', ' · confidence ') + esc(wd(s.confidence)) : '') +
-        (s.covered_pct != null ? T(' · copertura dei dati ', ' · data coverage ') + s.covered_pct + '%' : '') + '</div>' +
-      spark((d.price || {}).series) + '</div>' +
-    '<div class="card"><h2>' + T('Come si compone', 'How it adds up') + '</h2><p class="sub">' +
-      T('I pesi si ridistribuiscono sulle voci disponibili.',
-        'The weights are redistributed over the inputs that are available.') + '</p>' +
-      '<ul class="subs">' + (s.subs || []).map(function(x){
-        return '<li><div><b>' + esc(txt(x.name)) + '</b>' +
-          (x.v == null ? ' <span class="chip">' + T('non disponibile', 'not available') + '</span>'
-                       : '<div class="bar" style="margin-top:6px"><i style="width:' +
-                         Math.max(0, Math.min(100, x.v)) + '%;background:' + tone(x.v) + '"></i></div>') +
-          '</div><div class="w">' + (x.v == null ? '—' : x.v) + '<div style="font-size:11px">' + x.w + '%</div></div>' +
-          '<p>' + (x.why || []).map(function(w){ return esc(txt(w)); }).join('<br>') + '</p></li>';
-      }).join('') + '</ul></div>' +
-    (Object.keys(tracks).length
-      ? '<div class="card"><h2>' + T('Storico dei compratori', 'Buyers’ track record') + '</h2><p class="sub">' +
-        T('Rendimento a 60 giorni dopo i loro acquisti passati, rispetto al settore.',
-          'Return over the 60 days after their past purchases, against the sector.') + '</p>' +
-        '<div class="scroll"><table><thead><tr><th>' + T('Insider', 'Insider') + '</th>' +
-        '<th class="num">' + T('Acquisti', 'Purchases') + '</th>' +
-        '<th class="num">' + T('Positivi', 'Positive') + '</th>' +
-        '<th class="num">' + T('Medio', 'Average') + '</th>' +
-        '<th class="num">' + T('Moltiplicatore', 'Multiplier') + '</th></tr></thead><tbody>' +
-        Object.keys(tracks).map(function(k){ var t = tracks[k];
-          return '<tr style="cursor:default"><td>' + esc(k) + '</td><td class="num">' + t.n +
-            '</td><td class="num">' + t.pos +
-            '</td><td class="num">' + sg(t.avg, 1) + '%</td><td class="num">×' + nu(t.mult) + '</td></tr>';
-        }).join('') + '</tbody></table></div></div>'
-      : '') +
-    '<div class="card"><h2>' + T('Operazioni degli insider', 'Insider transactions') + '</h2>' +
-      '<p class="sub">' +
-      T('Ultime ' + tx.length + ' di ' + ((d.counts || {}).tx || 0) + ' negli ultimi due anni. ' +
-          'La colonna di destra dice perché un’operazione pesa o no.',
-        'The last ' + tx.length + ' of ' + ((d.counts || {}).tx || 0) + ' over the last two years. ' +
-          'The right-hand column says why a transaction counts or not.') + '</p>' +
-      (tx.length ? '<div class="scroll"><table><thead><tr><th>' + T('Data', 'Date') + '</th>' +
-        '<th>' + T('Insider', 'Insider') + '</th>' +
-        '<th class="num">' + T('Valore', 'Value') + '</th>' +
-        '<th>' + T('Lettura', 'Reading') + '</th></tr></thead><tbody>' +
-        tx.map(function(t){
-          return '<tr style="cursor:default"><td class="num">' + esc(day(t.date)) + '</td>' +
-            '<td>' + esc(t.who) + '<div class="nm">' + esc(t.role) + '</div></td>' +
-            '<td class="num">' + money(t.value) + '</td>' +
-            '<td><span class="chip ' + (t.kind === 'BUY' ? 'good' : t.weight ? 'warn' : '') + '">' +
-            esc(t.kind) + '</span><div class="nm">' + esc(txt(t.read)) + '</div></td></tr>';
-        }).join('') + '</tbody></table></div>'
-        : '<p class="sub">' + T('Nessuna operazione trovata nel periodo.',
-                                'No transaction found in the period.') + '</p>') + '</div>' +
-    '<div class="card sub">' + (d.sources || []).map(function(x){
-      return '<b>' + esc(txt(x.t)) + '</b> — ' + esc(txt(x.m)) + '. ' + esc(txt(x.x)); }).join('<br>') +
-      '<br>' + T('Dati aggiornati il ', 'Data updated ') + esc(when(d.generated_at)) + '.</div>';
+        (s.covered_pct != null ? T(' · copertura dei dati ', ' · data coverage ') + s.covered_pct + '%' : '') +
+        '</div>' + spark((d.price || {}).series) +
+      '<div class="tabs" role="tablist">' + tabs.map(function(t){
+        return '<button role="tab" data-tab="' + t[0] + '" aria-selected="' +
+          (t[0] === TAB) + '">' + esc(t[1]) + '</button>'; }).join('') + '</div></div>' +
+    pane;
+
   document.getElementById('bk').addEventListener('click', function(){ location.hash = ''; });
-  window.scrollTo(0, 0);
+  [].forEach.call(app.querySelectorAll('.tabs button'), function(b){
+    b.addEventListener('click', function(){ TAB = b.dataset.tab; renderDetail(d); });
+  });
 }
 
 /* ------------------------------------------------------------------ rotta */
