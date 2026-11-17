@@ -144,6 +144,17 @@
   ul.plain{margin:10px 0 0;padding-left:18px}
   ul.plain li{font-size:13.5px;color:var(--ink2);margin:7px 0;line-height:1.5}
   @media (max-width:620px){.hero h1{font-size:23px}.tile b{font-size:25px}}
+  .memo .lead{font-size:16px;color:var(--ink);margin:16px 0 4px}
+  .mo{border-top:1px solid var(--line);padding:14px 0 2px;margin-top:10px}
+  .mo h3{font-size:12px;text-transform:uppercase;letter-spacing:.07em;color:var(--ink2);
+         margin:0 0 7px;font-weight:600}
+  .mo p{margin:0;font-size:14.5px;line-height:1.65;color:var(--ink)}
+  .mo ul.plain{margin:0;padding-left:18px}
+  .mo ul.plain li{font-size:14px;color:var(--ink);margin:6px 0}
+  sup.src{display:inline-block;background:var(--sunken);color:var(--ink2);border-radius:4px;
+          padding:1px 5px;font-size:10.5px;font-weight:650;line-height:1.5;margin-left:3px;
+          cursor:pointer;vertical-align:super;text-transform:none}
+  sup.src:hover{background:var(--infobg);color:var(--blue)}
 </style>
 <div class="wrap">
   <div class="langbar"><div class="lang" id="lang" role="group" aria-label="Lingua / Language">
@@ -564,6 +575,220 @@ function renderList(){
   });
 }
 
+/* ------------------------------------------------------------------- memo */
+/* Ogni frase nasce da un campo dei dati. Niente aggettivi che non hanno
+   un numero dietro, e ogni affermazione porta il rimando alla sua fonte. */
+
+function src(n, label){
+  return '<sup class="src" data-src="' + n + '" title="' +
+    T('vai alla fonte', 'go to the source') + '">' + (label || n) + '</sup>';
+}
+function sec(title, body){
+  return body ? '<section class="mo"><h3>' + esc(title) + '</h3>' + body + '</section>' : '';
+}
+function med(xs){
+  var s = xs.slice().sort(function(a, b){ return a - b; }), n = s.length;
+  return n ? (n % 2 ? s[(n - 1) / 2] : (s[n / 2 - 1] + s[n / 2]) / 2) : null;
+}
+
+function memoInsider(d){
+  var win = (d.tx || []).filter(function(t){
+    return t.date >= new Date(Date.now() - 90 * 864e5).toISOString().slice(0, 10); });
+  var buys = win.filter(function(t){ return t.kind === 'BUY'; });
+  var i9 = d.insider_90d || {}, p = [];
+  if (buys.length) {
+    var big = buys.slice().sort(function(a, b){ return b.value - a.value; })[0];
+    var tr = (d.tracks || {})[big.who];
+    p.push(T('Il segnale principale è l’acquisto di <b>' + esc(big.who) + '</b> (' +
+      esc(big.role) + ') del ' + day(big.date) + ' per ' + money(big.value) + '.',
+      'The main signal is the purchase by <b>' + esc(big.who) + '</b> (' + esc(big.role) +
+      ') on ' + day(big.date) + ' for ' + money(big.value) + '.') + src(1));
+    if (big.is_senior) p.push(T(' È un dirigente apicale, e la formula lo conta come tale.',
+                                ' They are a top executive, and the formula counts that.'));
+    if (tr && tr.n) {
+      var worse = tr.mult < 1;
+      p.push(' ' + T('I suoi acquisti passati rendono in media ' + sg(tr.avg, 1) +
+        '% a 60 giorni contro il settore, su ' + tr.n + (tr.n === 1 ? ' caso' : ' casi') +
+        ': il peso di questo acquisto viene ' + (worse ? 'ridotto' : 'aumentato') +
+        ' (×' + nu(tr.mult) + ').',
+        'Their past purchases return ' + sg(tr.avg, 1) + '% on average over 60 days against the ' +
+        'sector, across ' + tr.n + (tr.n === 1 ? ' case' : ' cases') + ': the weight of this ' +
+        'purchase is ' + (worse ? 'cut' : 'raised') + ' (×' + nu(tr.mult) + ').') + src(1));
+    }
+    if (i9.buyers > 1) p.push(' ' + T('In tutto hanno comprato ' + i9.buyers + ' persone diverse.',
+                                      'In all, ' + i9.buyers + ' separate people bought.') + src(1));
+    if (i9.cluster) p.push(' ' + T('Sono abbastanza e abbastanza ravvicinate da formare un cluster.',
+                                   'That is enough people, close enough together, to form a cluster.'));
+  } else {
+    p.push(T('Nessun acquisto discrezionale negli ultimi 90 giorni.',
+             'No discretionary purchase in the last 90 days.') + src(1));
+  }
+  if (i9.sellers) p.push(' ' + T('Nello stesso periodo ' + i9.sellers +
+      (i9.sellers === 1 ? ' persona ha venduto' : ' persone hanno venduto') +
+      ' in modo discrezionale, per ' + money(i9.sell_musd * 1e6) + '.',
+      'Over the same period ' + i9.sellers + (i9.sellers === 1 ? ' person sold' : ' people sold') +
+      ' at their own discretion, for ' + money(i9.sell_musd * 1e6) + '.') + src(1));
+  var zero = win.filter(function(t){ return !t.weight; }).length;
+  if (zero) p.push(' ' + T(zero + ' operazioni dello stesso periodo sono state escluse perché non ' +
+      'informative: piani 10b5-1, ritenute fiscali, esercizi di opzioni.',
+      zero + ' transactions in the same period were excluded as uninformative: 10b5-1 plans, tax ' +
+      'withholding, option exercises.') + src(1));
+  return '<p>' + p.join('') + '</p>';
+}
+
+function memoWords(d){
+  var calls = d.calls || [];
+  if (!calls.length) return '';
+  var last = calls[calls.length - 1], four = calls.slice(-4);
+  var avg = Math.round(four.reduce(function(a, c){ return a + c.tone; }, 0) / four.length);
+  var hi = four.reduce(function(a, c){ return c.tone > a.tone ? c : a; }, four[0]);
+  var lo = four.reduce(function(a, c){ return c.tone < a.tone ? c : a; }, four[0]);
+  var dirs = (last.guidance || []).map(function(g){ return g.direction; });
+  var up = dirs.filter(function(x){ return x === 'alzata'; }).length;
+  var dn = dirs.filter(function(x){ return x === 'ridotta'; }).length;
+  var buys = (d.insider_90d || {}).buyers > 0;
+  var p = [T('Il tono delle ultime ' + four.length + ' call è in media ' + avg +
+    ' su 100, dal minimo di ' + lo.tone + ' (' + qShort(lo.quarter) + ') al massimo di ' +
+    hi.tone + ' (' + qShort(hi.quarter) + ').',
+    'The tone of the last ' + four.length + ' calls averages ' + avg + ' out of 100, from a low of ' +
+    lo.tone + ' (' + qShort(lo.quarter) + ') to a high of ' + hi.tone + ' (' + qShort(hi.quarter) +
+    ').') + src('call')];
+  if (up || dn) {
+    p.push(' ' + T('Nell’ultima call (' + qShort(last.quarter) + ') l’azienda ha alzato ' +
+      up + (up === 1 ? ' voce' : ' voci') + ' di guidance e ne ha ' + (dn === 1 ? 'ridotta ' : 'ridotte ') +
+      dn + '.',
+      'In the latest call (' + qShort(last.quarter) + ') the company raised ' + up +
+      (up === 1 ? ' guidance item' : ' guidance items') + ' and lowered ' + dn + '.') + src('call'));
+    if (dn > up && buys) p.push(' ' + T('Gli insider hanno comprato mentre l’azienda abbassava ' +
+      'le proprie previsioni: è la divergenza che questo strumento esiste per trovare.',
+      'Insiders bought while the company was lowering its own forecasts: this is the divergence the ' +
+      'tool exists to find.'));
+    else if (up > dn && !buys) p.push(' ' + T('L’azienda alza le previsioni, ma nessun insider ' +
+      'mette soldi propri.', 'The company raises its forecasts, but no insider is putting their own ' +
+      'money in.'));
+  }
+  var chg = null;
+  for (var i = calls.length - 1; i >= 0 && !chg; i--)
+    if ((calls[i].language_changes || []).length) chg = calls[i].language_changes[0];
+  if (chg) p.push(' ' + T('Il cambio di linguaggio più recente riguarda <b>' + esc(txt(chg.topic)) +
+    '</b>: da «' + esc(txt(chg.from)) + '» a «' + esc(txt(chg.to)) + '».',
+    'The most recent change of language concerns <b>' + esc(txt(chg.topic)) + '</b>: from “' +
+    esc(txt(chg.from)) + '” to “' + esc(txt(chg.to)) + '”.') + src('call'));
+  return '<p>' + p.join('') + '</p>';
+}
+
+function memoMarket(d){
+  var r = d.si_series || [];
+  if (r.length < 8) return '';
+  var last = r[r.length - 1], year = r.slice(-24), back = r[r.length - 7] || r[0];
+  var m = med(year.map(function(x){ return x[1]; }));
+  var dev = (last[1] / m - 1) * 100, mom = (last[1] / back[1] - 1) * 100;
+  var p = [];
+  if (d.si_pct != null) p.push(T('Lo short interest è il ' + nu(d.si_pct.toFixed(2)) +
+    '% delle azioni in circolazione.', 'Short interest is ' + nu(d.si_pct.toFixed(2)) +
+    '% of shares outstanding.') + src(3));
+  p.push(' ' + T('Rispetto alla mediana dell’ultimo anno è ' + sg(dev, 1) +
+    '%, e negli ultimi tre mesi ' + (mom >= 0 ? 'è salito del ' : 'è sceso del ') +
+    nu(Math.abs(mom).toFixed(1)) + '%.',
+    'Against the median of the last year it is ' + sg(dev, 1) + '%, and over the last three months it ' +
+    (mom >= 0 ? 'has risen by ' : 'has fallen by ') + nu(Math.abs(mom).toFixed(1)) + '%.') + src(3));
+  var buys = (d.insider_90d || {}).buyers > 0;
+  if (mom > 5 && buys) p.push(' ' + T('I ribassisti non sono usciti mentre gli insider compravano: ' +
+    'le due scommesse sono opposte.',
+    'The bears did not leave while insiders were buying: the two bets point opposite ways.'));
+  if (mom < -5 && buys) p.push(' ' + T('I ribassisti stanno uscendo nello stesso periodo in cui gli ' +
+    'insider comprano.', 'The bears are leaving over the same period in which insiders are buying.'));
+  p.push(' ' + T('Giorni di scambi necessari a chi è short per uscire: ' + nu(last[2].toFixed(2)) + '.',
+    'Days of trading the shorts would need to get out: ' + nu(last[2].toFixed(2)) + '.') + src(3));
+  return '<p>' + p.join('') + '</p>';
+}
+
+function memoSector(d){
+  var s = ((d.score || {}).subs || []).filter(function(x){ return x.id === 'sector'; })[0];
+  if (!s || s.v == null) return '';
+  return '<p>' + (s.why || []).map(function(w){ return esc(txt(w)); }).join(' ') + src(4) + '</p>';
+}
+
+function memoLimits(d){
+  var s = d.score || {}, subs = s.subs || [];
+  var miss = (s.missing || []).map(function(k){
+    var x = subs.filter(function(y){ return y.id === k; })[0];
+    return x ? txt(x.name) + ' (' + x.w + '%)' : k; });
+  var p = [T('La formula ha lavorato sul ' + (s.covered_pct || 0) + '% dei pesi.',
+             'The formula worked on ' + (s.covered_pct || 0) + '% of the weights.')];
+  if (miss.length) p.push(' ' + T('Restano fuori: ' + miss.join(', ') +
+    '. I loro pesi sono stati ridistribuiti sulle voci disponibili, non azzerati.',
+    'Left out: ' + miss.join(', ') + '. Their weights were redistributed over the available inputs, ' +
+    'not set to zero.'));
+  if (!(d.calls || []).length) p.push(' ' + T('Per questa azienda non ci sono ancora trascrizioni ' +
+    'estratte, quindi guidance e tono non entrano nel conto.',
+    'For this company there are no extracted transcripts yet, so guidance and tone do not count.'));
+  if (!(d.si_series || []).length) p.push(' ' + T('E non c’è lo short interest.',
+    'And there is no short interest.'));
+  return '<p>' + p.join('') + '</p>';
+}
+
+function memoChange(d){
+  var i9 = d.insider_90d || {}, r = d.si_series || [], calls = d.calls || [], out = [];
+  if (i9.buyers > 0) out.push(T('Una vendita discrezionale di chi ha comprato, entro 90 giorni dal suo acquisto.',
+    'A discretionary sale by one of the buyers, within 90 days of their purchase.'));
+  if (!i9.cluster) out.push(T('Tre o più persone diverse che comprano entro 30 giorni: sarebbe un cluster.',
+    'Three or more separate people buying within 30 days: that would be a cluster.'));
+  if (calls.length) {
+    var last = calls[calls.length - 1];
+    var dirs = (last.guidance || []).map(function(g){ return g.direction; });
+    var dn = dirs.filter(function(x){ return x === 'ridotta'; }).length;
+    var up = dirs.filter(function(x){ return x === 'alzata'; }).length;
+    out.push(dn > up
+      ? T('Una call con più voci di guidance alzate che ridotte.',
+          'A call with more guidance items raised than lowered.')
+      : T('Una call con più voci di guidance ridotte che alzate.',
+          'A call with more guidance items lowered than raised.'));
+  }
+  if (r.length >= 8) {
+    var last = r[r.length - 1], year = r.slice(-24);
+    var peak = year.reduce(function(a, x){ return x[1] > a[1] ? x : a; }, year[0]);
+    var m = med(year.map(function(x){ return x[1]; }));
+    out.push(last[1] > m
+      ? T('Lo short interest che scende sotto la mediana dell’anno (' +
+          nu((m / 1e6).toFixed(1)) + ' milioni di azioni).',
+          'Short interest falling below the median of the year (' + nu((m / 1e6).toFixed(1)) +
+          ' million shares).')
+      : T('Lo short interest che supera il massimo dell’anno (' +
+          nu((peak[1] / 1e6).toFixed(1)) + ' milioni di azioni).',
+          'Short interest going above the peak of the year (' + nu((peak[1] / 1e6).toFixed(1)) +
+          ' million shares).'));
+  }
+  return '<ul class="plain">' + out.map(function(x){ return '<li>' + esc(x) + '</li>'; }).join('') + '</ul>';
+}
+
+function paneMemo(d){
+  var s = d.score || {}, co = d.company || {};
+  var body = '<div class="card memo">' +
+    '<h2>' + T('Memo', 'Memo') + '</h2>' +
+    '<p class="sub">' + T('Generato dai dati di questa pagina. Ogni frase porta il rimando alla ' +
+      'fonte da cui viene: cliccalo e ti porta alla scheda giusta.',
+      'Generated from the data on this page. Every sentence carries a pointer to the source it comes ' +
+      'from: click it and it takes you to the right tab.') + '</p>' +
+    '<p class="lead">' + T(
+      '<b>' + esc(co.name || co.ticker) + '</b> ottiene <b>' + (s.value == null ? '—' : s.value) +
+      ' su 100</b>, lettura «' + esc(txt(s.verdict)) + '», con confidenza ' + esc(wd(s.confidence)) + '.',
+      '<b>' + esc(co.name || co.ticker) + '</b> scores <b>' + (s.value == null ? '—' : s.value) +
+      ' out of 100</b>, reading “' + esc(txt(s.verdict)) + '”, with ' +
+      esc(wd(s.confidence)) + ' confidence.') + '</p>' +
+    sec(T('Che cosa hanno fatto gli insider', 'What the insiders did'), memoInsider(d)) +
+    sec(T('Che cosa dice l’azienda', 'What the company says'), memoWords(d)) +
+    sec(T('Che cosa dice il mercato', 'What the market says'), memoMarket(d)) +
+    sec(T('Il confronto con i simili', 'Against the peers'), memoSector(d)) +
+    sec(T('Che cosa manca', 'What is missing'), memoLimits(d)) +
+    sec(T('Che cosa farebbe cambiare idea', 'What would change the reading'), memoChange(d)) +
+    '</div>' +
+    '<div class="card sub">' + (d.sources || []).map(function(x){
+      return '<b>[' + x.n + '] ' + esc(txt(x.t)) + '</b> — ' + esc(txt(x.m)) + '. ' + esc(txt(x.x));
+    }).join('<br>') + '</div>';
+  return body;
+}
+
 /* ------------------------------------------------------------------ dettaglio */
 var TAB = 'panoramica';
 
@@ -758,10 +983,12 @@ function renderDetail(d){
   var tabs = [['panoramica', T('Panoramica', 'Overview')], ['insider', T('Insider', 'Insiders')]];
   if ((d.si_series || []).length) tabs.push(['mercato', T('Mercato', 'Market')]);
   if ((d.calls || []).length) tabs.push(['call', T('Call', 'Calls')]);
+  tabs.push(['memo', T('Memo', 'Memo')]);
   if (!tabs.some(function(t){ return t[0] === TAB; })) TAB = 'panoramica';
   var pane = TAB === 'insider' ? paneInsider(d)
            : TAB === 'mercato' ? paneMarket(d)
-           : TAB === 'call' ? paneCalls(d) : paneOverview(d);
+           : TAB === 'call' ? paneCalls(d)
+           : TAB === 'memo' ? paneMemo(d) : paneOverview(d);
 
   app.innerHTML = problems(d.errors) +
     '<div class="card"><button class="back" id="bk">← ' +
@@ -787,6 +1014,13 @@ function renderDetail(d){
   document.getElementById('bk').addEventListener('click', function(){ location.hash = 'aziende'; });
   [].forEach.call(app.querySelectorAll('.tabs button'), function(b){
     b.addEventListener('click', function(){ TAB = b.dataset.tab; renderDetail(d); });
+  });
+  var GOTO = { '1': 'insider', '3': 'mercato', '4': 'panoramica', 'call': 'call' };
+  [].forEach.call(app.querySelectorAll('sup.src'), function(e){
+    e.addEventListener('click', function(){
+      var t = GOTO[e.dataset.src];
+      if (t && tabs.some(function(x){ return x[0] === t; })) { TAB = t; renderDetail(d); }
+    });
   });
 }
 
