@@ -196,6 +196,12 @@ def build_one(cfg, raw, extracted=None):
                   "series": [[p["d"], p["c"]] for p in px[-504:]]},
         "counts": {"tx": len(tx), "prices": len(px), "si": len(si)},
         "insider_90d": summary,
+        "calls": [{k: e[k] for k in ("quarter", "call_date", "tone", "tone_why",
+                                     "guidance", "qa", "language_changes") if k in e}
+                  for e in (extracted or [])],
+        "si_series": [[r["date"], round(r["si"]), r["dtc"]] for r in si[-48:]],
+        "si_pct": si_pct,
+        "shares": raw.get("shares"),
         "tx": tx,
         "cluster": [t["date"] + " " + t["who"] for t in cluster],
         "tracks": tracks,
