@@ -4,13 +4,19 @@ on:
   # Per ora l'aggiornamento parte solo quando lo chiedi tu, dal pulsante
   # "Run workflow" nella scheda Actions.
   workflow_dispatch:
-  # Per farlo partire da solo, togli il cancelletto alle due righe sotto
-  # "schedule": 22:30 UTC nei feriali, cioe' dopo la chiusura di New York.
-  # schedule:
-  #   - cron: "30 22 * * 1-5"
+  # Tre giri al giorno nei feriali. I minuti non sono tondi di proposito:
+  # alle :00 le code di GitHub sono lunghe e la partenza slitta.
+  #   06:17 UTC  mattina europea, prima che tu apra il sito
+  #   12:47 UTC  prima dell'apertura di New York
+  #   22:35 UTC  dopo la chiusura, quando il prezzo del giorno e' definitivo
+  schedule:
+    - cron: "17 6 * * 1-5"
+    - cron: "47 12 * * 1-5"
+    - cron: "35 22 * * 1-5"
   push:
     branches: [main]
-    paths: ["pipeline/**", "config.json", "site/**", ".github/workflows/update.yml"]
+    paths: ["pipeline/**", "input/**", "config.json", "site/**",
+            ".github/workflows/update.yml"]
 
 # contents: per salvare data.json | pages e id-token: per pubblicare il sito
 permissions:
