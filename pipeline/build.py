@@ -34,7 +34,7 @@ def load_config(path="config.json"):
 
 
 def group_name(g):
-    """Il nome dell'universo nelle due lingue (nome_en e' opzionale)."""
+    """Il nome dell'universo nelle due lingue (nome_en è opzionale)."""
     return L(g["nome"], g.get("nome_en") or g["nome"])
 
 
@@ -95,7 +95,7 @@ def build_one(cfg, raw, extracted=None):
     failed = raw.get("failed") or []
     today = date.fromisoformat(px[-1]["d"]) if px else date.today()
 
-    # Il cluster conta solo se e' recente: tre acquisti di un anno fa non
+    # Il cluster conta solo se è recente: tre acquisti di un anno fa non
     # dicono niente sul presente, e il resto del punteggio guarda 90 giorni.
     start90 = (today - timedelta(days=90)).isoformat()
     recent = [t for t in tx if t["date"] >= start90]
@@ -151,7 +151,7 @@ def build_one(cfg, raw, extracted=None):
             v = avg
 
             # Direzione della guidance nell'ultima call: quante voci alzate e
-            # quante ridotte. E' l'azienda che parla di se stessa, non un analista.
+            # quante ridotte. È l'azienda che parla di se stessa, non un analista.
             ultima = extracted[-1]
             dirs = [g.get("direction") for g in (ultima.get("guidance") or [])]
             up, dn = dirs.count("alzata"), dirs.count("ridotta")
@@ -164,7 +164,7 @@ def build_one(cfg, raw, extracted=None):
                              f"and lowered {dn}."))
                 if dn > up and buys_90d:
                     why.append(L("Gli insider hanno comprato mentre l'azienda tagliava la guidance: "
-                                 "e' una divergenza fra quello che dice e quello che fa.",
+                                 "è una divergenza fra quello che dice e quello che fa.",
                                  "Insiders bought while the company was cutting guidance: "
                                  "a divergence between what it says and what it does."))
                 elif up > dn and not buys_90d:

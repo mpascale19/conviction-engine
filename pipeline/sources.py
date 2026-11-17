@@ -23,7 +23,7 @@ SEC_UA = os.environ.get("SEC_UA", "Conviction Engine (studente) nome@example.com
 SEC_UA_IS_DEFAULT = "nome@example.com" in SEC_UA
 # La SEC vuole un contatto vero nello User-Agent e rifiuta (403) le richieste
 # che le sembrano automatiche: queste intestazioni sono quelle di un client
-# normale, piu' il contatto richiesto.
+# normale, più il contatto richiesto.
 HEAD = {"User-Agent": SEC_UA,
         "Accept": "application/json, text/html;q=0.9, */*;q=0.8",
         "Accept-Encoding": "gzip, deflate",
@@ -120,7 +120,7 @@ def prices(ticker, market="us", min_rows=20):
     """Prova le fonti in ordine e restituisce (righe, nome della fonte).
 
     Yahoo per primo: stooq spesso blocca le richieste che arrivano dai server
-    di GitHub, e in quel caso risponde 200 con una pagina che non e' un CSV.
+    di GitHub, e in quel caso risponde 200 con una pagina che non è un CSV.
     """
     tried = []
     for name, fn in (("yahoo", lambda: _prices_yahoo(ticker)),
@@ -156,7 +156,7 @@ def confirms(cik, ticker):
 
     La mappa company_tickers.json ogni tanto sbaglia una riga (ADI -> Eli
     Lilly, visto il 16/11/2026). Il JSON dei depositi elenca i ticker
-    dell'azienda: e' la prova del nove, e lo scarichiamo comunque subito dopo.
+    dell'azienda: è la prova del nove, e lo scarichiamo comunque subito dopo.
     Restituisce (ok, nome, ticker elencati).
     """
     j = submissions(cik)
@@ -168,7 +168,7 @@ def confirms(cik, ticker):
 def cik_for(ticker, fallback_cik=None):
     """Ticker -> (CIK a 10 cifre, nome, come l'ha trovato).
 
-    Tre strade, perche' www.sec.gov a volte risponde 403 alle richieste che
+    Tre strade, perché www.sec.gov a volte risponde 403 alle richieste che
     arrivano dai server di GitHub: la mappa ufficiale, la ricerca di EDGAR in
     formato atom, e infine il CIK scritto a mano in config.json.
     """
@@ -180,7 +180,7 @@ def cik_for(ticker, fallback_cik=None):
         ok, name, tk = confirms(cik, ticker)
         if ok:
             return cik, name, how
-        tried.append(f"{how}: il CIK {cik} e' di {name} "
+        tried.append(f"{how}: il CIK {cik} è di {name} "
                      f"(ticker {', '.join(tk) or '-'}), non di {ticker}")
         return None
 
@@ -192,7 +192,7 @@ def cik_for(ticker, fallback_cik=None):
                 hit = row
                 break
         if hit is None:
-            tried.append("company_tickers.json: il ticker non c'e'")
+            tried.append("company_tickers.json: il ticker non c'è")
         else:
             got = verified(hit["cik_str"], "company_tickers.json")
             if got:
@@ -226,10 +226,10 @@ def cik_for(ticker, fallback_cik=None):
 
 
 def parse_shares(payload):
-    """Dal JSON della SEC: le azioni in circolazione piu' recenti.
+    """Dal JSON della SEC: le azioni in circolazione più recenti.
 
     Il dato sta in copertina a ogni 10-Q e 10-K ("EntityCommonStockSharesOutstanding").
-    Prendiamo la rilevazione con la data di fine periodo piu' recente.
+    Prendiamo la rilevazione con la data di fine periodo più recente.
     """
     units = (payload.get("units") or {})
     rows = []
@@ -351,7 +351,7 @@ def insider_transactions(cik, months=24, limit=None, cache_dir=None):
     if cache_dir:
         os.makedirs(cache_dir, exist_ok=True)
     for f in (filings[:limit] if limit else filings):
-        # un documento depositato non cambia piu': una volta letto si tiene
+        # un documento depositato non cambia più: una volta letto si tiene
         cf = os.path.join(cache_dir, f["accession"] + ".json") if cache_dir else None
         if cf and os.path.exists(cf):
             try:

@@ -111,10 +111,10 @@ def price_score(prices, today=None):
 
 
 def sector_score(me, universe, cfg):
-    """Il titolo e' isolato o si muove con il settore?
+    """Il titolo è isolato o si muove con il settore?
 
     `me` e `universe` sono i riassunti {ticker, net_musd, buyers, cluster}
-    gia' calcolati per ogni azienda dell'universo. Vale di piu' quando solo
+    già calcolati per ogni azienda dell'universo. Vale di più quando solo
     questo titolo ha acquisti, di meno quando comprano tutti.
     """
     others = [u for u in universe if u["ticker"] != me["ticker"]]
@@ -140,11 +140,11 @@ def sector_score(me, universe, cfg):
     if me["buyers"] > 0:
         if share <= 0.25:
             v += 20
-            why.append(L("Pochi altri comprano: il segnale e' specifico di questa azienda.",
+            why.append(L("Pochi altri comprano: il segnale è specifico di questa azienda.",
                          "Few others are buying: the signal is specific to this company."))
         elif share >= 0.5:
             v += 5
-            why.append(L("Comprano anche molti concorrenti: e' un movimento di settore.",
+            why.append(L("Comprano anche molti concorrenti: è un movimento di settore.",
                          "Many peers are buying too: this is a sector-wide move."))
         else:
             v += 12
@@ -152,7 +152,7 @@ def sector_score(me, universe, cfg):
                          "A few peers are buying, but most are not."))
         if me["cluster"] and not clusters:
             v += 8
-            why.append(L("E' l'unica con un cluster di acquirenti.",
+            why.append(L("È l'unica con un cluster di acquirenti.",
                          "It is the only one with a cluster of buyers."))
     else:
         if share >= 0.4:
@@ -164,11 +164,11 @@ def sector_score(me, universe, cfg):
                          "Nobody is buying, here or elsewhere: the sector says nothing."))
     if me["net_musd"] > mid:
         v += 6
-        why.append(L("Il flusso netto e' comunque migliore della mediana del settore.",
+        why.append(L("Il flusso netto è comunque migliore della mediana del settore.",
                      "The net flow is still better than the sector median."))
     else:
         v -= 6
-        why.append(L("Il flusso netto e' peggiore della mediana del settore.",
+        why.append(L("Il flusso netto è peggiore della mediana del settore.",
                      "The net flow is worse than the sector median."))
     return round(_clamp(v)), why, "Media"
 
@@ -184,8 +184,8 @@ def _median(xs):
 def market_score(rows, today=None, shares=None):
     """Short interest: quanto il mercato scommette contro il titolo.
 
-    L'export non da' la percentuale sul flottante, quindi ogni misura e' presa
-    contro la storia del titolo stesso. Cosi' due aziende di dimensioni diverse
+    L'export non da' la percentuale sul flottante, quindi ogni misura è presa
+    contro la storia del titolo stesso. Così due aziende di dimensioni diverse
     restano confrontabili, e un numero grande non conta per il fatto di essere
     grande. Short interest che scende = ribassisti che escono = punto a favore.
     """
@@ -214,7 +214,7 @@ def market_score(rows, today=None, shares=None):
     back = rows[-7] if len(rows) >= 7 else rows[0]
     mom = (last["si"] / back["si"] - 1) * 100 if back["si"] else 0.0
     v -= _clamp(mom * 0.35, -10, 10)
-    why.append(L(f"Negli ultimi tre mesi e' {'salito' if mom > 0 else 'sceso'} "
+    why.append(L(f"Negli ultimi tre mesi è {'salito' if mom > 0 else 'sceso'} "
                  f"del {abs(mom):.1f}% (dal {back['date']}).",
                  f"Over the last three months it has "
                  f"{'risen' if mom > 0 else 'fallen'} by {abs(mom):.1f}% "
@@ -228,7 +228,7 @@ def market_score(rows, today=None, shares=None):
             v += 4 if mom < 0 else -4
         why.append(L(f"Giorni per ricoprire: {last['dtc']:.2f} "
                      f"(mediana dell'anno {dmed:.2f})."
-                     + (" Chi e' short fatica a uscire." if high else ""),
+                     + (" Chi è short fatica a uscire." if high else ""),
                      f"Days to cover: {last['dtc']:.2f} "
                      f"(median of the year {dmed:.2f})."
                      + (" Shorts would struggle to get out." if high else "")))
@@ -249,9 +249,9 @@ def market_score(rows, today=None, shares=None):
 def market_peers(sub, me_pct, peer_pcts):
     """Aggiunge al sotto-punteggio Mercato il confronto con i simili.
 
-    Lo short interest in percentuale delle azioni in circolazione e' l'unica
-    misura che si puo' mettere a fianco fra aziende di dimensioni diverse.
-    Essere shortati molto piu' della mediana del settore e' un segnale contro;
+    Lo short interest in percentuale delle azioni in circolazione è l'unica
+    misura che si può mettere a fianco fra aziende di dimensioni diverse.
+    Essere shortati molto più della mediana del settore è un segnale contro;
     molto meno, un segnale a favore.
     """
     peers = [p for p in peer_pcts if isinstance(p, (int, float))]
@@ -263,7 +263,7 @@ def market_peers(sub, me_pct, peer_pcts):
     ratio = me_pct / med
     sub["v"] = round(_clamp(sub["v"] - _clamp((ratio - 1) * 12, -8, 8)))
     sub["why"] = list(sub["why"]) + [L(
-        f"Nel settore la mediana e' {med:.2f}% delle azioni: "
+        f"Nel settore la mediana è {med:.2f}% delle azioni: "
         f"{me_pct:.2f}% vale {ratio:.1f} volte "
         f"({len(peers)} aziende confrontate).",
         f"The sector median is {med:.2f}% of shares: "

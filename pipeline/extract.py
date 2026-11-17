@@ -73,7 +73,7 @@ def ticker_of(filename):
 
 
 def load_ready(folder="input/extracted"):
-    """Estrazioni gia' fatte, salvate come JSON.
+    """Estrazioni già fatte, salvate come JSON.
 
     Servono a due cose: far girare la pipeline senza chiave API, e tenere il
     testo delle trascrizioni (sotto licenza) fuori dal repository pubblico.
@@ -91,7 +91,7 @@ def load_ready(folder="input/extracted"):
         d.setdefault("ticker", ticker_of(p))
         out.append(d)
     if out:
-        print(f"  {len(out)} estrazioni gia' pronte in {folder}")
+        print(f"  {len(out)} estrazioni già pronte in {folder}")
     return out
 
 
