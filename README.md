@@ -117,6 +117,14 @@ tenere il testo fuori dal repo. Se invece metti un `.txt` senza il JSON
 corrispondente e hai impostato `ANTHROPIC_API_KEY`, l'estrazione parte da sola e
 produce la stessa forma.
 
+Anche le estrazioni sono bilingui, con la stessa forma `{"it": ..., "en": ...}`
+che usa il resto della pipeline. Sono tradotti tutti i testi che il sito mostra:
+la nota sul tono di ogni call, la guidance e le domande dell'**ultima** call di
+ogni azienda, e **tutti** i cambi di linguaggio. La guidance delle call
+precedenti resta in italiano perché nessuna pagina la mostra; se un domani la
+mostrerai, va tradotta. Dove manca l'inglese il sito ripiega sull'italiano senza
+rompersi.
+
 Il sotto-punteggio **Guidance e tono** usa la media delle ultime quattro call
 estratte di quella azienda. Prima di questa parte la sua copertura era zero e il
 peso (20%) veniva ridistribuito sugli altri.
