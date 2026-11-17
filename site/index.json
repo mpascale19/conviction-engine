@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-11-17T13:56:52+00:00",
+ "generated_at": "2026-11-17T23:25:50+00:00",
  "groups": [
   {
    "nome": {
@@ -21,11 +21,11 @@
  "backtest": {
   "horizon": 60,
   "all": {
-   "n": 119,
-   "ep": 58,
+   "n": 118,
+   "ep": 57,
    "pos": 77,
-   "avg": 1.54,
-   "med": 2.68
+   "avg": 1.51,
+   "med": 2.5
   },
   "cluster": {
    "n": 5,
@@ -35,10 +35,10 @@
    "med": -29.21
   },
   "solo": {
-   "n": 114,
-   "ep": 57,
+   "n": 113,
+   "ep": 56,
    "pos": 77,
-   "avg": 2.89,
+   "avg": 2.87,
    "med": 3.64
   },
   "senior": {
@@ -49,11 +49,11 @@
    "med": 7.03
   },
   "other": {
-   "n": 77,
-   "ep": 46,
+   "n": 76,
+   "ep": 45,
    "pos": 42,
-   "avg": 1.02,
-   "med": 1.37
+   "avg": 0.96,
+   "med": 1.41
   }
  },
  "weights": {
@@ -81,9 +81,9 @@
    "confidence": "Alta",
    "covered_pct": 85,
    "last": {
-    "d": "2026-11-16",
-    "c": 50.08,
-    "v": 30657000
+    "d": "2026-11-17",
+    "c": 49.44,
+    "v": 34684686
    },
    "tx": 436,
    "buyers": 1,
@@ -107,9 +107,9 @@
    "confidence": "Alta",
    "covered_pct": 85,
    "last": {
-    "d": "2026-11-16",
-    "c": 119.09,
-    "v": 20071100
+    "d": "2026-11-17",
+    "c": 115.0,
+    "v": 25210397
    },
    "tx": 226,
    "buyers": 1,
@@ -133,9 +133,9 @@
    "confidence": "Alta",
    "covered_pct": 85,
    "last": {
-    "d": "2026-11-16",
-    "c": 55.47,
-    "v": 103100900
+    "d": "2026-11-17",
+    "c": 55.17,
+    "v": 101775438
    },
    "tx": 154,
    "buyers": 1,
@@ -159,11 +159,37 @@
    "confidence": "Media",
    "covered_pct": 65,
    "last": {
-    "d": "2026-11-16",
-    "c": 143.96,
-    "v": 10946400
+    "d": "2026-11-17",
+    "c": 144.56,
+    "v": 15465043
    },
    "tx": 207,
+   "buyers": 0,
+   "sellers": 0,
+   "net_musd": 0.0,
+   "cluster": false,
+   "errors": 0
+  },
+  {
+   "ticker": "MU",
+   "name": "MICRON TECHNOLOGY INC",
+   "group": {
+    "it": "Semiconduttori e apparecchiature",
+    "en": "Semiconductors and equipment"
+   },
+   "score": 57,
+   "verdict": {
+    "it": "Leggermente rialzista",
+    "en": "Mildly bullish"
+   },
+   "confidence": "Media",
+   "covered_pct": 65,
+   "last": {
+    "d": "2026-11-17",
+    "c": 712.42,
+    "v": 31800714
+   },
+   "tx": 643,
    "buyers": 0,
    "sellers": 0,
    "net_musd": 0.0,
@@ -185,9 +211,9 @@
    "confidence": "Media",
    "covered_pct": 65,
    "last": {
-    "d": "2026-11-16",
-    "c": 333.4,
-    "v": 26056800
+    "d": "2026-11-17",
+    "c": 341.6,
+    "v": 25732265
    },
    "tx": 461,
    "buyers": 0,
@@ -211,11 +237,11 @@
    "confidence": "Media",
    "covered_pct": 65,
    "last": {
-    "d": "2026-11-16",
-    "c": 99.22,
-    "v": 241900
+    "d": "2026-11-17",
+    "c": 97.98,
+    "v": 240790
    },
-   "tx": 131,
+   "tx": 132,
    "buyers": 0,
    "sellers": 0,
    "net_musd": 0.0,
@@ -237,9 +263,9 @@
    "confidence": "Alta",
    "covered_pct": 85,
    "last": {
-    "d": "2026-11-16",
-    "c": 156.14,
-    "v": 331405000
+    "d": "2026-11-17",
+    "c": 155.46,
+    "v": 370067900
    },
    "tx": 628,
    "buyers": 0,
@@ -263,11 +289,11 @@
    "confidence": "Media",
    "covered_pct": 65,
    "last": {
-    "d": "2026-11-16",
-    "c": 1431.67,
-    "v": 3207400
+    "d": "2026-11-17",
+    "c": 1415.55,
+    "v": 2478538
    },
-   "tx": 298,
+   "tx": 248,
    "buyers": 0,
    "sellers": 0,
    "net_musd": 0.0,
@@ -275,28 +301,28 @@
    "errors": 0
   },
   {
-   "ticker": "QCOM",
-   "name": "QUALCOMM INC/DE",
+   "ticker": "WMT",
+   "name": "Walmart Inc.",
    "group": {
-    "it": "Semiconduttori e apparecchiature",
-    "en": "Semiconductors and equipment"
+    "it": "Grandi capitalizzazioni USA",
+    "en": "US large caps"
    },
-   "score": 52,
+   "score": 53,
    "verdict": {
     "it": "Nessuna convinzione chiara",
     "en": "No clear conviction"
    },
-   "confidence": "Media",
-   "covered_pct": 65,
+   "confidence": "Bassa",
+   "covered_pct": 50,
    "last": {
-    "d": "2026-11-16",
-    "c": 168.52,
-    "v": 11831200
+    "d": "2026-11-17",
+    "c": 127.52,
+    "v": 19483025
    },
-   "tx": 310,
+   "tx": 147,
    "buyers": 0,
-   "sellers": 2,
-   "net_musd": -0.035,
+   "sellers": 0,
+   "net_musd": 0.0,
    "cluster": false,
    "errors": 0
   },
@@ -315,11 +341,11 @@
    "confidence": "Media",
    "covered_pct": 65,
    "last": {
-    "d": "2026-11-16",
-    "c": 257.75,
-    "v": 47865100
+    "d": "2026-11-17",
+    "c": 257.89,
+    "v": 37098176
    },
-   "tx": 342,
+   "tx": 340,
    "buyers": 0,
    "sellers": 0,
    "net_musd": 0.0,
@@ -341,9 +367,9 @@
    "confidence": "Media",
    "covered_pct": 65,
    "last": {
-    "d": "2026-11-16",
-    "c": 338.21,
-    "v": 7229000
+    "d": "2026-11-17",
+    "c": 329.96,
+    "v": 8112161
    },
    "tx": 130,
    "buyers": 0,
@@ -367,9 +393,9 @@
    "confidence": "Bassa",
    "covered_pct": 50,
    "last": {
-    "d": "2026-11-16",
-    "c": 166.87,
-    "v": 14286200
+    "d": "2026-11-17",
+    "c": 167.21,
+    "v": 10403336
    },
    "tx": 0,
    "buyers": 0,
@@ -379,28 +405,28 @@
    "errors": 0
   },
   {
-   "ticker": "WMT",
-   "name": "Walmart Inc.",
+   "ticker": "QCOM",
+   "name": "QUALCOMM INC/DE",
    "group": {
-    "it": "Grandi capitalizzazioni USA",
-    "en": "US large caps"
+    "it": "Semiconduttori e apparecchiature",
+    "en": "Semiconductors and equipment"
    },
-   "score": 52,
+   "score": 51,
    "verdict": {
     "it": "Nessuna convinzione chiara",
     "en": "No clear conviction"
    },
-   "confidence": "Bassa",
-   "covered_pct": 50,
+   "confidence": "Media",
+   "covered_pct": 65,
    "last": {
-    "d": "2026-11-16",
-    "c": 128.41,
-    "v": 17761800
+    "d": "2026-11-17",
+    "c": 166.67,
+    "v": 10935821
    },
-   "tx": 147,
+   "tx": 310,
    "buyers": 0,
-   "sellers": 0,
-   "net_musd": 0.0,
+   "sellers": 2,
+   "net_musd": -0.035,
    "cluster": false,
    "errors": 0
   },
@@ -419,9 +445,9 @@
    "confidence": "Media",
    "covered_pct": 65,
    "last": {
-    "d": "2026-11-16",
-    "c": 352.78,
-    "v": 45945500
+    "d": "2026-11-17",
+    "c": 351.91,
+    "v": 36248936
    },
    "tx": 162,
    "buyers": 0,
@@ -445,40 +471,14 @@
    "confidence": "Media",
    "covered_pct": 65,
    "last": {
-    "d": "2026-11-16",
-    "c": 661.71,
-    "v": 2399400
+    "d": "2026-11-17",
+    "c": 645.73,
+    "v": 3172768
    },
    "tx": 349,
    "buyers": 0,
    "sellers": 0,
    "net_musd": 0.0,
-   "cluster": false,
-   "errors": 0
-  },
-  {
-   "ticker": "MU",
-   "name": "MICRON TECHNOLOGY INC",
-   "group": {
-    "it": "Semiconduttori e apparecchiature",
-    "en": "Semiconductors and equipment"
-   },
-   "score": 50,
-   "verdict": {
-    "it": "Nessuna convinzione chiara",
-    "en": "No clear conviction"
-   },
-   "confidence": "Media",
-   "covered_pct": 65,
-   "last": {
-    "d": "2026-11-16",
-    "c": 719.02,
-    "v": 26712100
-   },
-   "tx": 643,
-   "buyers": 0,
-   "sellers": 1,
-   "net_musd": -14.014,
    "cluster": false,
    "errors": 0
   },
@@ -497,9 +497,9 @@
    "confidence": "Media",
    "covered_pct": 65,
    "last": {
-    "d": "2026-11-16",
-    "c": 37.2,
-    "v": 762700
+    "d": "2026-11-17",
+    "c": 36.74,
+    "v": 757811
    },
    "tx": 145,
    "buyers": 0,
@@ -523,9 +523,9 @@
    "confidence": "Media",
    "covered_pct": 65,
    "last": {
-    "d": "2026-11-16",
-    "c": 282.55,
-    "v": 8101700
+    "d": "2026-11-17",
+    "c": 278.7,
+    "v": 8057459
    },
    "tx": 249,
    "buyers": 0,
@@ -549,9 +549,9 @@
    "confidence": "Media",
    "covered_pct": 65,
    "last": {
-    "d": "2026-11-16",
-    "c": 283.72,
-    "v": 34643200
+    "d": "2026-11-17",
+    "c": 280.2,
+    "v": 31276136
    },
    "tx": 517,
    "buyers": 0,
@@ -575,9 +575,9 @@
    "confidence": "Media",
    "covered_pct": 65,
    "last": {
-    "d": "2026-11-16",
-    "c": 383.17,
-    "v": 3959800
+    "d": "2026-11-17",
+    "c": 383.67,
+    "v": 4066812
    },
    "tx": 409,
    "buyers": 0,
@@ -601,9 +601,9 @@
    "confidence": "Media",
    "covered_pct": 65,
    "last": {
-    "d": "2026-11-16",
-    "c": 210.83,
-    "v": 12282400
+    "d": "2026-11-17",
+    "c": 210.69,
+    "v": 11124580
    },
    "tx": 230,
    "buyers": 0,
@@ -627,9 +627,9 @@
    "confidence": "Media",
    "covered_pct": 65,
    "last": {
-    "d": "2026-11-16",
-    "c": 81.14,
-    "v": 1389300
+    "d": "2026-11-17",
+    "c": 83.03,
+    "v": 1303468
    },
    "tx": 207,
    "buyers": 0,
@@ -653,9 +653,9 @@
    "confidence": "Alta",
    "covered_pct": 85,
    "last": {
-    "d": "2026-11-16",
-    "c": 99.48,
-    "v": 18577400
+    "d": "2026-11-17",
+    "c": 98.79,
+    "v": 18957436
    },
    "tx": 155,
    "buyers": 0,
@@ -679,9 +679,9 @@
    "confidence": "Media",
    "covered_pct": 65,
    "last": {
-    "d": "2026-11-16",
-    "c": 50.98,
-    "v": 2419900
+    "d": "2026-11-17",
+    "c": 49.74,
+    "v": 2266876
    },
    "tx": 181,
    "buyers": 0,
@@ -705,14 +705,40 @@
    "confidence": "Media",
    "covered_pct": 65,
    "last": {
-    "d": "2026-11-16",
-    "c": 231.9,
-    "v": 3249700
+    "d": "2026-11-17",
+    "c": 234.18,
+    "v": 2899980
    },
-   "tx": 140,
+   "tx": 139,
    "buyers": 0,
    "sellers": 0,
    "net_musd": 0.0,
+   "cluster": false,
+   "errors": 0
+  },
+  {
+   "ticker": "TSLA",
+   "name": "Tesla, Inc.",
+   "group": {
+    "it": "Grandi capitalizzazioni USA",
+    "en": "US large caps"
+   },
+   "score": 46,
+   "verdict": {
+    "it": "Nessuna convinzione chiara",
+    "en": "No clear conviction"
+   },
+   "confidence": "Media",
+   "covered_pct": 65,
+   "last": {
+    "d": "2026-11-17",
+    "c": 380.11,
+    "v": 21953771
+   },
+   "tx": 392,
+   "buyers": 0,
+   "sellers": 1,
+   "net_musd": -0.938,
    "cluster": false,
    "errors": 0
   },
@@ -731,9 +757,9 @@
    "confidence": "Bassa",
    "covered_pct": 50,
    "last": {
-    "d": "2026-11-16",
-    "c": 412.02,
-    "v": 4422800
+    "d": "2026-11-17",
+    "c": 389.68,
+    "v": 7936659
    },
    "tx": 134,
    "buyers": 0,
@@ -757,11 +783,11 @@
    "confidence": "Media",
    "covered_pct": 65,
    "last": {
-    "d": "2026-11-16",
-    "c": 504.28,
-    "v": 35890100
+    "d": "2026-11-17",
+    "c": 503.41,
+    "v": 34975206
    },
-   "tx": 398,
+   "tx": 413,
    "buyers": 0,
    "sellers": 1,
    "net_musd": -5.084,
@@ -783,40 +809,14 @@
    "confidence": "Media",
    "covered_pct": 65,
    "last": {
-    "d": "2026-11-16",
-    "c": 42.87,
-    "v": 790000
+    "d": "2026-11-17",
+    "c": 43.14,
+    "v": 846812
    },
    "tx": 190,
    "buyers": 0,
    "sellers": 0,
    "net_musd": 0.0,
-   "cluster": false,
-   "errors": 0
-  },
-  {
-   "ticker": "TSLA",
-   "name": "Tesla, Inc.",
-   "group": {
-    "it": "Grandi capitalizzazioni USA",
-    "en": "US large caps"
-   },
-   "score": 45,
-   "verdict": {
-    "it": "Leggermente ribassista",
-    "en": "Mildly bearish"
-   },
-   "confidence": "Media",
-   "covered_pct": 65,
-   "last": {
-    "d": "2026-11-16",
-    "c": 379.74,
-    "v": 30156600
-   },
-   "tx": 392,
-   "buyers": 0,
-   "sellers": 1,
-   "net_musd": -0.938,
    "cluster": false,
    "errors": 0
   },
@@ -835,9 +835,9 @@
    "confidence": "Media",
    "covered_pct": 65,
    "last": {
-    "d": "2026-11-16",
-    "c": 196.77,
-    "v": 1327000
+    "d": "2026-11-17",
+    "c": 199.57,
+    "v": 1092388
    },
    "tx": 94,
    "buyers": 0,
@@ -861,9 +861,9 @@
    "confidence": "Media",
    "covered_pct": 65,
    "last": {
-    "d": "2026-11-16",
-    "c": 517.99,
-    "v": 30198800
+    "d": "2026-11-17",
+    "c": 506.24,
+    "v": 27250041
    },
    "tx": 83,
    "buyers": 0,
@@ -887,11 +887,11 @@
    "confidence": "Media",
    "covered_pct": 65,
    "last": {
-    "d": "2026-11-16",
-    "c": 40.11,
-    "v": 1227800
+    "d": "2026-11-17",
+    "c": 40.41,
+    "v": 1334093
    },
-   "tx": 109,
+   "tx": 110,
    "buyers": 0,
    "sellers": 1,
    "net_musd": -0.558,
@@ -913,11 +913,11 @@
    "confidence": "Media",
    "covered_pct": 65,
    "last": {
-    "d": "2026-11-16",
-    "c": 33.65,
-    "v": 947300
+    "d": "2026-11-17",
+    "c": 33.64,
+    "v": 749045
    },
-   "tx": 110,
+   "tx": 114,
    "buyers": 0,
    "sellers": 0,
    "net_musd": 0.0,
@@ -939,9 +939,9 @@
    "confidence": "Media",
    "covered_pct": 65,
    "last": {
-    "d": "2026-11-16",
-    "c": 294.21,
-    "v": 6743000
+    "d": "2026-11-17",
+    "c": 295.86,
+    "v": 5801152
    },
    "tx": 225,
    "buyers": 0,
@@ -965,9 +965,9 @@
    "confidence": "Media",
    "covered_pct": 65,
    "last": {
-    "d": "2026-11-16",
-    "c": 350.25,
-    "v": 7105000
+    "d": "2026-11-17",
+    "c": 349.23,
+    "v": 6743039
    },
    "tx": 149,
    "buyers": 0,
@@ -991,9 +991,9 @@
    "confidence": "Media",
    "covered_pct": 65,
    "last": {
-    "d": "2026-11-16",
-    "c": 347.51,
-    "v": 6204200
+    "d": "2026-11-17",
+    "c": 339.01,
+    "v": 7154516
    },
    "tx": 148,
    "buyers": 0,
@@ -1017,9 +1017,9 @@
    "confidence": "Media",
    "covered_pct": 65,
    "last": {
-    "d": "2026-11-16",
-    "c": 626.41,
-    "v": 11541500
+    "d": "2026-11-17",
+    "c": 618.87,
+    "v": 12795966
    },
    "tx": 405,
    "buyers": 0,
@@ -1043,9 +1043,9 @@
    "confidence": "Media",
    "covered_pct": 65,
    "last": {
-    "d": "2026-11-16",
-    "c": 426.46,
-    "v": 7395300
+    "d": "2026-11-17",
+    "c": 416.77,
+    "v": 5689456
    },
    "tx": 215,
    "buyers": 0,
@@ -1069,14 +1069,14 @@
    "confidence": "Bassa",
    "covered_pct": 50,
    "last": {
-    "d": "2026-11-16",
-    "c": 173.02,
-    "v": 14068200
+    "d": "2026-11-17",
+    "c": 171.72,
+    "v": 8507667
    },
    "tx": 126,
    "buyers": 0,
    "sellers": 12,
-   "net_musd": -38.01,
+   "net_musd": -36.765,
    "cluster": false,
    "errors": 0
   },
@@ -1095,9 +1095,9 @@
    "confidence": "Media",
    "covered_pct": 65,
    "last": {
-    "d": "2026-11-16",
-    "c": 1113.74,
-    "v": 3044300
+    "d": "2026-11-17",
+    "c": 1110.08,
+    "v": 2942897
    },
    "tx": 184,
    "buyers": 0,
