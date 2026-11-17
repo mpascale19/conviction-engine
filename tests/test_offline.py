@@ -336,6 +336,50 @@ try:
 finally:
     sources._get, sources._SUBS = real_get, {}
 
+# --------------------------------------------------------------- il backtest
+from pipeline import build
+CFG = cfg
+
+def fake_co(ticker, buys):
+    """buys: lista di (chi, data, car, apicale)."""
+    tracks = {}
+    for who, d, car, _ in buys:
+        tracks.setdefault(who, {"buys": []})["buys"].append({"date": d, "car": car})
+    return {"company": {"ticker": ticker},
+            "tx": [{"who": w, "date": d, "kind": "BUY", "is_senior": sr}
+                   for w, d, _, sr in buys],
+            "tracks": tracks}
+
+# cinque dirigenti che comprano lo stesso giorno nella stessa azienda
+stesso_giorno = fake_co("UCTT", [(f"P{i}", "2025-03-07", -29.21, False) for i in range(5)])
+# e sei acquisti isolati, uno al mese, ciascuno in guadagno
+isolati = fake_co("INTC", [(f"Q{i}", f"2025-0{i+1}-15", 4.0 + i, i == 0) for i in range(6)])
+
+bt = build.backtest([stesso_giorno, isolati], CFG)
+check("il backtest gira su un campione minimo", bt is not None)
+check("conta le firme", bt["all"]["n"] == 11, bt["all"]["n"])
+check("ma cinque firme nello stesso giorno sono un episodio solo",
+      bt["cluster"]["ep"] == 1 and bt["cluster"]["n"] == 5, bt["cluster"])
+check("gli acquisti isolati restano episodi distinti",
+      bt["solo"]["ep"] == 6 and bt["solo"]["n"] == 6, bt["solo"])
+check("la mediana e' quella degli acquisti, non la media",
+      bt["solo"]["med"] == 6.5, bt["solo"]["med"])
+check("conta quanti sono andati in guadagno",
+      (bt["all"]["pos"], bt["cluster"]["pos"]) == (6, 0), bt["all"])
+check("separa i dirigenti apicali dagli altri",
+      bt["senior"]["n"] == 1 and bt["other"]["n"] == 10, (bt["senior"], bt["other"]))
+check("dichiara l'orizzonte su cui misura",
+      bt["horizon"] == CFG["rules"]["track_record_horizon_days"], bt["horizon"])
+
+# sotto le dieci osservazioni non dice nulla, invece di dire poco
+check("con pochi dati il backtest non esiste",
+      build.backtest([fake_co("INTC", [("A", "2025-01-15", 3.0, False)])], CFG) is None)
+# un acquisto senza prezzo a 60 giorni non entra nel conto
+senza = fake_co("ORCL", [(f"R{i}", f"2025-0{i+1}-20", 1.0, False) for i in range(6)])
+senza["tracks"] = {}
+check("un acquisto troppo recente per essere misurato viene escluso",
+      build.backtest([stesso_giorno, isolati, senza], CFG)["all"]["n"] == 11)
+
 print(f"\n{ok} controlli passati, {len(bad)} falliti")
 if bad:
     print("falliti:", ", ".join(bad))
