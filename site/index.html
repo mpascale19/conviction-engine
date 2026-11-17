@@ -4,23 +4,28 @@
 <title>Conviction Engine</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;650&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Spectral:wght@500;600&display=swap">
 <style>
   :root{color-scheme:light dark;
-    --bg:#f9f9f7;--card:#fff;--sunken:#f2f1ec;--ink:#0b0b0b;--ink2:#52514e;--ink3:#86857e;
-    --line:#e1e0d9;--axis:#cfcec6;--blue:#2a78d6;--bull:#2a78d6;--bear:#c0392b;--mid:#86857e;
-    --good:#1b7f4b;--goodbg:#e6f3ec;--warnbg:#fdf2e3;--warnink:#8a5a12;--infobg:#e8f0fb}
+    --bg:#f6f7f8;--card:#fff;--sunken:#eef0f2;--ink:#10131a;--ink2:#4d5664;--ink3:#7d8694;
+    --line:#dfe3e8;--axis:#c6ccd4;--blue:#1f6bb8;--bull:#1f6bb8;--bear:#b23b2e;--mid:#7d8694;
+    --good:#19714a;--goodbg:#e4f1ea;--warnbg:#fbf0dd;--warnink:#7d540f;--infobg:#e7eff8}
   @media (prefers-color-scheme:dark){:root{
-    --bg:#0d0d0d;--card:#1a1a19;--sunken:#242422;--ink:#f0efec;--ink2:#c3c2b7;--ink3:#8e8d85;
-    --line:#2c2c2a;--axis:#3d3d3a;--blue:#3987e5;--bull:#3987e5;--bear:#e06354;--mid:#8e8d85;
-    --good:#4ab87a;--goodbg:#15301f;--warnbg:#3a2a12;--warnink:#f0c478;--infobg:#132236}}
+    --bg:#0c0e12;--card:#161a21;--sunken:#1f242c;--ink:#edf0f4;--ink2:#b3bcc8;--ink3:#8a94a2;
+    --line:#272d36;--axis:#39414c;--blue:#5fa3ea;--bull:#5fa3ea;--bear:#e8766a;--mid:#8a94a2;
+    --good:#56c08a;--goodbg:#10291d;--warnbg:#332512;--warnink:#edc073;--infobg:#121f2e}}
   *{box-sizing:border-box}
+  :focus-visible{outline:2px solid var(--blue);outline-offset:2px;border-radius:4px}
+  @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
   body{margin:0;padding:24px 16px 56px;background:var(--bg);color:var(--ink);
-       font:15px/1.5 Inter,system-ui,-apple-system,"Segoe UI",sans-serif;-webkit-font-smoothing:antialiased}
+       font:15px/1.55 "Public Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+       font-variant-numeric:tabular-nums;-webkit-font-smoothing:antialiased}
+  /* i titoli portano la voce del progetto, il resto resta neutro e leggibile */
+  h1,h2,.serif{font-family:Spectral,Georgia,"Times New Roman",serif;font-weight:600}
   .wrap{max-width:940px;margin:auto;display:grid;grid-template-columns:minmax(0,1fr);gap:16px;min-width:0}
   .card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:20px;min-width:0}
-  h1{font-size:21px;margin:0;letter-spacing:-.01em}
-  h2{font-size:15px;margin:0 0 2px}
+  h1{font-size:23px;margin:0;letter-spacing:-.005em;line-height:1.25}
+  h2{font-size:17px;margin:0 0 3px;letter-spacing:-.005em}
   .sub{color:var(--ink2);font-size:13px;margin:2px 0 0}
   .top{display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between}
   button{appearance:none;border:1px solid var(--axis);background:var(--card);color:var(--ink);
@@ -34,17 +39,25 @@
   .lang button+button{border-left:1px solid var(--line)}
   .lang button[aria-pressed="true"]{background:var(--sunken);color:var(--ink)}
   table{width:100%;border-collapse:collapse;font-size:13.5px;min-width:440px}
-  th{font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--ink2);
-     text-align:left;padding:0 8px 8px;font-weight:600}
+  th{font-size:12.5px;color:var(--ink2);text-align:left;padding:0 8px 9px;font-weight:600}
   td{padding:10px 8px;border-top:1px solid var(--line);vertical-align:middle}
   .num{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
   tbody tr{cursor:pointer}
   tbody tr:hover td{background:var(--sunken)}
   .tk{font-weight:650}
   .nm{color:var(--ink2);font-size:12.5px}
-  .sc{display:inline-flex;align-items:center;gap:8px;font-variant-numeric:tabular-nums}
+  .sc{display:inline-flex;align-items:center;gap:12px;font-variant-numeric:tabular-nums}
+  .sc b{font-size:16px;font-weight:650;min-width:22px;text-align:right}
+  /* Ogni punteggio e' uno scarto da 50: la barra parte dal centro, non da sinistra. */
+  .meter{position:relative;height:7px;border-radius:4px;background:var(--sunken);
+         flex:none;display:inline-block;vertical-align:middle}
+  .meter::before{content:"";position:absolute;left:50%;top:-2px;bottom:-2px;
+                 width:1px;background:var(--axis)}
+  .meter i{position:absolute;top:0;bottom:0;border-radius:4px}
+  .meter.lg{height:11px;border-radius:6px}
+  .meter.m-row{width:84px}
+  @media (max-width:620px){.meter.m-row{width:38px}}
   .sc b{font-size:16px;font-weight:650;min-width:26px;display:inline-block;text-align:right}
-  .dot{width:8px;height:8px;border-radius:50%;flex:none}
   .chip{display:inline-flex;align-items:center;gap:5px;border-radius:99px;padding:2px 9px;
         font-size:12px;font-weight:600;background:var(--sunken);color:var(--ink2);white-space:nowrap}
   .chip.good{background:var(--goodbg);color:var(--good)}
@@ -106,7 +119,11 @@
   .hero h1{font-size:28px;letter-spacing:-.02em;margin:0 0 10px;line-height:1.2}
   .lead{font-size:15.5px;line-height:1.6;color:var(--ink2);margin:0 0 4px;max-width:64ch}
   .tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(148px,1fr));gap:12px;margin:20px 0 14px}
-  .tile{background:var(--sunken);border-radius:10px;padding:14px}
+  .tile{background:var(--sunken);border:1px solid var(--line);border-radius:10px;padding:15px 16px}
+  /* provenienza: ogni dato con la sua etichetta, invece di una catena di puntini */
+  .facts{display:flex;flex-wrap:wrap;gap:4px 20px;margin:8px 0 0;font-size:13px;color:var(--ink2)}
+  .facts span{display:inline-flex;gap:6px;white-space:nowrap}
+  .facts em{font-style:normal;color:var(--ink3)}
   .tile b{display:block;font-size:30px;font-weight:650;letter-spacing:-.02em;line-height:1;
           font-variant-numeric:tabular-nums}
   .tile span{display:block;font-size:12.5px;color:var(--ink2);margin-top:6px}
@@ -220,8 +237,17 @@ function day(s){
   return d.toLocaleDateString(LOC, { day: '2-digit', month: 'short', year: 'numeric', timeZone: 'UTC' });
 }
 function tone(v){ return v == null ? 'var(--mid)' : v >= 65 ? 'var(--bull)' : v < 35 ? 'var(--bear)' : 'var(--mid)'; }
+function meterBar(v, w, cls){
+  var box = '<span class="meter' + (cls ? ' ' + cls : '') + '"' +
+            (w ? ' style="width:' + w + 'px"' : '');
+  if (v == null) return box + '></span>';
+  var half = Math.min(50, Math.abs(v - 50)) / 50 * 50;      // meta' della barra
+  var side = v >= 50 ? 'left:50%' : 'right:50%';
+  return box + ' aria-hidden="true"><i style="' + side + ';width:' + half.toFixed(1) +
+         '%;background:' + tone(v) + '"></i></span>';
+}
 function scoreCell(v){
-  return '<span class="sc"><span class="dot" style="background:' + tone(v) + '"></span>' +
+  return '<span class="sc">' + meterBar(v, 0, 'm-row') +
          '<b>' + (v == null ? '—' : v) + '</b></span>';
 }
 function problems(list){
@@ -976,8 +1002,7 @@ function paneOverview(d){
     '<ul class="subs">' + (s.subs || []).map(function(x){
       return '<li><div><b>' + esc(txt(x.name)) + '</b>' +
         (x.v == null ? ' <span class="chip">' + T('non disponibile', 'not available') + '</span>'
-                     : '<div class="bar" style="margin-top:6px"><i style="width:' +
-                       Math.max(0, Math.min(100, x.v)) + '%;background:' + tone(x.v) + '"></i></div>') +
+                     : '<div style="margin-top:7px">' + meterBar(x.v, 150) + '</div>') +
         '</div><div class="w">' + (x.v == null ? '—' : x.v) +
         '<div style="font-size:11px">' + x.w + '%</div></div>' +
         '<p>' + (x.why || []).map(function(w){ return esc(txt(w)); }).join('<br>') + '</p></li>';
@@ -1107,17 +1132,26 @@ function renderDetail(d){
       T('Tutte le aziende', 'All companies') + '</button>' +
       '<div class="top" style="margin-top:12px"><div>' +
         '<h1>' + esc(co.name || co.ticker) + ' <span class="nm">' + esc(co.ticker) + '</span></h1>' +
-        '<p class="sub">' + (last
-          ? T('Ultima chiusura ', 'Last close ') + esc(day(last.d)) + ': $' + n2(last.c)
-          : T('Prezzo non disponibile', 'Price not available')) +
-        (d.price_source ? T(' · fonte ', ' · source ') + esc(d.price_source) : '') +
-        ' · CIK ' + esc(co.cik || '—') + (d.group ? ' · ' + esc(txt(d.group)) : '') + '</p></div></div>' +
-      '<div class="big" style="color:' + tone(s.value) + '">' + (s.value == null ? '—' : s.value) +
+        '<div class="facts">' + [
+          [T('Ultima chiusura', 'Last close'), last
+            ? '$' + n2(last.c) + ' · ' + esc(day(last.d))
+            : T('non disponibile', 'not available')],
+          [T('Prezzi da', 'Prices from'), d.price_source ? esc(d.price_source) : '—'],
+          ['CIK', esc(co.cik || '—')],
+          [T('Universo', 'Universe'), d.group ? esc(txt(d.group)) : '—']
+        ].map(function(f){
+          return '<span><em>' + f[0] + '</em>' + f[1] + '</span>';
+        }).join('') + '</div></div></div>' +
+      '<div class="big">' + (s.value == null ? '—' : s.value) +
         '<span class="sub" style="font-size:17px"> / 100</span></div>' +
-      '<div><b>' + esc(txt(s.verdict)) + '</b>' +
-        (s.confidence ? T(' · confidenza ', ' · confidence ') + esc(wd(s.confidence)) : '') +
-        (s.covered_pct != null ? T(' · copertura dei dati ', ' · data coverage ') + s.covered_pct + '%' : '') +
-        '</div>' + spark((d.price || {}).series) +
+      '<div style="margin:0 0 8px">' + meterBar(s.value, 232, 'lg') + '</div>' +
+      '<div style="font-size:16px;font-weight:600">' + esc(txt(s.verdict)) + '</div>' +
+      '<div class="facts" style="margin-top:6px">' +
+        (s.confidence ? '<span><em>' + T('Confidenza', 'Confidence') + '</em>' +
+          esc(wd(s.confidence)) + '</span>' : '') +
+        (s.covered_pct != null ? '<span><em>' + T('Copertura dei dati', 'Data coverage') +
+          '</em>' + s.covered_pct + '%</span>' : '') +
+      '</div>' + spark((d.price || {}).series) +
       '<div class="tabs" role="tablist">' + tabs.map(function(t){
         return '<button role="tab" data-tab="' + t[0] + '" aria-selected="' +
           (t[0] === TAB) + '">' + esc(t[1]) + '</button>'; }).join('') + '</div></div>' +
