@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-11-17T09:37:56+00:00",
+ "generated_at": "2026-11-17T10:38:39+00:00",
  "groups": [
   {
    "nome": {
@@ -29,13 +29,39 @@
  },
  "companies": [
   {
+   "ticker": "BAC",
+   "name": "BANK OF AMERICA CORP /DE/",
+   "group": {
+    "it": "Grandi capitalizzazioni USA",
+    "en": "US large caps"
+   },
+   "score": 61,
+   "verdict": {
+    "it": "Leggermente rialzista",
+    "en": "Mildly bullish"
+   },
+   "confidence": "Alta",
+   "covered_pct": 85,
+   "last": {
+    "d": "2026-11-16",
+    "c": 50.08,
+    "v": 30657000
+   },
+   "tx": 436,
+   "buyers": 1,
+   "sellers": 1,
+   "net_musd": 0.042,
+   "cluster": false,
+   "errors": 0
+  },
+  {
    "ticker": "ORCL",
    "name": "ORACLE CORP",
    "group": {
     "it": "Grandi capitalizzazioni USA",
     "en": "US large caps"
    },
-   "score": 61,
+   "score": 60,
    "verdict": {
     "it": "Leggermente rialzista",
     "en": "Mildly bullish"
@@ -159,51 +185,51 @@
    "errors": 0
   },
   {
-   "ticker": "BAC",
-   "name": "BANK OF AMERICA CORP /DE/",
+   "ticker": "NVDA",
+   "name": "NVIDIA CORP",
    "group": {
-    "it": "Grandi capitalizzazioni USA",
-    "en": "US large caps"
+    "it": "Semiconduttori e apparecchiature",
+    "en": "Semiconductors and equipment"
    },
-   "score": 56,
+   "score": 55,
    "verdict": {
     "it": "Leggermente rialzista",
     "en": "Mildly bullish"
    },
-   "confidence": "Bassa",
-   "covered_pct": 50,
+   "confidence": "Alta",
+   "covered_pct": 85,
    "last": {
     "d": "2026-11-16",
-    "c": 50.08,
-    "v": 30657000
+    "c": 156.14,
+    "v": 331405000
    },
-   "tx": 436,
-   "buyers": 1,
+   "tx": 628,
+   "buyers": 0,
    "sellers": 1,
-   "net_musd": 0.042,
+   "net_musd": -946.628,
    "cluster": false,
    "errors": 0
   },
   {
-   "ticker": "GOOGL",
-   "name": "Alphabet Inc.",
+   "ticker": "LLY",
+   "name": "ELI LILLY & Co",
    "group": {
     "it": "Grandi capitalizzazioni USA",
     "en": "US large caps"
    },
-   "score": 53,
+   "score": 54,
    "verdict": {
     "it": "Nessuna convinzione chiara",
     "en": "No clear conviction"
    },
-   "confidence": "Bassa",
-   "covered_pct": 50,
+   "confidence": "Media",
+   "covered_pct": 65,
    "last": {
     "d": "2026-11-16",
-    "c": 283.72,
-    "v": 34643200
+    "c": 1431.67,
+    "v": 3207400
    },
-   "tx": 517,
+   "tx": 298,
    "buyers": 0,
    "sellers": 0,
    "net_musd": 0.0,
@@ -237,32 +263,6 @@
    "errors": 0
   },
   {
-   "ticker": "AAPL",
-   "name": "Apple Inc.",
-   "group": {
-    "it": "Grandi capitalizzazioni USA",
-    "en": "US large caps"
-   },
-   "score": 52,
-   "verdict": {
-    "it": "Nessuna convinzione chiara",
-    "en": "No clear conviction"
-   },
-   "confidence": "Bassa",
-   "covered_pct": 50,
-   "last": {
-    "d": "2026-11-16",
-    "c": 352.78,
-    "v": 45945500
-   },
-   "tx": 162,
-   "buyers": 0,
-   "sellers": 0,
-   "net_musd": 0.0,
-   "cluster": false,
-   "errors": 0
-  },
-  {
    "ticker": "AMZN",
    "name": "AMAZON COM INC",
    "group": {
@@ -274,8 +274,8 @@
     "it": "Nessuna convinzione chiara",
     "en": "No clear conviction"
    },
-   "confidence": "Bassa",
-   "covered_pct": 50,
+   "confidence": "Media",
+   "covered_pct": 65,
    "last": {
     "d": "2026-11-16",
     "c": 257.75,
@@ -289,8 +289,8 @@
    "errors": 0
   },
   {
-   "ticker": "MA",
-   "name": "Mastercard Inc",
+   "ticker": "JPM",
+   "name": "JPMORGAN CHASE & CO",
    "group": {
     "it": "Grandi capitalizzazioni USA",
     "en": "US large caps"
@@ -300,17 +300,17 @@
     "it": "Nessuna convinzione chiara",
     "en": "No clear conviction"
    },
-   "confidence": "Bassa",
-   "covered_pct": 50,
+   "confidence": "Media",
+   "covered_pct": 65,
    "last": {
     "d": "2026-11-16",
-    "c": 661.71,
-    "v": 2399400
+    "c": 338.21,
+    "v": 7229000
    },
-   "tx": 349,
+   "tx": 130,
    "buyers": 0,
-   "sellers": 0,
-   "net_musd": 0.0,
+   "sellers": 1,
+   "net_musd": -0.882,
    "cluster": false,
    "errors": 0
   },
@@ -367,25 +367,51 @@
    "errors": 0
   },
   {
-   "ticker": "LLY",
-   "name": "ELI LILLY & Co",
+   "ticker": "AAPL",
+   "name": "Apple Inc.",
    "group": {
     "it": "Grandi capitalizzazioni USA",
     "en": "US large caps"
    },
-   "score": 52,
+   "score": 51,
    "verdict": {
     "it": "Nessuna convinzione chiara",
     "en": "No clear conviction"
    },
-   "confidence": "Bassa",
-   "covered_pct": 50,
+   "confidence": "Media",
+   "covered_pct": 65,
    "last": {
     "d": "2026-11-16",
-    "c": 1431.67,
-    "v": 3207400
+    "c": 352.78,
+    "v": 45945500
    },
-   "tx": 298,
+   "tx": 162,
+   "buyers": 0,
+   "sellers": 0,
+   "net_musd": 0.0,
+   "cluster": false,
+   "errors": 0
+  },
+  {
+   "ticker": "MA",
+   "name": "Mastercard Inc",
+   "group": {
+    "it": "Grandi capitalizzazioni USA",
+    "en": "US large caps"
+   },
+   "score": 51,
+   "verdict": {
+    "it": "Nessuna convinzione chiara",
+    "en": "No clear conviction"
+   },
+   "confidence": "Media",
+   "covered_pct": 65,
+   "last": {
+    "d": "2026-11-16",
+    "c": 661.71,
+    "v": 2399400
+   },
+   "tx": 349,
    "buyers": 0,
    "sellers": 0,
    "net_musd": 0.0,
@@ -419,32 +445,6 @@
    "errors": 0
   },
   {
-   "ticker": "COHU",
-   "name": "COHU INC",
-   "group": {
-    "it": "Semiconduttori e apparecchiature",
-    "en": "Semiconductors and equipment"
-   },
-   "score": 50,
-   "verdict": {
-    "it": "Nessuna convinzione chiara",
-    "en": "No clear conviction"
-   },
-   "confidence": "Bassa",
-   "covered_pct": 50,
-   "last": {
-    "d": "2026-11-16",
-    "c": 40.11,
-    "v": 1227800
-   },
-   "tx": 109,
-   "buyers": 0,
-   "sellers": 1,
-   "net_musd": -0.558,
-   "cluster": false,
-   "errors": 0
-  },
-  {
    "ticker": "VECO",
    "name": "VEECO INSTRUMENTS INC",
    "group": {
@@ -467,6 +467,58 @@
    "buyers": 0,
    "sellers": 1,
    "net_musd": -0.08,
+   "cluster": false,
+   "errors": 0
+  },
+  {
+   "ticker": "JNJ",
+   "name": "JOHNSON & JOHNSON",
+   "group": {
+    "it": "Grandi capitalizzazioni USA",
+    "en": "US large caps"
+   },
+   "score": 50,
+   "verdict": {
+    "it": "Nessuna convinzione chiara",
+    "en": "No clear conviction"
+   },
+   "confidence": "Media",
+   "covered_pct": 65,
+   "last": {
+    "d": "2026-11-16",
+    "c": 282.55,
+    "v": 8101700
+   },
+   "tx": 249,
+   "buyers": 0,
+   "sellers": 2,
+   "net_musd": -12.948,
+   "cluster": false,
+   "errors": 0
+  },
+  {
+   "ticker": "GOOGL",
+   "name": "Alphabet Inc.",
+   "group": {
+    "it": "Grandi capitalizzazioni USA",
+    "en": "US large caps"
+   },
+   "score": 49,
+   "verdict": {
+    "it": "Nessuna convinzione chiara",
+    "en": "No clear conviction"
+   },
+   "confidence": "Media",
+   "covered_pct": 65,
+   "last": {
+    "d": "2026-11-16",
+    "c": 283.72,
+    "v": 34643200
+   },
+   "tx": 517,
+   "buyers": 0,
+   "sellers": 0,
+   "net_musd": 0.0,
    "cluster": false,
    "errors": 0
   },
@@ -549,8 +601,8 @@
    "errors": 0
   },
   {
-   "ticker": "JPM",
-   "name": "JPMORGAN CHASE & CO",
+   "ticker": "KO",
+   "name": "COCA COLA CO",
    "group": {
     "it": "Grandi capitalizzazioni USA",
     "en": "US large caps"
@@ -560,17 +612,17 @@
     "it": "Nessuna convinzione chiara",
     "en": "No clear conviction"
    },
-   "confidence": "Bassa",
-   "covered_pct": 50,
+   "confidence": "Alta",
+   "covered_pct": 85,
    "last": {
     "d": "2026-11-16",
-    "c": 338.21,
-    "v": 7229000
+    "c": 99.48,
+    "v": 18577400
    },
-   "tx": 130,
+   "tx": 155,
    "buyers": 0,
-   "sellers": 1,
-   "net_musd": -0.882,
+   "sellers": 3,
+   "net_musd": -24.495,
    "cluster": false,
    "errors": 0
   },
@@ -705,6 +757,32 @@
    "errors": 0
   },
   {
+   "ticker": "TSLA",
+   "name": "Tesla, Inc.",
+   "group": {
+    "it": "Grandi capitalizzazioni USA",
+    "en": "US large caps"
+   },
+   "score": 45,
+   "verdict": {
+    "it": "Leggermente ribassista",
+    "en": "Mildly bearish"
+   },
+   "confidence": "Media",
+   "covered_pct": 65,
+   "last": {
+    "d": "2026-11-16",
+    "c": 379.74,
+    "v": 30156600
+   },
+   "tx": 392,
+   "buyers": 0,
+   "sellers": 1,
+   "net_musd": -0.938,
+   "cluster": false,
+   "errors": 0
+  },
+  {
    "ticker": "ONTO",
    "name": "ONTO INNOVATION INC.",
    "group": {
@@ -731,8 +809,8 @@
    "errors": 0
   },
   {
-   "ticker": "META",
-   "name": "Meta Platforms, Inc.",
+   "ticker": "MSFT",
+   "name": "MICROSOFT CORP",
    "group": {
     "it": "Grandi capitalizzazioni USA",
     "en": "US large caps"
@@ -742,23 +820,23 @@
     "it": "Leggermente ribassista",
     "en": "Mildly bearish"
    },
-   "confidence": "Bassa",
-   "covered_pct": 50,
+   "confidence": "Media",
+   "covered_pct": 65,
    "last": {
     "d": "2026-11-16",
-    "c": 626.41,
-    "v": 11541500
+    "c": 517.99,
+    "v": 30198800
    },
-   "tx": 405,
+   "tx": 83,
    "buyers": 0,
-   "sellers": 1,
-   "net_musd": -12.775,
+   "sellers": 3,
+   "net_musd": -74.769,
    "cluster": false,
    "errors": 0
   },
   {
-   "ticker": "NVDA",
-   "name": "NVIDIA CORP",
+   "ticker": "COHU",
+   "name": "COHU INC",
    "group": {
     "it": "Semiconduttori e apparecchiature",
     "en": "Semiconductors and equipment"
@@ -768,43 +846,17 @@
     "it": "Leggermente ribassista",
     "en": "Mildly bearish"
    },
-   "confidence": "Bassa",
-   "covered_pct": 50,
+   "confidence": "Media",
+   "covered_pct": 65,
    "last": {
     "d": "2026-11-16",
-    "c": 156.14,
-    "v": 331405000
+    "c": 40.11,
+    "v": 1227800
    },
-   "tx": 628,
+   "tx": 109,
    "buyers": 0,
    "sellers": 1,
-   "net_musd": -946.628,
-   "cluster": false,
-   "errors": 0
-  },
-  {
-   "ticker": "TSLA",
-   "name": "Tesla, Inc.",
-   "group": {
-    "it": "Grandi capitalizzazioni USA",
-    "en": "US large caps"
-   },
-   "score": 43,
-   "verdict": {
-    "it": "Leggermente ribassista",
-    "en": "Mildly bearish"
-   },
-   "confidence": "Bassa",
-   "covered_pct": 50,
-   "last": {
-    "d": "2026-11-16",
-    "c": 379.74,
-    "v": 30156600
-   },
-   "tx": 392,
-   "buyers": 0,
-   "sellers": 1,
-   "net_musd": -0.938,
+   "net_musd": -0.558,
    "cluster": false,
    "errors": 0
   },
@@ -831,32 +883,6 @@
    "buyers": 0,
    "sellers": 0,
    "net_musd": 0.0,
-   "cluster": false,
-   "errors": 0
-  },
-  {
-   "ticker": "JNJ",
-   "name": "JOHNSON & JOHNSON",
-   "group": {
-    "it": "Grandi capitalizzazioni USA",
-    "en": "US large caps"
-   },
-   "score": 42,
-   "verdict": {
-    "it": "Leggermente ribassista",
-    "en": "Mildly bearish"
-   },
-   "confidence": "Bassa",
-   "covered_pct": 50,
-   "last": {
-    "d": "2026-11-16",
-    "c": 282.55,
-    "v": 8101700
-   },
-   "tx": 249,
-   "buyers": 0,
-   "sellers": 2,
-   "net_musd": -12.948,
    "cluster": false,
    "errors": 0
   },
@@ -919,13 +945,13 @@
     "it": "Grandi capitalizzazioni USA",
     "en": "US large caps"
    },
-   "score": 38,
+   "score": 41,
    "verdict": {
     "it": "Leggermente ribassista",
     "en": "Mildly bearish"
    },
-   "confidence": "Bassa",
-   "covered_pct": 50,
+   "confidence": "Media",
+   "covered_pct": 65,
    "last": {
     "d": "2026-11-16",
     "c": 347.51,
@@ -939,28 +965,28 @@
    "errors": 0
   },
   {
-   "ticker": "MSFT",
-   "name": "MICROSOFT CORP",
+   "ticker": "META",
+   "name": "Meta Platforms, Inc.",
    "group": {
     "it": "Grandi capitalizzazioni USA",
     "en": "US large caps"
    },
-   "score": 37,
+   "score": 38,
    "verdict": {
     "it": "Leggermente ribassista",
     "en": "Mildly bearish"
    },
-   "confidence": "Bassa",
-   "covered_pct": 50,
+   "confidence": "Media",
+   "covered_pct": 65,
    "last": {
     "d": "2026-11-16",
-    "c": 517.99,
-    "v": 30198800
+    "c": 626.41,
+    "v": 11541500
    },
-   "tx": 83,
+   "tx": 405,
    "buyers": 0,
-   "sellers": 3,
-   "net_musd": -74.769,
+   "sellers": 1,
+   "net_musd": -12.775,
    "cluster": false,
    "errors": 0
   },
@@ -971,13 +997,13 @@
     "it": "Grandi capitalizzazioni USA",
     "en": "US large caps"
    },
-   "score": 37,
+   "score": 38,
    "verdict": {
     "it": "Leggermente ribassista",
     "en": "Mildly bearish"
    },
-   "confidence": "Bassa",
-   "covered_pct": 50,
+   "confidence": "Media",
+   "covered_pct": 65,
    "last": {
     "d": "2026-11-16",
     "c": 426.46,
@@ -1028,8 +1054,8 @@
     "it": "Leggermente ribassista",
     "en": "Mildly bearish"
    },
-   "confidence": "Bassa",
-   "covered_pct": 50,
+   "confidence": "Media",
+   "covered_pct": 65,
    "last": {
     "d": "2026-11-16",
     "c": 1113.74,
@@ -1039,32 +1065,6 @@
    "buyers": 0,
    "sellers": 5,
    "net_musd": -5.607,
-   "cluster": false,
-   "errors": 0
-  },
-  {
-   "ticker": "KO",
-   "name": "COCA COLA CO",
-   "group": {
-    "it": "Grandi capitalizzazioni USA",
-    "en": "US large caps"
-   },
-   "score": 36,
-   "verdict": {
-    "it": "Leggermente ribassista",
-    "en": "Mildly bearish"
-   },
-   "confidence": "Bassa",
-   "covered_pct": 50,
-   "last": {
-    "d": "2026-11-16",
-    "c": 99.48,
-    "v": 18577400
-   },
-   "tx": 155,
-   "buyers": 0,
-   "sellers": 3,
-   "net_musd": -24.495,
    "cluster": false,
    "errors": 0
   }
