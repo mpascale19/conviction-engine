@@ -244,10 +244,11 @@ function spark(series){
 
 /* ------------------------------------------------------------------ pagine */
 var REPO = 'https://github.com/mpascale19/conviction-engine';
-var PAGES = ['home', 'aziende', 'guida', 'richieste'];
+var PAGES = ['home', 'aziende', 'backtest', 'guida', 'richieste'];
 
 function navBar(cur){
   var items = [['home', T('Home', 'Home')], ['aziende', T('Aziende', 'Companies')],
+               ['backtest', T('Backtest', 'Backtest')],
                ['guida', T('Come funziona', 'How it works')],
                ['richieste', T('Richieste', 'Requests')]];
   return '<nav class="nav">' + items.map(function(p){
@@ -294,7 +295,9 @@ function renderHome(){
         '. Three updates a day on weekdays.') + '</p>' +
       '<div class="cta"><a class="btn" href="#aziende">' +
       T('Vedi tutte le aziende', 'See all companies') + '</a>' +
-      '<a class="btn ghost" href="#guida">' + T('Come funziona', 'How it works') + '</a></div>' +
+      '<a class="btn ghost" href="#guida">' + T('Come funziona', 'How it works') + '</a>' +
+      (IDX.backtest ? '<a class="btn ghost" href="#backtest">' +
+        T('Le regole messe alla prova', 'The rules put to the test') + '</a>' : '') + '</div>' +
     '</div>' +
 
     '<div class="card"><h2>' + T('I punteggi più alti di oggi', 'Today’s highest scores') +
@@ -505,6 +508,115 @@ function renderRequests(){
     window.open(REPO + '/issues/new?title=' + encodeURIComponent('Copertura: ' + t) +
                 '&body=' + encodeURIComponent(body), '_blank', 'noopener');
   });
+}
+
+function btRow(label, s, note){
+  if (!s) return '<tr style="cursor:default"><td>' + esc(label) +
+    '</td><td class="num">—</td><td class="num">—</td><td class="num">—</td><td class="num">—</td></tr>';
+  return '<tr style="cursor:default"><td><b>' + esc(label) + '</b>' +
+    (note ? '<div class="nm">' + esc(note) + '</div>' : '') + '</td>' +
+    '<td class="num">' + s.ep + '</td><td class="num">' + s.n + '</td>' +
+    '<td class="num">' + Math.round(s.pos / s.n * 100) + '%</td>' +
+    '<td class="num" style="color:' + (s.ep < 5 ? 'var(--muted)' :
+      s.med > 0 ? 'var(--bull)' : s.med < 0 ? 'var(--bear)' : 'inherit') +
+    '">' + sg(s.med, 1) + '%</td></tr>';
+}
+
+/* La lettura nasce dai numeri: se gli episodi sono pochi, lo dice e si ferma. */
+function btVerdict(rule, a, b, yes, no, thin){
+  if (!a || !b) return '';
+  if (a.ep < 5) return '<p class="sub">' + esc(thin.replace('{n}', a.ep)) + '</p>';
+  return '<p class="sub">' + esc(a.med > b.med ? yes : no) + '</p>';
+}
+
+function renderBacktest(){
+  var bt = IDX.backtest;
+  if (!bt) {
+    app.innerHTML = navBar('backtest') + '<div class="card"><h1>' + T('Backtest', 'Backtest') +
+      '</h1><p class="lead">' + T('Non ci sono ancora abbastanza acquisti con 60 giorni ' +
+      'trascorsi per dire qualcosa.', 'There are not yet enough purchases with 60 days elapsed ' +
+      'to say anything.') + '</p></div>';
+    return;
+  }
+  var a = bt.all, h = bt.horizon;
+  app.innerHTML = navBar('backtest') +
+    '<div class="card hero"><h1>' + T('Quello che i dati dicono', 'What the data says') +
+    '</h1><p class="lead">' + T(
+      'Ogni acquisto di un insider delle ultime due annate, misurato dopo ' + h +
+      ' giorni contro il suo settore. Gli episodi contano più delle firme: cinque dirigenti che ' +
+      'comprano lo stesso giorno nella stessa azienda sono un fatto solo.',
+      'Every insider purchase of the last two years, measured after ' + h +
+      ' days against its own sector. Episodes matter more than signatures: five executives buying ' +
+      'on the same day in the same company are one fact, not five.') + '</p>' +
+    '<div class="tiles">' +
+      statTile(a.ep, T('episodi di acquisto', 'buying episodes'),
+               T(a.n + ' firme in tutto', a.n + ' signatures in all')) +
+      statTile(Math.round(a.pos / a.n * 100) + '%', T('in guadagno', 'in the money'),
+               T('dopo ' + h + ' giorni', 'after ' + h + ' days')) +
+      statTile(sg(a.med, 1) + '%', T('rendimento mediano', 'median return'),
+               T('contro il settore', 'against the sector')) +
+      statTile(sg(a.avg, 1) + '%', T('rendimento medio', 'average return'),
+               T('la media risente degli estremi', 'the average is pulled by outliers')) +
+    '</div></div>' +
+
+    '<div class="card"><h2>' + T('Le due regole della formula, messe alla prova',
+      'The formula’s two rules, put to the test') + '</h2><p class="sub">' +
+    T('La formula dà più peso ai cluster e ai dirigenti apicali. Questi sono i numeri che quelle ' +
+      'due scelte producono su questo universo.',
+      'The formula gives more weight to clusters and to top executives. These are the numbers those ' +
+      'two choices produce on this universe.') + '</p>' +
+    '<div class="scroll"><table><thead><tr><th>' + T('Gruppo', 'Group') + '</th>' +
+    '<th class="num">' + T('Episodi', 'Episodes') + '</th>' +
+    '<th class="num">' + T('Acquisti', 'Purchases') + '</th>' +
+    '<th class="num">' + T('In guadagno', 'In the money') + '</th>' +
+    '<th class="num">' + T('Mediana', 'Median') + '</th></tr></thead><tbody>' +
+    btRow(T('Tutti', 'All'), a) +
+    btRow(T('In cluster', 'In a cluster'), bt.cluster,
+          T('3+ compratori in 30 giorni', '3+ buyers in 30 days')) +
+    btRow(T('Isolati', 'On their own'), bt.solo) +
+    btRow(T('Dirigenti apicali', 'Top executives'), bt.senior,
+          T('amministratore delegato, direttore finanziario, presidente',
+            'chief executive, chief financial officer, president')) +
+    btRow(T('Altri insider', 'Other insiders'), bt.other) +
+    '</tbody></table></div>' +
+    btVerdict('cluster', bt.cluster, bt.solo,
+      T('Su questi dati il cluster rende più di un acquisto isolato: la regola regge.',
+        'On this data a cluster returns more than a lone purchase: the rule holds.'),
+      T('Su questi dati il cluster rende meno di un acquisto isolato: la regola non è confermata.',
+        'On this data a cluster returns less than a lone purchase: the rule is not confirmed.'),
+      T('Il cluster si è verificato in {n} solo episodio: troppo poco per confermare o smentire la ' +
+        'regola. Il numero che vedi è un singolo fatto, non una tendenza.',
+        'A cluster occurred in {n} single episode: too little to confirm or deny the rule. The number ' +
+        'you see is one fact, not a trend.')) +
+    btVerdict('senior', bt.senior, bt.other,
+      T('Gli acquisti dei dirigenti apicali rendono più degli altri: la regola regge.',
+        'Purchases by top executives return more than the others: the rule holds.'),
+      T('Gli acquisti dei dirigenti apicali non rendono più degli altri: la regola non è confermata.',
+        'Purchases by top executives do not return more than the others: the rule is not confirmed.'),
+      T('Solo {n} episodi di acquisti di dirigenti apicali: troppo pochi per dire qualcosa.',
+        'Only {n} episodes of purchases by top executives: too few to say anything.')) +
+    '</div>' +
+
+    '<div class="card"><h2>' + T('Che cosa questo backtest non è',
+      'What this backtest is not') + '</h2><ul class="plain">' + T([
+      'Non è il backtest del punteggio. Guidance e short interest non esistono giorno per giorno ' +
+      'all’indietro: ricostruire il punteggio storico vorrebbe dire inventarlo.',
+      'Non è una strategia. Non ci sono costi, slittamenti di prezzo, dimensione delle posizioni ' +
+      'né regole di uscita diverse dai ' + h + ' giorni fissi.',
+      'Non è un campione grande. ' + a.ep + ' episodi su due anni e ' +
+      ((IDX.companies || []).length) + ' aziende: abbastanza per farsi un’idea, non per una tesi.',
+      'Il rendimento è sempre al netto del settore di appartenenza, non del mercato: misura la ' +
+      'scelta dell’azienda, non l’andamento generale.'
+    ], [
+      'It is not a backtest of the score. Guidance and short interest do not exist day by day going ' +
+      'backwards: rebuilding the historical score would mean inventing it.',
+      'It is not a strategy. There are no costs, no slippage, no position sizing and no exit rule ' +
+      'other than the fixed ' + h + ' days.',
+      'It is not a large sample. ' + a.ep + ' episodes over two years and ' +
+      ((IDX.companies || []).length) + ' companies: enough to form a view, not to make a case.',
+      'The return is always net of the company’s own sector, not of the market: it measures the ' +
+      'choice of company, not the general trend.'
+    ]).map(function(x){ return '<li>' + esc(x) + '</li>'; }).join('') + '</ul></div>';
 }
 
 /* ------------------------------------------------------------------ elenco */
@@ -1031,6 +1143,7 @@ function show(){
   var p = raw.toLowerCase();
   if (!raw || p === 'home') return renderHome();
   if (p === 'aziende') return renderList();
+  if (p === 'backtest') return renderBacktest();
   if (p === 'guida') return renderGuide();
   if (p === 'richieste') return renderRequests();
   var t = raw.toUpperCase();
