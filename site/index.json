@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-11-18T13:57:06+00:00",
+ "generated_at": "2026-11-18T23:25:08+00:00",
  "groups": [
   {
    "nome": {
@@ -24,8 +24,8 @@
    "n": 118,
    "ep": 57,
    "pos": 77,
-   "avg": 1.51,
-   "med": 2.5
+   "avg": 1.43,
+   "med": 1.64
   },
   "cluster": {
    "n": 5,
@@ -38,21 +38,21 @@
    "n": 113,
    "ep": 56,
    "pos": 77,
-   "avg": 2.87,
-   "med": 3.64
+   "avg": 2.79,
+   "med": 4.44
   },
   "senior": {
    "n": 42,
    "ep": 13,
    "pos": 35,
-   "avg": 2.5,
+   "avg": 2.57,
    "med": 7.03
   },
   "other": {
    "n": 76,
    "ep": 45,
    "pos": 42,
-   "avg": 0.96,
+   "avg": 0.8,
    "med": 1.41
   }
  },
@@ -81,9 +81,9 @@
    "confidence": "Alta",
    "covered_pct": 85,
    "last": {
-    "d": "2026-11-17",
-    "c": 49.44,
-    "v": 34909100
+    "d": "2026-11-18",
+    "c": 48.91,
+    "v": 39903472
    },
    "tx": 436,
    "buyers": 1,
@@ -107,9 +107,9 @@
    "confidence": "Alta",
    "covered_pct": 85,
    "last": {
-    "d": "2026-11-17",
-    "c": 115.0,
-    "v": 25603200
+    "d": "2026-11-18",
+    "c": 113.89,
+    "v": 15178970
    },
    "tx": 226,
    "buyers": 1,
@@ -133,9 +133,9 @@
    "confidence": "Alta",
    "covered_pct": 85,
    "last": {
-    "d": "2026-11-17",
-    "c": 55.17,
-    "v": 103590400
+    "d": "2026-11-18",
+    "c": 54.67,
+    "v": 80113842
    },
    "tx": 154,
    "buyers": 1,
@@ -151,7 +151,7 @@
     "it": "Semiconduttori e apparecchiature",
     "en": "Semiconductors and equipment"
    },
-   "score": 58,
+   "score": 56,
    "verdict": {
     "it": "Leggermente rialzista",
     "en": "Mildly bullish"
@@ -159,89 +159,11 @@
    "confidence": "Media",
    "covered_pct": 65,
    "last": {
-    "d": "2026-11-17",
-    "c": 144.56,
-    "v": 16015200
+    "d": "2026-11-18",
+    "c": 144.88,
+    "v": 7994151
    },
    "tx": 207,
-   "buyers": 0,
-   "sellers": 0,
-   "net_musd": 0.0,
-   "cluster": false,
-   "errors": 0
-  },
-  {
-   "ticker": "MU",
-   "name": "MICRON TECHNOLOGY INC",
-   "group": {
-    "it": "Semiconduttori e apparecchiature",
-    "en": "Semiconductors and equipment"
-   },
-   "score": 57,
-   "verdict": {
-    "it": "Leggermente rialzista",
-    "en": "Mildly bullish"
-   },
-   "confidence": "Media",
-   "covered_pct": 65,
-   "last": {
-    "d": "2026-11-17",
-    "c": 712.42,
-    "v": 32928600
-   },
-   "tx": 643,
-   "buyers": 0,
-   "sellers": 0,
-   "net_musd": 0.0,
-   "cluster": false,
-   "errors": 0
-  },
-  {
-   "ticker": "AVGO",
-   "name": "Broadcom Inc.",
-   "group": {
-    "it": "Semiconduttori e apparecchiature",
-    "en": "Semiconductors and equipment"
-   },
-   "score": 56,
-   "verdict": {
-    "it": "Leggermente rialzista",
-    "en": "Mildly bullish"
-   },
-   "confidence": "Media",
-   "covered_pct": 65,
-   "last": {
-    "d": "2026-11-17",
-    "c": 341.6,
-    "v": 26047800
-   },
-   "tx": 461,
-   "buyers": 0,
-   "sellers": 0,
-   "net_musd": 0.0,
-   "cluster": false,
-   "errors": 0
-  },
-  {
-   "ticker": "ACLS",
-   "name": "AXCELIS TECHNOLOGIES INC",
-   "group": {
-    "it": "Semiconduttori e apparecchiature",
-    "en": "Semiconductors and equipment"
-   },
-   "score": 56,
-   "verdict": {
-    "it": "Leggermente rialzista",
-    "en": "Mildly bullish"
-   },
-   "confidence": "Media",
-   "covered_pct": 65,
-   "last": {
-    "d": "2026-11-17",
-    "c": 97.98,
-    "v": 240900
-   },
-   "tx": 132,
    "buyers": 0,
    "sellers": 0,
    "net_musd": 0.0,
@@ -263,14 +185,92 @@
    "confidence": "Alta",
    "covered_pct": 85,
    "last": {
-    "d": "2026-11-17",
-    "c": 155.46,
-    "v": 398625600
+    "d": "2026-11-18",
+    "c": 150.96,
+    "v": 343007056
    },
    "tx": 628,
    "buyers": 0,
    "sellers": 1,
    "net_musd": -946.628,
+   "cluster": false,
+   "errors": 0
+  },
+  {
+   "ticker": "MU",
+   "name": "MICRON TECHNOLOGY INC",
+   "group": {
+    "it": "Semiconduttori e apparecchiature",
+    "en": "Semiconductors and equipment"
+   },
+   "score": 55,
+   "verdict": {
+    "it": "Leggermente rialzista",
+    "en": "Mildly bullish"
+   },
+   "confidence": "Media",
+   "covered_pct": 65,
+   "last": {
+    "d": "2026-11-18",
+    "c": 705.27,
+    "v": 26936272
+   },
+   "tx": 643,
+   "buyers": 0,
+   "sellers": 0,
+   "net_musd": 0.0,
+   "cluster": false,
+   "errors": 0
+  },
+  {
+   "ticker": "AVGO",
+   "name": "Broadcom Inc.",
+   "group": {
+    "it": "Semiconduttori e apparecchiature",
+    "en": "Semiconductors and equipment"
+   },
+   "score": 54,
+   "verdict": {
+    "it": "Nessuna convinzione chiara",
+    "en": "No clear conviction"
+   },
+   "confidence": "Media",
+   "covered_pct": 65,
+   "last": {
+    "d": "2026-11-18",
+    "c": 354.05,
+    "v": 25906478
+   },
+   "tx": 461,
+   "buyers": 0,
+   "sellers": 0,
+   "net_musd": 0.0,
+   "cluster": false,
+   "errors": 0
+  },
+  {
+   "ticker": "ACLS",
+   "name": "AXCELIS TECHNOLOGIES INC",
+   "group": {
+    "it": "Semiconduttori e apparecchiature",
+    "en": "Semiconductors and equipment"
+   },
+   "score": 54,
+   "verdict": {
+    "it": "Nessuna convinzione chiara",
+    "en": "No clear conviction"
+   },
+   "confidence": "Media",
+   "covered_pct": 65,
+   "last": {
+    "d": "2026-11-18",
+    "c": 100.98,
+    "v": 347203
+   },
+   "tx": 132,
+   "buyers": 0,
+   "sellers": 0,
+   "net_musd": 0.0,
    "cluster": false,
    "errors": 0
   },
@@ -289,9 +289,9 @@
    "confidence": "Media",
    "covered_pct": 65,
    "last": {
-    "d": "2026-11-17",
-    "c": 1415.55,
-    "v": 2641400
+    "d": "2026-11-18",
+    "c": 1382.75,
+    "v": 2589008
    },
    "tx": 248,
    "buyers": 0,
@@ -315,9 +315,9 @@
    "confidence": "Bassa",
    "covered_pct": 50,
    "last": {
-    "d": "2026-11-17",
-    "c": 127.52,
-    "v": 19821100
+    "d": "2026-11-18",
+    "c": 127.36,
+    "v": 27868947
    },
    "tx": 147,
    "buyers": 0,
@@ -341,9 +341,9 @@
    "confidence": "Media",
    "covered_pct": 65,
    "last": {
-    "d": "2026-11-17",
-    "c": 257.89,
-    "v": 38499300
+    "d": "2026-11-18",
+    "c": 267.74,
+    "v": 40845576
    },
    "tx": 340,
    "buyers": 0,
@@ -367,9 +367,9 @@
    "confidence": "Media",
    "covered_pct": 65,
    "last": {
-    "d": "2026-11-17",
-    "c": 329.96,
-    "v": 8210200
+    "d": "2026-11-18",
+    "c": 324.11,
+    "v": 6674408
    },
    "tx": 130,
    "buyers": 0,
@@ -393,40 +393,14 @@
    "confidence": "Bassa",
    "covered_pct": 50,
    "last": {
-    "d": "2026-11-17",
-    "c": 167.21,
-    "v": 11955200
+    "d": "2026-11-18",
+    "c": 160.58,
+    "v": 17319772
    },
    "tx": 0,
    "buyers": 0,
    "sellers": 0,
    "net_musd": 0.0,
-   "cluster": false,
-   "errors": 0
-  },
-  {
-   "ticker": "QCOM",
-   "name": "QUALCOMM INC/DE",
-   "group": {
-    "it": "Semiconduttori e apparecchiature",
-    "en": "Semiconductors and equipment"
-   },
-   "score": 51,
-   "verdict": {
-    "it": "Nessuna convinzione chiara",
-    "en": "No clear conviction"
-   },
-   "confidence": "Media",
-   "covered_pct": 65,
-   "last": {
-    "d": "2026-11-17",
-    "c": 166.67,
-    "v": 10968900
-   },
-   "tx": 310,
-   "buyers": 0,
-   "sellers": 2,
-   "net_musd": -0.035,
    "cluster": false,
    "errors": 0
   },
@@ -445,9 +419,9 @@
    "confidence": "Media",
    "covered_pct": 65,
    "last": {
-    "d": "2026-11-17",
-    "c": 351.91,
-    "v": 37341600
+    "d": "2026-11-18",
+    "c": 352.45,
+    "v": 33393854
    },
    "tx": 162,
    "buyers": 0,
@@ -471,14 +445,40 @@
    "confidence": "Media",
    "covered_pct": 65,
    "last": {
-    "d": "2026-11-17",
-    "c": 645.73,
-    "v": 3176500
+    "d": "2026-11-18",
+    "c": 643.37,
+    "v": 2409475
    },
    "tx": 349,
    "buyers": 0,
    "sellers": 0,
    "net_musd": 0.0,
+   "cluster": false,
+   "errors": 0
+  },
+  {
+   "ticker": "QCOM",
+   "name": "QUALCOMM INC/DE",
+   "group": {
+    "it": "Semiconduttori e apparecchiature",
+    "en": "Semiconductors and equipment"
+   },
+   "score": 50,
+   "verdict": {
+    "it": "Nessuna convinzione chiara",
+    "en": "No clear conviction"
+   },
+   "confidence": "Media",
+   "covered_pct": 65,
+   "last": {
+    "d": "2026-11-18",
+    "c": 159.81,
+    "v": 9148938
+   },
+   "tx": 310,
+   "buyers": 0,
+   "sellers": 2,
+   "net_musd": -0.035,
    "cluster": false,
    "errors": 0
   },
@@ -497,9 +497,9 @@
    "confidence": "Media",
    "covered_pct": 65,
    "last": {
-    "d": "2026-11-17",
-    "c": 36.74,
-    "v": 757900
+    "d": "2026-11-18",
+    "c": 37.55,
+    "v": 615101
    },
    "tx": 145,
    "buyers": 0,
@@ -523,9 +523,9 @@
    "confidence": "Media",
    "covered_pct": 65,
    "last": {
-    "d": "2026-11-17",
-    "c": 278.7,
-    "v": 8973500
+    "d": "2026-11-18",
+    "c": 272.7,
+    "v": 7932910
    },
    "tx": 249,
    "buyers": 0,
@@ -549,9 +549,9 @@
    "confidence": "Media",
    "covered_pct": 65,
    "last": {
-    "d": "2026-11-17",
-    "c": 280.2,
-    "v": 31998600
+    "d": "2026-11-18",
+    "c": 282.44,
+    "v": 27103684
    },
    "tx": 517,
    "buyers": 0,
@@ -575,9 +575,9 @@
    "confidence": "Media",
    "covered_pct": 65,
    "last": {
-    "d": "2026-11-17",
-    "c": 383.67,
-    "v": 4366700
+    "d": "2026-11-18",
+    "c": 381.98,
+    "v": 3063306
    },
    "tx": 409,
    "buyers": 0,
@@ -601,9 +601,9 @@
    "confidence": "Media",
    "covered_pct": 65,
    "last": {
-    "d": "2026-11-17",
-    "c": 210.69,
-    "v": 11186500
+    "d": "2026-11-18",
+    "c": 211.67,
+    "v": 7609280
    },
    "tx": 230,
    "buyers": 0,
@@ -627,14 +627,40 @@
    "confidence": "Media",
    "covered_pct": 65,
    "last": {
-    "d": "2026-11-17",
-    "c": 83.03,
-    "v": 1311500
+    "d": "2026-11-18",
+    "c": 82.84,
+    "v": 690579
    },
    "tx": 207,
    "buyers": 0,
    "sellers": 1,
    "net_musd": -0.202,
+   "cluster": false,
+   "errors": 0
+  },
+  {
+   "ticker": "HD",
+   "name": "HOME DEPOT, INC.",
+   "group": {
+    "it": "Grandi capitalizzazioni USA",
+    "en": "US large caps"
+   },
+   "score": 48,
+   "verdict": {
+    "it": "Nessuna convinzione chiara",
+    "en": "No clear conviction"
+   },
+   "confidence": "Media",
+   "covered_pct": 65,
+   "last": {
+    "d": "2026-11-18",
+    "c": 337.64,
+    "v": 5107102
+   },
+   "tx": 148,
+   "buyers": 0,
+   "sellers": 3,
+   "net_musd": -1.253,
    "cluster": false,
    "errors": 0
   },
@@ -653,92 +679,14 @@
    "confidence": "Alta",
    "covered_pct": 85,
    "last": {
-    "d": "2026-11-17",
-    "c": 98.79,
-    "v": 19025400
+    "d": "2026-11-18",
+    "c": 98.09,
+    "v": 16529975
    },
-   "tx": 155,
+   "tx": 157,
    "buyers": 0,
-   "sellers": 3,
-   "net_musd": -24.495,
-   "cluster": false,
-   "errors": 0
-  },
-  {
-   "ticker": "AEHR",
-   "name": "AEHR TEST SYSTEMS",
-   "group": {
-    "it": "Semiconduttori e apparecchiature",
-    "en": "Semiconductors and equipment"
-   },
-   "score": 47,
-   "verdict": {
-    "it": "Nessuna convinzione chiara",
-    "en": "No clear conviction"
-   },
-   "confidence": "Media",
-   "covered_pct": 65,
-   "last": {
-    "d": "2026-11-17",
-    "c": 49.74,
-    "v": 2357400
-   },
-   "tx": 181,
-   "buyers": 0,
-   "sellers": 0,
-   "net_musd": 0.0,
-   "cluster": false,
-   "errors": 0
-  },
-  {
-   "ticker": "TER",
-   "name": "TERADYNE, INC",
-   "group": {
-    "it": "Semiconduttori e apparecchiature",
-    "en": "Semiconductors and equipment"
-   },
-   "score": 46,
-   "verdict": {
-    "it": "Nessuna convinzione chiara",
-    "en": "No clear conviction"
-   },
-   "confidence": "Media",
-   "covered_pct": 65,
-   "last": {
-    "d": "2026-11-17",
-    "c": 234.18,
-    "v": 2914500
-   },
-   "tx": 139,
-   "buyers": 0,
-   "sellers": 0,
-   "net_musd": 0.0,
-   "cluster": false,
-   "errors": 0
-  },
-  {
-   "ticker": "TSLA",
-   "name": "Tesla, Inc.",
-   "group": {
-    "it": "Grandi capitalizzazioni USA",
-    "en": "US large caps"
-   },
-   "score": 46,
-   "verdict": {
-    "it": "Nessuna convinzione chiara",
-    "en": "No clear conviction"
-   },
-   "confidence": "Media",
-   "covered_pct": 65,
-   "last": {
-    "d": "2026-11-17",
-    "c": 380.11,
-    "v": 22138200
-   },
-   "tx": 392,
-   "buyers": 0,
-   "sellers": 1,
-   "net_musd": -0.938,
+   "sellers": 5,
+   "net_musd": -26.607,
    "cluster": false,
    "errors": 0
   },
@@ -757,9 +705,9 @@
    "confidence": "Bassa",
    "covered_pct": 50,
    "last": {
-    "d": "2026-11-17",
-    "c": 389.68,
-    "v": 8040300
+    "d": "2026-11-18",
+    "c": 349.91,
+    "v": 17342199
    },
    "tx": 134,
    "buyers": 0,
@@ -783,11 +731,11 @@
    "confidence": "Media",
    "covered_pct": 65,
    "last": {
-    "d": "2026-11-17",
-    "c": 503.41,
-    "v": 35805800
+    "d": "2026-11-18",
+    "c": 530.14,
+    "v": 33451755
    },
-   "tx": 413,
+   "tx": 436,
    "buyers": 0,
    "sellers": 1,
    "net_musd": -5.084,
@@ -795,8 +743,8 @@
    "errors": 0
   },
   {
-   "ticker": "UCTT",
-   "name": "Ultra Clean Holdings, Inc.",
+   "ticker": "AEHR",
+   "name": "AEHR TEST SYSTEMS",
    "group": {
     "it": "Semiconduttori e apparecchiature",
     "en": "Semiconductors and equipment"
@@ -809,11 +757,11 @@
    "confidence": "Media",
    "covered_pct": 65,
    "last": {
-    "d": "2026-11-17",
-    "c": 43.14,
-    "v": 847100
+    "d": "2026-11-18",
+    "c": 49.48,
+    "v": 1832598
    },
-   "tx": 190,
+   "tx": 181,
    "buyers": 0,
    "sellers": 0,
    "net_musd": 0.0,
@@ -821,8 +769,34 @@
    "errors": 0
   },
   {
-   "ticker": "ONTO",
-   "name": "ONTO INNOVATION INC.",
+   "ticker": "TSLA",
+   "name": "Tesla, Inc.",
+   "group": {
+    "it": "Grandi capitalizzazioni USA",
+    "en": "US large caps"
+   },
+   "score": 45,
+   "verdict": {
+    "it": "Leggermente ribassista",
+    "en": "Mildly bearish"
+   },
+   "confidence": "Media",
+   "covered_pct": 65,
+   "last": {
+    "d": "2026-11-18",
+    "c": 383.72,
+    "v": 26666127
+   },
+   "tx": 392,
+   "buyers": 0,
+   "sellers": 1,
+   "net_musd": -0.938,
+   "cluster": false,
+   "errors": 0
+  },
+  {
+   "ticker": "TER",
+   "name": "TERADYNE, INC",
    "group": {
     "it": "Semiconduttori e apparecchiature",
     "en": "Semiconductors and equipment"
@@ -835,11 +809,37 @@
    "confidence": "Media",
    "covered_pct": 65,
    "last": {
-    "d": "2026-11-17",
-    "c": 199.57,
-    "v": 1144500
+    "d": "2026-11-18",
+    "c": 235.21,
+    "v": 1912648
    },
-   "tx": 94,
+   "tx": 139,
+   "buyers": 0,
+   "sellers": 0,
+   "net_musd": 0.0,
+   "cluster": false,
+   "errors": 0
+  },
+  {
+   "ticker": "COHU",
+   "name": "COHU INC",
+   "group": {
+    "it": "Semiconduttori e apparecchiature",
+    "en": "Semiconductors and equipment"
+   },
+   "score": 44,
+   "verdict": {
+    "it": "Leggermente ribassista",
+    "en": "Mildly bearish"
+   },
+   "confidence": "Media",
+   "covered_pct": 65,
+   "last": {
+    "d": "2026-11-18",
+    "c": 42.19,
+    "v": 1152605
+   },
+   "tx": 110,
    "buyers": 0,
    "sellers": 0,
    "net_musd": 0.0,
@@ -861,9 +861,9 @@
    "confidence": "Media",
    "covered_pct": 65,
    "last": {
-    "d": "2026-11-17",
-    "c": 506.24,
-    "v": 27914600
+    "d": "2026-11-18",
+    "c": 508.29,
+    "v": 21349348
    },
    "tx": 83,
    "buyers": 0,
@@ -873,8 +873,8 @@
    "errors": 0
   },
   {
-   "ticker": "COHU",
-   "name": "COHU INC",
+   "ticker": "UCTT",
+   "name": "Ultra Clean Holdings, Inc.",
    "group": {
     "it": "Semiconduttori e apparecchiature",
     "en": "Semiconductors and equipment"
@@ -887,20 +887,20 @@
    "confidence": "Media",
    "covered_pct": 65,
    "last": {
-    "d": "2026-11-17",
-    "c": 40.41,
-    "v": 1335000
+    "d": "2026-11-18",
+    "c": 44.17,
+    "v": 845691
    },
-   "tx": 110,
+   "tx": 190,
    "buyers": 0,
-   "sellers": 1,
-   "net_musd": -0.558,
+   "sellers": 0,
+   "net_musd": 0.0,
    "cluster": false,
    "errors": 0
   },
   {
-   "ticker": "ICHR",
-   "name": "ICHOR HOLDINGS, LTD.",
+   "ticker": "ONTO",
+   "name": "ONTO INNOVATION INC.",
    "group": {
     "it": "Semiconduttori e apparecchiature",
     "en": "Semiconductors and equipment"
@@ -913,11 +913,11 @@
    "confidence": "Media",
    "covered_pct": 65,
    "last": {
-    "d": "2026-11-17",
-    "c": 33.64,
-    "v": 754100
+    "d": "2026-11-18",
+    "c": 201.02,
+    "v": 1125313
    },
-   "tx": 114,
+   "tx": 94,
    "buyers": 0,
    "sellers": 0,
    "net_musd": 0.0,
@@ -939,9 +939,9 @@
    "confidence": "Media",
    "covered_pct": 65,
    "last": {
-    "d": "2026-11-17",
-    "c": 295.86,
-    "v": 5956600
+    "d": "2026-11-18",
+    "c": 292.43,
+    "v": 4901334
    },
    "tx": 225,
    "buyers": 0,
@@ -965,9 +965,9 @@
    "confidence": "Media",
    "covered_pct": 65,
    "last": {
-    "d": "2026-11-17",
-    "c": 349.23,
-    "v": 6813100
+    "d": "2026-11-18",
+    "c": 352.3,
+    "v": 4741476
    },
    "tx": 149,
    "buyers": 0,
@@ -977,13 +977,13 @@
    "errors": 0
   },
   {
-   "ticker": "HD",
-   "name": "HOME DEPOT, INC.",
+   "ticker": "ICHR",
+   "name": "ICHOR HOLDINGS, LTD.",
    "group": {
-    "it": "Grandi capitalizzazioni USA",
-    "en": "US large caps"
+    "it": "Semiconduttori e apparecchiature",
+    "en": "Semiconductors and equipment"
    },
-   "score": 41,
+   "score": 40,
    "verdict": {
     "it": "Leggermente ribassista",
     "en": "Mildly bearish"
@@ -991,14 +991,14 @@
    "confidence": "Media",
    "covered_pct": 65,
    "last": {
-    "d": "2026-11-17",
-    "c": 339.01,
-    "v": 7274800
+    "d": "2026-11-18",
+    "c": 33.96,
+    "v": 857757
    },
-   "tx": 148,
+   "tx": 114,
    "buyers": 0,
-   "sellers": 4,
-   "net_musd": -3.339,
+   "sellers": 0,
+   "net_musd": 0.0,
    "cluster": false,
    "errors": 0
   },
@@ -1017,9 +1017,9 @@
    "confidence": "Media",
    "covered_pct": 65,
    "last": {
-    "d": "2026-11-17",
-    "c": 416.77,
-    "v": 5696200
+    "d": "2026-11-18",
+    "c": 415.22,
+    "v": 7128796
    },
    "tx": 215,
    "buyers": 0,
@@ -1043,14 +1043,14 @@
    "confidence": "Bassa",
    "covered_pct": 50,
    "last": {
-    "d": "2026-11-17",
-    "c": 171.72,
-    "v": 8984200
+    "d": "2026-11-18",
+    "c": 170.29,
+    "v": 8430419
    },
    "tx": 126,
    "buyers": 0,
    "sellers": 12,
-   "net_musd": -36.765,
+   "net_musd": -36.326,
    "cluster": false,
    "errors": 0
   },
@@ -1069,9 +1069,9 @@
    "confidence": "Media",
    "covered_pct": 65,
    "last": {
-    "d": "2026-11-17",
-    "c": 1110.08,
-    "v": 3178000
+    "d": "2026-11-18",
+    "c": 1096.62,
+    "v": 2227518
    },
    "tx": 184,
    "buyers": 0,
@@ -1095,9 +1095,9 @@
    "confidence": "Media",
    "covered_pct": 65,
    "last": {
-    "d": "2026-11-17",
-    "c": 618.87,
-    "v": 12914100
+    "d": "2026-11-18",
+    "c": 616.38,
+    "v": 10338589
    },
    "tx": 423,
    "buyers": 0,
