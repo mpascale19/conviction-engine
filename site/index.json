@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-11-19T13:58:52+00:00",
+ "generated_at": "2026-11-19T23:18:49+00:00",
  "groups": [
   {
    "nome": {
@@ -24,8 +24,8 @@
    "n": 117,
    "ep": 56,
    "pos": 76,
-   "avg": 1.4,
-   "med": 1.64
+   "avg": 1.42,
+   "med": 2.83
   },
   "cluster": {
    "n": 5,
@@ -38,22 +38,22 @@
    "n": 112,
    "ep": 55,
    "pos": 76,
-   "avg": 2.77,
-   "med": 3.16
+   "avg": 2.79,
+   "med": 2.83
   },
   "senior": {
    "n": 41,
    "ep": 12,
    "pos": 34,
-   "avg": 2.51,
+   "avg": 2.34,
    "med": 7.03
   },
   "other": {
    "n": 76,
    "ep": 45,
    "pos": 42,
-   "avg": 0.8,
-   "med": 1.41
+   "avg": 0.93,
+   "med": 1.47
   }
  },
  "weights": {
@@ -81,9 +81,9 @@
    "confidence": "Alta",
    "covered_pct": 85,
    "last": {
-    "d": "2026-11-18",
-    "c": 48.91,
-    "v": 40020100
+    "d": "2026-11-19",
+    "c": 48.57,
+    "v": 35663262
    },
    "tx": 436,
    "buyers": 1,
@@ -107,9 +107,9 @@
    "confidence": "Alta",
    "covered_pct": 85,
    "last": {
-    "d": "2026-11-18",
-    "c": 113.89,
-    "v": 15245600
+    "d": "2026-11-19",
+    "c": 110.57,
+    "v": 27204453
    },
    "tx": 226,
    "buyers": 1,
@@ -133,9 +133,9 @@
    "confidence": "Alta",
    "covered_pct": 85,
    "last": {
-    "d": "2026-11-18",
-    "c": 54.67,
-    "v": 80545900
+    "d": "2026-11-19",
+    "c": 55.72,
+    "v": 132524988
    },
    "tx": 154,
    "buyers": 1,
@@ -159,9 +159,9 @@
    "confidence": "Media",
    "covered_pct": 65,
    "last": {
-    "d": "2026-11-18",
-    "c": 144.88,
-    "v": 9257200
+    "d": "2026-11-19",
+    "c": 141.48,
+    "v": 9923305
    },
    "tx": 207,
    "buyers": 0,
@@ -185,14 +185,40 @@
    "confidence": "Alta",
    "covered_pct": 85,
    "last": {
-    "d": "2026-11-18",
-    "c": 150.96,
-    "v": 345169600
+    "d": "2026-11-19",
+    "c": 145.98,
+    "v": 315864587
    },
    "tx": 628,
    "buyers": 0,
    "sellers": 1,
    "net_musd": -946.628,
+   "cluster": false,
+   "errors": 0
+  },
+  {
+   "ticker": "AVGO",
+   "name": "Broadcom Inc.",
+   "group": {
+    "it": "Semiconduttori e apparecchiature",
+    "en": "Semiconductors and equipment"
+   },
+   "score": 55,
+   "verdict": {
+    "it": "Leggermente rialzista",
+    "en": "Mildly bullish"
+   },
+   "confidence": "Media",
+   "covered_pct": 65,
+   "last": {
+    "d": "2026-11-19",
+    "c": 346.65,
+    "v": 25040329
+   },
+   "tx": 461,
+   "buyers": 0,
+   "sellers": 0,
+   "net_musd": 0.0,
    "cluster": false,
    "errors": 0
   },
@@ -211,9 +237,9 @@
    "confidence": "Media",
    "covered_pct": 65,
    "last": {
-    "d": "2026-11-18",
-    "c": 705.27,
-    "v": 27169300
+    "d": "2026-11-19",
+    "c": 690.44,
+    "v": 34838782
    },
    "tx": 643,
    "buyers": 0,
@@ -223,25 +249,25 @@
    "errors": 0
   },
   {
-   "ticker": "AVGO",
-   "name": "Broadcom Inc.",
+   "ticker": "LLY",
+   "name": "ELI LILLY & Co",
    "group": {
-    "it": "Semiconduttori e apparecchiature",
-    "en": "Semiconductors and equipment"
+    "it": "Grandi capitalizzazioni USA",
+    "en": "US large caps"
    },
-   "score": 54,
+   "score": 55,
    "verdict": {
-    "it": "Nessuna convinzione chiara",
-    "en": "No clear conviction"
+    "it": "Leggermente rialzista",
+    "en": "Mildly bullish"
    },
    "confidence": "Media",
    "covered_pct": 65,
    "last": {
-    "d": "2026-11-18",
-    "c": 354.05,
-    "v": 25967400
+    "d": "2026-11-19",
+    "c": 1351.12,
+    "v": 3074756
    },
-   "tx": 461,
+   "tx": 248,
    "buyers": 0,
    "sellers": 0,
    "net_musd": 0.0,
@@ -263,9 +289,9 @@
    "confidence": "Media",
    "covered_pct": 65,
    "last": {
-    "d": "2026-11-18",
-    "c": 100.98,
-    "v": 347200
+    "d": "2026-11-19",
+    "c": 99.94,
+    "v": 303337
    },
    "tx": 132,
    "buyers": 0,
@@ -289,9 +315,9 @@
    "confidence": "Media",
    "covered_pct": 65,
    "last": {
-    "d": "2026-11-18",
-    "c": 324.11,
-    "v": 6765600
+    "d": "2026-11-19",
+    "c": 320.22,
+    "v": 6962623
    },
    "tx": 130,
    "buyers": 0,
@@ -301,25 +327,25 @@
    "errors": 0
   },
   {
-   "ticker": "LLY",
-   "name": "ELI LILLY & Co",
+   "ticker": "XOM",
+   "name": "ExxonMobil Holdings Corp",
    "group": {
     "it": "Grandi capitalizzazioni USA",
     "en": "US large caps"
    },
-   "score": 54,
+   "score": 53,
    "verdict": {
     "it": "Nessuna convinzione chiara",
     "en": "No clear conviction"
    },
-   "confidence": "Media",
-   "covered_pct": 65,
+   "confidence": "Bassa",
+   "covered_pct": 50,
    "last": {
-    "d": "2026-11-18",
-    "c": 1382.75,
-    "v": 2879100
+    "d": "2026-11-19",
+    "c": 158.93,
+    "v": 11288338
    },
-   "tx": 248,
+   "tx": 0,
    "buyers": 0,
    "sellers": 0,
    "net_musd": 0.0,
@@ -341,9 +367,9 @@
    "confidence": "Bassa",
    "covered_pct": 50,
    "last": {
-    "d": "2026-11-18",
-    "c": 127.36,
-    "v": 27925200
+    "d": "2026-11-19",
+    "c": 126.04,
+    "v": 31544343
    },
    "tx": 147,
    "buyers": 0,
@@ -367,9 +393,9 @@
    "confidence": "Media",
    "covered_pct": 65,
    "last": {
-    "d": "2026-11-18",
-    "c": 267.74,
-    "v": 40999600
+    "d": "2026-11-19",
+    "c": 257.37,
+    "v": 52082830
    },
    "tx": 340,
    "buyers": 0,
@@ -379,28 +405,28 @@
    "errors": 0
   },
   {
-   "ticker": "XOM",
-   "name": "ExxonMobil Holdings Corp",
+   "ticker": "QCOM",
+   "name": "QUALCOMM INC/DE",
    "group": {
-    "it": "Grandi capitalizzazioni USA",
-    "en": "US large caps"
+    "it": "Semiconduttori e apparecchiature",
+    "en": "Semiconductors and equipment"
    },
-   "score": 52,
+   "score": 51,
    "verdict": {
     "it": "Nessuna convinzione chiara",
     "en": "No clear conviction"
    },
-   "confidence": "Bassa",
-   "covered_pct": 50,
+   "confidence": "Media",
+   "covered_pct": 65,
    "last": {
-    "d": "2026-11-18",
-    "c": 160.58,
-    "v": 18109100
+    "d": "2026-11-19",
+    "c": 162.01,
+    "v": 13395693
    },
-   "tx": 0,
+   "tx": 318,
    "buyers": 0,
-   "sellers": 0,
-   "net_musd": 0.0,
+   "sellers": 2,
+   "net_musd": -0.035,
    "cluster": false,
    "errors": 0
   },
@@ -419,40 +445,14 @@
    "confidence": "Media",
    "covered_pct": 65,
    "last": {
-    "d": "2026-11-18",
-    "c": 643.37,
-    "v": 2409600
+    "d": "2026-11-19",
+    "c": 626.5,
+    "v": 3639118
    },
    "tx": 347,
    "buyers": 0,
    "sellers": 0,
    "net_musd": 0.0,
-   "cluster": false,
-   "errors": 0
-  },
-  {
-   "ticker": "QCOM",
-   "name": "QUALCOMM INC/DE",
-   "group": {
-    "it": "Semiconduttori e apparecchiature",
-    "en": "Semiconductors and equipment"
-   },
-   "score": 50,
-   "verdict": {
-    "it": "Nessuna convinzione chiara",
-    "en": "No clear conviction"
-   },
-   "confidence": "Media",
-   "covered_pct": 65,
-   "last": {
-    "d": "2026-11-18",
-    "c": 159.81,
-    "v": 9158700
-   },
-   "tx": 310,
-   "buyers": 0,
-   "sellers": 2,
-   "net_musd": -0.035,
    "cluster": false,
    "errors": 0
   },
@@ -471,9 +471,9 @@
    "confidence": "Media",
    "covered_pct": 65,
    "last": {
-    "d": "2026-11-18",
-    "c": 37.55,
-    "v": 615200
+    "d": "2026-11-19",
+    "c": 37.49,
+    "v": 1019449
    },
    "tx": 145,
    "buyers": 0,
@@ -497,9 +497,9 @@
    "confidence": "Media",
    "covered_pct": 65,
    "last": {
-    "d": "2026-11-18",
-    "c": 272.7,
-    "v": 7935200
+    "d": "2026-11-19",
+    "c": 267.14,
+    "v": 9833473
    },
    "tx": 249,
    "buyers": 0,
@@ -523,9 +523,9 @@
    "confidence": "Media",
    "covered_pct": 65,
    "last": {
-    "d": "2026-11-18",
-    "c": 282.44,
-    "v": 27190700
+    "d": "2026-11-19",
+    "c": 272.66,
+    "v": 48554440
    },
    "tx": 517,
    "buyers": 0,
@@ -549,9 +549,9 @@
    "confidence": "Media",
    "covered_pct": 65,
    "last": {
-    "d": "2026-11-18",
-    "c": 381.98,
-    "v": 3232300
+    "d": "2026-11-19",
+    "c": 377.44,
+    "v": 3223224
    },
    "tx": 409,
    "buyers": 0,
@@ -575,9 +575,9 @@
    "confidence": "Media",
    "covered_pct": 65,
    "last": {
-    "d": "2026-11-18",
-    "c": 211.67,
-    "v": 7633200
+    "d": "2026-11-19",
+    "c": 203.68,
+    "v": 12942238
    },
    "tx": 229,
    "buyers": 0,
@@ -601,9 +601,9 @@
    "confidence": "Media",
    "covered_pct": 65,
    "last": {
-    "d": "2026-11-18",
-    "c": 82.84,
-    "v": 693800
+    "d": "2026-11-19",
+    "c": 81.89,
+    "v": 1105275
    },
    "tx": 206,
    "buyers": 0,
@@ -627,9 +627,9 @@
    "confidence": "Media",
    "covered_pct": 65,
    "last": {
-    "d": "2026-11-18",
-    "c": 337.64,
-    "v": 5341100
+    "d": "2026-11-19",
+    "c": 336.68,
+    "v": 4660174
    },
    "tx": 148,
    "buyers": 0,
@@ -653,14 +653,40 @@
    "confidence": "Alta",
    "covered_pct": 85,
    "last": {
-    "d": "2026-11-18",
-    "c": 98.09,
-    "v": 16535800
+    "d": "2026-11-19",
+    "c": 96.09,
+    "v": 23018599
    },
    "tx": 157,
    "buyers": 0,
-   "sellers": 5,
-   "net_musd": -26.607,
+   "sellers": 4,
+   "net_musd": -16.481,
+   "cluster": false,
+   "errors": 0
+  },
+  {
+   "ticker": "TSLA",
+   "name": "Tesla, Inc.",
+   "group": {
+    "it": "Grandi capitalizzazioni USA",
+    "en": "US large caps"
+   },
+   "score": 46,
+   "verdict": {
+    "it": "Nessuna convinzione chiara",
+    "en": "No clear conviction"
+   },
+   "confidence": "Media",
+   "covered_pct": 65,
+   "last": {
+    "d": "2026-11-19",
+    "c": 374.41,
+    "v": 25476067
+   },
+   "tx": 390,
+   "buyers": 0,
+   "sellers": 1,
+   "net_musd": -0.938,
    "cluster": false,
    "errors": 0
   },
@@ -679,9 +705,9 @@
    "confidence": "Bassa",
    "covered_pct": 50,
    "last": {
-    "d": "2026-11-18",
-    "c": 349.91,
-    "v": 17360600
+    "d": "2026-11-19",
+    "c": 330.48,
+    "v": 19810978
    },
    "tx": 134,
    "buyers": 0,
@@ -705,11 +731,11 @@
    "confidence": "Media",
    "covered_pct": 65,
    "last": {
-    "d": "2026-11-18",
-    "c": 530.14,
-    "v": 33659100
+    "d": "2026-11-19",
+    "c": 489.19,
+    "v": 70838807
    },
-   "tx": 436,
+   "tx": 437,
    "buyers": 0,
    "sellers": 1,
    "net_musd": -5.084,
@@ -731,40 +757,14 @@
    "confidence": "Media",
    "covered_pct": 65,
    "last": {
-    "d": "2026-11-18",
-    "c": 49.48,
-    "v": 1837900
+    "d": "2026-11-19",
+    "c": 47.94,
+    "v": 2183236
    },
-   "tx": 181,
+   "tx": 182,
    "buyers": 0,
    "sellers": 0,
    "net_musd": 0.0,
-   "cluster": false,
-   "errors": 0
-  },
-  {
-   "ticker": "TSLA",
-   "name": "Tesla, Inc.",
-   "group": {
-    "it": "Grandi capitalizzazioni USA",
-    "en": "US large caps"
-   },
-   "score": 45,
-   "verdict": {
-    "it": "Leggermente ribassista",
-    "en": "Mildly bearish"
-   },
-   "confidence": "Media",
-   "covered_pct": 65,
-   "last": {
-    "d": "2026-11-18",
-    "c": 383.72,
-    "v": 26741000
-   },
-   "tx": 390,
-   "buyers": 0,
-   "sellers": 1,
-   "net_musd": -0.938,
    "cluster": false,
    "errors": 0
   },
@@ -783,11 +783,11 @@
    "confidence": "Media",
    "covered_pct": 65,
    "last": {
-    "d": "2026-11-18",
-    "c": 235.21,
-    "v": 1936100
+    "d": "2026-11-19",
+    "c": 227.43,
+    "v": 2816109
    },
-   "tx": 139,
+   "tx": 138,
    "buyers": 0,
    "sellers": 0,
    "net_musd": 0.0,
@@ -809,9 +809,9 @@
    "confidence": "Media",
    "covered_pct": 65,
    "last": {
-    "d": "2026-11-18",
-    "c": 42.19,
-    "v": 1189400
+    "d": "2026-11-19",
+    "c": 40.79,
+    "v": 876299
    },
    "tx": 110,
    "buyers": 0,
@@ -835,9 +835,9 @@
    "confidence": "Media",
    "covered_pct": 65,
    "last": {
-    "d": "2026-11-18",
-    "c": 508.29,
-    "v": 21964800
+    "d": "2026-11-19",
+    "c": 498.3,
+    "v": 28435392
    },
    "tx": 83,
    "buyers": 0,
@@ -861,9 +861,9 @@
    "confidence": "Media",
    "covered_pct": 65,
    "last": {
-    "d": "2026-11-18",
-    "c": 44.17,
-    "v": 924400
+    "d": "2026-11-19",
+    "c": 42.51,
+    "v": 956980
    },
    "tx": 188,
    "buyers": 0,
@@ -887,9 +887,9 @@
    "confidence": "Media",
    "covered_pct": 65,
    "last": {
-    "d": "2026-11-18",
-    "c": 352.45,
-    "v": 34090200
+    "d": "2026-11-19",
+    "c": 349.21,
+    "v": 40469518
    },
    "tx": 165,
    "buyers": 0,
@@ -913,9 +913,9 @@
    "confidence": "Media",
    "covered_pct": 65,
    "last": {
-    "d": "2026-11-18",
-    "c": 201.02,
-    "v": 1176100
+    "d": "2026-11-19",
+    "c": 195.93,
+    "v": 1022265
    },
    "tx": 94,
    "buyers": 0,
@@ -939,9 +939,9 @@
    "confidence": "Media",
    "covered_pct": 65,
    "last": {
-    "d": "2026-11-18",
-    "c": 292.43,
-    "v": 5052200
+    "d": "2026-11-19",
+    "c": 285.75,
+    "v": 5829872
    },
    "tx": 225,
    "buyers": 0,
@@ -965,9 +965,9 @@
    "confidence": "Media",
    "covered_pct": 65,
    "last": {
-    "d": "2026-11-18",
-    "c": 352.3,
-    "v": 4749200
+    "d": "2026-11-19",
+    "c": 338.93,
+    "v": 7130172
    },
    "tx": 149,
    "buyers": 0,
@@ -991,9 +991,9 @@
    "confidence": "Media",
    "covered_pct": 65,
    "last": {
-    "d": "2026-11-18",
-    "c": 33.96,
-    "v": 857800
+    "d": "2026-11-19",
+    "c": 32.15,
+    "v": 998107
    },
    "tx": 114,
    "buyers": 0,
@@ -1017,9 +1017,9 @@
    "confidence": "Media",
    "covered_pct": 65,
    "last": {
-    "d": "2026-11-18",
-    "c": 415.22,
-    "v": 7129400
+    "d": "2026-11-19",
+    "c": 402.25,
+    "v": 8272561
    },
    "tx": 215,
    "buyers": 0,
@@ -1043,14 +1043,14 @@
    "confidence": "Bassa",
    "covered_pct": 50,
    "last": {
-    "d": "2026-11-18",
-    "c": 170.29,
-    "v": 9199200
+    "d": "2026-11-19",
+    "c": 167.85,
+    "v": 8195838
    },
    "tx": 126,
    "buyers": 0,
-   "sellers": 12,
-   "net_musd": -36.326,
+   "sellers": 10,
+   "net_musd": -32.305,
    "cluster": false,
    "errors": 0
   },
@@ -1069,9 +1069,9 @@
    "confidence": "Media",
    "covered_pct": 65,
    "last": {
-    "d": "2026-11-18",
-    "c": 1096.62,
-    "v": 2230100
+    "d": "2026-11-19",
+    "c": 1093.83,
+    "v": 2129114
    },
    "tx": 184,
    "buyers": 0,
@@ -1095,9 +1095,9 @@
    "confidence": "Media",
    "covered_pct": 65,
    "last": {
-    "d": "2026-11-18",
-    "c": 616.38,
-    "v": 10358800
+    "d": "2026-11-19",
+    "c": 596.22,
+    "v": 15233936
    },
    "tx": 423,
    "buyers": 0,
