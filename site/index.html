@@ -385,25 +385,27 @@ function renderGuide(){
      'a verdict without a source behind it.']
   ]);
   var subs = T([
-    ['Insider', 30, 'Chi compra, quanto, se è un dirigente apicale, se più persone comprano nello stesso ' +
+    ['Insider', 35, 'Chi compra, quanto, se è un dirigente apicale, se più persone comprano nello stesso ' +
      'periodo, e come sono andati i loro acquisti passati.'],
     ['Guidance e tono', 20, 'Il tono delle ultime quattro call e quante voci di guidance l’azienda ha ' +
      'alzato o ridotto nell’ultima.'],
     ['Mercato', 15, 'Lo short interest: contro la storia del titolo e contro la mediana del suo settore.'],
     ['Settore', 10, 'Se il segnale è isolato o se lo stanno facendo anche i concorrenti.'],
-    ['News', 10, 'Non ancora alimentato.'],
-    ['Contesto di prezzo', 10, 'Distanza dai massimi e dai minimi di sei mesi, momentum a tre mesi.'],
-    ['Social', 5, 'Non ancora alimentato.']
+    ['Fatti rilevanti (8-K)', 10, 'I fatti che l’azienda è obbligata a dichiarare alla SEC entro quattro ' +
+     'giorni: rettifiche dei conti, cambi di revisore, uscite di dirigenti, nuovi accordi. Contano i codici ' +
+     'item, che sono fissati dalla SEC, non il tono di un articolo.'],
+    ['Contesto di prezzo', 10, 'Distanza dai massimi e dai minimi di sei mesi, momentum a tre mesi.']
   ], [
-    ['Insiders', 30, 'Who buys, how much, whether they are a top executive, whether several people buy in ' +
+    ['Insiders', 35, 'Who buys, how much, whether they are a top executive, whether several people buy in ' +
      'the same window, and how their past purchases turned out.'],
     ['Guidance and tone', 20, 'The tone of the last four calls and how many guidance items the company ' +
      'raised or lowered in the latest one.'],
     ['Market', 15, 'Short interest: against the stock’s own history and against its sector median.'],
     ['Sector', 10, 'Whether the signal is isolated or the peers are doing the same.'],
-    ['News', 10, 'Not fed yet.'],
-    ['Price context', 10, 'Distance from the six-month high and low, three-month momentum.'],
-    ['Social', 5, 'Not fed yet.']
+    ['Material events (8-K)', 10, 'What the company is legally required to disclose to the SEC within four ' +
+     'days: restatements, auditor changes, officer departures, new material agreements. What counts is the ' +
+     'item codes, which the SEC fixes, not the tone of an article.'],
+    ['Price context', 10, 'Distance from the six-month high and low, three-month momentum.']
   ]);
   var faq = T([
     ['Il punteggio dice di comprare?',
