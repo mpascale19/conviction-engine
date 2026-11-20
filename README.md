@@ -292,6 +292,23 @@ L'unica chiamata di rete è quella che la pipeline faceva già: il JSON dei
 depositi di EDGAR, che serviva per verificare il CIK e per le azioni in
 circolazione. I dati degli 8-K erano dentro quel file e non li leggevamo.
 
+## L'elenco: che cosa ha spinto il punteggio
+
+Nell'elenco la colonna *Lettura* diceva la stessa cosa su quasi tutte le righe
+(«Leggermente rialzista», «confidenza media»), quindi occupava spazio senza
+distinguere niente. Ora la seconda riga dice **quale voce ha spostato di più quel
+punteggio dal centro**: non quella con il valore più alto, ma quella il cui
+scarto da 50, moltiplicato per il suo peso, pesa di più sul totale.
+
+Su 40 aziende i motori sono otto diversi: `insider` tira giù 16 punteggi e ne
+spinge su 1, `mercato` ne spinge 6 e ne tira 8, e così via. È la stessa
+informazione che prima si trovava solo aprendo la scheda.
+
+Le intestazioni della tabella sono cliccabili: azienda, punteggio, compra/vende,
+flusso netto e prezzo. Il secondo click inverte il verso, i dati mancanti restano
+in fondo in entrambi i versi, e a parità di valore l'ordine è alfabetico, così
+due giri uguali danno la stessa lista.
+
 ## Il colore dice qualcosa
 
 Niente nel sito è colorato per decorazione. Ci sono due sole scale, e ognuna ha
