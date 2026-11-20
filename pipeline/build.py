@@ -14,7 +14,7 @@ import json
 import os
 from datetime import date, datetime, timedelta, timezone
 
-from . import market, rules, score
+from . import history, market, rules, score
 from .rules import L
 from .extract import extract_all
 
@@ -400,7 +400,7 @@ def same_but_for_the_clock(path, data):
     return a == b
 
 
-def write_all(results, cfg, outdir=OUTDIR):
+def write_all(results, cfg, outdir=OUTDIR, forward=None):
     ddir = os.path.join(outdir, "data")
     os.makedirs(ddir, exist_ok=True)
     rows, touched = [], 0
@@ -432,6 +432,7 @@ def write_all(results, cfg, outdir=OUTDIR):
         "groups": [{"nome": group_name(g), "benchmark": g["benchmark"],
                     "n": len(g["tickers"])} for g in cfg["universi"]],
         "backtest": backtest(results, cfg),
+        "forward": forward,
         "weights": cfg["weights"],
         "companies": rows,
         "errors": sorted({e for d in results for e in d["errors"]}),
@@ -472,7 +473,7 @@ def main():
     print("Estrazione dalle trascrizioni")
     extracted = extract_all()
 
-    results = []
+    results, bench_closes = [], {}
     for g in groups:
         print(f"\n=== {g['nome']} ({len(g['tickers'])} aziende) ===")
         bench = []
@@ -483,6 +484,8 @@ def main():
                 print(f"Riferimento {g['benchmark']}: {len(bench)} sedute da {bsrc}")
             except Exception as e:
                 print(f"! riferimento {g['benchmark']}: {e}")
+        for p in bench:
+            bench_closes[(g["benchmark"], p["d"])] = p["c"]
         built = []
         for i, t in enumerate(g["tickers"], 1):
             print(f"\n[{i}/{len(g['tickers'])}] {t}")
@@ -491,6 +494,7 @@ def main():
                 mine = [e for e in extracted if e.get("ticker") == t.upper()]
                 d = build_one(cfg, raw, mine)
                 d["group"] = group_name(g)
+                d["benchmark"] = g["benchmark"]
                 built.append(d)
             except Exception as e:
                 print(f"  !! {t} saltato: {e}")
@@ -500,7 +504,24 @@ def main():
     def one_line(v):                      # per la console: una lingua basta
         return v["it"] if isinstance(v, dict) else str(v)
 
-    index = write_all(results, cfg, a.out)
+    hpath = os.path.join(a.out, "history.csv")
+    fwd = None
+    try:
+        before = history.load(hpath)
+        snap = history.snapshot(results, bench_closes)
+        added = history.add(hpath, snap, known=before)
+        # Il riassunto si fa sul registro come è adesso, senza rileggerlo da
+        # disco: le righe di oggi sono quelle appena aggiunte, non tutte quelle
+        # della fotografia (una riga già presente non si duplica).
+        seen = {(r["date"], r["ticker"]) for r in before}
+        rows = before + [r for r in snap if (r["date"], r["ticker"]) not in seen]
+        fwd = history.stats(rows)
+        print(f"\nRegistro delle previsioni: +{added} righe, {fwd['observations']} in tutto, "
+              f"{fwd['done']} chiuse, {fwd['pending']} in attesa")
+    except Exception as e:
+        print(f"! registro delle previsioni: {e}")
+
+    index = write_all(results, cfg, a.out, forward=fwd)
     total = sum(len(g["tickers"]) for g in groups)
     print(f"\n{len(results)} aziende su {total}")
     for r in index["companies"][:12]:

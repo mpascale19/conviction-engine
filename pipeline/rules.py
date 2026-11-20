@@ -92,12 +92,19 @@ def abnormal_return(prices, bench, day, horizon=60):
 
 
 def _ret(series, day, horizon):
+    """Il rendimento sulle `horizon` sedute dopo `day`, o None.
+
+    Niente scorciatoie sull'orizzonte: se le sedute disponibili non bastano,
+    questa osservazione non e' ancora matura e non deve entrare in nessun
+    conto. Prima qui si prendeva l'ultimo prezzo disponibile, quindi un
+    acquisto di due settimane fa entrava nelle statistiche a 60 giorni
+    misurato su 14 sedute, come se fossero 60.
+    """
     after = [p for p in series if p["d"] >= day]
-    if len(after) < 2:
+    if len(after) <= horizon:
         return None
     start = after[0]["c"]
-    end = after[min(horizon, len(after) - 1)]["c"]
-    return (end / start - 1) if start else None
+    return (after[horizon]["c"] / start - 1) if start else None
 
 
 def track_multiplier(past_returns, prior=3):
