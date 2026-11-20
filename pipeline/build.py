@@ -361,6 +361,26 @@ def backtest(results, cfg):
             "other": _stats(pick(lambda r: not r["senior"]))}
 
 
+def driver(subs):
+    """La voce che ha spostato il punteggio più lontano da 50.
+
+    Non e' la voce con il valore più alto: e' quella il cui scarto dal centro,
+    moltiplicato per il suo peso, pesa di più sul totale. Serve all'elenco, dove
+    il verdetto scritto finisce per ripetersi su quasi tutte le righe.
+    """
+    best = None
+    for x in subs:
+        if x.get("v") is None:
+            continue
+        push = abs(x["v"] - 50) * x["w"]
+        if push > 0 and (best is None or push > best[0]):
+            best = (push, x)
+    if best is None:
+        return None
+    x = best[1]
+    return {"name": x["name"], "up": x["v"] >= 50}
+
+
 def write_all(results, cfg, outdir=OUTDIR):
     ddir = os.path.join(outdir, "data")
     os.makedirs(ddir, exist_ok=True)
@@ -375,6 +395,7 @@ def write_all(results, cfg, outdir=OUTDIR):
             "group": d.get("group") or L("", ""),
             "score": s["value"], "verdict": s["verdict"],
             "confidence": s["confidence"], "covered_pct": s["covered_pct"],
+            "driver": driver(s.get("subs") or []),
             "last": d["price"]["last"], "tx": d["counts"]["tx"],
             "buyers": ins["buyers"], "sellers": ins["sellers"],
             "net_musd": ins["net_musd"], "cluster": ins["cluster"],
