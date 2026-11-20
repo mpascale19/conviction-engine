@@ -49,6 +49,18 @@
   .lang button[aria-pressed="true"]{background:var(--sunken);color:var(--ink)}
   table{width:100%;border-collapse:collapse;font-size:13.5px;min-width:440px}
   th{font-size:12.5px;color:var(--ink2);text-align:left;padding:0 8px 9px;font-weight:600}
+  .picks{display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin-top:14px}
+  .pick{flex:1 1 240px;min-width:0;padding:9px 12px;border-radius:8px;
+        border:1px solid var(--line);background:var(--card);color:var(--ink);
+        font-family:inherit;font-size:14px}
+  .pick:focus{border-color:var(--blue);outline:none}
+  .vs{color:var(--ink3);font-size:13px;flex:none}
+  .cmp{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  .cmp-head{background:var(--sunken);border:1px solid var(--line);border-radius:10px;
+            padding:16px;min-width:0}
+  .meter.m-cmp{width:100%;max-width:120px}
+  .cmp-head .meter.m-cmp{max-width:none}
+  @media (max-width:620px){.cmp{grid-template-columns:1fr}}
   .find{margin-top:12px;width:100%;max-width:320px;padding:9px 12px;border-radius:8px;
         border:1px solid var(--line);background:var(--card);color:var(--ink);
         font-family:inherit;font-size:14px}
@@ -66,7 +78,7 @@
   .sc{display:inline-flex;align-items:center;gap:12px;font-variant-numeric:tabular-nums}
   .sc b{font-size:16px;font-weight:650;min-width:22px;text-align:right}
   /* Ogni punteggio è uno scarto da 50: la barra parte dal centro, non da sinistra. */
-  .meter{position:relative;height:7px;border-radius:4px;background:var(--sunken);
+  .meter{position:relative;height:7px;border-radius:4px;background:var(--line);
          flex:none;display:inline-block;vertical-align:middle}
   .meter::before{content:"";position:absolute;left:50%;top:-2px;bottom:-2px;
                  width:1px;background:var(--axis)}
@@ -340,10 +352,11 @@ function spark(series){
 
 /* ------------------------------------------------------------------ pagine */
 var REPO = 'https://github.com/mpascale19/conviction-engine';
-var PAGES = ['home', 'aziende', 'backtest', 'guida', 'richieste'];
+var PAGES = ['home', 'aziende', 'confronto', 'backtest', 'guida', 'richieste'];
 
 function navBar(cur){
   var items = [['home', T('Home', 'Home')], ['aziende', T('Aziende', 'Companies')],
+               ['confronto', T('Confronta', 'Compare')],
                ['backtest', T('Backtest', 'Backtest')],
                ['guida', T('Come funziona', 'How it works')],
                ['richieste', T('Richieste', 'Requests')]];
@@ -1363,6 +1376,123 @@ function renderDetail(d){
   });
 }
 
+/* -------------------------------------------------------------- confronto */
+var CMP = { a: null, b: null };
+
+function loadCard(t){
+  if (CACHE[t]) return Promise.resolve(CACHE[t]);
+  return fetch('data/' + encodeURIComponent(t) + '.json?' + Date.now())
+    .then(function(r){ if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); })
+    .then(function(d){ CACHE[t] = d; return d; });
+}
+
+function picker(id, sel, other){
+  var list = (IDX.companies || []).slice().sort(function(x, y){
+    return x.ticker < y.ticker ? -1 : 1;
+  });
+  return '<select id="' + id + '" class="pick">' + list.map(function(c){
+    return '<option value="' + esc(c.ticker) + '"' +
+      (c.ticker === sel ? ' selected' : '') +
+      (c.ticker === other ? ' disabled' : '') + '>' +
+      esc(c.ticker + ' — ' + c.name) + '</option>';
+  }).join('') + '</select>';
+}
+
+function cmpHead(d){
+  var s = d.score;
+  return '<div class="cmp-head"><div class="tk" style="font-size:15px">' +
+    esc(d.company.ticker) + '</div><div class="nm">' + esc(d.company.name) + '</div>' +
+    '<div class="big" style="font-size:40px;margin:8px 0 4px">' +
+      (s.value == null ? '—' : s.value) + '</div>' +
+    meterBar(s.value, 0, 'lg m-cmp') +
+    '<div style="margin-top:8px;font-weight:600">' + esc(txt(s.verdict)) + '</div>' +
+    '<div class="nm">' + T('copertura ', 'coverage ') + (s.covered_pct || 0) + '%' + '</div></div>';
+}
+
+/* Due punteggi vicini non sono un ordinamento: quasi tutte le aziende stanno
+   fra 45 e 60, quindi la riga che conta non e' il totale ma dove si separano. */
+function cmpRows(a, b){
+  var byId = {}, order = [];
+  (a.score.subs || []).forEach(function(x){ byId[x.id] = [x, null]; order.push(x.id); });
+  (b.score.subs || []).forEach(function(x){
+    if (byId[x.id]) byId[x.id][1] = x;
+    else { byId[x.id] = [null, x]; order.push(x.id); }
+  });
+  return order.map(function(id){
+    var x = byId[id][0], y = byId[id][1];
+    var nm = txt((x || y).name), w = (x || y).w;
+    var gap = (x && y && x.v != null && y.v != null) ? x.v - y.v : null;
+    var cell = function(z){
+      return '<td class="num">' + (z && z.v != null ? z.v : '—') + '</td>' +
+             '<td>' + (z ? meterBar(z.v, 0, 'm-cmp') : '') + '</td>';
+    };
+    return '<tr style="cursor:default"><td><b>' + esc(nm) + '</b>' +
+      '<div class="nm">' + w + '%</div></td>' + cell(x) + cell(y) +
+      '<td class="num" style="color:' + (gap > 0 ? 'var(--bull2)' : gap < 0 ? 'var(--bear2)' : 'inherit') +
+      '">' + (gap === null ? '—' : sg(gap, 0)) + '</td></tr>';
+  }).join('');
+}
+
+function renderCompare(){
+  var list = IDX.companies || [];
+  if (list.length < 2) { app.innerHTML = navBar('confronto') +
+    '<div class="card">' + T('Servono almeno due aziende.', 'At least two companies are needed.') +
+    '</div>'; return; }
+  if (!CMP.a) CMP.a = list[0].ticker;
+  if (!CMP.b) CMP.b = (list[1] || list[0]).ticker;
+  var A = CMP.a, B = CMP.b;
+
+  app.innerHTML = navBar('confronto') +
+    '<div class="card"><h1>' + T('Confronta due aziende', 'Compare two companies') + '</h1>' +
+    '<p class="lead">' + T(
+      'Gli stessi sei sotto-punteggi, affiancati. Il totale di due aziende si somiglia quasi ' +
+      'sempre — quasi tutte stanno fra 45 e 60 — quindi la riga che conta non è il punteggio ' +
+      'finale ma quella dove i due si separano di più.',
+      'The same six sub-scores, side by side. Two companies\u2019 totals usually look alike — ' +
+      'nearly all sit between 45 and 60 — so the row that matters is not the final score but ' +
+      'the one where the two differ most.') + '</p>' +
+    '<div class="picks">' + picker('pa', A, B) +
+      '<span class="vs">' + T('contro', 'vs') + '</span>' + picker('pb', B, A) + '</div></div>' +
+    '<div class="card" id="cmp">' + T('Carico…', 'Loading…') + '</div>';
+
+  var wire = function(id, which){
+    document.getElementById(id).addEventListener('change', function(e){
+      CMP[which] = e.target.value;
+      location.hash = 'confronto-' + CMP.a + '-' + CMP.b;
+    });
+  };
+  wire('pa', 'a'); wire('pb', 'b');
+
+  Promise.all([loadCard(A), loadCard(B)]).then(function(r){
+    var a = r[0], b = r[1], box = document.getElementById('cmp');
+    if (!box) return;
+    box.innerHTML = '<div class="cmp">' + cmpHead(a) + cmpHead(b) + '</div>' +
+      '<div class="scroll" style="margin-top:18px"><table><thead><tr>' +
+        '<th>' + T('Voce', 'Input') + '</th>' +
+        '<th class="num" colspan="2">' + esc(a.company.ticker) + '</th>' +
+        '<th class="num" colspan="2">' + esc(b.company.ticker) + '</th>' +
+        '<th class="num">' + T('Scarto', 'Gap') + '</th>' +
+      '</tr></thead><tbody>' + cmpRows(a, b) + '</tbody></table></div>' +
+      '<p class="sub" style="margin-top:12px">' + T(
+        'Lo scarto è il punteggio di ' + esc(a.company.ticker) + ' meno quello di ' +
+          esc(b.company.ticker) + ', voce per voce. Una voce che manca a una delle due non ' +
+          'entra nel confronto: il suo peso viene ridistribuito, quindi i due totali possono ' +
+          'poggiare su basi diverse.',
+        'The gap is ' + esc(a.company.ticker) + ' minus ' + esc(b.company.ticker) + ', input by ' +
+          'input. An input missing on one side is left out: its weight is redistributed, so the ' +
+          'two totals can rest on different bases.') + '</p>' +
+      '<div class="cta" style="margin-top:14px">' +
+        '<a class="btn ghost" href="#' + esc(a.company.ticker) + '">' +
+          T('Apri ', 'Open ') + esc(a.company.ticker) + '</a>' +
+        '<a class="btn ghost" href="#' + esc(b.company.ticker) + '">' +
+          T('Apri ', 'Open ') + esc(b.company.ticker) + '</a></div>';
+  }).catch(function(e){
+    var box = document.getElementById('cmp');
+    if (box) box.innerHTML = T('Non riesco a caricare le due schede.',
+                               'Could not load the two pages.') + ' ' + esc(e);
+  });
+}
+
 /* ------------------------------------------------------------------ rotta */
 function show(){
   var raw = (location.hash || '').replace('#', '');
@@ -1371,6 +1501,11 @@ function show(){
   if (!raw || p === 'home') return renderHome();
   if (p === 'aziende') return renderList();
   if (p === 'backtest') return renderBacktest();
+  if (p === 'confronto' || p.indexOf('confronto-') === 0) {
+    var bits = raw.split('-');                 // confronto-NVDA-INTC: condivisibile
+    if (bits.length >= 3) { CMP.a = bits[1].toUpperCase(); CMP.b = bits[2].toUpperCase(); }
+    return renderCompare();
+  }
   if (p === 'guida') return renderGuide();
   if (p === 'richieste') return renderRequests();
   var t = raw.toUpperCase();
