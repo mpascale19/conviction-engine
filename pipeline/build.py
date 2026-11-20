@@ -14,7 +14,7 @@ import json
 import os
 from datetime import date, datetime, timedelta, timezone
 
-from . import history, market, rules, score
+from . import history, market, rules, score, stress
 from .rules import L
 from .extract import extract_all
 
@@ -403,9 +403,26 @@ def same_but_for_the_clock(path, data):
 def write_all(results, cfg, outdir=OUTDIR, forward=None):
     ddir = os.path.join(outdir, "data")
     os.makedirs(ddir, exist_ok=True)
+
+    # Quanto regge la classifica se i pesi non sono quelli che ho scelto io.
+    # Va fatto prima di scrivere le schede: ognuna si porta dietro la sua
+    # fascia. Il calcolo è deterministico, quindi dati uguali, schede uguali.
+    try:
+        subs_by_t = {d["company"]["ticker"]:
+                     {s["id"]: {"v": s["v"], "coverage": s.get("coverage")}
+                      for s in (d["score"].get("subs") or [])}
+                     for d in results}
+        st = stress.run(subs_by_t, cfg["weights"], score.combine, score.verdict)
+    except Exception as e:
+        print(f"! prova dei pesi: {e}")
+        st = None
+    per = (st or {}).get("per") or {}
+
     rows, touched = [], 0
     for d in results:
         t = d["company"]["ticker"]
+        if t in per:
+            d["score"]["stress"] = per[t]
         path = os.path.join(ddir, f"{t}.json")
         if not same_but_for_the_clock(path, d):
             touched += 1
@@ -434,6 +451,9 @@ def write_all(results, cfg, outdir=OUTDIR, forward=None):
         "backtest": backtest(results, cfg),
         "forward": forward,
         "weights": cfg["weights"],
+        # l'insieme va nell'indice, le fasce delle singole aziende stanno
+        # già nelle schede: nell'indice sarebbero quaranta righe in più
+        "stress": {k: v for k, v in (st or {}).items() if k != "per"} or None,
         "companies": rows,
         "errors": sorted({e for d in results for e in d["errors"]}),
     }
