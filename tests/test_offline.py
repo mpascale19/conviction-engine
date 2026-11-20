@@ -465,6 +465,36 @@ check("se nessuna voce si muove dal centro non c'è un motore",
       build.driver([sb("insider", 50, 35), sb("price", 50, 10)]) is None)
 check("senza voci non si inventa nulla", build.driver([]) is None)
 
+# --------------------------------- un giro a vuoto non deve riscrivere niente
+import tempfile, time as _t
+_tmp = tempfile.mkdtemp()
+os.makedirs(os.path.join(_tmp, "data"), exist_ok=True)
+_res = [{"company": {"ticker": "AAA", "name": "A"}, "group": rules.L("g", "g"),
+         "score": {"value": 55, "verdict": rules.L("v", "v"), "confidence": "Alta",
+                   "covered_pct": 100, "subs": [], "missing": []},
+         "insider_90d": {"buyers": 1, "sellers": 0, "net_musd": 1.0, "cluster": False},
+         "price": {"last": {"d": "2026-11-19", "c": 10.0}}, "errors": [],
+         "counts": {"tx": 1, "prices": 300, "si": 0, "events": 0},
+         "tx": [], "tracks": {}, "sources": []}]
+i1 = build.write_all(_res, cfg, _tmp)
+mt1 = os.path.getmtime(os.path.join(_tmp, "data", "AAA.json"))
+_t.sleep(1.1)
+i2 = build.write_all(_res, cfg, _tmp)
+mt2 = os.path.getmtime(os.path.join(_tmp, "data", "AAA.json"))
+check("un giro a vuoto non tocca le schede", mt1 == mt2)
+check("ma registra di aver controllato", i1["generated_at"] != i2["generated_at"])
+check("e tiene ferma la data del cambiamento vero",
+      i1["changed_at"] == i2["changed_at"], (i1["changed_at"], i2["changed_at"]))
+_res[0]["score"]["value"] = 99
+_t.sleep(1.1)
+i3 = build.write_all(_res, cfg, _tmp)
+check("quando qualcosa cambia, la scheda viene riscritta",
+      os.path.getmtime(os.path.join(_tmp, "data", "AAA.json")) != mt2)
+check("e la data del cambiamento si sposta", i3["changed_at"] != i2["changed_at"])
+check("il confronto ignora solo gli orologi, non i dati",
+      build.same_but_for_the_clock(os.path.join(_tmp, "data", "AAA.json"),
+                                   dict(_res[0], generated_at="1999-01-01T00:00:00+00:00")))
+
 print(f"\n{ok} controlli passati, {len(bad)} falliti")
 if bad:
     print("falliti:", ", ".join(bad))
