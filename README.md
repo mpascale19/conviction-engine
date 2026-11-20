@@ -538,6 +538,76 @@ allora il riquadro non mostra nessun numero di rendimento, perché qualunque
 numero ci mettessimo sarebbe inventato. E quando arriverà, mostrerà anche i
 risultati sbagliati: è il solo modo in cui un track record vuol dire qualcosa.
 
+## La prova dei pesi: quanto la classifica dipende dai miei numeri
+
+I sei pesi (35 insider, 20 guidance, 15 mercato, 10 settore, 10 fatti
+rilevanti, 10 prezzo) sono scritti a mano. Nessuno li ha stimati e nessuno li
+aveva mai messi in discussione: finché restava così, la classifica poteva
+benissimo essere soltanto il riflesso di quella scelta arbitraria. Il modulo
+`pipeline/stress.py` fa la prova, a ogni giro, e il risultato finisce sul sito
+anche nella parte che non fa fare bella figura alla formula.
+
+Tre prove, tutte con la stessa `score.combine()` che usa il sito — non con una
+copia riscritta per l'occasione:
+
+1. **Pesi tutti uguali**: la classifica che verrebbe se non avessi nessuna
+   opinione.
+2. **Una voce tolta alla volta**, guardando solo le aziende che quella voce ce
+   l'hanno davvero: altrimenti una voce assente su 35 aziende sembra
+   irrilevante quando invece è solo mancante.
+3. **600 sorteggi dei pesi**, ognuno libero di valere da metà al doppio di
+   quello scritto, poi rinormalizzati a 100.
+
+Si misura la **correlazione di rango** (Spearman) con la classifica
+pubblicata, non lo scostamento dei punteggi: il sito si legge come una
+classifica, quindi la domanda giusta è se l'ordine tiene.
+
+### Che cosa è venuto fuori
+
+- Con i **pesi tutti uguali** la correlazione di rango è **0,953** e nove delle
+  prime dieci restano al loro posto. Su 600 sorteggi non è mai scesa sotto
+  **0,877**, e nel sorteggio peggiore sette delle prime dieci tengono.
+  **Quindi no: la classifica non è un artefatto dei miei numeri.**
+- Ma il motivo è meno lusinghiero. A reggere l'ordine sono **due sole voci**,
+  mercato (0,753 senza di lei) e insider (0,756). **Settore, fatti rilevanti e
+  contesto di prezzo — trenta punti di peso messi insieme — se tolte non
+  cambiano quasi niente** (0,989, 0,991, 0,994): nella forma attuale sono
+  quasi decorative.
+- La **guidance** è alimentata su **5 aziende su 40**, perché solo per quelle
+  ci sono le trascrizioni. Dove c'è sposta parecchio (0,900 su quelle cinque,
+  4,6 punti di spostamento medio): è il punto in cui l'estrazione dalle call fa
+  il lavoro vero, ed è anche il punto in cui il progetto è più scoperto.
+
+Sulla scheda di ogni azienda la stessa prova lascia una riga grigia sotto la
+barra del punteggio: l'intervallo in cui il punteggio finisce in nove sorteggi
+su dieci, con i due estremi scritti anche a parole. In media il verdetto resta
+lo stesso nell'**88%** dei sorteggi e la fascia è larga **5 punti**, ma non per
+tutti: KO sta fra 41 e 52 e tiene il verdetto solo nel 61% dei casi, mentre
+AMZN sta fra 51 e 53 e non lo cambia mai.
+
+### Il seme del caso è fisso, e non è un dettaglio
+
+`SEED = 20261120` in `stress.py`. Se i sorteggi cambiassero a ogni giro, ogni
+scheda risulterebbe diversa anche quando nei dati non è cambiato niente, e il
+sito si riscriverebbe tutto ogni ora per puro rumore — mandando all'aria
+l'ottimizzazione dei giri a vuoto descritta sopra. Il test
+`due giri sugli stessi dati danno lo stesso identico risultato` esiste per
+questo: se qualcuno toglie il seme, il test cade.
+
+La fascia di una singola azienda dipende **solo dai suoi** sotto-punteggi,
+quindi una scheda si riscrive quando cambiano i suoi dati e non quando cambiano
+quelli di un'altra. L'insieme (correlazioni, prime dieci) dipende da tutte e
+sta solo in `index.json`, che viene riscritto comunque a ogni giro.
+
+### Che cosa farne
+
+La prova dice che tre voci su sei non stanno facendo il loro lavoro. Le strade
+oneste sono due, e vanno decise, non lasciate lì: o si rafforzano quelle voci
+perché distinguano davvero le aziende (oggi settore, eventi e prezzo danno
+valori troppo simili fra loro), oppure si abbassa il loro peso e lo si dichiara.
+Quello che non va fatto è lasciare trenta punti di peso a tre voci che non
+spostano niente e continuare a presentarle come se contassero.
+
 ## Gli universi di titoli
 
 `config.json` contiene due liste, e si aggiungono e si tolgono ticker
