@@ -89,6 +89,11 @@
   .meter::before{content:"";position:absolute;left:50%;top:-2px;bottom:-2px;
                  width:1px;background:var(--axis)}
   .meter i{position:absolute;top:0;bottom:0;border-radius:4px}
+  /* La fascia che il punteggio occupa quando si cambiano i pesi. Sta sotto la
+     barra e non sopra: sovrapposta la coprirebbe, e il punto resta il
+     punteggio. Stessa scala orizzontale, quindi si legge in verticale. */
+  .meter u{position:absolute;top:calc(100% + 5px);height:3px;border-radius:2px;
+           background:var(--ink3);opacity:.5}
   .meter.lg{height:11px;border-radius:6px}
   /* i cento punti della formula, divisi per voce */
   .mix{display:flex;gap:2px;margin:14px 0 4px;height:30px}
@@ -111,6 +116,10 @@
   /* la barra del rendimento: stessa geometria, ancorata allo zero */
   .meter.m-ret{width:96px}
   @media (max-width:620px){.meter.m-ret{width:54px}}
+  /* la correlazione di rango parte da zero: niente linea di mezzeria */
+  .meter.m-lin{width:96px}
+  .meter.m-lin::before{display:none}
+  @media (max-width:620px){.meter.m-lin{width:54px}}
   .sc.ret b{min-width:52px;font-size:14.5px}
   /* due sole colonne: non serve la larghezza minima delle tabelle larghe */
   table.t-narrow{min-width:0}
@@ -306,14 +315,22 @@ function tone(v){
   if (v >= 20) return 'var(--bear2)';    // moderata
   return 'var(--bear3)';                 // forte
 }
-function meterBar(v, w, cls){
+function meterBar(v, w, cls, band){
   var box = '<span class="meter' + (cls ? ' ' + cls : '') + '"' +
             (w ? ' style="width:' + w + 'px"' : '');
   if (v == null) return box + '></span>';
   var half = Math.min(50, Math.abs(v - 50)) / 50 * 50;      // metà della barra
   var side = v >= 50 ? 'left:50%' : 'right:50%';
-  return box + ' aria-hidden="true"><i style="' + side + ';width:' + half.toFixed(1) +
-         '%;background:' + tone(v) + '"></i></span>';
+  // la barra va da 0 a 100 su tutta la larghezza, quindi un punteggio sta
+  // alla sua stessa percentuale: la fascia si disegna da lo% a hi%
+  var range = '';
+  if (band && band.lo != null && band.hi != null && band.hi > band.lo) {
+    var lo = Math.max(0, Math.min(100, band.lo));
+    var hi = Math.max(0, Math.min(100, band.hi));
+    range = '<u style="left:' + lo + '%;width:' + (hi - lo) + '%"></u>';
+  }
+  return box + ' aria-hidden="true">' + range + '<i style="' + side + ';width:' +
+         half.toFixed(1) + '%;background:' + tone(v) + '"></i></span>';
 }
 /* La barra del rendimento è ancorata allo zero, non a 50, e usa due soli colori:
    sopra lo zero o sotto. La lunghezza dice quanto, dentro la scala dichiarata.
@@ -600,10 +617,106 @@ function renderGuide(){
         '<td class="num">' + r[1] + '%</td><td class="nm">' + esc(r[2]) + '</td></tr>';
     }).join('') + '</tbody></table></div></div>' +
 
+    stressCard() +
+
     '<div class="card"><h2>' + T('Domande frequenti', 'Frequently asked') + '</h2>' +
     faq.map(function(q){
       return '<details class="faq"><summary>' + esc(q[0]) + '</summary><p>' + esc(q[1]) + '</p></details>';
     }).join('') + '</div>';
+}
+
+/* Un numero piccolo dentro una frase si scrive a parole, non in cifre. */
+function num2it(n){
+  return ['zero','una','due','tre','quattro','cinque','sei'][n] || String(n);
+}
+function num2en(n){
+  return ['zero','one','two','three','four','five','six'][n] || String(n);
+}
+
+/* Qui non c'è una barra di proposito. Le correlazioni stanno tutte fra 0,75 e
+   0,99: una barra da zero le farebbe sembrare tutte piene, e una barra che
+   parte da 0,7 per farle sembrare diverse sarebbe un trucco. Sei numeri in
+   colonna, ordinati, si confrontano benissimo da soli. */
+
+/* I pesi della formula sono scritti a mano. Questa scheda dice quanto la
+   classifica dipende da quella scelta, compresa la parte che fa fare brutta
+   figura alla formula. */
+function stressCard(){
+  var s = IDX.stress;
+  if (!s || !s.equal) return '';
+  var names = { insider: T('Insider', 'Insiders'), guid: T('Guidance e tono', 'Guidance and tone'),
+                market: T('Mercato', 'Market'), sector: T('Settore', 'Sector'),
+                events: T('Fatti rilevanti', 'Material events'),
+                price: T('Contesto di prezzo', 'Price context') };
+  var worst = (s.drop || []).filter(function(d){ return d.rho != null; });
+  var carry = worst.slice(0, 2).map(function(d){ return names[d.id] || d.id; }).join(T(' e ', ' and '));
+  var idle = worst.filter(function(d){ return d.rho >= 0.98; });
+
+  return '<div class="card"><h2>' + T('E se i pesi fossero altri?',
+                                      'What if the weights were different?') + '</h2>' +
+    '<p class="sub">' + T(
+      'I sei numeri qui sopra li ho scelti io, a mano: nessuno li ha stimati. Finché resta così, ' +
+      'la classifica potrebbe essere solo il riflesso di quella scelta. Allora il punteggio viene ' +
+      'ricalcolato con pesi diversi — uguali fra loro, con una voce tolta alla volta, e ' +
+      s.draws + ' volte con pesi tirati a caso, ognuno libero di valere da metà al doppio di ' +
+      'quello scritto — e si guarda che cosa resta in piedi.',
+      'I picked those six numbers by hand: nobody estimated them. While that stands, the ranking ' +
+      'could be nothing but a reflection of that choice. So the score is recomputed under other ' +
+      'weights — all equal, one input removed at a time, and ' + s.draws + ' times with weights ' +
+      'drawn at random, each free to be anything from half to double the written one — and we ' +
+      'look at what survives.') + '</p>' +
+    '<div class="tiles">' +
+      statTile(s.equal.rho, T('con pesi tutti uguali', 'with all weights equal'),
+               T('correlazione di rango con la classifica pubblicata',
+                 'rank correlation with the published ranking')) +
+      statTile(s.rho.min, T('nel caso peggiore', 'in the worst case'),
+               T('su ' + s.draws + ' sorteggi dei pesi', 'across ' + s.draws + ' weight draws')) +
+      statTile(s.top_overlap.min + '/' + s.top, T('prime dieci che restano', 'of the top ten stay'),
+               T('anche nel sorteggio più sfavorevole', 'even in the least favourable draw')) +
+    '</div>' +
+    '<div class="scroll"><table class="t-narrow"><thead><tr><th>' +
+      T('Togliendo questa voce…', 'Removing this input…') + '</th><th class="num">' +
+      T('…la classifica resta', '…the ranking stays') + '</th></tr></thead><tbody>' +
+    worst.map(function(d){
+      return '<tr style="cursor:default"><td><b>' + esc(names[d.id] || d.id) + '</b>' +
+        '<div class="nm">' + T('alimentata su ' + d.n + ' aziende su ' +
+          ((IDX.companies || []).length) + ' · punteggio spostato di ' + d.shift + ' punti',
+          'fed on ' + d.n + ' of ' + ((IDX.companies || []).length) + ' companies · score moved by ' +
+          d.shift + ' points') + '</div></td>' +
+        '<td class="num"><b style="font-size:15px">' + d.rho.toFixed(3) + '</b></td></tr>';
+    }).join('') + '</tbody></table></div>' +
+    '<p class="sub" style="margin-top:12px"><b>' + T('Quello che se ne ricava, per intero.',
+                                                     'What this says, in full.') + '</b> ' + T(
+      'La classifica non è un artefatto dei miei numeri: anche senza nessuna opinione, con i pesi ' +
+      'tutti uguali, ' + s.equal.top + ' delle prime dieci restano al loro posto, e in ' + s.draws +
+      ' sorteggi la correlazione di rango non è mai scesa sotto ' + s.rho.min + '. Ma il motivo è ' +
+      'meno lusinghiero di quanto sembri: a reggere l’ordine sono soltanto ' + carry + '. ' +
+      (idle.length ? 'Le altre' + (idle.length === 1 ? '' : ' ' + num2it(idle.length)) + ' — ' +
+        idle.map(function(d){ return names[d.id] || d.id; }).join(', ') +
+        ' — se tolte non cambiano quasi niente: nella forma attuale sono quasi decorative. ' : '') +
+      'E la guidance, che è il punto in cui l’estrazione dalle call fa il lavoro vero, è ' +
+      'alimentata su poche aziende: dove c’è sposta parecchio, ma sulle altre il suo peso ' +
+      'viene semplicemente ridistribuito.',
+      'The ranking is not an artifact of my numbers: even with no opinion at all, with all weights ' +
+      'equal, ' + s.equal.top + ' of the top ten keep their place, and across ' + s.draws +
+      ' draws the rank correlation never fell below ' + s.rho.min + '. But the reason is less ' +
+      'flattering than it looks: the order is carried by ' + carry + ' alone. ' +
+      (idle.length ? 'The other' + (idle.length === 1 ? ' one' : ' ' + num2en(idle.length)) + ' — ' +
+        idle.map(function(d){ return names[d.id] || d.id; }).join(', ') +
+        ' — change almost nothing when removed: in their current form they are close to ' +
+        'decorative. ' : '') +
+      'And guidance, the one place where the extraction from the calls does the real work, is fed ' +
+      'on few companies: where it exists it moves a lot, but elsewhere its weight is simply ' +
+      'redistributed.') + '</p>' +
+    '<p class="sub">' + T(
+      'Sulla scheda di ogni azienda la stessa prova lascia una riga grigia sotto la barra del ' +
+      'punteggio: è l’intervallo in cui il punteggio finisce in nove sorteggi su dieci. In ' +
+      'media il verdetto scritto resta lo stesso nel ' + s.kept_avg + '% dei casi, e la fascia è ' +
+      'larga ' + s.width_med + ' punti.',
+      'On each company page the same test leaves a grey line under the score bar: it is where the ' +
+      'score lands in nine draws out of ten. On average the written verdict stays the same in ' +
+      s.kept_avg + '% of draws, and the band is ' + s.width_med + ' points wide.') +
+    '</p></div>';
 }
 
 function renderRequests(){
@@ -1466,13 +1579,18 @@ function renderDetail(d){
         }).join('') + '</div></div></div>' +
       '<div class="big">' + (s.value == null ? '—' : s.value) +
         '<span class="sub" style="font-size:17px"> / 100</span></div>' +
-      '<div style="margin:0 0 8px">' + meterBar(s.value, 232, 'lg') + '</div>' +
+      '<div style="margin:0 0 ' + (s.stress ? 17 : 8) + 'px">' +
+        meterBar(s.value, 232, 'lg', s.stress) + '</div>' +
       '<div style="font-size:16px;font-weight:600">' + esc(txt(s.verdict)) + '</div>' +
       '<div class="facts" style="margin-top:6px">' +
         (s.confidence ? '<span><em>' + T('Confidenza', 'Confidence') + '</em>' +
           esc(wd(s.confidence)) + '</span>' : '') +
         (s.covered_pct != null ? '<span><em>' + T('Copertura dei dati', 'Data coverage') +
           '</em>' + s.covered_pct + '%</span>' : '') +
+        (s.stress ? '<span><em>' + T('Con altri pesi', 'Under other weights') + '</em>' +
+          s.stress.lo + '–' + s.stress.hi + '</span>' +
+          '<span><em>' + T('Verdetto invariato', 'Verdict unchanged') + '</em>' +
+          s.stress.kept + '%</span>' : '') +
       '</div>' + spark((d.price || {}).series) +
       '<div class="tabs" role="tablist">' + tabs.map(function(t){
         return '<button role="tab" data-tab="' + t[0] + '" aria-selected="' +
