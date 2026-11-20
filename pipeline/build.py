@@ -207,7 +207,8 @@ def build_one(cfg, raw, extracted=None):
         "company": {"ticker": raw["ticker"], "name": raw["name"], "cik": raw["cik"]},
         "price": {"last": px[-1] if px else None,
                   "series": [[p["d"], p["c"]] for p in px[-504:]]},
-        "counts": {"tx": len(tx), "prices": len(px), "si": len(si)},
+        "counts": {"tx": len(tx), "prices": len(px), "si": len(si),
+                   "events": len(raw["events"]) if raw.get("events") is not None else None},
         "insider_90d": summary,
         "calls": [{k: e[k] for k in ("quarter", "call_date", "tone", "tone_why",
                                      "guidance", "qa", "language_changes") if k in e}
@@ -271,6 +272,15 @@ def finish(cfg, data, universe):
         {"n": 4, "t": L("Universo di confronto", "Comparison universe"),
          "m": L(f"{nu} aziende", f"{nu} companies"),
          "x": data.get("group") or L("", "")},
+        {"n": 5, "t": L("Fatti rilevanti (8-K)", "Material events (8-K)"),
+         "m": L("SEC EDGAR", "SEC EDGAR"),
+         "x": L(f"{data['counts'].get('events')} moduli negli ultimi {EVENT_DAYS} giorni.",
+                f"{data['counts'].get('events')} filings in the last {EVENT_DAYS} days.")}
+        if data["counts"].get("events") is not None else
+        {"n": 5, "t": L("Fatti rilevanti (8-K)", "Material events (8-K)"),
+         "m": L("non raggiunti", "not reached"),
+         "x": L("I depositi SEC non hanno risposto in questo giro.",
+                "The SEC filings did not answer on this run.")},
     ]
     return data
 
