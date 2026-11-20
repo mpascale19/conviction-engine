@@ -49,6 +49,10 @@
   .lang button[aria-pressed="true"]{background:var(--sunken);color:var(--ink)}
   table{width:100%;border-collapse:collapse;font-size:13.5px;min-width:440px}
   th{font-size:12.5px;color:var(--ink2);text-align:left;padding:0 8px 9px;font-weight:600}
+  .find{margin-top:12px;width:100%;max-width:320px;padding:9px 12px;border-radius:8px;
+        border:1px solid var(--line);background:var(--card);color:var(--ink);
+        font-family:inherit;font-size:14px}
+  .find:focus{border-color:var(--blue);outline:none}
   th.so{cursor:pointer;user-select:none;white-space:nowrap}
   th.so:hover{color:var(--ink)}
   th.so.on{color:var(--ink)}
@@ -294,6 +298,32 @@ function problems(list){
     T('La raccolta dei dati ha avuto problemi', 'Something went wrong while collecting the data') +
     '</b><ul>' + list.map(function(e){ return '<li>' + esc(e) + '</li>'; }).join('') + '</ul></div>';
 }
+/* Il sito si aggiorna da solo: se il workflow si rompe, nessuno se ne accorge
+   e la pagina continua a mostrare numeri vecchi come se fossero di oggi.
+   I giri sono alle 06:17, 12:47 e 22:35 UTC dal lunedì al venerdì, quindi il
+   buco più lungo normale è il fine settimana (circa 56 ore). Sopra le 60 ore
+   non è più un fine settimana: è un guasto, e va detto. */
+function dataAge(){
+  if (!IDX.generated_at) return null;
+  var h = (Date.now() - new Date(IDX.generated_at).getTime()) / 36e5;
+  return h >= 0 ? h : null;
+}
+function staleNote(){
+  var h = dataAge();
+  if (h === null || h < 14) return '';
+  var n = Math.round(h);
+  if (h >= 60) return '<div class="card warn-card"><b>' +
+    T('Questi dati hanno ' + n + ' ore', 'This data is ' + n + ' hours old') + '</b><p>' +
+    T('L\u2019aggiornamento automatico gira tre volte al giorno nei giorni feriali. Un buco ' +
+      'così lungo vuol dire che non sta girando: i numeri qui sotto sono quelli dell\u2019ultimo ' +
+      'giro riuscito, non quelli di oggi.',
+      'The automatic update runs three times a day on weekdays. A gap this long means it is not ' +
+      'running: the numbers below are from the last successful run, not from today.') +
+    '</p></div>';
+  return '<p class="sub" style="margin:0 0 14px">' +
+    T('Questi dati hanno ' + n + ' ore.', 'This data is ' + n + ' hours old.') + '</p>';
+}
+
 function spark(series){
   if (!series || series.length < 2) return '';
   var w = 600, h = 56, cs = series.map(function(p){ return p[1]; });
@@ -330,7 +360,7 @@ function renderHome(){
   var cl = cs.filter(function(c){ return c.cluster; });
   var full = cs.filter(function(c){ return (c.covered_pct || 0) >= 80; });
   var top = cs.slice(0, 3);
-  app.innerHTML = navBar('home') + problems(IDX.errors) +
+  app.innerHTML = navBar('home') + problems(IDX.errors) + staleNote() +
     '<div class="card hero">' +
       '<h1>' + T('Un punteggio di convinzione, costruito a vista',
                  'A conviction score, built in the open') + '</h1>' +
@@ -731,6 +761,14 @@ function renderBacktest(){
 
 /* ------------------------------------------------------------------ elenco */
 var SORT = { k: 'score', d: -1 };          // come arriva dalla pipeline
+var Q = '';                                // testo cercato nell'elenco
+
+function matches(c, q){
+  if (!q) return true;
+  q = q.toLowerCase();
+  return c.ticker.toLowerCase().indexOf(q) >= 0 ||
+         (c.name || '').toLowerCase().indexOf(q) >= 0;
+}
 
 function sortVal(c, k){
   if (k === 'ticker') return c.ticker;
@@ -758,9 +796,13 @@ function sortTh(k, label, cls){
 function renderList(){
   var all = IDX.companies || [];
   var groups = (IDX.groups || []).map(function(g){ return g.nome; });
-  var cs = GRP ? all.filter(function(c){ return key(c.group) === GRP; }) : all;
+  var inGroup = GRP ? all.filter(function(c){ return key(c.group) === GRP; }) : all;
+  var cs = inGroup.filter(function(c){ return matches(c, Q); });
   var withBuy = cs.filter(function(c){ return c.buyers > 0; });
   var clusters = cs.filter(function(c){ return c.cluster; });
+  var find = '<input id="q" class="find" type="search" value="' + esc(Q) +
+    '" placeholder="' + esc(T('Cerca per ticker o nome', 'Search by ticker or name')) +
+    '" aria-label="' + esc(T('Cerca un\u2019azienda', 'Search for a company')) + '">';
   var chips = groups.length > 1
     ? '<div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:12px">' +
       [''].concat(groups).map(function(g){
@@ -772,20 +814,24 @@ function renderList(){
     : '';
   var hit = groups.filter(function(g){ return key(g) === GRP; })[0];
   var gname = GRP ? (hit ? txt(hit) : GRP) : '';
-  app.innerHTML = navBar('aziende') + problems(IDX.errors) +
+  app.innerHTML = navBar('aziende') + problems(IDX.errors) + staleNote() +
     '<div class="card"><div class="top"><div>' +
       '<h1>' + T('Le aziende', 'The companies') + '</h1>' +
       '<p class="sub">' + all.length + T(' aziende in ', ' companies in ') + groups.length +
       T(' universi · aggiornato il ', ' universes · updated ') + esc(when(IDX.generated_at)) + '</p></div>' +
-      '<button id="rl">' + T('Ricarica', 'Reload') + '</button></div>' + chips + '</div>' +
+      '<button id="rl">' + T('Ricarica', 'Reload') + '</button></div>' + find + chips + '</div>' +
     '<div class="card"><div class="top" style="margin-bottom:12px"><div>' +
       '<h2>' + esc(gname || T('Tutte le aziende', 'All companies')) + '</h2><p class="sub">' +
-      T(withBuy.length + (withBuy.length === 1 ? ' azienda su ' : ' aziende su ') + cs.length +
-          (withBuy.length === 1 ? ' ha' : ' hanno') + ' acquisti degli insider negli ultimi 90 giorni, ' +
-          clusters.length + (clusters.length === 1 ? ' ha' : ' hanno') + ' un cluster.',
-        withBuy.length + (withBuy.length === 1 ? ' company out of ' : ' companies out of ') + cs.length +
-          (withBuy.length === 1 ? ' has' : ' have') + ' insider purchases in the last 90 days, ' +
-          clusters.length + (clusters.length === 1 ? ' has' : ' have') + ' a cluster.') + '</p></div></div>' +
+      // con la ricerca attiva conta quante righe sono rimaste; senza, racconta gli insider
+      (Q ? T(cs.length + ' aziende su ' + inGroup.length + ' corrispondono a «' + Q + '».',
+             cs.length + ' of ' + inGroup.length + ' companies match \u201c' + Q + '\u201d.')
+         : T(withBuy.length + (withBuy.length === 1 ? ' azienda su ' : ' aziende su ') + cs.length +
+               (withBuy.length === 1 ? ' ha' : ' hanno') + ' acquisti degli insider negli ultimi 90 giorni, ' +
+               clusters.length + (clusters.length === 1 ? ' ha' : ' hanno') + ' un cluster.',
+             withBuy.length + (withBuy.length === 1 ? ' company out of ' : ' companies out of ') + cs.length +
+               (withBuy.length === 1 ? ' has' : ' have') + ' insider purchases in the last 90 days, ' +
+               clusters.length + (clusters.length === 1 ? ' has' : ' have') + ' a cluster.')) +
+      '</p></div></div>' +
       '<div class="scroll"><table><thead><tr>' +
         sortTh('ticker', T('Azienda', 'Company')) +
         sortTh('score', T('Punteggio', 'Score'), 'num') +
@@ -812,7 +858,11 @@ function renderList(){
             sg(c.net_musd, 2) + ' M$</td>' +
           '<td class="num hide-s">' + (c.last ? '$' + n2(c.last.c) : '—') + '</td></tr>';
       }).join('') +
-      '</tbody></table></div></div>' +
+      '</tbody></table></div>' +
+      (cs.length ? '' : '<p class="sub">' +
+        T('Nessuna azienda corrisponde a «' + Q + '». Prova con il ticker, per esempio NVDA.',
+          'No company matches \u201c' + Q + '\u201d. Try the ticker, for example NVDA.') + '</p>') +
+      '</div>' +
     '<div class="card sub">' +
       T('Il punteggio di settore confronta ogni azienda con le altre dello stesso universo. ' +
         'La colonna Lettura dice anche quale voce ha spostato di più il punteggio dal centro. ' +
@@ -822,6 +872,14 @@ function renderList(){
         'column also says which input moved the score furthest from the middle. Click a header to ' +
         'reorder. A teaching tool, not investment advice.') + '</div>';
   document.getElementById('rl').addEventListener('click', function(){ CACHE = {}; load(true); });
+  var q = document.getElementById('q');
+  q.addEventListener('input', function(){
+    Q = q.value.trim();
+    renderList();
+    var el = document.getElementById('q');
+    el.focus();
+    el.setSelectionRange(el.value.length, el.value.length);   // il cursore resta in fondo
+  });
   [].forEach.call(app.querySelectorAll('th.so'), function(th){
     var go = function(){
       var k = th.dataset.k;
