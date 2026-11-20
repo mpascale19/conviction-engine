@@ -1,6 +1,6 @@
 {
- "generated_at": "2026-11-20T13:22:31+00:00",
- "changed_at": "2026-11-20T11:21:53+00:00",
+ "generated_at": "2026-11-20T15:03:11+00:00",
+ "changed_at": "2026-11-20T15:03:11+00:00",
  "groups": [
   {
    "nome": {
@@ -40,12 +40,12 @@
    {
     "lo": -20,
     "hi": -15,
-    "n": 14
+    "n": 15
    },
    {
     "lo": -15,
     "hi": -10,
-    "n": 5
+    "n": 4
    },
    {
     "lo": -10,
@@ -60,12 +60,12 @@
    {
     "lo": 0,
     "hi": 5,
-    "n": 25
+    "n": 24
    },
    {
     "lo": 5,
     "hi": 10,
-    "n": 33
+    "n": 34
    },
    {
     "lo": 10,
@@ -97,8 +97,8 @@
    "n": 117,
    "ep": 56,
    "pos": 76,
-   "avg": 1.42,
-   "med": 2.83
+   "avg": 1.4,
+   "med": 2.55
   },
   "cluster": {
    "n": 5,
@@ -111,22 +111,22 @@
    "n": 112,
    "ep": 55,
    "pos": 76,
-   "avg": 2.79,
-   "med": 2.83
+   "avg": 2.76,
+   "med": 2.55
   },
   "senior": {
    "n": 41,
    "ep": 12,
    "pos": 34,
-   "avg": 2.34,
+   "avg": 2.41,
    "med": 7.03
   },
   "other": {
    "n": 76,
    "ep": 45,
    "pos": 42,
-   "avg": 0.93,
-   "med": 1.47
+   "avg": 0.85,
+   "med": 1.41
   }
  },
  "weights": {
@@ -160,9 +160,9 @@
     "up": true
    },
    "last": {
-    "d": "2026-11-19",
-    "c": 55.72,
-    "v": 133421900
+    "d": "2026-11-20",
+    "c": 56.03,
+    "v": 26114023
    },
    "tx": 154,
    "buyers": 1,
@@ -193,9 +193,9 @@
     "up": true
    },
    "last": {
-    "d": "2026-11-19",
-    "c": 48.57,
-    "v": 35749000
+    "d": "2026-11-20",
+    "c": 48.41,
+    "v": 4348614
    },
    "tx": 436,
    "buyers": 1,
@@ -226,9 +226,9 @@
     "up": true
    },
    "last": {
-    "d": "2026-11-19",
-    "c": 110.57,
-    "v": 27630500
+    "d": "2026-11-20",
+    "c": 108.03,
+    "v": 5101145
    },
    "tx": 226,
    "buyers": 1,
@@ -259,9 +259,9 @@
     "up": true
    },
    "last": {
-    "d": "2026-11-19",
-    "c": 141.48,
-    "v": 10799600
+    "d": "2026-11-20",
+    "c": 136.54,
+    "v": 3298459
    },
    "tx": 207,
    "buyers": 0,
@@ -292,9 +292,9 @@
     "up": true
    },
    "last": {
-    "d": "2026-11-19",
-    "c": 346.65,
-    "v": 25974400
+    "d": "2026-11-20",
+    "c": 331.0,
+    "v": 7471949
    },
    "tx": 461,
    "buyers": 0,
@@ -325,9 +325,9 @@
     "up": true
    },
    "last": {
-    "d": "2026-11-19",
-    "c": 1351.12,
-    "v": 3198300
+    "d": "2026-11-20",
+    "c": 1361.5699,
+    "v": 525505
    },
    "tx": 248,
    "buyers": 0,
@@ -358,9 +358,9 @@
     "up": true
    },
    "last": {
-    "d": "2026-11-19",
-    "c": 145.98,
-    "v": 320588100
+    "d": "2026-11-20",
+    "c": 141.7623,
+    "v": 91843854
    },
    "tx": 628,
    "buyers": 0,
@@ -391,9 +391,9 @@
     "up": true
    },
    "last": {
-    "d": "2026-11-19",
-    "c": 690.44,
-    "v": 35003100
+    "d": "2026-11-20",
+    "c": 652.0273,
+    "v": 9957652
    },
    "tx": 643,
    "buyers": 0,
@@ -424,9 +424,9 @@
     "up": true
    },
    "last": {
-    "d": "2026-11-19",
-    "c": 99.94,
-    "v": 303300
+    "d": "2026-11-20",
+    "c": 95.56,
+    "v": 29873
    },
    "tx": 132,
    "buyers": 0,
@@ -457,9 +457,9 @@
     "up": true
    },
    "last": {
-    "d": "2026-11-19",
-    "c": 257.37,
-    "v": 52926000
+    "d": "2026-11-20",
+    "c": 259.0605,
+    "v": 13648559
    },
    "tx": 340,
    "buyers": 0,
@@ -490,9 +490,9 @@
     "up": true
    },
    "last": {
-    "d": "2026-11-19",
-    "c": 320.22,
-    "v": 6968100
+    "d": "2026-11-20",
+    "c": 319.46,
+    "v": 1308137
    },
    "tx": 130,
    "buyers": 0,
@@ -523,11 +523,44 @@
     "up": true
    },
    "last": {
-    "d": "2026-11-19",
-    "c": 158.93,
-    "v": 12263500
+    "d": "2026-11-20",
+    "c": 160.565,
+    "v": 2159483
    },
    "tx": 0,
+   "buyers": 0,
+   "sellers": 0,
+   "net_musd": 0.0,
+   "cluster": false,
+   "errors": 0
+  },
+  {
+   "ticker": "UNH",
+   "name": "UNITEDHEALTH GROUP INC",
+   "group": {
+    "it": "Grandi capitalizzazioni USA",
+    "en": "US large caps"
+   },
+   "score": 51,
+   "verdict": {
+    "it": "Nessuna convinzione chiara",
+    "en": "No clear conviction"
+   },
+   "confidence": "Media",
+   "covered_pct": 65,
+   "driver": {
+    "name": {
+     "it": "Contesto di prezzo",
+     "en": "Price context"
+    },
+    "up": true
+   },
+   "last": {
+    "d": "2026-11-20",
+    "c": 346.06,
+    "v": 2236886
+   },
+   "tx": 134,
    "buyers": 0,
    "sellers": 0,
    "net_musd": 0.0,
@@ -556,9 +589,9 @@
     "up": true
    },
    "last": {
-    "d": "2026-11-19",
-    "c": 126.04,
-    "v": 32258900
+    "d": "2026-11-20",
+    "c": 129.49,
+    "v": 5046177
    },
    "tx": 147,
    "buyers": 0,
@@ -589,9 +622,9 @@
     "up": false
    },
    "last": {
-    "d": "2026-11-19",
-    "c": 162.01,
-    "v": 13405400
+    "d": "2026-11-20",
+    "c": 161.17,
+    "v": 2274961
    },
    "tx": 318,
    "buyers": 0,
@@ -622,9 +655,9 @@
     "up": true
    },
    "last": {
-    "d": "2026-11-19",
-    "c": 37.49,
-    "v": 1019500
+    "d": "2026-11-20",
+    "c": 35.98,
+    "v": 109421
    },
    "tx": 145,
    "buyers": 0,
@@ -655,9 +688,9 @@
     "up": true
    },
    "last": {
-    "d": "2026-11-19",
-    "c": 626.5,
-    "v": 3640700
+    "d": "2026-11-20",
+    "c": 634.275,
+    "v": 445529
    },
    "tx": 347,
    "buyers": 0,
@@ -688,47 +721,14 @@
     "up": false
    },
    "last": {
-    "d": "2026-11-19",
-    "c": 377.44,
-    "v": 3243900
+    "d": "2026-11-20",
+    "c": 369.2,
+    "v": 1650310
    },
    "tx": 409,
    "buyers": 0,
    "sellers": 2,
    "net_musd": -3.495,
-   "cluster": false,
-   "errors": 0
-  },
-  {
-   "ticker": "FORM",
-   "name": "FORMFACTOR INC",
-   "group": {
-    "it": "Semiconduttori e apparecchiature",
-    "en": "Semiconductors and equipment"
-   },
-   "score": 49,
-   "verdict": {
-    "it": "Nessuna convinzione chiara",
-    "en": "No clear conviction"
-   },
-   "confidence": "Media",
-   "covered_pct": 80,
-   "driver": {
-    "name": {
-     "it": "Mercato",
-     "en": "Market"
-    },
-    "up": false
-   },
-   "last": {
-    "d": "2026-11-19",
-    "c": 81.89,
-    "v": 1107400
-   },
-   "tx": 206,
-   "buyers": 0,
-   "sellers": 1,
-   "net_musd": -0.202,
    "cluster": false,
    "errors": 0
   },
@@ -754,9 +754,9 @@
     "up": false
    },
    "last": {
-    "d": "2026-11-19",
-    "c": 272.66,
-    "v": 49150400
+    "d": "2026-11-20",
+    "c": 280.8626,
+    "v": 10130263
    },
    "tx": 517,
    "buyers": 0,
@@ -787,14 +787,47 @@
     "up": false
    },
    "last": {
-    "d": "2026-11-19",
-    "c": 267.14,
-    "v": 9836200
+    "d": "2026-11-20",
+    "c": 270.75,
+    "v": 1373328
    },
    "tx": 249,
    "buyers": 0,
    "sellers": 2,
    "net_musd": -12.948,
+   "cluster": false,
+   "errors": 0
+  },
+  {
+   "ticker": "FORM",
+   "name": "FORMFACTOR INC",
+   "group": {
+    "it": "Semiconduttori e apparecchiature",
+    "en": "Semiconductors and equipment"
+   },
+   "score": 48,
+   "verdict": {
+    "it": "Nessuna convinzione chiara",
+    "en": "No clear conviction"
+   },
+   "confidence": "Media",
+   "covered_pct": 80,
+   "driver": {
+    "name": {
+     "it": "Mercato",
+     "en": "Market"
+    },
+    "up": false
+   },
+   "last": {
+    "d": "2026-11-20",
+    "c": 78.29,
+    "v": 162591
+   },
+   "tx": 206,
+   "buyers": 0,
+   "sellers": 1,
+   "net_musd": -0.202,
    "cluster": false,
    "errors": 0
   },
@@ -820,9 +853,9 @@
     "up": false
    },
    "last": {
-    "d": "2026-11-19",
-    "c": 203.68,
-    "v": 12950600
+    "d": "2026-11-20",
+    "c": 194.46,
+    "v": 2533327
    },
    "tx": 227,
    "buyers": 0,
@@ -853,47 +886,14 @@
     "up": false
    },
    "last": {
-    "d": "2026-11-19",
-    "c": 336.68,
-    "v": 4803800
+    "d": "2026-11-20",
+    "c": 344.715,
+    "v": 757063
    },
    "tx": 148,
    "buyers": 0,
    "sellers": 3,
    "net_musd": -1.253,
-   "cluster": false,
-   "errors": 0
-  },
-  {
-   "ticker": "TER",
-   "name": "TERADYNE, INC",
-   "group": {
-    "it": "Semiconduttori e apparecchiature",
-    "en": "Semiconductors and equipment"
-   },
-   "score": 46,
-   "verdict": {
-    "it": "Nessuna convinzione chiara",
-    "en": "No clear conviction"
-   },
-   "confidence": "Media",
-   "covered_pct": 80,
-   "driver": {
-    "name": {
-     "it": "Mercato",
-     "en": "Market"
-    },
-    "up": false
-   },
-   "last": {
-    "d": "2026-11-19",
-    "c": 227.43,
-    "v": 2840400
-   },
-   "tx": 138,
-   "buyers": 0,
-   "sellers": 0,
-   "net_musd": 0.0,
    "cluster": false,
    "errors": 0
   },
@@ -919,9 +919,9 @@
     "up": false
    },
    "last": {
-    "d": "2026-11-19",
-    "c": 374.41,
-    "v": 26375800
+    "d": "2026-11-20",
+    "c": 372.345,
+    "v": 5950389
    },
    "tx": 381,
    "buyers": 0,
@@ -952,9 +952,9 @@
     "up": false
    },
    "last": {
-    "d": "2026-11-19",
-    "c": 96.09,
-    "v": 23026300
+    "d": "2026-11-20",
+    "c": 97.085,
+    "v": 3319224
    },
    "tx": 157,
    "buyers": 0,
@@ -985,14 +985,47 @@
     "up": false
    },
    "last": {
-    "d": "2026-11-19",
-    "c": 489.19,
-    "v": 71098300
+    "d": "2026-11-20",
+    "c": 469.03,
+    "v": 12776488
    },
    "tx": 437,
    "buyers": 0,
    "sellers": 1,
    "net_musd": -5.084,
+   "cluster": false,
+   "errors": 0
+  },
+  {
+   "ticker": "TER",
+   "name": "TERADYNE, INC",
+   "group": {
+    "it": "Semiconduttori e apparecchiature",
+    "en": "Semiconductors and equipment"
+   },
+   "score": 45,
+   "verdict": {
+    "it": "Leggermente ribassista",
+    "en": "Mildly bearish"
+   },
+   "confidence": "Media",
+   "covered_pct": 80,
+   "driver": {
+    "name": {
+     "it": "Mercato",
+     "en": "Market"
+    },
+    "up": false
+   },
+   "last": {
+    "d": "2026-11-20",
+    "c": 219.45,
+    "v": 524787
+   },
+   "tx": 138,
+   "buyers": 0,
+   "sellers": 0,
+   "net_musd": 0.0,
    "cluster": false,
    "errors": 0
   },
@@ -1018,9 +1051,9 @@
     "up": false
    },
    "last": {
-    "d": "2026-11-19",
-    "c": 47.94,
-    "v": 2194800
+    "d": "2026-11-20",
+    "c": 43.495,
+    "v": 822369
    },
    "tx": 182,
    "buyers": 0,
@@ -1051,47 +1084,14 @@
     "up": false
    },
    "last": {
-    "d": "2026-11-19",
-    "c": 40.79,
-    "v": 876300
+    "d": "2026-11-20",
+    "c": 39.135,
+    "v": 195562
    },
    "tx": 110,
    "buyers": 0,
    "sellers": 0,
    "net_musd": 0.0,
-   "cluster": false,
-   "errors": 0
-  },
-  {
-   "ticker": "UNH",
-   "name": "UNITEDHEALTH GROUP INC",
-   "group": {
-    "it": "Grandi capitalizzazioni USA",
-    "en": "US large caps"
-   },
-   "score": 45,
-   "verdict": {
-    "it": "Leggermente ribassista",
-    "en": "Mildly bearish"
-   },
-   "confidence": "Media",
-   "covered_pct": 65,
-   "driver": {
-    "name": {
-     "it": "Insider",
-     "en": "Insiders"
-    },
-    "up": false
-   },
-   "last": {
-    "d": "2026-11-19",
-    "c": 330.48,
-    "v": 19823000
-   },
-   "tx": 134,
-   "buyers": 0,
-   "sellers": 1,
-   "net_musd": -0.456,
    "cluster": false,
    "errors": 0
   },
@@ -1117,9 +1117,9 @@
     "up": false
    },
    "last": {
-    "d": "2026-11-19",
-    "c": 195.93,
-    "v": 1086300
+    "d": "2026-11-20",
+    "c": 183.714,
+    "v": 121794
    },
    "tx": 94,
    "buyers": 0,
@@ -1150,9 +1150,9 @@
     "up": false
    },
    "last": {
-    "d": "2026-11-19",
-    "c": 42.51,
-    "v": 957000
+    "d": "2026-11-20",
+    "c": 40.73,
+    "v": 151912
    },
    "tx": 188,
    "buyers": 0,
@@ -1183,9 +1183,9 @@
     "up": false
    },
    "last": {
-    "d": "2026-11-19",
-    "c": 349.21,
-    "v": 40795500
+    "d": "2026-11-20",
+    "c": 349.4497,
+    "v": 11445782
    },
    "tx": 166,
    "buyers": 0,
@@ -1216,9 +1216,9 @@
     "up": false
    },
    "last": {
-    "d": "2026-11-19",
-    "c": 498.3,
-    "v": 29073900
+    "d": "2026-11-20",
+    "c": 501.58,
+    "v": 6803502
    },
    "tx": 83,
    "buyers": 0,
@@ -1249,9 +1249,9 @@
     "up": false
    },
    "last": {
-    "d": "2026-11-19",
-    "c": 32.15,
-    "v": 998200
+    "d": "2026-11-20",
+    "c": 30.2926,
+    "v": 216867
    },
    "tx": 116,
    "buyers": 0,
@@ -1282,9 +1282,9 @@
     "up": false
    },
    "last": {
-    "d": "2026-11-19",
-    "c": 285.75,
-    "v": 6063100
+    "d": "2026-11-20",
+    "c": 280.07,
+    "v": 1251212
    },
    "tx": 225,
    "buyers": 0,
@@ -1315,9 +1315,9 @@
     "up": false
    },
    "last": {
-    "d": "2026-11-19",
-    "c": 338.93,
-    "v": 7173700
+    "d": "2026-11-20",
+    "c": 322.93,
+    "v": 2418968
    },
    "tx": 149,
    "buyers": 0,
@@ -1348,14 +1348,14 @@
     "up": false
    },
    "last": {
-    "d": "2026-11-19",
-    "c": 402.25,
-    "v": 8276200
+    "d": "2026-11-20",
+    "c": 406.545,
+    "v": 1228930
    },
    "tx": 215,
    "buyers": 0,
    "sellers": 2,
-   "net_musd": -36.234,
+   "net_musd": -29.583,
    "cluster": false,
    "errors": 0
   },
@@ -1381,14 +1381,14 @@
     "up": false
    },
    "last": {
-    "d": "2026-11-19",
-    "c": 167.85,
-    "v": 9091600
+    "d": "2026-11-20",
+    "c": 170.835,
+    "v": 1894382
    },
    "tx": 126,
    "buyers": 0,
    "sellers": 10,
-   "net_musd": -32.305,
+   "net_musd": -31.814,
    "cluster": false,
    "errors": 0
   },
@@ -1414,9 +1414,9 @@
     "up": false
    },
    "last": {
-    "d": "2026-11-19",
-    "c": 1093.83,
-    "v": 2130100
+    "d": "2026-11-20",
+    "c": 1109.33,
+    "v": 389964
    },
    "tx": 184,
    "buyers": 0,
@@ -1447,9 +1447,9 @@
     "up": false
    },
    "last": {
-    "d": "2026-11-19",
-    "c": 596.22,
-    "v": 15285100
+    "d": "2026-11-20",
+    "c": 585.79,
+    "v": 4555605
    },
    "tx": 429,
    "buyers": 0,
