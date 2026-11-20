@@ -432,6 +432,24 @@ check("prende solo gli 8-K, solo dentro la finestra", [g["date"] for g in got] =
 check("separa i codici item", got[0]["items"] == ["2.02", "9.01"], got[0])
 check("tiene anche gli 8-K/A", got[1]["items"] == ["5.02"])
 
+# ------------------------------------------ la distribuzione del backtest
+d = build._dist([{"car": c} for c in (-80, -31, -30, -0.1, 0, 4.9, 5, 29.9, 30, 207)])
+check("ogni acquisto finisce in un bucket e in uno solo",
+      sum(b["n"] for b in d) == 10, [b["n"] for b in d])
+check("la coda sinistra raccoglie i casi oltre il limite", d[0]["n"] == 2, d[0])
+check("e quella destra pure", d[-1]["n"] == 2, d[-1])
+check("i bucket agli estremi non hanno un lato", d[0]["lo"] is None and d[-1]["hi"] is None)
+check("lo zero apre un bucket, non ci cade dentro a metà",
+      any(b["lo"] == 0 for b in d))
+zero = [b for b in d if b["lo"] == 0][0]
+check("0 e 4.9 stanno nel primo bucket positivo", zero["n"] == 2, zero)
+neg = [b for b in d if b["hi"] == 0][0]
+check("-0.1 sta nell'ultimo negativo", neg["n"] == 1, neg)
+check("i bucket coprono la scala senza buchi",
+      all(d[i]["hi"] == d[i + 1]["lo"] for i in range(1, len(d) - 2)))
+check("senza acquisti la distribuzione è tutta a zero",
+      sum(b["n"] for b in build._dist([])) == 0)
+
 print(f"\n{ok} controlli passati, {len(bad)} falliti")
 if bad:
     print("falliti:", ", ".join(bad))
