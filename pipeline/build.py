@@ -364,7 +364,7 @@ def backtest(results, cfg):
 def driver(subs):
     """La voce che ha spostato il punteggio più lontano da 50.
 
-    Non e' la voce con il valore più alto: e' quella il cui scarto dal centro,
+    Non è la voce con il valore più alto: è quella il cui scarto dal centro,
     moltiplicato per il suo peso, pesa di più sul totale. Serve all'elenco, dove
     il verdetto scritto finisce per ripetersi su quasi tutte le righe.
     """
@@ -381,14 +381,36 @@ def driver(subs):
     return {"name": x["name"], "up": x["v"] >= 50}
 
 
+def same_but_for_the_clock(path, data):
+    """Il file su disco dice già la stessa cosa, a parte l'ora del giro?
+
+    Senza questo controllo ogni giro riscrive tutte e 41 le schede anche quando
+    non è successo niente, perché `generated_at` cambia sempre: git si ritrova
+    41 file nuovi da conservare per un orario diverso. Con un giro all'ora
+    diventerebbe il costo principale del progetto.
+    """
+    try:
+        with open(path, encoding="utf-8") as f:
+            old = json.load(f)
+    except (OSError, ValueError):
+        return False
+    clock = ("generated_at", "changed_at")
+    a = {k: v for k, v in old.items() if k not in clock}
+    b = {k: v for k, v in data.items() if k not in clock}
+    return a == b
+
+
 def write_all(results, cfg, outdir=OUTDIR):
     ddir = os.path.join(outdir, "data")
     os.makedirs(ddir, exist_ok=True)
-    rows = []
+    rows, touched = [], 0
     for d in results:
         t = d["company"]["ticker"]
-        with open(os.path.join(ddir, f"{t}.json"), "w", encoding="utf-8") as f:
-            json.dump(d, f, ensure_ascii=False)
+        path = os.path.join(ddir, f"{t}.json")
+        if not same_but_for_the_clock(path, d):
+            touched += 1
+            with open(path, "w", encoding="utf-8") as f:
+                json.dump(d, f, ensure_ascii=False)
         s, ins = d["score"], d["insider_90d"]
         rows.append({
             "ticker": t, "name": d["company"]["name"],
@@ -402,8 +424,11 @@ def write_all(results, cfg, outdir=OUTDIR):
             "errors": len(d["errors"]),
         })
     rows.sort(key=lambda r: (r["score"] is None, -(r["score"] or 0)))
+    now = datetime.now(timezone.utc).isoformat(timespec="seconds")
+    ipath = os.path.join(outdir, "index.json")
     index = {
-        "generated_at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
+        "generated_at": now,          # quando abbiamo guardato
+        "changed_at": now,            # quando qualcosa è cambiato davvero
         "groups": [{"nome": group_name(g), "benchmark": g["benchmark"],
                     "n": len(g["tickers"])} for g in cfg["universi"]],
         "backtest": backtest(results, cfg),
@@ -411,7 +436,16 @@ def write_all(results, cfg, outdir=OUTDIR):
         "companies": rows,
         "errors": sorted({e for d in results for e in d["errors"]}),
     }
-    with open(os.path.join(outdir, "index.json"), "w", encoding="utf-8") as f:
+    # se nessuna scheda è cambiata e l'indice dice le stesse cose, teniamo la
+    # data del cambiamento vero: il sito distingue "controllato" da "cambiato".
+    if touched == 0 and same_but_for_the_clock(ipath, index):
+        try:
+            with open(ipath, encoding="utf-8") as f:
+                index["changed_at"] = json.load(f).get("changed_at") or now
+        except (OSError, ValueError):
+            pass
+    print(f"  schede riscritte: {touched} su {len(results)}")
+    with open(ipath, "w", encoding="utf-8") as f:
         json.dump(index, f, ensure_ascii=False, indent=1)
     old = os.path.join(outdir, "data.json")       # il file della versione a un titolo
     if os.path.exists(old):
