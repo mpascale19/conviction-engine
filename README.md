@@ -292,6 +292,25 @@ L'unica chiamata di rete è quella che la pipeline faceva già: il JSON dei
 depositi di EDGAR, che serviva per verificare il CIK e per le azioni in
 circolazione. I dati degli 8-K erano dentro quel file e non li leggevamo.
 
+## Confrontare due aziende
+
+La pagina **Confronta** mette due aziende affiancate: i due totali in alto e,
+sotto, gli stessi sei sotto-punteggi riga per riga, con lo scarto.
+
+Serve perché i totali da soli dicono poco. Quasi tutte le aziende stanno fra 45 e
+60, quindi sapere che una fa 59 e l'altra 53 non aiuta: la riga utile è quella
+dove i due si separano. Fra Intel e NVIDIA, per esempio, il totale differisce di
+6 punti, ma la voce *Insider* differisce di 34 — ed è lì che c'è qualcosa da
+guardare.
+
+L'indirizzo porta con sé la scelta: `#confronto-NVDA-INTC` apre direttamente quel
+confronto, quindi un paragone si può mandare a qualcuno con un link invece di
+spiegarlo a parole.
+
+Una cosa dichiarata in fondo alla pagina: se una voce manca a una delle due
+aziende, non entra nel confronto e il suo peso viene ridistribuito. I due totali
+possono quindi poggiare su basi diverse, e la riga della copertura lo dice.
+
 ## Un giro all'ora, e perché può costare quasi niente
 
 Il sito controlla i dati **ogni ora nei giorni feriali**, dalle 06:17 alle 23:17
