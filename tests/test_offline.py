@@ -579,6 +579,56 @@ check("senza la chiusura del riferimento la riga non si scrive",
 check("la riga è datata al giorno della chiusura, non del giro",
       _snap[0]["date"] == "2026-11-20")
 
+# --------------------------------- la prova dei pesi
+from pipeline import stress
+
+check("due classifiche identiche hanno rango 1",
+      stress.spearman({"A": 10, "B": 5, "C": 1}, {"A": 90, "B": 50, "C": 10}) == 1.0)
+check("una classifica rovesciata ha rango -1",
+      stress.spearman({"A": 10, "B": 5, "C": 1}, {"A": 1, "B": 5, "C": 10}) == -1.0)
+check("con meno di tre non si calcola un rango",
+      stress.spearman({"A": 1, "B": 2}, {"A": 2, "B": 1}) is None)
+
+_W = {"insider": 35, "guid": 20, "market": 15, "sector": 10, "events": 10, "price": 10}
+# dieci aziende: insider e mercato si muovono, il settore è identico per tutti
+_subs = {}
+for _i in range(10):
+    _subs[f"T{_i}"] = {
+        "insider": {"v": 20 + _i * 6, "coverage": "Alta"},
+        "guid": {"v": None, "coverage": "Assente"},
+        "market": {"v": 80 - _i * 5, "coverage": "Alta"},
+        "sector": {"v": 50, "coverage": "Alta"},        # uguale per tutti
+        "events": {"v": 50, "coverage": "Alta"},
+        "price": {"v": 50, "coverage": "Alta"},
+    }
+_st = stress.run(_subs, _W, score.combine, score.verdict, draws=200)
+
+check("una voce uguale per tutti non cambia la classifica se la togli",
+      next(d for d in _st["drop"] if d["id"] == "sector")["rho"] == 1.0)
+check("una voce che nessuno ha non viene valutata",
+      next(d for d in _st["drop"] if d["id"] == "guid")["rho"] is None)
+check("e il sito sa su quante aziende è alimentata",
+      next(d for d in _st["drop"] if d["id"] == "guid")["n"] == 0)
+
+_base = {t: score.combine(s, _W)[0] for t, s in _subs.items()}
+check("la fascia contiene sempre il punteggio pubblicato",
+      all(_st["per"][t]["lo"] <= _base[t] <= _st["per"][t]["hi"] for t in _base),
+      [(t, _st["per"][t], _base[t]) for t in _base
+       if not _st["per"][t]["lo"] <= _base[t] <= _st["per"][t]["hi"]])
+check("il verdetto tenuto è una percentuale sensata",
+      all(0 <= _st["per"][t]["kept"] <= 100 for t in _base))
+check("la correlazione peggiore non supera la mediana",
+      _st["rho"]["min"] <= _st["rho"]["med"] <= 1.0)
+
+# il seme è fisso: due giri sugli stessi dati devono dare lo stesso risultato,
+# altrimenti ogni ora il sito riscriverebbe quaranta schede per puro rumore
+check("due giri sugli stessi dati danno lo stesso identico risultato",
+      json.dumps(_st, sort_keys=True) ==
+      json.dumps(stress.run(_subs, _W, score.combine, score.verdict, draws=200), sort_keys=True))
+check("con troppe poche aziende non si prova niente",
+      stress.run({k: _subs[k] for k in list(_subs)[:3]}, _W,
+                 score.combine, score.verdict, draws=50) is None)
+
 print(f"\n{ok} controlli passati, {len(bad)} falliti")
 if bad:
     print("falliti:", ", ".join(bad))
