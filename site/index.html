@@ -30,6 +30,12 @@
        font-variant-numeric:tabular-nums;-webkit-font-smoothing:antialiased}
   /* i titoli portano la voce del progetto, il resto resta neutro e leggibile */
   h1,h2,.serif{font-family:Spectral,Georgia,"Times New Roman",serif;font-weight:600}
+  /* I link dentro al testo non prendono un colore: su questo sito il colore dice
+     solo se un numero è sopra o sotto la metà, e un link non è né l'uno né l'altro.
+     A segnalarlo basta la sottolineatura. (.nav a resta com'era: vince per specificità) */
+  a{color:inherit;text-decoration:underline;text-decoration-color:var(--ink3);
+    text-underline-offset:2px;text-decoration-thickness:1px}
+  a:hover{text-decoration-color:var(--ink)}
   .wrap{max-width:940px;margin:auto;display:grid;grid-template-columns:minmax(0,1fr);gap:16px;min-width:0}
   .card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:20px;
         min-width:0;box-shadow:var(--lift)}
@@ -102,6 +108,15 @@
              font-size:12px;color:var(--ink3)}
   .meter.m-row{width:84px}
   @media (max-width:620px){.meter.m-row{width:38px}}
+  /* la barra del rendimento: stessa geometria, ancorata allo zero */
+  .meter.m-ret{width:96px}
+  @media (max-width:620px){.meter.m-ret{width:54px}}
+  .sc.ret b{min-width:52px;font-size:14.5px}
+  /* due sole colonne: non serve la larghezza minima delle tabelle larghe */
+  table.t-narrow{min-width:0}
+  /* inline-block: ::first-letter non si applica alle scatole in linea */
+  .capf{display:inline-block}
+  .capf::first-letter{text-transform:uppercase}
   .sc b{font-size:16px;font-weight:650;min-width:26px;display:inline-block;text-align:right}
   .chip{display:inline-flex;align-items:center;gap:5px;border-radius:99px;padding:2px 9px;
         font-size:12px;font-weight:600;background:var(--sunken);color:var(--ink2);white-space:nowrap}
@@ -299,6 +314,17 @@ function meterBar(v, w, cls){
   var side = v >= 50 ? 'left:50%' : 'right:50%';
   return box + ' aria-hidden="true"><i style="' + side + ';width:' + half.toFixed(1) +
          '%;background:' + tone(v) + '"></i></span>';
+}
+/* La barra del rendimento è ancorata allo zero, non a 50, e usa due soli colori:
+   sopra lo zero o sotto. La lunghezza dice quanto, dentro la scala dichiarata.
+   Non riusa tone(): quella scala è tarata sulle fasce del verdetto, e un
+   rendimento non è un verdetto. */
+function retBar(v, scale, muted){
+  var half = Math.min(1, Math.abs(v) / scale) * 50;
+  var col = muted ? 'var(--ink3)' : 'var(--' + (v >= 0 ? 'bull2' : 'bear2') + ')';
+  return '<span class="meter m-ret" aria-hidden="true"><i style="' +
+    (v >= 0 ? 'left:50%' : 'right:50%') + ';width:' + half.toFixed(1) +
+    '%;background:' + col + '"></i></span>';
 }
 function scoreCell(v){
   return '<span class="sc">' + meterBar(v, 0, 'm-row') +
@@ -666,6 +692,96 @@ function distChart(bt){
       'stretch the whole axis.')) + '</p></div>';
 }
 
+/* Il registro delle previsioni: il punteggio messo alla prova in avanti.
+   All'inizio e' vuoto di proposito, e dirlo e' meta' del punto. */
+function fwdCard(){
+  var f = IDX.forward;
+  if (!f) return '';
+  var due = f.started ? new Date(new Date(f.started).getTime() + f.horizon * 864e5) : null;
+  var head = '<div class="card"><h2>' + T('Il punteggio alla prova', 'The score put to the test') +
+    '</h2><p class="sub">' + T(
+      'Il backtest qui sotto prova due regole dentro la voce insider, non il punteggio. Il ' +
+      'punteggio all\u2019indietro non si può provare: guidance e short interest non esistono ' +
+      'giorno per giorno nel passato, e ricostruirli vorrebbe dire inventarli. Quello che si può ' +
+      'fare è segnarlo oggi e misurarlo dopo ' + f.horizon + ' giorni. Da qui in avanti ogni ' +
+      'seduta lascia una riga per azienda in un file pubblico, e quando il tempo è passato quella ' +
+      'riga diventa un risultato, giusto o sbagliato che sia.',
+      'The backtest below tests two rules inside the insider input, not the score. The score ' +
+      'cannot be tested backwards: guidance and short interest do not exist day by day in the ' +
+      'past, and rebuilding them would mean inventing them. What can be done is to record it ' +
+      'today and measure it after ' + f.horizon + ' days. From now on every session leaves one ' +
+      'row per company in a public file, and once the time has passed that row becomes a result, ' +
+      'right or wrong.') + '</p>' +
+    '<div class="tiles">' +
+      statTile(f.observations, T('previsioni registrate', 'predictions recorded'),
+               T('su ' + f.days + (f.days === 1 ? ' seduta' : ' sedute'),
+                 'over ' + f.days + (f.days === 1 ? ' session' : ' sessions'))) +
+      statTile(f.done, T('già misurate', 'already measured'),
+               T('dopo ' + f.horizon + ' giorni', 'after ' + f.horizon + ' days')) +
+      statTile(f.pending, T('in attesa', 'still open'),
+               T('il tempo non è ancora passato', 'the time has not passed yet')) +
+    '</div>';
+
+  if (!f.done || !f.all) {
+    return head + '<p class="sub">' + T(
+      'Nessun risultato ancora, ed è giusto così: il registro è partito il ' +
+        esc(day(f.started)) + ' e il primo esito arriva ' +
+        (due ? 'intorno al ' + esc(day(due.toISOString().slice(0, 10))) : 'fra tre mesi') +
+        '. Fino ad allora qui non c\u2019è niente da mostrare, e qualunque numero ci mettessimo ' +
+        'sarebbe inventato.',
+      'No results yet, and that is as it should be: the register started on ' +
+        esc(day(f.started)) + ' and the first outcome is due ' +
+        (due ? 'around ' + esc(day(due.toISOString().slice(0, 10))) : 'in three months') +
+        '. Until then there is nothing to show here, and any number we put in would be made up.') +
+      '</p><p class="sub"><a href="history.csv">' +
+      T('Scarica il registro (CSV)', 'Download the register (CSV)') + '</a> — ' +
+      T('in sola aggiunta: una previsione registrata non si corregge dopo.',
+        'append-only: a recorded prediction is never edited afterwards.') + '</p></div>';
+  }
+
+  /* Le barre hanno tutte la stessa scala, altrimenti confrontarle non vorrebbe
+     dire niente. La scala segue il dato e viene dichiarata sotto la tabella. */
+  var shown = (f.bands || []).filter(function(b){ return b.n; });
+  var scale = Math.ceil(Math.max.apply(null, shown.map(function(b){ return Math.abs(b.med); })
+                .concat([Math.abs(f.all.med), 5])) / 2.5) * 2.5;
+  var rows = shown.map(function(b){
+    return fwdRow(T(b.it, b.en), b.lo + (b.hi > 100 ? '+' : '–' + (b.hi - 1)),
+                  b.n, b.pos, b.med, scale);
+  }).join('');
+  return head + '<div class="scroll"><table class="t-narrow"><thead><tr><th>' +
+    T('Fascia', 'Band') + '</th><th class="num">' +
+    T('Mediana a ' + f.horizon + ' giorni', 'Median at ' + f.horizon + ' days') +
+    '</th></tr></thead><tbody>' + rows +
+    fwdRow(T('Tutte', 'All'), '', f.all.n, f.all.pos, f.all.med, scale, true) +
+    '</tbody></table></div>' +
+    '<p class="sub" style="margin-top:12px">' + T(
+      'Se la formula vale qualcosa, le fasce alte devono rendere più di quelle basse: è ' +
+      'questo che le barre lasciano vedere in un colpo d’occhio. Sono tutte sulla stessa ' +
+      'scala, da −' + scale + '% a +' + scale + '%, e la linea verticale è lo zero. ' +
+      'Con meno di dieci previsioni la fascia resta grigia: non è ancora un risultato.',
+      'If the formula is worth anything, the higher bands should return more than the lower ones: ' +
+      'that is what the bars make visible at a glance. They all share one scale, from −' +
+      scale + '% to +' + scale + '%, and the vertical line is zero. Below ten predictions a band ' +
+      'stays grey: it is not a result yet.') +
+    ' <a href="history.csv">' + T('Scarica il registro (CSV)', 'Download the register (CSV)') +
+    '</a></p></div>';
+}
+/* Una riga del registro: il nome della fascia con sotto da quante previsioni
+   viene, e a destra la mediana con la sua barra. Il conteggio e la percentuale
+   in guadagno stanno nella riga piccola invece che in due colonne: così la
+   mediana resta visibile anche su un telefono, senza scorrimento laterale. */
+function fwdRow(name, range, n, pos, med, scale, isAll){
+  var thin = n < 10;
+  var det = (range ? esc(range) + ' · ' : '') +
+    T(n + (n === 1 ? ' previsione' : ' previsioni'), n + (n === 1 ? ' prediction' : ' predictions')) +
+    ' · ' + Math.round(pos / n * 100) + '% ' + T('in guadagno', 'in the money');
+  return '<tr style="cursor:default"><td><b' + (isAll ? '' : ' class="capf"') + '>' + esc(name) +
+    '</b><div class="nm">' + det + '</div></td><td class="num"><span class="sc ret">' +
+    retBar(med, scale, thin) + '<b style="color:' + (thin ? 'var(--ink3)' :
+      med > 0 ? 'var(--bull2)' : med < 0 ? 'var(--bear2)' : 'inherit') + '">' +
+    sg(med, 1) + '%</b></span></td></tr>';
+}
+
 function btRow(label, s, note){
   if (!s) return '<tr style="cursor:default"><td>' + esc(label) +
     '</td><td class="num">—</td><td class="num">—</td><td class="num">—</td><td class="num">—</td></tr>';
@@ -691,7 +807,7 @@ function renderBacktest(){
     app.innerHTML = navBar('backtest') + '<div class="card"><h1>' + T('Backtest', 'Backtest') +
       '</h1><p class="lead">' + T('Non ci sono ancora abbastanza acquisti con 60 giorni ' +
       'trascorsi per dire qualcosa.', 'There are not yet enough purchases with 60 days elapsed ' +
-      'to say anything.') + '</p></div>';
+      'to say anything.') + '</p></div>' + fwdCard();
     return;
   }
   var a = bt.all, h = bt.horizon;
@@ -713,7 +829,7 @@ function renderBacktest(){
                T('contro il settore', 'against the sector')) +
       statTile(sg(a.avg, 1) + '%', T('rendimento medio', 'average return'),
                T('la media risente degli estremi', 'the average is pulled by outliers')) +
-    '</div>' + distChart(bt) + '</div>' +
+    '</div>' + distChart(bt) + '</div>' + fwdCard() +
 
     '<div class="card"><h2>' + T('Le due regole della formula, messe alla prova',
       'The formula’s two rules, put to the test') + '</h2><p class="sub">' +
