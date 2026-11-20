@@ -18,7 +18,7 @@ legge le trascrizioni e ne tira fuori campi strutturati; il punteggio lo calcola
 | Tono e guidance dalle call | il tuo export + LLM | sì, se metti i testi in `input/transcripts/` |
 | Revisioni delle stime, short interest | Bloomberg | **no**: export manuale |
 | Concorrenti | SEC EDGAR | sì, quando aggiungi i loro ticker |
-| Social | — | no |
+| Fatti rilevanti (8-K) | SEC EDGAR | sì, senza chiave e senza richieste in più |
 
 Quello che manca non blocca niente: il peso del sotto-punteggio assente viene
 ridistribuito sugli altri, lo score esce lo stesso e `data.json` dice che cosa
@@ -40,6 +40,7 @@ aggiornato. Parte da solo anche quando carichi file in `pipeline/`, `input/`,
 | Prezzi di chiusura | da solo, Yahoo | a ogni giro |
 | Operazioni Form 4 | da solo, SEC EDGAR | a ogni giro |
 | Azioni in circolazione | da solo, SEC | a ogni giro |
+| Fatti rilevanti 8-K | da solo, SEC EDGAR | a ogni giro |
 | Short interest | export manuale | due volte al mese |
 | Trascrizioni delle call | export manuale | una volta a trimestre |
 
@@ -243,6 +244,71 @@ entrambe le lingue e fallisce se te ne dimentichi una.
 
 Per i nomi degli universi la traduzione sta in `config.json`, nel campo
 `nome_en` accanto a `nome`.
+
+## I fatti rilevanti: l'8-K al posto delle notizie
+
+La voce che valeva il 10% si chiamava *News* e non è mai stata alimentata, perché
+una fonte di notizie gratuita, stabile e verificabile non esiste. Al suo posto
+ora c'è una fonte migliore e primaria: il **modulo 8-K**, con cui un'azienda
+americana è obbligata a dichiarare alla SEC un fatto rilevante entro quattro
+giorni lavorativi.
+
+Il vantaggio non è solo che è gratis. Un articolo va interpretato; un 8-K porta
+dei **codici item fissati dalla SEC**, quindi non c'è niente da interpretare:
+`4.02` vuol dire sempre che i conti già pubblicati non sono più affidabili,
+`1.03` vuol dire fallimento, `4.01` vuol dire che è cambiato il revisore. È
+esattamente il principio del progetto — i fatti si estraggono, non si giudicano —
+applicato a una fonte nuova.
+
+I pesi che diamo ai codici stanno in `EVENT_W` dentro `pipeline/score.py`, in
+chiaro come tutto il resto:
+
+| Codice | Fatto | Peso |
+|---|---|---|
+| 1.03 | fallimento o amministrazione controllata | −30 |
+| 4.02 | i conti già pubblicati non sono più affidabili | −22 |
+| 3.01 | avviso di esclusione dal listino | −15 |
+| 2.06 | svalutazione rilevante | −10 |
+| 2.04 | evento che accelera un debito | −10 |
+| 4.01 | cambio del revisore dei conti | −8 |
+| 5.02 | entrata o uscita di un dirigente o consigliere | −4 |
+| 1.01 | nuovo accordo rilevante | +4 |
+
+Tutti gli altri codici valgono zero perché sono routine: `2.02` sono i risultati
+trimestrali, `9.01` gli allegati, `5.07` l'assemblea degli azionisti. Il totale
+positivo è limitato a +12 e quello negativo a −35, così un solo tipo di fatto non
+può dominare il punteggio per accumulo.
+
+Due scelte che vale la pena dichiarare:
+
+- **Nessun 8-K non è un dato mancante.** Se in 180 giorni un'azienda non ha
+  dichiarato niente, quello *è* il dato: il punteggio resta a 50 e la riga lo
+  dice. Per questo la voce ha copertura piena su tutte e 40 le aziende.
+- **Non misura il sentiment.** Conta i fatti dichiarati, non il tono con cui
+  qualcuno ne ha scritto. Il nome sul sito dice *Fatti rilevanti*, non *News*,
+  proprio per non promettere una cosa diversa da quella che fa.
+
+L'unica chiamata di rete è quella che la pipeline faceva già: il JSON dei
+depositi di EDGAR, che serviva per verificare il CIK e per le azioni in
+circolazione. I dati degli 8-K erano dentro quel file e non li leggevamo.
+
+## Social: tolto, non rimandato
+
+La voce *Social* valeva il 5% ed era anche lei sempre vuota. L'abbiamo tolta dai
+pesi invece di lasciarla lì.
+
+Il motivo non è che fosse difficile: è che non sapremmo dire in che direzione
+leggerla. Una fonte gratuita e verificabile di attenzione del pubblico esiste —
+le visite alle pagine di Wikipedia hanno un'API aperta e sono usate in
+letteratura — ma l'attenzione **non ha un segno**: una pagina viene letta di più
+sia quando l'azienda annuncia un ottimo trimestre sia quando finisce sotto
+inchiesta. Dare un punteggio a un numero di cui non sappiamo il verso vorrebbe
+dire inventare un segnale, e questo progetto esiste per non farlo.
+
+I 5 punti sono andati a `insider`, che passa da 30 a 35. È l'unica voce della
+formula che abbia un riscontro empirico, per quanto piccolo: nel backtest gli
+acquisti dei dirigenti apicali hanno una mediana di +7% a 60 giorni contro +1,4%
+degli altri insider.
 
 ## Il backtest: che cosa misura e che cosa no
 
