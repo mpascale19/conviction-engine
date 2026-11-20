@@ -76,12 +76,11 @@
   ]
  },
  "weights": {
-  "insider": 30,
+  "insider": 35,
   "guid": 20,
   "market": 15,
   "sector": 10,
-  "news": 10,
-  "price": 10,
-  "social": 5
+  "events": 10,
+  "price": 10
  }
 }
