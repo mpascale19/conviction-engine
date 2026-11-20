@@ -1163,7 +1163,7 @@ function renderDetail(d){
   [].forEach.call(app.querySelectorAll('.tabs button'), function(b){
     b.addEventListener('click', function(){ TAB = b.dataset.tab; renderDetail(d); });
   });
-  var GOTO = { '1': 'insider', '3': 'mercato', '4': 'panoramica', 'call': 'call' };
+  var GOTO = { '1': 'insider', '3': 'mercato', '4': 'panoramica', '5': 'panoramica', 'call': 'call' };
   [].forEach.call(app.querySelectorAll('sup.src'), function(e){
     e.addEventListener('click', function(){
       var t = GOTO[e.dataset.src];
