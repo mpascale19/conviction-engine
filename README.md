@@ -38,7 +38,7 @@ aggiornato. Parte da solo anche quando carichi file in `pipeline/`, `input/`,
 | Dato | Come si aggiorna | Ogni quanto serve |
 |---|---|---|
 | Prezzi di chiusura | da solo, Yahoo | a ogni giro |
-| Operazioni Form 4 | da solo, SEC EDGAR | a ogni giro |
+| Operazioni Form 4 | da solo, SEC EDGAR | a ogni giro, ogni ora |
 | Azioni in circolazione | da solo, SEC | a ogni giro |
 | Fatti rilevanti 8-K | da solo, SEC EDGAR | a ogni giro |
 | Short interest | export manuale | due volte al mese |
@@ -292,6 +292,61 @@ L'unica chiamata di rete è quella che la pipeline faceva già: il JSON dei
 depositi di EDGAR, che serviva per verificare il CIK e per le azioni in
 circolazione. I dati degli 8-K erano dentro quel file e non li leggevamo.
 
+## Un giro all'ora, e perché può costare quasi niente
+
+Il sito controlla i dati **ogni ora nei giorni feriali**, dalle 06:17 alle 23:17
+UTC: 18 giri al giorno invece di 3. La finestra copre la mattina europea e tutta
+la giornata di deposito americana — EDGAR accetta i moduli dalle 6 alle 22 di New
+York. Le ore fra mezzanotte e le 5 UTC restano fuori: in piena notte americana
+non si deposita niente e i prezzi non si muovono, sarebbero richieste alla SEC
+senza una ragione.
+
+**I minuti di GitHub Actions sono gratis** sui repository pubblici, quindi
+moltiplicare per sei i giri non costa denaro. Il costo vero era un altro, e
+andava tolto prima di alzare la frequenza.
+
+Ogni scheda portava dentro `generated_at`, l'ora del giro. Siccome quell'ora
+cambia sempre, **tutti e 41 i file risultavano diversi a ogni giro anche quando
+non era successo niente**: 4,6 MB di roba nuova che git deve conservare per
+sempre, ogni volta. Il workflow aveva già il controllo «nessuna variazione da
+salvare», ma non scattava mai, proprio per colpa di quell'orario.
+
+Ora la pipeline confronta ogni scheda con quella già pubblicata **ignorando i
+campi-orologio**, e la riscrive solo se è cambiato qualcosa di vero. Un giro a
+vuoto tocca il solo `index.json`. A quel punto 18 giri al giorno costano meno di
+quanto ne costassero 3 prima.
+
+Da qui nascono due date diverse, ed è giusto che il sito le distingua:
+
+| campo | che cosa dice |
+|---|---|
+| `generated_at` | quando abbiamo **controllato** l'ultima volta |
+| `changed_at` | quando è **cambiato** qualcosa l'ultima volta |
+
+L'intestazione mostra l'ultimo cambiamento, perché è quello che interessa; la
+riga sull'età dei dati guarda l'ultimo controllo, perché è quella che si accorge
+se il workflow si è fermato. Con un giro all'ora la maggior parte dei giri non
+trova niente di nuovo, ed è normale che sia così: gli insider non comprano ogni
+ora.
+
+## Se l'aggiornamento si rompe, il sito lo dice
+
+Un sito che si aggiorna da solo ha un modo silenzioso di mentire: il workflow si
+ferma e la pagina continua a mostrare numeri vecchi con la stessa faccia di
+sempre. Nessuno se ne accorge, perché la data in fondo non la legge nessuno.
+
+Ora il sito guarda l'età dei propri dati e si comporta di conseguenza:
+
+- **sotto le 14 ore**, niente: è il ritmo normale;
+- **fra 14 e 60 ore**, una riga grigia sotto l'intestazione che dice quante ore
+  hanno i dati, senza allarmare;
+- **oltre le 60 ore**, un avviso vero: i giri sono alle 06:17, 12:47 e 22:35 UTC
+  dal lunedì al venerdì, quindi il buco più lungo normale è il fine settimana,
+  circa 56 ore. Sopra le 60 non è più un fine settimana, è un guasto.
+
+La soglia è scelta così apposta: un avviso che scatta ogni domenica smette di
+essere letto dopo due settimane.
+
 ## L'elenco: che cosa ha spinto il punteggio
 
 Nell'elenco la colonna *Lettura* diceva la stessa cosa su quasi tutte le righe
@@ -303,6 +358,10 @@ scarto da 50, moltiplicato per il suo peso, pesa di più sul totale.
 Su 40 aziende i motori sono otto diversi: `insider` tira giù 16 punteggi e ne
 spinge su 1, `mercato` ne spinge 6 e ne tira 8, e così via. È la stessa
 informazione che prima si trovava solo aprendo la scheda.
+
+Sopra la tabella c'è un campo di ricerca: filtra per ticker o per nome mentre
+scrivi, si combina con il filtro per universo e con l'ordinamento, e quando non
+trova niente lo dice invece di mostrare una tabella vuota.
 
 Le intestazioni della tabella sono cliccabili: azienda, punteggio, compra/vende,
 flusso netto e prezzo. Il secondo click inverte il verso, i dati mancanti restano
