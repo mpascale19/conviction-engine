@@ -495,6 +495,90 @@ check("il confronto ignora solo gli orologi, non i dati",
       build.same_but_for_the_clock(os.path.join(_tmp, "data", "AAA.json"),
                                    dict(_res[0], generated_at="1999-01-01T00:00:00+00:00")))
 
+# --------------------------------- la regola di maturità sulle osservazioni
+# Un'osservazione vale solo se l'orizzonte è passato davvero. Prima la funzione
+# accorciava l'orizzonte quando le sedute non bastavano, e così un acquisto
+# misurato su 14 sedute finiva nel conto dei 60 giorni.
+_ser = [{"d": f"2026-01-{i:02d}", "c": 100.0 + i} for i in range(1, 11)]
+check("con meno sedute dell'orizzonte l'osservazione non è matura",
+      rules._ret(_ser, "2026-01-05", 60) is None)
+check("e nemmeno se ne manca una sola",
+      rules._ret(_ser, "2026-01-01", 10) is None)
+check("con l'orizzonte compiuto il rendimento c'è",
+      rules._ret(_ser, "2026-01-01", 9) is not None)
+check("e vale esattamente il rapporto fra le due chiusure",
+      abs(rules._ret(_ser, "2026-01-01", 9) - (110.0 / 101.0 - 1)) < 1e-12)
+
+# --------------------------------- il registro delle previsioni
+from pipeline import history
+
+check("la fascia segue i confini del verdetto scritto",
+      [history.band_of(s) for s in (70, 65, 64, 55, 54, 46, 45, 35, 34, 0)] ==
+      ["convinzione rialzista", "convinzione rialzista", "leggermente rialzista",
+       "leggermente rialzista", "nessuna convinzione", "nessuna convinzione",
+       "leggermente ribassista", "leggermente ribassista",
+       "convinzione ribassista", "convinzione ribassista"])
+
+_hdir = tempfile.mkdtemp()
+_hp = os.path.join(_hdir, "history.csv")
+check("un file che non c'è è un registro vuoto, non un errore", history.load(_hp) == [])
+
+_r1 = [{"date": "2026-01-02", "ticker": t, "score": 70, "close": 100.0,
+        "bench": "SPY", "bench_close": 50.0} for t in ("AAA", "BBB", "CCC")]
+check("la prima scrittura aggiunge tutte le righe", history.add(_hp, _r1) == 3)
+check("la seconda non aggiunge niente", history.add(_hp, _r1) == 0)
+check("e il registro non è cresciuto", len(history.load(_hp)) == 3)
+check("le righe rilette sono quelle scritte",
+      history.load(_hp)[0]["ticker"] == "AAA" and history.load(_hp)[0]["score"] == 70)
+
+with open(_hp, "a", encoding="utf-8") as _f:
+    _f.write("non,una,riga,valida\n")
+check("una riga rotta viene saltata senza far cadere il giro", len(history.load(_hp)) == 3)
+
+# il confine dei 90 giorni: 89 non basta, 90 sì
+_b = [{"date": "2026-01-01", "ticker": "AAA", "score": 70, "close": 100.0,
+       "bench": "SPY", "bench_close": 50.0},
+      {"date": "2026-03-31", "ticker": "AAA", "score": 70, "close": 110.0,
+       "bench": "SPY", "bench_close": 50.0}]            # 89 giorni
+check("a 89 giorni la previsione è ancora aperta", history.stats(_b)["done"] == 0)
+_b[1]["date"] = "2026-04-01"                            # 90 giorni esatti
+check("a 90 giorni esatti diventa un risultato", history.stats(_b)["done"] == 1)
+# i tre numeri mostrati dal sito devono sempre tornare: l'ultima riga di ogni
+# azienda è per forza ancora aperta, ed è giusto che risulti in attesa
+_s = history.stats(_b)
+check("registrate = misurate + in attesa",
+      _s["observations"] == _s["done"] + _s["pending"], _s)
+check("l'ultima riga di ogni azienda resta in attesa", _s["pending"] == 1)
+
+# il rendimento è al netto del riferimento, come nel resto del progetto
+_c = [{"date": "2026-01-01", "ticker": "AAA", "score": 70, "close": 100.0,
+       "bench": "SPY", "bench_close": 100.0},
+      {"date": "2026-04-01", "ticker": "AAA", "score": 70, "close": 110.0,
+       "bench": "SPY", "bench_close": 105.0}]
+_done, _pend = history.evaluate(_c)
+check("il rendimento è relativo al riferimento", _done[0]["ret"] == 5.0, _done[0]["ret"])
+check("e porta con sé la fascia di partenza", _done[0]["band"] == "convinzione rialzista")
+
+_st = history.stats(_c)
+check("il riassunto conta la fascia giusta",
+      [b["n"] for b in _st["bands"]] == [1, 0, 0, 0, 0])
+check("e tiene il totale", _st["all"]["n"] == 1 and _st["all"]["med"] == 5.0)
+check("un registro senza risultati non inventa un totale",
+      "all" not in history.stats(_r1) and history.stats(_r1)["pending"] == 3)
+check("conta le sedute, non le righe", history.stats(_r1)["days"] == 1)
+
+# la fotografia del giorno salta chi non ha un riferimento da cui misurare
+_snap = history.snapshot(
+    [{"company": {"ticker": "AAA"}, "score": {"value": 60}, "benchmark": "SPY",
+      "price": {"last": {"d": "2026-11-20", "c": 10.0}}},
+     {"company": {"ticker": "BBB"}, "score": {"value": 60}, "benchmark": "XXX",
+      "price": {"last": {"d": "2026-11-20", "c": 10.0}}}],
+    {("SPY", "2026-11-20"): 500.0})
+check("senza la chiusura del riferimento la riga non si scrive",
+      [r["ticker"] for r in _snap] == ["AAA"])
+check("la riga è datata al giorno della chiusura, non del giro",
+      _snap[0]["date"] == "2026-11-20")
+
 print(f"\n{ok} controlli passati, {len(bad)} falliti")
 if bad:
     print("falliti:", ", ".join(bad))
