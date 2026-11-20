@@ -15,9 +15,8 @@ NAMES = {
     "guid": L("Guidance e tono", "Guidance and tone"),
     "market": L("Mercato", "Market"),
     "sector": L("Settore", "Sector"),
-    "news": L("News", "News"),
+    "events": L("Fatti rilevanti (8-K)", "Material events (8-K)"),
     "price": L("Contesto di prezzo", "Price context"),
-    "social": L("Social", "Social"),
 }
 
 
@@ -82,6 +81,76 @@ def insider_score(rows, cluster, tracks, cfg, today=None):
         why.append(L("Moltiplicatori storici applicati: " + lst + ".",
                      "Track-record multipliers applied: " + lst + "."))
     return round(_clamp(v)), why, ("Alta" if win else "Bassa")
+
+
+# I codici item dell'8-K, con il peso che diamo a ciascuno. Il segno dice la
+# direzione, il numero quanto pesa; tutto il resto dei codici vale zero perché
+# è routine (2.02 sono i risultati, 9.01 gli allegati, 5.07 l'assemblea).
+EVENT_W = {
+    "1.03": -30,   # fallimento o amministrazione controllata
+    "4.02": -22,   # i conti già pubblicati non sono più affidabili
+    "3.01": -15,   # avviso di esclusione dal listino
+    "2.06": -10,   # svalutazione rilevante
+    "2.04": -10,   # evento che accelera un debito
+    "4.01":  -8,   # cambio del revisore
+    "5.02":  -4,   # un dirigente o un consigliere se ne va (o entra)
+    "1.01":  +4,   # nuovo accordo rilevante
+}
+EVENT_NAME = {
+    "1.03": L("fallimento o amministrazione controllata", "bankruptcy or receivership"),
+    "4.02": L("i conti già pubblicati non sono più affidabili",
+              "previously issued accounts are no longer reliable"),
+    "3.01": L("avviso di esclusione dal listino", "notice of delisting"),
+    "2.06": L("svalutazione rilevante", "material impairment"),
+    "2.04": L("evento che accelera un debito", "event accelerating a debt"),
+    "4.01": L("cambio del revisore dei conti", "change of auditor"),
+    "5.02": L("entrata o uscita di un dirigente o consigliere",
+              "arrival or departure of an officer or director"),
+    "1.01": L("nuovo accordo rilevante", "new material agreement"),
+}
+
+
+def events_score(filings, days=180):
+    """Che cosa l'azienda ha dichiarato di rilevante, nelle sue stesse parole.
+
+    Non è il tono delle notizie: è il conto dei fatti che la legge obbliga a
+    dichiarare. Nessun 8-K non vuol dire dato mancante, vuol dire che in quei
+    mesi non è successo niente che andasse dichiarato.
+    """
+    if filings is None:
+        return None, [L("I depositi SEC non sono stati raggiunti.",
+                        "SEC filings could not be reached.")], "Assente"
+    if not filings:
+        return 50, [L(f"Nessun fatto rilevante dichiarato alla SEC negli ultimi {days} giorni.",
+                      f"No material event disclosed to the SEC in the last {days} days.")], "Alta"
+
+    hits, pos, neg = {}, 0.0, 0.0
+    for f in filings:
+        for c in f["items"]:
+            w = EVENT_W.get(c)
+            if not w:
+                continue
+            hits.setdefault(c, []).append(f["date"])
+            if w > 0: pos += w
+            else:     neg += w
+    v = 50.0 + _clamp(pos, 0, 12) + _clamp(neg, -35, 0)
+
+    n = len(filings)
+    why = [L(f"{n} modul{'o' if n == 1 else 'i'} 8-K depositat{'o' if n == 1 else 'i'} "
+             f"negli ultimi {days} giorni.",
+             f"{n} Form 8-K filing{'' if n == 1 else 's'} in the last {days} days.")]
+    for c in sorted(hits, key=lambda k: EVENT_W[k]):      # prima i fatti peggiori
+        ds = hits[c]
+        when = ", ".join(ds[:3]) + ("…" if len(ds) > 3 else "")
+        k = len(ds)
+        why.append(L(f"Item {c}, {EVENT_NAME[c]['it']}: {k} volt{'a' if k == 1 else 'e'} ({when}).",
+                     f"Item {c}, {EVENT_NAME[c]['en']}: {k} time{'' if k == 1 else 's'} ({when})."))
+    if not hits:
+        why.append(L("Nessuno di questi moduli riguarda un fatto che pesa sul punteggio: "
+                     "sono risultati, allegati e assemblee.",
+                     "None of these filings covers an event that moves the score: they are "
+                     "results, exhibits and shareholder meetings."))
+    return round(_clamp(v, 0, 100)), why, "Alta"
 
 
 def price_score(prices, today=None):
@@ -184,7 +253,7 @@ def _median(xs):
 def market_score(rows, today=None, shares=None):
     """Short interest: quanto il mercato scommette contro il titolo.
 
-    L'export non da' la percentuale sul flottante, quindi ogni misura è presa
+    L'export non dà la percentuale sul flottante, quindi ogni misura è presa
     contro la storia del titolo stesso. Così due aziende di dimensioni diverse
     restano confrontabili, e un numero grande non conta per il fatto di essere
     grande. Short interest che scende = ribassisti che escono = punto a favore.

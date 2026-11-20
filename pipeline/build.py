@@ -20,6 +20,7 @@ from .extract import extract_all
 
 CACHE = "cache"
 OUTDIR = "site"
+EVENT_DAYS = 180        # finestra dei fatti rilevanti 8-K: due trimestri
 
 
 def load_config(path="config.json"):
@@ -71,14 +72,22 @@ def gather(cfg, ticker, bench, offline=False):
         failed.append("tx")
         print(f"  ! Form 4: {e}")
 
+    events = None
     if cik:                               # azioni in circolazione: dalla copertina dei 10-Q/10-K
         shares, sh_date = sources.shares_outstanding(cik)
         if shares:
             print(f"  azioni in circolazione: {shares/1e6:.0f} milioni (al {sh_date})")
+        try:                              # fatti rilevanti: stesso JSON, nessuna richiesta in più
+            since = (date.today() - timedelta(days=EVENT_DAYS)).isoformat()
+            events = sources.recent_8k(cik, since)
+            print(f"  8-K negli ultimi {EVENT_DAYS} giorni: {len(events)}")
+        except Exception as e:
+            errors.append(f"8-K di {ticker}: {e}")
+            print(f"  ! 8-K: {e}")
 
     raw = {"ticker": ticker, "name": name, "cik": cik, "prices": px, "bench": bench,
            "tx": tx, "errors": errors, "failed": failed, "price_source": src,
-           "shares": shares, "shares_date": sh_date,
+           "shares": shares, "shares_date": sh_date, "events": events,
            "fetched_at": datetime.now(timezone.utc).isoformat(timespec="seconds")}
     os.makedirs(CACHE, exist_ok=True)
     with open(raw_path, "w", encoding="utf-8") as f:
@@ -126,10 +135,14 @@ def build_one(cfg, raw, extracted=None):
                      "Needs estimate revisions and short interest (Bloomberg).")),
         ("sector", L("In attesa del confronto con il resto dell'universo.",
                      "Waiting for the comparison with the rest of the universe.")),
-        ("news", L("Serve una fonte di notizie.", "Needs a news source.")),
-        ("social", L("Serve una fonte di post.", "Needs a source of social posts.")),
+        ("events", L("I depositi SEC non sono stati raggiunti.",
+                     "SEC filings could not be reached.")),
     ]:
         subs[k] = {"v": None, "why": [note], "coverage": "Assente"}
+
+    if raw.get("events") is not None:
+        v, why, cov = score.events_score(raw["events"], EVENT_DAYS)
+        subs["events"] = {"v": v, "why": why, "coverage": cov}
 
     buys_90d = any(t["kind"] == "BUY" for t in recent)
 

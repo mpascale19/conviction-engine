@@ -151,6 +151,33 @@ def submissions(cik):
     return _SUBS[cik]
 
 
+def recent_8k(cik, since):
+    """Gli 8-K depositati dal giorno `since` in poi, con i loro codici item.
+
+    L'8-K è il modulo con cui un'azienda americana dichiara un fatto rilevante
+    entro quattro giorni lavorativi. I codici item sono fissati dalla SEC, quindi
+    non c'e' niente da interpretare: "4.02" vuol dire sempre che i conti passati
+    non sono più affidabili. Legge il JSON dei depositi già scaricato per il
+    CIK, perciò non costa una richiesta in più.
+    """
+    rec = (submissions(cik).get("filings") or {}).get("recent") or {}
+    forms, dates = rec.get("form") or [], rec.get("filingDate") or []
+    items, accs = rec.get("items") or [], rec.get("accessionNumber") or []
+    out = []
+    for i, form in enumerate(forms):
+        if not str(form).startswith("8-K"):
+            continue
+        d = dates[i] if i < len(dates) else ""
+        if not d or d < since:
+            continue
+        raw = items[i] if i < len(items) else ""
+        codes = [c.strip() for c in str(raw).split(",") if c.strip()]
+        out.append({"date": d, "items": codes,
+                    "acc": accs[i] if i < len(accs) else ""})
+    out.sort(key=lambda x: x["date"])
+    return out
+
+
 def confirms(cik, ticker):
     """La SEC conferma che quel CIK ha davvero quel ticker?
 
