@@ -4,15 +4,19 @@ on:
   # Per ora l'aggiornamento parte solo quando lo chiedi tu, dal pulsante
   # "Run workflow" nella scheda Actions.
   workflow_dispatch:
-  # Tre giri al giorno nei feriali. I minuti non sono tondi di proposito:
-  # alle :00 le code di GitHub sono lunghe e la partenza slitta.
-  #   06:17 UTC  mattina europea, prima che tu apra il sito
-  #   12:47 UTC  prima dell'apertura di New York
-  #   22:35 UTC  dopo la chiusura, quando il prezzo del giorno e' definitivo
+  # Un giro all'ora nei feriali, dalle 06:17 alle 23:17 UTC: copre la mattina
+  # europea e tutta la giornata di deposito americana (EDGAR accetta i moduli
+  # dalle 6 alle 22 di New York). Le ore 00-05 UTC restano fuori perché in
+  # piena notte americana non si deposita niente e i prezzi non si muovono:
+  # sarebbero richieste alla SEC senza una ragione.
+  #
+  # Un giro all'ora regge perché la pipeline riscrive una scheda solo se è
+  # cambiata davvero: un giro a vuoto tocca il solo index.json, non tutti e 41
+  # i file. Senza quello il repository crescerebbe di 4,6 MB ogni ora.
+  #
+  # Il minuto non è tondo di proposito: alle :00 le code di GitHub sono lunghe.
   schedule:
-    - cron: "17 6 * * 1-5"
-    - cron: "47 12 * * 1-5"
-    - cron: "35 22 * * 1-5"
+    - cron: "17 6-23 * * 1-5"
   push:
     branches: [main]
     paths: ["pipeline/**", "input/**", "config.json", "site/**",
@@ -24,8 +28,8 @@ permissions:
   pages: write
   id-token: write
 
-# Due giri ravvicinati non servono a niente: il piu' recente rigenera tutto
-# comunque. Se ne parte uno mentre un altro e' in corso, il vecchio si ferma.
+# Due giri ravvicinati non servono a niente: il più recente rigenera tutto
+# comunque. Se ne parte uno mentre un altro è in corso, il vecchio si ferma.
 concurrency:
   group: update
   cancel-in-progress: true
@@ -43,7 +47,7 @@ jobs:
 
       - run: pip install -r requirements.txt
 
-      # I Form 4 gia' letti non si riscaricano: dal secondo giro in poi
+      # I Form 4 già letti non si riscaricano: dal secondo giro in poi
       # l'aggiornamento dura un minuto invece di dieci.
       - name: Cache dei documenti SEC
         uses: actions/cache@v4
@@ -66,7 +70,7 @@ jobs:
       # I file di site/ li rigenera per intero questo giro, quindi non vanno MAI
       # fusi con quelli di un altro giro: ogni riga differisce per l'orario e il
       # rebase finirebbe in conflitto su tutti e 41. Qui si riparte da origin e
-      # si riscrive sopra: l'ultimo calcolo vince, che e' quello che vogliamo.
+      # si riscrive sopra: l'ultimo calcolo vince, che è quello che vogliamo.
       - name: Salva il risultato
         run: |
           git config user.name  "conviction-engine-bot"
