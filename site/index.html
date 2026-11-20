@@ -9,10 +9,16 @@
   :root{color-scheme:light dark;
     --bg:#f6f7f8;--card:#fff;--sunken:#eef0f2;--ink:#10131a;--ink2:#4d5664;--ink3:#7d8694;
     --line:#dfe3e8;--axis:#c6ccd4;--blue:#1f6bb8;--bull:#1f6bb8;--bear:#b23b2e;--mid:#7d8694;
+    --bull1:#6da7ec;--bull2:#2a78d6;--bull3:#1c5cab;
+    --c1:#2a78d6;--c2:#eb6834;--c3:#1baf7a;--c4:#eda100;--c5:#e87ba4;--c6:#008300;
+    --bear1:#ef8d84;--bear2:#d04a3c;--bear3:#a32e23;
     --good:#19714a;--goodbg:#e4f1ea;--warnbg:#fbf0dd;--warnink:#7d540f;--infobg:#e7eff8}
   @media (prefers-color-scheme:dark){:root{
     --bg:#0c0e12;--card:#161a21;--sunken:#1f242c;--ink:#edf0f4;--ink2:#b3bcc8;--ink3:#8a94a2;
     --line:#272d36;--axis:#39414c;--blue:#5fa3ea;--bull:#5fa3ea;--bear:#e8766a;--mid:#8a94a2;
+    --bull1:#3987e5;--bull2:#5fa3ea;--bull3:#9ec5f4;
+    --c1:#3987e5;--c2:#d95926;--c3:#199e70;--c4:#c98500;--c5:#d55181;--c6:#0ca30c;
+    --bear1:#c0564a;--bear2:#e8766a;--bear3:#f4a79f;
     --good:#56c08a;--goodbg:#10291d;--warnbg:#332512;--warnink:#edc073;--infobg:#121f2e}}
   *{box-sizing:border-box}
   :focus-visible{outline:2px solid var(--blue);outline-offset:2px;border-radius:4px}
@@ -48,13 +54,29 @@
   .nm{color:var(--ink2);font-size:12.5px}
   .sc{display:inline-flex;align-items:center;gap:12px;font-variant-numeric:tabular-nums}
   .sc b{font-size:16px;font-weight:650;min-width:22px;text-align:right}
-  /* Ogni punteggio e' uno scarto da 50: la barra parte dal centro, non da sinistra. */
+  /* Ogni punteggio è uno scarto da 50: la barra parte dal centro, non da sinistra. */
   .meter{position:relative;height:7px;border-radius:4px;background:var(--sunken);
          flex:none;display:inline-block;vertical-align:middle}
   .meter::before{content:"";position:absolute;left:50%;top:-2px;bottom:-2px;
                  width:1px;background:var(--axis)}
   .meter i{position:absolute;top:0;bottom:0;border-radius:4px}
   .meter.lg{height:11px;border-radius:6px}
+  /* i cento punti della formula, divisi per voce */
+  .mix{display:flex;gap:2px;margin:14px 0 4px;height:30px}
+  .mix span{display:flex;align-items:center;justify-content:center;border-radius:4px;
+            font-size:12px;font-weight:600;color:#10131a;min-width:0;overflow:hidden}
+  .swatch{display:inline-block;width:10px;height:10px;border-radius:3px;
+          margin-right:8px;vertical-align:-1px;flex:none}
+  .hist{margin:18px 0 2px}
+  .hist-plot{display:flex;align-items:flex-end;gap:2px;height:168px;
+             border-bottom:1px solid var(--axis)}
+  .hb{flex:1;min-width:0;display:flex;align-items:flex-end;height:100%;position:relative}
+  .hb i{display:block;width:100%;height:var(--h);border-radius:4px 4px 0 0;min-height:1px}
+  .hb.zero{border-left:1px solid var(--ink3)}
+  .hb b{position:absolute;left:0;right:0;bottom:calc(var(--h) + 5px);text-align:center;
+        font-size:11px;font-weight:600;color:var(--ink2)}
+  .hist-axis{display:flex;justify-content:space-between;margin-top:7px;
+             font-size:12px;color:var(--ink3)}
   .meter.m-row{width:84px}
   @media (max-width:620px){.meter.m-row{width:38px}}
   .sc b{font-size:16px;font-weight:650;min-width:26px;display:inline-block;text-align:right}
@@ -236,12 +258,21 @@ function day(s){
   if (isNaN(d.getTime())) return String(s || '');
   return d.toLocaleDateString(LOC, { day: '2-digit', month: 'short', year: 'numeric', timeZone: 'UTC' });
 }
-function tone(v){ return v == null ? 'var(--mid)' : v >= 65 ? 'var(--bull)' : v < 35 ? 'var(--bear)' : 'var(--mid)'; }
+function tone(v){
+  if (v == null) return 'var(--mid)';
+  if (v > 80) return 'var(--bull3)';     // convinzione rialzista forte
+  if (v >= 65) return 'var(--bull2)';    // moderata
+  if (v >= 55) return 'var(--bull1)';    // leggermente rialzista
+  if (v > 45) return 'var(--mid)';       // nessuna convinzione chiara
+  if (v >= 35) return 'var(--bear1)';    // leggermente ribassista
+  if (v >= 20) return 'var(--bear2)';    // moderata
+  return 'var(--bear3)';                 // forte
+}
 function meterBar(v, w, cls){
   var box = '<span class="meter' + (cls ? ' ' + cls : '') + '"' +
             (w ? ' style="width:' + w + 'px"' : '');
   if (v == null) return box + '></span>';
-  var half = Math.min(50, Math.abs(v - 50)) / 50 * 50;      // meta' della barra
+  var half = Math.min(50, Math.abs(v - 50)) / 50 * 50;      // metà della barra
   var side = v >= 50 ? 'left:50%' : 'right:50%';
   return box + ' aria-hidden="true"><i style="' + side + ';width:' + half.toFixed(1) +
          '%;background:' + tone(v) + '"></i></span>';
@@ -362,7 +393,7 @@ function renderGuide(){
      'Un acquisto sul mercato pesa. Una vendita programmata da un piano 10b5-1, le azioni trattenute ' +
      'per le imposte, un esercizio di opzioni: non pesano. Restano visibili, ma con peso zero.'],
     ['Si applica la formula',
-     'Sette sotto-punteggi, ognuno con un peso fisso. Se una fonte manca, il suo peso si ridistribuisce ' +
+     'Sei sotto-punteggi, ognuno con un peso fisso. Se una fonte manca, il suo peso si ridistribuisce ' +
      'sugli altri e il sito dichiara quanta parte dei dati aveva a disposizione.'],
     ['Si scrive perché',
      'Ogni sotto-punteggio porta le frasi che lo giustificano, con i numeri dentro. Nessuna riga del ' +
@@ -378,7 +409,7 @@ function renderGuide(){
      'An open-market purchase counts. A sale scheduled under a 10b5-1 plan, shares withheld for taxes, ' +
      'an option exercise: they do not. They stay visible, at zero weight.'],
     ['The formula is applied',
-     'Seven sub-scores, each with a fixed weight. If a source is missing, its weight is redistributed ' +
+     'Six sub-scores, each with a fixed weight. If a source is missing, its weight is redistributed ' +
      'over the others and the site states how much of the data it actually had.'],
     ['The reasons are written down',
      'Every sub-score carries the sentences that justify it, numbers included. No line on this site is ' +
@@ -472,13 +503,21 @@ function renderGuide(){
     '<ol class="steps">' + steps.map(function(s){
       return '<li><b>' + esc(s[0]) + '</b><p>' + esc(s[1]) + '</p></li>'; }).join('') + '</ol></div>' +
 
-    '<div class="card"><h2>' + T('I sette sotto-punteggi', 'The seven sub-scores') + '</h2>' +
+    '<div class="card"><h2>' + T('Come sono divisi i cento punti',
+                                 'How the hundred points are divided') + '</h2>' +
     '<p class="sub">' + T('I pesi sommano a 100. Quelli non alimentati si ridistribuiscono.',
                           'The weights add up to 100. Those not fed are redistributed.') + '</p>' +
+    '<div class="mix" role="img" aria-label="' + esc(subs.map(function(r){
+        return r[0] + ' ' + r[1] + '%'; }).join(', ')) + '">' +
+      subs.map(function(r, i){
+        return '<span style="flex:' + r[1] + ';background:var(--c' + (i + 1) + ')">' +
+               (r[1] >= 10 ? r[1] + '%' : '') + '</span>';
+      }).join('') + '</div>' +
     '<div class="scroll"><table><thead><tr><th>' + T('Voce', 'Item') + '</th>' +
     '<th class="num">' + T('Peso', 'Weight') + '</th><th>' + T('Che cosa guarda', 'What it looks at') +
-    '</th></tr></thead><tbody>' + subs.map(function(r){
-      return '<tr style="cursor:default"><td><b>' + esc(r[0]) + '</b></td>' +
+    '</th></tr></thead><tbody>' + subs.map(function(r, i){
+      return '<tr style="cursor:default"><td><span class="swatch" style="background:var(--c' +
+        (i + 1) + ')"></span><b>' + esc(r[0]) + '</b></td>' +
         '<td class="num">' + r[1] + '%</td><td class="nm">' + esc(r[2]) + '</td></tr>';
     }).join('') + '</tbody></table></div></div>' +
 
@@ -538,6 +577,42 @@ function renderRequests(){
   });
 }
 
+/* La distribuzione dei singoli acquisti: la tabella dà le mediane, questo da'
+   la dispersione, che è l'informazione che una mediana nasconde. */
+function distChart(bt){
+  var d = bt.dist || [];
+  if (!d.length) return '';
+  var max = Math.max.apply(null, d.map(function(b){ return b.n; }));
+  if (!max) return '';
+  var bars = d.map(function(b){
+    var up = (b.lo === null) ? false : b.lo >= 0;
+    var lab = b.lo === null ? T('sotto il −' + Math.abs(b.hi) + '%', 'below −' + Math.abs(b.hi) + '%')
+            : b.hi === null ? T('sopra il +' + b.lo + '%', 'above +' + b.lo + '%')
+            : T('fra ' + sg(b.lo, 0) + '% e ' + sg(b.hi, 0) + '%',
+                'between ' + sg(b.lo, 0) + '% and ' + sg(b.hi, 0) + '%');
+    var title = b.n + ' ' + T(b.n === 1 ? 'acquisto' : 'acquisti', b.n === 1 ? 'purchase' : 'purchases') +
+                ' ' + lab;
+    return '<div class="hb' + (b.lo === 0 ? ' zero' : '') + '" style="--h:' +
+           (b.n / max * 100).toFixed(1) + '%" title="' + esc(title) + '">' +
+           (b.n === max ? '<b>' + b.n + '</b>' : '') +
+           '<i style="background:' + (up ? 'var(--bull2)' : 'var(--bear2)') + '"></i></div>';
+  }).join('');
+  var neg = d.reduce(function(a, b){ return a + (b.lo !== null && b.lo >= 0 ? 0 : b.n); }, 0);
+  return '<div class="hist"><div class="hist-plot" role="img" aria-label="' +
+    esc(T('Distribuzione dei ' + bt.all.n + ' acquisti per rendimento a ' + bt.horizon + ' giorni',
+          'Distribution of the ' + bt.all.n + ' purchases by return at ' + bt.horizon + ' days')) +
+    '">' + bars + '</div><div class="hist-axis"><span>−30%</span><span>0</span><span>+30%</span></div>' +
+    '<p class="sub" style="margin-top:10px">' + esc(T(
+      'Ogni barra conta gli acquisti finiti in quella fascia di rendimento. In blu i ' +
+      (bt.all.n - neg) + ' finiti in guadagno, in rosso i ' + neg + ' in perdita. La linea ' +
+      'verticale è lo zero. Le due barre agli estremi raccolgono le code, altrimenti un ' +
+      'singolo caso le allargherebbe tutte.',
+      'Each bar counts the purchases that ended in that return band. In blue the ' +
+      (bt.all.n - neg) + ' that ended up, in red the ' + neg + ' that ended down. The vertical ' +
+      'line is zero. The two end bars collect the tails, otherwise a single case would ' +
+      'stretch the whole axis.')) + '</p></div>';
+}
+
 function btRow(label, s, note){
   if (!s) return '<tr style="cursor:default"><td>' + esc(label) +
     '</td><td class="num">—</td><td class="num">—</td><td class="num">—</td><td class="num">—</td></tr>';
@@ -585,7 +660,7 @@ function renderBacktest(){
                T('contro il settore', 'against the sector')) +
       statTile(sg(a.avg, 1) + '%', T('rendimento medio', 'average return'),
                T('la media risente degli estremi', 'the average is pulled by outliers')) +
-    '</div></div>' +
+    '</div>' + distChart(bt) + '</div>' +
 
     '<div class="card"><h2>' + T('Le due regole della formula, messe alla prova',
       'The formula’s two rules, put to the test') + '</h2><p class="sub">' +
