@@ -473,6 +473,71 @@ acquisti misurabili sono meno di dieci, la chiave resta `null` e la pagina
 dice che non c'è ancora abbastanza per parlare, invece di mostrare un numero
 costruito su tre casi.
 
+## La regola di maturità: un'osservazione vale solo a orizzonte compiuto
+
+Fino a questa versione `_ret()` in `pipeline/rules.py` accorciava l'orizzonte
+quando le sedute disponibili non bastavano: `min(horizon, len(after) - 1)`.
+L'intenzione era non buttare via dati. L'effetto era un altro: un acquisto fatto
+tre settimane fa veniva misurato su 14 sedute e poi contato insieme a quelli
+misurati su 60, come se fossero la stessa cosa.
+
+Quanto pesava, sui dati pubblicati: **16 osservazioni su 117**, alcune misurate
+su appena 14 sedute. Tolte quelle, il backtest passa da `n = 117, mediana
++3,16%` a `n = 101, mediana +5,19%`. Il numero migliora, ma non è per questo che
+la regola è cambiata: sarebbe cambiata lo stesso se fosse peggiorato. Le 16
+osservazioni immature avevano mediana +3,16% — più bassa, perché una parte del
+loro rendimento semplicemente non era ancora successa.
+
+Ora `_ret()` restituisce `None` quando l'orizzonte non è compiuto, e
+un'osservazione non matura non entra in nessun conto. Il prezzo da pagare è che
+gli ultimi tre mesi di acquisti non si vedono ancora nel backtest: è giusto
+così, non si vedono perché non sono ancora misurabili.
+
+## Il registro delle previsioni: il punteggio messo alla prova in avanti
+
+Il backtest qui sopra prova due regole dentro la voce insider. Il punteggio
+intero non si può provare all'indietro, per il motivo scritto sopra, e questo
+resta vero. Ma c'è l'altra strada, quella che non richiede di inventare niente:
+**segnare il punteggio di oggi, aspettare, e misurare come è andata.**
+
+Da questa versione in poi ogni giro di aggiornamento aggiunge una riga per
+azienda a `site/history.csv`:
+
+```
+date,ticker,score,close,bench,bench_close
+2026-11-20,INTC,59,54.10,SMH,312.45
+```
+
+La riga è datata al **giorno della chiusura**, non al giro: così i giri
+successivi della stessa giornata non lasciano doppioni, e il punteggio resta
+legato a un giorno di borsa vero. Dopo **90 giorni di calendario** la riga
+diventa un risultato: si cerca la prima riga successiva dello stesso ticker
+distante almeno 90 giorni, e il rendimento è quello dell'azienda meno quello del
+suo riferimento di settore, come ovunque nel progetto. I giorni di calendario,
+e non le sedute, reggono anche se il workflow salta qualche giro.
+
+Tre cose rendono il registro una prova e non una vetrina:
+
+- **È in sola aggiunta.** `history.add()` non riscrive mai una riga esistente.
+  Una previsione registrata non si corregge dopo aver visto come è andata.
+- **È pubblico e scaricabile.** Sta dentro `site/`, quindi chiunque apra il sito
+  può prendere il CSV e rifare i conti senza fidarsi dei numeri mostrati.
+- **Parte vuoto, e lo dice.** La pagina Backtest mostra il riquadro anche quando
+  non c'è ancora niente da mostrare: previsioni registrate, zero misurate, tutte
+  in attesa, e la data in cui arriverà il primo esito. I tre numeri tornano
+  sempre (registrate = misurate + in attesa), e l'ultima riga di ogni azienda
+  è per forza ancora aperta.
+
+Le fasce sono **esattamente** quelle del verdetto scritto sul sito: se un giorno
+cambiano lì, vanno cambiate in `BANDS` dentro `pipeline/history.py`, altrimenti
+il registro smette di essere confrontabile con quello che il sito dice a parole.
+Sotto le dieci previsioni una fascia resta grigia: non è ancora un risultato.
+
+Il primo esito reale arriva circa **90 giorni dopo il primo giro**. Fino ad
+allora il riquadro non mostra nessun numero di rendimento, perché qualunque
+numero ci mettessimo sarebbe inventato. E quando arriverà, mostrerà anche i
+risultati sbagliati: è il solo modo in cui un track record vuol dire qualcosa.
+
 ## Gli universi di titoli
 
 `config.json` contiene due liste, e si aggiungono e si tolgono ticker
