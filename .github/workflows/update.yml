@@ -77,7 +77,13 @@ jobs:
           git config user.email "actions@github.com"
           for i in 1 2 3; do
             git fetch --quiet origin main
-            git reset --quiet --soft origin/main   # i file restano, cambia solo il punto di partenza
+            # NON usare --soft: lascerebbe nell'indice la versione dei file
+            # che il runner aveva all'avvio, e il commit annullerebbe tutto
+            # quello che hai caricato a mano nel frattempo (è successo al
+            # README il 20/11). Il reset normale riallinea l'indice a
+            # origin/main e lascia nel disco i file appena generati, così
+            # il commit contiene solo site/.
+            git reset --quiet origin/main
             git add -A site
             if git diff --staged --quiet; then
               echo "nessuna variazione da salvare"
