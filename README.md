@@ -292,6 +292,34 @@ L'unica chiamata di rete è quella che la pipeline faceva già: il JSON dei
 depositi di EDGAR, che serviva per verificare il CIK e per le azioni in
 circolazione. I dati degli 8-K erano dentro quel file e non li leggevamo.
 
+## Il colore dice qualcosa
+
+Niente nel sito è colorato per decorazione. Ci sono due sole scale, e ognuna ha
+un mestiere.
+
+**La scala divergente** è quella dei punteggi: sette gradini, tre di blu verso la
+convinzione rialzista, tre di rosso verso quella ribassista, e un grigio vero al
+centro. Le soglie non sono scelte a parte: sono **le stesse del verdetto
+scritto**. Un punteggio di 59 è azzurro perché la riga accanto dice «leggermente
+rialzista»; se un giorno cambiassimo le soglie del verdetto, il colore
+cambierebbe con loro. Colore e parole non possono contraddirsi.
+
+**La scala categoriale** sono le sei tinte delle voci della formula, usate in un
+posto solo: la barra della guida che mostra come si dividono i cento punti. Lì il
+colore serve a distinguere, non a giudicare, e ogni fetta ha la sua etichetta
+accanto.
+
+Tutti e tredici i colori sono stati verificati con uno strumento, non a occhio:
+separazione per chi non distingue i rossi dai verdi, contrasto contro la
+superficie chiara e contro quella scura, passo di luminosità fra gradini vicini.
+Le etichette dentro la barra sono in inchiostro scuro e non in bianco, perché sul
+giallo il bianco si ferma a 2,17:1 mentre lo scuro arriva a 8,58:1.
+
+Il grafico del Backtest segue le stesse regole: barre che partono dalla linea
+dello zero, blu a destra e rosse a sinistra, e le due barre agli estremi che
+raccolgono le code perché un singolo −45% altrimenti schiaccerebbe tutto il
+resto.
+
 ## Social: tolto, non rimandato
 
 La voce *Social* valeva il 5% ed era anche lei sempre vuota. L'abbiamo tolta dai
