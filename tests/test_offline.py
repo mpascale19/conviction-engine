@@ -450,6 +450,21 @@ check("i bucket coprono la scala senza buchi",
 check("senza acquisti la distribuzione è tutta a zero",
       sum(b["n"] for b in build._dist([])) == 0)
 
+# ------------------------------------------ chi ha spinto il punteggio
+def sb(i, v, w): return {"id": i, "name": rules.L(i, i), "v": v, "w": w}
+
+dv = build.driver([sb("insider", 55, 35), sb("market", 20, 15), sb("price", 52, 10)])
+check("vince lo scarto per il peso, non il valore più alto",
+      dv["name"]["it"] == "market", dv)
+check("e dice da che parte spinge", dv["up"] is False, dv)
+dv = build.driver([sb("insider", 70, 35), sb("market", 44, 15)])
+check("una voce sopra 50 spinge in su", dv["name"]["it"] == "insider" and dv["up"], dv)
+check("le voci senza valore non possono vincere",
+      build.driver([sb("insider", None, 35), sb("price", 40, 10)])["name"]["it"] == "price")
+check("se nessuna voce si muove dal centro non c'è un motore",
+      build.driver([sb("insider", 50, 35), sb("price", 50, 10)]) is None)
+check("senza voci non si inventa nulla", build.driver([]) is None)
+
 print(f"\n{ok} controlli passati, {len(bad)} falliti")
 if bad:
     print("falliti:", ", ".join(bad))
