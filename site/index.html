@@ -312,16 +312,18 @@ function staleNote(){
   var h = dataAge();
   if (h === null || h < 14) return '';
   var n = Math.round(h);
+  // "controllato" non e' "cambiato": con un giro all'ora la maggior parte dei
+  // giri non trova niente di nuovo, ed e' giusto che si veda.
   if (h >= 60) return '<div class="card warn-card"><b>' +
     T('Questi dati hanno ' + n + ' ore', 'This data is ' + n + ' hours old') + '</b><p>' +
-    T('L\u2019aggiornamento automatico gira tre volte al giorno nei giorni feriali. Un buco ' +
+    T('L\u2019aggiornamento automatico gira ogni ora nei giorni feriali. Un buco ' +
       'così lungo vuol dire che non sta girando: i numeri qui sotto sono quelli dell\u2019ultimo ' +
       'giro riuscito, non quelli di oggi.',
-      'The automatic update runs three times a day on weekdays. A gap this long means it is not ' +
+      'The automatic update runs every hour on weekdays. A gap this long means it is not ' +
       'running: the numbers below are from the last successful run, not from today.') +
     '</p></div>';
   return '<p class="sub" style="margin:0 0 14px">' +
-    T('Questi dati hanno ' + n + ' ore.', 'This data is ' + n + ' hours old.') + '</p>';
+    T('Ultimo controllo ' + n + ' ore fa.', 'Last checked ' + n + ' hours ago.') + '</p>';
 }
 
 function spark(series){
@@ -384,9 +386,10 @@ function renderHome(){
         statTile(full.length, T('con copertura piena', 'with full coverage'),
                  T('call e short interest inclusi', 'calls and short interest included')) +
       '</div>' +
-      '<p class="sub">' + T('Aggiornato il ', 'Updated ') + esc(when(IDX.generated_at)) +
-      T('. Tre aggiornamenti al giorno nei giorni feriali.',
-        '. Three updates a day on weekdays.') + '</p>' +
+      '<p class="sub">' + T('Ultimo cambiamento il ', 'Last change ') +
+      esc(when(IDX.changed_at || IDX.generated_at)) +
+      T('. Controllato ogni ora nei giorni feriali: la maggior parte dei giri non trova niente di nuovo.',
+        '. Checked every hour on weekdays: most runs find nothing new.') + '</p>' +
       '<div class="cta"><a class="btn" href="#aziende">' +
       T('Vedi tutte le aziende', 'See all companies') + '</a>' +
       '<a class="btn ghost" href="#guida">' + T('Come funziona', 'How it works') + '</a>' +
@@ -818,7 +821,8 @@ function renderList(){
     '<div class="card"><div class="top"><div>' +
       '<h1>' + T('Le aziende', 'The companies') + '</h1>' +
       '<p class="sub">' + all.length + T(' aziende in ', ' companies in ') + groups.length +
-      T(' universi · aggiornato il ', ' universes · updated ') + esc(when(IDX.generated_at)) + '</p></div>' +
+      T(' universi · ultimo cambiamento il ', ' universes · last change ') +
+      esc(when(IDX.changed_at || IDX.generated_at)) + '</p></div>' +
       '<button id="rl">' + T('Ricarica', 'Reload') + '</button></div>' + find + chips + '</div>' +
     '<div class="card"><div class="top" style="margin-bottom:12px"><div>' +
       '<h2>' + esc(gname || T('Tutte le aziende', 'All companies')) + '</h2><p class="sub">' +
@@ -1197,7 +1201,8 @@ function paneOverview(d){
     }).join('') + '</ul></div>' +
     '<div class="card sub">' + (d.sources || []).map(function(x){
       return '<b>' + esc(txt(x.t)) + '</b> — ' + esc(txt(x.m)) + '. ' + esc(txt(x.x)); }).join('<br>') +
-      '<br>' + T('Dati aggiornati il ', 'Data updated ') + esc(when(d.generated_at)) + '.</div>';
+      '<br>' + T('Questa scheda è cambiata l\u2019ultima volta il ',
+                 'This page last changed ') + esc(when(d.generated_at)) + '.</div>';
 }
 
 function paneInsider(d){
