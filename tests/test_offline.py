@@ -83,13 +83,13 @@ check("limite superiore 1,5", rules.track_multiplier([200, 200, 200]) == 1.5)
 print("\nRidistribuzione dei pesi")
 subs = {"insider": {"v": 80, "coverage": "Alta"}, "price": {"v": 60, "coverage": "Alta"},
         "guid": {"v": None, "coverage": "Assente"}, "market": {"v": None, "coverage": "Assente"},
-        "sector": {"v": None, "coverage": "Assente"}, "news": {"v": None, "coverage": "Assente"},
+        "sector": {"v": None, "coverage": "Assente"}, "events": {"v": None, "coverage": "Assente"},
         "social": {"v": None, "coverage": "Assente"}}
-w = {"insider": 30, "guid": 20, "market": 15, "sector": 10, "news": 10, "price": 10, "social": 5}
+w = {"insider": 30, "guid": 20, "market": 15, "sector": 10, "events": 10, "price": 10}
 tot, conf, missing, covered = score.combine(subs, w)
 check("media pesata sui soli disponibili", tot == 75, tot)
 check("confidenza bassa con il 40% dei pesi", conf == "Bassa" and covered == 40, (conf, covered))
-check("elenca cosa manca", set(missing) == {"guid", "market", "sector", "news", "social"})
+check("elenca cosa manca", set(missing) == {"guid", "market", "sector", "events"})
 
 print("\nBuild completo, senza rete")
 cfg = load_config(os.path.join(os.path.dirname(F), "..", "config.json"))
@@ -332,7 +332,7 @@ try:
     cik, name, how = sources.cik_for("ADI")
     check("un CIK giusto viene accettato", (cik, how) == ("0000006281", "company_tickers.json"),
           (cik, how))
-    check("e porta con se' il nome dell'azienda", name == "ANALOG DEVICES INC", name)
+    check("e porta con sé il nome dell'azienda", name == "ANALOG DEVICES INC", name)
 finally:
     sources._get, sources._SUBS = real_get, {}
 
@@ -362,7 +362,7 @@ check("ma cinque firme nello stesso giorno sono un episodio solo",
       bt["cluster"]["ep"] == 1 and bt["cluster"]["n"] == 5, bt["cluster"])
 check("gli acquisti isolati restano episodi distinti",
       bt["solo"]["ep"] == 6 and bt["solo"]["n"] == 6, bt["solo"])
-check("la mediana e' quella degli acquisti, non la media",
+check("la mediana è quella degli acquisti, non la media",
       bt["solo"]["med"] == 6.5, bt["solo"]["med"])
 check("conta quanti sono andati in guadagno",
       (bt["all"]["pos"], bt["cluster"]["pos"]) == (6, 0), bt["all"])
@@ -379,6 +379,58 @@ senza = fake_co("ORCL", [(f"R{i}", f"2025-0{i+1}-20", 1.0, False) for i in range
 senza["tracks"] = {}
 check("un acquisto troppo recente per essere misurato viene escluso",
       build.backtest([stesso_giorno, isolati, senza], CFG)["all"]["n"] == 11)
+
+from pipeline import sources
+# ------------------------------------------------- i fatti rilevanti (8-K)
+def f8k(d, *items): return {"date": d, "items": list(items), "acc": ""}
+
+v, why, cov = score.events_score([])
+check("nessun 8-K non è un dato mancante, è un fatto", (v, cov) == (50, "Alta"), (v, cov))
+v, why, cov = score.events_score(None)
+check("ma se la SEC non risponde la voce resta vuota", v is None and cov == "Assente")
+
+# routine: risultati, allegati, assemblea. Non devono muovere niente.
+v, why, cov = score.events_score([f8k("2026-10-20", "2.02", "9.01"), f8k("2026-09-01", "5.07")])
+check("i depositi di routine lasciano il punteggio a metà", v == 50, v)
+check("e lo dice invece di tacere", any("routine" in str(w) or "risultati" in str(w) for w in why))
+
+# una rettifica dei conti passati è il fatto peggiore che un'azienda dichiari
+v4, _, _ = score.events_score([f8k("2026-10-01", "4.02")])
+check("i conti da rifare abbassano il punteggio", v4 == 28, v4)
+vb, _, _ = score.events_score([f8k("2026-10-01", "1.03")])
+check("il fallimento pesa più di tutto", vb == 20 and vb < v4, (vb, v4))
+va, _, _ = score.events_score([f8k("2026-10-01", "1.01")])
+check("un nuovo accordo rilevante alza, ma di poco", va == 54, va)
+
+# un solo tipo di fatto non può dominare per accumulo
+vm, _, _ = score.events_score([f8k("2026-0%d-01" % i, "1.01") for i in range(1, 7)])
+check("il lato positivo è limitato", vm == 62, vm)
+vn, _, _ = score.events_score([f8k("2026-0%d-01" % i, "2.06", "2.04") for i in range(1, 7)])
+check("anche quello negativo, e il punteggio resta nella scala", vn == 15 and 0 <= vn <= 100, vn)
+
+# il perché deve essere controllabile: codice, nome e date
+_, why, _ = score.events_score([f8k("2026-10-01", "4.02"), f8k("2026-08-02", "5.02")])
+txt = " ".join(str(w) for w in why)
+check("cita il codice item e la data", "4.02" in txt and "2026-10-01" in txt)
+check("i fatti peggiori vengono per primi", "4.02" in str(why[1]))
+check("singolare e plurale in italiano", "1 volta" in str(why[1]) and "volte" not in str(why[1]))
+_, w1, _ = score.events_score([f8k("2026-10-01", "2.02")])
+check("vale anche per il conteggio dei moduli", "1 modulo 8-K depositato" in str(w1[0]), w1[0])
+check("e in inglese", "1 Form 8-K filing in" in str(w1[0]), w1[0])
+check("il testo dei fatti è nelle due lingue",
+      all(isinstance(w, dict) and set(w) == {"it", "en"} for w in why))
+
+# il lettore degli 8-K parte dal JSON dei depositi, senza chiamate nuove
+fake = {"filings": {"recent": {
+    "form": ["8-K", "10-Q", "8-K", "8-K/A"],
+    "filingDate": ["2026-10-01", "2026-09-30", "2025-01-02", "2026-10-05"],
+    "items": ["2.02,9.01", "", "4.02", "5.02"],
+    "accessionNumber": ["a", "b", "c", "d"]}}}
+sources._SUBS["0000000001"] = fake
+got = sources.recent_8k("1", "2026-01-01")
+check("prende solo gli 8-K, solo dentro la finestra", [g["date"] for g in got] == ["2026-10-01", "2026-10-05"], got)
+check("separa i codici item", got[0]["items"] == ["2.02", "9.01"], got[0])
+check("tiene anche gli 8-K/A", got[1]["items"] == ["5.02"])
 
 print(f"\n{ok} controlli passati, {len(bad)} falliti")
 if bad:
