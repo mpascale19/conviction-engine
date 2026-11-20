@@ -303,6 +303,23 @@ def _stats(items):
             "avg": round(sum(xs) / n, 2), "med": round(med, 2)}
 
 
+def _dist(items, step=5, edge=30):
+    """La distribuzione dei rendimenti in bucket da `step` punti.
+
+    I due bucket agli estremi raccolgono le code: senza di loro un singolo
+    -45% allargherebbe l'asse e schiaccerebbe tutto il resto.
+    """
+    bars = [{"lo": None, "hi": -edge, "n": 0}]
+    bars += [{"lo": x, "hi": x + step, "n": 0} for x in range(-edge, edge, step)]
+    bars.append({"lo": edge, "hi": None, "n": 0})
+    for x in items:
+        c = x["car"]
+        if c < -edge:  bars[0]["n"] += 1
+        elif c >= edge: bars[-1]["n"] += 1
+        else:          bars[int((c + edge) // step) + 1]["n"] += 1
+    return bars
+
+
 def backtest(results, cfg):
     """Gli acquisti degli insider degli ultimi due anni, e come sono andati.
 
@@ -336,6 +353,7 @@ def backtest(results, cfg):
         return None
     pick = lambda f: [r for r in rows if f(r)]
     return {"horizon": cfg["rules"]["track_record_horizon_days"],
+            "dist": _dist(rows),
             "all": _stats(rows),
             "cluster": _stats(pick(lambda r: r["cluster"])),
             "solo": _stats(pick(lambda r: not r["cluster"])),
