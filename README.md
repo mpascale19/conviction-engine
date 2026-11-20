@@ -292,6 +292,24 @@ L'unica chiamata di rete è quella che la pipeline faceva già: il JSON dei
 depositi di EDGAR, che serviva per verificare il CIK e per le azioni in
 circolazione. I dati degli 8-K erano dentro quel file e non li leggevamo.
 
+## Se l'aggiornamento si rompe, il sito lo dice
+
+Un sito che si aggiorna da solo ha un modo silenzioso di mentire: il workflow si
+ferma e la pagina continua a mostrare numeri vecchi con la stessa faccia di
+sempre. Nessuno se ne accorge, perché la data in fondo non la legge nessuno.
+
+Ora il sito guarda l'età dei propri dati e si comporta di conseguenza:
+
+- **sotto le 14 ore**, niente: è il ritmo normale;
+- **fra 14 e 60 ore**, una riga grigia sotto l'intestazione che dice quante ore
+  hanno i dati, senza allarmare;
+- **oltre le 60 ore**, un avviso vero: i giri sono alle 06:17, 12:47 e 22:35 UTC
+  dal lunedì al venerdì, quindi il buco più lungo normale è il fine settimana,
+  circa 56 ore. Sopra le 60 non è più un fine settimana, è un guasto.
+
+La soglia è scelta così apposta: un avviso che scatta ogni domenica smette di
+essere letto dopo due settimane.
+
 ## L'elenco: che cosa ha spinto il punteggio
 
 Nell'elenco la colonna *Lettura* diceva la stessa cosa su quasi tutte le righe
@@ -303,6 +321,10 @@ scarto da 50, moltiplicato per il suo peso, pesa di più sul totale.
 Su 40 aziende i motori sono otto diversi: `insider` tira giù 16 punteggi e ne
 spinge su 1, `mercato` ne spinge 6 e ne tira 8, e così via. È la stessa
 informazione che prima si trovava solo aprendo la scheda.
+
+Sopra la tabella c'è un campo di ricerca: filtra per ticker o per nome mentre
+scrivi, si combina con il filtro per universo e con l'ordinamento, e quando non
+trova niente lo dice invece di mostrare una tabella vuota.
 
 Le intestazioni della tabella sono cliccabili: azienda, punteggio, compra/vende,
 flusso netto e prezzo. Il secondo click inverte il verso, i dati mancanti restano
