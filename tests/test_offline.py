@@ -818,6 +818,11 @@ _s3 = PR.summarize({"a": [(_dd(i), .1 if (i // 87) % 2 else .3) for i in range(0
                     "b": [(_dd(i), .1 if (i // 87) % 2 else .3) for i in range(0, 435, 5)]})
 _s4 = PR.summarize({"a": [(_dd(i), .1 if (i // 87) % 2 else .3) for i in range(0, 435, 5)]})
 check("e un universo copiato due volte non riduce l'incertezza", _s3["se"] == _s4["se"], (_s3, _s4))
+# correlazione, errore e t parlano della stessa media
+_s5 = PR.summarize({"a": [(_dd(i), .9) for i in range(0, 87, 5)] +
+                         [(_dd(i), .1 if i % 2 else .3) for i in range(87, 435, 29)]})
+check("il t è la correlazione mostrata divisa per il suo errore",
+      _s5 and abs(_s5["t"] - _s5["ic"] / _s5["se"]) < 0.06, _s5)
 
 
 def _co(t, g, n=420, start=date(2025, 1, 1), ev=None, ev_from=None):
@@ -1048,6 +1053,102 @@ try:
           parse_form4(_X.format(ic="0000000099"), issuer_cik=["0002115436", "0000034088"]) is None)
 finally:
     sources._SUBS, sources._TAB, sources.PREDECESSORS = {}, {}, {}
+
+# --------------------------------- lo short interest dai file pubblici di FINRA
+print("\nShort interest da FINRA")
+from pipeline import finra
+
+_P = finra.periods(date(2026, 11, 22))
+check("la prima rilevazione da cercare è quella del 15 novembre (domenica: si prova da venerdì 13)",
+      _P[0] == ("2026-11-A", [date(2026, 11, 13), date(2026, 11, 12), date(2026, 11, 11), date(2026, 11, 10)]),
+      _P[0])
+check("poi fine ottobre (sabato 31: da venerdì 30)", _P[1][0] == "2026-10-B" and _P[1][1][0] == date(2026, 10, 30),
+      _P[1])
+check("cinque anni sono circa 120 rilevazioni", 118 <= len(_P) <= 122, len(_P))
+check("mai un sabato o una domenica fra i giorni da provare",
+      all(d.weekday() < 5 for _, ds in _P for d in ds))
+
+_HEAD = ("accountingYearMonthNumber|symbolCode|issueName|issuerServicesGroupExchangeCode|marketClassCode|"
+         "currentShortPositionQuantity|previousShortPositionQuantity|stockSplitFlag|averageDailyVolumeQuantity|"
+         "daysToCoverQuantity|revisionFlag|changePercent|changePreviousNumber|settlementDate")
+
+
+def _file(day, rows):
+    return _HEAD + "\n" + "\n".join(
+        f"202610|{t}|{t} INC|A|NNM|{si}|1|N|{vol}|{dtc}||0|0|{day}" for t, si, vol, dtc in rows) + "\n"
+
+
+_d, _rows = finra.parse(_file("2026-10-30", [("AAA", 1000, 50, 20.0), ("ZZZ", 5, 5, 1.0)]), {"AAA"})
+check("del file restano solo le aziende che servono", _rows == {"AAA": [1000.0, 50.0, 20.0]}, _rows)
+_d2, _rows2 = finra.parse(_HEAD.replace("|", ",") + "\n202610,AAA,A,A,NNM,7,1,N,2,3.5,,0,0,2026-10-30\n", {"AAA"})
+check("se il separatore diventa la virgola si legge lo stesso", _rows2 == {"AAA": [7.0, 2.0, 3.5]}, _rows2)
+try:
+    finra.parse("a|b|c\n1|2|3\n", {"AAA"})
+    check("un file con colonne sconosciute è un errore, non zero righe", False)
+except ValueError:
+    check("un file con colonne sconosciute è un errore, non zero righe", True)
+
+# Un FINRA finto: un file per ogni 15 e ogni fine mese in giorno feriale, da
+# luglio 2026. Prima di luglio non c'è niente (come se i file non esistessero).
+_fin = {}
+for _k, _ds in finra.periods(date(2026, 11, 22)):
+    if _ds[0] >= date(2026, 7, 1) and _ds[0] <= date(2026, 10, 31):
+        _fin[_ds[0]] = _file(_ds[0].isoformat(), [("AAA", 1000 + _ds[0].toordinal() % 97, 50, 2.0),
+                                                   ("BBB", 300, 10, 30.0)])
+_asked = []
+
+
+def _fget(d):
+    _asked.append(d)
+    return _fin.get(d)
+
+
+_cd = tempfile.mkdtemp()
+_ser, _st = finra.update(_cd, ["AAA", "BBB"], today=date(2026, 11, 22), files=5, get=_fget)
+check("con un tetto di 5 richieste arrivano le prime rilevazioni e le altre restano in coda",
+      len(_asked) == 5 and _st["pending"] > 100 and _st["readings"] >= 1, (_asked, _st))
+check("la rilevazione di novembre non è ancora uscita e non viene segnata come inesistente",
+      not os.path.exists(os.path.join(_cd, "2026-11-A.json")))
+_asked.clear()
+_ser, _st = finra.update(_cd, ["AAA", "BBB"], today=date(2026, 11, 22), files=1000, get=_fget)
+check("con il tetto largo arrivano tutte, otto rilevazioni da luglio a ottobre",
+      _st["readings"] == 8 and _st["pending"] == 0 and len(_ser["AAA"]) == 8, _st)
+check("in ordine di data e con i campi degli export manuali",
+      [r["date"] for r in _ser["AAA"]] == sorted(r["date"] for r in _ser["AAA"])
+      and set(_ser["AAA"][0]) == {"date", "si", "vol", "dtc"} and _ser["BBB"][0]["dtc"] == 30.0, _ser["AAA"][0])
+check("le rilevazioni più vecchie, che non esistono, sono segnate in cache",
+      os.path.exists(os.path.join(_cd, "2025-03-A.json")))
+_asked.clear()
+_ser, _st = finra.update(_cd, ["AAA", "BBB"], today=date(2026, 11, 22), files=1000, get=_fget)
+check("il giro dopo riprova solo novembre, che non è ancora uscito",
+      sorted(set(_asked)) == [date(2026, 11, 10), date(2026, 11, 11), date(2026, 11, 12), date(2026, 11, 13)],
+      _asked)
+_asked.clear()
+_ser, _st = finra.update(_cd, ["AAA", "BBB", "CCC"], today=date(2026, 11, 22), files=3, get=_fget)
+check("un'azienda nuova fa riscaricare le rilevazioni, a rate",
+      len(_asked) == 3 and _st["pending"] > 0 and len(_ser["AAA"]) == 8, (_asked, _st))
+_ser, _st = finra.update(_cd, ["AAA", "BBB", "CCC"], today=date(2026, 11, 22), offline=True, get=_fget)
+check("senza rete si usa quello che c'è in cache", len(_ser["AAA"]) == 8)
+
+# se FINRA non risponde a niente, nessuna rilevazione va segnata come inesistente
+_cd2 = tempfile.mkdtemp()
+_ser, _st = finra.update(_cd2, ["AAA"], today=date(2026, 11, 22), files=1000, get=lambda d: None)
+check("FINRA giù non diventa \"nessun dato per cinque anni\"",
+      os.listdir(_cd2) == [] and _ser == {} and _st["pending"] > 100, (os.listdir(_cd2)[:3], _st))
+
+# nella scheda: FINRA quando ha almeno otto rilevazioni, altrimenti l'export manuale
+_si8 = [{"date": f"2026-0{1 + i // 2}-{'15' if i % 2 == 0 else '28'}", "si": 1e6 + i, "vol": 1e5, "dtc": 3.0}
+        for i in range(8)]
+_fs = build_one(cfg, dict(raws[2], ticker="FINR", si=_si8))
+check("con otto rilevazioni FINRA la voce mercato c'è e la fonte è FINRA",
+      _fs["si_source"] == "finra" and _fs["_subs"]["market"]["v"] is not None and len(_fs["_si_long"]) == 8,
+      _fs.get("si_source"))
+_fs2 = build_one(cfg, dict(raws[2], ticker="FINR", si=_si8[:3]))
+check("con tre sole rilevazioni e nessun export la voce non ha ancora un valore",
+      _fs2["si_source"] == "finra" and _fs2["_subs"]["market"]["v"] is None, _fs2["_subs"].get("market"))
+_fs3 = build_one(cfg, dict(raws[2], ticker="FINR"))
+check("senza FINRA e senza export non c'è fonte", _fs3["si_source"] is None and _fs3["_subs"]["market"]["v"] is None)
+check("la serie lunga resta fuori dalla scheda", "_si_long" not in build.card_view(_fs))
 
 # il riepilogo deve contare ogni fallimento: l'elenco non va mai sostituito
 check("l'elenco dei fallimenti è ancora quello di partenza", bad is _BAD0)
