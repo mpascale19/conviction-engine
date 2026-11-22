@@ -1,6 +1,6 @@
 {
- "generated_at": "2026-11-22T15:10:08+00:00",
- "changed_at": "2026-11-22T15:10:08+00:00",
+ "generated_at": "2026-11-22T15:38:49+00:00",
+ "changed_at": "2026-11-22T15:38:49+00:00",
  "groups": [
   {
    "nome": {
@@ -87,7 +87,7 @@
   "horizon": 60,
   "unit": "campaign",
   "days": 90,
-  "since": "2018-11-16",
+  "since": "2021-11-15",
   "dist": [
    {
     "lo": null,
@@ -102,12 +102,12 @@
    {
     "lo": -25,
     "hi": -20,
-    "n": 3
+    "n": 6
    },
    {
     "lo": -20,
     "hi": -15,
-    "n": 4
+    "n": 5
    },
    {
     "lo": -15,
@@ -117,22 +117,22 @@
    {
     "lo": -10,
     "hi": -5,
-    "n": 9
+    "n": 11
    },
    {
     "lo": -5,
     "hi": 0,
-    "n": 11
+    "n": 13
    },
    {
     "lo": 0,
     "hi": 5,
-    "n": 15
+    "n": 16
    },
    {
     "lo": 5,
     "hi": 10,
-    "n": 13
+    "n": 15
    },
    {
     "lo": 10,
@@ -142,120 +142,120 @@
    {
     "lo": 15,
     "hi": 20,
-    "n": 4
+    "n": 7
    },
    {
     "lo": 20,
     "hi": 25,
-    "n": 6
+    "n": 2
    },
    {
     "lo": 25,
     "hi": 30,
-    "n": 0
+    "n": 1
    },
    {
     "lo": 30,
     "hi": null,
-    "n": 5
+    "n": 7
    }
   ],
   "all": {
-   "camp": 90,
-   "ep": 159,
-   "n": 237,
-   "pos": 50,
+   "camp": 103,
+   "ep": 166,
+   "n": 244,
+   "pos": 55,
+   "avg": 1.19,
+   "med": 1.45
+  },
+  "by_purchase": {
+   "n": 244,
+   "ep": 166,
+   "pos": 136,
    "avg": 1.7,
    "med": 1.92
   },
-  "by_purchase": {
-   "n": 237,
-   "ep": 159,
-   "pos": 139,
-   "avg": 1.9,
-   "med": 3.51
-  },
   "cluster": {
    "camp": 8,
-   "ep": 22,
-   "n": 43,
+   "ep": 23,
+   "n": 39,
    "pos": 3,
-   "avg": -7.81,
+   "avg": -4.3,
    "med": -5.99
   },
   "solo": {
-   "camp": 82,
-   "ep": 137,
-   "n": 194,
-   "pos": 47,
-   "avg": 2.63,
-   "med": 2.19
+   "camp": 95,
+   "ep": 143,
+   "n": 205,
+   "pos": 52,
+   "avg": 1.65,
+   "med": 1.63
   },
   "senior": {
-   "camp": 27,
-   "ep": 58,
-   "n": 112,
-   "pos": 10,
-   "avg": -4.79,
-   "med": -5.44
+   "camp": 28,
+   "ep": 57,
+   "n": 108,
+   "pos": 11,
+   "avg": -3.99,
+   "med": -6.92
   },
   "other": {
-   "camp": 63,
-   "ep": 101,
-   "n": 125,
-   "pos": 40,
-   "avg": 4.48,
-   "med": 3.69
+   "camp": 75,
+   "ep": 109,
+   "n": 136,
+   "pos": 44,
+   "avg": 3.12,
+   "med": 2.09
   },
   "bonus": {
    "tau": 5.0,
-   "camp": 90,
+   "camp": 103,
    "cap": 50.0,
    "days": 90,
-   "base": 3.45,
+   "base": 2.4,
    "features": [
     {
      "id": "cluster",
      "n": 8,
      "hand": 18,
-     "raw": -4.71,
-     "se": 7.32,
-     "shrink": 0.318,
-     "post": -1.5,
-     "points": -2,
-     "by_tau": {
-      "3": -1,
-      "5": -2,
-      "10": -3
-     }
-    },
-    {
-     "id": "two",
-     "n": 7,
-     "hand": 8,
-     "raw": -1.99,
-     "se": 6.94,
-     "shrink": 0.342,
-     "post": -0.68,
-     "points": -1,
+     "raw": -1.04,
+     "se": 7.35,
+     "shrink": 0.316,
+     "post": -0.33,
+     "points": 0,
      "by_tau": {
       "3": 0,
-      "5": -1,
+      "5": 0,
       "10": -1
      }
     },
     {
+     "id": "two",
+     "n": 12,
+     "hand": 8,
+     "raw": -2.43,
+     "se": 5.43,
+     "shrink": 0.459,
+     "post": -1.11,
+     "points": -1,
+     "by_tau": {
+      "3": -1,
+      "5": -1,
+      "10": -2
+     }
+    },
+    {
      "id": "senior",
-     "n": 27,
+     "n": 28,
      "hand": 10,
-     "raw": -6.55,
-     "se": 4.59,
-     "shrink": 0.542,
-     "post": -3.55,
-     "points": -4,
+     "raw": -5.66,
+     "se": 4.43,
+     "shrink": 0.56,
+     "post": -3.17,
+     "points": -3,
      "by_tau": {
       "3": -2,
-      "5": -4,
+      "5": -3,
       "10": -5
      }
     }
@@ -265,8 +265,8 @@
  "forward": {
   "horizon": 90,
   "started": "2026-11-20",
-  "observations": 199,
-  "pending": 199,
+  "observations": 200,
+  "pending": 200,
   "done": 0,
   "days": 1,
   "bands": []
@@ -285,7 +285,7 @@
   "hi": 2.0,
   "top": 10,
   "equal": {
-   "rho": 0.954,
+   "rho": 0.955,
    "shift": 2.4,
    "top": 8
   },
@@ -294,13 +294,13 @@
     "id": "guid",
     "n": 5,
     "rho": 0.7,
-    "shift": 4.6
+    "shift": 4.8
    },
    {
     "id": "insider",
-    "n": 199,
-    "rho": 0.748,
-    "shift": 4.6
+    "n": 200,
+    "rho": 0.749,
+    "shift": 4.7
    },
    {
     "id": "market",
@@ -310,27 +310,27 @@
    },
    {
     "id": "sector",
-    "n": 199,
-    "rho": 0.911,
-    "shift": 1.2
+    "n": 200,
+    "rho": 0.912,
+    "shift": 1.3
    },
    {
     "id": "events",
-    "n": 199,
-    "rho": 0.976,
+    "n": 200,
+    "rho": 0.977,
     "shift": 1.1
    },
    {
     "id": "price",
-    "n": 199,
+    "n": 200,
     "rho": 0.994,
     "shift": 1.6
    }
   ],
   "rho": {
-   "med": 0.983,
-   "p5": 0.959,
-   "min": 0.916
+   "med": 0.984,
+   "p5": 0.96,
+   "min": 0.917
   },
   "top_overlap": {
    "med": 7,
@@ -347,19 +347,19 @@
   "rows": [
    {
     "id": "price",
-    "ic": 0.001,
-    "se": 0.024,
-    "t": -0.47,
+    "ic": -0.0,
+    "se": 0.023,
+    "t": -0.53,
     "blocks": 19,
     "dates": 2130
    },
    {
     "id": "sector",
     "ic": -0.004,
-    "se": 0.022,
-    "t": -0.41,
+    "se": 0.021,
+    "t": -0.49,
     "blocks": 19,
-    "dates": 494
+    "dates": 614
    },
    {
     "id": "market",
@@ -371,19 +371,19 @@
    },
    {
     "id": "events",
-    "ic": -0.009,
+    "ic": -0.01,
     "se": 0.011,
-    "t": -1.15,
+    "t": -1.23,
     "blocks": 19,
     "dates": 2130
    }
   ]
  },
  "history": {
-  "complete": 34,
+  "complete": 40,
   "total": 200,
-  "tx_from": "2014-09-26",
-  "missing": 61968
+  "tx_from": "2021-10-18",
+  "missing": 58353
  },
  "companies": [
   {
@@ -445,10 +445,43 @@
     "c": 101.19,
     "v": 47315400
    },
-   "tx": 227,
+   "tx": 491,
    "buyers": 1,
    "sellers": 1,
    "net_musd": 3.085,
+   "cluster": false,
+   "errors": 0
+  },
+  {
+   "ticker": "HUBS",
+   "name": "HUBSPOT INC",
+   "group": {
+    "it": "Software",
+    "en": "Software"
+   },
+   "score": 58,
+   "verdict": {
+    "it": "Leggermente rialzista",
+    "en": "Mildly bullish"
+   },
+   "confidence": "Media",
+   "covered_pct": 65,
+   "driver": {
+    "name": {
+     "it": "Insider",
+     "en": "Insiders"
+    },
+    "up": true
+   },
+   "last": {
+    "d": "2026-11-20",
+    "c": 193.88,
+    "v": 1483100
+   },
+   "tx": 19,
+   "buyers": 1,
+   "sellers": 0,
+   "net_musd": 4.998,
    "cluster": false,
    "errors": 0
   },
@@ -478,7 +511,7 @@
     "c": 47.04,
     "v": 49962500
    },
-   "tx": 257,
+   "tx": 1351,
    "buyers": 0,
    "sellers": 0,
    "net_musd": 0.0,
@@ -486,13 +519,13 @@
    "errors": 0
   },
   {
-   "ticker": "HUBS",
-   "name": "HUBSPOT INC",
+   "ticker": "CVS",
+   "name": "CVS HEALTH Corp",
    "group": {
-    "it": "Software",
-    "en": "Software"
+    "it": "Sanità",
+    "en": "Health care"
    },
-   "score": 57,
+   "score": 56,
    "verdict": {
     "it": "Leggermente rialzista",
     "en": "Mildly bullish"
@@ -501,20 +534,20 @@
    "covered_pct": 65,
    "driver": {
     "name": {
-     "it": "Insider",
-     "en": "Insiders"
+     "it": "Settore",
+     "en": "Sector"
     },
     "up": true
    },
    "last": {
     "d": "2026-11-20",
-    "c": 193.88,
-    "v": 1483100
+    "c": 80.84,
+    "v": 10714400
    },
-   "tx": 19,
+   "tx": 1,
    "buyers": 1,
    "sellers": 0,
-   "net_musd": 4.998,
+   "net_musd": 2.001,
    "cluster": false,
    "errors": 0
   },
@@ -585,39 +618,6 @@
    "errors": 0
   },
   {
-   "ticker": "CVS",
-   "name": "CVS HEALTH Corp",
-   "group": {
-    "it": "Sanità",
-    "en": "Health care"
-   },
-   "score": 55,
-   "verdict": {
-    "it": "Leggermente rialzista",
-    "en": "Mildly bullish"
-   },
-   "confidence": "Media",
-   "covered_pct": 65,
-   "driver": {
-    "name": {
-     "it": "Settore",
-     "en": "Sector"
-    },
-    "up": true
-   },
-   "last": {
-    "d": "2026-11-20",
-    "c": 80.84,
-    "v": 10714400
-   },
-   "tx": 1,
-   "buyers": 1,
-   "sellers": 0,
-   "net_musd": 2.001,
-   "cluster": false,
-   "errors": 0
-  },
-  {
    "ticker": "INTC",
    "name": "INTEL CORP",
    "group": {
@@ -676,7 +676,7 @@
     "c": 1347.11,
     "v": 3540200
    },
-   "tx": 248,
+   "tx": 1727,
    "buyers": 0,
    "sellers": 0,
    "net_musd": 0.0,
@@ -713,6 +713,39 @@
    "buyers": 1,
    "sellers": 3,
    "net_musd": 10.696,
+   "cluster": false,
+   "errors": 0
+  },
+  {
+   "ticker": "TFC",
+   "name": "TRUIST FINANCIAL CORP",
+   "group": {
+    "it": "Finanza",
+    "en": "Financials"
+   },
+   "score": 54,
+   "verdict": {
+    "it": "Nessuna convinzione chiara",
+    "en": "No clear conviction"
+   },
+   "confidence": "Media",
+   "covered_pct": 65,
+   "driver": {
+    "name": {
+     "it": "Settore",
+     "en": "Sector"
+    },
+    "up": true
+   },
+   "last": {
+    "d": "2026-11-20",
+    "c": 45.81,
+    "v": 10144900
+   },
+   "tx": 5,
+   "buyers": 1,
+   "sellers": 0,
+   "net_musd": 2.225,
    "cluster": false,
    "errors": 0
   },
@@ -1006,7 +1039,7 @@
     "c": 125.53,
     "v": 626373200
    },
-   "tx": 1974,
+   "tx": 1972,
    "buyers": 0,
    "sellers": 1,
    "net_musd": -946.628,
@@ -1076,39 +1109,6 @@
    "buyers": 0,
    "sellers": 0,
    "net_musd": 0.0,
-   "cluster": false,
-   "errors": 0
-  },
-  {
-   "ticker": "CRM",
-   "name": "Salesforce, Inc.",
-   "group": {
-    "it": "Software",
-    "en": "Software"
-   },
-   "score": 53,
-   "verdict": {
-    "it": "Nessuna convinzione chiara",
-    "en": "No clear conviction"
-   },
-   "confidence": "Media",
-   "covered_pct": 65,
-   "driver": {
-    "name": {
-     "it": "Settore",
-     "en": "Sector"
-    },
-    "up": true
-   },
-   "last": {
-    "d": "2026-11-20",
-    "c": 180.62,
-    "v": 8711600
-   },
-   "tx": 36,
-   "buyers": 1,
-   "sellers": 1,
-   "net_musd": -0.173,
    "cluster": false,
    "errors": 0
   },
@@ -1212,39 +1212,6 @@
    "errors": 0
   },
   {
-   "ticker": "TFC",
-   "name": "TRUIST FINANCIAL CORP",
-   "group": {
-    "it": "Finanza",
-    "en": "Financials"
-   },
-   "score": 53,
-   "verdict": {
-    "it": "Nessuna convinzione chiara",
-    "en": "No clear conviction"
-   },
-   "confidence": "Media",
-   "covered_pct": 65,
-   "driver": {
-    "name": {
-     "it": "Settore",
-     "en": "Sector"
-    },
-    "up": true
-   },
-   "last": {
-    "d": "2026-11-20",
-    "c": 45.81,
-    "v": 10144900
-   },
-   "tx": 5,
-   "buyers": 1,
-   "sellers": 0,
-   "net_musd": 2.225,
-   "cluster": false,
-   "errors": 0
-  },
-  {
    "ticker": "AIG",
    "name": "AMERICAN INTERNATIONAL GROUP, INC.",
    "group": {
@@ -1344,6 +1311,39 @@
    "errors": 0
   },
   {
+   "ticker": "BA",
+   "name": "BOEING CO",
+   "group": {
+    "it": "Industria",
+    "en": "Industrials"
+   },
+   "score": 53,
+   "verdict": {
+    "it": "Nessuna convinzione chiara",
+    "en": "No clear conviction"
+   },
+   "confidence": "Media",
+   "covered_pct": 65,
+   "driver": {
+    "name": {
+     "it": "Settore",
+     "en": "Sector"
+    },
+    "up": true
+   },
+   "last": {
+    "d": "2026-11-20",
+    "c": 155.89,
+    "v": 11135300
+   },
+   "tx": 8,
+   "buyers": 3,
+   "sellers": 1,
+   "net_musd": 1.485,
+   "cluster": true,
+   "errors": 0
+  },
+  {
    "ticker": "URI",
    "name": "UNITED RENTALS, INC.",
    "group": {
@@ -1435,7 +1435,7 @@
     "c": 594.51,
     "v": 59094000
    },
-   "tx": 1408,
+   "tx": 1333,
    "buyers": 0,
    "sellers": 0,
    "net_musd": 0.0,
@@ -1468,7 +1468,7 @@
     "c": 246.82,
     "v": 74108100
    },
-   "tx": 1415,
+   "tx": 1413,
    "buyers": 0,
    "sellers": 0,
    "net_musd": 0.0,
@@ -1501,10 +1501,43 @@
     "c": 310.53,
     "v": 12506100
    },
-   "tx": 696,
+   "tx": 695,
    "buyers": 0,
    "sellers": 1,
    "net_musd": -0.882,
+   "cluster": false,
+   "errors": 0
+  },
+  {
+   "ticker": "CRM",
+   "name": "Salesforce, Inc.",
+   "group": {
+    "it": "Software",
+    "en": "Software"
+   },
+   "score": 52,
+   "verdict": {
+    "it": "Nessuna convinzione chiara",
+    "en": "No clear conviction"
+   },
+   "confidence": "Media",
+   "covered_pct": 65,
+   "driver": {
+    "name": {
+     "it": "Settore",
+     "en": "Sector"
+    },
+    "up": true
+   },
+   "last": {
+    "d": "2026-11-20",
+    "c": 180.62,
+    "v": 8711600
+   },
+   "tx": 5527,
+   "buyers": 1,
+   "sellers": 1,
+   "net_musd": -0.173,
    "cluster": false,
    "errors": 0
   },
@@ -1737,39 +1770,6 @@
    "sellers": 0,
    "net_musd": 0.0,
    "cluster": false,
-   "errors": 0
-  },
-  {
-   "ticker": "BA",
-   "name": "BOEING CO",
-   "group": {
-    "it": "Industria",
-    "en": "Industrials"
-   },
-   "score": 52,
-   "verdict": {
-    "it": "Nessuna convinzione chiara",
-    "en": "No clear conviction"
-   },
-   "confidence": "Media",
-   "covered_pct": 65,
-   "driver": {
-    "name": {
-     "it": "Settore",
-     "en": "Sector"
-    },
-    "up": true
-   },
-   "last": {
-    "d": "2026-11-20",
-    "c": 155.89,
-    "v": 11135300
-   },
-   "tx": 8,
-   "buyers": 3,
-   "sellers": 1,
-   "net_musd": 1.485,
-   "cluster": true,
    "errors": 0
   },
   {
@@ -2062,7 +2062,7 @@
     "c": 339.85,
     "v": 12777300
    },
-   "tx": 880,
+   "tx": 878,
    "buyers": 0,
    "sellers": 0,
    "net_musd": 0.0,
@@ -2730,6 +2730,39 @@
    "errors": 0
   },
   {
+   "ticker": "DVN",
+   "name": "DEVON ENERGY CORP/DE",
+   "group": {
+    "it": "Energia",
+    "en": "Energy"
+   },
+   "score": 51,
+   "verdict": {
+    "it": "Nessuna convinzione chiara",
+    "en": "No clear conviction"
+   },
+   "confidence": "Media",
+   "covered_pct": 65,
+   "driver": {
+    "name": {
+     "it": "Settore",
+     "en": "Sector"
+    },
+    "up": true
+   },
+   "last": {
+    "d": "2026-11-20",
+    "c": 41.54,
+    "v": 14412200
+   },
+   "tx": 5,
+   "buyers": 1,
+   "sellers": 1,
+   "net_musd": -0.144,
+   "cluster": false,
+   "errors": 0
+  },
+  {
    "ticker": "LNG",
    "name": "Cheniere Energy, Inc.",
    "group": {
@@ -3052,7 +3085,7 @@
     "c": 33.91,
     "v": 962800
    },
-   "tx": 302,
+   "tx": 301,
    "buyers": 0,
    "sellers": 1,
    "net_musd": -0.08,
@@ -3258,39 +3291,6 @@
    "errors": 0
   },
   {
-   "ticker": "DVN",
-   "name": "DEVON ENERGY CORP/DE",
-   "group": {
-    "it": "Energia",
-    "en": "Energy"
-   },
-   "score": 50,
-   "verdict": {
-    "it": "Nessuna convinzione chiara",
-    "en": "No clear conviction"
-   },
-   "confidence": "Media",
-   "covered_pct": 65,
-   "driver": {
-    "name": {
-     "it": "Insider",
-     "en": "Insiders"
-    },
-    "up": false
-   },
-   "last": {
-    "d": "2026-11-20",
-    "c": 41.54,
-    "v": 14412200
-   },
-   "tx": 5,
-   "buyers": 1,
-   "sellers": 1,
-   "net_musd": -0.144,
-   "cluster": false,
-   "errors": 0
-  },
-  {
    "ticker": "APA",
    "name": "APA Corp",
    "group": {
@@ -3415,7 +3415,7 @@
     "c": 345.92,
     "v": 10199800
    },
-   "tx": 843,
+   "tx": 842,
    "buyers": 0,
    "sellers": 2,
    "net_musd": -3.495,
@@ -3448,7 +3448,7 @@
     "c": 265.29,
     "v": 57302800
    },
-   "tx": 5885,
+   "tx": 5879,
    "buyers": 0,
    "sellers": 0,
    "net_musd": 0.0,
@@ -3481,7 +3481,7 @@
     "c": 270.47,
     "v": 11919300
    },
-   "tx": 834,
+   "tx": 832,
    "buyers": 0,
    "sellers": 2,
    "net_musd": -12.948,
@@ -4438,7 +4438,7 @@
     "c": 96.99,
     "v": 25993400
    },
-   "tx": 158,
+   "tx": 458,
    "buyers": 0,
    "sellers": 4,
    "net_musd": -16.481,
@@ -4570,7 +4570,7 @@
     "c": 204.78,
     "v": 5784800
    },
-   "tx": 488,
+   "tx": 487,
    "buyers": 0,
    "sellers": 0,
    "net_musd": 0.0,
@@ -4603,7 +4603,7 @@
     "c": 39.84,
     "v": 3870000
    },
-   "tx": 813,
+   "tx": 812,
    "buyers": 0,
    "sellers": 0,
    "net_musd": 0.0,
@@ -4702,7 +4702,7 @@
     "c": 424.39,
     "v": 69989800
    },
-   "tx": 908,
+   "tx": 905,
    "buyers": 0,
    "sellers": 1,
    "net_musd": -5.084,
@@ -4735,7 +4735,7 @@
     "c": 87.61,
     "v": 19612800
    },
-   "tx": 123,
+   "tx": 1141,
    "buyers": 0,
    "sellers": 2,
    "net_musd": -0.667,
@@ -4999,7 +4999,7 @@
     "c": 342.56,
     "v": 80464200
    },
-   "tx": 389,
+   "tx": 385,
    "buyers": 0,
    "sellers": 1,
    "net_musd": -31.766,
@@ -5065,7 +5065,7 @@
     "c": 339.04,
     "v": 7894000
    },
-   "tx": 302,
+   "tx": 476,
    "buyers": 0,
    "sellers": 4,
    "net_musd": -7.803,
@@ -5172,6 +5172,39 @@
    "errors": 0
   },
   {
+   "ticker": "USB",
+   "name": "US BANCORP \\DE\\",
+   "group": {
+    "it": "Finanza",
+    "en": "Financials"
+   },
+   "score": 43,
+   "verdict": {
+    "it": "Leggermente ribassista",
+    "en": "Mildly bearish"
+   },
+   "confidence": "Media",
+   "covered_pct": 65,
+   "driver": {
+    "name": {
+     "it": "Insider",
+     "en": "Insiders"
+    },
+    "up": false
+   },
+   "last": {
+    "d": "2026-11-20",
+    "c": 56.05,
+    "v": 9169300
+   },
+   "tx": 2,
+   "buyers": 0,
+   "sellers": 1,
+   "net_musd": -1.701,
+   "cluster": false,
+   "errors": 0
+  },
+  {
    "ticker": "ITW",
    "name": "ILLINOIS TOOL WORKS INC",
    "group": {
@@ -5234,39 +5267,6 @@
    "buyers": 0,
    "sellers": 0,
    "net_musd": 0.0,
-   "cluster": false,
-   "errors": 0
-  },
-  {
-   "ticker": "USB",
-   "name": "US BANCORP \\DE\\",
-   "group": {
-    "it": "Finanza",
-    "en": "Financials"
-   },
-   "score": 42,
-   "verdict": {
-    "it": "Leggermente ribassista",
-    "en": "Mildly bearish"
-   },
-   "confidence": "Media",
-   "covered_pct": 65,
-   "driver": {
-    "name": {
-     "it": "Insider",
-     "en": "Insiders"
-    },
-    "up": false
-   },
-   "last": {
-    "d": "2026-11-20",
-    "c": 56.05,
-    "v": 9169300
-   },
-   "tx": 2,
-   "buyers": 0,
-   "sellers": 1,
-   "net_musd": -1.701,
    "cluster": false,
    "errors": 0
   },
@@ -5362,7 +5362,7 @@
     "c": 310.0,
     "v": 2383100
    },
-   "tx": 41,
+   "tx": 37,
    "buyers": 0,
    "sellers": 1,
    "net_musd": -178.925,
@@ -5395,7 +5395,7 @@
     "c": 263.75,
     "v": 16820600
    },
-   "tx": 501,
+   "tx": 493,
    "buyers": 0,
    "sellers": 6,
    "net_musd": -10.942,
@@ -5428,7 +5428,7 @@
     "c": 302.63,
     "v": 14169700
    },
-   "tx": 316,
+   "tx": 314,
    "buyers": 0,
    "sellers": 3,
    "net_musd": -4.454,
@@ -5890,7 +5890,7 @@
     "c": 401.87,
     "v": 8407600
    },
-   "tx": 552,
+   "tx": 538,
    "buyers": 0,
    "sellers": 2,
    "net_musd": -29.583,
@@ -6517,7 +6517,7 @@
     "c": 1102.15,
     "v": 4129900
    },
-   "tx": 184,
+   "tx": 531,
    "buyers": 0,
    "sellers": 5,
    "net_musd": -5.607,
@@ -6781,7 +6781,7 @@
     "c": 217.71,
     "v": 5442800
    },
-   "tx": 77,
+   "tx": 1472,
    "buyers": 0,
    "sellers": 1,
    "net_musd": -31.345,
@@ -6818,6 +6818,39 @@
    "buyers": 0,
    "sellers": 2,
    "net_musd": -5.199,
+   "cluster": false,
+   "errors": 0
+  },
+  {
+   "ticker": "BNY",
+   "name": "Bank of New York Mellon Corp",
+   "group": {
+    "it": "Finanza",
+    "en": "Financials"
+   },
+   "score": 36,
+   "verdict": {
+    "it": "Leggermente ribassista",
+    "en": "Mildly bearish"
+   },
+   "confidence": "Media",
+   "covered_pct": 65,
+   "driver": {
+    "name": {
+     "it": "Insider",
+     "en": "Insiders"
+    },
+    "up": false
+   },
+   "last": {
+    "d": "2026-11-20",
+    "c": 141.24,
+    "v": 5659200
+   },
+   "tx": 20,
+   "buyers": 0,
+   "sellers": 1,
+   "net_musd": -7.391,
    "cluster": false,
    "errors": 0
   },
@@ -6952,33 +6985,7 @@
    "net_musd": -20.525,
    "cluster": false,
    "errors": 0
-  },
-  {
-   "ticker": "BK",
-   "name": "BK",
-   "group": {
-    "it": "Finanza",
-    "en": "Financials"
-   },
-   "score": null,
-   "verdict": {
-    "it": "Dati insufficienti",
-    "en": "Not enough data"
-   },
-   "confidence": "Assente",
-   "covered_pct": 0,
-   "driver": null,
-   "last": null,
-   "tx": 0,
-   "buyers": 0,
-   "sellers": 0,
-   "net_musd": 0.0,
-   "cluster": false,
-   "errors": 2
   }
  ],
- "errors": [
-  "Form 4 di BK: CIK non trovato -> company_tickers.json: il ticker non c'è; browse-edgar: richiesta fallita: 400 Client Error: Bad Request for url: https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=BK&type=4&dateb=&owner=include&count=1&output=atom | rimedio: scrivi il numero nel campo \"cik\" di config.json",
-  "Prezzi di BK: nessuna fonte di prezzi ha risposto -> yahoo: solo 0 righe utili; yahoo-2: solo 0 righe utili; stooq: solo 0 righe utili"
- ]
+ "errors": []
 }
