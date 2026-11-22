@@ -809,6 +809,89 @@ _e2 = [x for x in PR.run(_unc, cfg)["rows"] if x["id"] == "events"][0]
 check("con gli 8-K coperti la voce si calcola", _e1["ic"] is not None, _e1)
 check("con gli 8-K non coperti no, invece di leggere 'nessun fatto'", _e2["ic"] is None, _e2)
 
+
+# --------------------------------- cinque anni di storia
+# gli archivi dei depositi: si scaricano solo se servono, e restano allineati
+_main = {"filings": {"recent": {"form": ["4", "8-K"], "accessionNumber": ["n1", "n2"],
+                                "filingDate": ["2026-10-01", "2026-06-01"], "primaryDocument": ["a.xml", "b.htm"],
+                                "items": ["", "5.02"]},
+                     "files": [{"name": "A1.json", "filingFrom": "2024-01-01", "filingTo": "2026-05-31"},
+                               {"name": "A0.json", "filingFrom": "2019-01-01", "filingTo": "2023-12-31"}]}}
+_arch = {"A1.json": {"form": ["4", "8-K"], "accessionNumber": ["o1", "o2"],
+                     "filingDate": ["2025-01-10", "2024-03-02"], "primaryDocument": ["c.xml", "d.htm"]},
+         "A0.json": {"form": ["4"], "accessionNumber": ["x"], "filingDate": ["2020-01-01"], "primaryDocument": ["z"]}}
+_asked = []
+real_get = sources._get
+try:
+    class _J:
+        def __init__(self, j): self._j = j
+        def json(self): return self._j
+    sources._SUBS, sources._TAB = {"0000000077": _main}, {}
+    sources._get = lambda url, **k: (_asked.append(url.split("/")[-1]), _J(_arch[url.split("/")[-1]]))[1]
+    _cols, _cov = sources.filings_table("77", "2024-01-01")
+    check("un archivio che serve viene letto, uno tutto più vecchio no", _asked == ["A1.json"], _asked)
+    check("l'elenco unito è dal più recente al più vecchio",
+          _cols["accessionNumber"] == ["n1", "n2", "o1", "o2"], _cols["accessionNumber"])
+    check("una colonna che l'archivio non ha resta allineata e vuota", _cols["items"] == ["", "5.02", "", ""], _cols["items"])
+    check("e dice da quando l'elenco è completo", _cov == "2024-03-02", _cov)
+    _asked.clear(); sources._TAB = {}
+    _c2, _cov2 = sources.filings_table("77", "2026-09-01")
+    check("se il file principale basta, nessun archivio", _asked == [] and _cov2 == "2026-06-01", (_asked, _cov2))
+    sources._TAB = {}
+    check("gli 8-K arrivano anche dagli archivi",
+          [e["date"] for e in sources.recent_8k("77", "2024-01-01")] == ["2024-03-02", "2026-06-01"])
+finally:
+    sources._get, sources._SUBS, sources._TAB = real_get, {}, {}
+
+# il tetto di documenti nuovi per giro, condiviso fra le aziende
+_docs2 = {f"g{i}": _X.format(ic="0000000042") for i in range(5)}
+_calls2 = []
+real_get, real_f4 = sources._get, sources.form4_filings
+try:
+    sources._get = lambda url, **k: (_calls2.append(url), _R(_docs2[url]))[1]
+    sources.form4_filings = lambda cik, months: [{"accession": k, "date": "2026-01-01", "url": k} for k in _docs2]
+    _cd2 = tempfile.mkdtemp(); _b = {"left": 3}; _st = {}
+    _r = sources.insider_transactions("42", cache_dir=_cd2, budget=_b, status=_st)
+    check("con il tetto a 3 se ne scaricano 3", len(_calls2) == 3 and _b["left"] == 0, (_calls2, _b))
+    check("e lo storico risulta ancora incompleto", _st == {"complete": False, "missing": 2}, _st)
+    _calls2.clear(); _b = {"left": 3}; _st = {}
+    _r = sources.insider_transactions("42", cache_dir=_cd2, budget=_b, status=_st)
+    check("il giro dopo legge dalla cache e scarica solo i mancanti",
+          len(_calls2) == 2 and len(_r) == 5 and _st["complete"], (_calls2, _st))
+finally:
+    sources._get, sources.form4_filings = real_get, real_f4
+
+# i prezzi si tagliano alla stessa finestra per ogni fonte
+real_y, real_s = sources._prices_yahoo, sources._prices_stooq
+try:
+    sources._prices_yahoo = lambda *a, **k: (_ for _ in ()).throw(RuntimeError("giù"))
+    _old = [{"d": (date.today() - timedelta(days=d)).isoformat(), "c": 1.0, "v": 1} for d in range(4000, -1, -1)]
+    sources._prices_stooq = lambda *a, **k: _old
+    _px, _src = sources.prices("ZZZ")
+    check("stooq dà dieci anni, se ne tengono cinque",
+          _src == "stooq" and _px[0]["d"] >= (date.today() - timedelta(days=int(5 * 365.25) + 8)).isoformat(), _px[0])
+finally:
+    sources._prices_yahoo, sources._prices_stooq = real_y, real_s
+
+# la scheda mostra due anni di operazioni, i calcoli ne usano cinque
+_full = {"price": {"last": {"d": "2026-11-20", "c": 1}}, "_px_long": [[1, 2]], "_ins": {},
+         "tx": [{"date": "2022-01-01"}, {"date": "2024-12-01"}, {"date": "2026-11-01"}]}
+_card = build.card_view(_full)
+check("nella scheda non escono le chiavi di lavoro", "_px_long" not in _card and "_ins" not in _card)
+check("e le operazioni sono quelle degli ultimi due anni",
+      [t["date"] for t in _card["tx"]] == ["2024-12-01", "2026-11-01"], _card["tx"])
+check("il dizionario in memoria resta intero", len(_full["tx"]) == 3 and "_px_long" in _full)
+
+# la prova all'indietro usa la serie lunga e non si accorcia per un titolo giovane
+_long = [_co(f"L{k}", 0.0006 * (k + 1), n=900) for k in range(7)] + [_co("YOUNG", 0.003, n=250)]
+for _d in _long:
+    _d["_px_long"], _d["price"]["series"] = _d["price"]["series"], _d["price"]["series"][-200:]
+_rl = PR.run(_long, cfg)
+check("con la serie lunga le date arrivano indietro",
+      _rl["from"] <= (date(2025, 1, 1) + timedelta(days=130)).isoformat(), _rl["from"])
+check("un titolo con meno storia non accorcia gli altri",
+      [x for x in _rl["rows"] if x["id"] == "price"][0]["dates"] >= 100, _rl["rows"][0])
+
 # il riepilogo deve contare ogni fallimento: l'elenco non va mai sostituito
 check("l'elenco dei fallimenti è ancora quello di partenza", bad is _BAD0)
 print(f"\n{ok} controlli passati, {len(bad)} falliti")
