@@ -15,7 +15,7 @@ import os
 import time
 from datetime import date, datetime, timedelta, timezone
 
-from . import bonus, history, market, predict, rules, score, stress
+from . import bonus, finra, history, market, predict, rules, score, stress
 from .rules import L
 from .extract import extract_all
 
@@ -204,8 +204,8 @@ def build_one(cfg, raw, extracted=None):
     for k, note in [
         ("guid", L("Serve l'export delle trascrizioni delle call.",
                    "Needs the export of the earnings-call transcripts.")),
-        ("market", L("Serve l'export dello short interest dal terminale (dati FINRA).",
-                     "Needs the short-interest export from the terminal (FINRA data).")),
+        ("market", L("Lo short interest di FINRA per questo titolo non è ancora arrivato.",
+                     "FINRA short interest for this stock has not arrived yet.")),
         ("sector", L("In attesa del confronto con il resto dell'universo.",
                      "Waiting for the comparison with the rest of the universe.")),
         ("events", L("I depositi SEC non sono stati raggiunti.",
@@ -219,7 +219,15 @@ def build_one(cfg, raw, extracted=None):
 
     buys_90d = any(t["kind"] == "BUY" for t in recent)
 
-    si = market.load_short_interest(raw["ticker"])
+    # Lo short interest viene dai file pubblici di FINRA (pipeline/finra.py).
+    # L'export manuale resta come riserva, finché FINRA non ha almeno otto
+    # rilevazioni di quel titolo: è lo stesso dato, ma tutte le aziende devono
+    # essere misurate con la stessa fonte appena si può.
+    si, si_src = list(raw.get("si") or []), "finra"
+    if len(si) < 8:
+        manual = market.load_short_interest(raw["ticker"])
+        if len(manual) > len(si):
+            si, si_src = manual, "manual"
     si_pct = None
     if si:
         v, why, cov = score.market_score(si, today, raw.get("shares"))
@@ -287,6 +295,10 @@ def build_one(cfg, raw, extracted=None):
                                      "guidance", "qa", "language_changes") if k in e}
                   for e in (extracted or [])],
         "si_series": [[r["date"], round(r["si"]), r["dtc"]] for r in si[-48:]],
+        "si_source": si_src if si else None,
+        # cinque anni di short interest per la prova all'indietro: restano in
+        # memoria, nella scheda vanno gli ultimi due anni
+        "_si_long": [[r["date"], round(r["si"]), r["dtc"]] for r in si],
         # gli 8-K di due anni, per la prova all'indietro; e da quando il file
         # della SEC li copre davvero
         "events_hist": ([[e["date"], e["items"]] for e in raw["events_hist"]]
@@ -350,14 +362,15 @@ def finish(cfg, data, universe):
          "x": L(f"{px_n} sedute, ultima {last_d}",
                 f"{px_n} trading days, last one {last_d}")},
         {"n": 3, "t": L("Short interest", "Short interest"),
-         "m": L("Bloomberg, export manuale", "Bloomberg, manual export"),
+         "m": (L("FINRA, file pubblici", "FINRA, public files") if data.get("si_source") == "finra"
+               else L("Bloomberg, export manuale", "Bloomberg, manual export")),
          "x": L(f"{data['counts'].get('si', 0)} rilevazioni bimensili.",
                 f"{data['counts'].get('si', 0)} twice-monthly readings.")}
         if data["counts"].get("si") else
         {"n": 3, "t": L("Short interest", "Short interest"),
          "m": L("non caricato", "not loaded"),
-         "x": L("Serve l'export di Bloomberg in input/market/.",
-                "Needs the Bloomberg export in input/market/.")},
+         "x": L("FINRA non ha ancora abbastanza rilevazioni di questo titolo.",
+                "FINRA does not have enough readings of this stock yet.")},
         {"n": 4, "t": L("Universo di confronto", "Comparison universe"),
          "m": L(f"{nu} aziende", f"{nu} companies"),
          "x": data.get("group") or L("", "")},
@@ -539,7 +552,7 @@ def same_but_for_the_clock(path, data):
     return a == b
 
 
-def write_all(results, cfg, outdir=OUTDIR, forward=None):
+def write_all(results, cfg, outdir=OUTDIR, forward=None, si_status=None):
     ddir = os.path.join(outdir, "data")
     os.makedirs(ddir, exist_ok=True)
 
@@ -612,6 +625,21 @@ def write_all(results, cfg, outdir=OUTDIR, forward=None):
                            default=None),
             "missing": sum((d.get("history") or {}).get("tx_missing") or 0 for d in results),
         },
+        # da dove arriva lo short interest: FINRA per tutti appena possibile,
+        # l'export manuale come riserva (vedi build_one e pipeline/finra.py)
+        "short_interest": {
+            "finra": sum(1 for d in results if d.get("si_source") == "finra"),
+            "manual": sum(1 for d in results if d.get("si_source") == "manual"),
+            "none": sum(1 for d in results if not d.get("si_source")),
+            "from": (si_status or {}).get("from"),
+            "to": (si_status or {}).get("to"),
+            "readings": (si_status or {}).get("readings"),
+            "pending": (si_status or {}).get("pending"),
+            "error": (si_status or {}).get("error"),
+            # l'intestazione del file solo se qualcosa non va: con dati buoni
+            # cambierebbe l'indice a ogni giro senza dire niente
+            "head": (si_status or {}).get("head") if not (si_status or {}).get("companies") else None,
+        },
         "companies": rows,
         "errors": sorted({e for d in results for e in d["errors"]}),
     }
@@ -660,6 +688,18 @@ def main():
     if not a.offline:
         from . import sources
         sources.ARCHIVE_DIR = os.path.join(CACHE, "submissions")
+    # Lo short interest di tutte le aziende, una rilevazione FINRA alla volta
+    # (vedi pipeline/finra.py). Se FINRA non risponde il giro va avanti con la
+    # cache e con gli export manuali.
+    every_t = [t for g in groups for t in g["tickers"]]
+    try:
+        si_all, si_status = finra.update(os.path.join(CACHE, "finra"), every_t, offline=a.offline,
+                                         files=int(cfg.get("finra_files_per_run") or finra.FILES_PER_RUN))
+        print(f"Short interest FINRA: {si_status}")
+    except Exception as e:
+        # l'errore finisce nell'indice: è il solo modo di leggerlo senza aprire il log
+        si_all, si_status = {}, {"error": str(e)[:300]}
+        print(f"! short interest FINRA: {e}")
     for g in groups:
         print(f"\n=== {g['nome']} ({len(g['tickers'])} aziende) ===")
         bench = []
@@ -676,6 +716,8 @@ def main():
             print(f"\n[{i}/{len(g['tickers'])}] {t}")
             try:
                 raw = gather(cfg, t, bench, a.offline, budget)
+                if t.upper() in si_all:
+                    raw["si"] = si_all[t.upper()]
                 mine = [e for e in extracted if e.get("ticker") == t.upper()]
                 d = build_one(cfg, raw, mine)
                 d["group"] = group_name(g)
@@ -724,7 +766,7 @@ def main():
     except Exception as e:
         print(f"! registro delle previsioni: {e}")
 
-    index = write_all(results, cfg, a.out, forward=fwd)
+    index = write_all(results, cfg, a.out, forward=fwd, si_status=si_status)
     total = sum(len(g["tickers"]) for g in groups)
     print(f"\n{len(results)} aziende su {total}")
     for r in index["companies"][:12]:

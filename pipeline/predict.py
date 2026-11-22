@@ -87,9 +87,12 @@ def summarize(points, block_days=BLOCK_DAYS):
     blocks = [st.mean(by[k]) for k in sorted(by) if len(by[k]) >= 3]
     if len(blocks) < 3:
         return None
+    # La correlazione mostrata è la media dei blocchi, la stessa a cui si
+    # riferiscono errore e t. Prima era la media di tutte le date: i blocchi
+    # con più date pesavano di più nel numero che si leggeva, e non nel t.
     m = st.mean(blocks)
     se = st.stdev(blocks) / len(blocks) ** .5
-    return {"ic": round(st.mean(every), 3), "se": round(se, 3),
+    return {"ic": round(m, 3), "se": round(se, 3),
             "t": round(m / se, 2) if se else None,
             "blocks": len(blocks), "dates": len(every)}
 
@@ -142,7 +145,9 @@ def run(results, cfg, step=STEP):
         if not key or len(ser) < START + H + 1:
             continue
         d = dict(d, _px=[{"d": x[0], "c": x[1]} for x in ser if x[1]],
-                 _si=[{"date": r[0], "si": r[1], "dtc": r[2]} for r in (d.get("si_series") or [])])
+                 # anche qui la serie lunga (cinque anni da FINRA) se c'è
+                 _si=[{"date": r[0], "si": r[1], "dtc": r[2]}
+                      for r in (d.get("_si_long") or d.get("si_series") or [])])
         groups.setdefault(key, []).append(d)
 
     points = {k: {} for k in SIGNALS}
