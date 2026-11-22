@@ -12,11 +12,11 @@ legge le trascrizioni e ne tira fuori campi strutturati; il punteggio lo calcola
 
 | Dato | Fonte | Automatico |
 |---|---|---|
-| Prezzi e volumi | stooq.com | sì, senza chiave |
+| Prezzi e volumi | Yahoo Finance, con stooq.com come riserva | sì, senza chiave |
 | Operazioni degli insider (Form 4) | SEC EDGAR | sì, senza chiave |
-| Rendimento del settore | stooq.com (ETF di settore) | sì |
-| Tono e guidance dalle call | il tuo export + LLM | sì, se metti i testi in `input/transcripts/` |
-| Revisioni delle stime, short interest | Bloomberg | **no**: export manuale |
+| Rendimento del settore | Yahoo / stooq (ETF di settore) | sì |
+| Tono e guidance dalle call | il tuo export + LLM | sì, se metti i testi in `input/transcripts/` **e** nei segreti del repository c'è `ANTHROPIC_API_KEY`; finora le 24 estrazioni sono state fatte a mano, con lo stesso schema |
+| Short interest | Bloomberg (dati FINRA) | **no**: export manuale |
 | Concorrenti | SEC EDGAR | sì, quando aggiungi i loro ticker |
 | Fatti rilevanti (8-K) | SEC EDGAR | sì, senza chiave e senza richieste in più |
 
@@ -607,6 +607,38 @@ perché distinguano davvero le aziende (oggi settore, eventi e prezzo danno
 valori troppo simili fra loro), oppure si abbassa il loro peso e lo si dichiara.
 Quello che non va fatto è lasciare trenta punti di peso a tre voci che non
 spostano niente e continuare a presentarle come se contassero.
+
+## La prova EDGAR: perché la guidance resta legata alle call
+
+La guidance copre 5 aziende su 40 perché dipende da trascrizioni esportate a
+mano. L'idea per allargarla era prendere la guidance dal comunicato stampa che
+ogni azienda allega all'8-K item 2.02: pubblico, gratuito, già quasi a portata
+di `sources.recent_8k()`. Prima di costruirla, è stata messa alla prova sulle
+cinque aziende per cui c'erano già le estrazioni dalle call (22 novembre 2026).
+
+| Azienda | Voci di guidance in call | Ritrovate nel comunicato |
+|---|---|---|
+| KO | 8 | 6 |
+| ORCL | 8 | 5 |
+| INTC | 10 | 3 |
+| NVDA | 8 | 3 |
+| BAC | 7 | 0 |
+| **Totale** | **41** | **17** |
+
+Il comunicato porta quasi tutta la guidance numerica di breve periodo
+(prossimo trimestre, anno in corso) delle aziende non bancarie, e quasi niente
+del resto: capex, anni successivi, commenti. Le banche non mettono guidance nel
+comunicato.
+
+Il motivo per cui l'estensione **non è stata fatta** però è un altro: il
+sotto-punteggio di guidance ha come base il **tono** medio delle call
+(`build.py`, i rialzi e i tagli lo spostano al massimo di 10 punti). Un
+comunicato stampa non ha un tono del management confrontabile — lo scrive
+l'ufficio stampa, ed è sempre ottimista — e non ha domande e risposte.
+Alimentare il sotto-punteggio con quello vorrebbe dire cambiare di nascosto che
+cosa misura. EDGAR potrebbe alimentare soltanto la parte "voci alzate o
+ridotte", calcolata confrontando i numeri di due comunicati consecutivi: è una
+voce diversa, e va decisa come tale.
 
 ## Gli universi di titoli
 
