@@ -480,7 +480,8 @@ function renderHome(){
 function renderGuide(){
   var steps = T([
     ['Si scaricano i documenti',
-     'Per ogni azienda, da SEC EDGAR: i Form 4 degli ultimi due anni, gli 8-K degli ultimi sei mesi e ' +
+     'Per ogni azienda, da SEC EDGAR: i Form 4 e gli 8-K degli ultimi cinque anni (al punteggio di oggi ' +
+     'servono gli ultimi 90 giorni dei primi e sei mesi dei secondi; il resto serve alle prove) e ' +
      'le azioni in circolazione dalla copertina dei 10-Q. Poi i prezzi di chiusura. Lo short interest ' +
      '(dati FINRA) e le trascrizioni delle call non si scaricano da soli: arrivano da un export fatto a ' +
      'mano dal terminale, e solo per le aziende per cui c’è.'],
@@ -501,8 +502,9 @@ function renderGuide(){
      'sito è un giudizio senza una fonte dietro.']
   ], [
     ['The documents are downloaded',
-     'For each company, from SEC EDGAR: the Form 4 filings of the last two years, the 8-K filings of the ' +
-     'last six months and shares outstanding from the cover of the 10-Q. Then closing prices. Short ' +
+     'For each company, from SEC EDGAR: the Form 4 and 8-K filings of the last five years (today’s score ' +
+     'needs the last 90 days of the first and six months of the second; the rest feeds the tests), and ' +
+     'shares outstanding from the cover of the 10-Q. Then closing prices. Short ' +
      'interest (FINRA data) and call transcripts do not download themselves: they come from a manual ' +
      'terminal export, and only for the companies that have one.'],
     ['The model extracts, it does not judge',
@@ -1051,6 +1053,27 @@ function bonusCard(bt){
       'looks at purchases.') + '</p></div>';
 }
 
+/* Mese e anno di una data ISO, nella lingua scelta. */
+function monthYear(s){
+  try { return new Date(s + 'T12:00:00Z').toLocaleDateString(T('it-IT', 'en-GB'),
+          { month: 'long', year: 'numeric' }); } catch (e) { return s; }
+}
+
+/* Mentre lo storico dei Form 4 si allunga a cinque anni, a rate, la pagina lo
+   dice: i numeri qui sotto crescono da un giro all'altro, e non è un errore. */
+function historyNote(){
+  var hs = IDX.history;
+  if (!hs || !hs.total || hs.complete >= hs.total) return '';
+  var miss = (hs.missing || 0).toLocaleString(T('it-IT', 'en-GB'));
+  return '<p class="sub" style="margin-top:-4px">' + T(
+    'Lo storico dei Form 4 si sta allungando a cinque anni, un aggiornamento dopo l\u2019altro: è completo ' +
+    'per ' + hs.complete + ' aziende su ' + hs.total + ' (mancano ancora ' + miss + ' documenti). ' +
+    'Finché non ha finito, i numeri di questa pagina cambiano da un giro all\u2019altro.',
+    'The Form 4 history is being extended to five years, one update after another: it is complete for ' +
+    hs.complete + ' companies out of ' + hs.total + ' (' + miss + ' documents still to go). Until it ' +
+    'finishes, the numbers on this page change from one run to the next.') + '</p>';
+}
+
 /* Le voci che si possono ricostruire nel passato, messe alla prova. La
    lettura nasce dal rapporto fra il numero e la sua incertezza: sotto due volte
    l'incertezza, il sito non dice "segnale" ma "indistinguibile dal caso". */
@@ -1075,6 +1098,12 @@ function icCard(){
       '<td class="num" style="color:var(--ink3)">' + (r.se == null ? '—' : '± ' + r.se.toFixed(2)) + '</td>' +
       '<td style="color:' + col + '">' + esc(read) + '</td></tr>';
   }).join('');
+  // la soglia sotto cui un segnale non si distingue dal caso: due volte
+  // l'incertezza tipica. Si abbassa da sola man mano che la storia si allunga.
+  var ses = ic.rows.filter(function(r){ return r.se != null; }).map(function(r){ return r.se; })
+                   .sort(function(a, b){ return a - b; });
+  var thr = ses.length ? 2 * ses[Math.floor(ses.length / 2)] : null;
+  var thrEn = thr == null ? '—' : thr.toFixed(2), thrIt = thrEn.replace('.', ',');
   var fmtD = function(s){ try { return new Date(s).toLocaleDateString(T('it-IT', 'en-GB'),
     { month: 'short', year: 'numeric' }); } catch (e) { return s; } };
   return '<div class="card"><h2>' + T('Le altre voci, alla prova', 'The other inputs, put to the test') +
@@ -1095,13 +1124,13 @@ function icCard(){
     '<th>' + T('Lettura', 'Reading') + '</th></tr></thead><tbody>' + rows + '</tbody></table></div>' +
     '<p class="sub" style="margin-top:12px"><b>' + T('Come leggerlo.', 'How to read it.') + '</b> ' + T(
       'Il metodo è stato controllato in due modi: un segnale che conosce il futuro dà 1, un segnale tirato ' +
-      'a caso dà 0. Con due anni e quaranta aziende, però, si vedrebbe solo una correlazione forte, sopra ' +
-      'circa 0,12, mentre i segnali che funzionano sui mercati valgono di solito pochi centesimi. Quindi ' +
+      'a caso dà 0. Con i dati di questa prova, però, si vedrebbe solo una correlazione sopra circa ' +
+      thrIt + ', mentre i segnali che funzionano sui mercati valgono di solito pochi centesimi. Quindi ' +
       '«indistinguibile dal caso» non vuol dire che la voce è inutile: vuol dire che non c’è nessuna ' +
       'prova per darle più peso. Per questo i pesi restano dove sono, invece di essere alzati senza motivo. ' +
       'La prova si rifà a ogni aggiornamento.',
       'The method was checked two ways: a signal that knows the future scores 1, a random signal scores 0. ' +
-      'With two years and forty companies, though, only a strong correlation would show, above about 0.12, ' +
+      'With the data in this test, though, only a correlation above about ' + thrEn + ' would show, ' +
       'while signals that work in markets are usually worth a few hundredths. So «indistinguishable from ' +
       'chance» does not mean the input is useless: it means there is no evidence for giving it more weight. ' +
       'That is why the weights stay where they are, instead of being raised for no reason. The test is ' +
@@ -1131,19 +1160,17 @@ function renderBacktest(){
   var bp = bt.by_purchase;
   app.innerHTML = navBar('backtest') +
     '<div class="card hero"><h1>' + T('Quello che i dati dicono', 'What the data says') +
-    '</h1><p class="lead">' + (isC ? T(
-      'Ogni acquisto di un insider delle ultime due annate, misurato dopo ' + h +
-      ' giorni contro il suo settore, e contato una volta per campagna. Un insider che compra dieci ' +
-      'volte in tre settimane non dà dieci prove: le sue misure coprono quasi lo stesso periodo di ' +
-      'borsa. Gli acquisti dello stesso titolo entro ' + bt.days + ' giorni dal primo sono una campagna sola.',
-      'Every insider purchase of the last two years, measured after ' + h +
-      ' days against its own sector, and counted once per campaign. An insider who buys ten times in ' +
-      'three weeks does not give ten pieces of evidence: the measurements cover almost the same stretch ' +
-      'of market. Purchases of the same stock within ' + bt.days + ' days of the first are one campaign.') : T(
-      'Ogni acquisto di un insider delle ultime due annate, misurato dopo ' + h +
-      ' giorni contro il suo settore.',
-      'Every insider purchase of the last two years, measured after ' + h +
-      ' days against its own sector.')) + '</p>' +
+    '</h1><p class="lead">' + T(
+      'Ogni acquisto di un insider ' + (bt.since ? 'da ' + monthYear(bt.since) : 'disponibile') +
+      ', misurato dopo ' + h + ' giorni contro il suo settore, e contato una volta per campagna. Un ' +
+      'insider che compra dieci volte in tre settimane non dà dieci prove: le sue misure coprono quasi ' +
+      'lo stesso periodo di borsa. Gli acquisti dello stesso titolo entro ' + bt.days + ' giorni dal ' +
+      'primo sono una campagna sola.',
+      'Every insider purchase ' + (bt.since ? 'since ' + monthYear(bt.since) : 'available') +
+      ', measured after ' + h + ' days against its own sector, and counted once per campaign. An ' +
+      'insider who buys ten times in three weeks does not give ten pieces of evidence: the measurements ' +
+      'cover almost the same stretch of market. Purchases of the same stock within ' + bt.days +
+      ' days of the first are one campaign.') + '</p>' + historyNote() +
     '<div class="tiles">' +
       statTile(k, isC ? T('campagne indipendenti', 'independent campaigns') : T('episodi di acquisto', 'buying episodes'),
                isC ? T('da ' + a.ep + ' episodi e ' + a.n + ' acquisti', 'from ' + a.ep + ' episodes and ' + a.n + ' purchases')
@@ -1216,8 +1243,9 @@ function renderBacktest(){
       'all’indietro: ricostruire il punteggio storico vorrebbe dire inventarlo.',
       'Non è una strategia. Non ci sono costi, slittamenti di prezzo, dimensione delle posizioni ' +
       'né regole di uscita diverse dai ' + h + ' giorni fissi.',
-      'Non è un campione grande. ' + k + (isC ? ' campagne indipendenti' : ' episodi') +
-      ' su due anni e ' + ((IDX.companies || []).length) + ' aziende: abbastanza per farsi ' +
+      'Non è un campione grande. ' + k + ' campagne indipendenti' +
+      (bt.since ? ' da ' + monthYear(bt.since) : '') + ' in ' + ((IDX.companies || []).length) +
+      ' aziende: abbastanza per farsi ' +
       'un’idea, non per una tesi.',
       'Il rendimento è sempre al netto del settore di appartenenza, non del mercato: misura la ' +
       'scelta dell’azienda, non l’andamento generale.'
@@ -1226,8 +1254,9 @@ function renderBacktest(){
       'backwards: rebuilding the historical score would mean inventing it.',
       'It is not a strategy. There are no costs, no slippage, no position sizing and no exit rule ' +
       'other than the fixed ' + h + ' days.',
-      'It is not a large sample. ' + k + (isC ? ' independent campaigns' : ' episodes') +
-      ' over two years and ' + ((IDX.companies || []).length) + ' companies: enough to form a ' +
+      'It is not a large sample. ' + k + ' independent campaigns' +
+      (bt.since ? ' since ' + monthYear(bt.since) : '') + ' across ' + ((IDX.companies || []).length) +
+      ' companies: enough to form a ' +
       'view, not to make a case.',
       'The return is always net of the company’s own sector, not of the market: it measures the ' +
       'choice of company, not the general trend.'
@@ -1681,8 +1710,11 @@ function paneInsider(d){
   var tx = (d.tx || []).slice(-25).reverse(), tracks = d.tracks || {};
   return (Object.keys(tracks).length
     ? '<div class="card"><h2>' + T('Storico dei compratori', 'Buyers’ track record') + '</h2>' +
-      '<p class="sub">' + T('Rendimento a 60 giorni dopo i loro acquisti passati, rispetto al settore.',
-        'Return over the 60 days after their past purchases, against the sector.') + '</p>' +
+      '<p class="sub">' + T('Rendimento a 60 giorni dopo i loro acquisti passati, rispetto al settore. ' +
+        'Il moltiplicatore conta le campagne, non i singoli acquisti: dieci compere in tre settimane ' +
+        'sono una prova sola.',
+        'Return over the 60 days after their past purchases, against the sector. The multiplier counts ' +
+        'campaigns, not individual purchases: ten buys in three weeks are one piece of evidence.') + '</p>' +
       '<div class="scroll"><table><thead><tr><th>' + T('Insider', 'Insider') + '</th>' +
       '<th class="num">' + T('Acquisti', 'Purchases') + '</th>' +
       '<th class="num">' + T('Positivi', 'Positive') + '</th>' +
@@ -1696,9 +1728,11 @@ function paneInsider(d){
     : '') +
   '<div class="card"><h2>' + T('Operazioni degli insider', 'Insider transactions') + '</h2>' +
     '<p class="sub">' +
-    T('Ultime ' + tx.length + ' di ' + ((d.counts || {}).tx || 0) + ' negli ultimi due anni. ' +
+    T('Ultime ' + tx.length + ' delle ' + (d.tx || []).length + ' operazioni degli ultimi due anni ' +
+        '(i calcoli usano tutta la storia disponibile, fino a cinque anni). ' +
         'La colonna di destra dice perché un’operazione pesa o no.',
-      'The last ' + tx.length + ' of ' + ((d.counts || {}).tx || 0) + ' over the last two years. ' +
+      'The last ' + tx.length + ' of the ' + (d.tx || []).length + ' transactions of the last two years ' +
+        '(the calculations use all the history available, up to five years). ' +
         'The right-hand column says why a transaction counts or not.') + '</p>' +
     (tx.length ? '<div class="scroll"><table><thead><tr><th>' + T('Data', 'Date') + '</th>' +
       '<th>' + T('Insider', 'Insider') + '</th><th class="num">' + T('Valore', 'Value') + '</th>' +
