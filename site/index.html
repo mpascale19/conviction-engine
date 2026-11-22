@@ -483,8 +483,9 @@ function renderGuide(){
      'Per ogni azienda, da SEC EDGAR: i Form 4 e gli 8-K degli ultimi cinque anni (al punteggio di oggi ' +
      'servono gli ultimi 90 giorni dei primi e sei mesi dei secondi; il resto serve alle prove) e ' +
      'le azioni in circolazione dalla copertina dei 10-Q. Poi i prezzi di chiusura, e da FINRA lo short ' +
-     'interest di cinque anni, due rilevazioni al mese. Solo le trascrizioni delle call non si scaricano ' +
-     'da sole: arrivano da un export fatto a mano dal terminale, e solo per le aziende per cui c’è.'],
+     'interest di cinque anni, due rilevazioni al mese. Le trascrizioni delle call arrivano da Alpha ' +
+     'Vantage, al massimo 25 al giorno; i fatti si estraggono a mano, e solo per le aziende per cui c’è ' +
+     'una trascrizione.'],
     ['Il modello estrae, non giudica',
      'Dalle trascrizioni delle call ricava fatti strutturati: ogni voce di guidance con la sua direzione, ' +
      'quanto sono dirette le risposte agli analisti, che cosa è cambiato nel linguaggio. C’è un solo ' +
@@ -505,8 +506,8 @@ function renderGuide(){
      'For each company, from SEC EDGAR: the Form 4 and 8-K filings of the last five years (today’s score ' +
      'needs the last 90 days of the first and six months of the second; the rest feeds the tests), and ' +
      'shares outstanding from the cover of the 10-Q. Then closing prices, and from FINRA five years of ' +
-     'short interest, two readings a month. Only the call transcripts do not download themselves: they ' +
-     'come from a manual terminal export, and only for the companies that have one.'],
+     'short interest, two readings a month. Call transcripts come from Alpha Vantage, at most 25 a day; ' +
+     'the facts are extracted by hand, and only for the companies that have a transcript.'],
     ['The model extracts, it does not judge',
      'From the call transcripts it draws structured facts: every guidance item with its direction, how ' +
      'direct the answers to analysts are, what changed in the language. There is one number the model ' +
@@ -579,15 +580,15 @@ function renderGuide(){
      'acquisti si contano per campagna: dieci compere in tre settimane sono una prova sola.'],
     ['Da dove vengono i dati?',
      'Form 4, 8-K, azioni in circolazione: SEC EDGAR. Prezzi: Yahoo Finance, con stooq come riserva. ' +
-     'Short interest: i file pubblici di FINRA. Trascrizioni: export da terminale, e nel ' +
+     'Short interest: i file pubblici di FINRA. Trascrizioni: Alpha Vantage, e nel ' +
      'repository finiscono solo i fatti estratti, non il testo.'],
     ['Ogni quanto si aggiorna?',
      'Ogni ora nei giorni feriali, diciotto volte al giorno (dalle 6 alle 23 UTC). Un giro che non trova ' +
      'niente di nuovo aggiorna solo l’ora del controllo e non riscrive nessuna scheda: per questo può ' +
      'girare così spesso senza appesantire niente. Il registro ' +
      'delle previsioni invece aggiunge una riga per azienda una sola volta per seduta. Lo short interest ' +
-     'cambia due volte al mese, quando FINRA pubblica una rilevazione nuova; le trascrizioni richiedono ' +
-     'un export manuale una volta a trimestre.'],
+     'cambia due volte al mese, quando FINRA pubblica una rilevazione nuova; le trascrizioni si scaricano ' +
+     'una volta al giorno, e i loro fatti entrano quando vengono estratti.'],
     ['Come faccio a sapere se il punteggio funziona?',
      'Oggi non lo sai ancora, e il sito non finge il contrario. Ci sono tre prove, ognuna con il suo ' +
      'limite. Il backtest mette alla prova le regole della voce insider, contando una volta sola ogni ' +
@@ -620,14 +621,15 @@ function renderGuide(){
      'campaign: ten buys in three weeks are a single piece of evidence.'],
     ['Where does the data come from?',
      'Form 4, 8-K filings and shares outstanding: SEC EDGAR. Prices: Yahoo Finance, with stooq as a ' +
-     'fallback. Short interest: FINRA’s public files. Transcripts: a terminal export, and only ' +
+     'fallback. Short interest: FINRA’s public files. Transcripts: Alpha Vantage, and only ' +
      'the extracted facts go into the repository, never the text.'],
     ['How often does it update?',
      'Every hour on weekdays, eighteen times a day (06:00 to 23:00 UTC). A run that finds nothing new only ' +
      'updates the time of the check and rewrites no company page, which is why it can run this often ' +
      'without weighing anything down. The prediction register, ' +
      'instead, adds one row per company only once per trading session. Short interest changes twice a ' +
-     'month, when FINRA publishes a new reading; transcripts need a manual export once a quarter.'],
+     'month, when FINRA publishes a new reading; transcripts are downloaded once a day, and their facts ' +
+     'come in once they are extracted.'],
     ['How do I know whether the score works?',
      'Today you do not know yet, and the site does not pretend otherwise. There are three tests, each with ' +
      'its limit. The backtest tests the rules of the insider input, counting each buying campaign only ' +
