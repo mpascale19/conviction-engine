@@ -1,9 +1,13 @@
 name: Scarica trascrizioni
 
-# Una volta al giorno (e quando lo premi a mano) chiede ad Alpha Vantage le
-# trascrizioni delle call che mancano, al massimo 25: tante quante ne dà la
-# chiave gratuita in un giorno. Le salva in Word in un pacchetto che si scarica
-# dalla pagina del giro, sotto "Artifacts", e che resta lì tre giorni.
+# Una volta al giorno (e quando lo premi a mano) usa le 25 richieste che la
+# chiave gratuita di Alpha Vantage dà in un giorno. Prima il calendario delle
+# trimestrali, l'elenco dei titoli quotati (una volta alla settimana) e gli utili
+# contro le attese di al massimo 12 aziende: finiscono nella cache
+# "alphavantage-", da dove li legge il giro orario del sito (update.yml). Poi,
+# con le richieste che restano, le trascrizioni delle call che mancano: le salva
+# in Word in un pacchetto che si scarica dalla pagina del giro, sotto
+# "Artifacts", e che resta lì tre giorni.
 #
 # Le trascrizioni NON vengono salvate nel repository né pubblicate sul sito:
 # sono testi protetti. Si danno a Claude in una conversazione, e nel repository
@@ -13,8 +17,11 @@ on:
   workflow_dispatch:
     inputs:
       limit:
-        description: "Quante richieste ad Alpha Vantage (al massimo 25 al giorno con la chiave gratuita)"
+        description: "Quante richieste ad Alpha Vantage in tutto (al massimo 25 al giorno con la chiave gratuita)"
         default: "25"
+      earnings:
+        description: "Di quante aziende leggere gli utili contro le attese (il resto va alle trascrizioni)"
+        default: "12"
   schedule:
     - cron: "41 5 * * *"
 
@@ -47,11 +54,24 @@ jobs:
           restore-keys: |
             trascrizioni-
 
+      # calendario, elenco dei titoli e utili: li legge anche il giro orario del
+      # sito, che ripristina la cache più recente con questo prefisso
+      - name: Dati di Alpha Vantage dei giri precedenti
+        uses: actions/cache@v4
+        with:
+          path: cache-alphavantage
+          key: alphavantage-${{ github.run_id }}
+          restore-keys: |
+            alphavantage-
+
       - name: Scarica
         env:
           ALPHAVANTAGE_KEY: ${{ secrets.ALPHAVANTAGE_KEY }}
           SEC_UA: ${{ secrets.SEC_UA }}
-        run: python -m pipeline.trascrizioni --limit "${{ github.event.inputs.limit || '25' }}"
+        run: >-
+          python -m pipeline.trascrizioni
+          --limit "${{ github.event.inputs.limit || '25' }}"
+          --earnings "${{ github.event.inputs.earnings || '12' }}"
 
       - uses: actions/upload-artifact@v4
         with:

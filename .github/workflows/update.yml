@@ -58,6 +58,19 @@ jobs:
             sec-${{ hashFiles('config.json') }}-
             sec-
 
+      # Utili contro le attese, calendario e elenco dei titoli: li scarica una
+      # volta al giorno il workflow delle trascrizioni (trascrizioni.yml), che
+      # possiede le 25 richieste di Alpha Vantage. Qui si leggono soltanto:
+      # restore e non cache, così questo giro non salva mai una copia vecchia.
+      # Se non c'è ancora niente il giro va avanti come prima.
+      - name: Dati di Alpha Vantage
+        uses: actions/cache/restore@v4
+        with:
+          path: cache-alphavantage
+          key: alphavantage-${{ github.run_id }}
+          restore-keys: |
+            alphavantage-
+
       - name: Test delle regole (senza rete)
         run: python -m tests.test_offline
 
