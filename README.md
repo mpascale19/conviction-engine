@@ -734,6 +734,24 @@ giorni feriali. Nel frattempo la pagina Backtest avvisa, e i numeri cambiano da
 un giro all'altro. La prova all'indietro (5 secondi con 200 aziende finte da
 cinque anni) e la prova dei pesi (meno di un secondo) non rallentano il giro.
 
+**Il controllo dopo il primo giro.** Il primo giro con duecento aziende è
+durato circa 38 minuti, e 199 aziende su 200 sono arrivate senza errori. La
+duecentesima era BNY Mellon: dal 21 maggio 2026 il suo ticker è `BNY` e non più
+`BK`, quindi la SEC e Yahoo non lo trovavano più; in `config.json` ora c'è `BNY`.
+
+Lo stesso controllo ha fatto emergere un errore vecchio. Alcuni Form 4 recenti
+dichiarano operazioni di anni prima, depositate in ritardo (Teradyne una del
+2014, Visa otto fra il 2018 e il 2020). `rules._ret` prendeva come prima seduta
+"la prima seduta dopo la data dell'acquisto", e per una data più vecchia
+dell'inizio della serie dei prezzi quella seduta era del novembre 2021: un
+acquisto del 2018 veniva misurato sui prezzi del 2021. Gli otto acquisti di Visa
+avevano tutti lo stesso rendimento, +21,37%, ed è così che si è visto. Erano 39
+acquisti su 237 nel backtest, e il backtest diceva di partire dal 2018 con prezzi
+che partono dal 2021. Ora la prima seduta deve cadere entro sette giorni
+dall'acquisto (`rules.START_GAP_DAYS`), e le operazioni più vecchie della
+finestra di cinque anni restano fuori già in `build_one`: non si possono
+misurare, e falserebbero anche la data da cui "parte la storia".
+
 **Che cosa non arriva da solo.** Short interest e trascrizioni delle call
 dipendono da export fatti a mano (vedi le loro sezioni): le 160 nuove non li
 hanno, quindi la loro copertura dei dati è più bassa e la loro confidenza pure.
