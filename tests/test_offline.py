@@ -766,6 +766,49 @@ try:
 finally:
     sources._get, sources.form4_filings = real_get, real_f4
 
+
+# --------------------------------- la prova all'indietro delle voci
+from pipeline import predict as PR
+check("ranghi con pari merito alla media", PR._ranks([1, 2, 2, 3]) == [0, 1.5, 1.5, 3])
+check("correlazione di rango perfetta", abs(PR.spearman([1, 2, 3, 4, 5], [10, 20, 30, 40, 50]) - 1) < 1e-12)
+check("e rovesciata", abs(PR.spearman([1, 2, 3, 4, 5], [5, 4, 3, 2, 1]) + 1) < 1e-12)
+check("una voce uguale per tutti non correla con niente", PR.spearman([7] * 6, [1, 2, 3, 4, 5, 6]) is None)
+check("sotto le cinque aziende non si calcola", PR.spearman([1, 2, 3, 4], [1, 2, 3, 4]) is None)
+check("con meno di tre blocchi nessun riassunto", PR.summarize({"g": [(0, .1), (60, .2)]}) is None)
+_s = PR.summarize({"g": [(i, .1) for i in range(0, 300, 5)]})
+check("il riassunto conta i blocchi di 60 sedute", _s["blocks"] == 5 and _s["dates"] == 60, _s)
+
+
+def _co(t, g, n=320, start=date(2025, 1, 1), ev=None, ev_from=None):
+    ser = [[(start + timedelta(days=i)).isoformat(), round(100 * (1 + g) ** i, 6)] for i in range(n)]
+    return {"company": {"ticker": t}, "group": {"it": "Prova", "en": "Test"},
+            "price": {"series": ser}, "tx": [], "si_series": [],
+            "events_hist": ev, "events_from": ev_from}
+
+
+# controllo positivo attraverso tutta la pipeline: ogni azienda cresce a un
+# ritmo costante e diverso, quindi chi è salito di più continua a salire di più.
+# I ritmi sono distanziati perché il punteggio di prezzo è arrotondato all'intero:
+# troppo vicini darebbero pari merito, e la correlazione scenderebbe sotto 1.
+_cos = [_co(f"C{k}", 0.0006 * (k + 1)) for k in range(8)]
+_r = PR.run(_cos, cfg)
+_pr = [x for x in _r["rows"] if x["id"] == "price"][0]
+check("una voce che anticipa davvero il futuro vale 1", _pr["ic"] == 1.0, _pr)
+check("dichiara l'orizzonte e le date", _r["horizon"] == 60 and _r["from"] < _r["to"], _r)
+check("senza short interest la voce mercato non si calcola",
+      [x for x in _r["rows"] if x["id"] == "market"][0]["ic"] is None)
+check("la stessa prova dà lo stesso risultato", json.dumps(_r) == json.dumps(PR.run(_cos, cfg)))
+check("il calcolo non modifica le schede", "_px" not in _cos[0] and "_si" not in _cos[0])
+
+# gli 8-K valgono solo dove il file della SEC copre davvero il passato
+_ev = [["2025-05-01", ["4.02"]]]
+_cov = [_co(f"E{k}", 0.0001 * (k + 1), ev=_ev if k % 2 else [], ev_from="2024-01-01") for k in range(8)]
+_unc = [_co(f"U{k}", 0.0001 * (k + 1), ev=_ev if k % 2 else [], ev_from="2026-01-01") for k in range(8)]
+_e1 = [x for x in PR.run(_cov, cfg)["rows"] if x["id"] == "events"][0]
+_e2 = [x for x in PR.run(_unc, cfg)["rows"] if x["id"] == "events"][0]
+check("con gli 8-K coperti la voce si calcola", _e1["ic"] is not None, _e1)
+check("con gli 8-K non coperti no, invece di leggere 'nessun fatto'", _e2["ic"] is None, _e2)
+
 # il riepilogo deve contare ogni fallimento: l'elenco non va mai sostituito
 check("l'elenco dei fallimenti è ancora quello di partenza", bad is _BAD0)
 print(f"\n{ok} controlli passati, {len(bad)} falliti")
