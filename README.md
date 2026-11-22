@@ -58,7 +58,10 @@ sotto-punteggio continua a funzionare con quelle che ci sono.
 Si mette il ticker nella lista giusta dentro `config.json` e si lancia il
 workflow. Se nel log compare un errore di verifica del CIK, vuol dire che la
 mappa della SEC sbaglia su quel ticker: si aggiunge il numero a mano nel campo
-`cik` dello stesso file.
+`cik` dello stesso file. Prima di aggiungerla conviene controllare tre cose:
+che non sia in corso una fusione, che non abbia fatto uno scorporo negli ultimi
+cinque anni, e che non abbia cambiato sede o capogruppo (in quel caso il CIK
+vecchio va in `cik_predecessors`).
 
 ### Farlo partire da solo
 
@@ -566,7 +569,12 @@ rango fra il valore della voce in quel giorno e il rendimento delle 60 sedute
 successive, fra le aziende dello stesso universo. Il confronto è nella stessa
 data e nello stesso universo, quindi l'andamento del mercato si annulla e non
 serve un riferimento. Le date vicine si sovrappongono, quindi l'incertezza si
-misura su blocchi di 60 sedute: una decina in tutto.
+misura su blocchi di 60 sedute (87 giorni di calendario). Dal passaggio a
+duecento aziende un blocco è un periodo di calendario comune a tutti gli
+universi: due settori nello stesso trimestre non sono due prove indipendenti,
+perché lo stesso mercato li muove tutti e due, e contarli a parte farebbe
+sembrare l'incertezza più piccola del vero. Con cinque anni i blocchi sono una
+ventina, quante che siano le aziende.
 
 Il metodo è stato controllato prima di guardare i risultati: un segnale che
 conosce il futuro dà 1,000, uno casuale −0,010. Un test fa lo stesso attraverso
@@ -621,7 +629,8 @@ completo. Così anche BAC, JPM e XOM, che prima avevano gli 8-K solo da pochi
 mesi, entrano nella prova dei fatti rilevanti.
 
 **Il riempimento a rate.** Cinque anni di Form 4 di quaranta aziende sono decine
-di migliaia di documenti. Tutti insieme farebbero durare un giro quasi un'ora, e
+di migliaia di documenti (con duecento aziende il tetto è cambiato: vedi la
+sezione successiva). Tutti insieme farebbero durare un giro quasi un'ora, e
 il giro dell'ora dopo lo annullerebbe (`cancel-in-progress`), buttando la cache.
 Per questo ogni giro scarica al massimo `max_new_filings_per_run` documenti
 nuovi (2.000, circa cinque minuti), dal più recente al più vecchio; quelli già
@@ -642,14 +651,93 @@ e accetta come emittente uno qualunque dei CIK dell'azienda. Se un'altra azienda
 dell'universo cambia sede o capogruppo, basta aggiungerla lì.
 
 **Le schede non ingrassano.** La serie lunga dei prezzi (`_px_long`) resta in
-memoria durante il giro e non viene scritta; nella scheda la tabella delle
-operazioni mostra gli ultimi due anni (`card_view`). Senza questo, le schede più
-pesanti passerebbero da 300 KB a quasi un megabyte, e si riscrivono ogni giorno.
+memoria durante il giro e non viene scritta. Delle operazioni, la scheda porta
+solo quelle che il sito legge (`card_view`, vedi la sezione successiva).
 
 **La prova all'indietro non si accorcia.** Ogni data usa le aziende che in quel
 giorno hanno sei mesi di storia alle spalle e 60 sedute davanti, invece delle
 sole date comuni a tutte: un titolo quotato da meno tempo entra quando può,
 senza tagliare la storia degli altri.
+
+## Duecento aziende
+
+Il 22 novembre 2026 l'universo è passato da 40 a 200 aziende. Il motivo è
+quello scritto in fondo, al "Passo successivo": nessuna voce del punteggio ha
+ancora una prova di capacità di previsione, e il modo per averla non è cambiare
+i pesi ma avere più dati. Duecento aziende vogliono dire più campagne di
+acquisto per il backtest e per i bonus insider, e cinque volte più confronti per
+data nella prova all'indietro.
+
+**Come sono scelte.** Le 40 aziende di prima restano dove sono, con SMH e SPY:
+il registro delle previsioni confronta ogni azienda con il riferimento del suo
+universo, e spostarle renderebbe non misurabili le righe già registrate. Le 160
+nuove sono otto universi di venti, uno per settore, ognuno con il suo ETF di
+riferimento: Software (IGV), Finanza (XLF), Banche regionali (KRE), Sanità (XLV),
+Industria (XLI), Energia (XLE), Consumi discrezionali (XLY), Beni di prima
+necessità (XLP). In ogni settore le più grandi per capitalizzazione, con tre
+esclusioni ragionate:
+
+- **aziende che non esistono più o stanno per sparire**: Coterra (fusa in Devon
+  a maggio 2026), Webster Financial (in vendita a Santander), e quelle che sapevo
+  già comprate, fuse o in via di esserlo (Ansys, Hess, Norfolk Southern, Kellanova, Kenvue,
+  Comerica, Synovus, Kraft Heinz);
+- **aziende con uno scorporo (spin-off) negli ultimi cinque anni o in
+  programma**: GE, 3M, Danaher, Honeywell, FedEx, Lennar, S&P Global. La
+  chiusura che la pipeline prende da Yahoo è corretta per i frazionamenti, ma
+  non è detto che lo sia per gli scorpori: in quel caso il giorno dello spin-off
+  la serie mostrerebbe un crollo che non è mai successo, e il backtest lo
+  conterebbe;
+- **i doppioni**: Alphabet, Amazon, JPMorgan e le altre grandi stanno già fra le
+  grandi capitalizzazioni USA.
+
+Le banche regionali sono un universo a sé di proposito: i loro insider comprano
+spesso, e sono proprio gli acquisti che mancano al backtest.
+
+**BlackRock ha cambiato CIK** il 1° ottobre 2024, quando ha creato una nuova
+capogruppo per comprare GIP (il nuovo CIK è 0002012383). È lo stesso caso di
+ExxonMobil, quindi `cik_predecessors` ora ha anche `"BLK": ["0001364742"]`.
+Quando si aggiunge un'azienda conviene controllare queste tre cose: fusioni in
+corso, scorpori recenti, cambi di sede o di capogruppo.
+
+**Che cosa è cambiato nel codice.** Tutto quello che pesa sui tempi del giro:
+
+- *i Form 4 recenti non aspettano*: quelli degli ultimi 120 giorni
+  (`sources.RECENT_DAYS`) si scaricano sempre e non contano nel tetto. Un'azienda
+  nuova ha la voce insider di oggi dal primo giro; la sua storia arriva a rate,
+  e la sua scheda lo dice;
+- *il tetto della storia vecchia è doppio*: 4.000 documenti per giro
+  (`max_new_filings_per_run`) **e** 35 minuti (`history_minutes_per_run`), il
+  primo che finisce. L'orologio tiene il giro sotto l'ora anche se la SEC
+  rallenta, perché il giro dell'ora dopo annullerebbe questo;
+- *gli archivi dei depositi stanno in cache* (`cache/submissions`): Goldman
+  Sachs, Morgan Stanley e Citigroup depositano migliaia di prospetti l'anno, e
+  i loro archivi si riscaricavano a ogni giro. Un archivio si riscarica solo se
+  la SEC ne dichiara un contenuto diverso, e si tengono solo le cinque colonne
+  che la pipeline legge;
+- *la mappa ticker → CIK della SEC* (un megabyte) si scarica una volta per giro,
+  non una per azienda;
+- *se Yahoo rifiuta una richiesta*, vale la copia dei prezzi dell'ultimo giro
+  riuscito, purché non abbia più di cinque giorni (`build.prices_or_copy`), e la
+  scheda lo dice: la fonte diventa per esempio "yahoo (cache)". Duecento titoli e dieci riferimenti ogni ora sono
+  tante richieste, e un'azienda con la chiusura di ieri è meglio di un'azienda
+  senza punteggio;
+- *le schede portano solo quello che il sito legge*: le operazioni degli ultimi
+  120 giorni (il riassunto insider ne guarda 90) oppure, se sono meno, le ultime
+  25 (la tabella), più il numero delle operazioni di due anni in `tx_n`. La
+  scheda di Meta è passata da 944 KB a 109 KB.
+
+**Che cosa aspettarsi.** Il primo giro dovrebbe durare circa mezz'ora: scarica i Form 4
+recenti delle 160 nuove e gli archivi dei depositi. Poi la storia vecchia si
+riempie al ritmo di 4.000 documenti a giro: per le grandi aziende americane
+cinque anni sono qualche centinaio di Form 4 ciascuna, quindi servono alcuni
+giorni feriali. Nel frattempo la pagina Backtest avvisa, e i numeri cambiano da
+un giro all'altro. La prova all'indietro (5 secondi con 200 aziende finte da
+cinque anni) e la prova dei pesi (meno di un secondo) non rallentano il giro.
+
+**Che cosa non arriva da solo.** Short interest e trascrizioni delle call
+dipendono da export fatti a mano (vedi le loro sezioni): le 160 nuove non li
+hanno, quindi la loro copertura dei dati è più bassa e la loro confidenza pure.
+Il sito lo mostra azienda per azienda; non è un errore.
 
 ## La regola di maturità: un'osservazione vale solo a orizzonte compiuto
 
@@ -823,22 +911,32 @@ voce diversa, e va decisa come tale.
 
 ## Gli universi di titoli
 
-`config.json` contiene due liste, e si aggiungono e si tolgono ticker
-scrivendo dentro:
+`config.json` contiene dieci liste da venti titoli, e si aggiungono e si
+tolgono ticker scrivendo dentro (perché queste, vedi "Duecento aziende"):
 
-- **Semiconduttori e apparecchiature** / *Semiconductors and equipment*
-  (20 titoli, riferimento `SMH`)
-- **Grandi capitalizzazioni USA** / *US large caps* (20 titoli, riferimento `SPY`)
+| Universo | Universe | Riferimento |
+|---|---|---|
+| Semiconduttori e apparecchiature | Semiconductors and equipment | `SMH` |
+| Grandi capitalizzazioni USA | US large caps | `SPY` |
+| Software | Software | `IGV` |
+| Finanza | Financials | `XLF` |
+| Banche regionali | Regional banks | `KRE` |
+| Sanità | Health care | `XLV` |
+| Industria | Industrials | `XLI` |
+| Energia | Energy | `XLE` |
+| Consumi discrezionali | Consumer discretionary | `XLY` |
+| Beni di prima necessità | Consumer staples | `XLP` |
 
 La divisione non è estetica. Il sotto-punteggio **Settore** confronta ogni
 azienda con le altre dello stesso gruppo: mettere un produttore di chip e una
 catena di supermercati nello stesso confronto darebbe un numero senza
-significato. Per aggiungere un terzo gruppo basta copiare un blocco di
-`universi` e cambiare nome, riferimento e lista.
+significato. Per aggiungere un gruppo basta copiare un blocco di `universi` e
+cambiare nome, riferimento e lista; un universo sotto le cinque aziende non
+entra nella prova all'indietro. Le prime due liste non vanno toccate: il
+registro delle previsioni confronta le loro aziende con SMH e SPY.
 
-Il primo giro dura una ventina di minuti: scarica i Form 4 di quaranta
-aziende, e le più grandi ne depositano parecchi. Dal secondo in poi ne bastano
-due o tre, perché i documenti già letti restano in cache e un documento
+Un giro dura fra i dieci e i quaranta minuti, a seconda di quanta storia c'è
+ancora da scaricare: i documenti già letti restano in cache, e un documento
 depositato non cambia più.
 
 Quello che esce:
@@ -910,16 +1008,25 @@ stessa call non si paga due volte.
   ferma lì, e la prova all'indietro non usa le date scoperte.
 - Il rendimento anomalo usa un ETF di settore come riferimento, non un modello
   di rischio.
-- I bonus della voce insider sono stimati su 23 campagne: con così pochi dati
-  restano vicini a zero qualunque sia l'effetto vero.
+- I bonus della voce insider sono stimati su poche decine di campagne: con così
+  pochi dati restano vicini a zero qualunque sia l'effetto vero. Con duecento
+  aziende le campagne aumentano, man mano che la storia si riempie.
+- Le chiusure di Yahoo sono corrette per i frazionamenti, non per i dividendi,
+  e non è detto che lo siano per gli scorpori. Per questo le aziende con uno spin-off negli ultimi cinque anni sono
+  rimaste fuori; un'azienda aggiunta dopo va controllata.
+- Short interest e guidance coprono solo le aziende per cui c'è un export fatto
+  a mano: con duecento aziende la maggior parte ha copertura parziale.
 - Lo score non è una raccomandazione di investimento.
 
 ## Passo successivo
 
 Il registro delle previsioni darà il primo risultato verso il 18 febbraio 2027.
 Fino ad allora nessuna voce del punteggio ha una prova di capacità di previsione:
-né i bonus insider (23 campagne) né le voci ricostruibili all'indietro. Il modo
-per uscirne non è cambiare i pesi, è avere più dati: più aziende, più anni.
+né i bonus insider né le voci ricostruibili all'indietro. Il modo per uscirne non
+è cambiare i pesi, è avere più dati: più aziende, più anni. Dal 22 novembre 2026
+le aziende sono duecento; quando la storia di tutte sarà completa, backtest,
+bonus e prova all'indietro avranno la base più larga che il progetto può avere
+con fonti gratuite.
 
 ## Se EDGAR risponde 403
 
