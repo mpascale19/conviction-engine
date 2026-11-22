@@ -99,13 +99,17 @@ def _summary_at(tx, day, cfg):
             "net_musd": (sum(t["value"] for t in buys) - sum(t["value"] for t in sells)) / 1e6}
 
 
-def _signals_on(group, i, day, cfg):
-    """I quattro valori di ogni azienda del gruppo, com'erano in quel giorno."""
+def _signals_on(group, pos, day, cfg):
+    """I quattro valori di ogni azienda del gruppo, com'erano in quel giorno.
+
+    `pos[ticker]` è la posizione di quel giorno nella serie di prezzi di
+    ciascuna azienda: le serie non hanno tutte la stessa lunghezza.
+    """
     out = {k: {} for k in SIGNALS}
     summ = {}
     for d in group:
         t = d["company"]["ticker"]
-        px = d["_px"][:i + 1]
+        px = d["_px"][:pos[t] + 1]
         out["price"][t] = score.price_score(px)[0]
         summ[t] = dict(_summary_at(d.get("tx") or [], day, cfg), ticker=t)
         si = [r for r in d["_si"] if r["date"] <= day]
@@ -127,33 +131,42 @@ def run(results, cfg, step=STEP):
     for d in results:
         g = d.get("group")
         key = g.get("it") if isinstance(g, dict) else g
-        ser = (d.get("price") or {}).get("series") or []
+        # la serie lunga se c'è (in memoria durante il giro), altrimenti quella della scheda
+        ser = d.get("_px_long") or (d.get("price") or {}).get("series") or []
         if not key or len(ser) < START + H + 1:
             continue
-        d = dict(d, _px=[{"d": x[0], "c": x[1]} for x in ser],
+        d = dict(d, _px=[{"d": x[0], "c": x[1]} for x in ser if x[1]],
                  _si=[{"date": r[0], "si": r[1], "dtc": r[2]} for r in (d.get("si_series") or [])])
         groups.setdefault(key, []).append(d)
 
     points = {k: {} for k in SIGNALS}
     first = last = None
     for key, group in groups.items():
-        # le date comuni a tutte le aziende del gruppo, nello stesso ordine
-        common = set.intersection(*[{p["d"] for p in d["_px"]} for d in group])
-        for d in group:
-            d["_px"] = [p for p in d["_px"] if p["d"] in common]
-        n = min(len(d["_px"]) for d in group)
-        if n < START + H + 1 or len(group) < MIN_CO:
+        if len(group) < MIN_CO:
             continue
-        for i in range(START, n - H, step):
-            day = group[0]["_px"][i]["d"]
-            fwd = {d["company"]["ticker"]: d["_px"][i + H]["c"] / d["_px"][i]["c"] - 1
-                   for d in group if d["_px"][i]["c"]}
-            sig = _signals_on(group, i, day, cfg)
+        # Ogni data usa le aziende che in quel giorno hanno sei mesi di storia
+        # alle spalle e 60 sedute davanti. Un titolo quotato da meno tempo
+        # entra quando può, senza accorciare la storia di tutti gli altri.
+        where = {d["company"]["ticker"]: {p["d"]: k for k, p in enumerate(d["_px"])} for d in group}
+        days = sorted(set().union(*[set(w) for w in where.values()]))
+        for j in range(0, len(days), step):
+            day = days[j]
+            pos = {t: w[day] for t, w in where.items() if day in w}
+            members = [d for d in group if d["company"]["ticker"] in pos
+                       and pos[d["company"]["ticker"]] >= START
+                       and pos[d["company"]["ticker"]] + H < len(d["_px"])]
+            if len(members) < MIN_CO:
+                continue
+            fwd = {}
+            for d in members:
+                t = d["company"]["ticker"]
+                fwd[t] = d["_px"][pos[t] + H]["c"] / d["_px"][pos[t]]["c"] - 1
+            sig = _signals_on(members, pos, day, cfg)
             for k in SIGNALS:
                 ts = [t for t in sig[k] if sig[k][t] is not None and t in fwd]
                 x = spearman([sig[k][t] for t in ts], [fwd[t] for t in ts])
                 if x is not None:
-                    points[k].setdefault(key, []).append((i, x))
+                    points[k].setdefault(key, []).append((j, x))
             first = day if first is None or day < first else first
             last = day if last is None or day > last else last
 

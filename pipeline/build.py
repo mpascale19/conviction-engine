@@ -21,7 +21,9 @@ from .extract import extract_all
 CACHE = "cache"
 OUTDIR = "site"
 EVENT_DAYS = 180        # finestra dei fatti rilevanti 8-K: due trimestri
-EVENT_HIST_DAYS = 760   # quanto storico di 8-K tenere per la prova all'indietro
+EVENT_HIST_DAYS = 1834  # quanto storico di 8-K tenere per la prova all'indietro: cinque anni
+CARD_TX_MONTHS = 24     # quante operazioni mostrare nella scheda: i calcoli usano tutta la storia
+NEW_FILINGS_PER_RUN = 2000   # Form 4 nuovi per giro, se config.json non dice altro
 
 
 def load_config(path="config.json"):
@@ -41,8 +43,12 @@ def group_name(g):
 
 
 # ----------------------------------------------------------------- raccolta
-def gather(cfg, ticker, bench, offline=False):
-    """Prezzi e Form 4 di un ticker. Non solleva: registra gli errori."""
+def gather(cfg, ticker, bench, offline=False, budget=None):
+    """Prezzi e Form 4 di un ticker. Non solleva: registra gli errori.
+
+    `budget`: quanti Form 4 nuovi si possono ancora scaricare in questo giro,
+    condiviso fra tutte le aziende (vedi sources.insider_transactions).
+    """
     raw_path = os.path.join(CACHE, f"raw_{ticker}.json")
     if offline:
         with open(raw_path, encoding="utf-8") as f:
@@ -51,6 +57,7 @@ def gather(cfg, ticker, bench, offline=False):
     from . import sources
     errors, failed, px, tx, src = [], [], [], [], None
     name, cik, shares, sh_date = ticker, "", None, None
+    tx_status = {"complete": False, "missing": None}
 
     try:
         px, src = sources.prices(ticker)
@@ -68,8 +75,11 @@ def gather(cfg, ticker, bench, offline=False):
                                           limit=cfg.get("max_filings_per_ticker"),
                                           # v2: i documenti letti prima del controllo
                                           # sull'emittente vanno riletti tutti, una volta
-                                          cache_dir=os.path.join(CACHE, "form4-v2"))
-        print(f"  Form 4: {len(tx)} operazioni")
+                                          cache_dir=os.path.join(CACHE, "form4-v2"),
+                                          budget=budget, status=tx_status)
+        print(f"  Form 4: {len(tx)} operazioni"
+              + ("" if tx_status["complete"] else
+                 f" (storico in riempimento: {tx_status['missing']} documenti al prossimo giro)"))
     except Exception as e:
         errors.append(f"Form 4 di {ticker}: {e}")
         failed.append("tx")
@@ -87,11 +97,11 @@ def gather(cfg, ticker, bench, offline=False):
             since_hist = (date.today() - timedelta(days=EVENT_HIST_DAYS)).isoformat()
             events_hist = sources.recent_8k(cik, since_hist)
             events = [e for e in events_hist if e["date"] >= since]
-            # Il file dei depositi tiene gli ultimi mille moduli di ogni tipo: per
-            # un'azienda con molti Form 4 può coprire meno di due anni. Prima di
-            # questa data "nessun 8-K" non vuol dire niente.
-            dates = (sources.submissions(cik).get("filings") or {}).get("recent", {}).get("filingDate") or []
-            events_from = min(dates) if dates else None
+            # Da quando l'elenco dei depositi è completo. filings_table va a
+            # cercare negli archivi quando il file principale non basta; se un
+            # archivio non risponde, prima di questa data "nessun 8-K" non vuol
+            # dire niente e la prova all'indietro non la usa.
+            _, events_from = sources.filings_table(cik, since_hist)
             print(f"  8-K negli ultimi {EVENT_DAYS} giorni: {len(events)} "
                   f"(storico dal {events_from}: {len(events_hist)})")
         except Exception as e:
@@ -102,6 +112,7 @@ def gather(cfg, ticker, bench, offline=False):
            "tx": tx, "errors": errors, "failed": failed, "price_source": src,
            "shares": shares, "shares_date": sh_date, "events": events,
            "events_hist": events_hist, "events_from": events_from,
+           "tx_status": tx_status,
            "fetched_at": datetime.now(timezone.utc).isoformat(timespec="seconds")}
     os.makedirs(CACHE, exist_ok=True)
     with open(raw_path, "w", encoding="utf-8") as f:
@@ -233,6 +244,13 @@ def build_one(cfg, raw, extracted=None):
         "events_hist": ([[e["date"], e["items"]] for e in raw["events_hist"]]
                         if raw.get("events_hist") is not None else None),
         "events_from": raw.get("events_from"),
+        # quanto è lungo lo storico dei Form 4, e se ha finito di riempirsi
+        "history": {"tx_from": tx[0]["date"] if tx else None,
+                    "tx_complete": bool((raw.get("tx_status") or {}).get("complete")),
+                    "tx_missing": (raw.get("tx_status") or {}).get("missing")},
+        # cinque anni di chiusure per la prova all'indietro: restano in memoria,
+        # nella scheda va solo la serie corta (vedi card_view)
+        "_px_long": [[p["d"], p["c"]] for p in px],
         "si_pct": si_pct,
         "shares": raw.get("shares"),
         "tx": tx,
@@ -366,6 +384,7 @@ def backtest(results, cfg):
     pick = lambda f: [c for c in camps if f(c)]
     return {"horizon": cfg["rules"]["track_record_horizon_days"],
             "unit": "campaign", "days": bonus.CAMPAIGN_DAYS,
+            "since": min(r["d"] for r in rows),
             "dist": _dist(camps),
             "all": bonus.summary(camps),
             "by_purchase": _stats(rows),     # il conteggio di prima, per confronto
@@ -425,6 +444,23 @@ def driver(subs):
     return {"name": x["name"], "up": x["v"] >= 50}
 
 
+def card_view(d, months=CARD_TX_MONTHS):
+    """Quello che finisce nel file della scheda.
+
+    I calcoli usano cinque anni di storia; la scheda ne mostra due. Senza
+    questo taglio le schede più pesanti passerebbero da 300 KB a quasi un
+    megabyte, e si riscrivono ogni giorno. Le chiavi che cominciano con `_`
+    sono di lavoro e non escono mai dalla pipeline. Il dizionario in memoria
+    non viene toccato: il backtest e le altre prove lo leggono dopo.
+    """
+    out = {k: v for k, v in d.items() if not k.startswith("_")}
+    last = ((d.get("price") or {}).get("last") or {}).get("d")
+    if last and d.get("tx"):
+        cut = (date.fromisoformat(last) - timedelta(days=int(months * 30.44))).isoformat()
+        out["tx"] = [t for t in d["tx"] if t["date"] >= cut]
+    return out
+
+
 def same_but_for_the_clock(path, data):
     """Il file su disco dice già la stessa cosa, a parte l'ora del giro?
 
@@ -476,10 +512,11 @@ def write_all(results, cfg, outdir=OUTDIR, forward=None):
         if t in per:
             d["score"]["stress"] = per[t]
         path = os.path.join(ddir, f"{t}.json")
-        if not same_but_for_the_clock(path, d):
+        card = card_view(d)
+        if not same_but_for_the_clock(path, card):
             touched += 1
             with open(path, "w", encoding="utf-8") as f:
-                json.dump(d, f, ensure_ascii=False)
+                json.dump(card, f, ensure_ascii=False)
         s, ins = d["score"], d["insider_90d"]
         rows.append({
             "ticker": t, "name": d["company"]["name"],
@@ -507,6 +544,15 @@ def write_all(results, cfg, outdir=OUTDIR, forward=None):
         # già nelle schede: nell'indice sarebbero quaranta righe in più
         "stress": {k: v for k, v in (st or {}).items() if k != "per"} or None,
         "ic": ic,
+        # quante aziende hanno già lo storico dei Form 4 completo: con il
+        # passaggio a cinque anni la storia si riempie a rate, un giro dopo l'altro
+        "history": {
+            "complete": sum(1 for d in results if (d.get("history") or {}).get("tx_complete")),
+            "total": len(results),
+            "tx_from": min([h for h in ((d.get("history") or {}).get("tx_from") for d in results) if h],
+                           default=None),
+            "missing": sum((d.get("history") or {}).get("tx_missing") or 0 for d in results),
+        },
         "companies": rows,
         "errors": sorted({e for d in results for e in d["errors"]}),
     }
@@ -547,6 +593,7 @@ def main():
     extracted = extract_all()
 
     results, bench_closes, groups_built = [], {}, []
+    budget = {"left": int(cfg.get("max_new_filings_per_run") or NEW_FILINGS_PER_RUN)}
     for g in groups:
         print(f"\n=== {g['nome']} ({len(g['tickers'])} aziende) ===")
         bench = []
@@ -563,7 +610,7 @@ def main():
         for i, t in enumerate(g["tickers"], 1):
             print(f"\n[{i}/{len(g['tickers'])}] {t}")
             try:
-                raw = gather(cfg, t, bench, a.offline)
+                raw = gather(cfg, t, bench, a.offline, budget)
                 mine = [e for e in extracted if e.get("ticker") == t.upper()]
                 d = build_one(cfg, raw, mine)
                 d["group"] = group_name(g)

@@ -105,7 +105,10 @@ def parse_prices_yahoo(payload):
     return out
 
 
-def _prices_yahoo(ticker, years=2, host="query1"):
+HIST_YEARS = 5      # quanta storia di prezzi: abbastanza per una prova all'indietro sensata
+
+
+def _prices_yahoo(ticker, years=HIST_YEARS, host="query1"):
     url = (f"https://{host}.finance.yahoo.com/v8/finance/chart/{ticker}"
            f"?range={years}y&interval=1d")
     return parse_prices_yahoo(_get(url, headers=WEB).json())
@@ -131,6 +134,10 @@ def prices(ticker, market="us", min_rows=20):
         except Exception as e:
             tried.append(f"{name}: {e}")
             continue
+        # stooq restituisce tutta la storia, Yahoo quella chiesta: stessa
+        # finestra per tutti, così un'azienda non ha più passato di un'altra
+        cut = (date.today() - timedelta(days=int(HIST_YEARS * 365.25) + 7)).isoformat()
+        rows = [r for r in rows if r["d"] >= cut]
         if len(rows) >= min_rows:
             return rows, name
         tried.append(f"{name}: solo {len(rows)} righe utili")
@@ -151,6 +158,53 @@ def submissions(cik):
     return _SUBS[cik]
 
 
+_TAB = {}
+
+
+def filings_table(cik, since=None):
+    """Tutti i depositi del CIK fino a `since`, anche quelli negli archivi.
+
+    Il JSON principale tiene solo gli ultimi mille moduli di ogni tipo: per
+    un'azienda con molti Form 4 sono pochi mesi (per Exxon da luglio 2026).
+    I più vecchi stanno in file d'archivio elencati in `filings.files`, con le
+    date che coprono; si scaricano solo quelli che servono ad arrivare a
+    `since`, una richiesta ciascuno.
+
+    Restituisce (colonne, data da cui l'elenco è completo).
+    """
+    cik = str(cik).zfill(10)
+    key = (cik, since)
+    if key in _TAB:
+        return _TAB[key]
+    j = submissions(cik)
+    rec = (j.get("filings") or {}).get("recent") or {}
+    cols = {k: list(v) for k, v in rec.items() if isinstance(v, list)}
+    dates = cols.get("filingDate") or []
+    covered = min(dates) if dates else None
+    if since and (covered is None or covered > since):
+        for f in (j.get("filings") or {}).get("files") or []:
+            if (f.get("filingTo") or "9999") < since:
+                continue                  # un archivio tutto più vecchio di quanto serve
+            try:
+                more = _get(f"https://data.sec.gov/submissions/{f['name']}").json()
+            except Exception:
+                break                     # senza questo archivio l'elenco si ferma qui
+            n = len(more.get("accessionNumber") or [])
+            for k in cols:                # colonne mancanti o corte: vuote, per restare allineate
+                cols[k] += (list(more.get(k) or []) + [""] * n)[:n]
+            got = [d for d in (more.get("filingDate") or []) if d]
+            if got:
+                covered = min([covered] + got) if covered else min(got)
+    # dal più recente al più vecchio, qualunque sia l'ordine degli archivi
+    order = sorted(range(len(cols.get("filingDate") or [])),
+                   key=lambda i: cols["filingDate"][i], reverse=True)
+    cols = {k: [v[i] for i in order] for k, v in cols.items()}
+    _TAB[key] = (cols, covered)
+    while len(_TAB) > 4:
+        _TAB.pop(next(iter(_TAB)))
+    return cols, covered
+
+
 def recent_8k(cik, since):
     """Gli 8-K depositati dal giorno `since` in poi, con i loro codici item.
 
@@ -158,9 +212,9 @@ def recent_8k(cik, since):
     entro quattro giorni lavorativi. I codici item sono fissati dalla SEC, quindi
     non c'e' niente da interpretare: "4.02" vuol dire sempre che i conti passati
     non sono più affidabili. Legge il JSON dei depositi già scaricato per il
-    CIK, perciò non costa una richiesta in più.
+    CIK (e, se `since` è più vecchio di quanto copre, i suoi archivi).
     """
-    rec = (submissions(cik).get("filings") or {}).get("recent") or {}
+    rec, _ = filings_table(cik, since)
     forms, dates = rec.get("form") or [], rec.get("filingDate") or []
     items, accs = rec.get("items") or [], rec.get("accessionNumber") or []
     out = []
@@ -289,10 +343,9 @@ def raw_xml_url(cik, accession, primary_doc):
 
 
 def form4_filings(cik, months=24):
-    """Elenco dei Form 4 depositati negli ultimi `months` mesi."""
-    j = submissions(cik)
-    r = j["filings"]["recent"]
+    """Elenco dei Form 4 depositati negli ultimi `months` mesi, dal più recente."""
     cutoff = (date.today() - timedelta(days=31 * months)).isoformat()
+    r, _ = filings_table(cik, cutoff)
     out = []
     for form, acc, doc, fdate in zip(r["form"], r["accessionNumber"],
                                      r["primaryDocument"], r["filingDate"]):
@@ -385,14 +438,27 @@ def _num(s):
         return 0.0
 
 
-def insider_transactions(cik, months=24, limit=None, cache_dir=None):
+def insider_transactions(cik, months=24, limit=None, cache_dir=None, budget=None, status=None):
     """Scarica e normalizza i Form 4. Una richiesta per documento.
 
     Se i primi documenti falliscono tutti si ferma subito: vuol dire che
     l'archivio ci sta rifiutando, e non ha senso provare cento volte.
+
+    `budget`: un dizionario {"left": n} condiviso fra tutte le aziende del giro,
+    con quanti documenti nuovi si possono ancora scaricare. Cinque anni di Form 4
+    di quaranta aziende sono decine di migliaia di documenti: tutti insieme
+    farebbero durare un giro quasi un'ora, e il giro dell'ora dopo lo
+    annullerebbe. Così la storia si riempie a rate, dal più recente al più
+    vecchio, e i documenti già letti restano in cache. Quelli recenti, che
+    servono al punteggio di oggi, sono già tutti in cache.
+
+    `status`, se passato, riceve {"complete": bool, "missing": n}: se lo
+    storico di questa azienda è completo o sta ancora crescendo.
     """
-    rows, done, failed, cached, foreign, own = [], 0, 0, 0, 0, 0
+    rows, done, failed, cached, foreign, own, missing = [], 0, 0, 0, 0, 0, 0
     filings = form4_filings(cik, months)
+    if status is not None:
+        status.update(complete=True, missing=0)
     if not filings:
         return rows
     if cache_dir:
@@ -419,7 +485,12 @@ def insider_transactions(cik, months=24, limit=None, cache_dir=None):
                 continue
             except Exception:
                 pass
+        if budget is not None and budget.get("left", 0) <= 0:
+            missing += 1                  # tocca al prossimo giro
+            continue
         try:
+            if budget is not None:
+                budget["left"] -= 1
             got = parse_form4(_get(f["url"]).text, issuer_cik=cik)
             done += 1
             if got is None:
@@ -438,6 +509,9 @@ def insider_transactions(cik, months=24, limit=None, cache_dir=None):
                     f"i primi {failed} documenti dell'archivio hanno dato errore "
                     f"({e}): www.sec.gov sta rifiutando le richieste")
     rows.sort(key=lambda r: r["date"])
+    if status is not None:
+        status.update(complete=(missing == 0 and failed == 0), missing=missing + failed)
     print(f"  {done} documenti scaricati, {cached} dalla cache, {failed} saltati, "
-          f"{foreign} di altri emittenti esclusi")
+          f"{foreign} di altri emittenti esclusi"
+          + (f", {missing} rimandati al prossimo giro" if missing else ""))
     return rows
