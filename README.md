@@ -552,6 +552,50 @@ punteggio a una qualsiasi: `main()` ora costruisce tutte le aziende, stima i
 bonus sui loro acquisti passati, ricalcola la voce insider e solo dopo chiude il
 settore per gruppo.
 
+## La prova all'indietro delle voci
+
+Il punteggio intero non si può provare nel passato, ma quattro delle sue voci
+sì, perché si ricostruiscono giorno per giorno con dati che la pipeline ha già,
+senza inventare niente: **prezzo** (dalle chiusure), **settore** (dai Form 4 di
+tutto l'universo), **mercato** nella parte che guarda la storia dello short
+interest del titolo, e **fatti rilevanti** (dagli 8-K). `pipeline/predict.py`
+lo fa a ogni giro.
+
+Per ogni data, una ogni cinque sedute, e per ogni universo: correlazione di
+rango fra il valore della voce in quel giorno e il rendimento delle 60 sedute
+successive, fra le aziende dello stesso universo. Il confronto è nella stessa
+data e nello stesso universo, quindi l'andamento del mercato si annulla e non
+serve un riferimento. Le date vicine si sovrappongono, quindi l'incertezza si
+misura su blocchi di 60 sedute: una decina in tutto.
+
+Il metodo è stato controllato prima di guardare i risultati: un segnale che
+conosce il futuro dà 1,000, uno casuale −0,010. Un test fa lo stesso attraverso
+tutta la pipeline, con aziende inventate che crescono ognuna a un ritmo diverso.
+
+| Voce | Correlazione | Incertezza |
+|---|---|---|
+| Contesto di prezzo | +0,05 | ±0,07 |
+| Settore | +0,02 | ±0,06 |
+| Mercato (storia dello short interest) | −0,03 | ±0,04 |
+| Fatti rilevanti | dal primo giro con gli 8-K di due anni | |
+
+Tutte indistinguibili dal caso. Esplorando a parte, anche le due metà del
+prezzo (distanza dal massimo +0,02, momentum −0,03) e il semplice numero di
+compratori (+0,03) stanno nel rumore.
+
+**Come leggerlo.** Con due anni e quaranta aziende si vedrebbe solo una
+correlazione forte, sopra circa 0,12; i segnali che funzionano davvero sui
+mercati valgono di solito pochi centesimi. Quindi "indistinguibile dal caso" non
+dice che una voce è inutile: dice che non c'è nessuna prova per darle più peso.
+
+**Gli 8-K.** Per i fatti rilevanti servono quelli degli ultimi due anni: la
+pipeline ora li legge dallo stesso file dei depositi, senza richieste in più, e
+li tiene nella scheda (`events_hist`). Quel file però contiene solo gli ultimi
+mille moduli di ogni tipo, e per un'azienda con molti Form 4 può coprire meno
+di due anni: `events_from` dice da quando è completo, e prima di quella data la
+voce non viene ricostruita, perché "nessun 8-K" vorrebbe dire solo "non lo
+sappiamo".
+
 ## La regola di maturità: un'osservazione vale solo a orizzonte compiuto
 
 Fino a questa versione `_ret()` in `pipeline/rules.py` accorciava l'orizzonte
@@ -680,12 +724,15 @@ sta solo in `index.json`, che viene riscritto comunque a ogni giro.
 
 ### Che cosa farne
 
-La prova dice che tre voci su sei non stanno facendo il loro lavoro. Le strade
-oneste sono due, e vanno decise, non lasciate lì: o si rafforzano quelle voci
-perché distinguano davvero le aziende (oggi settore, eventi e prezzo danno
-valori troppo simili fra loro), oppure si abbassa il loro peso e lo si dichiara.
-Quello che non va fatto è lasciare trenta punti di peso a tre voci che non
-spostano niente e continuare a presentarle come se contassero.
+La prova dice che tre voci su sei non spostano la classifica. Le strade erano
+due: rafforzarle perché distinguano di più le aziende, o abbassarne il peso.
+Prima di scegliere, il 22 novembre 2026 le voci sono state messe alla prova
+all'indietro (sezione seguente): nessuna mostra una capacità di previsione
+distinguibile dal caso. Rafforzarle le avrebbe fatte contare di più senza
+nessuna prova, cioè la stessa scelta arbitraria dei pesi nella direzione
+opposta. Abbassarle, per lo stesso motivo, non ha più fondamento che tenerle.
+Quindi i pesi restano dove sono, la prova si rifà a ogni giro, e il sito dice
+apertamente che quelle voci oggi sono quasi decorative.
 
 ## La prova EDGAR: perché la guidance resta legata alle call
 
@@ -813,9 +860,10 @@ stessa call non si paga due volte.
 
 ## Passo successivo
 
-Le tre voci che non spostano la classifica (settore, fatti rilevanti, prezzo)
-vanno rese capaci di distinguere le aziende, o pesate di meno dichiarandolo; e
-il registro delle previsioni darà il primo risultato verso il 18 febbraio 2027.
+Il registro delle previsioni darà il primo risultato verso il 18 febbraio 2027.
+Fino ad allora nessuna voce del punteggio ha una prova di capacità di previsione:
+né i bonus insider (23 campagne) né le voci ricostruibili all'indietro. Il modo
+per uscirne non è cambiare i pesi, è avere più dati: più aziende, più anni.
 
 ## Se EDGAR risponde 403
 
