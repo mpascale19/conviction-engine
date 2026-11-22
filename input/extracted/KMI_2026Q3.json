@@ -1,0 +1,103 @@
+{
+  "ticker": "KMI",
+  "quarter": "T3 '26",
+  "call_date": "2026-10-21",
+  "tone": 84,
+  "tone_why": {
+    "it": "Una delle call più sicure dell'anno. Utile per azione rettificato +21%, risultati sopra il budget per il terzo trimestre di fila, e un portafoglio di progetti salito da 9,6 a 14,4 miliardi $ in un solo trimestre, «uno dei più grandi aumenti della nostra storia», con contratti di almeno 20 anni con utility e un hyperscaler con rating A. Per il 2026 l'azienda ora vede l'utile oltre il 13% sopra il budget. Due note di prudenza, dette dall'azienda stessa: circa 225 milioni $ di quest'anno vengono da fatti che non si ripeteranno (inverno freddo, una buonuscita, una rettifica tariffaria), e la crescita «non sarà uguale ogni anno», con il 2026 «difficile da replicare».",
+    "en": "One of the most confident calls of the year. Adjusted EPS +21%, results above budget for the third quarter in a row, and a project backlog up from $9.6bn to $14.4bn in a single quarter, \"one of the largest increases in any one quarter in our corporate history\", backed by contracts of at least 20 years with utilities and an A-rated hyperscaler. For 2026 the company now sees earnings more than 13% above budget. Two notes of caution, from the company itself: about $225m of this year comes from items that will not repeat (cold winter, a contract buyout, a rate true-up), and growth \"is not going to be even every single year\", with 2026 \"a difficult year to replicate\"."
+  },
+  "guidance": [
+    {
+      "metric": {"it": "Utile per azione rettificato 2026", "en": "2026 adjusted EPS"},
+      "value": {"it": "oltre il 13% sopra il budget", "en": "more than 13% above budget"},
+      "direction": "alzata"
+    },
+    {
+      "metric": {"it": "EBITDA rettificato 2026", "en": "2026 adjusted EBITDA"},
+      "value": {"it": "oltre il 6% sopra il budget, più di 515 milioni $ in più", "en": "more than 6% above budget, more than $515m extra"},
+      "direction": "alzata"
+    },
+    {
+      "metric": {"it": "Portafoglio di progetti", "en": "Project backlog"},
+      "value": {"it": "14,4 miliardi $ da 9,6, con un multiplo di 5,7 volte l'EBITDA; circa 2,5 miliardi $ di EBITDA in più a regime", "en": "$14.4bn from $9.6bn, at a 5.7x EBITDA multiple; about $2.5bn more EBITDA at run rate"},
+      "direction": "alzata"
+    },
+    {
+      "metric": {"it": "Dividendo", "en": "Dividend"},
+      "value": {"it": "0,2975 $ a trimestre, 1,19 $ l'anno, +2% sul 2025", "en": "$0.2975 a quarter, $1.19 a year, +2% on 2025"},
+      "direction": "confermata"
+    },
+    {
+      "metric": {"it": "Investimenti di crescita", "en": "Growth capex"},
+      "value": {"it": "intorno ai 4 miliardi $ l'anno per i prossimi anni", "en": "around $4bn a year for the next few years"},
+      "direction": "prima"
+    },
+    {
+      "metric": {"it": "Progetto TGP 219 South", "en": "TGP 219 South project"},
+      "value": {"it": "circa 1,5 miliardi $ per la parte su condotte esistenti, oltre 2 Bcf al giorno di interesse", "en": "about $1.5bn for the brownfield part, more than 2 Bcf a day of interest"},
+      "direction": "prima"
+    },
+    {
+      "metric": {"it": "Crescita 2027", "en": "2027 growth"},
+      "value": {"it": "nessuna anticipazione; circa 225 milioni $ di fatti non ricorrenti del 2026 non sono da ripetere, e del progetto Trident entra solo il 30% dell'EBITDA contrattato", "en": "no preview; about $225m of 2026 one-off items should not be repeated, and only 30% of Trident's contracted EBITDA comes in"},
+      "direction": "prima"
+    }
+  ],
+  "qa": [
+    {
+      "question": {"it": "A che punto sono gli impegni dei clienti per TGP 219 South, e quanto può diventare grande?", "en": "Where are customer commitments for TGP 219 South, and how big can it get?"},
+      "answer_summary": {"it": "Numeri concreti: più di 2 Bcf al giorno di interesse non vincolante e un costo stimato di circa 1,5 miliardi $, da adattare a chi firma davvero. Risposta diretta, con la riserva onesta che «dipende da chi firma».", "en": "Concrete numbers: more than 2 Bcf a day of non-binding interest and an estimated cost of about $1.5bn, to be adjusted to who actually signs. A direct answer, with the honest caveat that \"it depends on who signs\"."},
+      "directness": 4
+    },
+    {
+      "question": {"it": "Che cosa considerare nel 2027, tolti i guadagni straordinari di quest'anno?", "en": "What should we consider for 2027, once this year's one-off gains are removed?"},
+      "answer_summary": {"it": "«Evitiamo di anticipare la guidance 2027»: ricorda solo che i fatti straordinari non si ripeteranno, e l'amministratrice delegata aggiunge che il 2026 sarà difficile da replicare.", "en": "\"We are going to avoid previewing the 2027 guide\": he only recalls that the one-offs will not recur, and the CEO adds that 2026 will be hard to replicate."},
+      "directness": 3
+    },
+    {
+      "question": {"it": "C'è il rischio di costruire troppe condotte nel Permiano, e di non rinnovare i contratti di quelle vecchie?", "en": "Is there a risk of overbuilding in the Permian, and of not renewing contracts on the older pipes?"},
+      "answer_summary": {"it": "Risposta generica sulla domanda che «tira» le condotte e sui costi bassi delle prime costruite: nessun dato sulle scadenze dei contratti.", "en": "A generic answer about demand \"pulling\" the pipes and the low cost of the first ones built: no data on contract expiries."},
+      "directness": 2
+    },
+    {
+      "question": {"it": "Il tono dei clienti è cambiato negli ultimi mesi? Accettano tariffe più alte per costi di costruzione più alti?", "en": "Has customer tone changed in recent months? Are they accepting higher rates for higher construction costs?"},
+      "answer_summary": {"it": "No a tutte e due, detto chiaramente: nessun cambiamento nel dialogo, nessuna resistenza sui costi, e le soglie di rendimento sono rimaste le stesse.", "en": "No to both, said clearly: no change in the dialogue, no pushback on costs, and return thresholds are unchanged."},
+      "directness": 4
+    },
+    {
+      "question": {"it": "Nel progetto Western Gateway, chi paga se i costi salgono o ci sono ritardi?", "en": "In the Western Gateway project, who pays if costs rise or there are delays?"},
+      "answer_summary": {"it": "Dice solo che ci sono «alcune protezioni» contro gli sforamenti e che non entrerà nei dettagli.", "en": "She only says there are \"certain cost protections\" against overruns and that she will not go into detail."},
+      "directness": 2
+    }
+  ],
+  "language_changes": [
+    {
+      "topic": {"it": "Portafoglio «ombra» di progetti", "en": "\"Shadow\" project backlog"},
+      "from": {"it": "nella call precedente, scetticismo degli analisti: «dobbiamo portare i cavalli nel recinto»", "en": "on the previous call, analyst skepticism: \"we have to get the horses in the corral\""},
+      "to": {"it": "«abbiamo un mucchio di quei cavalli nel recinto con la sella, e altri fuori che vogliono entrare»", "en": "\"we've got a hell of a lot of those horses in the corral now with the saddles on, but we've got more horses just outside\""},
+      "note": {"it": "La promessa di progetti si è trasformata in contratti firmati per circa 5 miliardi $ in un trimestre.", "en": "The promise of projects turned into about $5bn of signed contracts in a quarter."}
+    },
+    {
+      "topic": {"it": "Orizzonte di crescita", "en": "Growth horizon"},
+      "from": {"it": "la maggior parte dell'EBITDA del portafoglio in servizio entro pochi anni", "en": "most backlog EBITDA in service within a few years"},
+      "to": {"it": "progetti che entrano in servizio fra il 2030 e il 2032", "en": "projects entering service between 2030 and 2032"},
+      "note": {"it": "La crescita contrattata si allunga di diversi anni, con contratti di almeno 20 anni.", "en": "Contracted growth stretches several years further, with contracts of at least 20 years."}
+    },
+    {
+      "topic": {"it": "Qualità dell'anno 2026", "en": "Quality of 2026"},
+      "from": {"it": "risultati sopra il budget", "en": "results above budget"},
+      "to": {"it": "circa 225 milioni $ da fatti non ricorrenti e 175 milioni $ dal prezzo del petrolio sopra i 60 $ del budget", "en": "about $225m from non-recurring items and $175m from oil above the $60 budget price"},
+      "note": {"it": "L'azienda dichiara da sé quanta parte del risultato non è ripetibile, prima che lo chiedano.", "en": "The company itself states how much of the result cannot be repeated, before being asked."}
+    },
+    {
+      "topic": {"it": "Debito", "en": "Leverage"},
+      "from": {"it": "3,8 volte l'EBITDA a inizio anno e nel budget", "en": "3.8x EBITDA at the start of the year and in the budget"},
+      "to": {"it": "3,5 volte a fine trimestre, 3,6 attese a fine anno", "en": "3.5x at quarter end, 3.6x expected at year end"},
+      "note": {"it": "Più spazio per finanziare i progetti senza nuove azioni. Non è contato fra le voci di guidance perché un numero più basso qui è una notizia buona.", "en": "More room to fund projects without new equity. It is not counted among the guidance items because a lower number here is good news."}
+    }
+  ],
+  "file": "KMI_2026Q3.json",
+  "source": "Alpha Vantage transcript (non ridistribuito)",
+  "extracted_by": "Claude (estrazione manuale, stessa forma del passo automatico)"
+}

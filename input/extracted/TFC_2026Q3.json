@@ -1,0 +1,103 @@
+{
+  "ticker": "TFC",
+  "quarter": "T3 '26",
+  "call_date": "2026-10-16",
+  "tone": 62,
+  "tone_why": {
+    "it": "Prima call del nuovo amministratore delegato, Mike Lyons, franca sul passato. «Non abbiamo reso secondo il nostro potenziale», compresi gli obiettivi mancati della fusione BB&T-SunTrust. Trimestre in linea con le attese: utile per azione rettificato +12%, gestione patrimoniale al record, depositi e qualità del credito meglio del previsto, costi sotto piano. Sono stati venduti i prestiti auto RAC ed è stata annunciata la vendita dei prestiti personali LightStream. Gli obiettivi di redditività del capitale (15% nel 2027, 16-18% nel lungo periodo) restano confermati. Il freno: riacquisti ridotti nel T4, ricavi di banca d'investimento slittati, e quasi tutto il piano rimandato a gennaio, a revisione strategica finita.",
+    "en": "The new CEO Mike Lyons' first call, candid about the past. \"We have not performed up to our potential\", including the missed goals of the BB&T-SunTrust merger. A quarter in line with expectations: adjusted EPS +12%, wealth management at a record, deposits and credit quality better than expected, costs below plan. The RAC auto loans were sold and the sale of the LightStream personal loans announced. The return-on-equity targets (15% in 2027, 16-18% long term) remain reaffirmed. The brake: smaller buybacks in Q4, investment banking revenue pushed out, and most of the plan deferred to January, once the strategic review is done."
+  },
+  "guidance": [
+    {
+      "metric": {"it": "Crescita media dei prestiti 2026", "en": "2026 average loan growth"},
+      "value": {"it": "3-4% escludendo le vendite di RAC e LightStream; prestiti commerciali in crescita a una cifra media nell'anno", "en": "3-4% excluding the RAC and LightStream sales; commercial loans growing mid-single digits for the year"},
+      "direction": "confermata"
+    },
+    {
+      "metric": {"it": "Redditività del capitale tangibile (ROTCE)", "en": "Return on tangible common equity (ROTCE)"},
+      "value": {"it": "15% nel 2027 e 16-18% nel lungo periodo (3-5 anni), tempi invariati", "en": "15% in 2027 and 16-18% long term (3-5 years), timing unchanged"},
+      "direction": "confermata"
+    },
+    {
+      "metric": {"it": "Riacquisti di azioni del T4", "en": "Q4 share buybacks"},
+      "value": {"it": "circa 1 miliardo $, dopo 1,2 nel T3, per tassi, revisione strategica e capitale", "en": "about $1bn, after $1.2bn in Q3, on rates, the strategic review and capital"},
+      "direction": "ridotta"
+    },
+    {
+      "metric": {"it": "Ricavi e margine di interesse del T4", "en": "Q4 revenue and net interest income"},
+      "value": {"it": "ricavi circa 5,35 miliardi $; margine di interesse 3,65-3,70 miliardi (−125 milioni per RAC, +40 per il riposizionamento dei titoli)", "en": "revenue about $5.35bn; net interest income $3.65-3.70bn (−$125m from RAC, +$40m from the securities repositioning)"},
+      "direction": "prima"
+    },
+    {
+      "metric": {"it": "Ricavi da commissioni", "en": "Fee income"},
+      "value": {"it": "+5% nel T4 sul T3, circa +10% nell'anno (rettificati)", "en": "+5% in Q4 over Q3, about +10% for the year (adjusted)"},
+      "direction": "prima"
+    },
+    {
+      "metric": {"it": "Costi e perdite su crediti del T4", "en": "Q4 costs and charge-offs"},
+      "value": {"it": "costi +2,5% sul T3; perdite nette su crediti 45 punti base", "en": "costs +2.5% over Q3; net charge-offs 45 basis points"},
+      "direction": "prima"
+    },
+    {
+      "metric": {"it": "Vendita di LightStream", "en": "LightStream sale"},
+      "value": {"it": "7,7 miliardi $ di prestiti, 7,2 netti incassati nel T4, +20 punti base di capitale CET1, circa −95 milioni $ di margine di interesse a trimestre", "en": "$7.7bn of loans, $7.2bn net proceeds in Q4, +20bp of CET1 capital, about −$95m of net interest income per quarter"},
+      "direction": "prima"
+    }
+  ],
+  "qa": [
+    {
+      "question": {"it": "Quali altre aree potrebbero non superare i vostri criteri, e dove serve più investimento?", "en": "What other areas might not meet your criteria, and where is more investment most needed?"},
+      "answer_summary": {"it": "Descrive bene dove investire (filiali, bancomat, carte, gestione della tesoreria, più venditori nel wholesale), ma non nomina altre attività da cedere oltre a RAC e LightStream.", "en": "He describes well where to invest (branches, ATMs, cards, treasury management, more salespeople in wholesale), but names no other business to exit beyond RAC and LightStream."},
+      "directness": 3
+    },
+    {
+      "question": {"it": "Quanto pesa la vendita di LightStream sul margine di interesse?", "en": "How much does the LightStream sale weigh on net interest income?"},
+      "answer_summary": {"it": "Numero preciso: circa 95 milioni $ a trimestre, con un rendimento del portafoglio del 9,25%, e il profilo dei titoli che potrebbero essere riposizionati.", "en": "A precise number: about $95m a quarter, with a portfolio yield of 9.25%, and the profile of the securities that could be repositioned."},
+      "directness": 5
+    },
+    {
+      "question": {"it": "Perché porsi un limite ai costi dopo poche settimane, invece di investire di più subito?", "en": "Why constrain expenses after a few weeks, instead of spending more now?"},
+      "answer_summary": {"it": "Il limite è la capacità di eseguire, non i soldi; il direttore finanziario precisa che «seismic» (nessuno stravolgimento) era una parola scelta apposta, ma non esclude un aumento.", "en": "The constraint is the ability to execute, not money; the CFO clarifies that \"seismic\" was chosen on purpose, but does not rule out an increase."},
+      "directness": 3
+    },
+    {
+      "question": {"it": "I tempi per il 16-18% sono cambiati? Quale rapporto costi-ricavi serve?", "en": "Has the timing of the 16-18% changed? What efficiency ratio does it need?"},
+      "answer_summary": {"it": "Sempre 3-5 anni; costi-ricavi dal 56-57% di oggi verso la metà dei 50 grazie a più ricavi.", "en": "Still 3-5 years; efficiency ratio from today's 56-57% toward the mid-50s through more revenue."},
+      "directness": 4
+    },
+    {
+      "question": {"it": "È un percorso di cinque anni? Ci saranno altri cambi al vertice?", "en": "Is this a five-year process? Will there be more senior changes?"},
+      "answer_summary": {"it": "Non dice né sì né no: ogni investimento ha i suoi tempi. Sui cambi, «se ci sono altre opportunità di aggiungere talento, lo faremo».", "en": "Neither yes nor no: each investment has its own timeline. On changes, \"if there are other opportunities to add talent... we will do it\"."},
+      "directness": 2
+    }
+  ],
+  "language_changes": [
+    {
+      "topic": {"it": "Giudizio sul passato", "en": "View of the past"},
+      "from": {"it": "la fusione doveva creare la banca migliore nell'area che cresce di più", "en": "the merger was meant to create the best bank in the fastest-growing footprint"},
+      "to": {"it": "«non abbiamo reso secondo il potenziale», mancati gli obiettivi della fusione, investimenti rinviati da anni", "en": "\"we have not performed up to our potential\", the merger goals missed, investment deferred for years"},
+      "note": {"it": "Un'ammissione esplicita, tipica di un nuovo amministratore delegato che azzera le attese prima del piano di gennaio.", "en": "An explicit admission, typical of a new CEO resetting expectations before the January plan."}
+    },
+    {
+      "topic": {"it": "Prestiti ai consumatori", "en": "Consumer lending"},
+      "from": {"it": "attività nazionali a prodotto unico (barche e camper, auto RAC, LightStream)", "en": "national single-product businesses (marine and RV, RAC auto, LightStream)"},
+      "to": {"it": "solo prestiti legati ai conti correnti dei clienti nell'area delle filiali: carte, mutui, prestiti personali", "en": "only lending tied to clients' checking accounts within the branch footprint: cards, home lending, unsecured loans"},
+      "note": {"it": "Bilancio più piccolo a breve, per scelta: il management insiste che «non è ridursi per avere più redditività».", "en": "A smaller balance sheet in the near term, by choice: management insists it is \"not about shrinking to achieve higher returns\"."}
+    },
+    {
+      "topic": {"it": "Portafoglio titoli", "en": "Securities portfolio"},
+      "from": {"it": "mutui cartolarizzati a lunga scadenza, rendimento 2,67%, durata 5,8 anni", "en": "long-dated agency MBS, 2.67% yield, 5.8-year duration"},
+      "to": {"it": "titoli al 5,6% con durata 2,3 anni, più titoli di Stato; altri 17-18 miliardi $ si potrebbero riposizionare", "en": "securities at 5.6% with 2.3-year duration, more Treasuries; another $17-18bn could be repositioned"},
+      "note": {"it": "Perdite contabili oggi (0,90 $ per azione) in cambio di più utile dal T4; il valore contabile tangibile per azione sale.", "en": "Accounting losses today ($0.90 per share) in exchange for more earnings from Q4; tangible book value per share rises."}
+    },
+    {
+      "topic": {"it": "Riacquisti", "en": "Buybacks"},
+      "from": {"it": "1,2 miliardi $ nel T3", "en": "$1.2bn in Q3"},
+      "to": {"it": "circa 1 miliardo $ nel T4, «riduzione modesta» legata a tassi e revisione strategica", "en": "about $1bn in Q4, a \"modest reduction\" tied to rates and the strategic review"},
+      "note": {"it": "Il capitale viene tenuto da parte mentre la revisione è in corso.", "en": "Capital is being held back while the review is under way."}
+    }
+  ],
+  "file": "TFC_2026Q3.json",
+  "source": "Alpha Vantage transcript (non ridistribuito)",
+  "extracted_by": "Claude (estrazione manuale, stessa forma del passo automatico)"
+}

@@ -1,0 +1,118 @@
+{
+  "ticker": "ETN",
+  "quarter": "T3 '26",
+  "call_date": "2026-11-03",
+  "tone": 82,
+  "tone_why": {
+    "it": "Terzo rialzo della guidance nell'anno, con tutti i numeri del trimestre sopra il limite alto delle stime: crescita organica 19%, margine dei segmenti record al 25,3%, utile per azione rettificato record a 3,68 $. Gli ordini elettrici degli ultimi 12 mesi crescono del 43% e il portafoglio supera i 20 miliardi $ (+46%); gli ordini dei data center sono più che raddoppiati. Il management insiste che la domanda «si allarga» oltre i data center e anticipa per il 2027 mercati in crescita di circa l'11%, sopra il suo obiettivo di lungo periodo. Le sole cautele: problemi puntuali di fornitori nell'aerospazio, e un nuovo stabilimento di trasformatori da avviare nel 2027.",
+    "en": "The third guidance raise of the year, with every quarterly number above the high end of estimates: organic growth 19%, record segment margin of 25.3%, record adjusted EPS of $3.68. Rolling 12-month electrical orders are up 43% and backlog exceeds $20bn (+46%); data-center orders more than doubled. Management insists demand is \"broadening\" beyond data centers and previews about 11% end-market growth for 2027, above its long-term target. The only cautions: specific supplier issues in aerospace, and a new transformer plant to ramp in 2027."
+  },
+  "guidance": [
+    {
+      "metric": {"it": "Crescita organica 2026", "en": "2026 organic growth"},
+      "value": {"it": "13-15%, dal precedente 11-13%", "en": "13-15%, from the prior 11-13%"},
+      "direction": "alzata"
+    },
+    {
+      "metric": {"it": "Crescita organica Electrical Americas 2026", "en": "2026 Electrical Americas organic growth"},
+      "value": {"it": "centro della fascia al 19%, +400 punti base", "en": "midpoint 19%, up 400 basis points"},
+      "direction": "alzata"
+    },
+    {
+      "metric": {"it": "Crescita organica Electrical Global 2026", "en": "2026 Electrical Global organic growth"},
+      "value": {"it": "circa 16%, +400 punti base, più del doppio del 7% del 2025", "en": "about 16%, up 400 basis points, more than double 2025's 7%"},
+      "direction": "alzata"
+    },
+    {
+      "metric": {"it": "Utile per azione rettificato 2026", "en": "2026 adjusted EPS"},
+      "value": {"it": "13,70-13,80 $, centro a 13,75 $ (+0,25 $), +14% sul 2025", "en": "$13.70-13.80, midpoint $13.75 (+$0.25), up 14% on 2025"},
+      "direction": "alzata"
+    },
+    {
+      "metric": {"it": "Ricavi di Boyd 2026", "en": "2026 Boyd revenue"},
+      "value": {"it": "1,9 miliardi $, terzo rialzo dell'anno (1,6 nei conti di Eaton)", "en": "$1.9bn, the third raise of the year ($1.6bn in Eaton's books)"},
+      "direction": "alzata"
+    },
+    {
+      "metric": {"it": "Margine dei segmenti 2026", "en": "2026 segment margin"},
+      "value": {"it": "24,1-24,5%", "en": "24.1-24.5%"},
+      "direction": "confermata"
+    },
+    {
+      "metric": {"it": "Flusso di cassa 2026", "en": "2026 cash flow"},
+      "value": {"it": "confermato", "en": "reaffirmed"},
+      "direction": "confermata"
+    },
+    {
+      "metric": {"it": "Mercati di sbocco 2027", "en": "2027 end markets"},
+      "value": {"it": "crescita di circa l'11%, nessun mercato in calo; crescita dell'azienda attesa sopra, e sopra l'obiettivo 2026-2030 del 6-9% annuo", "en": "about 11% growth, no market declining; company growth expected above that, and above the 6-9% 2026-2030 target"},
+      "direction": "prima"
+    },
+    {
+      "metric": {"it": "Ricavi di Boyd 2027", "en": "2027 Boyd revenue"},
+      "value": {"it": "almeno 2,7 miliardi $, circa +50%", "en": "at least $2.7bn, about +50%"},
+      "direction": "prima"
+    },
+    {
+      "metric": {"it": "Mobility 2027", "en": "2027 Mobility"},
+      "value": {"it": "solo circa 800 milioni $ di ricavi, con la cessione a Dana chiusa intorno al T1", "en": "only about $800m of revenue, with the Dana transaction closing around Q1"},
+      "direction": "prima"
+    }
+  ],
+  "qa": [
+    {
+      "question": {"it": "A che punto è il passaggio alla corrente continua a 800 volt? Vedete già ordini, e quando arriva la produzione dei trasformatori allo stato solido?", "en": "Where are you in the transition to 800-volt DC? Are you seeing orders yet, and when does solid-state transformer production come?"},
+      "answer_summary": {"it": "Molti dettagli tecnici (prove UL superate, dieci progetti pilota, spedizioni quest'anno e volumi dal prossimo), ma sui tempi ammette che la transizione «non è sotto il nostro controllo» e insiste che Eaton vince con entrambe le architetture.", "en": "Plenty of technical detail (UL tests passed, ten pilots, shipments this year and volume next year), but on timing he concedes the transition \"is not under our control\" and insists Eaton wins with either architecture."},
+      "directness": 3
+    },
+    {
+      "question": {"it": "Restano buchi nel portafoglio prodotti? Continuerete con acquisizioni allo stesso ritmo nei prossimi 12 mesi?", "en": "Are there remaining product gaps? Will you stay as aggressive on M&A over the next 12 months?"},
+      "answer_summary": {"it": "Risposta netta: «le grandi operazioni sono alle spalle», nessuna acquisizione della taglia di Boyd nei prossimi 12 mesi, nessun buco in Nord America, solo acquisizioni piccole in Europa e Asia.", "en": "A clear answer: \"the big deals are behind us\", no Boyd-sized acquisition in the next 12 months, no gaps in North America, only bolt-ons in Europe and Asia."},
+      "directness": 5
+    },
+    {
+      "question": {"it": "I ricavi di Boyd nel T4 sono piatti sul T3: siete limitati dalla capacità? E il 2027?", "en": "Boyd's Q4 revenue is flat sequentially: are you capacity-constrained? And 2027?"},
+      "answer_summary": {"it": "Dà un numero per il 2027 (almeno 2,7 miliardi $) e dice che non si stupirebbe di un altro risultato sopra le attese nel T4, ma non risponde sulla capacità.", "en": "He gives a 2027 number (at least $2.7bn) and says he would not be surprised by another beat in Q4, but does not answer on capacity."},
+      "directness": 3
+    },
+    {
+      "question": {"it": "Lo stesso prodotto costa uguale a un data center e a un cliente commerciale tradizionale?", "en": "Do you price the same product the same way for a data center and a traditional commercial customer?"},
+      "answer_summary": {"it": "Parla di potere di prezzo, clausole sulle materie prime e listini nuovi dal 2 gennaio, ma non dice se i prezzi differiscono tra i canali.", "en": "He talks about pricing power, commodity clauses and new list prices from 2 January, but does not say whether prices differ across channels."},
+      "directness": 2
+    },
+    {
+      "question": {"it": "Potete quantificare le inefficienze del 2026, il rapporto prezzi-costi e la capacità in più per il 2027?", "en": "Can you quantify 2026 inefficiencies, price-cost and the extra capacity for 2027?"},
+      "answer_summary": {"it": "Nessuna cifra («è presto»), ma una cornice: crescita sopra l'11% dei mercati, incrementali sopra il 23% del 2026, guidance vera a febbraio.", "en": "No figures (\"it's premature\"), but a framework: growth above the 11% of end markets, incrementals above 2026's 23%, actual guidance in February."},
+      "directness": 3
+    }
+  ],
+  "language_changes": [
+    {
+      "topic": {"it": "Electrical Global", "en": "Electrical Global"},
+      "from": {"it": "obiettivo di crescita del 5% annuo dal 2026 al 2030; crescita del 9% nel T1 e del 18% nel T2", "en": "a 5% annual growth target from 2026 to 2030; growth of 9% in Q1 and 18% in Q2"},
+      "to": {"it": "27% nel T3, «una fase di crescita sostenuta», obiettivo da aggiornare nel 2027", "en": "27% in Q3, \"a sustained growth phase\", target to be updated in 2027"},
+      "note": {"it": "La divisione che doveva crescere poco viene ora presentata come «il nuovo motore di crescita» dell'azienda.", "en": "The division meant to grow slowly is now presented as the company's \"new growth engine\"."}
+    },
+    {
+      "topic": {"it": "Data center", "en": "Data centers"},
+      "from": {"it": "307 gigawatt di progetti annunciati (call precedente)", "en": "307 gigawatts of announced projects (previous call)"},
+      "to": {"it": "366 gigawatt, contro 50 installati", "en": "366 gigawatts, against 50 installed"},
+      "note": {"it": "L'azienda aveva messo nel piano lungo una crescita del 17% nei data center: da inizio anno è del 60%.", "en": "The long-term plan assumed 17% data-center growth: year to date it is 60%."}
+    },
+    {
+      "topic": {"it": "Boyd", "en": "Boyd"},
+      "from": {"it": "guidance precedente di 1,8 miliardi $ di ricavi", "en": "prior guidance of $1.8bn of revenue"},
+      "to": {"it": "1,9 miliardi $ nel 2026 e almeno 2,7 nel 2027", "en": "$1.9bn in 2026 and at least $2.7bn in 2027"},
+      "note": {"it": "Terzo rialzo nell'anno per l'acquisizione più grande: dal marzo 2027 la sua crescita entrerà nella crescita organica.", "en": "A third raise of the year for the largest acquisition: from March 2027 its growth will count as organic."}
+    },
+    {
+      "topic": {"it": "Acquisizioni", "en": "Acquisitions"},
+      "from": {"it": "14 miliardi $ investiti in acquisizioni, con un portafoglio «attivo»", "en": "$14bn put to work in acquisitions, with an \"active\" pipeline"},
+      "to": {"it": "«le grandi operazioni sono alle spalle»: ora integrazione e piccole aggiunte", "en": "\"the big deals are behind us\": integration and bolt-ons now"},
+      "note": {"it": "Cambio di fase dichiarato apertamente, utile a chi temeva altre grandi spese.", "en": "A change of phase stated openly, useful to those who feared more large spending."}
+    }
+  ],
+  "file": "ETN_2026Q3.json",
+  "source": "Alpha Vantage transcript (non ridistribuito)",
+  "extracted_by": "Claude (estrazione manuale, stessa forma del passo automatico)"
+}

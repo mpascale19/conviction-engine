@@ -483,9 +483,10 @@ function renderGuide(){
      'Per ogni azienda, da SEC EDGAR: i Form 4 e gli 8-K degli ultimi cinque anni (al punteggio di oggi ' +
      'servono gli ultimi 90 giorni dei primi e sei mesi dei secondi; il resto serve alle prove) e ' +
      'le azioni in circolazione dalla copertina dei 10-Q. Poi i prezzi di chiusura, e da FINRA lo short ' +
-     'interest di cinque anni, due rilevazioni al mese. Le trascrizioni delle call arrivano da Alpha ' +
-     'Vantage, al massimo 25 al giorno; i fatti si estraggono a mano, e solo per le aziende per cui c’è ' +
-     'una trascrizione.'],
+     'interest di cinque anni, due rilevazioni al mese. Da Alpha Vantage, con 25 richieste al giorno: ' +
+     'gli utili di ogni trimestre contro le attese degli analisti, il calendario delle prossime ' +
+     'trimestrali, l’elenco dei titoli quotati e le trascrizioni delle call. Dalle trascrizioni i fatti ' +
+     'si estraggono a mano, e solo per le aziende per cui ce n’è una.'],
     ['Il modello estrae, non giudica',
      'Dalle trascrizioni delle call ricava fatti strutturati: ogni voce di guidance con la sua direzione, ' +
      'quanto sono dirette le risposte agli analisti, che cosa è cambiato nel linguaggio. C’è un solo ' +
@@ -506,8 +507,10 @@ function renderGuide(){
      'For each company, from SEC EDGAR: the Form 4 and 8-K filings of the last five years (today’s score ' +
      'needs the last 90 days of the first and six months of the second; the rest feeds the tests), and ' +
      'shares outstanding from the cover of the 10-Q. Then closing prices, and from FINRA five years of ' +
-     'short interest, two readings a month. Call transcripts come from Alpha Vantage, at most 25 a day; ' +
-     'the facts are extracted by hand, and only for the companies that have a transcript.'],
+     'short interest, two readings a month. From Alpha Vantage, with 25 requests a day: each quarter’s ' +
+     'earnings against analysts’ estimates, the calendar of upcoming results, the list of listed stocks ' +
+     'and the call transcripts. From the transcripts the facts are extracted by hand, and only for the ' +
+     'companies that have one.'],
     ['The model extracts, it does not judge',
      'From the call transcripts it draws structured facts: every guidance item with its direction, how ' +
      'direct the answers to analysts are, what changed in the language. There is one number the model ' +
@@ -526,8 +529,9 @@ function renderGuide(){
   ]);
   var subs = T([
     ['Insider', 35, 'Chi compra, quanto, se è un dirigente apicale, se più persone comprano nello stesso ' +
-     'periodo, e come sono andati i loro acquisti passati. I bonus per cluster, due compratori e ' +
-     'dirigente apicale non sono più scritti a mano: li stima il backtest (pagina Backtest).'],
+     'periodo, e come sono andati i loro acquisti passati. I bonus per cluster, due compratori, ' +
+     'dirigente apicale e acquisto dopo una trimestrale sopra le attese non sono scritti a mano: li ' +
+     'stima il backtest (pagina Backtest).'],
     ['Guidance e tono', 20, 'Il tono delle ultime quattro call e quante voci di guidance l’azienda ha ' +
      'alzato o ridotto nell’ultima.'],
     ['Mercato', 15, 'Lo short interest, in due modi. Contro la storia del titolo: il livello di oggi ' +
@@ -543,8 +547,9 @@ function renderGuide(){
      'il momentum a tre mesi ne aggiunge se sale. Il minimo di sei mesi è mostrato ma non pesa.']
   ], [
     ['Insiders', 35, 'Who buys, how much, whether they are a top executive, whether several people buy in ' +
-     'the same window, and how their past purchases turned out. The bonuses for a cluster, two buyers ' +
-     'and a top executive are no longer hand-written: the backtest estimates them (Backtest page).'],
+     'the same window, and how their past purchases turned out. The bonuses for a cluster, two buyers, ' +
+     'a top executive and a purchase after results above expectations are not hand-written: the ' +
+     'backtest estimates them (Backtest page).'],
     ['Guidance and tone', 20, 'The tone of the last four calls and how many guidance items the company ' +
      'raised or lowered in the latest one.'],
     ['Market', 15, 'Short interest, in two ways. Against the stock’s own history: today’s level against ' +
@@ -580,15 +585,25 @@ function renderGuide(){
      'acquisti si contano per campagna: dieci compere in tre settimane sono una prova sola.'],
     ['Da dove vengono i dati?',
      'Form 4, 8-K, azioni in circolazione: SEC EDGAR. Prezzi: Yahoo Finance, con stooq come riserva. ' +
-     'Short interest: i file pubblici di FINRA. Trascrizioni: Alpha Vantage, e nel ' +
-     'repository finiscono solo i fatti estratti, non il testo.'],
+     'Short interest: i file pubblici di FINRA. Utili contro attese, calendario delle trimestrali, ' +
+     'elenco dei titoli quotati e trascrizioni: Alpha Vantage. Delle trascrizioni nel repository ' +
+     'finiscono solo i fatti estratti, non il testo.'],
+    ['Che cos’è la sorpresa sugli utili?',
+     'La differenza fra l’utile per azione che l’azienda annuncia e quello che gli analisti si ' +
+     'aspettavano, in percentuale delle attese. Il sito la usa in due modi, tutti e due messi alla prova ' +
+     'dai dati e non scritti a mano. Nella voce insider: un acquisto che arriva dopo una trimestrale ' +
+     'sopra le attese vale un bonus, quanto lo stima il backtest (all’inizio zero). E nella prova ' +
+     'all’indietro, come voce a sé: chi ha sorpreso in positivo ha poi reso di più? Nel punteggio non ' +
+     'entra da sola, finché quella prova non dice di sì. Gli utili arrivano a rate, dodici aziende al ' +
+     'giorno, e poi si rileggono dopo ogni trimestrale.'],
     ['Ogni quanto si aggiorna?',
      'Ogni ora nei giorni feriali, diciotto volte al giorno (dalle 6 alle 23 UTC). Un giro che non trova ' +
      'niente di nuovo aggiorna solo l’ora del controllo e non riscrive nessuna scheda: per questo può ' +
      'girare così spesso senza appesantire niente. Il registro ' +
      'delle previsioni invece aggiunge una riga per azienda una sola volta per seduta. Lo short interest ' +
-     'cambia due volte al mese, quando FINRA pubblica una rilevazione nuova; le trascrizioni si scaricano ' +
-     'una volta al giorno, e i loro fatti entrano quando vengono estratti.'],
+     'cambia due volte al mese, quando FINRA pubblica una rilevazione nuova; gli utili di un’azienda si ' +
+     'rileggono dopo ogni sua trimestrale; le trascrizioni si scaricano una volta al giorno, e i loro ' +
+     'fatti entrano quando vengono estratti.'],
     ['Come faccio a sapere se il punteggio funziona?',
      'Oggi non lo sai ancora, e il sito non finge il contrario. Ci sono tre prove, ognuna con il suo ' +
      'limite. Il backtest mette alla prova le regole della voce insider, contando una volta sola ogni ' +
@@ -621,15 +636,25 @@ function renderGuide(){
      'campaign: ten buys in three weeks are a single piece of evidence.'],
     ['Where does the data come from?',
      'Form 4, 8-K filings and shares outstanding: SEC EDGAR. Prices: Yahoo Finance, with stooq as a ' +
-     'fallback. Short interest: FINRA’s public files. Transcripts: Alpha Vantage, and only ' +
-     'the extracted facts go into the repository, never the text.'],
+     'fallback. Short interest: FINRA’s public files. Earnings against estimates, the results calendar, ' +
+     'the list of listed stocks and the transcripts: Alpha Vantage. Of the transcripts, only the ' +
+     'extracted facts go into the repository, never the text.'],
+    ['What is the earnings surprise?',
+     'The gap between the earnings per share a company reports and what analysts expected, as a ' +
+     'percentage of the estimate. The site uses it in two ways, both put to the test by the data rather ' +
+     'than written by hand. In the insider input: a purchase that comes after results above expectations ' +
+     'earns a bonus, as large as the backtest estimates (zero to begin with). And in the backward test, ' +
+     'as an input of its own: did the companies that surprised on the upside go on to do better? It does ' +
+     'not enter the score by itself until that test says yes. Earnings arrive in instalments, twelve ' +
+     'companies a day, and are then re-read after every quarterly report.'],
     ['How often does it update?',
      'Every hour on weekdays, eighteen times a day (06:00 to 23:00 UTC). A run that finds nothing new only ' +
      'updates the time of the check and rewrites no company page, which is why it can run this often ' +
      'without weighing anything down. The prediction register, ' +
      'instead, adds one row per company only once per trading session. Short interest changes twice a ' +
-     'month, when FINRA publishes a new reading; transcripts are downloaded once a day, and their facts ' +
-     'come in once they are extracted.'],
+     'month, when FINRA publishes a new reading; a company’s earnings are re-read after each of its ' +
+     'quarterly reports; transcripts are downloaded once a day, and their facts come in once they are ' +
+     'extracted.'],
     ['How do I know whether the score works?',
      'Today you do not know yet, and the site does not pretend otherwise. There are three tests, each with ' +
      'its limit. The backtest tests the rules of the insider input, counting each buying campaign only ' +
@@ -1002,16 +1027,19 @@ function bonusCard(bt){
   if (!e || !e.features) return '';
   var names = { cluster: T('Cluster di compratori', 'Cluster of buyers'),
                 two: T('Due compratori distinti', 'Two separate buyers'),
-                senior: T('Dirigente apicale fra chi compra', 'Top executive among the buyers') };
+                senior: T('Dirigente apicale fra chi compra', 'Top executive among the buyers'),
+                beat: T('Dopo una trimestrale sopra le attese', 'After results above expectations') };
   var notes = { cluster: T('3 o più persone entro 30 giorni', '3 or more people within 30 days'),
                 two: T('sotto la soglia del cluster', 'below the cluster threshold'),
-                senior: T('CEO, CFO o presidente', 'CEO, CFO or president') };
+                senior: T('CEO, CFO o presidente', 'CEO, CFO or president'),
+                beat: T('l’ultima prima del primo acquisto', 'the latest one before the first purchase') };
   var rows = e.features.map(function(f){
     var meas = f.raw == null ? T('non stimabile', 'cannot be estimated')
              : sg(f.raw, 1) + ' ± ' + f.se.toFixed(1);
     return '<tr style="cursor:default"><td><b>' + esc(names[f.id] || f.id) + '</b>' +
       '<div class="nm">' + esc(notes[f.id] || '') + ' · ' +
       T(f.n + (f.n === 1 ? ' campagna' : ' campagne'), f.n + (f.n === 1 ? ' campaign' : ' campaigns')) +
+      (f.known != null ? T(' su ' + f.known + ' con il dato', ' of ' + f.known + ' with the data') : '') +
       '</div></td><td class="num">' + esc(meas) + '</td>' +
       '<td class="num" style="color:var(--ink3)">' + sg(f.hand, 0) + '</td>' +
       '<td class="num"><b>' + (f.points ? sg(f.points, 0) : '0') + '</b></td>' +
@@ -1024,12 +1052,16 @@ function bonusCard(bt){
       'a due compratori: numeri scelti a mano. Ora li stimano le campagne qui sopra. L’effetto ' +
       'misurato è il rendimento in più a ' + bt.horizon + ' giorni, in punti percentuali, con la sua ' +
       'incertezza; il bonus usato è quell’effetto ristretto verso zero quanto più è incerto, a un ' +
-      'punto di punteggio per punto percentuale.',
+      'punto di punteggio per punto percentuale. L’ultima riga è nuova, dal 23 novembre 2026: a mano ' +
+      'non valeva niente, e si stima solo sulle campagne per cui si sa com’era andata l’ultima ' +
+      'trimestrale (dati Alpha Vantage).',
       'Until 22 November 2026 the insider input gave +18 to a cluster, +10 to a top executive and +8 to ' +
       'two buyers: numbers picked by hand. Now the campaigns above estimate them. The measured effect is ' +
       'the extra return at ' + bt.horizon + ' days, in percentage points, with its uncertainty; the bonus ' +
       'used is that effect shrunk towards zero the more uncertain it is, at one score point per ' +
-      'percentage point.') + '</p>' +
+      'percentage point. The last row is new, since 23 November 2026: by hand it was worth nothing, and ' +
+      'it is estimated only on the campaigns for which the latest results are known (Alpha Vantage ' +
+      'data).') + '</p>' +
     '<div class="scroll"><table><thead><tr><th>' + T('Regola', 'Rule') + '</th>' +
     '<th class="num">' + T('Effetto misurato', 'Measured effect') + '</th>' +
     '<th class="num">' + T('A mano', 'By hand') + '</th>' +
@@ -1053,6 +1085,25 @@ function bonusCard(bt){
       'plausibly be at most (' + e.tau + ' points). The last column shows what 3 and 10 would give. The ' +
       'penalty for a top executive selling (−10) stays hand-written, because the backtest only ' +
       'looks at purchases.') + '</p></div>';
+}
+
+/* Gli utili contro le attese arrivano a rate, dodici aziende al giorno: finché
+   non ci sono tutte, le righe che li usano cambiano da un giro all'altro. */
+function avNote(){
+  var a = IDX.alphavantage;
+  if (!a || !a.total) return '';
+  if (!a.earnings) return '<p class="sub" style="margin-top:12px">' + T(
+    'Gli utili contro le attese non sono ancora arrivati: li scarica ogni giorno il programma delle ' +
+    'trascrizioni, dodici aziende alla volta.',
+    'Earnings against estimates have not arrived yet: the transcript program downloads them every day, ' +
+    'twelve companies at a time.') + '</p>';
+  if (a.earnings >= a.total) return '';
+  return '<p class="sub" style="margin-top:12px">' + T(
+    'Gli utili contro le attese sono arrivati per ' + a.earnings + ' aziende su ' + a.total + ': ne ' +
+    'arrivano dodici al giorno. Finché non ci sono tutte, le righe sulla sorpresa cambiano da un giro ' +
+    'all’altro.',
+    'Earnings against estimates have arrived for ' + a.earnings + ' companies out of ' + a.total + ': ' +
+    'twelve more arrive each day. Until all are in, the surprise rows change from one run to the next.') + '</p>';
 }
 
 /* Mese e anno di una data ISO, nella lingua scelta. */
@@ -1086,11 +1137,14 @@ function icCard(){
   var ic = IDX.ic;
   if (!ic || !ic.rows) return '';
   var names = { price: T('Contesto di prezzo', 'Price context'), sector: T('Settore', 'Sector'),
-                market: T('Mercato', 'Market'), events: T('Fatti rilevanti (8-K)', 'Material events (8-K)') };
+                market: T('Mercato', 'Market'), events: T('Fatti rilevanti (8-K)', 'Material events (8-K)'),
+                surprise: T('Sorpresa sugli utili', 'Earnings surprise') };
   var notes = { price: T('dalle chiusure', 'from closing prices'),
                 sector: T('dai Form 4 di tutto l’universo', 'from the Form 4s of the whole universe'),
                 market: T('solo la storia dello short interest del titolo', 'only the stock’s own short-interest history'),
-                events: T('solo le date coperte dal file della SEC', 'only the dates covered by the SEC file') };
+                events: T('solo le date coperte dal file della SEC', 'only the dates covered by the SEC file'),
+                surprise: T('non è nel punteggio: l’ultima trimestrale contro le attese',
+                            'not in the score: the latest results against estimates') };
   var rows = ic.rows.map(function(r){
     var read, col = 'var(--ink3)';
     if (r.ic == null) read = T('non ancora calcolabile', 'not computable yet');
@@ -1114,12 +1168,14 @@ function icCard(){
   return '<div class="card"><h2>' + T('Le altre voci, alla prova', 'The other inputs, put to the test') +
     '</h2><p class="sub">' + T(
       'Quattro voci del punteggio si possono ricostruire giorno per giorno nel passato senza inventare ' +
-      'niente. Per ogni data, dentro ogni universo, si guarda se le aziende con il valore più alto hanno ' +
+      'niente, e con loro la sorpresa sugli utili, che nel punteggio non c’è: se qui mostrasse un ' +
+      'segnale, sarebbe la ragione per farla entrare. Per ogni data, dentro ogni universo, si guarda se le aziende con il valore più alto hanno ' +
       'poi reso di più delle altre nei ' + ic.horizon + ' giorni successivi: 1 vorrebbe dire sempre, 0 per ' +
       'niente, −1 sempre al contrario. Il confronto è fra aziende nella stessa data, quindi ' +
       'l’andamento del mercato si annulla. Date fra ' + fmtD(ic.from) + ' e ' + fmtD(ic.to) + '.',
-      'Four inputs of the score can be rebuilt day by day in the past without inventing anything. For ' +
-      'each date, within each universe, we check whether the companies with the highest value went on to ' +
+      'Four inputs of the score can be rebuilt day by day in the past without inventing anything, and so ' +
+      'can the earnings surprise, which is not in the score: if it showed a signal here, that would be ' +
+      'the reason to bring it in. For each date, within each universe, we check whether the companies with the highest value went on to ' +
       'beat the others over the next ' + ic.horizon + ' days: 1 would mean always, 0 not at all, −1 ' +
       'always the opposite. The comparison is between companies on the same date, so the market’s ' +
       'direction cancels out. Dates between ' + fmtD(ic.from) + ' and ' + fmtD(ic.to) + '.') + '</p>' +
@@ -1196,14 +1252,16 @@ function renderBacktest(){
       'counted many times.') + '</p>' : '') +
     distChart(bt) + '</div>' + fwdCard() +
 
-    '<div class="card"><h2>' + T('Le due regole della formula, messe alla prova',
-      'The formula’s two rules, put to the test') + '</h2><p class="sub">' +
-    T('Fino al 22 novembre 2026 la formula premiava a mano i cluster e i dirigenti apicali. Questi ' +
-      'sono i numeri che quelle due regole producono su questo universo, contati per campagna; la ' +
-      'scheda qui sotto ne ricava i bonus che la formula usa adesso.',
-      'Until 22 November 2026 the formula rewarded clusters and top executives by hand. These are the ' +
-      'numbers those two rules produce on this universe, counted per campaign; the card below derives ' +
-      'from them the bonuses the formula uses now.') + '</p>' +
+    '<div class="card"><h2>' + T('Le regole della formula, messe alla prova',
+      'The formula’s rules, put to the test') + '</h2><p class="sub">' +
+    T('Fino al 22 novembre 2026 la formula premiava a mano i cluster e i dirigenti apicali; dal 23 ' +
+      'novembre guarda anche com’era andata l’ultima trimestrale. Questi sono i numeri che le regole ' +
+      'producono su questo universo, contati per campagna; la scheda qui sotto ne ricava i bonus che ' +
+      'la formula usa adesso.',
+      'Until 22 November 2026 the formula rewarded clusters and top executives by hand; since 23 ' +
+      'November it also looks at how the latest results went. These are the numbers the rules produce ' +
+      'on this universe, counted per campaign; the card below derives from them the bonuses the ' +
+      'formula uses now.') + '</p>' +
     '<div class="scroll"><table><thead><tr><th>' + T('Gruppo', 'Group') + '</th>' +
     '<th class="num">' + T('Campagne', 'Campaigns') + '</th>' +
     '<th class="num">' + T('Episodi', 'Episodes') + '</th>' +
@@ -1218,6 +1276,10 @@ function renderBacktest(){
           T('amministratore delegato, direttore finanziario, presidente',
             'chief executive, chief financial officer, president')) +
     btRow(T('Altri insider', 'Other insiders'), bt.other) +
+    (bt.beat || bt.nobeat ?
+      btRow(T('Dopo una trimestrale sopra le attese', 'After results above expectations'), bt.beat,
+            T('l’ultima prima del primo acquisto, entro 100 giorni', 'the latest before the first purchase, within 100 days')) +
+      btRow(T('Dopo una in linea o sotto', 'After results in line or below'), bt.nobeat) : '') +
     '</tbody></table></div>' +
     btVerdict('cluster', bt.cluster, bt.solo,
       T('Su questi dati il cluster rende più di un acquisto isolato: la regola regge.',
@@ -1240,6 +1302,17 @@ function renderBacktest(){
         'poco per dire qualcosa.',
         (n === 1 ? 'A single campaign' : 'Only ' + n + ' campaigns') + ' by top executives: too few to ' +
         'say anything.'); }) +
+    btVerdict('beat', bt.beat, bt.nobeat,
+      T('Gli acquisti dopo una sorpresa positiva rendono più degli altri.',
+        'Purchases after a positive surprise return more than the others.'),
+      T('Gli acquisti dopo una sorpresa positiva non rendono più degli altri.',
+        'Purchases after a positive surprise do not return more than the others.'),
+      function(n){ return T(
+        (n === 1 ? 'Una sola campagna' : 'Solo ' + n + ' campagne') + ' dopo una sorpresa positiva: ' +
+        'troppo poco per dire qualcosa.',
+        (n === 1 ? 'A single campaign' : 'Only ' + n + ' campaigns') + ' after a positive surprise: ' +
+        'too few to say anything.'); }) +
+    avNote() +
     '</div>' + bonusCard(bt) + icCard() +
 
     '<div class="card"><h2>' + T('Che cosa questo backtest non è',
@@ -1834,16 +1907,59 @@ function paneCalls(d){
       }).join('') + '</div>' : '');
 }
 
+/* Utili contro attese, trimestre per trimestre (Alpha Vantage). Il segno della
+   sorpresa è quello che il bonus "dopo una trimestrale sopra le attese" guarda. */
+function paneEarnings(d){
+  var e = (d.earnings || []).slice().reverse(), nx = d.next_report;
+  var beats = e.filter(function(r){ return r.sp != null && r.sp > 0; }).length,
+      known = e.filter(function(r){ return r.sp != null; }).length;
+  var money2 = function(v){ return (typeof v === 'number' && isFinite(v)) ? '$' + n2(v) : '—'; };
+  return '<div class="card"><h2>' + T('Utili contro attese', 'Earnings against estimates') + '</h2>' +
+    '<p class="sub">' + T(
+      'L’utile per azione che l’azienda ha annunciato ogni trimestre, accanto a quello che si ' +
+      'aspettavano gli analisti. È l’utile «rettificato», quello su cui si fanno le stime. ' +
+      (known ? 'Sopra le attese ' + beats + ' volte su ' + known + '.' : ''),
+      'The earnings per share the company reported each quarter, next to what analysts expected. It is ' +
+      'the “adjusted” figure, the one estimates are made on. ' +
+      (known ? 'Above expectations ' + beats + ' times out of ' + known + '.' : '')) +
+    (nx ? ' ' + T('Prossima trimestrale il ' + day(nx.date) +
+                  (nx.estimate != null ? ', con attese di $' + n2(nx.estimate) + ' per azione.' : '.'),
+                  'Next results on ' + day(nx.date) +
+                  (nx.estimate != null ? ', with estimates of $' + n2(nx.estimate) + ' a share.' : '.')) : '') +
+    '</p><div class="scroll"><table class="t-narrow"><thead><tr><th>' + T('Annunciato il', 'Reported on') + '</th>' +
+    '<th class="hide-s">' + T('Trimestre chiuso il', 'Quarter ended') + '</th>' +
+    '<th class="num">' + T('Utile per azione', 'EPS') + '</th>' +
+    '<th class="num">' + T('Attese', 'Estimate') + '</th>' +
+    '<th class="num">' + T('Sorpresa', 'Surprise') + '</th></tr></thead><tbody>' +
+    e.map(function(r){
+      var col = r.sp == null ? 'inherit' : r.sp > 0 ? 'var(--bull2)' : r.sp < 0 ? 'var(--bear2)' : 'inherit';
+      return '<tr style="cursor:default"><td>' + esc(day(r.d)) + '</td>' +
+        '<td class="nm hide-s">' + esc(r.q ? day(r.q) : '—') + '</td>' +
+        '<td class="num">' + money2(r.eps) + '</td>' +
+        '<td class="num" style="color:var(--ink3)">' + money2(r.est) + '</td>' +
+        '<td class="num" style="color:' + col + '"><b>' + (r.sp == null ? '—' : sg(r.sp, 1) + '%') +
+        '</b></td></tr>';
+    }).join('') + '</tbody></table></div>' +
+    '<p class="sub" style="margin-top:12px">' + T(
+      'Fonte: Alpha Vantage. Nel punteggio la sorpresa conta solo attraverso la voce insider, se gli ' +
+      'acquisti sono cominciati dopo una trimestrale sopra le attese, e con il bonus che stima il backtest.',
+      'Source: Alpha Vantage. In the score the surprise only counts through the insider input, if the ' +
+      'purchases began after results above expectations, and with the bonus the backtest estimates.') +
+    '</p></div>';
+}
+
 function renderDetail(d){
   var s = d.score || {}, co = d.company || {}, last = (d.price || {}).last;
   var tabs = [['panoramica', T('Panoramica', 'Overview')], ['insider', T('Insider', 'Insiders')]];
   if ((d.si_series || []).length) tabs.push(['mercato', T('Mercato', 'Market')]);
   if ((d.calls || []).length) tabs.push(['call', T('Call', 'Calls')]);
+  if ((d.earnings || []).length) tabs.push(['utili', T('Utili', 'Earnings')]);
   tabs.push(['memo', T('Memo', 'Memo')]);
   if (!tabs.some(function(t){ return t[0] === TAB; })) TAB = 'panoramica';
   var pane = TAB === 'insider' ? paneInsider(d)
            : TAB === 'mercato' ? paneMarket(d)
            : TAB === 'call' ? paneCalls(d)
+           : TAB === 'utili' ? paneEarnings(d)
            : TAB === 'memo' ? paneMemo(d) : paneOverview(d);
 
   app.innerHTML = problems(d.errors) +
@@ -1858,7 +1974,8 @@ function renderDetail(d){
           [T('Prezzi da', 'Prices from'), d.price_source ? esc(d.price_source) : '—'],
           ['CIK', esc(co.cik || '—')],
           [T('Universo', 'Universe'), d.group ? esc(txt(d.group)) : '—']
-        ].map(function(f){
+        ].concat(d.next_report ? [[T('Prossima trimestrale', 'Next results'),
+                                   esc(day(d.next_report.date))]] : []).map(function(f){
           return '<span><em>' + f[0] + '</em>' + f[1] + '</span>';
         }).join('') + '</div></div></div>' +
       '<div class="big">' + (s.value == null ? '—' : s.value) +
@@ -1885,7 +2002,8 @@ function renderDetail(d){
   [].forEach.call(app.querySelectorAll('.tabs button'), function(b){
     b.addEventListener('click', function(){ TAB = b.dataset.tab; renderDetail(d); });
   });
-  var GOTO = { '1': 'insider', '3': 'mercato', '4': 'panoramica', '5': 'panoramica', 'call': 'call' };
+  var GOTO = { '1': 'insider', '3': 'mercato', '4': 'panoramica', '5': 'panoramica', '6': 'utili',
+               'call': 'call' };
   [].forEach.call(app.querySelectorAll('sup.src'), function(e){
     e.addEventListener('click', function(){
       var t = GOTO[e.dataset.src];

@@ -32,6 +32,12 @@ Alpha Vantage è il terzo trimestre dell'anno FISCALE 2026, cioè una call di
 sei o dodici mesi prima. In più ogni trascrizione arrivata si controlla: nelle
 prime righe deve comparire l'anno del trimestre chiesto, altrimenti si scarta.
 
+Prima delle trascrizioni, lo stesso giro chiede ad Alpha Vantage il calendario
+delle trimestrali, l'elenco dei titoli quotati (una volta alla settimana) e gli
+utili contro le attese di al massimo `--earnings` aziende: vedi
+pipeline/alphavantage.py. Le 25 richieste della chiave sono una sola quota, e
+passano tutte da qui.
+
 Serve la variabile d'ambiente ALPHAVANTAGE_KEY (un segreto del repository).
 """
 import argparse
@@ -41,6 +47,8 @@ import os
 import time
 from datetime import date, timedelta
 
+from . import alphavantage
+
 AV = "https://www.alphavantage.co/query"
 PER_DAY = 25
 OUT = "trascrizioni"
@@ -48,8 +56,7 @@ STATE = "cache-trascrizioni/scaricate.json"
 EMPTY_TRIES = 2   # dopo due risposte vuote per la stessa call si smette di chiederla
 
 
-class Limit(Exception):
-    """Alpha Vantage dice che le richieste di oggi sono finite."""
+Limit = alphavantage.Limit      # Alpha Vantage dice che le richieste di oggi sono finite
 
 
 # ------------------------------------------------------------------ trimestri
@@ -81,6 +88,13 @@ def calendar_label(call_day):
 
 
 # ------------------------------------------------------------------ che cosa serve
+def ranked(index):
+    """I ticker nell'ordine in cui servono: cluster, poi più compratori, poi punteggio."""
+    def rank(r):
+        return (0 if r.get("cluster") else 1, -(r.get("buyers") or 0), -(r.get("score") or 0), r["ticker"])
+    return [r["ticker"] for r in sorted(index.get("companies") or [], key=rank)]
+
+
 def wanted(index, cards, have, per_company=2, months=13, today=None):
     """[(ticker, data della call)] nell'ordine in cui servono.
 
@@ -91,10 +105,7 @@ def wanted(index, cards, have, per_company=2, months=13, today=None):
     today = today or date.today()
     oldest = (today - timedelta(days=int(months * 30.44))).isoformat()
 
-    def rank(r):
-        return (0 if r.get("cluster") else 1, -(r.get("buyers") or 0), -(r.get("score") or 0), r["ticker"])
-
-    order = [r["ticker"] for r in sorted(index.get("companies") or [], key=rank)]
+    order = ranked(index)
     calls = {t: sorted({e[0] for e in ((cards.get(t) or {}).get("events_hist") or [])
                         if "2.02" in (e[1] or []) and e[0] >= oldest}, reverse=True)[:per_company]
              for t in order}
@@ -159,12 +170,7 @@ def parse_av(payload):
     parse_av.note = ""
     if not isinstance(payload, dict):
         return []
-    note = " ".join(str(payload.get(k, "")) for k in ("Information", "Note", "Error Message"))
-    parse_av.note = note.strip()[:200]        # finisce nel riepilogo se la risposta è vuota
-    low = note.lower()
-    if any(w in low for w in ("rate limit", "requests per day", "premium", "frequency", "25 requests",
-                              "apikey")):
-        raise Limit(note.strip()[:300])
+    parse_av.note = alphavantage.limit_note(payload)   # finisce nel riepilogo se la risposta è vuota
     rows = payload.get("transcript") or []
     out = []
     for r in rows:
@@ -221,6 +227,8 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--limit", type=int, default=PER_DAY)
     ap.add_argument("--per-company", type=int, default=2)
+    ap.add_argument("--earnings", type=int, default=alphavantage.EARNINGS_PER_DAY,
+                    help="quante aziende al giorno per gli utili contro le attese")
     ap.add_argument("--site", default="site")
     ap.add_argument("--out", default=OUT)
     a = ap.parse_args()
@@ -246,8 +254,16 @@ def main():
     have |= {tuple(k.split("|")) for k, n in empty.items() if n >= EMPTY_TRIES}
 
     os.makedirs(a.out, exist_ok=True)
-    log, used, got = [], 0, 0
-    for t, day in wanted(index, cards, have, a.per_company):
+    # Prima calendario, elenco dei titoli e utili: costano poche richieste e
+    # servono al giro orario del sito. Le date delle trimestrali vengono anche
+    # dagli 8-K con item 2.02 delle schede.
+    since = (date.today() - timedelta(days=alphavantage.REPORT_LOOKBACK)).isoformat()
+    reports = {t: [e[0] for e in ((cards.get(t) or {}).get("events_hist") or [])
+                   if "2.02" in (e[1] or []) and e[0] >= since] for t in ranked(index)}
+    av_used, log, stopped = alphavantage.update(alphavantage.DIR, ranked(index), key, a.limit,
+                                                reports=reports, per_day=a.earnings)
+    used, got = av_used, 0
+    for t, day in ([] if stopped else wanted(index, cards, have, a.per_company)):
         if used >= a.limit:
             break
         try:
@@ -282,7 +298,8 @@ def main():
     state["fy_end"] = fy_end
     os.makedirs(os.path.dirname(STATE), exist_ok=True)
     json.dump(state, open(STATE, "w", encoding="utf-8"))
-    head = f"{date.today()}: {got} trascrizioni, {used} richieste ad Alpha Vantage su {a.limit}."
+    head = (f"{date.today()}: {got} trascrizioni, {used} richieste ad Alpha Vantage su {a.limit} "
+            f"({av_used} per calendario, elenco dei titoli e utili).")
     with open(os.path.join(a.out, "riepilogo.txt"), "w", encoding="utf-8") as f:
         f.write(head + "\n\n" + "\n".join(log) + "\n")
     print(head)

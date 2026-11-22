@@ -12,6 +12,13 @@ invece sì, con i soli dati che la pipeline ha già:
 - **fatti rilevanti**: dagli 8-K, ma solo per le date coperte dal file dei
   depositi della SEC (vedi `covered`).
 
+In più una voce che nel punteggio non c'è, la **sorpresa sugli utili**: di
+quanto l'ultima trimestrale annunciata prima di quel giorno (entro 100 giorni)
+ha battuto o mancato le attese degli analisti, da Alpha Vantage. È la prova
+classica della "deriva dopo l'annuncio": chi ha sorpreso in positivo continua a
+fare meglio nei mesi dopo? Se la prova dicesse di sì, sarebbe la ragione per
+farla entrare nel punteggio; finché dice "indistinguibile dal caso", resta fuori.
+
 Per ogni data e per ogni universo si calcola la correlazione di rango
 (Spearman) fra il valore della voce in quel giorno e il rendimento delle 60
 sedute successive, fra le aziende dello stesso universo. Il confronto è nella
@@ -32,7 +39,7 @@ Il calcolo è deterministico: stessi dati, stesso risultato.
 import statistics as st
 from datetime import date, timedelta
 
-from . import rules, score
+from . import alphavantage, rules, score
 
 H = 60          # sedute dopo cui si misura
 START = 126     # sei mesi di storia prima della prima data: il prezzo ne ha bisogno
@@ -40,7 +47,7 @@ STEP = 5        # una data ogni cinque sedute basta, le vicine dicono la stessa 
 EVENT_DAYS = 180
 MIN_CO = 5      # sotto le cinque aziende una correlazione non dice niente
 
-SIGNALS = ("price", "sector", "market", "events")
+SIGNALS = ("price", "sector", "market", "events", "surprise")
 
 
 def _ranks(xs):
@@ -109,7 +116,7 @@ def _summary_at(tx, day, cfg):
 
 
 def _signals_on(group, pos, day, cfg):
-    """I quattro valori di ogni azienda del gruppo, com'erano in quel giorno.
+    """I valori di ogni azienda del gruppo, com'erano in quel giorno.
 
     `pos[ticker]` è la posizione di quel giorno nella serie di prezzi di
     ciascuna azienda: le serie non hanno tutte la stessa lunghezza.
@@ -129,6 +136,9 @@ def _signals_on(group, pos, day, cfg):
         if hist is not None and covered and covered <= lo:
             out["events"][t] = score.events_score(
                 [{"date": e[0], "items": e[1]} for e in hist if lo < e[0] <= day], EVENT_DAYS)[0]
+        ls = alphavantage.last_surprise(d.get("_earn") or [], day)
+        if ls is not None:
+            out["surprise"][t] = ls["sp"]
     if len(summ) >= 4:
         for t, me in summ.items():
             out["sector"][t] = score.sector_score(me, list(summ.values()), cfg)[0]
@@ -147,7 +157,9 @@ def run(results, cfg, step=STEP):
         d = dict(d, _px=[{"d": x[0], "c": x[1]} for x in ser if x[1]],
                  # anche qui la serie lunga (cinque anni da FINRA) se c'è
                  _si=[{"date": r[0], "si": r[1], "dtc": r[2]}
-                      for r in (d.get("_si_long") or d.get("si_series") or [])])
+                      for r in (d.get("_si_long") or d.get("si_series") or [])],
+                 # gli utili contro le attese, tutti i trimestri che ci sono
+                 _earn=d.get("_earn_long") or [])
         groups.setdefault(key, []).append(d)
 
     points = {k: {} for k in SIGNALS}

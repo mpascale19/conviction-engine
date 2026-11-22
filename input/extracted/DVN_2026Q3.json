@@ -1,0 +1,103 @@
+{
+  "ticker": "DVN",
+  "quarter": "T3 '26",
+  "call_date": "2026-11-05",
+  "tone": 70,
+  "tone_why": {
+    "it": "Trimestre operativo forte, call in difesa. È il primo trimestre intero dopo la fusione con Coterra. Produzione di petrolio e totale ai massimi storici, costi sotto la guidance del 2%, flusso di cassa libero di 2 miliardi $ con un reinvestimento del 43%. La guidance 2026 è confermata, e il capitale 2027 (circa 5,3 miliardi $) è più basso dei 5,9 spesi nel 2026 dalle due società sommate. I riacquisti raddoppiano nel T3 e supereranno il miliardo nel T4. Ma metà della call è sulla revisione del portafoglio, chiusa senza le grandi mosse che il mercato si aspettava. Il titolo è andato peggio del mercato nei sei mesi dalla fusione, e l'amministratore delegato dice di «non essere soddisfatto».",
+    "en": "A strong operating quarter, a defensive call. It is the first full quarter after the Coterra merger. Oil and total production at record highs, costs 2% below guidance, $2bn of free cash flow at a 43% reinvestment rate. 2026 guidance is reaffirmed, and 2027 capital (about $5.3bn) is lower than the $5.9bn the two companies spent combined in 2026. Buybacks double in Q3 and will exceed $1bn in Q4. But half the call is about the portfolio review, closed without the big moves the market expected. The stock has underperformed in the six months since the merger, and the CEO says he is \"not satisfied\"."
+  },
+  "guidance": [
+    {
+      "metric": {"it": "Produzione, costi e capitale 2026", "en": "2026 production, costs and capital"},
+      "value": {"it": "confermati; T4 a 550-560 mila barili di petrolio al giorno e 1,66-1,70 milioni di BOE, capitale 1,29-1,395 miliardi $", "en": "reaffirmed; Q4 at 550-560k barrels of oil a day and 1.66-1.70m BOE, capital $1.29-1.395bn"},
+      "direction": "confermata"
+    },
+    {
+      "metric": {"it": "Riacquisti di azioni", "en": "Share buybacks"},
+      "value": {"it": "oltre 1 miliardo $ nel T4, dopo i 414 milioni del T3 (il doppio del T2), e ancora di più nel 2027", "en": "more than $1bn in Q4, after $414m in Q3 (double Q2), and more in 2027"},
+      "direction": "alzata"
+    },
+    {
+      "metric": {"it": "Sinergie con Coterra", "en": "Coterra synergies"},
+      "value": {"it": "attese 2027 alzate, «in anticipo sul piano»; obiettivo di 1 miliardo $ a regime a fine 2027", "en": "2027 expectations raised, \"ahead of track\"; $1bn target at run rate by year-end 2027"},
+      "direction": "alzata"
+    },
+    {
+      "metric": {"it": "Prima indicazione 2027", "en": "Initial 2027 outlook"},
+      "value": {"it": "circa 525 mila barili di petrolio al giorno e 1,6 milioni di BOE senza Eagle Ford, capitale circa 5,3 miliardi $ (75% nel Permiano): crescita bassa a una cifra a parità di perimetro", "en": "about 525k barrels of oil a day and 1.6m BOE without the Eagle Ford, capital about $5.3bn (75% in the Permian): low-single-digit growth on a like-for-like basis"},
+      "direction": "prima"
+    },
+    {
+      "metric": {"it": "Quadro pluriennale", "en": "Multi-year framework"},
+      "value": {"it": "petrolio in crescita bassa a una cifra, reinvestimento del 45-60% del flusso di cassa, flusso di cassa libero per azione +5-10% l'anno; regge anche a 60-70 $ al barile", "en": "low-single-digit oil growth, 45-60% reinvestment of cash flow, free cash flow per share +5-10% a year; holds even at $60-70 a barrel"},
+      "direction": "prima"
+    },
+    {
+      "metric": {"it": "Debito", "en": "Debt"},
+      "value": {"it": "altri 1,5 miliardi $ rimborsati nel 2027 per arrivare a circa 9 miliardi lordi; leva al massimo 1 volta lungo il ciclo", "en": "another $1.5bn repaid in 2027 to reach about $9bn gross; leverage at or below 1x through the cycle"},
+      "direction": "confermata"
+    },
+    {
+      "metric": {"it": "Cessione dell'Eagle Ford e oleodotto Solitude", "en": "Eagle Ford sale and Solitude pipeline"},
+      "value": {"it": "3,5 miliardi $ netti a inizio 2027, in prevalenza per i riacquisti; 500 milioni $ nel 25% di Solitude, circa 400 nel 2027", "en": "$3.5bn net in early 2027, weighted to buybacks; $500m for 25% of Solitude, about $400m in 2027"},
+      "direction": "prima"
+    }
+  ],
+  "qa": [
+    {
+      "question": {"it": "La fine della revisione del portafoglio è la fine delle cessioni? Fin dove siete arrivati e che cosa vi ha fermato?", "en": "Is the end of the portfolio review the end of high-grading? How far did you get and what stopped you?"},
+      "answer_summary": {"it": "Lunga risposta sul processo («abbiamo percorso diverse strade») e sul peso per i dipendenti, ma nessuna opzione esaminata né ostacolo viene nominato. Ammette di sembrare parlare «da due lati della bocca».", "en": "A long answer on the process (\"we went down several paths\") and the toll on employees, but no option examined and no barrier is named. He concedes it may sound like \"talking out of both sides of our mouth\"."},
+      "directness": 2
+    },
+    {
+      "question": {"it": "Come leggete la reazione del mercato e la sottoperformance del titolo dalla fusione?", "en": "How do you read the market reaction and the stock's underperformance since the merger?"},
+      "answer_summary": {"it": "«Non siamo soddisfatti»: gli investitori aspettavano di sapere chi sarebbe stata Devon, e ora lo sanno. Risposta franca sul sentimento, senza dati.", "en": "\"We are not satisfied\": investors were waiting to know who Devon would be, and now they do. A frank answer on sentiment, without data."},
+      "directness": 3
+    },
+    {
+      "question": {"it": "Qual è secondo voi il valore intrinseco, e quanto è lontano il prezzo di oggi, sui 40 $?", "en": "What is your view of intrinsic value, and how far is today's price, in the low 40s?"},
+      "answer_summary": {"it": "Nessun numero: la risposta passa ai riacquisti («non vedo l'ora di uscire dal periodo di blackout»).", "en": "No number: the answer moves to buybacks (\"I cannot wait to be out of our blackout period\")."},
+      "directness": 2
+    },
+    {
+      "question": {"it": "Dove le sinergie arrivano prima del previsto, e c'è margine oltre l'obiettivo di 1 miliardo $?", "en": "Where are synergies arriving faster than planned, and is there upside to the $1bn target?"},
+      "answer_summary": {"it": "Dati operativi concreti (pozzi in simultanea dal 68 al 75%, laterali +10%, circa 750 $ al piede nel 2027), ma nessuna risposta su un obiettivo più alto.", "en": "Concrete operating data (simul-frac wells from 68% to 75%, laterals +10%, about $750 a foot in 2027), but no answer on a higher target."},
+      "directness": 3
+    },
+    {
+      "question": {"it": "Circa 500 milioni $ per l'acquisto di terreni nel 2027 sono più del passato: perché?", "en": "About $500m for leasehold in 2027 is more than in the past: why?"},
+      "answer_summary": {"it": "Conferma la cifra, la lega alla squadra di Midland ereditata da Coterra e dà il costo, 2-3 milioni $ per pozzo futuro.", "en": "He confirms the figure, links it to the Midland team inherited from Coterra and gives the cost, $2-3m per future well location."},
+      "directness": 4
+    }
+  ],
+  "language_changes": [
+    {
+      "topic": {"it": "Portafoglio", "en": "Portfolio"},
+      "from": {"it": "«tutto è sul tavolo», potremmo «andare a destra o a sinistra»", "en": "\"everything is on the table\", we \"could go right or we could go left\""},
+      "to": {"it": "capitolo chiuso: il Permiano è la «pietra angolare», Anadarko, Marcellus e Rockies sono complementari; venduto solo l'Eagle Ford", "en": "chapter closed: the Permian is the \"cornerstone\", the Anadarko, Marcellus and Rockies are complementary; only the Eagle Ford sold"},
+      "note": {"it": "Gli analisti chiedono più volte perché non ci siano state altre mosse: la delusione del mercato è il tema della call.", "en": "Analysts ask several times why there were no other moves: the market's disappointment is the theme of the call."}
+    },
+    {
+      "topic": {"it": "Crescita del petrolio", "en": "Oil growth"},
+      "from": {"it": "un anno fa: il mondo sembra «saturo di petrolio», non servono barili in più", "en": "a year ago: the world seems \"saturated in oil\", no need for more barrels"},
+      "to": {"it": "crescita bassa a una cifra per più anni", "en": "low-single-digit growth for several years"},
+      "note": {"it": "L'amministratore delegato riconosce da sé il cambio di idea e lo spiega con l'inventario più lungo e un mercato diverso.", "en": "The CEO acknowledges the change of view himself and explains it with longer inventory and a different market."}
+    },
+    {
+      "topic": {"it": "Riacquisti", "en": "Buybacks"},
+      "from": {"it": "circa 200 milioni $ nel T2", "en": "about $200m in Q2"},
+      "to": {"it": "414 milioni nel T3, oltre 1 miliardo nel T4, e la vendita dell'Eagle Ford destinata soprattutto ai riacquisti", "en": "$414m in Q3, more than $1bn in Q4, and the Eagle Ford proceeds mostly for buybacks"},
+      "note": {"it": "La risposta della società al prezzo debole sono i riacquisti, non un'operazione straordinaria.", "en": "The company's answer to the weak share price is buybacks, not a transaction."}
+    },
+    {
+      "topic": {"it": "Gas del Permiano", "en": "Permian gas"},
+      "from": {"it": "produzione di gas limitata per i prezzi bassi a Waha", "en": "gas production limited by low Waha prices"},
+      "to": {"it": "quota del 25% nell'oleodotto Solitude verso la costa del Golfo; prezzo realizzato salito al 60% dell'Henry Hub nel T3", "en": "a 25% stake in the Solitude pipeline to the Gulf Coast; realized price up to 60% of Henry Hub in Q3"},
+      "note": {"it": "Più gas verrà solo quando l'oleodotto sarà pronto: per ora la quota di petrolio resta poco sotto il 50%.", "en": "More gas will come only once the pipeline is ready: for now the oil cut stays just under 50%."}
+    }
+  ],
+  "file": "DVN_2026Q3.json",
+  "source": "Alpha Vantage transcript (non ridistribuito)",
+  "extracted_by": "Claude (estrazione manuale, stessa forma del passo automatico)"
+}

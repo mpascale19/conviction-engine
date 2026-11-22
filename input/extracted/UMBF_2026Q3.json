@@ -1,0 +1,103 @@
+{
+  "ticker": "UMBF",
+  "quarter": "T3 '26",
+  "call_date": "2026-10-27",
+  "tone": 78,
+  "tone_why": {
+    "it": "Tono molto sicuro, quasi orgoglioso. Il trimestre ha prestiti nuovi record per 3,1 miliardi $, prestiti medi +11% annualizzato, perdite su crediti di appena 13 punti base e un rendimento del patrimonio tangibile del 19,5%. Le commissioni istituzionali crescono di quasi il 18% da inizio anno. Insieme ai conti arriva l'acquisto di Eldorado Savings Bank: 2,1 miliardi $ di depositi a costo bassissimo in California e Nevada, utile già dal 2027. Le sole frenate dichiarate: la produzione di prestiti tornerà ai livelli del primo semestre, e l'amministratore delegato dice che potrebbe «parlare per mezz'ora» di quanto l'economia lo preoccupa, pur senza segnali nel suo portafoglio.",
+    "en": "A very confident, almost proud tone. The quarter has record new loans of $3.1bn, average loans up 11% annualized, net charge-offs of just 13 basis points and a 19.5% return on tangible equity. Institutional fees are up almost 18% year to date. Alongside the results comes the purchase of Eldorado Savings Bank: $2.1bn of very low-cost deposits in California and Nevada, accretive from 2027. The only brakes stated: loan production will go back to first-half levels, and the CEO says he could \"spend the next 30 minutes\" on how the economy worries him, though without signs in his own book."
+  },
+  "guidance": [
+    {
+      "metric": {"it": "Margine di interesse del T4", "en": "Q4 net interest margin"},
+      "value": {"it": "margine «core» circa stabile al 3,10%, più o meno un paio di punti base", "en": "core margin roughly flat at 3.10%, plus or minus a couple of basis points"},
+      "direction": "confermata"
+    },
+    {
+      "metric": {"it": "Crescita dei prestiti nel T4", "en": "Q4 loan growth"},
+      "value": {"it": "più simile al T1 e al T2 che al T3 record; produzione lorda in calo dai livelli record", "en": "more like Q1 and Q2 than the record Q3; gross production easing from record levels"},
+      "direction": "prima"
+    },
+    {
+      "metric": {"it": "Costi operativi del T4", "en": "Q4 operating expense"},
+      "value": {"it": "404-405 milioni $, per bonus legati ai risultati e progetti tecnologici", "en": "$404-405m, on performance-related incentives and technology projects"},
+      "direction": "prima"
+    },
+    {
+      "metric": {"it": "Aliquota fiscale del T4", "en": "Q4 tax rate"},
+      "value": {"it": "21-22%", "en": "21-22%"},
+      "direction": "prima"
+    },
+    {
+      "metric": {"it": "Depositi del T4", "en": "Q4 deposits"},
+      "value": {"it": "in crescita come ogni anno dopo il minimo stagionale del T3, con buona visibilità anche sul T1", "en": "growing as every year after the seasonal Q3 low, with good visibility into Q1 as well"},
+      "direction": "prima"
+    },
+    {
+      "metric": {"it": "Acquisizione di Eldorado Savings Bank", "en": "Eldorado Savings Bank acquisition"},
+      "value": {"it": "circa 500 milioni $ in contanti e azioni, chiusura nel T1 2027, utile «modestamente» accrescitivo nel 2027, 15-20 punti base di capitale CET1 in meno alla chiusura", "en": "about $500m in cash and stock, closing in Q1 2027, \"modestly\" accretive to 2027 earnings, 15-20 basis points less CET1 at closing"},
+      "direction": "prima"
+    },
+    {
+      "metric": {"it": "Ammortamento delle rettifiche d'acquisto (Heartland)", "en": "Purchase accounting accretion (Heartland)"},
+      "value": {"it": "circa 23 milioni $ nel T4, 75 nel 2027, 62 nel 2028", "en": "about $23m in Q4, $75m in 2027, $62m in 2028"},
+      "direction": "prima"
+    }
+  ],
+  "qa": [
+    {
+      "question": {"it": "Che rendimenti hanno i prestiti nuovi, e che sensibilità dei depositi ai tassi vi aspettate in questo ciclo di rialzi?", "en": "What are new-money loan yields, and what deposit beta do you expect in this hiking cycle?"},
+      "answer_summary": {"it": "Numeri precisi: prestiti nuovi intorno al 5,60%, più di 3 miliardi $ di prestiti che si riprezzano di circa 100 punti base, beta del 90% sui depositi indicizzati in modo rigido e del 65-70% su quelli negoziati.", "en": "Precise numbers: new loans around 5.60%, more than $3bn of loans repricing about 100 basis points higher, a 90% beta on hard-indexed deposits and 65-70% on negotiated ones."},
+      "directness": 5
+    },
+    {
+      "question": {"it": "I rimborsi anticipati di prestiti nel T3 sono stati insoliti, o è il nuovo livello normale?", "en": "Were third-quarter loan payoffs unusual, or is it the new normal level?"},
+      "answer_summary": {"it": "Ammette di non saperlo: «onestamente non lo sappiamo nemmeno noi», il nuovo livello di base si capirà in circa quattro trimestri. Franco.", "en": "He admits he does not know: \"we honestly do not know ourselves\", the new baseline will be clear in about four quarters. Candid."},
+      "directness": 4
+    },
+    {
+      "question": {"it": "Dove state guadagnando quote di mercato, e come: velocità, prezzo più flessibile?", "en": "Where are you gaining market share, and how: speed, more flexible pricing?"},
+      "answer_summary": {"it": "Scherza sul non svelare la «ricetta segreta», poi dice qualcosa di utile: flessibili su condizioni e clausole, non sulla qualità del credito, e non sul prezzo più basso.", "en": "He jokes about not revealing the \"secret sauce\", then says something useful: flexible on terms and covenants, not on credit quality, and not on being the cheapest."},
+      "directness": 3
+    },
+    {
+      "question": {"it": "C'è un limite di dimensione per le acquisizioni future?", "en": "Is there a size ceiling for future acquisitions?"},
+      "answer_summary": {"it": "Sì, e lo dice chiaramente: nessuna operazione che porti la banca sopra i 100 miliardi $ di attivi, per cui non è ancora pronta, e nessuna che costi posti nel consiglio d'amministrazione.", "en": "Yes, and he says it clearly: no deal that would take the bank above $100bn of assets, for which it is not ready yet, and none that would cost board seats."},
+      "directness": 5
+    },
+    {
+      "question": {"it": "L'intelligenza artificiale può accelerare la leva operativa nel 2027 e 2028?", "en": "Can AI accelerate operating leverage in 2027 and 2028?"},
+      "answer_summary": {"it": "«È presto per dare l'impatto»: descrive i progetti (Glean usato da mille dipendenti, prevenzione frodi) ma nessuna cifra.", "en": "\"It is too early to give you the actual impact\": he describes the projects (Glean used by a thousand staff, fraud prevention) but gives no figure."},
+      "directness": 2
+    }
+  ],
+  "language_changes": [
+    {
+      "topic": {"it": "Acquisizioni", "en": "Acquisitions"},
+      "from": {"it": "«stiamo cercando banche ben gestite nei mercati dove siamo già»", "en": "\"screening for well-run banks in markets where we already operate\""},
+      "to": {"it": "acquisizione di Eldorado annunciata, «come un'operazione di filiali», e nessun freno a farne altre", "en": "Eldorado acquisition announced, \"akin to a branch transaction\", and no bar on doing more"},
+      "note": {"it": "Dalle intenzioni ai fatti, con un limite esplicito: restare sotto i 100 miliardi $.", "en": "From intentions to action, with an explicit limit: staying below $100bn."}
+    },
+    {
+      "topic": {"it": "Produzione di prestiti", "en": "Loan production"},
+      "from": {"it": "record di 3,1 miliardi $ nel T3", "en": "a $3.1bn record in Q3"},
+      "to": {"it": "«probabilmente un po' più alta di quello che dovremmo aspettarci»: ritorno ai livelli del primo semestre", "en": "\"probably a little larger than what we should expect\": a return to first-half levels"},
+      "note": {"it": "Prudenza dichiarata dall'azienda stessa, prima che glielo chiedano.", "en": "Caution stated by the company itself, before being asked."}
+    },
+    {
+      "topic": {"it": "Patrimonio gestito (private wealth)", "en": "Private wealth new assets"},
+      "from": {"it": "1,2 miliardi $ di nuovi attivi da inizio anno, nelle osservazioni preparate", "en": "$1.2bn of net new assets year to date, in the prepared remarks"},
+      "to": {"it": "1,5 miliardi $, detto a voce nelle risposte", "en": "$1.5bn, said aloud in the Q&A"},
+      "note": {"it": "Due numeri diversi per la stessa cosa nella stessa call: piccola incoerenza, probabilmente un lapsus.", "en": "Two different numbers for the same thing in the same call: a small inconsistency, probably a slip."}
+    },
+    {
+      "topic": {"it": "Economia", "en": "Economy"},
+      "from": {"it": "il comunicato cita inflazione persistente, conflitto in Medio Oriente e tassi più alti", "en": "the press release cites persistent inflation, the Middle East conflict and higher rates"},
+      "to": {"it": "«erano solo considerazioni di contesto», non un'indicazione sui prestiti; ma «potrei parlare per mezz'ora di quanto mi preoccupa l'economia»", "en": "\"those are just background conversation\", not a loan guide; yet \"I could spend the next 30 minutes talking about how I am worried about the economy\""},
+      "note": {"it": "La preoccupazione per il contesto c'è, ma l'azienda tiene a separarla dal proprio portafoglio, che dice pulito.", "en": "The concern about the backdrop is there, but the company is keen to keep it apart from its own book, which it calls clean."}
+    }
+  ],
+  "file": "UMBF_2026Q3.json",
+  "source": "Alpha Vantage transcript (non ridistribuito)",
+  "extracted_by": "Claude (estrazione manuale, stessa forma del passo automatico)"
+}

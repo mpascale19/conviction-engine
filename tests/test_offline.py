@@ -699,7 +699,7 @@ check("una caratteristica vale per la campagna se vale per un episodio", _c[0]["
 check("un cluster non è anche 'due compratori'", _c[2]["cluster"] and not _c[2]["two"], _c[2])
 check("due compratori distinti si riconoscono", _c[1]["two"] and not _c[1]["cluster"], _c[1])
 check("troppe poche campagne: nessuna stima", BO.estimate(_c) is None)
-check("senza stima, nessun bonus", BO.points(None) == {"cluster": 0, "two": 0, "senior": 0})
+check("senza stima, nessun bonus", BO.points(None) == {"cluster": 0, "two": 0, "senior": 0, "beat": 0})
 check("una matrice singolare non si inverte", BO._inverse([[1, 2], [2, 4]]) is None)
 
 
@@ -709,7 +709,7 @@ def _fake_camps(n, eff, noise=20.0, seed=1):
         c = {"t": f"T{i}", "d": "2025-01-01", "episodes": 1, "buys": 1,
              "cluster": r.random() < .2, "senior": r.random() < .35}
         c["two"] = (not c["cluster"]) and r.random() < .2
-        c["car"] = sum(eff[f] for f in BO.FEATURES if c[f]) + r.gauss(0, noise)
+        c["car"] = sum(eff[f] for f in BO.FEATURES if c.get(f)) + r.gauss(0, noise)
         out.append(c)
     return out
 
@@ -719,10 +719,12 @@ _e = BO.estimate(_fake_camps(5000, _vero, seed=3))
 _got = {r["id"]: r["points"] for r in _e["features"]}
 check("con molti dati ritrova gli effetti veri",
       all(abs(_got[f] - _vero[f]) <= 1 for f in _vero), _got)
-check("e quasi non li restringe", all(r["shrink"] > .95 for r in _e["features"]), _e["features"])
+check("e quasi non li restringe", all(r["shrink"] > .95 for r in _e["features"] if r["id"] in _vero),
+      _e["features"])
 _e = BO.estimate(_fake_camps(26, _vero, seed=26))
 check("con 26 campagne anche effetti veri vengono ristretti molto",
-      all(abs(r["points"]) < abs(_vero[r["id"]]) for r in _e["features"]), _e["features"])
+      all(abs(r["points"]) < abs(_vero[r["id"]]) for r in _e["features"] if r["id"] in _vero),
+      _e["features"])
 _nulls = [BO.points(BO.estimate(_fake_camps(26, {f: 0 for f in BO.FEATURES}, seed=100 + s)))
           for s in range(20)]
 check("senza effetti veri i bonus restano piccoli",
@@ -1220,6 +1222,211 @@ try:
     check("il file Word contiene chi parla e che cosa dice", "Jane Doe" in _txt and "We raised guidance." in _txt)
 except ImportError:
     print("  (python-docx non installato: la prova del file Word si salta)")
+
+# --------------------------------- Alpha Vantage: calendario, titoli, utili
+print("\nAlpha Vantage oltre alle trascrizioni")
+from pipeline import alphavantage as AVM
+
+_lst = ("symbol,name,exchange,assetType,ipoDate,delistingDate,status\n"
+        "BNY,The Bank of New York Mellon,NYSE,Stock,2007-07-02,null,Active\n"
+        "AAPL,Apple Inc,NASDAQ,Stock,1980-12-12,null,Active\n")
+_gone = ("symbol,name,exchange,assetType,ipoDate,delistingDate,status\n"
+         "BK,The Bank of New York Mellon Corp,NYSE,Stock,2007-07-02,2026-05-21,Delisted\n")
+check("l'elenco tiene solo i ticker dell'universo",
+      set(AVM.parse_listing(_lst, ["BNY", "BK"])) == {"BNY"})
+check("e dei titoli tolti legge la data",
+      AVM.parse_listing(_gone, ["BK"])["BK"]["delisted"] == "2026-05-21")
+_cal = ("symbol,name,reportDate,fiscalDateEnding,estimate,currency\n"
+        "NVDA,NVIDIA Corp,2027-02-25,2027-01-31,1.52,USD\n"
+        "ZZZZ,Altro,2027-01-10,2026-12-31,,USD\n"
+        "NVDA,NVIDIA Corp,2026-12-01,2026-10-31,,USD\n")
+_pc = AVM.parse_calendar(_cal, ["NVDA"])
+check("il calendario: solo l'universo, in ordine di data",
+      list(_pc) == ["NVDA"] and [r["date"] for r in _pc["NVDA"]] == ["2026-12-01", "2027-02-25"], _pc)
+check("una stima mancante resta vuota, non zero", _pc["NVDA"][0]["estimate"] is None)
+_earn_js = json.dumps({"symbol": "AAA", "quarterlyEarnings": [
+    {"fiscalDateEnding": "2026-09-30", "reportedDate": "2026-10-28", "reportedEPS": "1.10",
+     "estimatedEPS": "1.00", "surprise": "0.1", "surprisePercentage": "10", "reportTime": "post-market"},
+    {"fiscalDateEnding": "2026-06-30", "reportedDate": "2026-07-29", "reportedEPS": "0.90",
+     "estimatedEPS": "1.00", "surprise": "None", "surprisePercentage": "None", "reportTime": "pre-market"},
+    {"fiscalDateEnding": "2026-03-31", "reportedDate": "2026-04-28", "reportedEPS": "0.80",
+     "estimatedEPS": "None", "surprise": "None", "surprisePercentage": "None"}]})
+_pe = AVM.parse_earnings(_earn_js)
+check("gli utili arrivano dal più vecchio", [r["date"] for r in _pe] == ["2026-04-28", "2026-07-29", "2026-10-28"])
+check("la sorpresa di Alpha Vantage si usa così com'è", _pe[-1]["sp"] == 10.0, _pe[-1])
+check("se manca la si calcola da utile e attese", _pe[1]["sp"] == -10.0, _pe[1])
+check("senza attese non c'è sorpresa", _pe[0]["sp"] is None and _pe[0]["est"] is None, _pe[0])
+_lim = json.dumps({"Information": "We have detected your API key as X and our standard API rate limit is 25 requests per day."})
+try:
+    AVM.parse_csv(_lim)
+    check("un CSV che è un messaggio di limite ferma il giro", False)
+except AVM.Limit:
+    check("un CSV che è un messaggio di limite ferma il giro", True)
+check("la classe Limit è la stessa per trascrizioni e utili", TR.Limit is AVM.Limit)
+
+_ls = [{"date": "2026-07-29", "sp": -3.0}, {"date": "2026-10-28", "sp": 4.2}]
+check("l'ultima trimestrale prima dell'acquisto",
+      AVM.last_surprise(_ls, "2026-11-05")["sp"] == 4.2)
+check("il giorno stesso dell'annuncio non conta ancora",
+      AVM.last_surprise(_ls, "2026-10-28")["sp"] == -3.0)
+check("dopo cento giorni non conta più", AVM.last_surprise(_ls, "2027-03-01") is None)
+check("prima della prima trimestrale non c'è niente", AVM.last_surprise(_ls, "2026-01-01") is None)
+
+# il giro giornaliero: prima titoli e calendario, poi gli utili, entro il budget
+_avd = tempfile.mkdtemp()
+_asked = []
+
+
+def _avget(params):
+    _asked.append(params["function"] + ("/" + params["symbol"] if "symbol" in params else "")
+                  + ("/" + params["state"] if "state" in params else ""))
+    f = params["function"]
+    if f == "LISTING_STATUS":
+        return _gone if params.get("state") == "delisted" else _lst
+    if f == "EARNINGS_CALENDAR":
+        return ("symbol,name,reportDate,fiscalDateEnding,estimate,currency\n"
+                "AAPL,Apple,2027-01-29,2026-12-31,2.40,USD\n")
+    return _earn_js
+
+
+_uni = ["BNY", "AAPL", "BK", "MSFT"]
+_u, _lg, _stop = AVM.update(_avd, _uni, "k", budget=25, today=date(2026, 11, 23), per_day=2, get=_avget)
+check("primo giorno: elenco (2), calendario (1) e due aziende di utili",
+      _u == 5 and _asked == ["LISTING_STATUS", "LISTING_STATUS/delisted", "EARNINGS_CALENDAR",
+                             "EARNINGS/BNY", "EARNINGS/AAPL"] and not _stop, (_u, _asked))
+check("il riepilogo dice quali ticker non sono quotati", any("BK" in x and "MSFT" in x for x in _lg), _lg)
+check("e quante aziende restano per i giorni dopo", any("restano 2" in x for x in _lg), _lg)
+_asked.clear()
+_u, _lg, _ = AVM.update(_avd, _uni, "k", budget=25, today=date(2026, 11, 23), per_day=2, get=_avget)
+check("lo stesso giorno non si richiedono né elenco né calendario",
+      _asked == ["EARNINGS/BK", "EARNINGS/MSFT"], _asked)
+_asked.clear()
+AVM.update(_avd, _uni, "k", budget=25, today=date(2026, 11, 24), per_day=2, get=_avget)
+check("il giorno dopo solo il calendario: l'elenco aspetta una settimana",
+      _asked == ["EARNINGS_CALENDAR"], _asked)
+_asked.clear()
+AVM.update(_avd, _uni, "k", budget=25, today=date(2026, 12, 1), per_day=5, get=_avget)
+check("dopo sette giorni l'elenco si rilegge", _asked[:2] == ["LISTING_STATUS", "LISTING_STATUS/delisted"], _asked)
+_asked.clear()
+_u, _, _ = AVM.update(tempfile.mkdtemp(), _uni, "k", budget=1, today=date(2026, 11, 23), get=_avget)
+check("con una richiesta sola: niente elenco (ne servono due), sì il calendario",
+      _u == 1 and _asked == ["EARNINGS_CALENDAR"], _asked)
+
+
+def _limget(params):
+    if params["function"] == "EARNINGS":
+        return _lim
+    return _avget(params)
+
+
+_u, _lg, _stop = AVM.update(tempfile.mkdtemp(), _uni, "k", budget=25, today=date(2026, 11, 23), get=_limget)
+check("il limite raggiunto ferma il giro e lo dice", _stop and _u == 4 and _lg[-1].startswith("STOP"), (_u, _lg))
+
+# quando rileggere gli utili di un'azienda che li ha già
+_st = {"earnings_on": {"AAA": "2026-10-01"}}
+_rep = {"AAA": ["2026-11-01"]}
+_due = lambda on, today: AVM.earnings_due(["AAA"], {"earnings_on": {"AAA": on}}, {}, _rep,
+                                          today, {"AAA": "2026-08-01"})
+check("dopo una trimestrale nuova si rileggono", _due("2026-10-01", date(2026, 11, 5)) == ["AAA"])
+check("e si riprova per qualche giorno se il dato non c'è ancora", _due("2026-11-02", date(2026, 11, 5)) == ["AAA"])
+check("ma non due volte lo stesso giorno", _due("2026-11-05", date(2026, 11, 5)) == [])
+check("e dopo tre giorni si aspetta la prossima", _due("2026-11-05", date(2026, 11, 10)) == [])
+check("una trimestrale di oggi non c'è ancora", _due("2026-10-01", date(2026, 11, 1)) == [])
+check("se l'ultima trimestrale l'abbiamo già, niente",
+      AVM.earnings_due(["AAA"], _st, {}, _rep, date(2026, 11, 5), {"AAA": "2026-11-01"}) == [])
+check("chi non ha mai avuto gli utili viene dopo chi ha appena annunciato",
+      AVM.earnings_due(["NEW", "AAA"], _st, {}, _rep, date(2026, 11, 5), {"AAA": "2026-08-01"}) == ["AAA", "NEW"])
+
+_av = AVM.load(_avd)
+check("il giro del sito legge utili, calendario ed elenco",
+      set(_av["earnings"]) == set(_uni) and _av["next"]["AAPL"][0]["date"] == "2027-01-29"
+      and _av["listing"]["on"] == "2026-12-01", _av.keys())
+check("un ticker tolto dalla borsa diventa un avviso con la data",
+      "2026-05-21" in (AVM.listing_problem(_av, "BK") or ""))
+check("uno che non compare dice di controllare il ticker", "cambiato ticker" in (AVM.listing_problem(_av, "MSFT") or ""))
+check("un ticker quotato non dà avvisi", AVM.listing_problem(_av, "BNY") is None)
+check("senza la cartella tutto è vuoto e niente si rompe",
+      AVM.load(os.path.join(_avd, "non-esiste")) == {"earnings": {}, "next": {}, "calendar_on": None, "listing": None})
+
+# il bonus "dopo una sorpresa positiva": si stima sulle sole campagne con il dato
+_vb = {"cluster": 10.0, "two": 4.0, "senior": 6.0, "beat": 5.0}
+_cb = _fake_camps(6000, _vb, seed=11)
+for _i, _c in enumerate(_cb):
+    if _i % 3 == 0:                       # un terzo delle campagne senza il dato
+        _c["car"] -= 5.0 if _c.get("beat") else 0.0
+        _c["beat"] = None
+_rnd2 = _rnd.Random(5)
+for _c in _cb:
+    if "beat" not in _c:
+        _c["beat"] = _rnd2.random() < .5
+        _c["car"] += 5.0 if _c["beat"] else 0.0
+_eb = {r["id"]: r for r in BO.estimate(_cb)["features"]}
+check("ritrova l'effetto della sorpresa positiva", abs(_eb["beat"]["points"] - 5) <= 1, _eb["beat"])
+check("e dice su quante campagne il dato c'è", _eb["beat"]["known"] == 4000, _eb["beat"].get("known"))
+_eb0 = {r["id"]: r for r in BO.estimate([dict(c, beat=None) for c in _cb])["features"]}
+check("le altre tre stime non cambiano se il dato c'è o no",
+      all(_eb[f]["raw"] == _eb0[f]["raw"] for f in ("cluster", "two", "senior")))
+check("senza il dato il bonus non si stima e vale zero",
+      _eb0["beat"]["raw"] is None and _eb0["beat"]["points"] == 0 and _eb0["beat"]["known"] == 0)
+check("a mano la sorpresa non valeva niente", BO.HAND["beat"] == 0 and score.HAND_BONUS["beat"] == 0)
+_camps_b = BO.campaigns([{"car": 1.0, "t": "A", "d": "2025-01-10", "people": 1, "beat": True},
+                         {"car": 2.0, "t": "A", "d": "2025-02-10", "people": 1, "beat": False}])
+check("la campagna prende la sorpresa del primo acquisto", _camps_b[0]["beat"] is True and len(_camps_b) == 1)
+
+# la voce insider: il bonus si applica e la ragione lo dice
+_pts = {"cluster": 0, "two": 0, "senior": 0, "beat": 7}
+_v1, _w1, _ = score.insider_score(_tx, [], {}, cfg, date(2026, 4, 20), bonus=_pts,
+                                  beat={"date": "2026-03-10", "sp": 4.2})
+_v0, _w0, _ = score.insider_score(_tx, [], {}, cfg, date(2026, 4, 20), bonus=_pts)
+check("dopo una sorpresa positiva vale il bonus stimato", _v1 - _v0 == 7, (_v1, _v0))
+check("e la ragione dice di quanto e quando",
+      any("+4,2%" in w["it"] and "2026-03-10" in w["it"] and "+7" in w["it"] for w in _w1), _w1)
+_vn, _wn, _ = score.insider_score(_tx, [], {}, cfg, date(2026, 4, 20), bonus=_pts,
+                                  beat={"date": "2026-03-10", "sp": -2.0})
+check("dopo una trimestrale sotto le attese niente bonus, ma lo dice",
+      _vn == _v0 and any("sotto le attese" in w["it"] for w in _wn), _wn)
+
+# nella scheda: gli utili, la prossima trimestrale, e la sorpresa prima degli acquisti
+_last = series[-1]["d"]
+_eraw = dict(raws[0], ticker="EEEE",
+             earnings=[{"fiscal_end": "2025-12-31", "date": series[-60]["d"], "eps": 1.1, "est": 1.0, "sp": 10.0,
+                        "time": None}],
+             calendar=[{"date": "2025-01-01", "fiscal_end": None, "estimate": None},
+                       {"date": "2099-02-01", "fiscal_end": "2098-12-31", "estimate": 1.3}])
+_eb1 = build_one(cfg, _eraw)
+check("la scheda porta gli utili contro attese", _eb1["earnings"][0]["sp"] == 10.0, _eb1.get("earnings"))
+check("e la prossima trimestrale, non una passata", _eb1["next_report"]["date"] == "2099-02-01", _eb1.get("next_report"))
+check("la voce insider vede la sorpresa prima del primo acquisto",
+      _eb1["_ins"]["beat"] == {"date": series[-60]["d"], "sp": 10.0}
+      and any("sopra le attese" in w["it"] for w in _eb1["_subs"]["insider"]["why"]), _eb1["_ins"])
+check("senza dati di Alpha Vantage la scheda resta com'era",
+      build_one(cfg, dict(raws[0], ticker="FFFF"))["earnings"] is None)
+_fin = finish(cfg, _eb1, [_eb1["insider_90d"]] * 4)
+check("e fra le fonti compare Alpha Vantage", any(x["n"] == 6 for x in _fin["sources"]), _fin["sources"])
+_ix = write_all([_fin], cfg, tempfile.mkdtemp(), av=_av)
+check("l'indice dice quante aziende hanno gli utili e quali ticker non risultano quotati",
+      _ix["alphavantage"]["earnings"] == 1 and _ix["alphavantage"]["listing_on"] == "2026-12-01"
+      and _ix["alphavantage"]["not_listed"] == ["EEEE"], _ix["alphavantage"])
+check("e per ogni azienda la data della prossima trimestrale", _ix["companies"][0]["next_report"] == "2099-02-01")
+_br = build.backtest_rows([{"company": {"ticker": "Z"}, "tx": [cfo],
+                            "tracks": {"Y": {"buys": [{"date": "2025-01-15", "car": 1.0}]}},
+                            "_earn_long": [{"date": "2024-12-01", "sp": 3.0}]},
+                           {"company": {"ticker": "W"}, "tx": [cfo],
+                            "tracks": {"Y": {"buys": [{"date": "2025-01-15", "car": 1.0}]}}}], CFG)
+check("nel backtest ogni acquisto sa com'era andata l'ultima trimestrale, o che non si sa",
+      [x["beat"] for x in _br] == [True, None], _br)
+
+# la prova all'indietro: chi sorprende di più sale di più -> la voce vale 1
+_ecos = []
+for _k in range(8):
+    _c = _co(f"S{_k}", 0.0006 * (_k + 1))
+    _c["_earn_long"] = [{"date": (date(2024, 12, 15) + timedelta(days=90 * j)).isoformat(), "sp": float(_k + 1)}
+                        for j in range(6)]
+    _ecos.append(_c)
+_su = [x for x in PR.run(_ecos, cfg)["rows"] if x["id"] == "surprise"][0]
+check("la sorpresa sugli utili entra nella prova all'indietro", _su["ic"] == 1.0, _su)
+_su0 = [x for x in PR.run(_cos, cfg)["rows"] if x["id"] == "surprise"][0]
+check("senza utili la voce non si calcola, invece di valere zero", _su0["ic"] is None, _su0)
 
 # il riepilogo deve contare ogni fallimento: l'elenco non va mai sostituito
 check("l'elenco dei fallimenti è ancora quello di partenza", bad is _BAD0)

@@ -15,7 +15,7 @@ import os
 import time
 from datetime import date, datetime, timedelta, timezone
 
-from . import bonus, finra, history, market, predict, rules, score, stress
+from . import alphavantage, bonus, finra, history, market, predict, rules, score, stress
 from .rules import L
 from .extract import extract_all
 
@@ -29,6 +29,8 @@ CARD_TX_LAST = 25       # più le ultime 25, che il sito mostra in tabella
 NEW_FILINGS_PER_RUN = 2000   # Form 4 vecchi per giro, se config.json non dice altro
 HISTORY_MINUTES = 35    # dopo quanti minuti di giro la storia vecchia aspetta il giro dopo
 PRICE_COPY_DAYS = 5     # quanto può essere vecchia la copia dei prezzi se Yahoo non risponde
+AV_DIR = alphavantage.DIR   # utili, calendario e titoli: li scarica il workflow delle trascrizioni
+CARD_EARN_Q = 12        # quanti trimestri di utili contro attese porta la scheda
 
 
 def load_config(path="config.json"):
@@ -219,6 +221,17 @@ def build_one(cfg, raw, extracted=None):
 
     buys_90d = any(t["kind"] == "BUY" for t in recent)
 
+    # Utili contro attese (Alpha Vantage): l'ultima trimestrale prima del primo
+    # acquisto degli ultimi 90 giorni. Il bonus che ne viene lo stima bonus.py.
+    earn = raw.get("earnings") or []
+    first_buy = min((t["date"] for t in recent if t["kind"] == "BUY"), default=None)
+    beat = alphavantage.last_surprise(earn, first_buy) if first_buy else None
+    beat = {"date": beat["date"], "sp": beat["sp"]} if beat else None
+    if beat and subs["insider"].get("v") is not None:
+        v, why, cov = score.insider_score(tx, cluster, tracks, cfg, today, beat=beat)
+        subs["insider"] = {"v": v, "why": why, "coverage": cov}
+    nxt = next((r for r in (raw.get("calendar") or []) if r["date"] >= today.isoformat()), None)
+
     # Lo short interest viene dai file pubblici di FINRA (pipeline/finra.py).
     # L'export manuale resta come riserva, finché FINRA non ha almeno otto
     # rilevazioni di quel titolo: è lo stesso dato, ma tutte le aziende devono
@@ -313,13 +326,19 @@ def build_one(cfg, raw, extracted=None):
         "_px_long": [[p["d"], p["c"]] for p in px],
         "si_pct": si_pct,
         "shares": raw.get("shares"),
+        # utili contro attese degli ultimi tre anni e la prossima trimestrale
+        # (Alpha Vantage); tutti i trimestri restano in memoria per le prove
+        "earnings": [{"q": e["fiscal_end"], "d": e["date"], "eps": e["eps"], "est": e["est"],
+                      "sp": e["sp"]} for e in earn[-CARD_EARN_Q:]] or None,
+        "next_report": nxt,
+        "_earn_long": earn,
         "tx": tx,
         "cluster": [t["date"] + " " + t["who"] for t in cluster],
         "tracks": tracks,
         "_subs": subs,
         # quello che serve a ricalcolare la voce insider dopo che i bonus sono
         # stati stimati su tutte le aziende; non finisce nella scheda
-        "_ins": {"cluster": cluster, "today": today.isoformat()},
+        "_ins": {"cluster": cluster, "today": today.isoformat(), "beat": beat},
     }
 
 
@@ -384,6 +403,13 @@ def finish(cfg, data, universe):
          "x": L("I depositi SEC non hanno risposto in questo giro.",
                 "The SEC filings did not answer on this run.")},
     ]
+    if data.get("earnings"):
+        e = data["earnings"]
+        data["sources"].append(
+            {"n": 6, "t": L("Utili contro attese", "Earnings against estimates"),
+             "m": L("Alpha Vantage", "Alpha Vantage"),
+             "x": L(f"{len(e)} trimestri, l'ultimo annunciato il {e[-1]['d']}.",
+                    f"{len(e)} quarters, the latest reported on {e[-1]['d']}.")})
     return data
 
 
@@ -453,6 +479,9 @@ def backtest(results, cfg):
             "solo": bonus.summary(pick(lambda c: not c["cluster"])),
             "senior": bonus.summary(pick(lambda c: c["senior"])),
             "other": bonus.summary(pick(lambda c: not c["senior"])),
+            # dopo una trimestrale sopra le attese, o in linea e sotto (Alpha Vantage)
+            "beat": bonus.summary(pick(lambda c: c.get("beat") is True)),
+            "nobeat": bonus.summary(pick(lambda c: c.get("beat") is False)),
             "bonus": bonus.estimate(camps)}
 
 
@@ -472,6 +501,7 @@ def backtest_rows(results, cfg):
         tx = [t for t in (d.get("tx") or []) if t["kind"] == "BUY"]
         car = {(w, b["date"]): b["car"]
                for w, tr in (d.get("tracks") or {}).items() for b in tr["buys"]}
+        earn = d.get("_earn_long") or []
         for t in tx:
             r = car.get((t["who"], t["date"]))
             if r is None:
@@ -479,9 +509,12 @@ def backtest_rows(results, cfg):
             day = date.fromisoformat(t["date"])
             near = {x["who"] for x in tx
                     if abs((date.fromisoformat(x["date"]) - day).days) <= nd}
+            ls = alphavantage.last_surprise(earn, t["date"]) if earn else None
             rows.append({"car": r, "t": d["company"]["ticker"], "d": t["date"],
                          "people": len(near),
-                         "senior": rules.is_senior(t, titles)})
+                         "senior": rules.is_senior(t, titles),
+                         # None se non si sa com'era andata l'ultima trimestrale
+                         "beat": (ls["sp"] > 0) if ls else None})
     return rows
 
 
@@ -552,7 +585,7 @@ def same_but_for_the_clock(path, data):
     return a == b
 
 
-def write_all(results, cfg, outdir=OUTDIR, forward=None, si_status=None):
+def write_all(results, cfg, outdir=OUTDIR, forward=None, si_status=None, av=None):
     ddir = os.path.join(outdir, "data")
     os.makedirs(ddir, exist_ok=True)
 
@@ -600,6 +633,7 @@ def write_all(results, cfg, outdir=OUTDIR, forward=None, si_status=None):
             "buyers": ins["buyers"], "sellers": ins["sellers"],
             "net_musd": ins["net_musd"], "cluster": ins["cluster"],
             "errors": len(d["errors"]),
+            "next_report": (d.get("next_report") or {}).get("date"),
         })
     rows.sort(key=lambda r: (r["score"] is None, -(r["score"] or 0)))
     now = datetime.now(timezone.utc).isoformat(timespec="seconds")
@@ -639,6 +673,16 @@ def write_all(results, cfg, outdir=OUTDIR, forward=None, si_status=None):
             # l'intestazione del file solo se qualcosa non va: con dati buoni
             # cambierebbe l'indice a ogni giro senza dire niente
             "head": (si_status or {}).get("head") if not (si_status or {}).get("companies") else None,
+        },
+        # che cosa è arrivato da Alpha Vantage oltre alle trascrizioni: gli utili
+        # si riempiono a rate, dodici aziende al giorno (vedi pipeline/alphavantage.py)
+        "alphavantage": {
+            "earnings": sum(1 for d in results if d.get("earnings")),
+            "total": len(results),
+            "calendar_on": (av or {}).get("calendar_on"),
+            "listing_on": ((av or {}).get("listing") or {}).get("on"),
+            "not_listed": sorted(d["company"]["ticker"] for d in results
+                                 if alphavantage.listing_problem(av or {}, d["company"]["ticker"])),
         },
         "companies": rows,
         "errors": sorted({e for d in results for e in d["errors"]}),
@@ -700,6 +744,11 @@ def main():
         # l'errore finisce nell'indice: è il solo modo di leggerlo senza aprire il log
         si_all, si_status = {}, {"error": str(e)[:300]}
         print(f"! short interest FINRA: {e}")
+    # Utili, calendario e titoli da Alpha Vantage: li ha già scaricati il
+    # workflow delle trascrizioni; se la cartella non c'è, tutto resta vuoto.
+    av = alphavantage.load(AV_DIR)
+    print(f"Alpha Vantage: utili di {len(av['earnings'])} aziende, calendario del "
+          f"{av['calendar_on'] or '-'}, elenco dei titoli del {(av['listing'] or {}).get('on') or '-'}")
     for g in groups:
         print(f"\n=== {g['nome']} ({len(g['tickers'])} aziende) ===")
         bench = []
@@ -718,6 +767,11 @@ def main():
                 raw = gather(cfg, t, bench, a.offline, budget)
                 if t.upper() in si_all:
                     raw["si"] = si_all[t.upper()]
+                raw["earnings"] = av["earnings"].get(t.upper()) or []
+                raw["calendar"] = av["next"].get(t.upper()) or []
+                gone = alphavantage.listing_problem(av, t.upper())
+                if gone:
+                    raw["errors"] = list(raw.get("errors") or []) + [gone]
                 mine = [e for e in extracted if e.get("ticker") == t.upper()]
                 d = build_one(cfg, raw, mine)
                 d["group"] = group_name(g)
@@ -740,7 +794,8 @@ def main():
         if ins.get("v") is None or "_ins" not in d:
             continue
         v, why, cov = score.insider_score(d["tx"], d["_ins"]["cluster"], d["tracks"], cfg,
-                                          date.fromisoformat(d["_ins"]["today"]), bonus=pts)
+                                          date.fromisoformat(d["_ins"]["today"]), bonus=pts,
+                                          beat=d["_ins"].get("beat"))
         d["_subs"]["insider"] = {"v": v, "why": why, "coverage": cov}
     for built in groups_built:
         universe = [d["insider_90d"] for d in built]
@@ -766,7 +821,7 @@ def main():
     except Exception as e:
         print(f"! registro delle previsioni: {e}")
 
-    index = write_all(results, cfg, a.out, forward=fwd, si_status=si_status)
+    index = write_all(results, cfg, a.out, forward=fwd, si_status=si_status, av=av)
     total = sum(len(g["tickers"]) for g in groups)
     print(f"\n{len(results)} aziende su {total}")
     for r in index["companies"][:12]:

@@ -1,0 +1,128 @@
+{
+  "ticker": "BA",
+  "quarter": "T3 '26",
+  "call_date": "2026-10-27",
+  "tone": 62,
+  "tone_why": {
+    "it": "Tono costruttivo e sicuro sul lungo periodo, con ammissioni esplicite sul breve. Per la prima volta l'azienda dà un percorso di flusso di cassa libero su più anni (circa 2 miliardi $ nel 2026, 3 nel 2027, 6 nel 2028, 10 nel 2029), con un portafoglio ordini record di 745 miliardi $, la certificazione dei 737-7 e -10 e la vittoria del caccia di sesta generazione F/A-XX. Ma la stabilità a 47 aerei al mese sul 737 «sta richiedendo più tempo del previsto» per via delle ali, le consegne 737 dell'anno resteranno sotto l'obiettivo di 500, i 787 saranno verso il basso della fascia 90-100, e l'amministratore delegato riconosce che i numeri sono «quasi uno spostamento di un anno a destra» rispetto alle attese.",
+    "en": "Constructive and confident on the long term, with explicit admissions on the short term. For the first time the company gives a multi-year free cash flow path (about $2bn in 2026, $3bn in 2027, $6bn in 2028, $10bn in 2029), backed by a record $745bn backlog, the 737-7 and -10 certifications and the F/A-XX sixth-generation fighter win. But stability at 47 per month on the 737 \"is taking us longer than we had expected\" because of the wings, 737 deliveries for the year will fall short of the 500 target, 787s will be near the low end of 90-100, and the CEO concedes the numbers are \"almost a one-year shift to the right from expectations\"."
+  },
+  "guidance": [
+    {
+      "metric": {"it": "Flusso di cassa libero 2026", "en": "2026 free cash flow"},
+      "value": {"it": "circa 2 miliardi $, fascia precedente ristretta", "en": "about $2bn, prior range narrowed"},
+      "direction": "confermata"
+    },
+    {
+      "metric": {"it": "Flusso di cassa libero 2027-2029", "en": "2027-2029 free cash flow"},
+      "value": {"it": "circa 3 miliardi $ nel 2027, 6 nel 2028, 10 nel 2029, con certificazione del 777X ipotizzata a metà 2027", "en": "about $3bn in 2027, $6bn in 2028, $10bn in 2029, assuming 777X certification by mid-2027"},
+      "direction": "prima"
+    },
+    {
+      "metric": {"it": "Consegne 737 nel 2026", "en": "2026 737 deliveries"},
+      "value": {"it": "sotto l'obiettivo di 500, perché la stabilità a 47 al mese arriva più tardi", "en": "short of the 500 target, because stability at 47 per month comes later"},
+      "direction": "ridotta"
+    },
+    {
+      "metric": {"it": "Ritmo 737 a 52 al mese", "en": "737 rate 52 per month"},
+      "value": {"it": "nel piano finanziario dalla seconda metà del 2027; la stabilità a 47 si estende al prossimo anno", "en": "in the financial plan from the second half of 2027; stability at 47 extends into next year"},
+      "direction": "ridotta"
+    },
+    {
+      "metric": {"it": "Consegne 787 nel 2026", "en": "2026 787 deliveries"},
+      "value": {"it": "fascia 90-100 confermata, ma più vicina al basso", "en": "90-100 range kept, but closer to the low end"},
+      "direction": "ridotta"
+    },
+    {
+      "metric": {"it": "Ritmo 787 a 10 al mese", "en": "787 rate 10 per month"},
+      "value": {"it": "inizio della transizione entro quest'anno", "en": "transition to start this year"},
+      "direction": "confermata"
+    },
+    {
+      "metric": {"it": "Prima consegna del 777X", "en": "777X first delivery"},
+      "value": {"it": "nel 2027, dentro la stima di costo rifatta l'anno scorso", "en": "in 2027, within the cost estimate reset last year"},
+      "direction": "confermata"
+    },
+    {
+      "metric": {"it": "Margine aerei commerciali (BCA)", "en": "Commercial airplanes (BCA) margin"},
+      "value": {"it": "costi anomali su 777 cargo e 767 fino al primo semestre 2027, pareggio verso l'inizio del 2028", "en": "abnormal costs on 777 freighter and 767 through the first half of 2027, about breakeven in early 2028"},
+      "direction": "ridotta"
+    },
+    {
+      "metric": {"it": "Crescita della difesa (BDS)", "en": "Defense (BDS) growth"},
+      "value": {"it": "da una crescita bassa a una sola cifra a una medio-alta o più", "en": "from low-single-digit growth to high-middle-single-digit or higher"},
+      "direction": "alzata"
+    },
+    {
+      "metric": {"it": "Margine della difesa (BDS)", "en": "Defense (BDS) margin"},
+      "value": {"it": "alto a una cifra entro la fine del decennio", "en": "high single digits by the end of the decade"},
+      "direction": "confermata"
+    },
+    {
+      "metric": {"it": "Investimenti (CapEx)", "en": "Capital expenditure"},
+      "value": {"it": "circa 5 miliardi $ nel 2027 (1 in più del 2026), circa 4 nel 2028 e nel 2029", "en": "about $5bn in 2027 ($1bn more than 2026), about $4bn in 2028 and 2029"},
+      "direction": "prima"
+    },
+    {
+      "metric": {"it": "Consegne aerei commerciali 2027", "en": "2027 commercial deliveries"},
+      "value": {"it": "in crescita del 10% o più; dettaglio per programma a gennaio", "en": "up 10% or more; detail by program in January"},
+      "direction": "prima"
+    }
+  ],
+  "qa": [
+    {
+      "question": {"it": "Escluso il pagamento al Dipartimento della Giustizia, il flusso di cassa cresce di poche centinaia di milioni dal 2026 al 2027: quanto pesano gli anticipi e come si arriva al salto del 2028?", "en": "Excluding the DOJ payment, free cash flow grows only a few hundred million from 2026 to 2027: how big is the advances effect, and how do you get to the 2028 step-up?"},
+      "answer_summary": {"it": "Malave ripercorre tutti i pezzi: 700 milioni $ di beneficio dal pagamento che non si ripete, margini di cassa in miglioramento, minori anticipi dei clienti per «qualche miliardo», CapEx più alta di 1 miliardo. Per il 2029 dà ritmi di produzione precisi. Risposta completa e con numeri.", "en": "Malave walks through every piece: a $700m benefit from the payment that does not recur, improving cash margins, lower customer deposits by \"a few billion\", CapEx $1bn higher. For 2029 he gives specific production rates. A complete answer with numbers."},
+      "directness": 4
+    },
+    {
+      "question": {"it": "Quante consegne di 737 e 787 assumete per il 2027?", "en": "How many 737 and 787 deliveries do you assume for 2027?"},
+      "answer_summary": {"it": "Dà solo il totale (consegne commerciali +10% o più) e rinvia il dettaglio per programma a gennaio; sull'eventuale slittamento del 777X dice che «potrebbe essere assorbito» nei 3 miliardi, salvo poi precisare che parla di uno o due mesi.", "en": "He gives only the total (commercial deliveries up 10% or more) and defers the program detail to January; on a possible 777X slip he says it \"could be absorbed\" in the $3bn, then clarifies he means a month or two."},
+      "directness": 2
+    },
+    {
+      "question": {"it": "Perché servono circa due anni per arrivare ai ritmi del 2029? La catena di fornitura è peggiorata?", "en": "Why does it take about two years to reach the 2029 rates? Has the supply chain deteriorated?"},
+      "answer_summary": {"it": "Malave risponde che le consegne seguono la produzione con un ritardo e che la differenza è un potenziale rialzo sull'obiettivo di 10 miliardi. Non risponde alla parte sulla catena di fornitura.", "en": "Malave answers that deliveries lag production and that the gap is upside to the $10bn target. He does not answer the supply-chain part."},
+      "directness": 2
+    },
+    {
+      "question": {"it": "I numeri di flusso di cassa si spostano tutti più in basso: il punto d'arrivo dopo il 2029 è cambiato?", "en": "The free cash flow numbers all seem to shift lower: has the end point beyond 2029 changed?"},
+      "answer_summary": {"it": "Ortberg lo dice senza giri di parole: «quasi uno spostamento di un anno a destra rispetto alle attese», con pendenza e punto d'arrivo invariati. Ammissione esplicita.", "en": "Ortberg says it plainly: \"almost a one-year shift to the right from expectations\", with slope and end point unchanged. An explicit admission."},
+      "directness": 5
+    },
+    {
+      "question": {"it": "Il contratto F/A-XX è a prezzo fisso per lo sviluppo?", "en": "Is the F/A-XX contract fixed-price development?"},
+      "answer_summary": {"it": "Dice che NGAD è a costo più margine, ma su F/A-XX solo che è «un tipo di contratto appropriato». Non risponde.", "en": "He says NGAD is cost-plus, but on F/A-XX only that it is \"an appropriate contract type\". No answer."},
+      "directness": 2
+    }
+  ],
+  "language_changes": [
+    {
+      "topic": {"it": "Ritmo del 737", "en": "737 production rate"},
+      "from": {"it": "ad agosto la situazione a 47 al mese sembrava stabile (lo ricorda un analista)", "en": "in August things looked stable at 47 per month (as an analyst recalls)"},
+      "to": {"it": "«sta richiedendo più tempo del previsto»: la stabilità a 47 arriva il prossimo anno e il 52 è nel piano dalla seconda metà del 2027", "en": "\"it is taking us longer than we had expected\": stability at 47 comes next year and 52 is planned from the second half of 2027"},
+      "note": {"it": "Il problema ha un nome preciso, le ali: alcuni interventi per far scorrere la produzione «semplicemente non hanno reso».", "en": "The problem has a precise name, the wings: some flow enablers \"just flat out did not yield\"."}
+    },
+    {
+      "topic": {"it": "Flusso di cassa libero", "en": "Free cash flow"},
+      "from": {"it": "una fascia per il 2026 e un obiettivo di 10 miliardi $ «normalizzati» senza data", "en": "a range for 2026 and a $10bn \"normalized\" target with no date"},
+      "to": {"it": "un percorso anno per anno fino a 10 miliardi $ nel 2029", "en": "a year-by-year path to $10bn in 2029"},
+      "note": {"it": "Dare numeri pluriennali è un segnale di fiducia, ma l'amministratore delegato stesso li descrive come un anno più tardi delle attese.", "en": "Giving multi-year numbers is a sign of confidence, but the CEO himself describes them as a year later than expected."}
+    },
+    {
+      "topic": {"it": "Crescita della difesa", "en": "Defense growth"},
+      "from": {"it": "crescita dei ricavi bassa a una cifra, l'idea di un anno fa", "en": "low-single-digit revenue growth, the thinking a year ago"},
+      "to": {"it": "«medio-alta a una cifra o più», con contratti «del tipo giusto»", "en": "\"high-middle-single-digit or higher\", with \"the right contract type\""},
+      "note": {"it": "Dopo F-47 e F/A-XX la difesa diventa, parole sue, «un po' una sorpresa nascosta» del gruppo.", "en": "After F-47 and F/A-XX, defense becomes, in his words, \"a bit of a sleeper\" in the group."}
+    },
+    {
+      "topic": {"it": "Consegne dell'anno", "en": "Deliveries for the year"},
+      "from": {"it": "obiettivo di 500 consegne 737 e 90-100 consegne 787", "en": "a 500-delivery 737 target and 90-100 787 deliveries"},
+      "to": {"it": "737 «sotto le 500», 787 «più vicini al limite basso»", "en": "737 \"shy of the 500\", 787 \"closer to the lower end\""},
+      "note": {"it": "Due riduzioni dette senza numeri nuovi: la direzione è chiara, la dimensione no.", "en": "Two reductions stated without new numbers: the direction is clear, the size is not."}
+    }
+  ],
+  "file": "BA_2026Q3.json",
+  "source": "Alpha Vantage transcript (non ridistribuito)",
+  "extracted_by": "Claude (estrazione manuale, stessa forma del passo automatico)"
+}

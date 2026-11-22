@@ -1,0 +1,113 @@
+{
+  "ticker": "BKR",
+  "quarter": "T3 '26",
+  "call_date": "2026-10-27",
+  "tone": 76,
+  "tone_why": {
+    "it": "Tono sicuro, trainato dagli ordini. Gli ordini industriali ed energetici (IET) arrivano a 5,9 miliardi $ nel trimestre, il portafoglio è al record di 39,4 miliardi $ (+23%), e i data center valgono già 4,9 miliardi $ di ordini nell'anno, cinque volte quelli di un anno fa. La guidance sugli ordini dell'anno sale, l'obiettivo pluriennale di ordini supera i 50 miliardi $ (10 in più in un anno) e l'EBITDA dell'anno sale. La prima trimestrale con Chart, l'acquisizione chiusa a luglio, è in linea con le attese. Il freno è detto in chiaro: con ordini a consegna più lunga, il 2027 avrà una crescita «più modesta», e il Medio Oriente rallenterà di nuovo nel T4.",
+    "en": "A confident tone, driven by orders. Industrial and energy technology (IET) orders reach $5.9bn in the quarter, backlog is at a record $39.4bn (+23%), and data centers already account for $4.9bn of orders this year, five times a year ago. Full-year order guidance rises, the multi-year order target exceeds $50bn ($10bn more in a year) and full-year EBITDA rises. The first quarter with Chart, the acquisition closed in July, is in line with expectations. The brake is stated plainly: with longer-lead orders, 2027 will see \"more modest growth\", and the Middle East will slow again in Q4."
+  },
+  "guidance": [
+    {
+      "metric": {"it": "Ordini IET 2026", "en": "2026 IET orders"},
+      "value": {"it": "21,5-23,5 miliardi $, ben sopra la fascia iniziale; anno record", "en": "$21.5-23.5bn, well above the initial range; a record year"},
+      "direction": "alzata"
+    },
+    {
+      "metric": {"it": "Ordini IET nell'«Orizzonte 2»", "en": "IET orders over \"Horizon 2\""},
+      "value": {"it": "oltre 50 miliardi $, alzati di 10 miliardi dall'introduzione un anno fa", "en": "more than $50bn, raised by $10bn since it was introduced a year ago"},
+      "direction": "alzata"
+    },
+    {
+      "metric": {"it": "EBITDA rettificato 2026", "en": "2026 adjusted EBITDA"},
+      "value": {"it": "centro della fascia alzato a 5,265 miliardi $", "en": "midpoint raised to $5.265bn"},
+      "direction": "alzata"
+    },
+    {
+      "metric": {"it": "Crescita 2027", "en": "2027 growth"},
+      "value": {"it": "«più modesta»: solo il 33% del portafoglio GTS e CTS si converte nel 2027, contro il 46% dell'anno prima nel 2026; IET organica a una cifra bassa-media", "en": "\"more modest\": only 33% of the GTS and CTS backlog converts in 2027, against 46% converting in 2026 a year earlier; IET organic growth in the low-to-mid single digits"},
+      "direction": "ridotta"
+    },
+    {
+      "metric": {"it": "Conversione del flusso di cassa libero 2026", "en": "2026 free cash flow conversion"},
+      "value": {"it": "45-50% dell'EBITDA, nonostante i costi di Chart", "en": "45-50% of EBITDA, despite Chart costs"},
+      "direction": "prima"
+    },
+    {
+      "metric": {"it": "Margine di Chart", "en": "Chart margin"},
+      "value": {"it": "EBITDA al 22-23% entro la seconda metà del 2028, non in modo lineare", "en": "22-23% EBITDA margin by the second half of 2028, not linearly"},
+      "direction": "prima"
+    },
+    {
+      "metric": {"it": "Sinergie di costo con Chart", "en": "Chart cost synergies"},
+      "value": {"it": "325 milioni $ l'anno entro tre anni; 70 già avviati", "en": "$325m a year within three years; $70m already actioned"},
+      "direction": "confermata"
+    },
+    {
+      "metric": {"it": "Debito netto su EBITDA", "en": "Net leverage"},
+      "value": {"it": "sotto 1,5 volte entro la seconda metà del 2028 (2,5 volte oggi)", "en": "below 1.5x by the second half of 2028 (2.5x today)"},
+      "direction": "confermata"
+    },
+    {
+      "metric": {"it": "Servizi per giacimenti maturi (MAS)", "en": "Mature asset solutions (MAS)"},
+      "value": {"it": "almeno 3 miliardi $ di ricavi entro il 2030, crescita annua alta a una cifra", "en": "at least $3bn of revenue by 2030, high-single-digit annual growth"},
+      "direction": "prima"
+    }
+  ],
+  "qa": [
+    {
+      "question": {"it": "Da che cosa è composto il nuovo obiettivo di oltre 50 miliardi $ di ordini?", "en": "What makes up the new target of more than $50bn of orders?"},
+      "answer_summary": {"it": "Risposta con i mattoni: fino a 15 miliardi $ di sistemi di potenza, circa 10 di LNG, una base solida di servizi, e nessun conto su spazio, geotermia o ricostruzione in Medio Oriente.", "en": "An answer with the building blocks: up to $15bn of power systems, about $10bn of LNG, a solid services base, and nothing counted from space, geothermal or Middle East rebuilding."},
+      "directness": 5
+    },
+    {
+      "question": {"it": "Che cosa considerare per il 2027?", "en": "What should we consider for 2027?"},
+      "answer_summary": {"it": "Il direttore finanziario va segmento per segmento: IET in crescita a una cifra bassa-media, stagionalità del T1, servizi upstream in leggera crescita, Chart in crescita bassa con margini in salita nel secondo semestre.", "en": "The CFO goes segment by segment: IET growing low-to-mid single digits, Q1 seasonality, upstream services growing slightly, Chart growing low with margins rising in the second half."},
+      "directness": 5
+    },
+    {
+      "question": {"it": "Permessi, capitali e tempi dei progetti dei data center: quanto è solido il portafoglio ordini?", "en": "Permitting, capital and project timelines for data centers: how solid is the backlog?"},
+      "answer_summary": {"it": "Ammette che alcuni progetti possono slittare, ma descrive le protezioni (anticipi non rimborsabili, penali di cancellazione) e ricorda che la potenza è meno del 20% del portafoglio. Nessun segno di cancellazioni.", "en": "He concedes some projects may slip, but describes the protections (non-refundable down payments, cancellation penalties) and recalls that power is less than 20% of backlog. No sign of cancellations."},
+      "directness": 4
+    },
+    {
+      "question": {"it": "Come si arriva dal 17,5-18% al 22-23% di margine in Chart, e in che tempi?", "en": "How do you get from 17.5-18% to 22-23% margin at Chart, and over what timeline?"},
+      "answer_summary": {"it": "Tre motori precisi (sinergie, mix con più LNG, sistema operativo di Baker Hughes) e l'avvertenza che la salita non sarà lineare, più forte nel 2028.", "en": "Three precise drivers (synergies, mix with more LNG, the Baker Hughes business system) and the caveat that the climb will not be linear, stronger in 2028."},
+      "directness": 4
+    },
+    {
+      "question": {"it": "Che cosa c'è del Medio Oriente nella guidance del T4, e quando si normalizza?", "en": "What is in the Q4 guidance for the Middle East, and when does it normalize?"},
+      "answer_summary": {"it": "Attività di nuovo ai livelli del T2 nel T4; sulla normalizzazione nel 2027 resta «misurato», senza tempi.", "en": "Activity back to Q2 levels in Q4; on 2027 normalization he stays \"measured\", without timing."},
+      "directness": 3
+    }
+  ],
+  "language_changes": [
+    {
+      "topic": {"it": "Obiettivo di ordini pluriennale", "en": "Multi-year order target"},
+      "from": {"it": "circa 40 miliardi $ quando è stato introdotto, un anno fa", "en": "about $40bn when it was introduced, a year ago"},
+      "to": {"it": "oltre 50 miliardi $", "en": "more than $50bn"},
+      "note": {"it": "Il rialzo viene da data center e LNG, e la società tiene fuori dal numero le opportunità più incerte.", "en": "The raise comes from data centers and LNG, and the company keeps the most uncertain opportunities out of the number."}
+    },
+    {
+      "topic": {"it": "Conversione del portafoglio", "en": "Backlog conversion"},
+      "from": {"it": "un anno fa il 46% del portafoglio si convertiva l'anno dopo", "en": "a year ago 46% of the backlog converted the following year"},
+      "to": {"it": "oggi il 33%: ordini con consegne più lunghe, crescita 2027 «più modesta»", "en": "today 33%: longer-lead orders, \"more modest\" 2027 growth"},
+      "note": {"it": "Più ordini non vuol dire subito più ricavi: l'azienda lo spiega da sé, con i numeri.", "en": "More orders do not mean more revenue right away: the company explains it itself, with the numbers."}
+    },
+    {
+      "topic": {"it": "Data center", "en": "Data centers"},
+      "from": {"it": "un mercato in crescita", "en": "a growing market"},
+      "to": {"it": "4,9 miliardi $ di ordini nell'anno, +500%, e un ordine da 1,1 gigawatt da una grande azienda tecnologica americana", "en": "$4.9bn of orders this year, +500%, and a 1.1-gigawatt order from a major US technology company"},
+      "note": {"it": "La potenza per i data center diventa il primo motore degli ordini, pur restando sotto il 20% del portafoglio.", "en": "Power for data centers becomes the first engine of orders, while staying below 20% of backlog."}
+    },
+    {
+      "topic": {"it": "Medio Oriente", "en": "Middle East"},
+      "from": {"it": "ripresa dell'attività nel T3 (+17% sul trimestre)", "en": "activity recovering in Q3 (+17% sequentially)"},
+      "to": {"it": "di nuovo in calo nel T4, ai livelli del T2, per «tensioni più alte» in alcune zone", "en": "declining again in Q4, to Q2 levels, on \"heightened tension\" in some parts"},
+      "note": {"it": "La ripresa del trimestre non viene proiettata in avanti: prudenza esplicita.", "en": "The quarter's recovery is not projected forward: explicit caution."}
+    }
+  ],
+  "file": "BKR_2026Q3.json",
+  "source": "Alpha Vantage transcript (non ridistribuito)",
+  "extracted_by": "Claude (estrazione manuale, stessa forma del passo automatico)"
+}

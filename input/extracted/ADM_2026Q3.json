@@ -1,0 +1,108 @@
+{
+  "ticker": "ADM",
+  "quarter": "T3 '26",
+  "call_date": "2026-11-03",
+  "tone": 75,
+  "tone_why": {
+    "it": "Terzo rialzo della guidance nell'anno: utile per azione 2026 a 5,50-5,80 $ (prima 5,15-5,60), con utile operativo dei segmenti +64% nel trimestre. Ma il management lo dice apertamente: la spinta viene in buona parte dalla politica sui biocarburanti (obblighi di miscelazione e credito d'imposta 45Z, ora stimato a 350 milioni $ invece di 250) e dai prezzi alti dell'energia. Per il 2027 non promette una crescita: «più o meno come il 2026». Ammette che i margini di spremitura della soia potrebbero aver toccato il massimo nel T3, e che nella nutrizione un impianto si è fermato senza dire quale. Tono sicuro, con una dipendenza dalla politica che è dichiarata più che nascosta.",
+    "en": "A third guidance raise of the year: 2026 EPS at $5.50-5.80 (previously $5.15-5.60), with segment operating profit +64% in the quarter. But management says it openly: much of the boost comes from biofuel policy (blending obligations and the 45Z tax credit, now estimated at $350m instead of $250m) and high energy prices. For 2027 it does not promise growth: \"somewhere in the range of what '26 was, plus or minus\". It concedes soybean crush margins may have peaked in Q3, and that in nutrition a plant went down without saying which. A confident tone, with a dependence on policy that is stated rather than hidden."
+  },
+  "guidance": [
+    {
+      "metric": {"it": "Utile per azione rettificato 2026", "en": "2026 adjusted EPS"},
+      "value": {"it": "5,50-5,80 $, dalla fascia 5,15-5,60 $ (terzo rialzo dell'anno)", "en": "$5.50-5.80, from the $5.15-5.60 range (third raise of the year)"},
+      "direction": "alzata"
+    },
+    {
+      "metric": {"it": "Beneficio netto del credito 45Z nel 2026", "en": "2026 net 45Z credit benefit"},
+      "value": {"it": "circa 350 milioni $, da circa 250", "en": "about $350m, from about $250m"},
+      "direction": "alzata"
+    },
+    {
+      "metric": {"it": "Risparmi di costo", "en": "Cost savings"},
+      "value": {"it": "500-750 milioni $ in totale, «sulla buona strada»", "en": "$500-750m in total, \"on track\""},
+      "direction": "confermata"
+    },
+    {
+      "metric": {"it": "Colori naturali", "en": "Natural colors"},
+      "value": {"it": "80-100 milioni $ di utile operativo in più all'anno nel tempo, obiettivo invariato", "en": "$80-100m of extra annual operating profit over time, target unchanged"},
+      "direction": "confermata"
+    },
+    {
+      "metric": {"it": "Leva finanziaria a fine anno", "en": "Year-end leverage"},
+      "value": {"it": "obiettivo invariato; 1,5 volte a fine settembre", "en": "target unchanged; 1.5x at end of September"},
+      "direction": "confermata"
+    },
+    {
+      "metric": {"it": "Risultati 2027", "en": "2027 results"},
+      "value": {"it": "«nell'ordine» del 2026, più o meno, con condizioni simili al secondo semestre; più investimenti e interessi più alti", "en": "\"in the ballpark\" of 2026, plus or minus, with conditions similar to the second half; more investment and higher interest costs"},
+      "direction": "prima"
+    },
+    {
+      "metric": {"it": "Nutrizione 2027", "en": "2027 Nutrition"},
+      "value": {"it": "un altro anno di crescita", "en": "another year of growth"},
+      "direction": "prima"
+    },
+    {
+      "metric": {"it": "Fermentazione di precisione", "en": "Precision fermentation"},
+      "value": {"it": "oggi un costo, in utile fra 2-3 anni, rilevante fra 5 e 10", "en": "a cost today, profitable in 2-3 years, meaningful in 5 to 10"},
+      "direction": "prima"
+    }
+  ],
+  "qa": [
+    {
+      "question": {"it": "Alcuni investitori pensano che il ciclo dei margini di spremitura sia finito: dove siamo?", "en": "Some investors think the crush margin cycle is over: where are we?"},
+      "answer_summary": {"it": "Concede che i margini «forse hanno toccato il massimo nel T3», ma esclude un crollo: gli obblighi di miscelazione e la domanda di olio e farina di soia restano forti. Risposta chiara, con l'ammissione dentro.", "en": "He concedes margins \"maybe peaked in Q3\", but rules out a collapse: blending obligations and demand for soybean oil and meal remain strong. A clear answer, with the admission inside."},
+      "directness": 4
+    },
+    {
+      "question": {"it": "Il 2027 sarà migliore del 2026, visto che molte politiche sono entrate solo a metà 2026?", "en": "Will 2027 be better than 2026, given many policies only came in mid-2026?"},
+      "answer_summary": {"it": "Non lo dice: «più o meno nell'ordine del 2026», con la prudenza di chi non vuole prevedere discontinuità.", "en": "He does not say so: \"somewhere in the range of what '26 was, plus or minus\", with the caution of someone unwilling to forecast discontinuities."},
+      "directness": 3
+    },
+    {
+      "question": {"it": "Che cosa spiega il calo implicito dal T3 al T4, fra fatti tecnici e operativi? Quanto valeva il rilascio delle riserve assicurative?", "en": "What explains the implied Q3-to-Q4 step-down, between mechanical and operational items? How big was the insurance reserve release?"},
+      "answer_summary": {"it": "Il direttore finanziario ricostruisce tutto: forchetta del T4 (1,17-1,47 $), stagionalità di etanolo e aromi, 45Z un po' più basso, rientro della maggior parte del mark-to-market, e 40-50 milioni $ di rilascio una tantum.", "en": "The CFO rebuilds everything: the Q4 range ($1.17-1.47), ethanol and flavors seasonality, slightly lower 45Z, reversal of most of the mark-to-market, and a $40-50m one-time release."},
+      "directness": 5
+    },
+    {
+      "question": {"it": "Quanto possono valere nel 2027 i crediti di carbonio volontari di Columbus?", "en": "What could Columbus's voluntary carbon credits be worth in 2027?"},
+      "answer_summary": {"it": "«Preferisco non dare un numero» finché il mercato, ancora nascente, non si sviluppa.", "en": "\"I'm going to be shy about putting a number out there\" until the still-nascent market develops."},
+      "directness": 2
+    },
+    {
+      "question": {"it": "Come vanno le trattative annuali sui dolcificanti di mais?", "en": "How are the annual corn sweetener negotiations going?"},
+      "answer_summary": {"it": "«È presto», le trattative sono in corso: nessuna indicazione su prezzi o volumi.", "en": "\"It's a little bit early\", negotiations are ongoing: no indication on price or volume."},
+      "directness": 2
+    }
+  ],
+  "language_changes": [
+    {
+      "topic": {"it": "Margini di spremitura", "en": "Crush margins"},
+      "from": {"it": "ambiente «costruttivo» per i biocarburanti", "en": "a \"constructive\" biofuels environment"},
+      "to": {"it": "«forse i margini hanno toccato il massimo nel T3», ma senza crollo", "en": "\"maybe crush margins peaked in Q3\", but without a collapse"},
+      "note": {"it": "Prima ammissione esplicita che il punto alto del ciclo potrebbe essere passato.", "en": "The first explicit admission that the top of the cycle may have passed."}
+    },
+    {
+      "topic": {"it": "Credito 45Z", "en": "45Z credit"},
+      "from": {"it": "circa 250 milioni $ di beneficio netto nel 2026", "en": "about $250m of net benefit in 2026"},
+      "to": {"it": "circa 350 milioni $", "en": "about $350m"},
+      "note": {"it": "Una parte importante del rialzo viene da un incentivo pubblico, che l'azienda stessa lega a più CO2 catturata.", "en": "An important part of the raise comes from a public incentive, which the company itself links to more CO2 captured."}
+    },
+    {
+      "topic": {"it": "Investimenti", "en": "Capital spending"},
+      "from": {"it": "1,3-1,5 miliardi $ nel 2026", "en": "$1.3-1.5bn in 2026"},
+      "to": {"it": "1,2-1,3 miliardi $, per sequenza dei progetti; nel lungo periodo 1,2-1,5 miliardi l'anno", "en": "$1.2-1.3bn, on project sequencing; long term $1.2-1.5bn a year"},
+      "note": {"it": "Una spesa più bassa, non un risultato più basso: per questo non è contata fra le voci di guidance.", "en": "Lower spending, not a lower result: so it is not counted among the guidance items."}
+    },
+    {
+      "topic": {"it": "Politica sui biocarburanti", "en": "Biofuel policy"},
+      "from": {"it": "obblighi di miscelazione finalizzati a marzo 2026", "en": "blending obligations finalized in March 2026"},
+      "to": {"it": "dopo quattro amministrazioni, «non mi aspetto un cambiamento di fondo» anche con le elezioni di metà mandato", "en": "after four administrations, \"I don't expect a fundamental shift\" even with the midterms"},
+      "note": {"it": "La dipendenza dalla politica è il rischio principale dei risultati, e l'amministratore delegato lo affronta con l'esperienza più che con dati.", "en": "Policy dependence is the main risk to the results, and the CEO addresses it with experience rather than data."}
+    }
+  ],
+  "file": "ADM_2026Q3.json",
+  "source": "Alpha Vantage transcript (non ridistribuito)",
+  "extracted_by": "Claude (estrazione manuale, stessa forma del passo automatico)"
+}

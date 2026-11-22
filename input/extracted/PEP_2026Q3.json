@@ -1,0 +1,88 @@
+{
+  "ticker": "PEP",
+  "quarter": "T3 '26",
+  "call_date": "2026-10-08",
+  "tone": 50,
+  "tone_why": {
+    "it": "Ricavi in accelerazione, utile sotto pressione. Il fatturato organico cresce del 3,1%, il ritmo più alto dal T4 2023, e i volumi tengono (bevande +3%, snack +4% escludendo i cereali del Sudafrica). Le attività internazionali vanno molto bene (+8%, quasi metà dell'utile). Ma la guidance sull'utile per azione viene tagliata per i margini del T4: materie prime in salita mentre scadono le coperture, mix sfavorevole, e un beneficio sui dazi del T3 che sparisce. Sul Nord America il management dice di «non essere soddisfatto», e sulle bevande gassate di «non sentirsi bene». Nessuna indicazione sul 2027 prima di febbraio. Si dice aperto a «rivedere ogni opzione», anche cedere ai partner la distribuzione delle bevande (refranchising).",
+    "en": "Revenue accelerating, earnings under pressure. Organic revenue grows 3.1%, the fastest pace since Q4 2023, and volumes hold up (beverages +3%, snacks +4% excluding South African grains). International does very well (+8%, almost half of profit). But EPS guidance is cut on Q4 margins: input costs rising as hedges roll off, unfavourable mix, and a Q3 tariff benefit that goes away. On North America management says it is \"not satisfied\", and on soft drinks that it does \"not feel good\". No indication for 2027 before February. It says it is open to \"revisiting every option\", including handing beverage distribution to bottling partners (refranchising)."
+  },
+  "guidance": [
+    {
+      "metric": {"it": "Utile per azione core 2026", "en": "2026 core EPS"},
+      "value": {"it": "tagliato per il margine del T4 (materie prime, mix, fine del beneficio sui dazi); la cifra è nel comunicato, non detta nella sessione di domande", "en": "cut on Q4 margin (input costs, mix, end of the tariff benefit); the figure is in the release, not stated in the Q&A session"},
+      "direction": "ridotta"
+    },
+    {
+      "metric": {"it": "Crescita organica dei ricavi 2026", "en": "2026 organic revenue growth"},
+      "value": {"it": "circa 3%, attese sui ricavi invariate", "en": "about 3%, top-line expectations unchanged"},
+      "direction": "confermata"
+    },
+    {
+      "metric": {"it": "Ricavi del T4 e del 2027", "en": "Q4 and 2027 revenue"},
+      "value": {"it": "miglioramento sequenziale atteso dal 3,1% del T3, verso l'obiettivo di lungo periodo del 4%", "en": "sequential improvement expected from Q3's 3.1%, toward the 4% long-term goal"},
+      "direction": "prima"
+    },
+    {
+      "metric": {"it": "2027", "en": "2027"},
+      "value": {"it": "nessuna indicazione fino a febbraio; materie prime «in continua salita» con la scadenza delle coperture a 6-12 mesi", "en": "no indication until February; input costs \"continue to ramp up\" as the 6-12 month hedges roll off"},
+      "direction": "prima"
+    }
+  ],
+  "qa": [
+    {
+      "question": {"it": "Che cosa è cambiato nei margini del T4, e quali sono le voci da considerare per il 2027?", "en": "What changed in Q4 margins, and what are the buckets to consider for 2027?"},
+      "answer_summary": {"it": "Le cause sono nominate (costi delle materie prime, mix, investimenti in pubblicità mantenuti), ma sul 2027 nessuna voce: «preferisco non dare una visione parziale».", "en": "The causes are named (input costs, mix, sustained advertising investment), but nothing on 2027: \"I'd rather not give a partial view now\"."},
+      "directness": 3
+    },
+    {
+      "question": {"it": "Quanta parte della pressione sui margini è investimento voluto e quanta inflazione inattesa?", "en": "How much of the margin pressure is deliberate investment and how much unexpected inflation?"},
+      "answer_summary": {"it": "«Non entrerò nel dettaglio»: elenca coperture, pubblicità e dazi senza dire quanto pesa ciascuno.", "en": "\"I will not get into granular detail\": he lists hedges, advertising and tariffs without saying how much each weighs."},
+      "directness": 2
+    },
+    {
+      "question": {"it": "Il consiglio considera cambi di struttura più grandi: separare Nord America e internazionale, snack e bevande, cedere marchi o la distribuzione?", "en": "Is the Board considering bigger structural changes: splitting North America and International, snacks and beverages, divesting brands or bottling?"},
+      "answer_summary": {"it": "«Siamo aperti a rivedere ogni opzione», con il riferimento concreto a cedere la distribuzione in alcune zone; sulla separazione in due società nessuna parola.", "en": "\"We're open to revisiting every option\", with a concrete reference to refranchising in some regions; nothing on a split into two companies."},
+      "directness": 3
+    },
+    {
+      "question": {"it": "Il «circa 3%» di crescita vuol dire un miglioramento sequenziale dopo il 3,1% del T3?", "en": "Does \"approximately 3%\" growth mean sequential improvement after Q3's 3.1%?"},
+      "answer_summary": {"it": "Sì, miglioramento sequenziale nel T4 e soprattutto nel 2027, senza tagli agli investimenti.", "en": "Yes, sequential improvement in Q4 and especially into 2027, with no cuts to investment."},
+      "directness": 4
+    },
+    {
+      "question": {"it": "Di quanto sono salite le attese di inflazione dietro il taglio? La pressione continuerà nel primo semestre 2027?", "en": "How much did the inflation expectation move up behind the cut? Will the pressure continue into the first half of 2027?"},
+      "answer_summary": {"it": "Nessun numero: le materie prime salgono con la fine delle coperture, il quadro completo a febbraio.", "en": "No number: input costs are rising as hedges roll off, the full picture in February."},
+      "directness": 2
+    }
+  ],
+  "language_changes": [
+    {
+      "topic": {"it": "Costi delle materie prime", "en": "Input costs"},
+      "from": {"it": "coperture a 6-12 mesi che hanno protetto i margini fino a oggi", "en": "6-12 month hedges that have protected margins until now"},
+      "to": {"it": "«una nuova ondata di inflazione» su energia e prodotti agricoli, che arriva ora nei conti", "en": "\"this new wave of inflation\" on energy and agricultural prices, now reaching the accounts"},
+      "note": {"it": "La pressione non è un fatto del T4: il management la descrive come una tendenza che continua.", "en": "The pressure is not a Q4 event: management describes it as a continuing trend."}
+    },
+    {
+      "topic": {"it": "Bevande in Nord America", "en": "North America beverages"},
+      "from": {"it": "un'area da migliorare", "en": "an area to improve"},
+      "to": {"it": "«non ci sentiamo bene» sulle bevande e «insoddisfatti» delle bibite gassate; più investimenti e «urgenza» nell'esecuzione", "en": "\"we do not feel good\" about beverages and \"dissatisfied\" in soft drinks; more investment and \"urgency\" in execution"},
+      "note": {"it": "Gli analisti fanno notare che «urgenza» suona tattica; la risposta resta su tagli ai costi e investimenti nei marchi.", "en": "Analysts point out that \"urgency\" sounds tactical; the answer stays on cost cuts and brand investment."}
+    },
+    {
+      "topic": {"it": "Struttura del gruppo", "en": "Group structure"},
+      "from": {"it": "integrazione di cibo e bevande negli Stati Uniti (prova in Texas)", "en": "integrating food and beverages in the US (Texas pilot)"},
+      "to": {"it": "approccio «ibrido» per regione: integrazione dove funziona, cessione della distribuzione ai partner dove ha senso", "en": "a \"hybrid\" approach by region: integration where it works, refranchising to partners where it makes sense"},
+      "note": {"it": "Prima apertura esplicita a cedere distribuzione negli Stati Uniti, sotto la pressione di un titolo debole.", "en": "The first explicit openness to US refranchising, under the pressure of a weak share price."}
+    },
+    {
+      "topic": {"it": "Prezzi degli snack", "en": "Snack pricing"},
+      "from": {"it": "riduzione dei prezzi per recuperare volumi", "en": "a price reset to win back volume"},
+      "to": {"it": "volumi passati da un lieve calo a una lieve crescita; ora prezzi e mix rivisti per assorbire l'inflazione, con soglie di prezzo per restare accessibili", "en": "volumes moved from a slight decline to slight growth; now pricing and mix revised to absorb inflation, with price-point guardrails to stay affordable"},
+      "note": {"it": "La scommessa sui volumi ha funzionato meno del previsto, e l'inflazione spinge già nella direzione opposta.", "en": "The volume bet worked less than expected, and inflation is already pushing the other way."}
+    }
+  ],
+  "file": "PEP_2026Q3.json",
+  "source": "Alpha Vantage transcript (non ridistribuito)",
+  "extracted_by": "Claude (estrazione manuale, stessa forma del passo automatico)"
+}

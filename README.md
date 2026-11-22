@@ -42,7 +42,10 @@ aggiornato. Parte da solo anche quando carichi file in `pipeline/`, `input/`,
 | Azioni in circolazione | da solo, SEC | a ogni giro |
 | Fatti rilevanti 8-K | da solo, SEC EDGAR | a ogni giro |
 | Short interest | da solo, FINRA | due volte al mese, quando FINRA pubblica |
-| Trascrizioni delle call | da sole, Alpha Vantage (25 al giorno); i fatti a mano | dopo ogni stagione degli utili |
+| Trascrizioni delle call | da sole, Alpha Vantage (le richieste che restano delle 25 al giorno); i fatti a mano | dopo ogni stagione degli utili |
+| Utili contro attese | da soli, Alpha Vantage (12 aziende al giorno) | dopo ogni trimestrale dell'azienda |
+| Calendario delle trimestrali | da solo, Alpha Vantage | una volta al giorno |
+| Elenco dei titoli quotati | da solo, Alpha Vantage | una volta alla settimana |
 
 Lo short interest lo pubblica FINRA due volte al mese, con la data di
 regolamento del 15 e quella di fine mese, circa sette giorni di Borsa dopo. La
@@ -188,6 +191,67 @@ rompersi.
 Il sotto-punteggio **Guidance e tono** usa la media delle ultime quattro call
 estratte di quella azienda. Prima di questa parte la sua copertura era zero e il
 peso (20%) veniva ridistribuito sugli altri.
+
+## Utili contro attese, calendario e titoli quotati (Alpha Vantage)
+
+Dal 23 novembre 2026 la stessa chiave di Alpha Vantage serve anche a tre cose
+che costano poco (codice in `pipeline/alphavantage.py`):
+
+| Richiesta | Che cosa dà | Quante richieste |
+|---|---|---|
+| `LISTING_STATUS` | i titoli quotati e quelli tolti dalla borsa | 2 alla settimana |
+| `EARNINGS_CALENDAR` | le prossime trimestrali di tutte le aziende, per tre mesi | 1 al giorno |
+| `EARNINGS` | per ogni trimestre: utile per azione annunciato, attese degli analisti, sorpresa | 1 per azienda: la prima volta per tutte, poi dopo ogni sua trimestrale |
+
+**Chi usa le 25 richieste.** Sono una quota sola, e passano tutte dal workflow
+**Scarica trascrizioni**, una volta al giorno. Prima l'elenco dei titoli, se ha
+più di una settimana; poi il calendario; poi gli utili di al massimo 12 aziende
+(prima quelle che hanno appena annunciato i risultati, poi quelle che non li
+hanno mai avuti, nello stesso ordine delle trascrizioni); con quello che resta,
+le trascrizioni. Il numero 12 si cambia dal pulsante *Run workflow* (campo
+`earnings`). Con 200 aziende il primo giro completo degli utili dura circa 17
+giorni; nel frattempo arrivano 10-12 trascrizioni al giorno invece di 20-25.
+Dopo, gli utili costano in media 2-3 richieste al giorno, di più nelle settimane
+delle trimestrali.
+
+Un'azienda si rilegge quando una sua trimestrale è passata (dal calendario o da
+un 8-K con item 2.02) ed è più recente dell'ultima che abbiamo. Se Alpha
+Vantage non ha ancora il dato, si riprova per tre giorni, poi si aspetta la
+trimestrale dopo.
+
+**Dove restano i dati.** Nella cache di GitHub Actions, cartella
+`cache-alphavantage`, non nel repository: sono dati di Alpha Vantage. Il
+workflow delle trascrizioni la salva; il giro orario del sito (`update.yml`) la
+legge con `actions/cache/restore`, che legge e non salva mai, così una copia
+vecchia non può prendere il posto di quella nuova. Nelle schede finiscono solo i
+numeri che il sito mostra: gli ultimi dodici trimestri e la prossima trimestrale.
+Se la cache sparisce (GitHub la cancella dopo sette giorni senza uso, ma il giro
+orario la usa ogni ora) gli utili si riscaricano da capo, e nel frattempo il
+sito funziona come prima.
+
+**Che cosa ne fa il sito.**
+
+- Nella scheda di ogni azienda: la scheda *Utili* con utile, attese e sorpresa
+  degli ultimi trimestri, e la data della prossima trimestrale.
+- Un ticker che non risulta più quotato diventa un avviso nei problemi della
+  scheda, con la data in cui è stato tolto e l'invito a sostituirlo in
+  `config.json`. È il caso BK→BNY, che sarebbe stato trovato da solo.
+- **Un bonus nuovo nella voce insider, stimato dai dati.** La domanda è: un
+  insider che compra dopo una trimestrale sopra le attese conta di più? Ogni
+  campagna di acquisti guarda l'ultima trimestrale annunciata *prima* del primo
+  acquisto (entro 100 giorni; il giorno stesso dell'annuncio non conta, perché
+  l'acquisto può essere venuto prima dei numeri). Il bonus `beat` si stima come
+  gli altri tre in `pipeline/bonus.py`, con lo stesso restringimento verso zero,
+  ma sulle sole campagne per cui il dato c'è e con le altre tre caratteristiche
+  come controllo: così cluster, due compratori e dirigente apicale non cambiano
+  per il fatto che gli utili ci siano o no. A mano valeva zero, quindi parte da
+  zero. Se la trimestrale era in linea o sotto, la voce insider lo scrive fra le
+  ragioni ma non toglie punti: non c'è una regola per quel caso.
+- **Una voce in più nella prova all'indietro**, `surprise`: per ogni data, la
+  sorpresa dell'ultima trimestrale (entro 100 giorni) contro il rendimento delle
+  60 sedute dopo, fra aziende dello stesso universo. È la prova classica della
+  deriva dopo l'annuncio degli utili. Nel punteggio non entra: se la prova
+  mostrasse un segnale, sarebbe la ragione per farla entrare.
 
 ## La divergenza, senza comprare le stime degli analisti
 
@@ -1090,6 +1154,8 @@ pipeline/sources.py    rete: stooq e EDGAR, con il parsing separato e testabile
 pipeline/rules.py      classificazione delle operazioni, cluster, storico
 pipeline/score.py      la formula: sotto-punteggi, pesi, confidenza
 pipeline/extract.py    il passo dell'LLM sulle trascrizioni, con cache su disco
+pipeline/trascrizioni.py  il giro giornaliero di Alpha Vantage: trascrizioni in Word
+pipeline/alphavantage.py  utili contro attese, calendario e titoli quotati
 pipeline/build.py      mette tutto insieme e scrive site/data.json
 site/                  il sito pubblicato: legge data.json a ogni apertura
 tests/test_offline.py  i test che girano anche dentro GitHub Actions
@@ -1121,6 +1187,10 @@ stessa call non si paga due volte.
   rimaste fuori; un'azienda aggiunta dopo va controllata.
 - La guidance copre solo le aziende per cui c'è un export delle trascrizioni
   fatto a mano: con duecento aziende la maggior parte ha copertura all'80%.
+- Gli utili contro attese sono quelli di Alpha Vantage: l'utile «rettificato» e
+  la media delle stime che Alpha Vantage raccoglie, non quella di un fornitore a
+  pagamento. Una sorpresa calcolata su attese vicine a zero può venire enorme;
+  il bonus guarda solo il segno, la prova all'indietro solo l'ordine.
 - Lo score non è una raccomandazione di investimento.
 
 ## Passo successivo

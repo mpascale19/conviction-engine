@@ -1,0 +1,113 @@
+{
+  "ticker": "HBAN",
+  "quarter": "T3 '26",
+  "call_date": "2026-10-22",
+  "tone": 52,
+  "tone_why": {
+    "it": "Una call difensiva, la prima dopo il taglio della guidance annunciato a una conferenza di settembre. Il management si dice «molto fiducioso» nell'utile per azione 2027 di 1,75-1,83 $ e lo ricostruisce voce per voce, con un rendimento del patrimonio tangibile verso il 17-18%. Ma ammette di aver sbagliato lo scenario: a inizio anno si aspettava tassi in calo e poca concorrenza, e ha trovato il contrario. L'azienda si ritira da mutui, auto e immobiliare commerciale dove i prezzi «non sono razionali», e l'amministratore delegato dice di non ricordare in tutta la carriera tante difficoltà globali insieme. Il credito resta buono, con perdite al limite basso della fascia.",
+    "en": "A defensive call, the first after the guidance cut announced at a September conference. Management says it is \"quite confident\" in the $1.75-1.83 2027 EPS and rebuilds it item by item, with return on tangible equity heading to 17-18%. But it admits the scenario was wrong: at the start of the year it expected falling rates and benign competition, and got the opposite. The bank is pulling back from mortgages, auto and commercial real estate where pricing is \"not rational\", and the CEO says he does not recall so many global challenges at once in his whole career. Credit remains good, with losses at the low end of the range."
+  },
+  "guidance": [
+    {
+      "metric": {"it": "Utile per azione 2027", "en": "2027 EPS"},
+      "value": {"it": "1,75-1,83 $, la fascia tagliata a settembre e qui confermata", "en": "$1.75-1.83, the range cut in September and confirmed here"},
+      "direction": "ridotta"
+    },
+    {
+      "metric": {"it": "Crescita dei depositi 2026", "en": "2026 deposit growth"},
+      "value": {"it": "ora circa 2,5%", "en": "now about 2.5%"},
+      "direction": "ridotta"
+    },
+    {
+      "metric": {"it": "Commissioni 2026", "en": "2026 fee income"},
+      "value": {"it": "circa 750 milioni $ nel T4, crescita annua di circa il 13%; il T3 è arrivato poco sotto i 730 milioni $ indicati a settembre", "en": "about $750m in Q4, about 13% growth for the year; Q3 came in just under the $730m indicated in September"},
+      "direction": "ridotta"
+    },
+    {
+      "metric": {"it": "Crescita dei prestiti 2026", "en": "2026 loan growth"},
+      "value": {"it": "circa 6% organica, circa 3,6% riportata, con un T4 in crescita", "en": "about 6% organic, about 3.6% reported, with a growing Q4"},
+      "direction": "confermata"
+    },
+    {
+      "metric": {"it": "Margine di interesse 2026", "en": "2026 net interest income"},
+      "value": {"it": "crescita di circa il 3,5%, margine stabile al 3,25% nel T4", "en": "about 3.5% growth, margin stable at 3.25% in Q4"},
+      "direction": "confermata"
+    },
+    {
+      "metric": {"it": "Perdite su crediti 2026", "en": "2026 net charge-offs"},
+      "value": {"it": "al limite basso della fascia 25-35 punti base", "en": "at the low end of the 25-35 basis point range"},
+      "direction": "confermata"
+    },
+    {
+      "metric": {"it": "Leva operativa 2026", "en": "2026 operating leverage"},
+      "value": {"it": "almeno 100 punti base, costi del T4 piatti sul T3", "en": "at least 100 basis points, Q4 costs flat on Q3"},
+      "direction": "confermata"
+    },
+    {
+      "metric": {"it": "Rendimento del patrimonio tangibile", "en": "Return on tangible common equity"},
+      "value": {"it": "17-18% nel 2027, oltre il 18% più avanti", "en": "17-18% in 2027, above 18% longer term"},
+      "direction": "confermata"
+    },
+    {
+      "metric": {"it": "Riacquisto di azioni 2026-2027", "en": "2026-2027 share buybacks"},
+      "value": {"it": "circa 1,8-1,9 miliardi $ in due anni", "en": "about $1.8-1.9bn over two years"},
+      "direction": "prima"
+    }
+  ],
+  "qa": [
+    {
+      "question": {"it": "Avete finito con i tagli? E, a parte i tassi, che cosa avevate sbagliato quando avete fissato la prima volta l'obiettivo 2027?", "en": "Are you done with the cuts? And, rates aside, what did you get wrong when you first set the 2027 target?"},
+      "answer_summary": {"it": "Riconosce gli errori (tassi, inflazione, concorrenza molto più dura) e il direttore delle relazioni con gli investitori ricostruisce l'utile 2027 cifra per cifra. Non dice esplicitamente «i tagli sono finiti», ma si dice «molto fiducioso».", "en": "He acknowledges the errors (rates, inflation, much tougher competition) and the head of investor relations rebuilds 2027 earnings figure by figure. He does not say explicitly \"the cuts are over\", but calls himself \"quite confident\"."},
+      "directness": 4
+    },
+    {
+      "question": {"it": "Qual è il ritmo giusto di crescita dei prestiti per voi, con tutti i mercati nuovi?", "en": "What is the right pace of loan growth for you, with all the new markets?"},
+      "answer_summary": {"it": "Nessun numero: spiega la prudenza («sono forse più cauto dei colleghi») e ribadisce che il ritiro da alcuni prestiti è una scelta di prezzo, non di credito.", "en": "No number: he explains his caution (\"a little more cautious perhaps than some of my peers\") and repeats that the pullback from some loans is a pricing decision, not a credit one."},
+      "directness": 3
+    },
+    {
+      "question": {"it": "Nel ponte verso il 2027 c'è un rilascio di riserve sui crediti?", "en": "Does the bridge to 2027 include a reserve release?"},
+      "answer_summary": {"it": "No, detto chiaramente: nessun rilascio nel 2027, anzi riserve in crescita con il portafoglio, e riacquisti per 1,8-1,9 miliardi $ in due anni.", "en": "No, said clearly: no release in 2027, rather reserves growing with the portfolio, and buybacks of $1.8-1.9bn over two years."},
+      "directness": 5
+    },
+    {
+      "question": {"it": "Sui prezzi di prestiti e depositi, Huntington vuole essere leader, nel mezzo o indietro?", "en": "On loan and deposit pricing, does Huntington want to be a leader, in the middle of the pack or a laggard?"},
+      "answer_summary": {"it": "«Scambiare valore con valore»: una formula che non colloca la banca da nessuna parte.", "en": "\"Exchange value for value\": a formula that places the bank nowhere."},
+      "directness": 2
+    },
+    {
+      "question": {"it": "Che sensibilità dei depositi ai tassi (beta) avete nelle stime?", "en": "What deposit beta is in your assumptions?"},
+      "answer_summary": {"it": "Un numero e la sua giustificazione: 50-60%, più del 45% del ciclo 2022-2024, in linea con quello che vede oggi e verso l'alto dei concorrenti.", "en": "A number and its justification: 50-60%, above the 45% of the 2022-2024 cycle, in line with what it sees today and towards the high end of peers."},
+      "directness": 5
+    }
+  ],
+  "language_changes": [
+    {
+      "topic": {"it": "Scenario", "en": "Scenario"},
+      "from": {"it": "a inizio anno: tagli dei tassi e concorrenza «molto benigna»", "en": "at the start of the year: rate cuts and a \"very benign\" competitive environment"},
+      "to": {"it": "«l'opposto»: rialzi dei tassi e concorrenza più intensa, che si assume continui per tutto il 2027", "en": "\"the opposite\": rate hikes and intensified competition, assumed to last through 2027"},
+      "note": {"it": "Ammissione esplicita che l'obiettivo originale poggiava su uno scenario sbagliato.", "en": "An explicit admission that the original target rested on the wrong scenario."}
+    },
+    {
+      "topic": {"it": "Immobiliare commerciale", "en": "Commercial real estate"},
+      "from": {"it": "ridurre l'esposizione nell'arco di un paio d'anni", "en": "reduce exposure over a couple of years"},
+      "to": {"it": "sta succedendo «molto più in fretta del previsto», con i rifinanziamenti finiti a Fannie, Freddie e fondi di debito", "en": "it is happening \"much faster than we would have projected\", with refinancings going to Fannie, Freddie and debt funds"},
+      "note": {"it": "La riduzione è più rapida perché i clienti se ne vanno, non solo perché la banca stringe.", "en": "The reduction is faster because customers leave, not only because the bank tightens."}
+    },
+    {
+      "topic": {"it": "Prudenza dell'amministratore delegato", "en": "The CEO's caution"},
+      "from": {"it": "ambiente «nel complesso costruttivo»", "en": "a \"generally constructive\" environment"},
+      "to": {"it": "«non ricordo così tante difficoltà globali in nessun momento della mia carriera»; non prevede una crisi, ma stringe", "en": "\"I do not recall the amount of challenges that we are seeing globally at any time in my career\"; he does not forecast a downturn, but tightens up"},
+      "note": {"it": "Lo stesso discorso tiene insieme l'ottimismo sull'utile 2027 e una cautela insolita sul contesto.", "en": "The same speech holds together optimism on 2027 earnings and an unusual caution on the backdrop."}
+    },
+    {
+      "topic": {"it": "Commissioni", "en": "Fee income"},
+      "from": {"it": "crescita riportata del 26,5-29,5% a inizio anno; circa 730 milioni $ nel T3 detti a settembre", "en": "26.5-29.5% reported growth at the start of the year; about $730m for Q3 said in September"},
+      "to": {"it": "31% sull'anno, ma un T3 poco sotto i 730 milioni $ per il rialzo dei tassi", "en": "31% for the year, but a Q3 just under $730m because of the jump in rates"},
+      "note": {"it": "Sopra le attese dell'anno, sotto quelle di poche settimane prima: un piccolo ritocco al ribasso.", "en": "Above the expectations for the year, below those of a few weeks earlier: a small trim lower."}
+    }
+  ],
+  "file": "HBAN_2026Q3.json",
+  "source": "Alpha Vantage transcript (non ridistribuito)",
+  "extracted_by": "Claude (estrazione manuale, stessa forma del passo automatico)"
+}

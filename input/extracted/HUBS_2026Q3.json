@@ -1,0 +1,113 @@
+{
+  "ticker": "HUBS",
+  "quarter": "T3 '26",
+  "call_date": "2026-11-04",
+  "tone": 45,
+  "tone_why": {
+    "it": "Una call di transizione, con le difficoltà dette apertamente. I «venti contrari» comparsi nel T2 sono diventati «più marcati» nel T3 e continueranno nel 2027: i clienti vogliono vedere l'intelligenza artificiale funzionare prima di comprare, i budget sono più stretti, le decisioni coinvolgono più persone. La crescita dei ricavi scende al 12% nel T4 (dal 17%), i nuovi ricavi ricorrenti (ARR) caleranno sull'anno, la fidelizzazione netta perde circa 2 punti, e l'azienda smette di dare una stima sui clienti nuovi del T4. In mezzo, segnali di utilizzo forti (prove di agenti +64% nel trimestre, consumo di crediti 2,5 volte da inizio anno) e la conferma del margine 2027 al 23-24%, ma tutti presentati come «primi segnali».",
+    "en": "A transition call, with the difficulties stated openly. The \"headwinds\" that emerged in Q2 became \"more pronounced\" in Q3 and will continue into 2027: customers want to see AI work before buying, budgets are tighter, decisions involve more people. Revenue growth drops to 12% in Q4 (from 17%), net new ARR will decline for the year, net revenue retention loses about 2 points, and the company stops giving a Q4 net-adds estimate. In between, strong usage signals (agent trials +64% in the quarter, credit consumption 2.5x since the start of the year) and the confirmed 23-24% 2027 margin, but all presented as \"early\" signs."
+  },
+  "guidance": [
+    {
+      "metric": {"it": "Nuovi ricavi ricorrenti (net new ARR) 2026", "en": "2026 net new ARR"},
+      "value": {"it": "ora in calo sull'anno", "en": "now declining year over year"},
+      "direction": "ridotta"
+    },
+    {
+      "metric": {"it": "Fidelizzazione netta dei ricavi 2026", "en": "2026 net revenue retention"},
+      "value": {"it": "in calo di circa 2 punti sull'anno (101% nel T3)", "en": "down about 2 points year over year (101% in Q3)"},
+      "direction": "ridotta"
+    },
+    {
+      "metric": {"it": "Clienti nuovi netti del T4", "en": "Q4 net customer additions"},
+      "value": {"it": "nessuna stima, ma sotto i 5.000 (5.300 nel T3, 7.000 nel T2)", "en": "no estimate, but below 5,000 (5,300 in Q3, 7,000 in Q2)"},
+      "direction": "ridotta"
+    },
+    {
+      "metric": {"it": "Andamento 2027", "en": "2027 trajectory"},
+      "value": {"it": "i venti contrari più marcati continueranno nel 2027; guidance formale a febbraio", "en": "the more pronounced headwinds will continue into 2027; formal guidance in February"},
+      "direction": "ridotta"
+    },
+    {
+      "metric": {"it": "Ricavi del T4 2026", "en": "Q4 2026 revenue"},
+      "value": {"it": "945-947 milioni $, +12% (17% nel T3)", "en": "$945-947m, +12% (17% in Q3)"},
+      "direction": "prima"
+    },
+    {
+      "metric": {"it": "Ricavi e utile per azione 2026", "en": "2026 revenue and EPS"},
+      "value": {"it": "3,685-3,687 miliardi $ (+16% a cambi costanti), utile per azione non-GAAP 13,59-13,61 $; la call non dice di quanto cambiano rispetto alla stima precedente", "en": "$3.685-3.687bn (+16% constant currency), non-GAAP EPS $13.59-13.61; the call does not say how they compare with the prior estimate"},
+      "direction": "prima"
+    },
+    {
+      "metric": {"it": "Margine operativo non-GAAP 2027", "en": "2027 non-GAAP operating margin"},
+      "value": {"it": "23-24%, e gli obiettivi di lungo periodo dell'Analyst Day", "en": "23-24%, and the long-term targets from Analyst Day"},
+      "direction": "confermata"
+    },
+    {
+      "metric": {"it": "Riorganizzazione di ottobre", "en": "October reorganization"},
+      "value": {"it": "60-70 milioni $ di costi di uscita del personale nel T4; parte dei risparmi reinvestita in retention e talenti per l'IA", "en": "$60-70m of severance in Q4; part of the savings reinvested in retention and AI talent"},
+      "direction": "prima"
+    },
+    {
+      "metric": {"it": "Flusso di cassa libero 2026", "en": "2026 free cash flow"},
+      "value": {"it": "circa 720 milioni $", "en": "about $720m"},
+      "direction": "prima"
+    }
+  ],
+  "qa": [
+    {
+      "question": {"it": "Quando sono peggiorate le tendenze nel T3, si sono stabilizzate nel T4? E il 12% del T4 è il punto di partenza per il 2027?", "en": "When did trends worsen in Q3, have they stabilized in Q4? And is Q4's 12% the starting point for 2027?"},
+      "answer_summary": {"it": "L'amministratrice delegata descrive bene le cause e i segnali positivi; la direttrice finanziaria non dà il 2027 ma dice che i venti contrari continueranno: sulla stabilizzazione nessuna risposta netta.", "en": "The CEO describes the causes and positive signals well; the CFO does not give 2027 but says the headwinds will continue: no clear answer on stabilization."},
+      "directness": 3
+    },
+    {
+      "question": {"it": "La pressione sulla fidelizzazione netta viene da meno aggiornamenti o da clienti che se ne vanno?", "en": "Does the net retention pressure come from fewer upgrades or from customers leaving?"},
+      "answer_summary": {"it": "Risposta precisa: gli abbandoni sono stabili (fidelizzazione lorda negli 80 alti), sono gli aggiornamenti e le vendite aggiuntive a calare, più marcatamente fra i clienti piccoli.", "en": "A precise answer: churn is stable (gross retention in the high 80s), it is upgrades and cross-sell that are falling, more markedly among small customers."},
+      "directness": 4
+    },
+    {
+      "question": {"it": "Che cosa vedete nella fila di clienti nuovi, e quanto pesa lo spostamento di risorse sui clienti esistenti?", "en": "What do you see in the new-customer pipeline, and how much does shifting resources to existing customers weigh?"},
+      "answer_summary": {"it": "Spiega perché il dato è sensibile ai clienti piccoli, ma non dà una stima per il T4: «non risolviamo per la metrica di breve periodo».", "en": "She explains why the metric is sensitive to small customers, but gives no Q4 estimate: \"rather than solving for the short-term metric\"."},
+      "directness": 2
+    },
+    {
+      "question": {"it": "È una transizione di più anni? La crescita resterà sotto questi livelli?", "en": "Is this a multiyear transition? Will growth stay below these levels?"},
+      "answer_summary": {"it": "Ammette che «non sarà una trasformazione di uno o due trimestri», ma non dice se la crescita resterà più bassa.", "en": "She concedes \"this is not going to be a one-quarter or two-quarter transformation\", but does not say whether growth will stay lower."},
+      "directness": 3
+    },
+    {
+      "question": {"it": "Con quali criteri porterete il nuovo modello di prezzo ai clienti esistenti? Ci potranno essere due listini?", "en": "With what criteria will you bring the new pricing model to existing customers? Could there be two price lists?"},
+      "answer_summary": {"it": "«Non siamo concentrati su una tempistica di migrazione»: nessun criterio e nessuna risposta sui due listini.", "en": "\"We're not really focused on a timeline for migration\": no criteria and no answer on two price lists."},
+      "directness": 2
+    }
+  ],
+  "language_changes": [
+    {
+      "topic": {"it": "Venti contrari", "en": "Headwinds"},
+      "from": {"it": "comparsi nel T2", "en": "emerged in Q2"},
+      "to": {"it": "«più marcati» nel T3, attesi per tutto il T4 e nel 2027", "en": "\"more pronounced\" in Q3, expected through Q4 and into 2027"},
+      "note": {"it": "La stessa diagnosi di tre mesi fa, ma più grave e più lunga.", "en": "The same diagnosis as three months ago, but more serious and longer."}
+    },
+    {
+      "topic": {"it": "Clienti nuovi", "en": "New customers"},
+      "from": {"it": "fascia di 5.000-6.000 indicata per il T3", "en": "a 5,000-6,000 range given for Q3"},
+      "to": {"it": "nessuna stima per il T4, solo «sotto 5.000»", "en": "no estimate for Q4, only \"below 5,000\""},
+      "note": {"it": "Ritirare un indicatore è un segnale in sé: l'azienda dice che l'incertezza sul dato è «elevata».", "en": "Withdrawing a metric is a signal in itself: the company says uncertainty on the figure is \"elevated\"."}
+    },
+    {
+      "topic": {"it": "Prezzi", "en": "Pricing"},
+      "from": {"it": "abbonamenti per singoli «hub» (marketing, vendite, servizio)", "en": "subscriptions by individual \"hub\" (marketing, sales, service)"},
+      "to": {"it": "un solo posto «go-to-market» più crediti a consumo; prova estesa da Nordici e Benelux a tutta l'area EMEA", "en": "a single \"go-to-market\" seat plus usage credits; pilot extended from the Nordics and Benelux to all of EMEA"},
+      "note": {"it": "Prezzi medi più bassi all'inizio in cambio di più clienti Pro: l'effetto sui ricavi si saprà solo dopo.", "en": "Lower average prices at first in exchange for more Pro customers: the revenue effect will only be known later."}
+    },
+    {
+      "topic": {"it": "Nuovi ricavi ricorrenti", "en": "Net new ARR"},
+      "from": {"it": "crescita attesa nell'anno", "en": "growth expected for the year"},
+      "to": {"it": "«ora ci aspettiamo un calo» nel 2026", "en": "\"we now expect net new ARR to decline\" in 2026"},
+      "note": {"it": "È l'indicatore che anticipa i ricavi futuri: il calo di oggi spiega il rallentamento atteso del 2027.", "en": "It is the metric that leads future revenue: today's decline explains the slowdown expected in 2027."}
+    }
+  ],
+  "file": "HUBS_2026Q3.json",
+  "source": "Alpha Vantage transcript (non ridistribuito)",
+  "extracted_by": "Claude (estrazione manuale, stessa forma del passo automatico)"
+}

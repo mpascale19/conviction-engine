@@ -24,20 +24,29 @@ def _clamp(v, lo=0, hi=100):
     return max(lo, min(hi, v))
 
 
-HAND_BONUS = {"cluster": 18, "two": 8, "senior": 10}   # i valori scritti a mano fino al 22/11/2026
+HAND_BONUS = {"cluster": 18, "two": 8, "senior": 10, "beat": 0}   # i valori scritti a mano fino al 22/11/2026
 
 
 def _pts(p):
     return f"{p:+d}" if p else "0"
 
 
-def insider_score(rows, cluster, tracks, cfg, today=None, bonus=None):
+def _pct(x):
+    return f"{x:+.1f}".replace(".", ",")
+
+
+def insider_score(rows, cluster, tracks, cfg, today=None, bonus=None, beat=None):
     """Acquisti e vendite discrezionali degli ultimi 90 giorni.
 
     `bonus`: quanto valgono cluster, due compratori e dirigente apicale. Dalla
     versione del 22 novembre 2026 li stima pipeline/bonus.py dai dati; se non
     viene passato valgono quelli scritti a mano, così le prove della regola
     restano confrontabili.
+
+    `beat`: l'ultima trimestrale annunciata prima del primo acquisto degli
+    ultimi 90 giorni ({date, sp}, sp = sorpresa in percento), o None se non si
+    sa. Se era sopra le attese vale il bonus `beat`, stimato dai dati come gli
+    altri; a mano valeva zero.
     """
     bonus = dict(HAND_BONUS, **(bonus or {}))
     estimated = bonus != HAND_BONUS
@@ -80,6 +89,23 @@ def insider_score(rows, cluster, tracks, cfg, today=None, bonus=None):
         t_ = tag(bonus["senior"])
         why.append(L("Fra i compratori c'è un dirigente apicale (CEO, CFO o presidente)." + t_["it"],
                      "One of the buyers is a top executive (CEO, CFO or president)." + t_["en"]))
+    if buys and beat and beat.get("sp") is not None:
+        sp, when = beat["sp"], beat["date"]
+        if sp > 0:
+            v += bonus["beat"]
+            t_ = tag(bonus["beat"])
+            why.append(L(f"Gli acquisti sono cominciati dopo una trimestrale sopra le attese "
+                         f"(utile per azione {_pct(sp)}% sulle stime, annunciato il {when})." + t_["it"],
+                         f"The purchases began after results above expectations "
+                         f"(earnings per share {sp:+.1f}% against estimates, reported on {when})." + t_["en"]))
+        else:
+            why.append(L(f"Gli acquisti sono cominciati dopo una trimestrale "
+                         f"{'in linea con' if sp == 0 else 'sotto'} le attese "
+                         f"(utile per azione {_pct(sp)}% sulle stime, annunciato il {when}).",
+                         f"The purchases began after results "
+                         f"{'in line with' if sp == 0 else 'below'} expectations "
+                         f"(earnings per share {sp:+.1f}% against estimates, reported on {when})."))
+
     if any(is_senior(t, titles) for t in sells):
         v -= 10
         why.append(L("Un dirigente apicale ha venduto in modo discrezionale.",

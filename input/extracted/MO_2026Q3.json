@@ -1,0 +1,98 @@
+{
+  "ticker": "MO",
+  "quarter": "T3 '26",
+  "call_date": "2026-10-29",
+  "tone": 66,
+  "tone_why": {
+    "it": "Tono solido ma difensivo. L'utile per azione rettificato cresce del 4,8%, la guidance dell'anno sale a 5,66-5,74 $ (crescita del 4,5-6%, contro il 2,5-5% di inizio anno), il dividendo cresce per la 61ª volta e il programma di riacquisto si allarga di un miliardo $. Marlboro sale al 60% del segmento premium. Ma la crescita viene da prezzi e da un rimborso di accise sulle esportazioni, non dai volumi: le sigarette calano del 4% e i fumatori sono «sotto pressione economica», con il costo della vita salito di circa il 30% dal 2021. La quota di on! scende di 0,3 punti sul trimestre prima, e sulle domande più scomode (utile delle sigarette senza il rimborso, dimensione del rimborso nel 2027) il management non risponde.",
+    "en": "A solid but defensive tone. Adjusted EPS grows 4.8%, full-year guidance rises to $5.66-5.74 (4.5-6% growth, against 2.5-5% at the start of the year), the dividend rises for the 61st time and the buyback programme grows by $1bn. Marlboro rises to 60% of the premium segment. But growth comes from pricing and an export duty refund, not volumes: cigarettes fall 4% and smokers are \"under economic pressure\", with the cost of living up about 30% since 2021. on!'s share slips 0.3 points sequentially, and on the most awkward questions (cigarette profit excluding the refund, the size of the refund in 2027) management does not answer."
+  },
+  "guidance": [
+    {
+      "metric": {"it": "Utile per azione rettificato 2026", "en": "2026 adjusted diluted EPS"},
+      "value": {"it": "5,66-5,74 $, crescita del 4,5-6% sui 5,42 $ del 2025 (prima 2,5-5%)", "en": "$5.66-5.74, 4.5-6% growth on 2025's $5.42 (previously 2.5-5%)"},
+      "direction": "alzata"
+    },
+    {
+      "metric": {"it": "Dividendo trimestrale", "en": "Quarterly dividend"},
+      "value": {"it": "1,11 $, +4,7%, con l'obiettivo di crescita annua «a una cifra media»", "en": "$1.11, +4.7%, with the mid-single-digit annual growth goal"},
+      "direction": "alzata"
+    },
+    {
+      "metric": {"it": "Riacquisto di azioni", "en": "Share buyback"},
+      "value": {"it": "programma allargato di 1 miliardo $, fino al 31 dicembre 2027", "en": "programme expanded by $1bn, through 31 December 2027"},
+      "direction": "alzata"
+    },
+    {
+      "metric": {"it": "Debito su EBITDA", "en": "Debt to EBITDA"},
+      "value": {"it": "1,9 volte, obiettivo circa 2 volte", "en": "1.9x, target about 2x"},
+      "direction": "confermata"
+    },
+    {
+      "metric": {"it": "Rimborso delle accise sulle esportazioni (duty drawback)", "en": "Export duty drawback"},
+      "value": {"it": "equilibrato fra T3 e T4; il contratto di produzione per Philip Morris parte nel 2027, senza cifre", "en": "balanced between Q3 and Q4; the Philip Morris contract manufacturing starts in 2027, with no figures"},
+      "direction": "confermata"
+    },
+    {
+      "metric": {"it": "Sigarette elettroniche NJOY ACE", "en": "NJOY ACE e-vapor"},
+      "value": {"it": "ritorno sul mercato previsto, superati i problemi di brevetto, data non annunciata e «approccio disciplinato»", "en": "a return to market planned, with the patent issues worked around, no date announced and a \"disciplined\" approach"},
+      "direction": "prima"
+    }
+  ],
+  "qa": [
+    {
+      "question": {"it": "Perché i volumi delle sigarette tengono? La pressione sui fumatori si sta allentando? E che ruolo ha Marlboro Cowboy Cut?", "en": "Why are cigarette volumes holding up? Is the pressure on smokers easing? And what role does Marlboro Cowboy Cut play?"},
+      "answer_summary": {"it": "Spiega le cause (meno passaggio alle sigarette elettroniche illegali, più controlli) e dice che la pressione resta. Su Cowboy Cut dà distribuzione (100 mila negozi, 75% dei volumi) e la strategia di prezzo. Risposta piena.", "en": "He explains the causes (less switching to illicit vapes, more enforcement) and says the pressure remains. On Cowboy Cut he gives distribution (100,000 stores, 75% of volume) and the pricing strategy. A full answer."},
+      "directness": 4
+    },
+    {
+      "question": {"it": "Dove siete andati meglio del previsto, per alzare la guidance?", "en": "Where did you beat your expectations, to raise guidance?"},
+      "answer_summary": {"it": "Ricorda il passaggio dal 2,5-5% al 4,5-6% e la forza dei primi nove mesi, ma non dice quali voci hanno sorpreso.", "en": "She recalls the move from 2.5-5% to 4.5-6% and the strength of the first nine months, but does not say which items surprised."},
+      "directness": 3
+    },
+    {
+      "question": {"it": "Quando torna NJOY ACE, e come eviterete le perdite di prima?", "en": "When does NJOY ACE come back, and how will you avoid the earlier losses?"},
+      "answer_summary": {"it": "Nessuna data, solo «disciplina» e il richiamo al mercato illegale: della redditività nessun dettaglio.", "en": "No date, only \"discipline\" and a reference to the illicit market: no detail on profitability."},
+      "directness": 2
+    },
+    {
+      "question": {"it": "Tolto il rimborso delle accise, l'utile delle sigarette è piatto nonostante volumi migliori: come lo farete crescere?", "en": "Excluding the duty drawback, cigarette profit is flat despite better volumes: how will you grow it?"},
+      "answer_summary": {"it": "«È un po' ingiusto isolare un pezzo del margine»: difende il risultato complessivo senza rispondere sul dato chiesto.", "en": "\"It's frankly a little unfair to pick out one aspect of the margin\": he defends the overall result without answering on the figure asked."},
+      "directness": 2
+    },
+    {
+      "question": {"it": "Il rimborso delle accise nel 2027 può arrivare a un miliardo $, o a 700-800 milioni?", "en": "Can the 2027 duty drawback reach $1bn, or $700-800m?"},
+      "answer_summary": {"it": "«No, non diamo quella fascia», e nessun'altra indicazione.", "en": "\"No, we're not providing that range\", and no other indication."},
+      "directness": 1
+    }
+  ],
+  "language_changes": [
+    {
+      "topic": {"it": "Guidance dell'anno", "en": "Full-year guidance"},
+      "from": {"it": "crescita dell'utile per azione del 2,5-5% a inizio anno", "en": "2.5-5% EPS growth at the start of the year"},
+      "to": {"it": "4,5-6%, investimenti in on! PLUS compresi", "en": "4.5-6%, including investment in on! PLUS"},
+      "note": {"it": "Rialzo reale, ma la direttrice finanziaria lo accompagna con la cautela sul consumatore e sui prezzi della benzina.", "en": "A real raise, but the CFO pairs it with caution on the consumer and gasoline prices."}
+    },
+    {
+      "topic": {"it": "Regolazione", "en": "Regulation"},
+      "from": {"it": "la guida dell'FDA sui controlli aveva reso il processo più rapido", "en": "the FDA's enforcement guidance had made the process faster"},
+      "to": {"it": "causa contro l'FDA perché rispetti i 180 giorni previsti dalla legge; l'FDA annuncia una nuova regolamentazione", "en": "a lawsuit against the FDA to make it meet the 180 days set by Congress; the FDA announces new rulemaking"},
+      "note": {"it": "L'azienda passa dalla collaborazione alla causa in tribunale, e rivendica il cambio di rotta dell'agenzia.", "en": "The company moves from cooperation to a lawsuit, and claims the agency's change of course."}
+    },
+    {
+      "topic": {"it": "on! (buste di nicotina)", "en": "on! (nicotine pouches)"},
+      "from": {"it": "quota in crescita", "en": "a growing share"},
+      "to": {"it": "8,3%, +0,1 sull'anno ma −0,3 sul trimestre; spedizioni +13% mentre i dati di vendita al dettaglio sono in calo", "en": "8.3%, +0.1 on the year but −0.3 sequentially; shipments +13% while retail scanner data falls"},
+      "note": {"it": "La differenza fra spedizioni e vendite è spiegata con le scorte dei negozi per i nuovi prodotti: «niente di significativo», dice il management.", "en": "The gap between shipments and sales is explained by store inventory for the new products: \"nothing significant\", management says."}
+    },
+    {
+      "topic": {"it": "Consumatore", "en": "Consumer"},
+      "from": {"it": "pressione economica sui fumatori", "en": "economic pressure on smokers"},
+      "to": {"it": "costo di beni e servizi salito di circa il 30% dal 2021, con la benzina più cara a togliere altro reddito", "en": "the cost of goods and services up roughly 30% since 2021, with dearer gasoline taking further income"},
+      "note": {"it": "La crescita del segmento sconto (34,1% delle vendite, +2 punti) è il segno concreto di questa pressione.", "en": "The growth of the discount segment (34.1% of sales, +2 points) is the concrete sign of this pressure."}
+    }
+  ],
+  "file": "MO_2026Q3.json",
+  "source": "Alpha Vantage transcript (non ridistribuito)",
+  "extracted_by": "Claude (estrazione manuale, stessa forma del passo automatico)"
+}

@@ -1,0 +1,108 @@
+{
+  "ticker": "CAT",
+  "quarter": "T3 '26",
+  "call_date": "2026-10-29",
+  "tone": 74,
+  "tone_why": {
+    "it": "Il trimestre con le vendite più alte della storia (20,7 miliardi $, +17%), utile per azione rettificato +45% e portafoglio ordini record di 78 miliardi $, quasi il doppio di un anno fa, in crescita in tutti e tre i segmenti per il quarto trimestre di fila. La domanda per motori e turbine dei data center spinge gli ordini fino al 2029-2030. Tutte le stime dell'anno sono confermate. Il tono resta però misurato sui margini: al netto dei rimborsi dei dazi il margine operativo resta «vicino al fondo» della fascia obiettivo, con dazi per circa 2,2 miliardi $ e noli più cari, e l'amministratore delegato ammette che nella capacità produttiva «non c'è margine»: un banco prova fermo nel trimestre ha pesato.",
+    "en": "The highest sales quarter in the company's history ($20.7bn, +17%), adjusted EPS +45% and a record $78bn backlog, almost double a year ago, growing in all three segments for the fourth straight quarter. Data-center demand for engines and turbines pushes orders out to 2029-2030. Every full-year estimate is confirmed. The tone stays measured on margins, though: excluding tariff refunds, operating margin remains \"near the bottom\" of the target range, with about $2.2bn of tariffs and higher freight, and the CEO concedes \"there's no slack in the system\" on capacity: a test cell going down weighed on the quarter."
+  },
+  "guidance": [
+    {
+      "metric": {"it": "Ricavi 2026", "en": "2026 sales and revenues"},
+      "value": {"it": "crescita tra il medio e l'alto della doppia cifra («mid- to high teens»)", "en": "growth in the mid- to high teens"},
+      "direction": "confermata"
+    },
+    {
+      "metric": {"it": "Margine operativo rettificato 2026 (senza rimborsi dei dazi)", "en": "2026 adjusted operating margin (ex tariff refunds)"},
+      "value": {"it": "vicino al fondo della fascia obiettivo", "en": "near the bottom of the target range"},
+      "direction": "confermata"
+    },
+    {
+      "metric": {"it": "Flusso di cassa libero industriale (MP&E) 2026", "en": "2026 MP&E free cash flow"},
+      "value": {"it": "nella metà alta della fascia 6-15 miliardi $", "en": "in the top half of the $6-15bn range"},
+      "direction": "confermata"
+    },
+    {
+      "metric": {"it": "Costo dei dazi 2026", "en": "2026 tariff costs"},
+      "value": {"it": "circa 2,2 miliardi $, senza altri rimborsi nel T4", "en": "about $2.2bn, with no further refunds assumed in Q4"},
+      "direction": "confermata"
+    },
+    {
+      "metric": {"it": "Ricavi del T4 2026", "en": "Q4 2026 sales"},
+      "value": {"it": "crescita moderata sull'anno prima; costruzioni stabili per una riduzione delle scorte dei concessionari di circa 1,6 miliardi $", "en": "moderate growth year over year; construction flat on a dealer inventory reduction of about $1.6bn"},
+      "direction": "prima"
+    },
+    {
+      "metric": {"it": "Consegne di locomotive 2026", "en": "2026 locomotive deliveries"},
+      "value": {"it": "ora leggermente in calo sull'anno, per i tempi delle consegne", "en": "now slightly lower year over year, on delivery timing"},
+      "direction": "ridotta"
+    },
+    {
+      "metric": {"it": "Margine nel medio periodo", "en": "Margin over the medium term"},
+      "value": {"it": "risalire verso il centro della fascia obiettivo nei prossimi due anni circa", "en": "work back towards the midpoint of the target range over the next couple of years"},
+      "direction": "prima"
+    },
+    {
+      "metric": {"it": "Capacità dei grandi motori alternativi", "en": "Large reciprocating engine capacity"},
+      "value": {"it": "quasi tre volte il livello del 2024 entro il 2030, con un secondo sito a Winston-Salem", "en": "nearly three times the 2024 level by 2030, with a second site in Winston-Salem"},
+      "direction": "confermata"
+    }
+  ],
+  "qa": [
+    {
+      "question": {"it": "Avete aggiornamenti sui gigawatt di Prime Power? Prendere ordini per il 2029 vuol dire che il 2028 è esaurito?", "en": "Any update on Prime Power gigawatts? Does taking orders into 2029 mean 2028 is sold out?"},
+      "answer_summary": {"it": "Nessun numero di gigawatt, solo che la domanda «continua a crescere». Sul 2028 è più preciso: gli ordini grandi di gas vanno al 2029, mentre per i generatori diesel di riserva il 2028 «non è del tutto pieno».", "en": "No gigawatt figure, only that demand \"continues to trend higher\". On 2028 he is more precise: large gas orders go to 2029, while for diesel backup gensets 2028 is \"not completely full\"."},
+      "directness": 3
+    },
+    {
+      "question": {"it": "Quando contate di tornare verso il centro o la parte alta della fascia dei margini, e quanta capacità in dollari arriva nel 2027?", "en": "When do you expect to get back towards the middle or upper part of the margin range, and how much capacity in dollars comes online in 2027?"},
+      "answer_summary": {"it": "Ammette che i margini stanno «saltellando sul fondo» e che conta di risalire nei prossimi due anni circa, ma rinvia ogni dettaglio sul 2027 al prossimo trimestre e non dà numeri sulla capacità.", "en": "He concedes margins are \"skipping along the bottom\" and expects to climb over the next couple of years, but defers any 2027 detail to next quarter and gives no capacity numbers."},
+      "directness": 2
+    },
+    {
+      "question": {"it": "La guidance implica un T4 quasi piatto sul T3, quando di solito cresce del 5-10%: c'è un problema di capacità o di fornitori?", "en": "The guidance implies Q4 barely up sequentially, when it usually grows 5-10%: is there a capacity or supplier issue?"},
+      "answer_summary": {"it": "Risposta franca: l'energia è limitata dalla capacità, «non c'è margine nel sistema», e un banco prova si è fermato nel trimestre. Il resto è la riduzione stagionale delle scorte e la crescita lenta nelle miniere.", "en": "A candid answer: power is capacity-constrained, \"there's no slack in the system\", and a test cell went down in the quarter. The rest is the seasonal inventory drawdown and the slow ramp in mining."},
+      "directness": 4
+    },
+    {
+      "question": {"it": "Quanta parte delle prenotazioni per turbine e motori viene dagli hyperscaler? Avete visto slittamenti per permessi o credito?", "en": "What share of turbine and engine slots is backed by hyperscalers? Have you seen shifts from permitting or credit?"},
+      "answer_summary": {"it": "Non dà la quota («non quantificheremmo») e dice di non vedere cambiamenti significativi nei tempi.", "en": "He does not give the share (\"I don't think we would quantify\") and says he sees no significant changes in timing."},
+      "directness": 2
+    },
+    {
+      "question": {"it": "Il rapporto tra ordini e fatturato è sceso da 1,7 a 1,3: che cosa aspettarsi nel T4?", "en": "Book-to-bill fell from 1.7 to 1.3: what should we expect in Q4?"},
+      "answer_summary": {"it": "Nessuna indicazione sul T4: spiega che la produzione cresce, che gli ordini grandi arrivano a gradini e che non si deve guardare un solo indicatore.", "en": "No Q4 indication: he explains production is rising, large orders come in lumpy and no single metric should be watched."},
+      "directness": 2
+    }
+  ],
+  "language_changes": [
+    {
+      "topic": {"it": "Margini", "en": "Margins"},
+      "from": {"it": "obiettivo di stare intorno al centro della fascia nel tempo", "en": "aim to operate around the midpoint of the range over time"},
+      "to": {"it": "«stiamo saltellando sul fondo» della fascia, con la risalita spostata ai prossimi due anni", "en": "\"we're kind of skipping along the bottom\" of the range, with the climb moved to the next couple of years"},
+      "note": {"it": "È la sola nota dimessa in una call per il resto molto forte: i dazi e gli investimenti in capacità mangiano la crescita dei volumi.", "en": "It is the only subdued note in an otherwise very strong call: tariffs and capacity spending eat into volume growth."}
+    },
+    {
+      "topic": {"it": "Orizzonte del portafoglio ordini", "en": "Backlog horizon"},
+      "from": {"it": "«di solito avevamo 12 mesi o meno di visibilità»", "en": "\"typically we only had 12 months or less line of sight\""},
+      "to": {"it": "ordini di grandi motori fino al 2029 e di turbine fino al 2030", "en": "large engine orders into 2029 and turbine orders into 2030"},
+      "note": {"it": "Un portafoglio così lungo è insolito per l'azienda, e lei stessa avverte che d'ora in poi crescerà «a gradini».", "en": "Such a long backlog is unusual for the company, which itself warns it will now move \"in a lumpy way\"."}
+    },
+    {
+      "topic": {"it": "Industrie delle risorse (miniere)", "en": "Resource Industries (mining)"},
+      "from": {"it": "forte crescita delle vendite agli utenti finali", "en": "strong growth in sales to users"},
+      "to": {"it": "+4% nel trimestre, «sotto le nostre attese», per ritardi di spedizione e messa in servizio", "en": "+4% in the quarter, \"below our expectations\", on shipping and commissioning delays"},
+      "note": {"it": "L'azienda conta di recuperare nel T4; gli ordini, intanto, sono forti per il terzo trimestre di fila.", "en": "The company expects to catch up in Q4; orders, meanwhile, are strong for the third quarter in a row."}
+    },
+    {
+      "topic": {"it": "Spese dell'anno", "en": "Spending for the year"},
+      "from": {"it": "investimenti per 3,5 miliardi $; ristrutturazione nella fascia annunciata", "en": "capex of $3.5bn; restructuring within the announced range"},
+      "to": {"it": "investimenti per circa 3,3 miliardi $; ristrutturazione per circa 300 milioni $, al limite basso", "en": "capex of about $3.3bn; restructuring of about $300m, at the low end"},
+      "note": {"it": "Due cifre più basse che non cambiano la lettura: sono voci di spesa, non di risultato, e per questo non sono contate fra le voci di guidance.", "en": "Two lower figures that do not change the reading: they are spending items, not outcomes, and so are not counted among the guidance items."}
+    }
+  ],
+  "file": "CAT_2026Q3.json",
+  "source": "Alpha Vantage transcript (non ridistribuito)",
+  "extracted_by": "Claude (estrazione manuale, stessa forma del passo automatico)"
+}

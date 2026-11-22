@@ -26,6 +26,17 @@ cautele che cambiano il risultato più di qualunque formula.
 La conversione è un punto di punteggio per ogni punto percentuale di
 rendimento in più a 60 sedute, al netto del settore.
 
+Dal 23 novembre 2026 c'è una quarta caratteristica, `beat`: la campagna è
+cominciata dopo una trimestrale sopra le attese degli analisti (l'ultima
+annunciata prima del primo acquisto, entro 100 giorni; dati Alpha Vantage, vedi
+pipeline/alphavantage.py). Risponde alla domanda: un insider che compra dopo una
+sorpresa positiva conta di più? A mano non valeva niente, quindi parte da zero.
+Il dato non c'è per tutte le campagne (gli utili arrivano a rate, dodici
+aziende al giorno): per questo il suo effetto si stima a parte, sulle sole
+campagne in cui si sa com'era andata l'ultima trimestrale, con le altre tre
+caratteristiche come controllo. Così le tre stime di prima non cambiano per il
+fatto che il dato nuovo c'è o non c'è.
+
 Che cosa non si stima qui: la penalità per la vendita di un dirigente apicale
 (il backtest guarda solo gli acquisti) e il flusso netto, che è una misura
 continua e non un bonus.
@@ -40,8 +51,9 @@ POINTS_PER_PP = 1.0      # un punto di punteggio per punto percentuale
 MAX_POINTS = 20          # nessun bonus stimato può superare ±20
 
 # i bonus scritti a mano fino al 22 novembre 2026, per il confronto
-HAND = {"cluster": 18, "two": 8, "senior": 10}
-FEATURES = ("cluster", "two", "senior")
+HAND = {"cluster": 18, "two": 8, "senior": 10, "beat": 0}
+FEATURES = ("cluster", "two", "senior", "beat")
+OPTIONAL = ("beat",)     # caratteristiche che non tutte le campagne hanno: si stimano sul sottoinsieme noto
 
 
 def _d(s):
@@ -49,7 +61,7 @@ def _d(s):
 
 
 def episodes(rows, min_people=3):
-    """Acquisti -> episodi. `rows`: {car, t, d, people, senior}.
+    """Acquisti -> episodi. `rows`: {car, t, d, people, senior, beat}.
 
     Dentro un episodio il rendimento è lo stesso per tutti (stesso titolo, stesso
     giorno di partenza); le caratteristiche valgono se valgono per almeno uno.
@@ -57,7 +69,8 @@ def episodes(rows, min_people=3):
     by = {}
     for r in rows:
         e = by.setdefault((r["t"], r["d"]), {"t": r["t"], "d": r["d"], "car": r["car"],
-                                             "people": 0, "senior": False, "buys": 0})
+                                             "people": 0, "senior": False, "buys": 0,
+                                             "beat": r.get("beat")})
         e["people"] = max(e["people"], r.get("people") or 1)
         e["senior"] = e["senior"] or bool(r.get("senior"))
         e["buys"] += 1
@@ -85,6 +98,7 @@ def campaigns(rows, min_people=3, days=CAMPAIGN_DAYS):
         c["cluster"] = any(e["cluster"] for e in eps)
         c["two"] = any(e["two"] for e in eps) and not c["cluster"]
         c["senior"] = any(e["senior"] for e in eps)
+        c["beat"] = eps[0].get("beat")    # com'era andata l'ultima trimestrale prima del primo acquisto
     return out
 
 
@@ -146,29 +160,51 @@ def _points(post):
     return int(max(-MAX_POINTS, min(MAX_POINTS, p)))
 
 
-def estimate(camps, tau=TAU):
-    """La stima dei tre bonus. None se le campagne sono troppo poche.
+def _fit(camps, feats):
+    """Regressione del rendimento sulle caratteristiche -> (costante, {f: (b, s)}), o None.
 
-    Una caratteristica che nessuna campagna ha (o che hanno tutte) non si può
-    stimare: il suo bonus è zero, perché senza prove non si dà un premio.
+    Una caratteristica che nessuna campagna ha (o che hanno tutte) resta fuori.
     """
-    if not camps:
-        return None
-    usable = [f for f in FEATURES if 0 < sum(1 for c in camps if c[f]) < len(camps)]
+    usable = [f for f in feats if 0 < sum(1 for c in camps if c[f]) < len(camps)]
     X = [[1.0] + [1.0 if c[f] else 0.0 for f in usable] for c in camps]
     y = [max(-CAP, min(CAP, c["car"])) for c in camps]
-    if len(y) - len(X[0]) < 3:
+    if not X or len(y) - len(X[0]) < 3:
         return None
     fit = _ols(X, y)
     if fit is None:
         return None
     beta, se = fit
+    return beta[0], {f: (beta[i + 1], se[i + 1]) for i, f in enumerate(usable)}
+
+
+def estimate(camps, tau=TAU):
+    """La stima dei bonus. None se le campagne sono troppo poche.
+
+    Una caratteristica che nessuna campagna ha (o che hanno tutte) non si può
+    stimare: il suo bonus è zero, perché senza prove non si dà un premio. Le
+    caratteristiche di OPTIONAL si stimano sulle sole campagne in cui il dato
+    c'è, con le altre come controllo.
+    """
+    if not camps:
+        return None
+    base = [f for f in FEATURES if f not in OPTIONAL]
+    main = _fit(camps, base)
+    if main is None:
+        return None
+    const, coef = main
+    for f in OPTIONAL:
+        sub = [c for c in camps if c.get(f) is not None]
+        extra = _fit(sub, base + [f]) if sub else None
+        if extra and f in extra[1]:
+            coef[f] = extra[1][f]
     feats = []
     for f in FEATURES:
-        row = {"id": f, "n": sum(1 for c in camps if c[f]), "hand": HAND[f]}
-        if f in usable:
-            i = usable.index(f) + 1
-            b, s = beta[i], se[i]
+        known = [c for c in camps if c.get(f) is not None]
+        row = {"id": f, "n": sum(1 for c in known if c[f]), "hand": HAND[f]}
+        if f in OPTIONAL:
+            row["known"] = len(known)
+        if f in coef:
+            b, s = coef[f]
             shrink = tau * tau / (tau * tau + s * s)
             row.update({"raw": round(b, 2), "se": round(s, 2),
                         "shrink": round(shrink, 3), "post": round(b * shrink, 2),
@@ -180,11 +216,11 @@ def estimate(camps, tau=TAU):
                         "points": 0, "by_tau": {str(int(t)): 0 for t in TAUS}})
         feats.append(row)
     return {"tau": tau, "camp": len(camps), "cap": CAP, "days": CAMPAIGN_DAYS,
-            "base": round(beta[0], 2), "features": feats}
+            "base": round(const, 2), "features": feats}
 
 
 def points(est):
-    """{cluster, two, senior} -> punti. Senza una stima, nessun bonus."""
+    """{cluster, two, senior, beat} -> punti. Senza una stima, nessun bonus."""
     if not est:
         return {f: 0 for f in FEATURES}
     return {r["id"]: r["points"] for r in est["features"]}
