@@ -1,6 +1,6 @@
 {
- "generated_at": "2026-11-22T10:45:47+00:00",
- "changed_at": "2026-11-22T10:38:12+00:00",
+ "generated_at": "2026-11-22T12:17:46+00:00",
+ "changed_at": "2026-11-22T12:17:46+00:00",
  "groups": [
   {
    "nome": {
@@ -23,6 +23,7 @@
   "horizon": 60,
   "unit": "campaign",
   "days": 90,
+  "since": "2021-02-24",
   "dist": [
    {
     "lo": null,
@@ -37,7 +38,7 @@
    {
     "lo": -25,
     "hi": -20,
-    "n": 0
+    "n": 3
    },
    {
     "lo": -20,
@@ -47,32 +48,32 @@
    {
     "lo": -15,
     "hi": -10,
-    "n": 2
+    "n": 4
    },
    {
     "lo": -10,
     "hi": -5,
-    "n": 3
+    "n": 6
    },
    {
     "lo": -5,
     "hi": 0,
-    "n": 2
+    "n": 4
    },
    {
     "lo": 0,
     "hi": 5,
-    "n": 2
+    "n": 9
    },
    {
     "lo": 5,
     "hi": 10,
-    "n": 3
+    "n": 7
    },
    {
     "lo": 10,
     "hi": 15,
-    "n": 3
+    "n": 4
    },
    {
     "lo": 15,
@@ -96,82 +97,67 @@
    }
   ],
   "all": {
-   "camp": 23,
-   "ep": 31,
-   "n": 66,
-   "pos": 12,
-   "avg": 5.47,
-   "med": 1.15
+   "camp": 45,
+   "ep": 84,
+   "n": 144,
+   "pos": 24,
+   "avg": 1.72,
+   "med": 1.45
   },
   "by_purchase": {
-   "n": 66,
-   "ep": 31,
-   "pos": 43,
-   "avg": 4.84,
-   "med": 7.03
+   "n": 144,
+   "ep": 84,
+   "pos": 88,
+   "avg": 1.47,
+   "med": 3.6
   },
   "cluster": {
-   "camp": 1,
-   "ep": 1,
-   "n": 5,
-   "pos": 0,
-   "avg": -29.21,
-   "med": -29.21
+   "camp": 3,
+   "ep": 7,
+   "n": 23,
+   "pos": 2,
+   "avg": -5.79,
+   "med": 3.62
   },
   "solo": {
-   "camp": 22,
-   "ep": 30,
-   "n": 61,
-   "pos": 12,
-   "avg": 7.05,
+   "camp": 42,
+   "ep": 77,
+   "n": 121,
+   "pos": 22,
+   "avg": 2.25,
    "med": 1.3
   },
   "senior": {
-   "camp": 6,
-   "ep": 6,
-   "n": 35,
-   "pos": 2,
-   "avg": -11.2,
-   "med": -16.91
+   "camp": 19,
+   "ep": 38,
+   "n": 85,
+   "pos": 6,
+   "avg": -7.53,
+   "med": -6.57
   },
   "other": {
-   "camp": 17,
-   "ep": 25,
-   "n": 31,
-   "pos": 10,
-   "avg": 11.36,
-   "med": 1.45
+   "camp": 26,
+   "ep": 46,
+   "n": 59,
+   "pos": 18,
+   "avg": 8.47,
+   "med": 3.97
   },
   "bonus": {
    "tau": 5.0,
-   "camp": 23,
+   "camp": 45,
    "cap": 50.0,
    "days": 90,
-   "base": 5.74,
+   "base": 5.31,
    "features": [
     {
      "id": "cluster",
-     "n": 1,
+     "n": 3,
      "hand": 18,
-     "raw": -21.61,
-     "se": 23.4,
-     "shrink": 0.044,
-     "post": -0.94,
-     "points": -1,
-     "by_tau": {
-      "3": 0,
-      "5": -1,
-      "10": -3
-     }
-    },
-    {
-     "id": "two",
-     "n": 1,
-     "hand": 8,
-     "raw": 3.33,
-     "se": 22.02,
-     "shrink": 0.049,
-     "post": 0.16,
+     "raw": 1.13,
+     "se": 10.33,
+     "shrink": 0.19,
+     "post": 0.21,
      "points": 0,
      "by_tau": {
       "3": 0,
@@ -180,18 +166,33 @@
      }
     },
     {
-     "id": "senior",
-     "n": 6,
-     "hand": 10,
-     "raw": -13.34,
-     "se": 10.94,
-     "shrink": 0.173,
-     "post": -2.3,
-     "points": -2,
+     "id": "two",
+     "n": 5,
+     "hand": 8,
+     "raw": -5.02,
+     "se": 7.85,
+     "shrink": 0.289,
+     "post": -1.45,
+     "points": -1,
      "by_tau": {
       "3": -1,
-      "5": -2,
-      "10": -6
+      "5": -1,
+      "10": -3
+     }
+    },
+    {
+     "id": "senior",
+     "n": 19,
+     "hand": 10,
+     "raw": -12.23,
+     "se": 5.24,
+     "shrink": 0.477,
+     "post": -5.83,
+     "points": -6,
+     "by_tau": {
+      "3": -3,
+      "5": -6,
+      "10": -10
      }
     }
    ]
@@ -220,33 +221,27 @@
   "hi": 2.0,
   "top": 10,
   "equal": {
-   "rho": 0.955,
+   "rho": 0.956,
    "shift": 1.9,
    "top": 10
   },
   "drop": [
    {
-    "id": "guid",
-    "n": 5,
-    "rho": 0.7,
-    "shift": 4.6
-   },
-   {
     "id": "insider",
     "n": 40,
-    "rho": 0.751,
+    "rho": 0.76,
     "shift": 4.7
    },
    {
     "id": "market",
     "n": 36,
-    "rho": 0.768,
+    "rho": 0.762,
     "shift": 2.9
    },
    {
     "id": "sector",
     "n": 40,
-    "rho": 0.985,
+    "rho": 0.987,
     "shift": 0.8
    },
    {
@@ -258,61 +253,73 @@
    {
     "id": "price",
     "n": 40,
-    "rho": 0.994,
+    "rho": 0.992,
     "shift": 1.2
+   },
+   {
+    "id": "guid",
+    "n": 5,
+    "rho": 1.0,
+    "shift": 4.6
    }
   ],
   "rho": {
    "med": 0.972,
    "p5": 0.917,
-   "min": 0.858
+   "min": 0.864
   },
   "top_overlap": {
    "med": 9,
    "min": 7
   },
   "width_med": 5,
-  "kept_avg": 87
+  "kept_avg": 88
  },
  "ic": {
   "horizon": 60,
-  "from": "2025-05-28",
+  "from": "2022-05-31",
   "to": "2026-08-21",
   "step": 5,
   "rows": [
    {
     "id": "price",
-    "ic": 0.046,
-    "se": 0.072,
-    "t": 0.39,
-    "blocks": 12,
-    "dates": 126
+    "ic": 0.036,
+    "se": 0.033,
+    "t": 1.05,
+    "blocks": 36,
+    "dates": 426
    },
    {
     "id": "sector",
-    "ic": 0.018,
-    "se": 0.057,
-    "t": 0.05,
-    "blocks": 12,
-    "dates": 126
+    "ic": -0.014,
+    "se": 0.035,
+    "t": -0.4,
+    "blocks": 25,
+    "dates": 289
    },
    {
     "id": "market",
-    "ic": -0.033,
-    "se": 0.039,
-    "t": -0.41,
+    "ic": -0.012,
+    "se": 0.031,
+    "t": -0.57,
     "blocks": 12,
-    "dates": 126
+    "dates": 146
    },
    {
     "id": "events",
-    "ic": -0.031,
-    "se": 0.056,
-    "t": -0.82,
-    "blocks": 12,
-    "dates": 126
+    "ic": -0.02,
+    "se": 0.032,
+    "t": -0.57,
+    "blocks": 36,
+    "dates": 426
    }
   ]
+ },
+ "history": {
+  "complete": 9,
+  "total": 40,
+  "tx_from": "2021-02-24",
+  "missing": 9616
  },
  "companies": [
   {
@@ -378,39 +385,6 @@
    "buyers": 0,
    "sellers": 0,
    "net_musd": 0.0,
-   "cluster": false,
-   "errors": 0
-  },
-  {
-   "ticker": "INTC",
-   "name": "INTEL CORP",
-   "group": {
-    "it": "Semiconduttori e apparecchiature",
-    "en": "Semiconductors and equipment"
-   },
-   "score": 55,
-   "verdict": {
-    "it": "Leggermente rialzista",
-    "en": "Mildly bullish"
-   },
-   "confidence": "Alta",
-   "covered_pct": 100,
-   "driver": {
-    "name": {
-     "it": "Insider",
-     "en": "Insiders"
-    },
-    "up": true
-   },
-   "last": {
-    "d": "2026-11-20",
-    "c": 51.28,
-    "v": 207757700
-   },
-   "tx": 150,
-   "buyers": 1,
-   "sellers": 0,
-   "net_musd": 9.71,
    "cluster": false,
    "errors": 0
   },
@@ -506,7 +480,7 @@
     "c": 125.53,
     "v": 626373200
    },
-   "tx": 628,
+   "tx": 1974,
    "buyers": 0,
    "sellers": 1,
    "net_musd": -946.628,
@@ -539,10 +513,43 @@
     "c": 304.41,
     "v": 59562800
    },
-   "tx": 461,
+   "tx": 666,
    "buyers": 0,
    "sellers": 0,
    "net_musd": 0.0,
+   "cluster": false,
+   "errors": 0
+  },
+  {
+   "ticker": "INTC",
+   "name": "INTEL CORP",
+   "group": {
+    "it": "Semiconduttori e apparecchiature",
+    "en": "Semiconductors and equipment"
+   },
+   "score": 53,
+   "verdict": {
+    "it": "Nessuna convinzione chiara",
+    "en": "No clear conviction"
+   },
+   "confidence": "Alta",
+   "covered_pct": 100,
+   "driver": {
+    "name": {
+     "it": "Settore",
+     "en": "Sector"
+    },
+    "up": true
+   },
+   "last": {
+    "d": "2026-11-20",
+    "c": 51.28,
+    "v": 207757700
+   },
+   "tx": 589,
+   "buyers": 1,
+   "sellers": 0,
+   "net_musd": 9.71,
    "cluster": false,
    "errors": 0
   },
@@ -605,7 +612,7 @@
     "c": 594.51,
     "v": 59094000
    },
-   "tx": 643,
+   "tx": 1408,
    "buyers": 0,
    "sellers": 0,
    "net_musd": 0.0,
@@ -803,7 +810,7 @@
     "c": 149.94,
     "v": 22221700
    },
-   "tx": 318,
+   "tx": 816,
    "buyers": 0,
    "sellers": 2,
    "net_musd": -0.035,
@@ -902,7 +909,7 @@
     "c": 345.92,
     "v": 10199800
    },
-   "tx": 409,
+   "tx": 843,
    "buyers": 0,
    "sellers": 2,
    "net_musd": -3.495,
@@ -1232,7 +1239,7 @@
     "c": 424.39,
     "v": 69989800
    },
-   "tx": 437,
+   "tx": 908,
    "buyers": 0,
    "sellers": 1,
    "net_musd": -5.084,
@@ -1463,7 +1470,7 @@
     "c": 263.75,
     "v": 16820600
    },
-   "tx": 225,
+   "tx": 501,
    "buyers": 0,
    "sellers": 6,
    "net_musd": -10.942,
@@ -1496,7 +1503,7 @@
     "c": 302.63,
     "v": 14169700
    },
-   "tx": 149,
+   "tx": 307,
    "buyers": 0,
    "sellers": 3,
    "net_musd": -4.454,
