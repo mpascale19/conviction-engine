@@ -303,15 +303,35 @@ def form4_filings(cik, months=24):
     return out
 
 
-def parse_form4(xml_text):
+def _same_cik(a, b):
+    try:
+        return int(str(a).strip()) == int(str(b).strip())
+    except (TypeError, ValueError):
+        return False
+
+
+def parse_form4(xml_text, issuer_cik=None):
     """XML del Form 4 -> lista di operazioni già normalizzate.
 
     Il flag del piano 10b5-1 si legge dalla nota a piè di pagina agganciata
     alla singola operazione; se quella riga non ha note, vale quello che dice
     il documento nel suo insieme.
+
+    `issuer_cik`: l'azienda di cui stiamo leggendo gli insider. L'elenco dei
+    depositi di un CIK su EDGAR contiene anche i Form 4 che quell'azienda
+    deposita come *azionista* di altre società: Bank of America che compra
+    quote di fondi, Coca-Cola che vende la partecipazione in un imbottigliatore,
+    Intel che cede azioni di un'altra società. Sono operazioni su titoli di altri,
+    e contarle come insider dell'azienda le metteva nel punteggio (una vendita
+    di 2,4 miliardi registrata come vendita discrezionale di KO). Se l'emittente
+    del documento non è l'azienda, il documento non dice niente su di lei.
     """
     clean = re.sub(r'\sxmlns(:\w+)?="[^"]+"', "", xml_text, count=5)
     x = ET.fromstring(clean)
+    if issuer_cik is not None:
+        doc_issuer = x.findtext("issuer/issuerCik")
+        if doc_issuer is not None and not _same_cik(doc_issuer, issuer_cik):
+            return None          # None, non []: è un documento di un altro, non un documento vuoto
     owner = (x.findtext("reportingOwner/reportingOwnerId/rptOwnerName") or "").strip()
     rel = x.find("reportingOwner/reportingOwnerRelationship")
     truthy = ("1", "true")
@@ -371,27 +391,42 @@ def insider_transactions(cik, months=24, limit=None, cache_dir=None):
     Se i primi documenti falliscono tutti si ferma subito: vuol dire che
     l'archivio ci sta rifiutando, e non ha senso provare cento volte.
     """
-    rows, done, failed, cached = [], 0, 0, 0
+    rows, done, failed, cached, foreign, own = [], 0, 0, 0, 0, 0
     filings = form4_filings(cik, months)
     if not filings:
         return rows
     if cache_dir:
         os.makedirs(cache_dir, exist_ok=True)
-    for f in (filings[:limit] if limit else filings):
+    # Il limite conta solo i documenti dell'azienda stessa. Quelli che
+    # l'azienda deposita come azionista di altre società si saltano senza
+    # contarli: per Bank of America erano la maggior parte dei primi 120, e
+    # contandoli gli insider veri finivano fuori dal limite.
+    for f in filings:
+        if limit and own >= limit:
+            break
         # un documento depositato non cambia più: una volta letto si tiene
         cf = os.path.join(cache_dir, f["accession"] + ".json") if cache_dir else None
         if cf and os.path.exists(cf):
             try:
                 with open(cf, encoding="utf-8") as fh:
-                    rows += json.load(fh)
+                    got = json.load(fh)
                 cached += 1
+                if got is None:
+                    foreign += 1
+                else:
+                    rows += got
+                    own += 1
                 continue
             except Exception:
                 pass
         try:
-            got = parse_form4(_get(f["url"]).text)
-            rows += got
+            got = parse_form4(_get(f["url"]).text, issuer_cik=cik)
             done += 1
+            if got is None:
+                foreign += 1
+            else:
+                rows += got
+                own += 1
             if cf:
                 with open(cf, "w", encoding="utf-8") as fh:
                     json.dump(got, fh)
@@ -403,5 +438,6 @@ def insider_transactions(cik, months=24, limit=None, cache_dir=None):
                     f"i primi {failed} documenti dell'archivio hanno dato errore "
                     f"({e}): www.sec.gov sta rifiutando le richieste")
     rows.sort(key=lambda r: r["date"])
-    print(f"  {done} documenti scaricati, {cached} dalla cache, {failed} saltati")
+    print(f"  {done} documenti scaricati, {cached} dalla cache, {failed} saltati, "
+          f"{foreign} di altri emittenti esclusi")
     return rows

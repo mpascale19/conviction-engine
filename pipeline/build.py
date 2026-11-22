@@ -14,7 +14,7 @@ import json
 import os
 from datetime import date, datetime, timedelta, timezone
 
-from . import history, market, rules, score, stress
+from . import bonus, history, market, rules, score, stress
 from .rules import L
 from .extract import extract_all
 
@@ -65,7 +65,9 @@ def gather(cfg, ticker, bench, offline=False):
         print(f"  CIK {cik} ({name}) via {how}")
         tx = sources.insider_transactions(cik, cfg["months_of_history"],
                                           limit=cfg.get("max_filings_per_ticker"),
-                                          cache_dir=os.path.join(CACHE, "form4"))
+                                          # v2: i documenti letti prima del controllo
+                                          # sull'emittente vanno riletti tutti, una volta
+                                          cache_dir=os.path.join(CACHE, "form4-v2"))
         print(f"  Form 4: {len(tx)} operazioni")
     except Exception as e:
         errors.append(f"Form 4 di {ticker}: {e}")
@@ -220,6 +222,9 @@ def build_one(cfg, raw, extracted=None):
         "cluster": [t["date"] + " " + t["who"] for t in cluster],
         "tracks": tracks,
         "_subs": subs,
+        # quello che serve a ricalcolare la voce insider dopo che i bonus sono
+        # stati stimati su tutte le aziende; non finisce nella scheda
+        "_ins": {"cluster": cluster, "today": today.isoformat()},
     }
 
 
@@ -230,6 +235,7 @@ def finish(cfg, data, universe):
     un produttore di chip con una catena di supermercati non direbbe niente.
     """
     subs = data.pop("_subs")
+    data.pop("_ins", None)
     me = data["insider_90d"]
     if data["company"]["cik"]:
         v, why, cov = score.sector_score(me, universe, cfg)
@@ -332,8 +338,38 @@ def backtest(results, cfg):
     un acquisto isolato, un dirigente apicale più di un altro — reggono sui
     dati di questo universo?
     """
+    rows = backtest_rows(results, cfg)
+    if len(rows) < 10:
+        return None
+    # Dal 22 novembre 2026 l'unità è la campagna, non l'acquisto: vedi
+    # pipeline/bonus.py. Contando gli acquisti, 16 compere di fila dello stesso
+    # compratore valevano come 16 prove, e il rendimento mediano pubblicato
+    # (+5,2%) era in gran parte l'eco di poche campagne contate molte volte.
+    camps = bonus.campaigns(rows, cfg["rules"]["cluster_min_people"])
+    pick = lambda f: [c for c in camps if f(c)]
+    return {"horizon": cfg["rules"]["track_record_horizon_days"],
+            "unit": "campaign", "days": bonus.CAMPAIGN_DAYS,
+            "dist": _dist(camps),
+            "all": bonus.summary(camps),
+            "by_purchase": _stats(rows),     # il conteggio di prima, per confronto
+            "cluster": bonus.summary(pick(lambda c: c["cluster"])),
+            "solo": bonus.summary(pick(lambda c: not c["cluster"])),
+            "senior": bonus.summary(pick(lambda c: c["senior"])),
+            "other": bonus.summary(pick(lambda c: not c["senior"])),
+            "bonus": bonus.estimate(camps)}
+
+
+def backtest_rows(results, cfg):
+    """Ogni acquisto con 60 sedute già trascorse, e le sue caratteristiche.
+
+    "Apicale" qui vuol dire esattamente quello che vuol dire nella formula
+    (rules.is_senior, cioè CEO, CFO o presidente). Prima il backtest usava il
+    flag "officer" del Form 4, che vale per qualunque dirigente — anche il
+    responsabile legale o il capo contabile — e così metteva alla prova una
+    regola diversa da quella che la formula applica.
+    """
     nd = cfg["rules"]["cluster_days"]
-    minp = cfg["rules"]["cluster_min_people"]
+    titles = cfg["rules"]["senior_titles"]
     rows = []
     for d in results:
         tx = [t for t in (d.get("tx") or []) if t["kind"] == "BUY"]
@@ -342,23 +378,14 @@ def backtest(results, cfg):
         for t in tx:
             r = car.get((t["who"], t["date"]))
             if r is None:
-                continue                      # 60 giorni non ancora trascorsi
+                continue                      # 60 sedute non ancora trascorse
             day = date.fromisoformat(t["date"])
             near = {x["who"] for x in tx
                     if abs((date.fromisoformat(x["date"]) - day).days) <= nd}
             rows.append({"car": r, "t": d["company"]["ticker"], "d": t["date"],
-                         "cluster": len(near) >= minp,
-                         "senior": bool(t.get("is_senior"))})
-    if len(rows) < 10:
-        return None
-    pick = lambda f: [r for r in rows if f(r)]
-    return {"horizon": cfg["rules"]["track_record_horizon_days"],
-            "dist": _dist(rows),
-            "all": _stats(rows),
-            "cluster": _stats(pick(lambda r: r["cluster"])),
-            "solo": _stats(pick(lambda r: not r["cluster"])),
-            "senior": _stats(pick(lambda r: r["senior"])),
-            "other": _stats(pick(lambda r: not r["senior"]))}
+                         "people": len(near),
+                         "senior": rules.is_senior(t, titles)})
+    return rows
 
 
 def driver(subs):
@@ -493,7 +520,7 @@ def main():
     print("Estrazione dalle trascrizioni")
     extracted = extract_all()
 
-    results, bench_closes = [], {}
+    results, bench_closes, groups_built = [], {}, []
     for g in groups:
         print(f"\n=== {g['nome']} ({len(g['tickers'])} aziende) ===")
         bench = []
@@ -518,6 +545,24 @@ def main():
                 built.append(d)
             except Exception as e:
                 print(f"  !! {t} saltato: {e}")
+        groups_built.append(built)
+
+    # Seconda passata. I bonus della voce insider si stimano sugli acquisti
+    # passati di tutte le aziende insieme, quindi si possono applicare solo
+    # dopo averle costruite tutte. Poi il settore, che si calcola per gruppo.
+    every = [d for b in groups_built for d in b]
+    est = bonus.estimate(bonus.campaigns(backtest_rows(every, cfg),
+                                         cfg["rules"]["cluster_min_people"]))
+    pts = bonus.points(est)
+    print(f"\nBonus insider stimati dai dati: {pts} (a mano erano {bonus.HAND})")
+    for d in every:
+        ins = d["_subs"].get("insider") or {}
+        if ins.get("v") is None or "_ins" not in d:
+            continue
+        v, why, cov = score.insider_score(d["tx"], d["_ins"]["cluster"], d["tracks"], cfg,
+                                          date.fromisoformat(d["_ins"]["today"]), bonus=pts)
+        d["_subs"]["insider"] = {"v": v, "why": why, "coverage": cov}
+    for built in groups_built:
         universe = [d["insider_90d"] for d in built]
         results += [finish(cfg, d, universe) for d in built]
 

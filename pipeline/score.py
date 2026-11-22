@@ -24,8 +24,25 @@ def _clamp(v, lo=0, hi=100):
     return max(lo, min(hi, v))
 
 
-def insider_score(rows, cluster, tracks, cfg, today=None):
-    """Acquisti e vendite discrezionali degli ultimi 90 giorni."""
+HAND_BONUS = {"cluster": 18, "two": 8, "senior": 10}   # i valori scritti a mano fino al 22/11/2026
+
+
+def _pts(p):
+    return f"{p:+d}" if p else "0"
+
+
+def insider_score(rows, cluster, tracks, cfg, today=None, bonus=None):
+    """Acquisti e vendite discrezionali degli ultimi 90 giorni.
+
+    `bonus`: quanto valgono cluster, due compratori e dirigente apicale. Dalla
+    versione del 22 novembre 2026 li stima pipeline/bonus.py dai dati; se non
+    viene passato valgono quelli scritti a mano, così le prove della regola
+    restano confrontabili.
+    """
+    bonus = dict(HAND_BONUS, **(bonus or {}))
+    estimated = bonus != HAND_BONUS
+    tag = (lambda p: L(f" Bonus stimato dai dati: {_pts(p)}.", f" Bonus estimated from the data: {_pts(p)}.")) \
+        if estimated else (lambda p: L("", ""))
     today = today or date.today()
     start = (today - timedelta(days=90)).isoformat()
     win = [t for t in rows if t["date"] >= start]
@@ -43,13 +60,15 @@ def insider_score(rows, cluster, tracks, cfg, today=None):
     nd = cfg["rules"]["cluster_days"]
     if cluster:
         n = len({t["who"] for t in cluster})
-        v += 18
-        why.append(L(f"Cluster di {n} acquirenti distinti entro {nd} giorni.",
-                     f"Cluster of {n} separate buyers within {nd} days."))
+        v += bonus["cluster"]
+        t_ = tag(bonus["cluster"])
+        why.append(L(f"Cluster di {n} acquirenti distinti entro {nd} giorni." + t_["it"],
+                     f"Cluster of {n} separate buyers within {nd} days." + t_["en"]))
     elif people == 2:
-        v += 8
-        why.append(L("Due acquirenti distinti, ma sotto la soglia del cluster.",
-                     "Two separate buyers, but below the cluster threshold."))
+        v += bonus["two"]
+        t_ = tag(bonus["two"])
+        why.append(L("Due acquirenti distinti, ma sotto la soglia del cluster." + t_["it"],
+                     "Two separate buyers, but below the cluster threshold." + t_["en"]))
     elif people == 1:
         why.append(L("Un solo acquirente nel periodo.", "A single buyer in the period."))
     else:
@@ -57,9 +76,10 @@ def insider_score(rows, cluster, tracks, cfg, today=None):
                      "No discretionary purchase in the last 90 days."))
 
     if any(is_senior(t, titles) for t in buys):
-        v += 10
-        why.append(L("Fra i compratori c'è un dirigente apicale (CEO, CFO o presidente).",
-                     "One of the buyers is a top executive (CEO, CFO or president)."))
+        v += bonus["senior"]
+        t_ = tag(bonus["senior"])
+        why.append(L("Fra i compratori c'è un dirigente apicale (CEO, CFO o presidente)." + t_["it"],
+                     "One of the buyers is a top executive (CEO, CFO or president)." + t_["en"]))
     if any(is_senior(t, titles) for t in sells):
         v -= 10
         why.append(L("Un dirigente apicale ha venduto in modo discrezionale.",

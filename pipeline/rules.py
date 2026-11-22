@@ -131,7 +131,28 @@ def track_records(rows, prices, bench, horizon=60, prior=3, window_start=None):
         out.setdefault(t["who"], []).append({"date": t["date"], "car": r})
     return {who: {"buys": b,
                   "n": len(b),
+                  "camp": len(person_campaigns(b)),
                   "pos": sum(1 for x in b if x["car"] > 0),
                   "avg": round(sum(x["car"] for x in b) / len(b), 2),
-                  "mult": track_multiplier([x["car"] for x in b], prior)}
+                  "mult": track_multiplier(person_campaigns(b), prior)}
             for who, b in out.items()}
+
+
+def person_campaigns(buys, days=90):
+    """Gli acquisti passati di una persona, raggruppati in campagne.
+
+    Dieci acquisti in tre settimane non sono dieci prove della bravura di
+    qualcuno: le loro misure a 60 sedute coprono quasi lo stesso periodo di
+    borsa. Ogni campagna (acquisti entro `days` giorni dal primo) diventa un
+    rendimento solo, la loro media, e il moltiplicatore conta le campagne.
+    Prima contava gli acquisti, e il prior di prudenza diventava irrilevante
+    per chi compra spesso.
+    """
+    out, first = [], None
+    for x in sorted(buys, key=lambda x: x["date"]):
+        if first and (_d(x["date"]) - _d(first)).days <= days:
+            out[-1].append(x["car"])
+        else:
+            out.append([x["car"]])
+            first = x["date"]
+    return [round(sum(g) / len(g), 2) for g in out]
