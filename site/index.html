@@ -523,7 +523,8 @@ function renderGuide(){
   ]);
   var subs = T([
     ['Insider', 35, 'Chi compra, quanto, se è un dirigente apicale, se più persone comprano nello stesso ' +
-     'periodo, e come sono andati i loro acquisti passati.'],
+     'periodo, e come sono andati i loro acquisti passati. I bonus per cluster, due compratori e ' +
+     'dirigente apicale non sono più scritti a mano: li stima il backtest (pagina Backtest).'],
     ['Guidance e tono', 20, 'Il tono delle ultime quattro call e quante voci di guidance l’azienda ha ' +
      'alzato o ridotto nell’ultima.'],
     ['Mercato', 15, 'Lo short interest, in due modi. Contro la storia del titolo: il livello di oggi ' +
@@ -539,7 +540,8 @@ function renderGuide(){
      'il momentum a tre mesi ne aggiunge se sale. Il minimo di sei mesi è mostrato ma non pesa.']
   ], [
     ['Insiders', 35, 'Who buys, how much, whether they are a top executive, whether several people buy in ' +
-     'the same window, and how their past purchases turned out.'],
+     'the same window, and how their past purchases turned out. The bonuses for a cluster, two buyers ' +
+     'and a top executive are no longer hand-written: the backtest estimates them (Backtest page).'],
     ['Guidance and tone', 20, 'The tone of the last four calls and how many guidance items the company ' +
      'raised or lowered in the latest one.'],
     ['Market', 15, 'Short interest, in two ways. Against the stock’s own history: today’s level against ' +
@@ -566,11 +568,13 @@ function renderGuide(){
      'Perché era già programmata. Un piano 10b5-1 si firma mesi prima: la vendita di oggi non dice ' +
      'niente su quello che il dirigente pensa oggi. Resta scritta nella tabella, con peso zero.'],
     ['Che cos’è un cluster?',
-     'Tre o più persone diverse che comprano entro 30 giorni. Pesa più di un singolo acquisto grande, ' +
-     'perché è difficile che tre persone sbaglino insieme per caso.'],
+     'Tre o più persone diverse che comprano entro 30 giorni. L’idea è che sia difficile che tre ' +
+     'persone sbaglino insieme per caso. Ma quanto valga lo dicono i dati, non l’idea: finché le ' +
+     'campagne con un cluster sono pochissime, il bonus stimato resta vicino a zero (pagina Backtest).'],
     ['Perché il moltiplicatore storico?',
      'Perché non tutti gli insider sono ugualmente informati. Ogni compratore porta con sé il rendimento ' +
-     'a 60 giorni dei suoi acquisti passati, rispetto al settore: chi ci ha preso pesa di più.'],
+     'a 60 giorni dei suoi acquisti passati, rispetto al settore: chi ci ha preso pesa di più. Gli ' +
+     'acquisti si contano per campagna: dieci compere in tre settimane sono una prova sola.'],
     ['Da dove vengono i dati?',
      'Form 4, 8-K, azioni in circolazione: SEC EDGAR. Prezzi: Yahoo Finance, con stooq come riserva. ' +
      'Short interest: FINRA, via export da terminale. Trascrizioni: export da terminale, e nel ' +
@@ -584,8 +588,9 @@ function renderGuide(){
      'seconde.'],
     ['Come faccio a sapere se il punteggio funziona?',
      'Oggi non lo sai ancora, e il sito non finge il contrario. Ci sono tre prove, ognuna con il suo ' +
-     'limite. Il backtest mette alla prova due regole della voce insider, non il punteggio intero, ' +
-     'perché guidance e short interest non esistono giorno per giorno nel passato. Il registro delle ' +
+     'limite. Il backtest mette alla prova le regole della voce insider, contando una volta sola ogni ' +
+     'campagna di acquisti, e ne ricava i bonus; non prova il punteggio intero, perché guidance e ' +
+     'short interest non esistono giorno per giorno nel passato. Il registro delle ' +
      'previsioni segna il punteggio di ogni giorno e lo misura dopo 90 giorni: è la prova vera, e il ' +
      'primo risultato arriva a febbraio 2027. La prova dei pesi, su questa pagina, dice quanto la ' +
      'classifica dipende dai numeri scelti a mano.'],
@@ -604,11 +609,13 @@ function renderGuide(){
      'Because it was already scheduled. A 10b5-1 plan is signed months ahead: today’s sale says ' +
      'nothing about what the executive thinks today. It stays in the table, at zero weight.'],
     ['What is a cluster?',
-     'Three or more separate people buying within 30 days. It counts for more than one large purchase, ' +
-     'because three people rarely get it wrong together by chance.'],
+     'Three or more separate people buying within 30 days. The idea is that three people rarely get it ' +
+     'wrong together by chance. But how much it is worth is for the data to say, not the idea: while ' +
+     'campaigns with a cluster are very few, the estimated bonus stays close to zero (Backtest page).'],
     ['Why the track-record multiplier?',
      'Because not all insiders are equally informed. Each buyer carries the 60-day return of their past ' +
-     'purchases against the sector: those who were right weigh more.'],
+     'purchases against the sector: those who were right weigh more. Purchases are counted per ' +
+     'campaign: ten buys in three weeks are a single piece of evidence.'],
     ['Where does the data come from?',
      'Form 4, 8-K filings and shares outstanding: SEC EDGAR. Prices: Yahoo Finance, with stooq as a ' +
      'fallback. Short interest: FINRA, via a terminal export. Transcripts: a terminal export, and only ' +
@@ -621,8 +628,9 @@ function renderGuide(){
      'need a manual export: twice a month for the first, once a quarter for the second.'],
     ['How do I know whether the score works?',
      'Today you do not know yet, and the site does not pretend otherwise. There are three tests, each with ' +
-     'its limit. The backtest tests two rules inside the insider input, not the whole score, because ' +
-     'guidance and short interest do not exist day by day in the past. The prediction register records ' +
+     'its limit. The backtest tests the rules of the insider input, counting each buying campaign only ' +
+     'once, and derives the bonuses from them; it does not test the whole score, because guidance and ' +
+     'short interest do not exist day by day in the past. The prediction register records ' +
      'the score every day and measures it after 90 days: that is the real test, and the first result ' +
      'arrives in February 2027. The weight test, on this page, says how much the ranking depends on ' +
      'numbers picked by hand.'],
@@ -835,17 +843,20 @@ function distChart(bt){
            '<i style="background:' + (up ? 'var(--bull2)' : 'var(--bear2)') + '"></i></div>';
   }).join('');
   var neg = d.reduce(function(a, b){ return a + (b.lo !== null && b.lo >= 0 ? 0 : b.n); }, 0);
+  var tot = d.reduce(function(a, b){ return a + b.n; }, 0);
+  var isC = bt.unit === 'campaign';
+  var unitIt = isC ? 'campagne' : 'acquisti', unitEn = isC ? 'campaigns' : 'purchases';
   return '<div class="hist"><div class="hist-plot" role="img" aria-label="' +
-    esc(T('Distribuzione dei ' + bt.all.n + ' acquisti per rendimento a ' + bt.horizon + ' giorni',
-          'Distribution of the ' + bt.all.n + ' purchases by return at ' + bt.horizon + ' days')) +
+    esc(T('Distribuzione delle ' + tot + ' ' + unitIt + ' per rendimento a ' + bt.horizon + ' giorni',
+          'Distribution of the ' + tot + ' ' + unitEn + ' by return at ' + bt.horizon + ' days')) +
     '">' + bars + '</div><div class="hist-axis"><span>−30%</span><span>0</span><span>+30%</span></div>' +
     '<p class="sub" style="margin-top:10px">' + esc(T(
-      'Ogni barra conta gli acquisti finiti in quella fascia di rendimento. In blu i ' +
-      (bt.all.n - neg) + ' finiti in guadagno, in rosso i ' + neg + ' in perdita. La linea ' +
+      'Ogni barra conta le ' + unitIt + ' finite in quella fascia di rendimento. In blu le ' +
+      (tot - neg) + ' finite in guadagno, in rosso le ' + neg + ' in perdita. La linea ' +
       'verticale è lo zero. Le due barre agli estremi raccolgono le code, altrimenti un ' +
       'singolo caso le allargherebbe tutte.',
-      'Each bar counts the purchases that ended in that return band. In blue the ' +
-      (bt.all.n - neg) + ' that ended up, in red the ' + neg + ' that ended down. The vertical ' +
+      'Each bar counts the ' + unitEn + ' that ended in that return band. In blue the ' +
+      (tot - neg) + ' that ended up, in red the ' + neg + ' that ended down. The vertical ' +
       'line is zero. The two end bars collect the tails, otherwise a single case would ' +
       'stretch the whole axis.')) + '</p></div>';
 }
@@ -940,23 +951,90 @@ function fwdRow(name, range, n, pos, med, scale, isAll){
     sg(med, 1) + '%</b></span></td></tr>';
 }
 
+/* Le prove indipendenti di un gruppo. Dal 22 novembre 2026 sono le campagne;
+   un indice scritto dalla pipeline di prima ha solo gli episodi. */
+function btCount(s){ return s ? (s.camp != null ? s.camp : s.ep) : 0; }
+
 function btRow(label, s, note){
-  if (!s) return '<tr style="cursor:default"><td>' + esc(label) +
-    '</td><td class="num">—</td><td class="num">—</td><td class="num">—</td><td class="num">—</td></tr>';
+  var dash = '<td class="num">—</td>';
+  if (!s) return '<tr style="cursor:default"><td>' + esc(label) + '</td>' + dash + dash + dash + dash + dash + '</tr>';
+  var k = btCount(s);
   return '<tr style="cursor:default"><td><b>' + esc(label) + '</b>' +
     (note ? '<div class="nm">' + esc(note) + '</div>' : '') + '</td>' +
-    '<td class="num">' + s.ep + '</td><td class="num">' + s.n + '</td>' +
-    '<td class="num">' + Math.round(s.pos / s.n * 100) + '%</td>' +
-    '<td class="num" style="color:' + (s.ep < 5 ? 'var(--muted)' :
+    '<td class="num"><b>' + k + '</b></td><td class="num">' + s.ep + '</td><td class="num">' + s.n + '</td>' +
+    '<td class="num">' + Math.round(s.pos / k * 100) + '%</td>' +
+    '<td class="num" style="color:' + (k < 5 ? 'var(--muted)' :
       s.med > 0 ? 'var(--bull)' : s.med < 0 ? 'var(--bear)' : 'inherit') +
     '">' + sg(s.med, 1) + '%</td></tr>';
 }
 
-/* La lettura nasce dai numeri: se gli episodi sono pochi, lo dice e si ferma. */
+/* La lettura nasce dai numeri: se le prove sono poche, lo dice e si ferma. */
 function btVerdict(rule, a, b, yes, no, thin){
   if (!a || !b) return '';
-  if (a.ep < 5) return '<p class="sub">' + esc(thin.replace('{n}', a.ep)) + '</p>';
+  var k = btCount(a);
+  if (k < 5) return '<p class="sub">' + esc(typeof thin === 'function' ? thin(k) : thin.replace('{n}', k)) + '</p>';
   return '<p class="sub">' + esc(a.med > b.med ? yes : no) + '</p>';
+}
+
+/* I bonus della voce insider: com'erano scritti a mano e quanto valgono
+   stimati dai dati. Un bonus stimato vicino a zero non dice che la regola è
+   sbagliata: dice che le prove non bastano per saperlo. La scheda lo scrive. */
+function bonusCard(bt){
+  var e = bt.bonus;
+  if (!e || !e.features) return '';
+  var names = { cluster: T('Cluster di compratori', 'Cluster of buyers'),
+                two: T('Due compratori distinti', 'Two separate buyers'),
+                senior: T('Dirigente apicale fra chi compra', 'Top executive among the buyers') };
+  var notes = { cluster: T('3 o più persone entro 30 giorni', '3 or more people within 30 days'),
+                two: T('sotto la soglia del cluster', 'below the cluster threshold'),
+                senior: T('CEO, CFO o presidente', 'CEO, CFO or president') };
+  var rows = e.features.map(function(f){
+    var meas = f.raw == null ? T('non stimabile', 'cannot be estimated')
+             : sg(f.raw, 1) + ' ± ' + f.se.toFixed(1);
+    return '<tr style="cursor:default"><td><b>' + esc(names[f.id] || f.id) + '</b>' +
+      '<div class="nm">' + esc(notes[f.id] || '') + ' · ' +
+      T(f.n + (f.n === 1 ? ' campagna' : ' campagne'), f.n + (f.n === 1 ? ' campaign' : ' campaigns')) +
+      '</div></td><td class="num">' + esc(meas) + '</td>' +
+      '<td class="num" style="color:var(--ink3)">' + sg(f.hand, 0) + '</td>' +
+      '<td class="num"><b>' + (f.points ? sg(f.points, 0) : '0') + '</b></td>' +
+      '<td class="num" style="color:var(--ink3)">' + ['3', '5', '10'].map(function(t){
+        var p = f.by_tau[t]; return p ? sg(p, 0) : '0'; }).join(' / ') + '</td></tr>';
+  }).join('');
+  return '<div class="card"><h2>' + T('I bonus, stimati dai dati', 'The bonuses, estimated from the data') +
+    '</h2><p class="sub">' + T(
+      'Fino al 22 novembre 2026 la voce insider dava +18 a un cluster, +10 a un dirigente apicale e +8 ' +
+      'a due compratori: numeri scelti a mano. Ora li stimano le campagne qui sopra. L’effetto ' +
+      'misurato è il rendimento in più a ' + bt.horizon + ' giorni, in punti percentuali, con la sua ' +
+      'incertezza; il bonus usato è quell’effetto ristretto verso zero quanto più è incerto, a un ' +
+      'punto di punteggio per punto percentuale.',
+      'Until 22 November 2026 the insider input gave +18 to a cluster, +10 to a top executive and +8 to ' +
+      'two buyers: numbers picked by hand. Now the campaigns above estimate them. The measured effect is ' +
+      'the extra return at ' + bt.horizon + ' days, in percentage points, with its uncertainty; the bonus ' +
+      'used is that effect shrunk towards zero the more uncertain it is, at one score point per ' +
+      'percentage point.') + '</p>' +
+    '<div class="scroll"><table><thead><tr><th>' + T('Regola', 'Rule') + '</th>' +
+    '<th class="num">' + T('Effetto misurato', 'Measured effect') + '</th>' +
+    '<th class="num">' + T('A mano', 'By hand') + '</th>' +
+    '<th class="num">' + T('Stimato', 'Estimated') + '</th>' +
+    '<th class="num">' + T('Con prudenza 3 / 5 / 10', 'With prudence 3 / 5 / 10') + '</th></tr></thead><tbody>' +
+    rows + '</tbody></table></div>' +
+    '<p class="sub" style="margin-top:12px"><b>' + T('Come leggerlo.', 'How to read it.') + '</b> ' + T(
+      'Un bonus stimato vicino a zero non dice che la regola è sbagliata: dice che ' + e.camp +
+      ' campagne non bastano per saperlo. La prova l’ho fatta su dati inventati in cui gli effetti ' +
+      'veri valgono 10, 4 e 6 punti: con 5.000 campagne lo stimatore li ritrova, con 26 li riduce a ' +
+      '+2, −1 e +1. Man mano che il registro accumula campagne, i bonus potranno crescere da soli, ' +
+      'se i dati li giustificano. L’unica scelta fatta a mano è la prudenza: quanto ci si aspetta ' +
+      'che valga, al massimo plausibile, un effetto vero (' + e.tau + ' punti). L’ultima colonna ' +
+      'mostra che cosa darebbero 3 e 10. La penalità per la vendita di un dirigente apicale (−10) ' +
+      'resta scritta a mano, perché il backtest guarda solo gli acquisti.',
+      'An estimated bonus close to zero does not say the rule is wrong: it says that ' + e.camp +
+      ' campaigns are not enough to know. I tested it on made-up data where the true effects are 10, 4 ' +
+      'and 6 points: with 5,000 campaigns the estimator recovers them, with 26 it shrinks them to +2, ' +
+      '−1 and +1. As the register accumulates campaigns, the bonuses can grow on their own if the ' +
+      'data justifies it. The only hand-made choice is the prudence: how large a true effect can ' +
+      'plausibly be at most (' + e.tau + ' points). The last column shows what 3 and 10 would give. The ' +
+      'penalty for a top executive selling (−10) stays hand-written, because the backtest only ' +
+      'looks at purchases.') + '</p></div>';
 }
 
 function renderBacktest(){
@@ -968,34 +1046,63 @@ function renderBacktest(){
       'to say anything.') + '</p></div>' + fwdCard();
     return;
   }
-  var a = bt.all, h = bt.horizon;
+  if (bt.unit !== 'campaign') {
+    // Un indice scritto prima del 22 novembre 2026 conta gli acquisti uno per
+    // uno, e quei numeri sappiamo che sono gonfiati: meglio non mostrarli.
+    app.innerHTML = navBar('backtest') + '<div class="card"><h1>' + T('Backtest', 'Backtest') +
+      '</h1><p class="lead">' + T('Il backtest si sta ricalcolando con il metodo nuovo, che conta ' +
+      'una volta sola ogni campagna di acquisti. Torna fra qualche minuto.',
+      'The backtest is being recomputed with the new method, which counts each buying campaign only ' +
+      'once. Come back in a few minutes.') + '</p></div>' + fwdCard();
+    return;
+  }
+  var a = bt.all, h = bt.horizon, isC = true, k = btCount(a);
+  var bp = bt.by_purchase;
   app.innerHTML = navBar('backtest') +
     '<div class="card hero"><h1>' + T('Quello che i dati dicono', 'What the data says') +
-    '</h1><p class="lead">' + T(
+    '</h1><p class="lead">' + (isC ? T(
       'Ogni acquisto di un insider delle ultime due annate, misurato dopo ' + h +
-      ' giorni contro il suo settore. Gli episodi contano più delle firme: cinque dirigenti che ' +
-      'comprano lo stesso giorno nella stessa azienda sono un fatto solo.',
+      ' giorni contro il suo settore, e contato una volta per campagna. Un insider che compra dieci ' +
+      'volte in tre settimane non dà dieci prove: le sue misure coprono quasi lo stesso periodo di ' +
+      'borsa. Gli acquisti dello stesso titolo entro ' + bt.days + ' giorni dal primo sono una campagna sola.',
       'Every insider purchase of the last two years, measured after ' + h +
-      ' days against its own sector. Episodes matter more than signatures: five executives buying ' +
-      'on the same day in the same company are one fact, not five.') + '</p>' +
+      ' days against its own sector, and counted once per campaign. An insider who buys ten times in ' +
+      'three weeks does not give ten pieces of evidence: the measurements cover almost the same stretch ' +
+      'of market. Purchases of the same stock within ' + bt.days + ' days of the first are one campaign.') : T(
+      'Ogni acquisto di un insider delle ultime due annate, misurato dopo ' + h +
+      ' giorni contro il suo settore.',
+      'Every insider purchase of the last two years, measured after ' + h +
+      ' days against its own sector.')) + '</p>' +
     '<div class="tiles">' +
-      statTile(a.ep, T('episodi di acquisto', 'buying episodes'),
-               T(a.n + ' firme in tutto', a.n + ' signatures in all')) +
-      statTile(Math.round(a.pos / a.n * 100) + '%', T('in guadagno', 'in the money'),
+      statTile(k, isC ? T('campagne indipendenti', 'independent campaigns') : T('episodi di acquisto', 'buying episodes'),
+               isC ? T('da ' + a.ep + ' episodi e ' + a.n + ' acquisti', 'from ' + a.ep + ' episodes and ' + a.n + ' purchases')
+                   : T(a.n + ' firme in tutto', a.n + ' signatures in all')) +
+      statTile(Math.round(a.pos / k * 100) + '%', T('in guadagno', 'in the money'),
                T('dopo ' + h + ' giorni', 'after ' + h + ' days')) +
       statTile(sg(a.med, 1) + '%', T('rendimento mediano', 'median return'),
                T('contro il settore', 'against the sector')) +
       statTile(sg(a.avg, 1) + '%', T('rendimento medio', 'average return'),
                T('la media risente degli estremi', 'the average is pulled by outliers')) +
-    '</div>' + distChart(bt) + '</div>' + fwdCard() +
+    '</div>' +
+    (isC && bp ? '<p class="sub" style="margin-top:4px">' + T(
+      'Contando i singoli acquisti, come faceva questa pagina fino al 22 novembre 2026, la mediana ' +
+      'sarebbe ' + sg(bp.med, 1) + '% su ' + bp.n + ' acquisti. Era un numero gonfiato: poche ' +
+      'campagne contate molte volte.',
+      'Counting individual purchases, as this page did until 22 November 2026, the median would be ' +
+      sg(bp.med, 1) + '% over ' + bp.n + ' purchases. It was an inflated number: a few campaigns ' +
+      'counted many times.') + '</p>' : '') +
+    distChart(bt) + '</div>' + fwdCard() +
 
     '<div class="card"><h2>' + T('Le due regole della formula, messe alla prova',
       'The formula’s two rules, put to the test') + '</h2><p class="sub">' +
-    T('La formula dà più peso ai cluster e ai dirigenti apicali. Questi sono i numeri che quelle ' +
-      'due scelte producono su questo universo.',
-      'The formula gives more weight to clusters and to top executives. These are the numbers those ' +
-      'two choices produce on this universe.') + '</p>' +
+    T('Fino al 22 novembre 2026 la formula premiava a mano i cluster e i dirigenti apicali. Questi ' +
+      'sono i numeri che quelle due regole producono su questo universo, contati per campagna; la ' +
+      'scheda qui sotto ne ricava i bonus che la formula usa adesso.',
+      'Until 22 November 2026 the formula rewarded clusters and top executives by hand. These are the ' +
+      'numbers those two rules produce on this universe, counted per campaign; the card below derives ' +
+      'from them the bonuses the formula uses now.') + '</p>' +
     '<div class="scroll"><table><thead><tr><th>' + T('Gruppo', 'Group') + '</th>' +
+    '<th class="num">' + T('Campagne', 'Campaigns') + '</th>' +
     '<th class="num">' + T('Episodi', 'Episodes') + '</th>' +
     '<th class="num">' + T('Acquisti', 'Purchases') + '</th>' +
     '<th class="num">' + T('In guadagno', 'In the money') + '</th>' +
@@ -1014,18 +1121,23 @@ function renderBacktest(){
         'On this data a cluster returns more than a lone purchase: the rule holds.'),
       T('Su questi dati il cluster rende meno di un acquisto isolato: la regola non è confermata.',
         'On this data a cluster returns less than a lone purchase: the rule is not confirmed.'),
-      T('Il cluster si è verificato in {n} solo episodio: troppo poco per confermare o smentire la ' +
-        'regola. Il numero che vedi è un singolo fatto, non una tendenza.',
-        'A cluster occurred in {n} single episode: too little to confirm or deny the rule. The number ' +
-        'you see is one fact, not a trend.')) +
+      function(n){ return T(
+        (n === 1 ? 'C’è una sola campagna con un cluster' : 'Ci sono solo ' + n + ' campagne con un cluster') +
+        ': troppo poco per confermare o smentire la regola. Il numero che vedi è un fatto isolato, ' +
+        'non una tendenza.',
+        (n === 1 ? 'There is a single campaign with a cluster' : 'There are only ' + n + ' campaigns with a cluster') +
+        ': too little to confirm or deny the rule. The number you see is an isolated fact, not a trend.'); }) +
     btVerdict('senior', bt.senior, bt.other,
       T('Gli acquisti dei dirigenti apicali rendono più degli altri: la regola regge.',
         'Purchases by top executives return more than the others: the rule holds.'),
       T('Gli acquisti dei dirigenti apicali non rendono più degli altri: la regola non è confermata.',
         'Purchases by top executives do not return more than the others: the rule is not confirmed.'),
-      T('Solo {n} episodi di acquisti di dirigenti apicali: troppo pochi per dire qualcosa.',
-        'Only {n} episodes of purchases by top executives: too few to say anything.')) +
-    '</div>' +
+      function(n){ return T(
+        (n === 1 ? 'Una sola campagna' : 'Solo ' + n + ' campagne') + ' di dirigenti apicali: troppo ' +
+        'poco per dire qualcosa.',
+        (n === 1 ? 'A single campaign' : 'Only ' + n + ' campaigns') + ' by top executives: too few to ' +
+        'say anything.'); }) +
+    '</div>' + bonusCard(bt) +
 
     '<div class="card"><h2>' + T('Che cosa questo backtest non è',
       'What this backtest is not') + '</h2><ul class="plain">' + T([
@@ -1033,8 +1145,9 @@ function renderBacktest(){
       'all’indietro: ricostruire il punteggio storico vorrebbe dire inventarlo.',
       'Non è una strategia. Non ci sono costi, slittamenti di prezzo, dimensione delle posizioni ' +
       'né regole di uscita diverse dai ' + h + ' giorni fissi.',
-      'Non è un campione grande. ' + a.ep + ' episodi su due anni e ' +
-      ((IDX.companies || []).length) + ' aziende: abbastanza per farsi un’idea, non per una tesi.',
+      'Non è un campione grande. ' + k + (isC ? ' campagne indipendenti' : ' episodi') +
+      ' su due anni e ' + ((IDX.companies || []).length) + ' aziende: abbastanza per farsi ' +
+      'un’idea, non per una tesi.',
       'Il rendimento è sempre al netto del settore di appartenenza, non del mercato: misura la ' +
       'scelta dell’azienda, non l’andamento generale.'
     ], [
@@ -1042,8 +1155,9 @@ function renderBacktest(){
       'backwards: rebuilding the historical score would mean inventing it.',
       'It is not a strategy. There are no costs, no slippage, no position sizing and no exit rule ' +
       'other than the fixed ' + h + ' days.',
-      'It is not a large sample. ' + a.ep + ' episodes over two years and ' +
-      ((IDX.companies || []).length) + ' companies: enough to form a view, not to make a case.',
+      'It is not a large sample. ' + k + (isC ? ' independent campaigns' : ' episodes') +
+      ' over two years and ' + ((IDX.companies || []).length) + ' companies: enough to form a ' +
+      'view, not to make a case.',
       'The return is always net of the company’s own sector, not of the market: it measures the ' +
       'choice of company, not the general trend.'
     ]).map(function(x){ return '<li>' + esc(x) + '</li>'; }).join('') + '</ul></div>';
