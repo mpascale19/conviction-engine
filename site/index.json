@@ -1,6 +1,6 @@
 {
- "generated_at": "2026-11-22T18:01:14+00:00",
- "changed_at": "2026-11-22T18:01:14+00:00",
+ "generated_at": "2026-11-22T18:48:23+00:00",
+ "changed_at": "2026-11-22T18:48:23+00:00",
  "groups": [
   {
    "nome": {
@@ -112,37 +112,37 @@
    {
     "lo": -15,
     "hi": -10,
-    "n": 11
+    "n": 13
    },
    {
     "lo": -10,
     "hi": -5,
-    "n": 17
+    "n": 28
    },
    {
     "lo": -5,
     "hi": 0,
-    "n": 26
+    "n": 38
    },
    {
     "lo": 0,
     "hi": 5,
-    "n": 30
+    "n": 36
    },
    {
     "lo": 5,
     "hi": 10,
-    "n": 30
+    "n": 34
    },
    {
     "lo": 10,
     "hi": 15,
-    "n": 9
+    "n": 12
    },
    {
     "lo": 15,
     "hi": 20,
-    "n": 11
+    "n": 13
    },
    {
     "lo": 20,
@@ -161,97 +161,97 @@
    }
   ],
   "all": {
-   "camp": 167,
-   "ep": 271,
-   "n": 410,
-   "pos": 93,
-   "avg": 1.68,
-   "med": 1.45
+   "camp": 207,
+   "ep": 349,
+   "n": 524,
+   "pos": 108,
+   "avg": 1.22,
+   "med": 0.63
   },
   "by_purchase": {
-   "n": 410,
-   "ep": 271,
-   "pos": 226,
-   "avg": 2.36,
-   "med": 1.44
+   "n": 524,
+   "ep": 349,
+   "pos": 277,
+   "avg": 1.79,
+   "med": 0.98
   },
   "cluster": {
-   "camp": 11,
-   "ep": 34,
-   "n": 59,
-   "pos": 3,
-   "avg": -4.13,
-   "med": -3.28
+   "camp": 12,
+   "ep": 41,
+   "n": 68,
+   "pos": 4,
+   "avg": -2.61,
+   "med": -2.29
   },
   "solo": {
-   "camp": 156,
-   "ep": 237,
-   "n": 351,
-   "pos": 90,
-   "avg": 2.08,
-   "med": 1.69
+   "camp": 195,
+   "ep": 308,
+   "n": 456,
+   "pos": 104,
+   "avg": 1.45,
+   "med": 1.02
   },
   "senior": {
-   "camp": 38,
-   "ep": 81,
-   "n": 149,
-   "pos": 14,
-   "avg": -1.09,
+   "camp": 48,
+   "ep": 96,
+   "n": 170,
+   "pos": 18,
+   "avg": -0.98,
    "med": -4.64
   },
   "other": {
-   "camp": 129,
-   "ep": 190,
-   "n": 261,
-   "pos": 79,
-   "avg": 2.49,
-   "med": 2.29
+   "camp": 159,
+   "ep": 253,
+   "n": 354,
+   "pos": 90,
+   "avg": 1.88,
+   "med": 1.45
   },
   "bonus": {
    "tau": 5.0,
-   "camp": 167,
+   "camp": 207,
    "cap": 50.0,
    "days": 90,
-   "base": 2.27,
+   "base": 1.59,
    "features": [
     {
      "id": "cluster",
-     "n": 11,
+     "n": 12,
      "hand": 18,
-     "raw": -4.09,
-     "se": 5.7,
-     "shrink": 0.435,
-     "post": -1.78,
-     "points": -2,
+     "raw": -2.12,
+     "se": 4.83,
+     "shrink": 0.517,
+     "post": -1.1,
+     "points": -1,
      "by_tau": {
       "3": -1,
-      "5": -2,
-      "10": -3
+      "5": -1,
+      "10": -2
      }
     },
     {
      "id": "two",
-     "n": 18,
+     "n": 26,
      "hand": 8,
-     "raw": -3.87,
-     "se": 4.01,
-     "shrink": 0.608,
-     "post": -2.36,
-     "points": -2,
+     "raw": -1.77,
+     "se": 3.21,
+     "shrink": 0.708,
+     "post": -1.25,
+     "points": -1,
      "by_tau": {
       "3": -1,
-      "5": -2,
-      "10": -3
+      "5": -1,
+      "10": -2
      }
     },
     {
      "id": "senior",
-     "n": 38,
+     "n": 48,
      "hand": 10,
-     "raw": -2.31,
-     "se": 3.39,
-     "shrink": 0.685,
-     "post": -1.58,
+     "raw": -2.27,
+     "se": 2.74,
+     "shrink": 0.769,
+     "post": -1.75,
      "points": -2,
      "by_tau": {
       "3": -1,
@@ -299,8 +299,8 @@
    {
     "id": "insider",
     "n": 200,
-    "rho": 0.75,
-    "shift": 4.7
+    "rho": 0.751,
+    "shift": 4.6
    },
    {
     "id": "market",
@@ -311,13 +311,13 @@
    {
     "id": "sector",
     "n": 200,
-    "rho": 0.906,
+    "rho": 0.911,
     "shift": 1.3
    },
    {
     "id": "events",
     "n": 200,
-    "rho": 0.977,
+    "rho": 0.978,
     "shift": 1.0
    },
    {
@@ -328,9 +328,9 @@
    }
   ],
   "rho": {
-   "med": 0.983,
-   "p5": 0.958,
-   "min": 0.916
+   "med": 0.984,
+   "p5": 0.959,
+   "min": 0.917
   },
   "top_overlap": {
    "med": 8,
@@ -355,11 +355,11 @@
    },
    {
     "id": "sector",
-    "ic": 0.026,
-    "se": 0.017,
-    "t": 1.15,
+    "ic": 0.003,
+    "se": 0.013,
+    "t": -0.31,
     "blocks": 19,
-    "dates": 889
+    "dates": 916
    },
    {
     "id": "market",
@@ -380,10 +380,10 @@
   ]
  },
  "history": {
-  "complete": 69,
+  "complete": 77,
   "total": 200,
   "tx_from": "2021-10-18",
-  "missing": 46352
+  "missing": 42352
  },
  "companies": [
   {
@@ -742,10 +742,76 @@
     "c": 45.81,
     "v": 10144900
    },
-   "tx": 5,
+   "tx": 332,
    "buyers": 1,
    "sellers": 0,
    "net_musd": 2.225,
+   "cluster": false,
+   "errors": 0
+  },
+  {
+   "ticker": "HBAN",
+   "name": "HUNTINGTON BANCSHARES INC /MD/",
+   "group": {
+    "it": "Banche regionali",
+    "en": "Regional banks"
+   },
+   "score": 54,
+   "verdict": {
+    "it": "Nessuna convinzione chiara",
+    "en": "No clear conviction"
+   },
+   "confidence": "Media",
+   "covered_pct": 65,
+   "driver": {
+    "name": {
+     "it": "Settore",
+     "en": "Sector"
+    },
+    "up": true
+   },
+   "last": {
+    "d": "2026-11-20",
+    "c": 14.28,
+    "v": 25006100
+   },
+   "tx": 63,
+   "buyers": 2,
+   "sellers": 1,
+   "net_musd": 0.406,
+   "cluster": false,
+   "errors": 0
+  },
+  {
+   "ticker": "UMBF",
+   "name": "UMB FINANCIAL CORP",
+   "group": {
+    "it": "Banche regionali",
+    "en": "Regional banks"
+   },
+   "score": 54,
+   "verdict": {
+    "it": "Nessuna convinzione chiara",
+    "en": "No clear conviction"
+   },
+   "confidence": "Media",
+   "covered_pct": 65,
+   "driver": {
+    "name": {
+     "it": "Settore",
+     "en": "Sector"
+    },
+    "up": true
+   },
+   "last": {
+    "d": "2026-11-20",
+    "c": 126.5,
+    "v": 690400
+   },
+   "tx": 29,
+   "buyers": 2,
+   "sellers": 1,
+   "net_musd": 0.153,
    "cluster": false,
    "errors": 0
   },
@@ -1171,43 +1237,10 @@
     "c": 79.68,
     "v": 4595700
    },
-   "tx": 10,
+   "tx": 310,
    "buyers": 1,
    "sellers": 0,
    "net_musd": 0.01,
-   "cluster": false,
-   "errors": 0
-  },
-  {
-   "ticker": "HBAN",
-   "name": "HUNTINGTON BANCSHARES INC /MD/",
-   "group": {
-    "it": "Banche regionali",
-    "en": "Regional banks"
-   },
-   "score": 53,
-   "verdict": {
-    "it": "Nessuna convinzione chiara",
-    "en": "No clear conviction"
-   },
-   "confidence": "Media",
-   "covered_pct": 65,
-   "driver": {
-    "name": {
-     "it": "Settore",
-     "en": "Sector"
-    },
-    "up": true
-   },
-   "last": {
-    "d": "2026-11-20",
-    "c": 14.28,
-    "v": 25006100
-   },
-   "tx": 63,
-   "buyers": 2,
-   "sellers": 1,
-   "net_musd": 0.406,
    "cluster": false,
    "errors": 0
   },
@@ -1245,39 +1278,6 @@
    "errors": 0
   },
   {
-   "ticker": "UMBF",
-   "name": "UMB FINANCIAL CORP",
-   "group": {
-    "it": "Banche regionali",
-    "en": "Regional banks"
-   },
-   "score": 53,
-   "verdict": {
-    "it": "Nessuna convinzione chiara",
-    "en": "No clear conviction"
-   },
-   "confidence": "Media",
-   "covered_pct": 65,
-   "driver": {
-    "name": {
-     "it": "Settore",
-     "en": "Sector"
-    },
-    "up": true
-   },
-   "last": {
-    "d": "2026-11-20",
-    "c": 126.5,
-    "v": 690400
-   },
-   "tx": 29,
-   "buyers": 2,
-   "sellers": 1,
-   "net_musd": 0.153,
-   "cluster": false,
-   "errors": 0
-  },
-  {
    "ticker": "LMT",
    "name": "LOCKHEED MARTIN CORP",
    "group": {
@@ -1308,6 +1308,39 @@
    "sellers": 1,
    "net_musd": 0.0,
    "cluster": false,
+   "errors": 0
+  },
+  {
+   "ticker": "BA",
+   "name": "BOEING CO",
+   "group": {
+    "it": "Industria",
+    "en": "Industrials"
+   },
+   "score": 53,
+   "verdict": {
+    "it": "Nessuna convinzione chiara",
+    "en": "No clear conviction"
+   },
+   "confidence": "Media",
+   "covered_pct": 65,
+   "driver": {
+    "name": {
+     "it": "Settore",
+     "en": "Sector"
+    },
+    "up": true
+   },
+   "last": {
+    "d": "2026-11-20",
+    "c": 155.89,
+    "v": 11135300
+   },
+   "tx": 8,
+   "buyers": 3,
+   "sellers": 1,
+   "net_musd": 1.485,
+   "cluster": true,
    "errors": 0
   },
   {
@@ -1633,7 +1666,7 @@
     "c": 178.66,
     "v": 5030100
    },
-   "tx": 45,
+   "tx": 895,
    "buyers": 0,
    "sellers": 0,
    "net_musd": 0.0,
@@ -1737,39 +1770,6 @@
    "sellers": 0,
    "net_musd": 0.0,
    "cluster": false,
-   "errors": 0
-  },
-  {
-   "ticker": "BA",
-   "name": "BOEING CO",
-   "group": {
-    "it": "Industria",
-    "en": "Industrials"
-   },
-   "score": 52,
-   "verdict": {
-    "it": "Nessuna convinzione chiara",
-    "en": "No clear conviction"
-   },
-   "confidence": "Media",
-   "covered_pct": 65,
-   "driver": {
-    "name": {
-     "it": "Settore",
-     "en": "Sector"
-    },
-    "up": true
-   },
-   "last": {
-    "d": "2026-11-20",
-    "c": 155.89,
-    "v": 11135300
-   },
-   "tx": 8,
-   "buyers": 3,
-   "sellers": 1,
-   "net_musd": 1.485,
-   "cluster": true,
    "errors": 0
   },
   {
@@ -2326,7 +2326,7 @@
     "c": 231.39,
     "v": 3429800
    },
-   "tx": 60,
+   "tx": 611,
    "buyers": 0,
    "sellers": 0,
    "net_musd": 0.0,
@@ -2359,7 +2359,7 @@
     "c": 170.0,
     "v": 4573500
    },
-   "tx": 52,
+   "tx": 860,
    "buyers": 0,
    "sellers": 2,
    "net_musd": -1.131,
@@ -2392,7 +2392,7 @@
     "c": 213.12,
     "v": 1685600
    },
-   "tx": 1,
+   "tx": 628,
    "buyers": 0,
    "sellers": 0,
    "net_musd": 0.0,
@@ -5197,7 +5197,7 @@
     "c": 56.05,
     "v": 9169300
    },
-   "tx": 2,
+   "tx": 418,
    "buyers": 0,
    "sellers": 1,
    "net_musd": -1.701,
@@ -5758,7 +5758,7 @@
     "c": 307.56,
     "v": 2678000
    },
-   "tx": 66,
+   "tx": 659,
    "buyers": 1,
    "sellers": 8,
    "net_musd": -18.198,
@@ -6550,7 +6550,7 @@
     "c": 393.24,
     "v": 1352600
    },
-   "tx": 33,
+   "tx": 772,
    "buyers": 0,
    "sellers": 8,
    "net_musd": -77.818,
