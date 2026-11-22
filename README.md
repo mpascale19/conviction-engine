@@ -16,14 +16,14 @@ legge le trascrizioni e ne tira fuori campi strutturati; il punteggio lo calcola
 | Operazioni degli insider (Form 4) | SEC EDGAR | sì, senza chiave |
 | Rendimento del settore | Yahoo / stooq (ETF di settore) | sì |
 | Tono e guidance dalle call | il tuo export + LLM | sì, se metti i testi in `input/transcripts/` **e** nei segreti del repository c'è `ANTHROPIC_API_KEY`; finora le 24 estrazioni sono state fatte a mano, con lo stesso schema |
-| Short interest | Bloomberg (dati FINRA) | **no**: export manuale |
+| Short interest | FINRA, file pubblici (riserva: export Bloomberg) | sì, senza chiave |
 | Concorrenti | SEC EDGAR | sì, quando aggiungi i loro ticker |
 | Fatti rilevanti (8-K) | SEC EDGAR | sì, senza chiave e senza richieste in più |
 
 Quello che manca non blocca niente: il peso del sotto-punteggio assente viene
 ridistribuito sugli altri, lo score esce lo stesso e `data.json` dice che cosa
-mancava e con quale confidenza. Oggi la parte pubblica copre circa il 40% dei
-pesi; con le trascrizioni si arriva al 60%.
+mancava e con quale confidenza. La parte pubblica (SEC, prezzi e short interest
+di FINRA) copre l'80% dei pesi; con le trascrizioni si arriva al 100%.
 
 ## Manutenzione
 
@@ -41,13 +41,13 @@ aggiornato. Parte da solo anche quando carichi file in `pipeline/`, `input/`,
 | Operazioni Form 4 | da solo, SEC EDGAR | a ogni giro, ogni ora |
 | Azioni in circolazione | da solo, SEC | a ogni giro |
 | Fatti rilevanti 8-K | da solo, SEC EDGAR | a ogni giro |
-| Short interest | export manuale | due volte al mese |
+| Short interest | da solo, FINRA | due volte al mese, quando FINRA pubblica |
 | Trascrizioni delle call | export manuale | una volta a trimestre |
 
-Lo short interest lo pubblicano FINRA e le borse due volte al mese, a metà e a
-fine mese, e compare sui terminali qualche giorno dopo. Per aggiornarlo si
-riesporta e si sostituisce il CSV intero: il file è piccolo e la pipeline usa
-sempre l'ultima riga.
+Lo short interest lo pubblica FINRA due volte al mese, con la data di
+regolamento del 15 e quella di fine mese, circa sette giorni di Borsa dopo. La
+pipeline lo scarica da sola (vedi la sezione "Short interest"): non c'è più
+niente da esportare a mano.
 
 Le trascrizioni servono solo dopo una earnings call, e solo per le aziende che
 segui davvero. Il tono usa le ultime quattro call: se ne salti una, il
@@ -165,12 +165,51 @@ la guidance". È il segnale che il progetto esiste per trovare, e costa zero.
 
 ## Short interest
 
-Export manuale da Bloomberg (`SI <GO>`), un file per azienda:
+Dal 22 novembre 2026 lo short interest arriva dai **file pubblici di FINRA**
+(`pipeline/finra.py`), per tutte le duecento aziende e per cinque anni. FINRA
+pubblica un file per ogni data di regolamento, il 15 e la fine del mese:
+
+```
+https://cdn.finra.org/equity/otcmarket/biweekly/shrtAAAAMMGG.csv
+```
+
+Nonostante "otcmarket" nell'indirizzo è il file consolidato, con i titoli di
+NYSE, Nasdaq e delle altre borse; i campi sono separati da `|` e non serve
+nessuna chiave. Ogni file pesa circa 3 MB e ha più di ventimila righe: in cache
+(`cache/finra/`) resta un file piccolo per rilevazione, con le sole righe delle
+aziende di `config.json`. Le 120 rilevazioni di cinque anni si scaricano a rate,
+60 richieste per giro al massimo (`finra_files_per_run`), dalla più recente.
+
+Due dettagli del calendario. Il nome del file è la data di regolamento, che
+slitta indietro quando il 15 o la fine del mese cadono di sabato, di domenica o
+in un giorno di festa: la pipeline prova i giorni feriali andando indietro. E un
+file esce circa sette giorni di Borsa dopo: una rilevazione più recente di tre
+settimane che non si trova si riprova al giro dopo, una più vecchia si segna in
+cache come inesistente. Questo però solo se nello stesso giro un altro file è
+arrivato: se FINRA non risponde a niente è un guasto, e cinque anni di "nessun
+dato" sarebbero un falso. Se qualcosa va storto, `index.json` lo dice in
+`short_interest.error` (e in `short_interest.head` c'è l'intestazione del file
+ricevuto), così si legge senza aprire il log.
+
+La pipeline usa il campo `currentShortPositionQuantity` (azioni allo scoperto),
+`averageDailyVolumeQuantity` (volume medio) e `daysToCoverQuantity` (giorni per
+ricoprire). Prima si usavano gli export manuali da Bloomberg (`SI <GO>`), un
+file per azienda:
 
 ```
 input/market/INTC_si.csv
 date,short_interest,close,avg_volume,days_to_cover
 ```
+
+Restano come riserva: un'azienda li usa solo finché FINRA non ha almeno otto
+sue rilevazioni. È lo stesso dato, ma tutte le aziende vanno misurate con la
+stessa fonte appena si può. La scheda dice quale fonte ha usato (`si_source`).
+Passando a FINRA lo short interest delle 36 aziende che avevano l'export può
+spostarsi un poco, perché la data e l'arrotondamento non coincidono sempre.
+
+La prova all'indietro della voce Mercato usa tutti e cinque gli anni (in memoria
+durante il giro, come i prezzi lunghi); prima aveva solo i due anni degli
+export, sei blocchi indipendenti in tutto.
 
 L'export non contiene la percentuale sul flottante, quindi il sotto-punteggio
 **Mercato** non la usa: misura lo short interest contro la storia del titolo
@@ -182,7 +221,7 @@ stesso punteggio.
 
 ### Percentuale sul circolante
 
-Le azioni in circolazione non arrivano da Bloomberg: stanno in copertina a ogni
+Le azioni in circolazione non arrivano da FINRA: stanno in copertina a ogni
 10-Q e 10-K, e la SEC le espone in un endpoint pubblico
 (`companyconcept/.../dei/EntityCommonStockSharesOutstanding`). La pipeline le
 scarica da sola per tutte le aziende, insieme ai Form 4.
@@ -196,7 +235,7 @@ differenza è piccola, ma il sito scrive "azioni in circolazione" e non
 
 ### Il confronto con i simili
 
-Quando più aziende dello stesso universo hanno il file dello short interest, il
+Quando più aziende dello stesso universo hanno lo short interest, il
 sotto-punteggio Mercato aggiunge un confronto: la percentuale sulle azioni in
 circolazione di questa azienda contro la **mediana del suo gruppo**. Essere
 shortati molto più dei simili toglie punti, molto meno li aggiunge, con un
@@ -208,7 +247,8 @@ storia) e "è shortata più delle altre" (confronto con il settore). Le due cose
 insieme dicono molto di più di ciascuna da sola.
 
 Lo short interest nasce da FINRA e dalle borse, non è un prodotto proprietario
-Bloomberg: per questo i numeri stanno nel repo. Le revisioni delle stime e il
+Bloomberg: per questo i numeri stanno nel repo, e da novembre 2026 arrivano
+direttamente da FINRA. Le revisioni delle stime e il
 consenso EPS, quando arriveranno, seguiranno la regola delle trascrizioni.
 
 ## Da ticker a CIK: il controllo
@@ -574,7 +614,9 @@ duecento aziende un blocco è un periodo di calendario comune a tutti gli
 universi: due settori nello stesso trimestre non sono due prove indipendenti,
 perché lo stesso mercato li muove tutti e due, e contarli a parte farebbe
 sembrare l'incertezza più piccola del vero. Con cinque anni i blocchi sono una
-ventina, quante che siano le aziende.
+ventina, quante che siano le aziende. La correlazione che il sito mostra è la
+media dei blocchi, la stessa a cui si riferiscono errore e t (fino al 22
+novembre era la media di tutte le date, che dà più peso ai blocchi con più date).
 
 Il metodo è stato controllato prima di guardare i risultati: un segnale che
 conosce il futuro dà 1,000, uno casuale −0,010. Un test fa lo stesso attraverso
@@ -752,10 +794,11 @@ dall'acquisto (`rules.START_GAP_DAYS`), e le operazioni più vecchie della
 finestra di cinque anni restano fuori già in `build_one`: non si possono
 misurare, e falserebbero anche la data da cui "parte la storia".
 
-**Che cosa non arriva da solo.** Short interest e trascrizioni delle call
-dipendono da export fatti a mano (vedi le loro sezioni): le 160 nuove non li
-hanno, quindi la loro copertura dei dati è più bassa e la loro confidenza pure.
-Il sito lo mostra azienda per azienda; non è un errore.
+**Che cosa non arriva da solo.** Le trascrizioni delle call dipendono da un
+export fatto a mano (vedi la loro sezione): le 160 nuove non le hanno, quindi la
+loro copertura dei dati è più bassa e la loro confidenza pure. Il sito lo mostra
+azienda per azienda; non è un errore. Lo short interest invece arriva da FINRA
+per tutte, dalla stessa sera (vedi "Short interest").
 
 ## La regola di maturità: un'osservazione vale solo a orizzonte compiuto
 
@@ -1032,8 +1075,8 @@ stessa call non si paga due volte.
 - Le chiusure di Yahoo sono corrette per i frazionamenti, non per i dividendi,
   e non è detto che lo siano per gli scorpori. Per questo le aziende con uno spin-off negli ultimi cinque anni sono
   rimaste fuori; un'azienda aggiunta dopo va controllata.
-- Short interest e guidance coprono solo le aziende per cui c'è un export fatto
-  a mano: con duecento aziende la maggior parte ha copertura parziale.
+- La guidance copre solo le aziende per cui c'è un export delle trascrizioni
+  fatto a mano: con duecento aziende la maggior parte ha copertura all'80%.
 - Lo score non è una raccomandazione di investimento.
 
 ## Passo successivo
