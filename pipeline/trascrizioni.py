@@ -23,8 +23,14 @@ usa al massimo `--limit`, nell'ordine in cui servono di più:
 Le date delle call sono quelle degli 8-K con item 2.02 (risultati), già nelle
 schede del sito. Alpha Vantage vuole il trimestre FISCALE ("2027Q3" per la call
 di Nvidia di novembre 2026): lo si ricava dal mese di chiusura dell'anno
-fiscale, che la SEC scrive nel file dei depositi (`fiscalYearEnd`). Se con il
-trimestre fiscale non arriva niente, si prova una volta quello di calendario.
+fiscale, che la SEC scrive nel file dei depositi (`fiscalYearEnd`).
+
+Niente riserva sul trimestre di calendario. C'era, e il 22 novembre 2026 ha
+portato cinque call sbagliate: per TJX, Salesforce, Sysco, Atlassian e Clorox
+il trimestre fiscale non ha risposto, e quello di calendario ("2026Q3") per
+Alpha Vantage è il terzo trimestre dell'anno FISCALE 2026, cioè una call di
+sei o dodici mesi prima. In più ogni trascrizione arrivata si controlla: nelle
+prime righe deve comparire l'anno del trimestre chiesto, altrimenti si scarta.
 
 Serve la variabile d'ambiente ALPHAVANTAGE_KEY (un segreto del repository).
 """
@@ -116,15 +122,45 @@ def extracted_pairs(folder, cards, fy_end):
 
 
 # ------------------------------------------------------------------ Alpha Vantage
+def call_matches(rows, label, head_chars=3000):
+    """La trascrizione è davvero del trimestre chiesto?
+
+    Le call si aprono quasi sempre con "third quarter 2026" o "third quarter
+    fiscal 2027": nelle prime righe deve comparire l'anno del trimestre chiesto
+    ("2027", "'27" o "FY27"). È un controllo grossolano ma basta a scartare la
+    call di un anno prima, che è l'errore che si è visto davvero.
+    """
+    year = label[:4]
+    text = " ".join(r["content"] for r in rows)[:head_chars]
+    return any(x in text for x in (year, f"'{year[2:]}", f"FY{year[2:]}", f"FY {year[2:]}"))
+
+
+def clean_state(state, fy_end):
+    """Toglie dallo stato le call prese con la vecchia riserva di calendario.
+
+    Fino alla versione 2 dello stato, per le aziende con l'anno fiscale sfasato
+    (chiusura diversa da dicembre) il trimestre fiscale non rispondeva e la
+    riserva prendeva la call sbagliata. Quelle call vanno richieste di nuovo,
+    una volta sola.
+    """
+    if state.get("v", 1) >= 2:
+        return state
+    state["done"] = [x for x in state.get("done") or [] if fy_end.get(x[0], 12) == 12]
+    state["v"] = 2
+    return state
+
+
 def parse_av(payload):
     """La risposta di Alpha Vantage -> [{"speaker", "title", "content"}], o [] se non c'è.
 
     Alza Limit se la risposta dice che la quota è finita, che serve un piano a
     pagamento o che la chiave non va: in tutti questi casi è inutile continuare oggi.
     """
+    parse_av.note = ""
     if not isinstance(payload, dict):
         return []
     note = " ".join(str(payload.get(k, "")) for k in ("Information", "Note", "Error Message"))
+    parse_av.note = note.strip()[:200]        # finisce nel riepilogo se la risposta è vuota
     low = note.lower()
     if any(w in low for w in ("rate limit", "requests per day", "premium", "frequency", "25 requests",
                               "apikey")):
@@ -203,6 +239,7 @@ def main():
     except (OSError, ValueError):
         state = {"done": [], "fy_end": {}}
     fy_end = {k: int(v) for k, v in (state.get("fy_end") or {}).items()}
+    state = clean_state(state, fy_end)
     have = {tuple(x) for x in state.get("done") or []} | extracted_pairs("input/extracted", cards, fy_end)
     # le call che Alpha Vantage non ha: dopo EMPTY_TRIES giorni a vuoto non si chiedono più
     empty = state.setdefault("empty", {})
@@ -217,18 +254,14 @@ def main():
             if t not in fy_end:
                 fy_end[t] = _fy_end(cards[t]["company"]["cik"], ua)
                 time.sleep(0.15)
-            labels = [fiscal_label(day, fy_end[t])]
-            if calendar_label(day) not in labels:
-                labels.append(calendar_label(day))
-            rows, lab = [], None
-            for lab in labels:
-                if used >= a.limit:
-                    break
-                used += 1
-                rows = fetch(t, lab, key)
-                time.sleep(1.5)
-                if rows:
-                    break
+            lab = fiscal_label(day, fy_end[t])
+            used += 1
+            rows = fetch(t, lab, key)
+            time.sleep(1.5)
+            why = getattr(parse_av, "note", "") or "nessuna trascrizione"
+            if rows and not call_matches(rows, lab):
+                why = f"la trascrizione arrivata non è del {lab[:4]}: scartata"
+                rows = []
             if rows:
                 name = (cards[t].get("company") or {}).get("name") or t
                 to_docx(os.path.join(a.out, f"{t}_{lab}.docx"), t, name, lab, day, rows)
@@ -237,7 +270,8 @@ def main():
                 log.append(f"OK    {t} {lab} (call del {day}): {len(rows)} interventi")
             else:
                 empty[f"{t}|{day}"] = empty.get(f"{t}|{day}", 0) + 1
-                log.append(f"VUOTA {t} call del {day}: provati {', '.join(labels)} "
+                log.append(f"VUOTA {t} call del {day}: chiesto {lab} (chiusura dell'anno fiscale: "
+                           f"mese {fy_end[t]}); Alpha Vantage: {why} "
                            f"({empty[f'{t}|{day}']} di {EMPTY_TRIES} tentativi)")
         except Limit as e:
             log.append(f"STOP  Alpha Vantage: {e}")
