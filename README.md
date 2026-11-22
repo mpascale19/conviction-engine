@@ -441,14 +441,16 @@ due anni e guarda come è andato il titolo nei 60 giorni successivi, al netto de
 suo settore. Serve a una cosa sola: controllare se le due regole che la formula
 usa per dare più peso ad alcuni acquisti trovano riscontro nei dati.
 
-**Gli episodi contano, non le firme.** Cinque dirigenti che comprano lo stesso
-giorno nella stessa azienda sono un fatto solo, osservato cinque volte: se li
-conti come cinque osservazioni indipendenti, un singolo episodio fortunato o
-sfortunato diventa una regolarità che non esiste. Per questo ogni riga riporta
-sia `n` (le firme) sia `ep` (gli episodi distinti, cioè le coppie
-ticker + data), e quando gli episodi sono meno di cinque il sito lo dice e
-toglie il colore al numero, invece di far sembrare un segnale quello che è un
-aneddoto.
+**Le campagne contano, non le firme e nemmeno gli episodi.** Cinque dirigenti
+che comprano lo stesso giorno nella stessa azienda sono un fatto solo, osservato
+cinque volte (un *episodio*: una coppia ticker + data). Ma anche episodi diversi
+possono essere lo stesso fatto: un insider che compra dieci volte in tre
+settimane produce dieci misure a 60 sedute che coprono quasi lo stesso periodo
+di borsa. Dal 22 novembre 2026 l'unità è la **campagna**: gli episodi dello
+stesso titolo entro 90 giorni dal primo, con il rendimento medio. Ogni riga
+riporta campagne, episodi e acquisti, così si vede quanto il conteggio per
+acquisto gonfiava le cose; quando le campagne sono meno di cinque il sito lo
+dice e toglie il colore al numero.
 
 Quello che il backtest **non** è:
 
@@ -472,6 +474,83 @@ aggiornamento e finisce in `index.json` sotto la chiave `backtest`. Se gli
 acquisti misurabili sono meno di dieci, la chiave resta `null` e la pagina
 dice che non c'è ancora abbastanza per parlare, invece di mostrare un numero
 costruito su tre casi.
+
+## Il 22 novembre 2026: quattro correzioni e i bonus stimati dai dati
+
+Il lavoro doveva essere uno solo: smettere di scrivere a mano i bonus della voce
+insider (+18 al cluster, +10 al dirigente apicale, +8 a due compratori) e farli
+stimare dal backtest. Preparando i dati per la stima sono venuti fuori tre
+errori, e un quarto nei test. Sono stati corretti prima della stima, perché una
+stima su dati sbagliati è peggio di un numero scritto a mano.
+
+**1. Form 4 di altri emittenti.** L'elenco dei depositi di un CIK su EDGAR
+contiene anche i Form 4 che l'azienda deposita come *azionista* di altre
+società. Il parser non controllava l'emittente, così sotto BAC finivano 53
+"acquisti" e 98 "vendite" della banca su quote di fondi (uno valeva 103
+dollari), sotto KO la vendita di una partecipazione da 2,4 miliardi, sotto INTC
+una da 1 miliardo, e lo stesso per JNJ, JPM e GOOGL (tramite GV). Erano contati
+come operazioni degli insider. Ora `parse_form4()` confronta `issuerCik` con il
+CIK dell'azienda e scarta il documento se non coincide; i documenti scartati
+non contano nel limite dei 120 per titolo, e la cache passa a `cache/form4-v2`
+perché quelli letti prima vanno riletti tutti, una volta. Lilly Endowment (LLY)
+e il trust Walton (WMT) restano: sono azionisti veri dell'azienda.
+
+**2. "Apicale" voleva dire due cose.** La formula dà il bonus a CEO, CFO e
+presidente (`rules.is_senior`). Il backtest invece usava il flag "officer" del
+Form 4, che vale per qualunque dirigente, compresi il responsabile legale e il
+capo contabile: metteva alla prova una regola diversa da quella applicata. Ora
+usano la stessa funzione.
+
+**3. Le prove si contano per campagna.** Vedi la sezione sul backtest. Con i
+dati puliti: 66 acquisti, 31 episodi, **23 campagne**. Rendimento mediano per
+campagna **+1,2%**; contando i singoli acquisti sarebbe +7,0%. I 35 acquisti
+dei dirigenti apicali sono 6 campagne, e 25 di quelle righe sono un solo
+acquisto di Musk spezzato nel Form 4. Lo stesso raggruppamento vale ora per il
+moltiplicatore storico di ogni insider (`rules.person_campaigns`): il
+"compratore" di Bank of America aveva 34 acquisti passati contati come 34 prove.
+
+**4. I test nascondevano due fallimenti.** In `tests/test_offline.py` una riga
+riassegnava la variabile `bad`, cioè l'elenco dei controlli falliti, e così
+cancellava tutti i fallimenti registrati prima: due controlli fallivano da
+settimane (previsioni rimaste a pesi vecchi, non errori del codice) e il
+riepilogo diceva "0 falliti". Corretti tutti e due, e l'ultimo controllo del
+file verifica che l'elenco non venga più sostituito.
+
+### I bonus, stimati
+
+`pipeline/bonus.py` stima i tre bonus con una regressione sulle campagne
+(rendimenti limitati a ±50 punti) e restringe ogni stima verso zero quanto più è
+incerta: bonus = effetto × τ² / (τ² + incertezza²), con τ = 5 punti percentuali,
+a un punto di punteggio per punto percentuale. τ è l'unica scelta fatta a mano;
+la pagina Backtest mostra anche che cosa darebbero 3 e 10.
+
+| Regola | Campagne | Effetto misurato | A mano | Stimato |
+|---|---|---|---|---|
+| Cluster | 1 | −21,6 ± 23,4 | +18 | −1 |
+| Due compratori | 1 | +3,3 ± 22,0 | +8 | 0 |
+| Dirigente apicale | 6 | −13,3 ± 10,9 | +10 | −2 |
+
+**Come leggerlo.** Un bonus vicino a zero non dice che la regola è sbagliata,
+dice che 23 campagne non bastano per saperlo. Lo stimatore è stato provato prima
+su dati inventati con effetti veri di 10, 4 e 6 punti: con 5.000 campagne li
+ritrova, con 26 li riduce a +2, −1 e +1, e senza effetti veri dà bonus fra −3
+e +5 con media zero (i controlli sono in `tests/test_offline.py`). I bonus si
+ricalcolano a ogni giro: se le campagne crescono e i dati lo giustificano,
+cresceranno da soli. La penalità per la vendita di un dirigente apicale (−10)
+resta scritta a mano, perché il backtest guarda solo gli acquisti.
+
+**Che effetto ha oggi.** Quasi nessuno sulla classifica: correlazione di rango
+0,999 con quella di prima, verdetti tutti uguali, si muovono solo INTC (−4) e
+BAC (−2). In questo momento quasi nessuna azienda ha un cluster o un acquisto di
+un dirigente apicale negli ultimi 90 giorni, quindi i bonus sbagliati non
+stavano lavorando. Ma alla prossima occasione un cluster avrebbe aggiunto più
+di 6 punti al punteggio totale, abbastanza per cambiare verdetto, senza nessun
+dato a sostenerlo.
+
+Per applicare i bonus stimati serve vedere tutte le aziende prima di dare il
+punteggio a una qualsiasi: `main()` ora costruisce tutte le aziende, stima i
+bonus sui loro acquisti passati, ricalcola la voce insider e solo dopo chiude il
+settore per gruppo.
 
 ## La regola di maturità: un'osservazione vale solo a orizzonte compiuto
 
@@ -728,12 +807,15 @@ stessa call non si paga due volte.
   attive e storici lunghi servono anche i file archiviati.
 - Il rendimento anomalo usa un ETF di settore come riferimento, non un modello
   di rischio.
+- I bonus della voce insider sono stimati su 23 campagne: con così pochi dati
+  restano vicini a zero qualunque sia l'effetto vero.
 - Lo score non è una raccomandazione di investimento.
 
 ## Passo successivo
 
-Collegare la dashboard a `data.json` al posto dei dati dimostrativi, e
-aggiungere i Form 4 dei concorrenti per il sotto-punteggio di settore.
+Le tre voci che non spostano la classifica (settore, fatti rilevanti, prezzo)
+vanno rese capaci di distinguere le aziende, o pesate di meno dichiarandolo; e
+il registro delle previsioni darà il primo risultato verso il 18 febbraio 2027.
 
 ## Se EDGAR risponde 403
 
