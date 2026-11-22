@@ -12,6 +12,7 @@ Scrive:
 import argparse
 import json
 import os
+import time
 from datetime import date, datetime, timedelta, timezone
 
 from . import bonus, history, market, predict, rules, score, stress
@@ -22,8 +23,12 @@ CACHE = "cache"
 OUTDIR = "site"
 EVENT_DAYS = 180        # finestra dei fatti rilevanti 8-K: due trimestri
 EVENT_HIST_DAYS = 1834  # quanto storico di 8-K tenere per la prova all'indietro: cinque anni
-CARD_TX_MONTHS = 24     # quante operazioni mostrare nella scheda: i calcoli usano tutta la storia
-NEW_FILINGS_PER_RUN = 2000   # Form 4 nuovi per giro, se config.json non dice altro
+CARD_TX_MONTHS = 24     # di quanti mesi la scheda conta le operazioni
+CARD_TX_DAYS = 120      # ... e di quanti giorni le porta per intero (il sito ne legge 90)
+CARD_TX_LAST = 25       # più le ultime 25, che il sito mostra in tabella
+NEW_FILINGS_PER_RUN = 2000   # Form 4 vecchi per giro, se config.json non dice altro
+HISTORY_MINUTES = 35    # dopo quanti minuti di giro la storia vecchia aspetta il giro dopo
+PRICE_COPY_DAYS = 5     # quanto può essere vecchia la copia dei prezzi se Yahoo non risponde
 
 
 def load_config(path="config.json"):
@@ -43,6 +48,36 @@ def group_name(g):
 
 
 # ----------------------------------------------------------------- raccolta
+def prices_or_copy(symbol, max_age=PRICE_COPY_DAYS):
+    """(righe, fonte) di oggi; se nessuna fonte risponde, la copia dell'ultimo giro riuscito.
+
+    Duecento titoli vogliono duecento richieste a Yahoo ogni ora, e prima o poi
+    Yahoo ne rifiuta qualcuna. Una chiusura di ieri è meglio di un'azienda
+    senza punteggio, purché sia davvero di ieri: oltre `max_age` giorni la
+    copia non vale più e l'errore resta.
+    """
+    from . import sources
+    path = os.path.join(CACHE, "prices", f"{symbol}.json")
+    try:
+        px, src = sources.prices(symbol)
+    except Exception as e:
+        try:
+            with open(path, encoding="utf-8") as f:
+                old = json.load(f)
+            age = (date.today() - date.fromisoformat(old["px"][-1]["d"])).days
+        except (OSError, ValueError, KeyError, IndexError, TypeError):
+            raise e
+        if age > max_age:
+            raise
+        print(f"  ! prezzi: {e} -> uso la copia del giro precedente (ultima seduta {old['px'][-1]['d']})")
+        # "(cache)" si legge nelle due lingue: la scheda mostra la fonte così com'è
+        return old["px"], f"{old['src']} (cache)"
+    os.makedirs(os.path.dirname(path), exist_ok=True)
+    with open(path, "w", encoding="utf-8") as f:
+        json.dump({"px": px, "src": src}, f)
+    return px, src
+
+
 def gather(cfg, ticker, bench, offline=False, budget=None):
     """Prezzi e Form 4 di un ticker. Non solleva: registra gli errori.
 
@@ -60,7 +95,7 @@ def gather(cfg, ticker, bench, offline=False, budget=None):
     tx_status = {"complete": False, "missing": None}
 
     try:
-        px, src = sources.prices(ticker)
+        px, src = prices_or_copy(ticker)
         print(f"  prezzi: {len(px)} sedute da {src}, ultima {px[-1]['d']}")
     except Exception as e:
         errors.append(f"Prezzi di {ticker}: {e}")
@@ -450,20 +485,31 @@ def driver(subs):
     return {"name": x["name"], "up": x["v"] >= 50}
 
 
-def card_view(d, months=CARD_TX_MONTHS):
+def card_view(d, months=CARD_TX_MONTHS, days=CARD_TX_DAYS, last_n=CARD_TX_LAST):
     """Quello che finisce nel file della scheda.
 
-    I calcoli usano cinque anni di storia; la scheda ne mostra due. Senza
-    questo taglio le schede più pesanti passerebbero da 300 KB a quasi un
-    megabyte, e si riscrivono ogni giorno. Le chiavi che cominciano con `_`
-    sono di lavoro e non escono mai dalla pipeline. Il dizionario in memoria
-    non viene toccato: il backtest e le altre prove lo leggono dopo.
+    I calcoli usano cinque anni di storia. Il sito, delle operazioni, legge
+    solo due cose: quelle degli ultimi 90 giorni (il riassunto della voce
+    insider) e le ultime 25 (la tabella). La scheda porta quelle, più il
+    numero di operazioni degli ultimi due anni in `tx_n`. Con le due liste
+    intere la scheda di Meta pesava quasi un megabyte, quasi tutto vendite
+    programmate, e duecento schede così si riscriverebbero ogni giorno.
+    Le chiavi che cominciano con `_` sono di lavoro e non escono mai dalla
+    pipeline. Il dizionario in memoria non viene toccato: il backtest e le
+    altre prove lo leggono dopo.
     """
     out = {k: v for k, v in d.items() if not k.startswith("_")}
     last = ((d.get("price") or {}).get("last") or {}).get("d")
-    if last and d.get("tx"):
-        cut = (date.fromisoformat(last) - timedelta(days=int(months * 30.44))).isoformat()
-        out["tx"] = [t for t in d["tx"] if t["date"] >= cut]
+    tx = d.get("tx") or []
+    if last and tx:
+        end = date.fromisoformat(last)
+        cut = (end - timedelta(days=int(months * 30.44))).isoformat()
+        near = (end - timedelta(days=days)).isoformat()
+        two = [t for t in tx if t["date"] >= cut]
+        keep = [t for t in two if t["date"] >= near]
+        # `two` è in ordine di data, quindi quelle recenti sono la coda
+        out["tx"] = two[-max(len(keep), last_n, 1):]
+        out["tx_n"] = len(two)
     return out
 
 
@@ -599,14 +645,20 @@ def main():
     extracted = extract_all()
 
     results, bench_closes, groups_built = [], {}, []
-    budget = {"left": int(cfg.get("max_new_filings_per_run") or NEW_FILINGS_PER_RUN)}
+    # Il tetto della storia vecchia: un numero di documenti e un orario. Il
+    # primo tiene il carico sulla SEC, il secondo tiene il giro sotto l'ora,
+    # perché il giro dell'ora dopo annullerebbe questo (vedi update.yml).
+    budget = {"left": int(cfg.get("max_new_filings_per_run") or NEW_FILINGS_PER_RUN),
+              "until": time.time() + 60 * float(cfg.get("history_minutes_per_run") or HISTORY_MINUTES)}
+    if not a.offline:
+        from . import sources
+        sources.ARCHIVE_DIR = os.path.join(CACHE, "submissions")
     for g in groups:
         print(f"\n=== {g['nome']} ({len(g['tickers'])} aziende) ===")
         bench = []
         if not a.offline:
-            from . import sources
             try:
-                bench, bsrc = sources.prices(g["benchmark"])
+                bench, bsrc = prices_or_copy(g["benchmark"])
                 print(f"Riferimento {g['benchmark']}: {len(bench)} sedute da {bsrc}")
             except Exception as e:
                 print(f"! riferimento {g['benchmark']}: {e}")

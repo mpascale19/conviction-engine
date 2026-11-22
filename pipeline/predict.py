@@ -20,9 +20,12 @@ e non serve un riferimento.
 
 Le date vicine si sovrappongono (i loro 60 giorni coincidono quasi del tutto):
 l'incertezza si misura su blocchi di 60 sedute, che sono le prove davvero
-indipendenti. Con due anni e quaranta aziende i blocchi sono una decina, e
-l'incertezza resta intorno a ±0,06: si vedrebbe solo un segnale forte. Il sito
-lo scrive.
+indipendenti. Un blocco è un periodo di calendario e raccoglie tutti gli
+universi insieme: due settori nello stesso trimestre non sono due prove
+indipendenti, perché lo stesso mercato li muove tutti e due. Contarli a parte
+renderebbe l'incertezza più piccola del vero, tanto più quanti più universi ci
+sono. Con cinque anni i blocchi sono una ventina, qualunque sia il numero di
+aziende: più aziende rendono ogni blocco più preciso, non ne aggiungono altri.
 
 Il calcolo è deterministico: stessi dati, stesso risultato.
 """
@@ -66,19 +69,22 @@ def spearman(a, b):
     return num / den if den else None
 
 
-def summarize(points, horizon=H):
-    """[(indice della seduta, correlazione)] di più universi -> il riassunto.
+BLOCK_DAYS = 87   # 60 sedute sono circa 87 giorni di calendario
 
-    `points` è un dizionario universo -> lista: i blocchi si formano dentro ogni
-    universo, perché due universi diversi nella stessa data sono prove distinte.
+
+def summarize(points, block_days=BLOCK_DAYS):
+    """{universo: [(data, correlazione)]} -> il riassunto.
+
+    I blocchi sono periodi di calendario di `block_days` giorni, comuni a tutti
+    gli universi (vedi la nota in cima al file). Un blocco conta se ha almeno
+    tre date.
     """
-    every, blocks = [], []
+    every, by = [], {}
     for xs in points.values():
-        every += [x for _, x in xs]
-        by = {}
-        for i, x in xs:
-            by.setdefault(i // horizon, []).append(x)
-        blocks += [st.mean(v) for v in by.values() if len(v) >= 3]
+        for day, x in xs:
+            every.append(x)
+            by.setdefault(date.fromisoformat(day).toordinal() // block_days, []).append(x)
+    blocks = [st.mean(by[k]) for k in sorted(by) if len(by[k]) >= 3]
     if len(blocks) < 3:
         return None
     m = st.mean(blocks)
@@ -166,7 +172,7 @@ def run(results, cfg, step=STEP):
                 ts = [t for t in sig[k] if sig[k][t] is not None and t in fwd]
                 x = spearman([sig[k][t] for t in ts], [fwd[t] for t in ts])
                 if x is not None:
-                    points[k].setdefault(key, []).append((j, x))
+                    points[k].setdefault(key, []).append((day, x))
             first = day if first is None or day < first else first
             last = day if last is None or day > last else last
 

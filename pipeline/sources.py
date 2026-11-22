@@ -193,6 +193,42 @@ def filings_table(cik, since=None):
     return {k: [v[i] for i in order] for k, v in cols.items()}, covered
 
 
+ARCHIVE_DIR = None   # dove tenere gli archivi dei depositi fra un giro e l'altro (lo imposta build.py)
+ARCHIVE_COLS = ("accessionNumber", "filingDate", "form", "primaryDocument", "items")
+
+
+def _archive(f):
+    """Un file d'archivio dei depositi, dalla cache su disco se c'è.
+
+    Le aziende grandi hanno decine di archivi (Goldman Sachs deposita migliaia
+    di prospetti l'anno), e senza cache si riscaricherebbero tutti a ogni giro.
+    Il nome del file in cache contiene le date e il numero di depositi che la
+    SEC dichiara per quell'archivio: se la SEC lo rifà, il nome cambia e
+    l'archivio si riscarica.
+    """
+    name = f["name"]
+    path = None
+    if ARCHIVE_DIR:
+        tag = f"{name[:-5] if name.endswith('.json') else name}_{f.get('filingFrom')}_" \
+              f"{f.get('filingTo')}_{f.get('filingCount')}.json"
+        path = os.path.join(ARCHIVE_DIR, re.sub(r"[^A-Za-z0-9_.-]", "", tag))
+        if os.path.exists(path):
+            try:
+                with open(path, encoding="utf-8") as fh:
+                    return json.load(fh)
+            except (OSError, ValueError):
+                pass
+    more = _get(f"https://data.sec.gov/submissions/{name}").json()
+    # solo le colonne che la pipeline legge: un terzo del peso, e la cache di
+    # GitHub Actions ha un tetto per repository
+    more = {k: v for k, v in more.items() if k in ARCHIVE_COLS}
+    if path:
+        os.makedirs(ARCHIVE_DIR, exist_ok=True)
+        with open(path, "w", encoding="utf-8") as fh:
+            json.dump(more, fh)
+    return more
+
+
 def _table_one(cik, since=None):
     """Tutti i depositi del CIK fino a `since`, anche quelli negli archivi.
 
@@ -219,7 +255,7 @@ def _table_one(cik, since=None):
             if (f.get("filingTo") or "9999") < since:
                 continue                  # un archivio tutto più vecchio di quanto serve
             try:
-                more = _get(f"https://data.sec.gov/submissions/{f['name']}").json()
+                more = _archive(f)
             except Exception:
                 break                     # senza questo archivio l'elenco si ferma qui
             n = len(more.get("accessionNumber") or [])
@@ -280,6 +316,9 @@ def confirms(cik, ticker):
     return (not tk or ticker.upper() in tk), name, tk
 
 
+_TICKERS = None
+
+
 def cik_for(ticker, fallback_cik=None):
     """Ticker -> (CIK a 10 cifre, nome, come l'ha trovato).
 
@@ -300,7 +339,10 @@ def cik_for(ticker, fallback_cik=None):
         return None
 
     try:
-        data = _get("https://www.sec.gov/files/company_tickers.json").json()
+        global _TICKERS
+        if _TICKERS is None:              # un file da un megabyte: una volta per giro, non per azienda
+            _TICKERS = _get("https://www.sec.gov/files/company_tickers.json").json()
+        data = _TICKERS
         hit = None
         for row in data.values():
             if str(row.get("ticker", "")).upper() == ticker.upper():
@@ -474,6 +516,16 @@ def _num(s):
         return 0.0
 
 
+RECENT_DAYS = 120   # i Form 4 di questi ultimi giorni si scaricano sempre, tetto o no
+
+
+def _exhausted(budget):
+    """Il tetto del giro è finito? Conta i documenti e, se c'è, anche l'orologio."""
+    if budget is None:
+        return False
+    return budget.get("left", 0) <= 0 or time.time() > budget.get("until", float("inf"))
+
+
 def insider_transactions(cik, months=24, limit=None, cache_dir=None, budget=None, status=None):
     """Scarica e normalizza i Form 4. Una richiesta per documento.
 
@@ -482,11 +534,15 @@ def insider_transactions(cik, months=24, limit=None, cache_dir=None, budget=None
 
     `budget`: un dizionario {"left": n} condiviso fra tutte le aziende del giro,
     con quanti documenti nuovi si possono ancora scaricare. Cinque anni di Form 4
-    di quaranta aziende sono decine di migliaia di documenti: tutti insieme
-    farebbero durare un giro quasi un'ora, e il giro dell'ora dopo lo
+    di duecento aziende sono più di centomila documenti: tutti insieme
+    farebbero durare un giro molte ore, e il giro dell'ora dopo lo
     annullerebbe. Così la storia si riempie a rate, dal più recente al più
     vecchio, e i documenti già letti restano in cache. Quelli recenti, che
-    servono al punteggio di oggi, sono già tutti in cache.
+    servono al punteggio di oggi, non aspettano: quelli degli ultimi
+    RECENT_DAYS giorni si scaricano sempre e non contano nel tetto. Così
+    un'azienda appena aggiunta ha subito la voce insider di oggi, e la sua
+    storia arriva nei giri successivi. `budget` può avere anche "until", un
+    orario (time.time()) dopo cui la storia vecchia aspetta il giro dopo.
 
     `status`, se passato, riceve {"complete": bool, "missing": n}: se lo
     storico di questa azienda è completo o sta ancora crescendo.
@@ -494,6 +550,7 @@ def insider_transactions(cik, months=24, limit=None, cache_dir=None, budget=None
     rows, done, failed, cached, foreign, own, missing = [], 0, 0, 0, 0, 0, 0
     issuers = [cik] + list(PREDECESSORS.get(str(cik).zfill(10), []))
     filings = form4_filings(cik, months)
+    recent_from = (date.today() - timedelta(days=RECENT_DAYS)).isoformat()
     if status is not None:
         status.update(complete=True, missing=0)
     if not filings:
@@ -522,11 +579,12 @@ def insider_transactions(cik, months=24, limit=None, cache_dir=None, budget=None
                 continue
             except Exception:
                 pass
-        if budget is not None and budget.get("left", 0) <= 0:
+        old = f["date"] < recent_from
+        if old and _exhausted(budget):
             missing += 1                  # tocca al prossimo giro
             continue
         try:
-            if budget is not None:
+            if budget is not None and old:
                 budget["left"] -= 1
             got = parse_form4(_get(f["url"]).text, issuer_cik=issuers)
             done += 1
