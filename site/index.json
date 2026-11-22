@@ -1,6 +1,6 @@
 {
- "generated_at": "2026-11-22T09:22:24+00:00",
- "changed_at": "2026-11-22T09:22:24+00:00",
+ "generated_at": "2026-11-22T10:07:08+00:00",
+ "changed_at": "2026-11-22T10:07:08+00:00",
  "groups": [
   {
    "nome": {
@@ -21,6 +21,8 @@
  ],
  "backtest": {
   "horizon": 60,
+  "unit": "campaign",
+  "days": 90,
   "dist": [
    {
     "lo": null,
@@ -30,47 +32,47 @@
    {
     "lo": -30,
     "hi": -25,
-    "n": 6
+    "n": 2
    },
    {
     "lo": -25,
     "hi": -20,
-    "n": 6
+    "n": 0
    },
    {
     "lo": -20,
     "hi": -15,
-    "n": 14
+    "n": 1
    },
    {
     "lo": -15,
     "hi": -10,
-    "n": 4
+    "n": 2
    },
    {
     "lo": -10,
     "hi": -5,
-    "n": 6
+    "n": 3
    },
    {
     "lo": -5,
     "hi": 0,
-    "n": 6
+    "n": 2
    },
    {
     "lo": 0,
     "hi": 5,
-    "n": 6
+    "n": 2
    },
    {
     "lo": 5,
     "hi": 10,
-    "n": 33
+    "n": 3
    },
    {
     "lo": 10,
     "hi": 15,
-    "n": 8
+    "n": 3
    },
    {
     "lo": 15,
@@ -80,53 +82,119 @@
    {
     "lo": 20,
     "hi": 25,
-    "n": 4
+    "n": 0
    },
    {
     "lo": 25,
     "hi": 30,
-    "n": 1
+    "n": 0
    },
    {
     "lo": 30,
     "hi": null,
-    "n": 4
+    "n": 3
    }
   ],
   "all": {
-   "n": 100,
-   "ep": 48,
-   "pos": 57,
-   "avg": 1.22,
-   "med": 5.95
+   "camp": 23,
+   "ep": 31,
+   "n": 66,
+   "pos": 12,
+   "avg": 5.47,
+   "med": 1.15
+  },
+  "by_purchase": {
+   "n": 66,
+   "ep": 31,
+   "pos": 43,
+   "avg": 4.84,
+   "med": 7.03
   },
   "cluster": {
-   "n": 5,
+   "camp": 1,
    "ep": 1,
+   "n": 5,
    "pos": 0,
    "avg": -29.21,
    "med": -29.21
   },
   "solo": {
-   "n": 95,
-   "ep": 47,
-   "pos": 57,
-   "avg": 2.82,
-   "med": 7.03
+   "camp": 22,
+   "ep": 30,
+   "n": 61,
+   "pos": 12,
+   "avg": 7.05,
+   "med": 1.3
   },
   "senior": {
-   "n": 39,
-   "ep": 10,
-   "pos": 28,
-   "avg": 1.96,
-   "med": 7.03
+   "camp": 6,
+   "ep": 6,
+   "n": 35,
+   "pos": 2,
+   "avg": -11.2,
+   "med": -16.91
   },
   "other": {
-   "n": 61,
-   "ep": 39,
-   "pos": 29,
-   "avg": 0.75,
-   "med": -2.43
+   "camp": 17,
+   "ep": 25,
+   "n": 31,
+   "pos": 10,
+   "avg": 11.36,
+   "med": 1.45
+  },
+  "bonus": {
+   "tau": 5.0,
+   "camp": 23,
+   "cap": 50.0,
+   "days": 90,
+   "base": 5.74,
+   "features": [
+    {
+     "id": "cluster",
+     "n": 1,
+     "hand": 18,
+     "raw": -21.61,
+     "se": 23.4,
+     "shrink": 0.044,
+     "post": -0.94,
+     "points": -1,
+     "by_tau": {
+      "3": 0,
+      "5": -1,
+      "10": -3
+     }
+    },
+    {
+     "id": "two",
+     "n": 1,
+     "hand": 8,
+     "raw": 3.33,
+     "se": 22.02,
+     "shrink": 0.049,
+     "post": 0.16,
+     "points": 0,
+     "by_tau": {
+      "3": 0,
+      "5": 0,
+      "10": 1
+     }
+    },
+    {
+     "id": "senior",
+     "n": 6,
+     "hand": 10,
+     "raw": -13.34,
+     "se": 10.94,
+     "shrink": 0.173,
+     "post": -2.3,
+     "points": -2,
+     "by_tau": {
+      "3": -1,
+      "5": -2,
+      "10": -6
+     }
+    }
+   ]
   }
  },
  "forward": {
@@ -152,33 +220,33 @@
   "hi": 2.0,
   "top": 10,
   "equal": {
-   "rho": 0.956,
+   "rho": 0.955,
    "shift": 1.9,
    "top": 10
   },
   "drop": [
    {
+    "id": "guid",
+    "n": 5,
+    "rho": 0.7,
+    "shift": 4.6
+   },
+   {
     "id": "insider",
     "n": 40,
-    "rho": 0.748,
-    "shift": 4.8
+    "rho": 0.751,
+    "shift": 4.7
    },
    {
     "id": "market",
     "n": 36,
-    "rho": 0.767,
+    "rho": 0.768,
     "shift": 2.9
-   },
-   {
-    "id": "guid",
-    "n": 5,
-    "rho": 0.9,
-    "shift": 4.6
    },
    {
     "id": "sector",
     "n": 40,
-    "rho": 0.989,
+    "rho": 0.985,
     "shift": 0.8
    },
    {
@@ -191,55 +259,22 @@
     "id": "price",
     "n": 40,
     "rho": 0.994,
-    "shift": 1.3
+    "shift": 1.2
    }
   ],
   "rho": {
-   "med": 0.973,
-   "p5": 0.922,
-   "min": 0.872
+   "med": 0.972,
+   "p5": 0.917,
+   "min": 0.858
   },
   "top_overlap": {
    "med": 9,
    "min": 7
   },
   "width_med": 5,
-  "kept_avg": 88
+  "kept_avg": 87
  },
  "companies": [
-  {
-   "ticker": "INTC",
-   "name": "INTEL CORP",
-   "group": {
-    "it": "Semiconduttori e apparecchiature",
-    "en": "Semiconductors and equipment"
-   },
-   "score": 59,
-   "verdict": {
-    "it": "Leggermente rialzista",
-    "en": "Mildly bullish"
-   },
-   "confidence": "Alta",
-   "covered_pct": 100,
-   "driver": {
-    "name": {
-     "it": "Insider",
-     "en": "Insiders"
-    },
-    "up": true
-   },
-   "last": {
-    "d": "2026-11-20",
-    "c": 51.28,
-    "v": 207757700
-   },
-   "tx": 153,
-   "buyers": 1,
-   "sellers": 0,
-   "net_musd": 9.71,
-   "cluster": false,
-   "errors": 0
-  },
   {
    "ticker": "ORCL",
    "name": "ORACLE CORP",
@@ -280,7 +315,7 @@
     "it": "Grandi capitalizzazioni USA",
     "en": "US large caps"
    },
-   "score": 59,
+   "score": 57,
    "verdict": {
     "it": "Leggermente rialzista",
     "en": "Mildly bullish"
@@ -299,10 +334,43 @@
     "c": 47.04,
     "v": 49962500
    },
-   "tx": 416,
+   "tx": 256,
+   "buyers": 0,
+   "sellers": 0,
+   "net_musd": 0.0,
+   "cluster": false,
+   "errors": 0
+  },
+  {
+   "ticker": "INTC",
+   "name": "INTEL CORP",
+   "group": {
+    "it": "Semiconduttori e apparecchiature",
+    "en": "Semiconductors and equipment"
+   },
+   "score": 55,
+   "verdict": {
+    "it": "Leggermente rialzista",
+    "en": "Mildly bullish"
+   },
+   "confidence": "Alta",
+   "covered_pct": 100,
+   "driver": {
+    "name": {
+     "it": "Insider",
+     "en": "Insiders"
+    },
+    "up": true
+   },
+   "last": {
+    "d": "2026-11-20",
+    "c": 51.28,
+    "v": 207757700
+   },
+   "tx": 150,
    "buyers": 1,
-   "sellers": 1,
-   "net_musd": 0.043,
+   "sellers": 0,
+   "net_musd": 9.71,
    "cluster": false,
    "errors": 0
   },
@@ -563,7 +631,7 @@
     "c": 310.53,
     "v": 12506100
    },
-   "tx": 130,
+   "tx": 137,
    "buyers": 0,
    "sellers": 1,
    "net_musd": -0.882,
@@ -827,7 +895,7 @@
     "c": 265.29,
     "v": 57302800
    },
-   "tx": 517,
+   "tx": 516,
    "buyers": 0,
    "sellers": 0,
    "net_musd": 0.0,
@@ -860,7 +928,7 @@
     "c": 270.47,
     "v": 11919300
    },
-   "tx": 249,
+   "tx": 245,
    "buyers": 0,
    "sellers": 2,
    "net_musd": -12.948,
@@ -992,7 +1060,7 @@
     "c": 96.99,
     "v": 25993400
    },
-   "tx": 157,
+   "tx": 158,
    "buyers": 0,
    "sellers": 4,
    "net_musd": -16.481,
