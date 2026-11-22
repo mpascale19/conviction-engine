@@ -136,6 +136,14 @@ for i, who in enumerate(["Uno", "Due", "Tre"]):
 e = finish(cfg, build_one(cfg, old_cluster), universe)
 check("un cluster di un anno fa non viene segnalato", not e["cluster"], e["cluster"])
 check("il cluster è solo in AAAA", bool(a["cluster"]) and not b["cluster"])
+# un Form 4 depositato in ritardo può dichiarare un'operazione di anni prima:
+# fuori dalla finestra della storia non entra (e non sposta "da quando parte")
+late = fake("LATE", buyers=["Tizio"])
+late["tx"].insert(0, dict(late["tx"][0], date="2014-09-26", who="Caio"))
+lb = build_one(cfg, late)
+check("un'operazione più vecchia della finestra resta fuori",
+      all(t["date"] >= "2020" for t in lb["tx"]) and lb["history"]["tx_from"] != "2014-09-26",
+      lb["history"]["tx_from"])
 _all = [t for g in cfg["universi"] for t in g["tickers"]]
 check("config con dieci universi e duecento aziende", len(cfg["universi"]) == 10 and len(_all) == 200,
       [len(g["tickers"]) for g in cfg["universi"]])
@@ -547,6 +555,11 @@ check("con l'orizzonte compiuto il rendimento c'è",
       rules._ret(_ser, "2026-01-01", 9) is not None)
 check("e vale esattamente il rapporto fra le due chiusure",
       abs(rules._ret(_ser, "2026-01-01", 9) - (110.0 / 101.0 - 1)) < 1e-12)
+# un'operazione di prima che la serie cominci non si misura sui primi prezzi disponibili
+check("un giorno prima dell'inizio della serie non ha rendimento",
+      rules._ret(_ser, "2018-11-16", 5) is None)
+check("ma un sabato prima di un lunedì sì",
+      rules._ret([{"d": "2026-01-05", "c": 1.0}, {"d": "2026-01-06", "c": 2.0}], "2026-01-03", 1) == 1.0)
 
 # --------------------------------- il registro delle previsioni
 from pipeline import history
