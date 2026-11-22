@@ -1150,6 +1150,65 @@ _fs3 = build_one(cfg, dict(raws[2], ticker="FINR"))
 check("senza FINRA e senza export non c'è fonte", _fs3["si_source"] is None and _fs3["_subs"]["market"]["v"] is None)
 check("la serie lunga resta fuori dalla scheda", "_si_long" not in build.card_view(_fs))
 
+# --------------------------------- le trascrizioni da Alpha Vantage
+print("\nTrascrizioni da Alpha Vantage")
+from pipeline import trascrizioni as TR
+
+check("Nvidia (anno fiscale a gennaio): la call di novembre 2026 è il 2027Q3",
+      TR.fiscal_label("2026-11-19", 1) == "2027Q3")
+check("Oracle (a maggio): la call di settembre 2026 è il 2027Q1, quella di dicembre il 2027Q2",
+      TR.fiscal_label("2026-09-09", 5) == "2027Q1" and TR.fiscal_label("2026-12-10", 5) == "2027Q2")
+check("anno solare: la call di gennaio commenta il quarto trimestre dell'anno prima",
+      TR.calendar_label("2026-01-27") == "2025Q4" and TR.calendar_label("2026-10-27") == "2026Q3")
+
+_ev = lambda *ds: [[d, ["2.02", "9.01"]] for d in ds] + [["2026-09-01", ["5.02"]]]
+_cards = {"AAA": {"company": {"ticker": "AAA", "cik": "1"}, "events_hist": _ev("2026-04-20", "2026-07-21", "2026-10-20")},
+          "BBB": {"company": {"ticker": "BBB", "cik": "2"}, "events_hist": _ev("2026-07-28", "2026-10-28")},
+          "CCC": {"company": {"ticker": "CCC", "cik": "3"}, "events_hist": _ev("2026-10-30")}}
+_idx = {"companies": [{"ticker": "AAA", "score": 70, "buyers": 0},
+                      {"ticker": "BBB", "score": 40, "buyers": 2},
+                      {"ticker": "CCC", "score": 50, "buyers": 0, "cluster": {"n": 3}}]}
+_w = TR.wanted(_idx, _cards, set(), per_company=2, today=date(2026, 11, 22))
+check("prima il cluster, poi i compratori, poi il punteggio; prima l'ultima call di tutti",
+      _w == [("CCC", "2026-10-30"), ("BBB", "2026-10-28"), ("AAA", "2026-10-20"),
+             ("BBB", "2026-07-28"), ("AAA", "2026-07-21")], _w)
+_w2 = TR.wanted(_idx, _cards, {("BBB", "2026-10-28")}, per_company=2, today=date(2026, 11, 22))
+check("una call già presa si salta", ("BBB", "2026-10-28") not in _w2 and len(_w2) == 4, _w2)
+check("un 8-K che non è un risultato (5.02) non è una call",
+      all(d != "2026-09-01" for _, d in _w))
+
+_xd = tempfile.mkdtemp()
+open(os.path.join(_xd, "AAA_2026Q3.json"), "w").write("{}")
+check("le call già estratte in input/extracted si riconoscono dal nome del file",
+      TR.extracted_pairs(_xd, _cards, {"AAA": 12}) == {("AAA", "2026-10-20")})
+
+check("una trascrizione di Alpha Vantage diventa una lista di interventi",
+      TR.parse_av({"symbol": "AAA", "quarter": "2026Q3", "transcript": [
+          {"speaker": "Jane Doe", "title": "CEO", "content": "We raised guidance.", "sentiment": "0.7"},
+          {"speaker": "Op", "title": "", "content": "  "}]}) ==
+      [{"speaker": "Jane Doe", "title": "CEO", "content": "We raised guidance."}])
+check("una risposta senza trascrizione è vuota, non un errore", TR.parse_av({"symbol": "AAA"}) == [])
+for _msg in ["We have detected your API key as ... our standard API rate limit is 25 requests per day.",
+             "Thank you for using Alpha Vantage! This is a premium endpoint."]:
+    try:
+        TR.parse_av({"Information": _msg})
+        check("quota finita o piano a pagamento fermano il giro: " + _msg[:30], False)
+    except TR.Limit:
+        check("quota finita o piano a pagamento fermano il giro: " + _msg[:30], True)
+_calls = []
+check("la richiesta chiede il trimestre giusto",
+      TR.fetch("AAA", "2026Q3", "k", get=lambda p: (_calls.append(p), {"transcript": []})[1]) == []
+      and _calls[0]["quarter"] == "2026Q3" and _calls[0]["function"] == "EARNINGS_CALL_TRANSCRIPT")
+try:
+    import docx  # noqa: F401  (c'è solo nel workflow delle trascrizioni)
+    _dp = os.path.join(tempfile.mkdtemp(), "AAA_2026Q3.docx")
+    TR.to_docx(_dp, "AAA", "AAA INC", "2026Q3", "2026-10-20",
+               [{"speaker": "Jane Doe", "title": "CEO", "content": "We raised guidance."}])
+    _txt = "\n".join(p.text for p in docx.Document(_dp).paragraphs)
+    check("il file Word contiene chi parla e che cosa dice", "Jane Doe" in _txt and "We raised guidance." in _txt)
+except ImportError:
+    print("  (python-docx non installato: la prova del file Word si salta)")
+
 # il riepilogo deve contare ogni fallimento: l'elenco non va mai sostituito
 check("l'elenco dei fallimenti è ancora quello di partenza", bad is _BAD0)
 print(f"\n{ok} controlli passati, {len(bad)} falliti")
