@@ -437,7 +437,7 @@ degli altri insider.
 ## Il backtest: che cosa misura e che cosa no
 
 La pagina **Backtest** del sito prende ogni acquisto di un insider degli ultimi
-due anni e guarda come è andato il titolo nei 60 giorni successivi, al netto del
+cinque anni (vedi "Cinque anni di storia") e guarda come è andato il titolo nei 60 giorni successivi, al netto del
 suo settore. Serve a una cosa sola: controllare se le due regole che la formula
 usa per dare più peso ad alcuni acquisti trovano riscontro nei dati.
 
@@ -577,24 +577,68 @@ tutta la pipeline, con aziende inventate che crescono ognuna a un ritmo diverso.
 | Contesto di prezzo | +0,05 | ±0,07 |
 | Settore | +0,02 | ±0,06 |
 | Mercato (storia dello short interest) | −0,03 | ±0,04 |
-| Fatti rilevanti | dal primo giro con gli 8-K di due anni | |
+| Fatti rilevanti | −0,03 | ±0,06 |
 
 Tutte indistinguibili dal caso. Esplorando a parte, anche le due metà del
 prezzo (distanza dal massimo +0,02, momentum −0,03) e il semplice numero di
 compratori (+0,03) stanno nel rumore.
 
+Questi sono i valori con due anni di storia (22 novembre 2026); con cinque anni
+l'incertezza scende verso ±0,035, e il sito mostra i valori aggiornati.
+
 **Come leggerlo.** Con due anni e quaranta aziende si vedrebbe solo una
-correlazione forte, sopra circa 0,12; i segnali che funzionano davvero sui
+correlazione forte, sopra circa 0,12 (il sito calcola la soglia dai dati, e si
+abbassa man mano che la storia si allunga); i segnali che funzionano davvero sui
 mercati valgono di solito pochi centesimi. Quindi "indistinguibile dal caso" non
 dice che una voce è inutile: dice che non c'è nessuna prova per darle più peso.
 
-**Gli 8-K.** Per i fatti rilevanti servono quelli degli ultimi due anni: la
-pipeline ora li legge dallo stesso file dei depositi, senza richieste in più, e
-li tiene nella scheda (`events_hist`). Quel file però contiene solo gli ultimi
-mille moduli di ogni tipo, e per un'azienda con molti Form 4 può coprire meno
-di due anni: `events_from` dice da quando è completo, e prima di quella data la
-voce non viene ricostruita, perché "nessun 8-K" vorrebbe dire solo "non lo
-sappiamo".
+**Gli 8-K.** Per i fatti rilevanti servono quelli di tutta la storia: la
+pipeline li legge dal file dei depositi e dai suoi archivi, e li tiene nella
+scheda (`events_hist`). `events_from` dice da quando l'elenco è completo; prima
+di quella data la voce non viene ricostruita, perché "nessun 8-K" vorrebbe dire
+solo "non lo sappiamo".
+
+## Cinque anni di storia, riempiti a rate
+
+Fino al 22 novembre 2026 la pipeline guardava due anni di Form 4, con un limite
+di 120 documenti per titolo. Controllando, quel limite si esauriva molto prima
+dei due anni per 12 aziende su 40: i Form 4 di AEHR partivano da aprile 2026,
+quelli di META da febbraio 2026, quelli di GOOGL da novembre 2025. Backtest,
+campagne e moltiplicatori storici vedevano per loro solo pochi mesi di passato.
+
+Ora la storia è di **cinque anni** per tutto quello che si può scaricare da soli:
+prezzi e riferimenti di settore (Yahoo, con stooq tagliato alla stessa
+finestra), Form 4 e 8-K. Lo short interest resta quello degli export, circa due
+anni. Il punteggio di oggi non cambia: usa gli ultimi 90 giorni di Form 4 e sei
+mesi di 8-K, come prima. La storia lunga serve alle prove: backtest e bonus
+insider, moltiplicatori storici, prova all'indietro delle voci.
+
+**Gli archivi EDGAR.** Il file principale dei depositi di un'azienda tiene solo
+gli ultimi mille moduli. `sources.filings_table(cik, since)` legge anche i file
+d'archivio elencati in `filings.files`, solo quelli che servono ad arrivare alla
+data voluta, una richiesta ciascuno, e restituisce la data da cui l'elenco è
+completo. Così anche BAC, JPM e XOM, che prima avevano gli 8-K solo da pochi
+mesi, entrano nella prova dei fatti rilevanti.
+
+**Il riempimento a rate.** Cinque anni di Form 4 di quaranta aziende sono decine
+di migliaia di documenti. Tutti insieme farebbero durare un giro quasi un'ora, e
+il giro dell'ora dopo lo annullerebbe (`cancel-in-progress`), buttando la cache.
+Per questo ogni giro scarica al massimo `max_new_filings_per_run` documenti
+nuovi (2.000, circa cinque minuti), dal più recente al più vecchio; quelli già
+letti restano in cache. Ogni scheda dice se il suo storico è completo
+(`history.tx_complete`), l'indice dice per quante aziende lo è, e la pagina
+Backtest avvisa finché il riempimento non ha finito: nel frattempo i numeri
+del backtest cambiano da un giro all'altro, ed è normale.
+
+**Le schede non ingrassano.** La serie lunga dei prezzi (`_px_long`) resta in
+memoria durante il giro e non viene scritta; nella scheda la tabella delle
+operazioni mostra gli ultimi due anni (`card_view`). Senza questo, le schede più
+pesanti passerebbero da 300 KB a quasi un megabyte, e si riscrivono ogni giorno.
+
+**La prova all'indietro non si accorcia.** Ogni data usa le aziende che in quel
+giorno hanno sei mesi di storia alle spalle e 60 sedute davanti, invece delle
+sole date comuni a tutte: un titolo quotato da meno tempo entra quando può,
+senza tagliare la storia degli altri.
 
 ## La regola di maturità: un'osservazione vale solo a orizzonte compiuto
 
@@ -850,8 +894,9 @@ stessa call non si paga due volte.
   dello stesso giorno.
 - Il flag del piano 10b5-1 si legge dalle note del documento: nei Form 4 più
   vecchi può mancare, e in quel caso la vendita risulta discrezionale.
-- `submissions` di EDGAR tiene le ultime mille registrazioni: per aziende molto
-  attive e storici lunghi servono anche i file archiviati.
+- `submissions` di EDGAR tiene le ultime mille registrazioni: gli archivi più
+  vecchi si leggono (`sources.filings_table`), ma se uno non risponde l'elenco si
+  ferma lì, e la prova all'indietro non usa le date scoperte.
 - Il rendimento anomalo usa un ETF di settore come riferimento, non un modello
   di rischio.
 - I bonus della voce insider sono stimati su 23 campagne: con così pochi dati

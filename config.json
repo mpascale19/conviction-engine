@@ -59,8 +59,9 @@
   "NVDA": "0001045810",
   "ADI": "0000006281"
  },
- "months_of_history": 24,
- "max_filings_per_ticker": 120,
+ "months_of_history": 60,
+ "max_filings_per_ticker": 2000,
+ "max_new_filings_per_run": 2000,
  "rules": {
   "cluster_days": 30,
   "cluster_min_people": 3,
