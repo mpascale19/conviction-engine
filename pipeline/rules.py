@@ -91,6 +91,9 @@ def abnormal_return(prices, bench, day, horizon=60):
     return round((a - b) * 100, 2)
 
 
+START_GAP_DAYS = 7   # quanto può distare la prima seduta utile dal giorno dell'operazione
+
+
 def _ret(series, day, horizon):
     """Il rendimento sulle `horizon` sedute dopo `day`, o None.
 
@@ -102,6 +105,12 @@ def _ret(series, day, horizon):
     """
     after = [p for p in series if p["d"] >= day]
     if len(after) <= horizon:
+        return None
+    # La prima seduta dopo `day` deve essere davvero quella del giorno (o del
+    # primo giorno di Borsa dopo un fine settimana o una festa). Se `day` sta
+    # prima dell'inizio della serie, la "prima seduta" è di mesi o anni dopo:
+    # così un acquisto del 2018 veniva misurato sui prezzi del 2021.
+    if (date.fromisoformat(after[0]["d"]) - date.fromisoformat(day[:10])).days > START_GAP_DAYS:
         return None
     start = after[0]["c"]
     return (after[horizon]["c"] / start - 1) if start else None

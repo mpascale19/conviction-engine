@@ -165,10 +165,17 @@ def gather(cfg, ticker, bench, offline=False, budget=None):
 def build_one(cfg, raw, extracted=None):
     px = raw.get("prices") or []
     bench = raw.get("bench") or []
-    tx = rules.enrich(sorted(raw.get("tx") or [], key=lambda t: t["date"]))
     R, W = cfg["rules"], cfg["weights"]
     failed = raw.get("failed") or []
     today = date.fromisoformat(px[-1]["d"]) if px else date.today()
+    # La storia è di `months_of_history` mesi per data dell'operazione, non solo
+    # per data di deposito: un Form 4 depositato in ritardo può dichiarare
+    # un'operazione di anni prima (Teradyne ne ha una del 2014). Fuori dalla
+    # finestra non ci sono prezzi per misurarla, e "da quando parte la storia"
+    # direbbe una data falsa.
+    oldest = (today - timedelta(days=31 * int(cfg.get("months_of_history") or 24))).isoformat()
+    tx = rules.enrich(sorted([t for t in (raw.get("tx") or []) if t["date"] >= oldest],
+                             key=lambda t: t["date"]))
 
     # Il cluster conta solo se è recente: tre acquisti di un anno fa non
     # dicono niente sul presente, e il resto del punteggio guarda 90 giorni.
