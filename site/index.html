@@ -702,8 +702,22 @@ function stressCard(){
                 events: T('Fatti rilevanti', 'Material events'),
                 price: T('Contesto di prezzo', 'Price context') };
   var worst = (s.drop || []).filter(function(d){ return d.rho != null; });
-  var carry = worst.slice(0, 2).map(function(d){ return names[d.id] || d.id; }).join(T(' e ', ' and '));
-  var idle = worst.filter(function(d){ return d.rho >= 0.98; });
+  // Per dire quali voci reggono l'ordine contano solo quelle alimentate su
+  // almeno dieci aziende: una correlazione su cinque elementi cambia molto se
+  // una sola cambia posto, e non si confronta con una misurata su quaranta.
+  var broad = worst.filter(function(d){ return d.n >= 10; });
+  var carry = broad.slice(0, 2).map(function(d){ return names[d.id] || d.id; }).join(T(' e ', ' and '));
+  var idle = broad.filter(function(d){ return d.rho >= 0.98; });
+  // e che cosa dice la prova all'indietro (pagina Backtest) sulle stesse voci
+  var icRows = (IDX.ic && IDX.ic.rows) || [];
+  var icIdle = idle.filter(function(d){
+    var r = icRows.filter(function(x){ return x.id === d.id; })[0];
+    return r && r.ic != null && r.t != null && Math.abs(r.t) < 2; });
+  var icNote = idle.length && icIdle.length === idle.length ? {
+    it: 'E la prova all’indietro sulla pagina Backtest non trova in nessuna di loro una capacità di ' +
+        'previsione distinguibile dal caso: per questo i loro pesi non vengono alzati. ',
+    en: 'And the backward test on the Backtest page finds in none of them a predictive power ' +
+        'distinguishable from chance: that is why their weights are not raised. '} : {it: '', en: ''};
 
   return '<div class="card"><h2>' + T('E se i pesi fossero altri?',
                                       'What if the weights were different?') + '</h2>' +
@@ -741,24 +755,24 @@ function stressCard(){
     '<p class="sub" style="margin-top:12px"><b>' + T('Quello che se ne ricava, per intero.',
                                                      'What this says, in full.') + '</b> ' + T(
       'La classifica non è un artefatto dei miei numeri: anche senza nessuna opinione, con i pesi ' +
-      'tutti uguali, ' + s.equal.top + ' delle prime dieci restano al loro posto, e in ' + s.draws +
+      'tutti uguali, ' + (s.equal.top === s.top ? 'tutte le prime dieci restano' : s.equal.top + ' delle prime dieci restano') + ' al loro posto, e in ' + s.draws +
       ' sorteggi la correlazione di rango non è mai scesa sotto ' + s.rho.min + '. Ma il motivo è ' +
       'meno lusinghiero di quanto sembri: a reggere l’ordine sono soltanto ' + carry + '. ' +
       (idle.length ? 'Le altre' + (idle.length === 1 ? '' : ' ' + num2it(idle.length)) + ' — ' +
         idle.map(function(d){ return names[d.id] || d.id; }).join(', ') +
         ' — se tolte non cambiano quasi niente: nella forma attuale sono quasi decorative. ' : '') +
-      'E la guidance, che è il punto in cui l’estrazione dalle call fa il lavoro vero, è ' +
+      icNote.it + 'E la guidance, che è il punto in cui l’estrazione dalle call fa il lavoro vero, è ' +
       'alimentata su poche aziende: dove c’è sposta parecchio, ma sulle altre il suo peso ' +
       'viene semplicemente ridistribuito.',
       'The ranking is not an artifact of my numbers: even with no opinion at all, with all weights ' +
-      'equal, ' + s.equal.top + ' of the top ten keep their place, and across ' + s.draws +
+      'equal, ' + (s.equal.top === s.top ? 'all of the top ten keep' : s.equal.top + ' of the top ten keep') + ' their place, and across ' + s.draws +
       ' draws the rank correlation never fell below ' + s.rho.min + '. But the reason is less ' +
       'flattering than it looks: the order is carried by ' + carry + ' alone. ' +
       (idle.length ? 'The other' + (idle.length === 1 ? ' one' : ' ' + num2en(idle.length)) + ' — ' +
         idle.map(function(d){ return names[d.id] || d.id; }).join(', ') +
         ' — change almost nothing when removed: in their current form they are close to ' +
         'decorative. ' : '') +
-      'And guidance, the one place where the extraction from the calls does the real work, is fed ' +
+      icNote.en + 'And guidance, the one place where the extraction from the calls does the real work, is fed ' +
       'on few companies: where it exists it moves a lot, but elsewhere its weight is simply ' +
       'redistributed.') + '</p>' +
     '<p class="sub">' + T(
@@ -1037,6 +1051,63 @@ function bonusCard(bt){
       'looks at purchases.') + '</p></div>';
 }
 
+/* Le voci che si possono ricostruire nel passato, messe alla prova. La
+   lettura nasce dal rapporto fra il numero e la sua incertezza: sotto due volte
+   l'incertezza, il sito non dice "segnale" ma "indistinguibile dal caso". */
+function icCard(){
+  var ic = IDX.ic;
+  if (!ic || !ic.rows) return '';
+  var names = { price: T('Contesto di prezzo', 'Price context'), sector: T('Settore', 'Sector'),
+                market: T('Mercato', 'Market'), events: T('Fatti rilevanti (8-K)', 'Material events (8-K)') };
+  var notes = { price: T('dalle chiusure', 'from closing prices'),
+                sector: T('dai Form 4 di tutto l’universo', 'from the Form 4s of the whole universe'),
+                market: T('solo la storia dello short interest del titolo', 'only the stock’s own short-interest history'),
+                events: T('solo le date coperte dal file della SEC', 'only the dates covered by the SEC file') };
+  var rows = ic.rows.map(function(r){
+    var read, col = 'var(--ink3)';
+    if (r.ic == null) read = T('non ancora calcolabile', 'not computable yet');
+    else if (r.t == null || Math.abs(r.t) < 2) read = T('indistinguibile dal caso', 'indistinguishable from chance');
+    else if (r.t >= 2) { read = T('segnale nella direzione attesa', 'signal in the expected direction'); col = 'var(--bull2)'; }
+    else { read = T('segnale al contrario', 'signal in the opposite direction'); col = 'var(--bear2)'; }
+    return '<tr style="cursor:default"><td><b>' + esc(names[r.id] || r.id) + '</b><div class="nm">' +
+      esc(notes[r.id] || '') + '</div></td>' +
+      '<td class="num">' + (r.ic == null ? '—' : sg(r.ic, 2)) + '</td>' +
+      '<td class="num" style="color:var(--ink3)">' + (r.se == null ? '—' : '± ' + r.se.toFixed(2)) + '</td>' +
+      '<td style="color:' + col + '">' + esc(read) + '</td></tr>';
+  }).join('');
+  var fmtD = function(s){ try { return new Date(s).toLocaleDateString(T('it-IT', 'en-GB'),
+    { month: 'short', year: 'numeric' }); } catch (e) { return s; } };
+  return '<div class="card"><h2>' + T('Le altre voci, alla prova', 'The other inputs, put to the test') +
+    '</h2><p class="sub">' + T(
+      'Quattro voci del punteggio si possono ricostruire giorno per giorno nel passato senza inventare ' +
+      'niente. Per ogni data, dentro ogni universo, si guarda se le aziende con il valore più alto hanno ' +
+      'poi reso di più delle altre nei ' + ic.horizon + ' giorni successivi: 1 vorrebbe dire sempre, 0 per ' +
+      'niente, −1 sempre al contrario. Il confronto è fra aziende nella stessa data, quindi ' +
+      'l’andamento del mercato si annulla. Date fra ' + fmtD(ic.from) + ' e ' + fmtD(ic.to) + '.',
+      'Four inputs of the score can be rebuilt day by day in the past without inventing anything. For ' +
+      'each date, within each universe, we check whether the companies with the highest value went on to ' +
+      'beat the others over the next ' + ic.horizon + ' days: 1 would mean always, 0 not at all, −1 ' +
+      'always the opposite. The comparison is between companies on the same date, so the market’s ' +
+      'direction cancels out. Dates between ' + fmtD(ic.from) + ' and ' + fmtD(ic.to) + '.') + '</p>' +
+    '<div class="scroll"><table><thead><tr><th>' + T('Voce', 'Input') + '</th>' +
+    '<th class="num">' + T('Correlazione', 'Correlation') + '</th>' +
+    '<th class="num">' + T('Incertezza', 'Uncertainty') + '</th>' +
+    '<th>' + T('Lettura', 'Reading') + '</th></tr></thead><tbody>' + rows + '</tbody></table></div>' +
+    '<p class="sub" style="margin-top:12px"><b>' + T('Come leggerlo.', 'How to read it.') + '</b> ' + T(
+      'Il metodo è stato controllato in due modi: un segnale che conosce il futuro dà 1, un segnale tirato ' +
+      'a caso dà 0. Con due anni e quaranta aziende, però, si vedrebbe solo una correlazione forte, sopra ' +
+      'circa 0,12, mentre i segnali che funzionano sui mercati valgono di solito pochi centesimi. Quindi ' +
+      '«indistinguibile dal caso» non vuol dire che la voce è inutile: vuol dire che non c’è nessuna ' +
+      'prova per darle più peso. Per questo i pesi restano dove sono, invece di essere alzati senza motivo. ' +
+      'La prova si rifà a ogni aggiornamento.',
+      'The method was checked two ways: a signal that knows the future scores 1, a random signal scores 0. ' +
+      'With two years and forty companies, though, only a strong correlation would show, above about 0.12, ' +
+      'while signals that work in markets are usually worth a few hundredths. So «indistinguishable from ' +
+      'chance» does not mean the input is useless: it means there is no evidence for giving it more weight. ' +
+      'That is why the weights stay where they are, instead of being raised for no reason. The test is ' +
+      'redone at every update.') + '</p></div>';
+}
+
 function renderBacktest(){
   var bt = IDX.backtest;
   if (!bt) {
@@ -1137,7 +1208,7 @@ function renderBacktest(){
         'poco per dire qualcosa.',
         (n === 1 ? 'A single campaign' : 'Only ' + n + ' campaigns') + ' by top executives: too few to ' +
         'say anything.'); }) +
-    '</div>' + bonusCard(bt) +
+    '</div>' + bonusCard(bt) + icCard() +
 
     '<div class="card"><h2>' + T('Che cosa questo backtest non è',
       'What this backtest is not') + '</h2><ul class="plain">' + T([
