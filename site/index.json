@@ -1,6 +1,6 @@
 {
- "generated_at": "2026-11-22T20:10:31+00:00",
- "changed_at": "2026-11-22T20:10:31+00:00",
+ "generated_at": "2026-11-22T20:39:03+00:00",
+ "changed_at": "2026-11-22T20:39:03+00:00",
  "groups": [
   {
    "nome": {
@@ -102,7 +102,7 @@
    {
     "lo": -25,
     "hi": -20,
-    "n": 6
+    "n": 7
    },
    {
     "lo": -20,
@@ -112,17 +112,17 @@
    {
     "lo": -15,
     "hi": -10,
-    "n": 14
+    "n": 16
    },
    {
     "lo": -10,
     "hi": -5,
-    "n": 39
+    "n": 40
    },
    {
     "lo": -5,
     "hi": 0,
-    "n": 70
+    "n": 76
    },
    {
     "lo": 0,
@@ -132,17 +132,17 @@
    {
     "lo": 5,
     "hi": 10,
-    "n": 48
+    "n": 55
    },
    {
     "lo": 10,
     "hi": 15,
-    "n": 21
+    "n": 23
    },
    {
     "lo": 15,
     "hi": 20,
-    "n": 14
+    "n": 15
    },
    {
     "lo": 20,
@@ -157,86 +157,86 @@
    {
     "lo": 30,
     "hi": null,
-    "n": 11
+    "n": 12
    }
   ],
   "all": {
-   "camp": 307,
-   "ep": 560,
-   "n": 846,
-   "pos": 163,
-   "avg": 1.48,
-   "med": 0.5
+   "camp": 328,
+   "ep": 592,
+   "n": 889,
+   "pos": 174,
+   "avg": 1.62,
+   "med": 0.56
   },
   "by_purchase": {
-   "n": 846,
-   "ep": 560,
-   "pos": 458,
-   "avg": 1.93,
-   "med": 1.19
+   "n": 889,
+   "ep": 592,
+   "pos": 477,
+   "avg": 1.85,
+   "med": 1.03
   },
   "cluster": {
-   "camp": 33,
-   "ep": 123,
-   "n": 196,
+   "camp": 35,
+   "ep": 127,
+   "n": 203,
    "pos": 16,
-   "avg": 0.5,
-   "med": -0.4
+   "avg": -0.44,
+   "med": -0.73
   },
   "solo": {
-   "camp": 274,
-   "ep": 437,
-   "n": 650,
-   "pos": 147,
-   "avg": 1.6,
-   "med": 0.7
+   "camp": 293,
+   "ep": 465,
+   "n": 686,
+   "pos": 158,
+   "avg": 1.86,
+   "med": 0.82
   },
   "senior": {
-   "camp": 72,
-   "ep": 173,
-   "n": 313,
-   "pos": 30,
-   "avg": -0.13,
-   "med": -3.39
+   "camp": 80,
+   "ep": 188,
+   "n": 337,
+   "pos": 34,
+   "avg": 0.1,
+   "med": -1.82
   },
   "other": {
-   "camp": 235,
-   "ep": 387,
-   "n": 533,
-   "pos": 133,
-   "avg": 1.97,
-   "med": 1.12
+   "camp": 248,
+   "ep": 404,
+   "n": 552,
+   "pos": 140,
+   "avg": 2.11,
+   "med": 1.14
   },
   "bonus": {
    "tau": 5.0,
-   "camp": 307,
+   "camp": 328,
    "cap": 50.0,
    "days": 90,
-   "base": 1.93,
+   "base": 2.16,
    "features": [
     {
      "id": "cluster",
-     "n": 33,
+     "n": 35,
      "hand": 18,
-     "raw": -0.19,
-     "se": 2.56,
-     "shrink": 0.792,
-     "post": -0.15,
-     "points": 0,
+     "raw": -1.74,
+     "se": 2.46,
+     "shrink": 0.805,
+     "post": -1.4,
+     "points": -1,
      "by_tau": {
-      "3": 0,
-      "5": 0,
-      "10": 0
+      "3": -1,
+      "5": -1,
+      "10": -2
      }
     },
     {
      "id": "two",
-     "n": 50,
+     "n": 56,
      "hand": 8,
-     "raw": -2.0,
-     "se": 2.05,
-     "shrink": 0.856,
-     "post": -1.71,
+     "raw": -1.99,
+     "se": 1.96,
+     "shrink": 0.866,
+     "post": -1.72,
      "points": -2,
      "by_tau": {
       "3": -1,
@@ -246,17 +246,17 @@
     },
     {
      "id": "senior",
-     "n": 72,
+     "n": 80,
      "hand": 10,
-     "raw": -1.94,
-     "se": 1.87,
-     "shrink": 0.878,
-     "post": -1.71,
-     "points": -2,
+     "raw": -1.43,
+     "se": 1.77,
+     "shrink": 0.888,
+     "post": -1.27,
+     "points": -1,
      "by_tau": {
       "3": -1,
-      "5": -2,
-      "10": -2
+      "5": -1,
+      "10": -1
      }
     }
    ]
@@ -285,8 +285,8 @@
   "hi": 2.0,
   "top": 10,
   "equal": {
-   "rho": 0.956,
-   "shift": 2.4,
+   "rho": 0.945,
+   "shift": 1.9,
    "top": 7
   },
   "drop": [
@@ -294,50 +294,50 @@
     "id": "guid",
     "n": 5,
     "rho": 0.7,
-    "shift": 4.6
+    "shift": 4.8
    },
    {
     "id": "insider",
     "n": 200,
-    "rho": 0.75,
-    "shift": 4.7
+    "rho": 0.729,
+    "shift": 4.2
    },
    {
     "id": "market",
-    "n": 36,
-    "rho": 0.768,
-    "shift": 2.9
+    "n": 200,
+    "rho": 0.85,
+    "shift": 2.6
    },
    {
     "id": "sector",
     "n": 200,
-    "rho": 0.905,
-    "shift": 1.3
+    "rho": 0.968,
+    "shift": 1.1
    },
    {
     "id": "events",
     "n": 200,
-    "rho": 0.977,
-    "shift": 1.1
+    "rho": 0.988,
+    "shift": 0.8
    },
    {
     "id": "price",
     "n": 200,
     "rho": 0.994,
-    "shift": 1.6
+    "shift": 1.2
    }
   ],
   "rho": {
-   "med": 0.984,
-   "p5": 0.958,
-   "min": 0.916
+   "med": 0.979,
+   "p5": 0.931,
+   "min": 0.857
   },
   "top_overlap": {
    "med": 8,
    "min": 5
   },
-  "width_med": 4,
-  "kept_avg": 92
+  "width_med": 5,
+  "kept_avg": 89
  },
  "ic": {
   "horizon": 60,
@@ -347,7 +347,7 @@
   "rows": [
    {
     "id": "price",
-    "ic": -0.0,
+    "ic": -0.012,
     "se": 0.023,
     "t": -0.53,
     "blocks": 19,
@@ -356,22 +356,22 @@
    {
     "id": "sector",
     "ic": -0.014,
-    "se": 0.01,
-    "t": -2.11,
+    "se": 0.009,
+    "t": -1.56,
     "blocks": 19,
-    "dates": 1195
+    "dates": 1276
    },
    {
     "id": "market",
-    "ic": -0.012,
-    "se": 0.037,
-    "t": -0.4,
-    "blocks": 6,
-    "dates": 146
+    "ic": 0.013,
+    "se": 0.01,
+    "t": 1.34,
+    "blocks": 9,
+    "dates": 910
    },
    {
     "id": "events",
-    "ic": -0.01,
+    "ic": -0.013,
     "se": 0.011,
     "t": -1.23,
     "blocks": 19,
@@ -380,10 +380,21 @@
   ]
  },
  "history": {
-  "complete": 107,
+  "complete": 119,
   "total": 200,
   "tx_from": "2021-10-18",
-  "missing": 30352
+  "missing": 26352
+ },
+ "short_interest": {
+  "finra": 200,
+  "manual": 0,
+  "none": 0,
+  "from": "2024-07-15",
+  "to": "2026-10-30",
+  "readings": 56,
+  "pending": 63,
+  "error": null,
+  "head": null
  },
  "companies": [
   {
@@ -393,13 +404,13 @@
     "it": "Energia",
     "en": "Energy"
    },
-   "score": 62,
+   "score": 61,
    "verdict": {
     "it": "Leggermente rialzista",
     "en": "Mildly bullish"
    },
    "confidence": "Media",
-   "covered_pct": 65,
+   "covered_pct": 80,
    "driver": {
     "name": {
      "it": "Insider",
@@ -453,6 +464,39 @@
    "errors": 0
   },
   {
+   "ticker": "TEAM",
+   "name": "Atlassian Corp",
+   "group": {
+    "it": "Software",
+    "en": "Software"
+   },
+   "score": 59,
+   "verdict": {
+    "it": "Leggermente rialzista",
+    "en": "Mildly bullish"
+   },
+   "confidence": "Media",
+   "covered_pct": 80,
+   "driver": {
+    "name": {
+     "it": "Mercato",
+     "en": "Market"
+    },
+    "up": true
+   },
+   "last": {
+    "d": "2026-11-20",
+    "c": 134.65,
+    "v": 3807900
+   },
+   "tx": 12006,
+   "buyers": 1,
+   "sellers": 3,
+   "net_musd": 10.696,
+   "cluster": false,
+   "errors": 0
+  },
+  {
    "ticker": "BAC",
    "name": "BANK OF AMERICA CORP /DE/",
    "group": {
@@ -486,6 +530,39 @@
    "errors": 0
   },
   {
+   "ticker": "FTNT",
+   "name": "Fortinet, Inc.",
+   "group": {
+    "it": "Software",
+    "en": "Software"
+   },
+   "score": 57,
+   "verdict": {
+    "it": "Leggermente rialzista",
+    "en": "Mildly bullish"
+   },
+   "confidence": "Media",
+   "covered_pct": 80,
+   "driver": {
+    "name": {
+     "it": "Mercato",
+     "en": "Market"
+    },
+    "up": true
+   },
+   "last": {
+    "d": "2026-11-20",
+    "c": 124.56,
+    "v": 6621300
+   },
+   "tx": 1084,
+   "buyers": 0,
+   "sellers": 0,
+   "net_musd": 0.0,
+   "cluster": false,
+   "errors": 0
+  },
+  {
    "ticker": "CVS",
    "name": "CVS HEALTH Corp",
    "group": {
@@ -498,7 +575,7 @@
     "en": "Mildly bullish"
    },
    "confidence": "Media",
-   "covered_pct": 65,
+   "covered_pct": 80,
    "driver": {
     "name": {
      "it": "Settore",
@@ -511,7 +588,7 @@
     "c": 80.84,
     "v": 10714400
    },
-   "tx": 1,
+   "tx": 310,
    "buyers": 1,
    "sellers": 0,
    "net_musd": 2.001,
@@ -519,11 +596,44 @@
    "errors": 0
   },
   {
-   "ticker": "BKR",
-   "name": "Baker Hughes Co",
+   "ticker": "MO",
+   "name": "ALTRIA GROUP, INC.",
    "group": {
-    "it": "Energia",
-    "en": "Energy"
+    "it": "Beni di prima necessità",
+    "en": "Consumer staples"
+   },
+   "score": 57,
+   "verdict": {
+    "it": "Leggermente rialzista",
+    "en": "Mildly bullish"
+   },
+   "confidence": "Media",
+   "covered_pct": 80,
+   "driver": {
+    "name": {
+     "it": "Mercato",
+     "en": "Market"
+    },
+    "up": true
+   },
+   "last": {
+    "d": "2026-11-20",
+    "c": 74.87,
+    "v": 10292100
+   },
+   "tx": 2,
+   "buyers": 1,
+   "sellers": 0,
+   "net_musd": 0.101,
+   "cluster": false,
+   "errors": 0
+  },
+  {
+   "ticker": "WDAY",
+   "name": "Workday, Inc.",
+   "group": {
+    "it": "Software",
+    "en": "Software"
    },
    "score": 56,
    "verdict": {
@@ -531,7 +641,40 @@
     "en": "Mildly bullish"
    },
    "confidence": "Media",
-   "covered_pct": 65,
+   "covered_pct": 80,
+   "driver": {
+    "name": {
+     "it": "Mercato",
+     "en": "Market"
+    },
+    "up": true
+   },
+   "last": {
+    "d": "2026-11-20",
+    "c": 174.52,
+    "v": 2585900
+   },
+   "tx": 1482,
+   "buyers": 0,
+   "sellers": 0,
+   "net_musd": 0.0,
+   "cluster": false,
+   "errors": 0
+  },
+  {
+   "ticker": "HUBS",
+   "name": "HUBSPOT INC",
+   "group": {
+    "it": "Software",
+    "en": "Software"
+   },
+   "score": 56,
+   "verdict": {
+    "it": "Leggermente rialzista",
+    "en": "Mildly bullish"
+   },
+   "confidence": "Media",
+   "covered_pct": 80,
    "driver": {
     "name": {
      "it": "Settore",
@@ -541,13 +684,79 @@
    },
    "last": {
     "d": "2026-11-20",
-    "c": 44.81,
-    "v": 15213000
+    "c": 193.88,
+    "v": 1483100
    },
-   "tx": 6,
+   "tx": 768,
    "buyers": 1,
    "sellers": 0,
-   "net_musd": 0.531,
+   "net_musd": 4.998,
+   "cluster": false,
+   "errors": 0
+  },
+  {
+   "ticker": "COF",
+   "name": "CAPITAL ONE FINANCIAL CORP",
+   "group": {
+    "it": "Finanza",
+    "en": "Financials"
+   },
+   "score": 56,
+   "verdict": {
+    "it": "Leggermente rialzista",
+    "en": "Mildly bullish"
+   },
+   "confidence": "Media",
+   "covered_pct": 80,
+   "driver": {
+    "name": {
+     "it": "Mercato",
+     "en": "Market"
+    },
+    "up": true
+   },
+   "last": {
+    "d": "2026-11-20",
+    "c": 178.66,
+    "v": 5030100
+   },
+   "tx": 895,
+   "buyers": 0,
+   "sellers": 0,
+   "net_musd": 0.0,
+   "cluster": false,
+   "errors": 0
+  },
+  {
+   "ticker": "ADM",
+   "name": "Archer-Daniels-Midland Co",
+   "group": {
+    "it": "Beni di prima necessità",
+    "en": "Consumer staples"
+   },
+   "score": 56,
+   "verdict": {
+    "it": "Leggermente rialzista",
+    "en": "Mildly bullish"
+   },
+   "confidence": "Media",
+   "covered_pct": 80,
+   "driver": {
+    "name": {
+     "it": "Mercato",
+     "en": "Market"
+    },
+    "up": true
+   },
+   "last": {
+    "d": "2026-11-20",
+    "c": 66.95,
+    "v": 4639700
+   },
+   "tx": 4,
+   "buyers": 1,
+   "sellers": 0,
+   "net_musd": 0.197,
    "cluster": false,
    "errors": 0
   },
@@ -585,11 +794,11 @@
    "errors": 0
   },
   {
-   "ticker": "KLAC",
-   "name": "KLA CORP",
+   "ticker": "PTC",
+   "name": "PTC INC.",
    "group": {
-    "it": "Semiconduttori e apparecchiature",
-    "en": "Semiconductors and equipment"
+    "it": "Software",
+    "en": "Software"
    },
    "score": 55,
    "verdict": {
@@ -607,10 +816,10 @@
    },
    "last": {
     "d": "2026-11-20",
-    "c": 126.87,
-    "v": 22642500
+    "c": 195.1,
+    "v": 2448400
    },
-   "tx": 541,
+   "tx": 806,
    "buyers": 0,
    "sellers": 0,
    "net_musd": 0.0,
@@ -618,11 +827,11 @@
    "errors": 0
   },
   {
-   "ticker": "TEAM",
-   "name": "Atlassian Corp",
+   "ticker": "ICE",
+   "name": "Intercontinental Exchange, Inc.",
    "group": {
-    "it": "Software",
-    "en": "Software"
+    "it": "Finanza",
+    "en": "Financials"
    },
    "score": 55,
    "verdict": {
@@ -630,32 +839,32 @@
     "en": "Mildly bullish"
    },
    "confidence": "Media",
-   "covered_pct": 65,
+   "covered_pct": 80,
    "driver": {
     "name": {
-     "it": "Settore",
-     "en": "Sector"
+     "it": "Mercato",
+     "en": "Market"
     },
     "up": true
    },
    "last": {
     "d": "2026-11-20",
-    "c": 134.65,
-    "v": 3807900
+    "c": 170.0,
+    "v": 4573500
    },
-   "tx": 12006,
-   "buyers": 1,
-   "sellers": 3,
-   "net_musd": 10.696,
+   "tx": 860,
+   "buyers": 0,
+   "sellers": 2,
+   "net_musd": -1.131,
    "cluster": false,
    "errors": 0
   },
   {
-   "ticker": "HUBS",
-   "name": "HUBSPOT INC",
+   "ticker": "VLO",
+   "name": "VALERO ENERGY CORP/TX",
    "group": {
-    "it": "Software",
-    "en": "Software"
+    "it": "Energia",
+    "en": "Energy"
    },
    "score": 55,
    "verdict": {
@@ -663,7 +872,40 @@
     "en": "Mildly bullish"
    },
    "confidence": "Media",
-   "covered_pct": 65,
+   "covered_pct": 80,
+   "driver": {
+    "name": {
+     "it": "Mercato",
+     "en": "Market"
+    },
+    "up": true
+   },
+   "last": {
+    "d": "2026-11-20",
+    "c": 334.18,
+    "v": 3008000
+   },
+   "tx": 4,
+   "buyers": 0,
+   "sellers": 0,
+   "net_musd": 0.0,
+   "cluster": false,
+   "errors": 0
+  },
+  {
+   "ticker": "BKR",
+   "name": "Baker Hughes Co",
+   "group": {
+    "it": "Energia",
+    "en": "Energy"
+   },
+   "score": 55,
+   "verdict": {
+    "it": "Leggermente rialzista",
+    "en": "Mildly bullish"
+   },
+   "confidence": "Media",
+   "covered_pct": 80,
    "driver": {
     "name": {
      "it": "Settore",
@@ -673,13 +915,79 @@
    },
    "last": {
     "d": "2026-11-20",
-    "c": 193.88,
-    "v": 1483100
+    "c": 44.81,
+    "v": 15213000
    },
-   "tx": 768,
+   "tx": 6,
    "buyers": 1,
    "sellers": 0,
-   "net_musd": 4.998,
+   "net_musd": 0.531,
+   "cluster": false,
+   "errors": 0
+  },
+  {
+   "ticker": "TJX",
+   "name": "TJX COMPANIES INC /DE/",
+   "group": {
+    "it": "Consumi discrezionali",
+    "en": "Consumer discretionary"
+   },
+   "score": 55,
+   "verdict": {
+    "it": "Leggermente rialzista",
+    "en": "Mildly bullish"
+   },
+   "confidence": "Media",
+   "covered_pct": 80,
+   "driver": {
+    "name": {
+     "it": "Settore",
+     "en": "Sector"
+    },
+    "up": true
+   },
+   "last": {
+    "d": "2026-11-20",
+    "c": 139.62,
+    "v": 9645600
+   },
+   "tx": 1,
+   "buyers": 1,
+   "sellers": 0,
+   "net_musd": 0.2,
+   "cluster": false,
+   "errors": 0
+  },
+  {
+   "ticker": "BKNG",
+   "name": "Booking Holdings Inc.",
+   "group": {
+    "it": "Consumi discrezionali",
+    "en": "Consumer discretionary"
+   },
+   "score": 55,
+   "verdict": {
+    "it": "Leggermente rialzista",
+    "en": "Mildly bullish"
+   },
+   "confidence": "Media",
+   "covered_pct": 80,
+   "driver": {
+    "name": {
+     "it": "Mercato",
+     "en": "Market"
+    },
+    "up": true
+   },
+   "last": {
+    "d": "2026-11-20",
+    "c": 144.91,
+    "v": 7679200
+   },
+   "tx": 31,
+   "buyers": 0,
+   "sellers": 0,
+   "net_musd": 0.0,
    "cluster": false,
    "errors": 0
   },
@@ -717,8 +1025,74 @@
    "errors": 0
   },
   {
-   "ticker": "TFC",
-   "name": "TRUIST FINANCIAL CORP",
+   "ticker": "CRM",
+   "name": "Salesforce, Inc.",
+   "group": {
+    "it": "Software",
+    "en": "Software"
+   },
+   "score": 54,
+   "verdict": {
+    "it": "Nessuna convinzione chiara",
+    "en": "No clear conviction"
+   },
+   "confidence": "Media",
+   "covered_pct": 80,
+   "driver": {
+    "name": {
+     "it": "Settore",
+     "en": "Sector"
+    },
+    "up": true
+   },
+   "last": {
+    "d": "2026-11-20",
+    "c": 180.62,
+    "v": 8711600
+   },
+   "tx": 5527,
+   "buyers": 1,
+   "sellers": 1,
+   "net_musd": -0.173,
+   "cluster": false,
+   "errors": 0
+  },
+  {
+   "ticker": "PLTR",
+   "name": "Palantir Technologies Inc.",
+   "group": {
+    "it": "Software",
+    "en": "Software"
+   },
+   "score": 54,
+   "verdict": {
+    "it": "Nessuna convinzione chiara",
+    "en": "No clear conviction"
+   },
+   "confidence": "Media",
+   "covered_pct": 80,
+   "driver": {
+    "name": {
+     "it": "Mercato",
+     "en": "Market"
+    },
+    "up": true
+   },
+   "last": {
+    "d": "2026-11-20",
+    "c": 143.49,
+    "v": 36556700
+   },
+   "tx": 1496,
+   "buyers": 0,
+   "sellers": 0,
+   "net_musd": 0.0,
+   "cluster": false,
+   "errors": 0
+  },
+  {
+   "ticker": "C",
+   "name": "CITIGROUP INC",
    "group": {
     "it": "Finanza",
     "en": "Financials"
@@ -729,32 +1103,32 @@
     "en": "No clear conviction"
    },
    "confidence": "Media",
-   "covered_pct": 65,
+   "covered_pct": 80,
    "driver": {
     "name": {
-     "it": "Settore",
-     "en": "Sector"
+     "it": "Mercato",
+     "en": "Market"
     },
     "up": true
    },
    "last": {
     "d": "2026-11-20",
-    "c": 45.81,
-    "v": 10144900
+    "c": 110.62,
+    "v": 16710300
    },
-   "tx": 332,
-   "buyers": 1,
-   "sellers": 0,
-   "net_musd": 2.225,
+   "tx": 693,
+   "buyers": 0,
+   "sellers": 1,
+   "net_musd": -0.2,
    "cluster": false,
    "errors": 0
   },
   {
-   "ticker": "BSX",
-   "name": "BOSTON SCIENTIFIC CORP",
+   "ticker": "HBAN",
+   "name": "HUNTINGTON BANCSHARES INC /MD/",
    "group": {
-    "it": "Sanità",
-    "en": "Health care"
+    "it": "Banche regionali",
+    "en": "Regional banks"
    },
    "score": 54,
    "verdict": {
@@ -762,7 +1136,7 @@
     "en": "No clear conviction"
    },
    "confidence": "Media",
-   "covered_pct": 65,
+   "covered_pct": 80,
    "driver": {
     "name": {
      "it": "Settore",
@@ -772,19 +1146,19 @@
    },
    "last": {
     "d": "2026-11-20",
-    "c": 41.98,
-    "v": 15224700
+    "c": 14.28,
+    "v": 25006100
    },
-   "tx": 16,
-   "buyers": 1,
-   "sellers": 0,
-   "net_musd": 0.1,
+   "tx": 1260,
+   "buyers": 2,
+   "sellers": 1,
+   "net_musd": 0.406,
    "cluster": false,
    "errors": 0
   },
   {
-   "ticker": "ETN",
-   "name": "Eaton Corp plc",
+   "ticker": "ADP",
+   "name": "AUTOMATIC DATA PROCESSING INC",
    "group": {
     "it": "Industria",
     "en": "Industrials"
@@ -795,32 +1169,32 @@
     "en": "No clear conviction"
    },
    "confidence": "Media",
-   "covered_pct": 65,
+   "covered_pct": 80,
    "driver": {
     "name": {
-     "it": "Settore",
-     "en": "Sector"
+     "it": "Mercato",
+     "en": "Market"
     },
     "up": true
    },
    "last": {
     "d": "2026-11-20",
-    "c": 311.33,
-    "v": 4783000
+    "c": 301.71,
+    "v": 2764100
    },
-   "tx": 19,
-   "buyers": 2,
+   "tx": 115,
+   "buyers": 0,
    "sellers": 0,
-   "net_musd": 0.171,
+   "net_musd": 0.0,
    "cluster": false,
    "errors": 0
   },
   {
-   "ticker": "WMB",
-   "name": "WILLIAMS COMPANIES, INC.",
+   "ticker": "URI",
+   "name": "UNITED RENTALS, INC.",
    "group": {
-    "it": "Energia",
-    "en": "Energy"
+    "it": "Industria",
+    "en": "Industrials"
    },
    "score": 54,
    "verdict": {
@@ -828,122 +1202,23 @@
     "en": "No clear conviction"
    },
    "confidence": "Media",
-   "covered_pct": 65,
+   "covered_pct": 80,
    "driver": {
     "name": {
-     "it": "Settore",
-     "en": "Sector"
+     "it": "Mercato",
+     "en": "Market"
     },
     "up": true
    },
    "last": {
     "d": "2026-11-20",
-    "c": 64.31,
-    "v": 9351000
-   },
-   "tx": 13,
-   "buyers": 1,
-   "sellers": 0,
-   "net_musd": 0.005,
-   "cluster": false,
-   "errors": 0
-  },
-  {
-   "ticker": "TJX",
-   "name": "TJX COMPANIES INC /DE/",
-   "group": {
-    "it": "Consumi discrezionali",
-    "en": "Consumer discretionary"
-   },
-   "score": 54,
-   "verdict": {
-    "it": "Nessuna convinzione chiara",
-    "en": "No clear conviction"
-   },
-   "confidence": "Media",
-   "covered_pct": 65,
-   "driver": {
-    "name": {
-     "it": "Settore",
-     "en": "Sector"
-    },
-    "up": true
-   },
-   "last": {
-    "d": "2026-11-20",
-    "c": 139.62,
-    "v": 9645600
-   },
-   "tx": 1,
-   "buyers": 1,
-   "sellers": 0,
-   "net_musd": 0.2,
-   "cluster": false,
-   "errors": 0
-  },
-  {
-   "ticker": "PEP",
-   "name": "PEPSICO INC",
-   "group": {
-    "it": "Beni di prima necessità",
-    "en": "Consumer staples"
-   },
-   "score": 54,
-   "verdict": {
-    "it": "Nessuna convinzione chiara",
-    "en": "No clear conviction"
-   },
-   "confidence": "Media",
-   "covered_pct": 65,
-   "driver": {
-    "name": {
-     "it": "Settore",
-     "en": "Sector"
-    },
-    "up": true
-   },
-   "last": {
-    "d": "2026-11-20",
-    "c": 140.54,
-    "v": 13742600
-   },
-   "tx": 38,
-   "buyers": 1,
-   "sellers": 1,
-   "net_musd": 19.632,
-   "cluster": false,
-   "errors": 0
-  },
-  {
-   "ticker": "MO",
-   "name": "ALTRIA GROUP, INC.",
-   "group": {
-    "it": "Beni di prima necessità",
-    "en": "Consumer staples"
-   },
-   "score": 54,
-   "verdict": {
-    "it": "Nessuna convinzione chiara",
-    "en": "No clear conviction"
-   },
-   "confidence": "Media",
-   "covered_pct": 65,
-   "driver": {
-    "name": {
-     "it": "Settore",
-     "en": "Sector"
-    },
-    "up": true
-   },
-   "last": {
-    "d": "2026-11-20",
-    "c": 74.87,
-    "v": 10292100
+    "c": 973.43,
+    "v": 823000
    },
    "tx": 2,
-   "buyers": 1,
+   "buyers": 0,
    "sellers": 0,
-   "net_musd": 0.101,
+   "net_musd": 0.0,
    "cluster": false,
    "errors": 0
   },
@@ -1047,8 +1322,8 @@
    "errors": 0
   },
   {
-   "ticker": "WDAY",
-   "name": "Workday, Inc.",
+   "ticker": "CDNS",
+   "name": "CADENCE DESIGN SYSTEMS INC",
    "group": {
     "it": "Software",
     "en": "Software"
@@ -1059,95 +1334,29 @@
     "en": "No clear conviction"
    },
    "confidence": "Media",
-   "covered_pct": 65,
+   "covered_pct": 80,
    "driver": {
     "name": {
-     "it": "Fatti rilevanti (8-K)",
-     "en": "Material events (8-K)"
+     "it": "Mercato",
+     "en": "Market"
     },
     "up": true
    },
    "last": {
     "d": "2026-11-20",
-    "c": 174.52,
-    "v": 2585900
+    "c": 281.58,
+    "v": 2845000
    },
-   "tx": 1482,
+   "tx": 1017,
    "buyers": 0,
-   "sellers": 0,
-   "net_musd": 0.0,
+   "sellers": 1,
+   "net_musd": -0.252,
    "cluster": false,
    "errors": 0
   },
   {
-   "ticker": "ADSK",
-   "name": "Autodesk, Inc.",
-   "group": {
-    "it": "Software",
-    "en": "Software"
-   },
-   "score": 53,
-   "verdict": {
-    "it": "Nessuna convinzione chiara",
-    "en": "No clear conviction"
-   },
-   "confidence": "Media",
-   "covered_pct": 65,
-   "driver": {
-    "name": {
-     "it": "Fatti rilevanti (8-K)",
-     "en": "Material events (8-K)"
-    },
-    "up": true
-   },
-   "last": {
-    "d": "2026-11-20",
-    "c": 244.48,
-    "v": 2570300
-   },
-   "tx": 372,
-   "buyers": 0,
-   "sellers": 0,
-   "net_musd": 0.0,
-   "cluster": false,
-   "errors": 0
-  },
-  {
-   "ticker": "PTC",
-   "name": "PTC INC.",
-   "group": {
-    "it": "Software",
-    "en": "Software"
-   },
-   "score": 53,
-   "verdict": {
-    "it": "Nessuna convinzione chiara",
-    "en": "No clear conviction"
-   },
-   "confidence": "Media",
-   "covered_pct": 65,
-   "driver": {
-    "name": {
-     "it": "Contesto di prezzo",
-     "en": "Price context"
-    },
-    "up": true
-   },
-   "last": {
-    "d": "2026-11-20",
-    "c": 195.1,
-    "v": 2448400
-   },
-   "tx": 806,
-   "buyers": 0,
-   "sellers": 0,
-   "net_musd": 0.0,
-   "cluster": false,
-   "errors": 0
-  },
-  {
-   "ticker": "AIG",
-   "name": "AMERICAN INTERNATIONAL GROUP, INC.",
+   "ticker": "TFC",
+   "name": "TRUIST FINANCIAL CORP",
    "group": {
     "it": "Finanza",
     "en": "Financials"
@@ -1158,7 +1367,7 @@
     "en": "No clear conviction"
    },
    "confidence": "Media",
-   "covered_pct": 65,
+   "covered_pct": 80,
    "driver": {
     "name": {
      "it": "Settore",
@@ -1168,19 +1377,19 @@
    },
    "last": {
     "d": "2026-11-20",
-    "c": 79.68,
-    "v": 4595700
+    "c": 45.81,
+    "v": 10144900
    },
-   "tx": 346,
+   "tx": 332,
    "buyers": 1,
    "sellers": 0,
-   "net_musd": 0.01,
+   "net_musd": 2.225,
    "cluster": false,
    "errors": 0
   },
   {
-   "ticker": "HBAN",
-   "name": "HUNTINGTON BANCSHARES INC /MD/",
+   "ticker": "MTB",
+   "name": "M&T BANK CORP",
    "group": {
     "it": "Banche regionali",
     "en": "Regional banks"
@@ -1191,53 +1400,20 @@
     "en": "No clear conviction"
    },
    "confidence": "Media",
-   "covered_pct": 65,
+   "covered_pct": 80,
    "driver": {
     "name": {
-     "it": "Settore",
-     "en": "Sector"
+     "it": "Mercato",
+     "en": "Market"
     },
     "up": true
    },
    "last": {
     "d": "2026-11-20",
-    "c": 14.28,
-    "v": 25006100
+    "c": 208.3,
+    "v": 1184800
    },
-   "tx": 1260,
-   "buyers": 2,
-   "sellers": 1,
-   "net_musd": 0.406,
-   "cluster": false,
-   "errors": 0
-  },
-  {
-   "ticker": "HWC",
-   "name": "HANCOCK WHITNEY CORP",
-   "group": {
-    "it": "Banche regionali",
-    "en": "Regional banks"
-   },
-   "score": 53,
-   "verdict": {
-    "it": "Nessuna convinzione chiara",
-    "en": "No clear conviction"
-   },
-   "confidence": "Media",
-   "covered_pct": 65,
-   "driver": {
-    "name": {
-     "it": "Contesto di prezzo",
-     "en": "Price context"
-    },
-    "up": true
-   },
-   "last": {
-    "d": "2026-11-20",
-    "c": 59.3,
-    "v": 2072100
-   },
-   "tx": 389,
+   "tx": 765,
    "buyers": 0,
    "sellers": 0,
    "net_musd": 0.0,
@@ -1245,8 +1421,8 @@
    "errors": 0
   },
   {
-   "ticker": "UMBF",
-   "name": "UMB FINANCIAL CORP",
+   "ticker": "FNB",
+   "name": "FNB CORP/PA/",
    "group": {
     "it": "Banche regionali",
     "en": "Regional banks"
@@ -1257,119 +1433,20 @@
     "en": "No clear conviction"
    },
    "confidence": "Media",
-   "covered_pct": 65,
+   "covered_pct": 80,
    "driver": {
     "name": {
-     "it": "Settore",
-     "en": "Sector"
+     "it": "Mercato",
+     "en": "Market"
     },
     "up": true
    },
    "last": {
     "d": "2026-11-20",
-    "c": 126.5,
-    "v": 690400
+    "c": 16.83,
+    "v": 5689800
    },
-   "tx": 2623,
-   "buyers": 2,
-   "sellers": 1,
-   "net_musd": 0.153,
-   "cluster": false,
-   "errors": 0
-  },
-  {
-   "ticker": "LMT",
-   "name": "LOCKHEED MARTIN CORP",
-   "group": {
-    "it": "Industria",
-    "en": "Industrials"
-   },
-   "score": 53,
-   "verdict": {
-    "it": "Nessuna convinzione chiara",
-    "en": "No clear conviction"
-   },
-   "confidence": "Media",
-   "covered_pct": 65,
-   "driver": {
-    "name": {
-     "it": "Contesto di prezzo",
-     "en": "Price context"
-    },
-    "up": true
-   },
-   "last": {
-    "d": "2026-11-20",
-    "c": 565.5,
-    "v": 1479700
-   },
-   "tx": 15,
-   "buyers": 0,
-   "sellers": 1,
-   "net_musd": 0.0,
-   "cluster": false,
-   "errors": 0
-  },
-  {
-   "ticker": "BA",
-   "name": "BOEING CO",
-   "group": {
-    "it": "Industria",
-    "en": "Industrials"
-   },
-   "score": 53,
-   "verdict": {
-    "it": "Nessuna convinzione chiara",
-    "en": "No clear conviction"
-   },
-   "confidence": "Media",
-   "covered_pct": 65,
-   "driver": {
-    "name": {
-     "it": "Settore",
-     "en": "Sector"
-    },
-    "up": true
-   },
-   "last": {
-    "d": "2026-11-20",
-    "c": 155.89,
-    "v": 11135300
-   },
-   "tx": 8,
-   "buyers": 3,
-   "sellers": 1,
-   "net_musd": 1.485,
-   "cluster": true,
-   "errors": 0
-  },
-  {
-   "ticker": "URI",
-   "name": "UNITED RENTALS, INC.",
-   "group": {
-    "it": "Industria",
-    "en": "Industrials"
-   },
-   "score": 53,
-   "verdict": {
-    "it": "Nessuna convinzione chiara",
-    "en": "No clear conviction"
-   },
-   "confidence": "Media",
-   "covered_pct": 65,
-   "driver": {
-    "name": {
-     "it": "Fatti rilevanti (8-K)",
-     "en": "Material events (8-K)"
-    },
-    "up": true
-   },
-   "last": {
-    "d": "2026-11-20",
-    "c": 973.43,
-    "v": 823000
-   },
-   "tx": 2,
+   "tx": 290,
    "buyers": 0,
    "sellers": 0,
    "net_musd": 0.0,
@@ -1377,8 +1454,173 @@
    "errors": 0
   },
   {
-   "ticker": "ADM",
-   "name": "Archer-Daniels-Midland Co",
+   "ticker": "GILD",
+   "name": "GILEAD SCIENCES, INC.",
+   "group": {
+    "it": "Sanità",
+    "en": "Health care"
+   },
+   "score": 53,
+   "verdict": {
+    "it": "Nessuna convinzione chiara",
+    "en": "No clear conviction"
+   },
+   "confidence": "Media",
+   "covered_pct": 80,
+   "driver": {
+    "name": {
+     "it": "Mercato",
+     "en": "Market"
+    },
+    "up": true
+   },
+   "last": {
+    "d": "2026-11-20",
+    "c": 166.43,
+    "v": 7555500
+   },
+   "tx": 629,
+   "buyers": 0,
+   "sellers": 0,
+   "net_musd": 0.0,
+   "cluster": false,
+   "errors": 0
+  },
+  {
+   "ticker": "DE",
+   "name": "DEERE & CO",
+   "group": {
+    "it": "Industria",
+    "en": "Industrials"
+   },
+   "score": 53,
+   "verdict": {
+    "it": "Nessuna convinzione chiara",
+    "en": "No clear conviction"
+   },
+   "confidence": "Media",
+   "covered_pct": 80,
+   "driver": {
+    "name": {
+     "it": "Mercato",
+     "en": "Market"
+    },
+    "up": true
+   },
+   "last": {
+    "d": "2026-11-20",
+    "c": 609.25,
+    "v": 2178200
+   },
+   "tx": 35,
+   "buyers": 0,
+   "sellers": 0,
+   "net_musd": 0.0,
+   "cluster": false,
+   "errors": 0
+  },
+  {
+   "ticker": "ETN",
+   "name": "Eaton Corp plc",
+   "group": {
+    "it": "Industria",
+    "en": "Industrials"
+   },
+   "score": 53,
+   "verdict": {
+    "it": "Nessuna convinzione chiara",
+    "en": "No clear conviction"
+   },
+   "confidence": "Media",
+   "covered_pct": 80,
+   "driver": {
+    "name": {
+     "it": "Settore",
+     "en": "Sector"
+    },
+    "up": true
+   },
+   "last": {
+    "d": "2026-11-20",
+    "c": 311.33,
+    "v": 4783000
+   },
+   "tx": 19,
+   "buyers": 2,
+   "sellers": 0,
+   "net_musd": 0.171,
+   "cluster": false,
+   "errors": 0
+  },
+  {
+   "ticker": "DVN",
+   "name": "DEVON ENERGY CORP/DE",
+   "group": {
+    "it": "Energia",
+    "en": "Energy"
+   },
+   "score": 53,
+   "verdict": {
+    "it": "Nessuna convinzione chiara",
+    "en": "No clear conviction"
+   },
+   "confidence": "Media",
+   "covered_pct": 80,
+   "driver": {
+    "name": {
+     "it": "Settore",
+     "en": "Sector"
+    },
+    "up": true
+   },
+   "last": {
+    "d": "2026-11-20",
+    "c": 41.54,
+    "v": 14412200
+   },
+   "tx": 5,
+   "buyers": 1,
+   "sellers": 1,
+   "net_musd": -0.144,
+   "cluster": false,
+   "errors": 0
+  },
+  {
+   "ticker": "F",
+   "name": "FORD MOTOR CO",
+   "group": {
+    "it": "Consumi discrezionali",
+    "en": "Consumer discretionary"
+   },
+   "score": 53,
+   "verdict": {
+    "it": "Nessuna convinzione chiara",
+    "en": "No clear conviction"
+   },
+   "confidence": "Media",
+   "covered_pct": 80,
+   "driver": {
+    "name": {
+     "it": "Mercato",
+     "en": "Market"
+    },
+    "up": true
+   },
+   "last": {
+    "d": "2026-11-20",
+    "c": 11.17,
+    "v": 57453200
+   },
+   "tx": 12,
+   "buyers": 0,
+   "sellers": 0,
+   "net_musd": 0.0,
+   "cluster": false,
+   "errors": 0
+  },
+  {
+   "ticker": "PEP",
+   "name": "PEPSICO INC",
    "group": {
     "it": "Beni di prima necessità",
     "en": "Consumer staples"
@@ -1389,7 +1631,7 @@
     "en": "No clear conviction"
    },
    "confidence": "Media",
-   "covered_pct": 65,
+   "covered_pct": 80,
    "driver": {
     "name": {
      "it": "Settore",
@@ -1399,13 +1641,46 @@
    },
    "last": {
     "d": "2026-11-20",
-    "c": 66.95,
-    "v": 4639700
+    "c": 140.54,
+    "v": 13742600
    },
-   "tx": 4,
+   "tx": 38,
+   "buyers": 1,
+   "sellers": 1,
+   "net_musd": 19.632,
+   "cluster": false,
+   "errors": 0
+  },
+  {
+   "ticker": "SYY",
+   "name": "SYSCO CORP",
+   "group": {
+    "it": "Beni di prima necessità",
+    "en": "Consumer staples"
+   },
+   "score": 53,
+   "verdict": {
+    "it": "Nessuna convinzione chiara",
+    "en": "No clear conviction"
+   },
+   "confidence": "Media",
+   "covered_pct": 80,
+   "driver": {
+    "name": {
+     "it": "Settore",
+     "en": "Sector"
+    },
+    "up": true
+   },
+   "last": {
+    "d": "2026-11-20",
+    "c": 78.17,
+    "v": 4602100
+   },
+   "tx": 73,
    "buyers": 1,
    "sellers": 0,
-   "net_musd": 0.197,
+   "net_musd": 0.192,
    "cluster": false,
    "errors": 0
   },
@@ -1509,646 +1784,19 @@
    "errors": 0
   },
   {
-   "ticker": "CRM",
-   "name": "Salesforce, Inc.",
-   "group": {
-    "it": "Software",
-    "en": "Software"
-   },
-   "score": 52,
-   "verdict": {
-    "it": "Nessuna convinzione chiara",
-    "en": "No clear conviction"
-   },
-   "confidence": "Media",
-   "covered_pct": 65,
-   "driver": {
-    "name": {
-     "it": "Settore",
-     "en": "Sector"
-    },
-    "up": true
-   },
-   "last": {
-    "d": "2026-11-20",
-    "c": 180.62,
-    "v": 8711600
-   },
-   "tx": 5527,
-   "buyers": 1,
-   "sellers": 1,
-   "net_musd": -0.173,
-   "cluster": false,
-   "errors": 0
-  },
-  {
-   "ticker": "CDNS",
-   "name": "CADENCE DESIGN SYSTEMS INC",
-   "group": {
-    "it": "Software",
-    "en": "Software"
-   },
-   "score": 52,
-   "verdict": {
-    "it": "Nessuna convinzione chiara",
-    "en": "No clear conviction"
-   },
-   "confidence": "Media",
-   "covered_pct": 65,
-   "driver": {
-    "name": {
-     "it": "Contesto di prezzo",
-     "en": "Price context"
-    },
-    "up": true
-   },
-   "last": {
-    "d": "2026-11-20",
-    "c": 281.58,
-    "v": 2845000
-   },
-   "tx": 1017,
-   "buyers": 0,
-   "sellers": 1,
-   "net_musd": -0.252,
-   "cluster": false,
-   "errors": 0
-  },
-  {
-   "ticker": "FTNT",
-   "name": "Fortinet, Inc.",
-   "group": {
-    "it": "Software",
-    "en": "Software"
-   },
-   "score": 52,
-   "verdict": {
-    "it": "Nessuna convinzione chiara",
-    "en": "No clear conviction"
-   },
-   "confidence": "Media",
-   "covered_pct": 65,
-   "driver": {
-    "name": {
-     "it": "Contesto di prezzo",
-     "en": "Price context"
-    },
-    "up": true
-   },
-   "last": {
-    "d": "2026-11-20",
-    "c": 124.56,
-    "v": 6621300
-   },
-   "tx": 1084,
-   "buyers": 0,
-   "sellers": 0,
-   "net_musd": 0.0,
-   "cluster": false,
-   "errors": 0
-  },
-  {
-   "ticker": "PLTR",
-   "name": "Palantir Technologies Inc.",
-   "group": {
-    "it": "Software",
-    "en": "Software"
-   },
-   "score": 52,
-   "verdict": {
-    "it": "Nessuna convinzione chiara",
-    "en": "No clear conviction"
-   },
-   "confidence": "Media",
-   "covered_pct": 65,
-   "driver": {
-    "name": {
-     "it": "Contesto di prezzo",
-     "en": "Price context"
-    },
-    "up": true
-   },
-   "last": {
-    "d": "2026-11-20",
-    "c": 143.49,
-    "v": 36556700
-   },
-   "tx": 1496,
-   "buyers": 0,
-   "sellers": 0,
-   "net_musd": 0.0,
-   "cluster": false,
-   "errors": 0
-  },
-  {
-   "ticker": "COF",
-   "name": "CAPITAL ONE FINANCIAL CORP",
-   "group": {
-    "it": "Finanza",
-    "en": "Financials"
-   },
-   "score": 52,
-   "verdict": {
-    "it": "Nessuna convinzione chiara",
-    "en": "No clear conviction"
-   },
-   "confidence": "Media",
-   "covered_pct": 65,
-   "driver": {
-    "name": {
-     "it": "Settore",
-     "en": "Sector"
-    },
-    "up": true
-   },
-   "last": {
-    "d": "2026-11-20",
-    "c": 178.66,
-    "v": 5030100
-   },
-   "tx": 895,
-   "buyers": 0,
-   "sellers": 0,
-   "net_musd": 0.0,
-   "cluster": false,
-   "errors": 0
-  },
-  {
-   "ticker": "WAL",
-   "name": "WESTERN ALLIANCE BANCORPORATION",
-   "group": {
-    "it": "Banche regionali",
-    "en": "Regional banks"
-   },
-   "score": 52,
-   "verdict": {
-    "it": "Nessuna convinzione chiara",
-    "en": "No clear conviction"
-   },
-   "confidence": "Media",
-   "covered_pct": 65,
-   "driver": {
-    "name": {
-     "it": "Settore",
-     "en": "Sector"
-    },
-    "up": true
-   },
-   "last": {
-    "d": "2026-11-20",
-    "c": 67.9,
-    "v": 1105300
-   },
-   "tx": 1434,
-   "buyers": 0,
-   "sellers": 0,
-   "net_musd": 0.0,
-   "cluster": false,
-   "errors": 0
-  },
-  {
-   "ticker": "FNB",
-   "name": "FNB CORP/PA/",
-   "group": {
-    "it": "Banche regionali",
-    "en": "Regional banks"
-   },
-   "score": 52,
-   "verdict": {
-    "it": "Nessuna convinzione chiara",
-    "en": "No clear conviction"
-   },
-   "confidence": "Media",
-   "covered_pct": 65,
-   "driver": {
-    "name": {
-     "it": "Settore",
-     "en": "Sector"
-    },
-    "up": true
-   },
-   "last": {
-    "d": "2026-11-20",
-    "c": 16.83,
-    "v": 5689800
-   },
-   "tx": 290,
-   "buyers": 0,
-   "sellers": 0,
-   "net_musd": 0.0,
-   "cluster": false,
-   "errors": 0
-  },
-  {
-   "ticker": "GILD",
-   "name": "GILEAD SCIENCES, INC.",
-   "group": {
-    "it": "Sanità",
-    "en": "Health care"
-   },
-   "score": 52,
-   "verdict": {
-    "it": "Nessuna convinzione chiara",
-    "en": "No clear conviction"
-   },
-   "confidence": "Media",
-   "covered_pct": 65,
-   "driver": {
-    "name": {
-     "it": "Settore",
-     "en": "Sector"
-    },
-    "up": true
-   },
-   "last": {
-    "d": "2026-11-20",
-    "c": 166.43,
-    "v": 7555500
-   },
-   "tx": 71,
-   "buyers": 0,
-   "sellers": 0,
-   "net_musd": 0.0,
-   "cluster": false,
-   "errors": 0
-  },
-  {
-   "ticker": "ADP",
-   "name": "AUTOMATIC DATA PROCESSING INC",
-   "group": {
-    "it": "Industria",
-    "en": "Industrials"
-   },
-   "score": 52,
-   "verdict": {
-    "it": "Nessuna convinzione chiara",
-    "en": "No clear conviction"
-   },
-   "confidence": "Media",
-   "covered_pct": 65,
-   "driver": {
-    "name": {
-     "it": "Settore",
-     "en": "Sector"
-    },
-    "up": true
-   },
-   "last": {
-    "d": "2026-11-20",
-    "c": 301.71,
-    "v": 2764100
-   },
-   "tx": 115,
-   "buyers": 0,
-   "sellers": 0,
-   "net_musd": 0.0,
-   "cluster": false,
-   "errors": 0
-  },
-  {
-   "ticker": "PCAR",
-   "name": "PACCAR INC",
-   "group": {
-    "it": "Industria",
-    "en": "Industrials"
-   },
-   "score": 52,
-   "verdict": {
-    "it": "Nessuna convinzione chiara",
-    "en": "No clear conviction"
-   },
-   "confidence": "Media",
-   "covered_pct": 65,
-   "driver": {
-    "name": {
-     "it": "Contesto di prezzo",
-     "en": "Price context"
-    },
-    "up": true
-   },
-   "last": {
-    "d": "2026-11-20",
-    "c": 102.2,
-    "v": 4669600
-   },
-   "tx": 19,
-   "buyers": 0,
-   "sellers": 1,
-   "net_musd": -0.0,
-   "cluster": false,
-   "errors": 0
-  },
-  {
-   "ticker": "DVN",
-   "name": "DEVON ENERGY CORP/DE",
-   "group": {
-    "it": "Energia",
-    "en": "Energy"
-   },
-   "score": 52,
-   "verdict": {
-    "it": "Nessuna convinzione chiara",
-    "en": "No clear conviction"
-   },
-   "confidence": "Media",
-   "covered_pct": 65,
-   "driver": {
-    "name": {
-     "it": "Settore",
-     "en": "Sector"
-    },
-    "up": true
-   },
-   "last": {
-    "d": "2026-11-20",
-    "c": 41.54,
-    "v": 14412200
-   },
-   "tx": 5,
-   "buyers": 1,
-   "sellers": 1,
-   "net_musd": -0.144,
-   "cluster": false,
-   "errors": 0
-  },
-  {
-   "ticker": "BKNG",
-   "name": "Booking Holdings Inc.",
-   "group": {
-    "it": "Consumi discrezionali",
-    "en": "Consumer discretionary"
-   },
-   "score": 52,
-   "verdict": {
-    "it": "Nessuna convinzione chiara",
-    "en": "No clear conviction"
-   },
-   "confidence": "Media",
-   "covered_pct": 65,
-   "driver": {
-    "name": {
-     "it": "Settore",
-     "en": "Sector"
-    },
-    "up": true
-   },
-   "last": {
-    "d": "2026-11-20",
-    "c": 144.91,
-    "v": 7679200
-   },
-   "tx": 31,
-   "buyers": 0,
-   "sellers": 0,
-   "net_musd": 0.0,
-   "cluster": false,
-   "errors": 0
-  },
-  {
-   "ticker": "F",
-   "name": "FORD MOTOR CO",
-   "group": {
-    "it": "Consumi discrezionali",
-    "en": "Consumer discretionary"
-   },
-   "score": 52,
-   "verdict": {
-    "it": "Nessuna convinzione chiara",
-    "en": "No clear conviction"
-   },
-   "confidence": "Media",
-   "covered_pct": 65,
-   "driver": {
-    "name": {
-     "it": "Contesto di prezzo",
-     "en": "Price context"
-    },
-    "up": true
-   },
-   "last": {
-    "d": "2026-11-20",
-    "c": 11.17,
-    "v": 57453200
-   },
-   "tx": 12,
-   "buyers": 0,
-   "sellers": 0,
-   "net_musd": 0.0,
-   "cluster": false,
-   "errors": 0
-  },
-  {
-   "ticker": "PHM",
-   "name": "PULTEGROUP INC/MI/",
-   "group": {
-    "it": "Consumi discrezionali",
-    "en": "Consumer discretionary"
-   },
-   "score": 52,
-   "verdict": {
-    "it": "Nessuna convinzione chiara",
-    "en": "No clear conviction"
-   },
-   "confidence": "Media",
-   "covered_pct": 65,
-   "driver": {
-    "name": {
-     "it": "Settore",
-     "en": "Sector"
-    },
-    "up": true
-   },
-   "last": {
-    "d": "2026-11-20",
-    "c": 124.67,
-    "v": 2367400
-   },
-   "tx": 4,
-   "buyers": 0,
-   "sellers": 0,
-   "net_musd": 0.0,
-   "cluster": false,
-   "errors": 0
-  },
-  {
-   "ticker": "SYY",
-   "name": "SYSCO CORP",
-   "group": {
-    "it": "Beni di prima necessità",
-    "en": "Consumer staples"
-   },
-   "score": 52,
-   "verdict": {
-    "it": "Nessuna convinzione chiara",
-    "en": "No clear conviction"
-   },
-   "confidence": "Media",
-   "covered_pct": 65,
-   "driver": {
-    "name": {
-     "it": "Settore",
-     "en": "Sector"
-    },
-    "up": true
-   },
-   "last": {
-    "d": "2026-11-20",
-    "c": 78.17,
-    "v": 4602100
-   },
-   "tx": 73,
-   "buyers": 1,
-   "sellers": 0,
-   "net_musd": 0.192,
-   "cluster": false,
-   "errors": 0
-  },
-  {
-   "ticker": "CLX",
-   "name": "CLOROX CO /DE/",
-   "group": {
-    "it": "Beni di prima necessità",
-    "en": "Consumer staples"
-   },
-   "score": 52,
-   "verdict": {
-    "it": "Nessuna convinzione chiara",
-    "en": "No clear conviction"
-   },
-   "confidence": "Media",
-   "covered_pct": 65,
-   "driver": {
-    "name": {
-     "it": "Settore",
-     "en": "Sector"
-    },
-    "up": true
-   },
-   "last": {
-    "d": "2026-11-20",
-    "c": 104.73,
-    "v": 3044700
-   },
-   "tx": 27,
-   "buyers": 1,
-   "sellers": 0,
-   "net_musd": 0.4,
-   "cluster": false,
-   "errors": 0
-  },
-  {
-   "ticker": "TSN",
-   "name": "TYSON FOODS, INC.",
-   "group": {
-    "it": "Beni di prima necessità",
-    "en": "Consumer staples"
-   },
-   "score": 52,
-   "verdict": {
-    "it": "Nessuna convinzione chiara",
-    "en": "No clear conviction"
-   },
-   "confidence": "Media",
-   "covered_pct": 65,
-   "driver": {
-    "name": {
-     "it": "Settore",
-     "en": "Sector"
-    },
-    "up": true
-   },
-   "last": {
-    "d": "2026-11-20",
-    "c": 65.12,
-    "v": 7171300
-   },
-   "tx": 30,
-   "buyers": 1,
-   "sellers": 0,
-   "net_musd": 1.002,
-   "cluster": false,
-   "errors": 0
-  },
-  {
-   "ticker": "HRL",
-   "name": "HORMEL FOODS CORP /DE/",
-   "group": {
-    "it": "Beni di prima necessità",
-    "en": "Consumer staples"
-   },
-   "score": 52,
-   "verdict": {
-    "it": "Nessuna convinzione chiara",
-    "en": "No clear conviction"
-   },
-   "confidence": "Media",
-   "covered_pct": 65,
-   "driver": {
-    "name": {
-     "it": "Settore",
-     "en": "Sector"
-    },
-    "up": true
-   },
-   "last": {
-    "d": "2026-11-20",
-    "c": 23.54,
-    "v": 5150500
-   },
-   "tx": 11,
-   "buyers": 1,
-   "sellers": 0,
-   "net_musd": 0.201,
-   "cluster": false,
-   "errors": 0
-  },
-  {
-   "ticker": "UNH",
-   "name": "UNITEDHEALTH GROUP INC",
-   "group": {
-    "it": "Grandi capitalizzazioni USA",
-    "en": "US large caps"
-   },
-   "score": 51,
-   "verdict": {
-    "it": "Nessuna convinzione chiara",
-    "en": "No clear conviction"
-   },
-   "confidence": "Media",
-   "covered_pct": 65,
-   "driver": {
-    "name": {
-     "it": "Contesto di prezzo",
-     "en": "Price context"
-    },
-    "up": true
-   },
-   "last": {
-    "d": "2026-11-20",
-    "c": 339.85,
-    "v": 12777300
-   },
-   "tx": 878,
-   "buyers": 0,
-   "sellers": 0,
-   "net_musd": 0.0,
-   "cluster": false,
-   "errors": 0
-  },
-  {
    "ticker": "WMT",
    "name": "Walmart Inc.",
    "group": {
     "it": "Grandi capitalizzazioni USA",
     "en": "US large caps"
    },
-   "score": 51,
+   "score": 52,
    "verdict": {
     "it": "Nessuna convinzione chiara",
     "en": "No clear conviction"
    },
    "confidence": "Media",
-   "covered_pct": 65,
+   "covered_pct": 80,
    "driver": {
     "name": {
      "it": "Contesto di prezzo",
@@ -2169,25 +1817,58 @@
    "errors": 0
   },
   {
+   "ticker": "INTU",
+   "name": "INTUIT INC.",
+   "group": {
+    "it": "Software",
+    "en": "Software"
+   },
+   "score": 52,
+   "verdict": {
+    "it": "Nessuna convinzione chiara",
+    "en": "No clear conviction"
+   },
+   "confidence": "Media",
+   "covered_pct": 80,
+   "driver": {
+    "name": {
+     "it": "Mercato",
+     "en": "Market"
+    },
+    "up": true
+   },
+   "last": {
+    "d": "2026-11-20",
+    "c": 270.44,
+    "v": 9829800
+   },
+   "tx": 1960,
+   "buyers": 0,
+   "sellers": 1,
+   "net_musd": -0.314,
+   "cluster": false,
+   "errors": 0
+  },
+  {
    "ticker": "MDB",
    "name": "MongoDB, Inc.",
    "group": {
     "it": "Software",
     "en": "Software"
    },
-   "score": 51,
+   "score": 52,
    "verdict": {
     "it": "Nessuna convinzione chiara",
     "en": "No clear conviction"
    },
    "confidence": "Media",
-   "covered_pct": 65,
+   "covered_pct": 80,
    "driver": {
     "name": {
-     "it": "Fatti rilevanti (8-K)",
-     "en": "Material events (8-K)"
+     "it": "Mercato",
+     "en": "Market"
     },
-    "up": false
+    "up": true
    },
    "last": {
     "d": "2026-11-20",
@@ -2195,6 +1876,270 @@
     "v": 1627300
    },
    "tx": 1620,
+   "buyers": 0,
+   "sellers": 0,
+   "net_musd": 0.0,
+   "cluster": false,
+   "errors": 0
+  },
+  {
+   "ticker": "PGR",
+   "name": "PROGRESSIVE CORP/OH/",
+   "group": {
+    "it": "Finanza",
+    "en": "Financials"
+   },
+   "score": 52,
+   "verdict": {
+    "it": "Nessuna convinzione chiara",
+    "en": "No clear conviction"
+   },
+   "confidence": "Media",
+   "covered_pct": 80,
+   "driver": {
+    "name": {
+     "it": "Mercato",
+     "en": "Market"
+    },
+    "up": true
+   },
+   "last": {
+    "d": "2026-11-20",
+    "c": 231.39,
+    "v": 3429800
+   },
+   "tx": 611,
+   "buyers": 0,
+   "sellers": 0,
+   "net_musd": 0.0,
+   "cluster": false,
+   "errors": 0
+  },
+  {
+   "ticker": "CFG",
+   "name": "CITIZENS FINANCIAL GROUP INC/RI",
+   "group": {
+    "it": "Banche regionali",
+    "en": "Regional banks"
+   },
+   "score": 52,
+   "verdict": {
+    "it": "Nessuna convinzione chiara",
+    "en": "No clear conviction"
+   },
+   "confidence": "Media",
+   "covered_pct": 80,
+   "driver": {
+    "name": {
+     "it": "Mercato",
+     "en": "Market"
+    },
+    "up": true
+   },
+   "last": {
+    "d": "2026-11-20",
+    "c": 58.71,
+    "v": 4456800
+   },
+   "tx": 526,
+   "buyers": 0,
+   "sellers": 0,
+   "net_musd": 0.0,
+   "cluster": false,
+   "errors": 0
+  },
+  {
+   "ticker": "PFE",
+   "name": "PFIZER INC",
+   "group": {
+    "it": "Sanità",
+    "en": "Health care"
+   },
+   "score": 52,
+   "verdict": {
+    "it": "Nessuna convinzione chiara",
+    "en": "No clear conviction"
+   },
+   "confidence": "Media",
+   "covered_pct": 80,
+   "driver": {
+    "name": {
+     "it": "Mercato",
+     "en": "Market"
+    },
+    "up": true
+   },
+   "last": {
+    "d": "2026-11-20",
+    "c": 27.4,
+    "v": 38289900
+   },
+   "tx": 334,
+   "buyers": 0,
+   "sellers": 0,
+   "net_musd": 0.0,
+   "cluster": false,
+   "errors": 0
+  },
+  {
+   "ticker": "LMT",
+   "name": "LOCKHEED MARTIN CORP",
+   "group": {
+    "it": "Industria",
+    "en": "Industrials"
+   },
+   "score": 52,
+   "verdict": {
+    "it": "Nessuna convinzione chiara",
+    "en": "No clear conviction"
+   },
+   "confidence": "Media",
+   "covered_pct": 80,
+   "driver": {
+    "name": {
+     "it": "Contesto di prezzo",
+     "en": "Price context"
+    },
+    "up": true
+   },
+   "last": {
+    "d": "2026-11-20",
+    "c": 565.5,
+    "v": 1479700
+   },
+   "tx": 15,
+   "buyers": 0,
+   "sellers": 1,
+   "net_musd": 0.0,
+   "cluster": false,
+   "errors": 0
+  },
+  {
+   "ticker": "PCAR",
+   "name": "PACCAR INC",
+   "group": {
+    "it": "Industria",
+    "en": "Industrials"
+   },
+   "score": 52,
+   "verdict": {
+    "it": "Nessuna convinzione chiara",
+    "en": "No clear conviction"
+   },
+   "confidence": "Media",
+   "covered_pct": 80,
+   "driver": {
+    "name": {
+     "it": "Contesto di prezzo",
+     "en": "Price context"
+    },
+    "up": true
+   },
+   "last": {
+    "d": "2026-11-20",
+    "c": 102.2,
+    "v": 4669600
+   },
+   "tx": 19,
+   "buyers": 0,
+   "sellers": 1,
+   "net_musd": -0.0,
+   "cluster": false,
+   "errors": 0
+  },
+  {
+   "ticker": "COP",
+   "name": "CONOCOPHILLIPS",
+   "group": {
+    "it": "Energia",
+    "en": "Energy"
+   },
+   "score": 52,
+   "verdict": {
+    "it": "Nessuna convinzione chiara",
+    "en": "No clear conviction"
+   },
+   "confidence": "Media",
+   "covered_pct": 80,
+   "driver": {
+    "name": {
+     "it": "Mercato",
+     "en": "Market"
+    },
+    "up": true
+   },
+   "last": {
+    "d": "2026-11-20",
+    "c": 136.12,
+    "v": 8467500
+   },
+   "tx": 2,
+   "buyers": 0,
+   "sellers": 0,
+   "net_musd": 0.0,
+   "cluster": false,
+   "errors": 0
+  },
+  {
+   "ticker": "APA",
+   "name": "APA Corp",
+   "group": {
+    "it": "Energia",
+    "en": "Energy"
+   },
+   "score": 52,
+   "verdict": {
+    "it": "Nessuna convinzione chiara",
+    "en": "No clear conviction"
+   },
+   "confidence": "Media",
+   "covered_pct": 80,
+   "driver": {
+    "name": {
+     "it": "Mercato",
+     "en": "Market"
+    },
+    "up": true
+   },
+   "last": {
+    "d": "2026-11-20",
+    "c": 45.03,
+    "v": 4915300
+   },
+   "tx": 9,
+   "buyers": 0,
+   "sellers": 0,
+   "net_musd": 0.0,
+   "cluster": false,
+   "errors": 0
+  },
+  {
+   "ticker": "UNH",
+   "name": "UNITEDHEALTH GROUP INC",
+   "group": {
+    "it": "Grandi capitalizzazioni USA",
+    "en": "US large caps"
+   },
+   "score": 51,
+   "verdict": {
+    "it": "Nessuna convinzione chiara",
+    "en": "No clear conviction"
+   },
+   "confidence": "Media",
+   "covered_pct": 80,
+   "driver": {
+    "name": {
+     "it": "Contesto di prezzo",
+     "en": "Price context"
+    },
+    "up": true
+   },
+   "last": {
+    "d": "2026-11-20",
+    "c": 339.85,
+    "v": 12777300
+   },
+   "tx": 878,
    "buyers": 0,
    "sellers": 0,
    "net_musd": 0.0,
@@ -2214,7 +2159,7 @@
     "en": "No clear conviction"
    },
    "confidence": "Media",
-   "covered_pct": 65,
+   "covered_pct": 80,
    "driver": {
     "name": {
      "it": "Contesto di prezzo",
@@ -2235,270 +2180,6 @@
    "errors": 0
   },
   {
-   "ticker": "WFC",
-   "name": "WELLS FARGO & COMPANY/MN",
-   "group": {
-    "it": "Finanza",
-    "en": "Financials"
-   },
-   "score": 51,
-   "verdict": {
-    "it": "Nessuna convinzione chiara",
-    "en": "No clear conviction"
-   },
-   "confidence": "Media",
-   "covered_pct": 65,
-   "driver": {
-    "name": {
-     "it": "Settore",
-     "en": "Sector"
-    },
-    "up": true
-   },
-   "last": {
-    "d": "2026-11-20",
-    "c": 78.62,
-    "v": 15596700
-   },
-   "tx": 691,
-   "buyers": 0,
-   "sellers": 0,
-   "net_musd": 0.0,
-   "cluster": false,
-   "errors": 0
-  },
-  {
-   "ticker": "C",
-   "name": "CITIGROUP INC",
-   "group": {
-    "it": "Finanza",
-    "en": "Financials"
-   },
-   "score": 51,
-   "verdict": {
-    "it": "Nessuna convinzione chiara",
-    "en": "No clear conviction"
-   },
-   "confidence": "Media",
-   "covered_pct": 65,
-   "driver": {
-    "name": {
-     "it": "Contesto di prezzo",
-     "en": "Price context"
-    },
-    "up": true
-   },
-   "last": {
-    "d": "2026-11-20",
-    "c": 110.62,
-    "v": 16710300
-   },
-   "tx": 693,
-   "buyers": 0,
-   "sellers": 1,
-   "net_musd": -0.2,
-   "cluster": false,
-   "errors": 0
-  },
-  {
-   "ticker": "PGR",
-   "name": "PROGRESSIVE CORP/OH/",
-   "group": {
-    "it": "Finanza",
-    "en": "Financials"
-   },
-   "score": 51,
-   "verdict": {
-    "it": "Nessuna convinzione chiara",
-    "en": "No clear conviction"
-   },
-   "confidence": "Media",
-   "covered_pct": 65,
-   "driver": {
-    "name": {
-     "it": "Settore",
-     "en": "Sector"
-    },
-    "up": true
-   },
-   "last": {
-    "d": "2026-11-20",
-    "c": 231.39,
-    "v": 3429800
-   },
-   "tx": 611,
-   "buyers": 0,
-   "sellers": 0,
-   "net_musd": 0.0,
-   "cluster": false,
-   "errors": 0
-  },
-  {
-   "ticker": "ICE",
-   "name": "Intercontinental Exchange, Inc.",
-   "group": {
-    "it": "Finanza",
-    "en": "Financials"
-   },
-   "score": 51,
-   "verdict": {
-    "it": "Nessuna convinzione chiara",
-    "en": "No clear conviction"
-   },
-   "confidence": "Media",
-   "covered_pct": 65,
-   "driver": {
-    "name": {
-     "it": "Insider",
-     "en": "Insiders"
-    },
-    "up": false
-   },
-   "last": {
-    "d": "2026-11-20",
-    "c": 170.0,
-    "v": 4573500
-   },
-   "tx": 860,
-   "buyers": 0,
-   "sellers": 2,
-   "net_musd": -1.131,
-   "cluster": false,
-   "errors": 0
-  },
-  {
-   "ticker": "PNC",
-   "name": "PNC FINANCIAL SERVICES GROUP, INC.",
-   "group": {
-    "it": "Finanza",
-    "en": "Financials"
-   },
-   "score": 51,
-   "verdict": {
-    "it": "Nessuna convinzione chiara",
-    "en": "No clear conviction"
-   },
-   "confidence": "Media",
-   "covered_pct": 65,
-   "driver": {
-    "name": {
-     "it": "Settore",
-     "en": "Sector"
-    },
-    "up": true
-   },
-   "last": {
-    "d": "2026-11-20",
-    "c": 213.12,
-    "v": 1685600
-   },
-   "tx": 628,
-   "buyers": 0,
-   "sellers": 0,
-   "net_musd": 0.0,
-   "cluster": false,
-   "errors": 0
-  },
-  {
-   "ticker": "CFG",
-   "name": "CITIZENS FINANCIAL GROUP INC/RI",
-   "group": {
-    "it": "Banche regionali",
-    "en": "Regional banks"
-   },
-   "score": 51,
-   "verdict": {
-    "it": "Nessuna convinzione chiara",
-    "en": "No clear conviction"
-   },
-   "confidence": "Media",
-   "covered_pct": 65,
-   "driver": {
-    "name": {
-     "it": "Fatti rilevanti (8-K)",
-     "en": "Material events (8-K)"
-    },
-    "up": false
-   },
-   "last": {
-    "d": "2026-11-20",
-    "c": 58.71,
-    "v": 4456800
-   },
-   "tx": 526,
-   "buyers": 0,
-   "sellers": 0,
-   "net_musd": 0.0,
-   "cluster": false,
-   "errors": 0
-  },
-  {
-   "ticker": "MTB",
-   "name": "M&T BANK CORP",
-   "group": {
-    "it": "Banche regionali",
-    "en": "Regional banks"
-   },
-   "score": 51,
-   "verdict": {
-    "it": "Nessuna convinzione chiara",
-    "en": "No clear conviction"
-   },
-   "confidence": "Media",
-   "covered_pct": 65,
-   "driver": {
-    "name": {
-     "it": "Settore",
-     "en": "Sector"
-    },
-    "up": true
-   },
-   "last": {
-    "d": "2026-11-20",
-    "c": 208.3,
-    "v": 1184800
-   },
-   "tx": 765,
-   "buyers": 0,
-   "sellers": 0,
-   "net_musd": 0.0,
-   "cluster": false,
-   "errors": 0
-  },
-  {
-   "ticker": "SSB",
-   "name": "SouthState Bank Corp",
-   "group": {
-    "it": "Banche regionali",
-    "en": "Regional banks"
-   },
-   "score": 51,
-   "verdict": {
-    "it": "Nessuna convinzione chiara",
-    "en": "No clear conviction"
-   },
-   "confidence": "Media",
-   "covered_pct": 65,
-   "driver": {
-    "name": {
-     "it": "Settore",
-     "en": "Sector"
-    },
-    "up": true
-   },
-   "last": {
-    "d": "2026-11-20",
-    "c": 99.18,
-    "v": 643600
-   },
-   "tx": 533,
-   "buyers": 0,
-   "sellers": 0,
-   "net_musd": 0.0,
-   "cluster": false,
-   "errors": 0
-  },
-  {
    "ticker": "AMGN",
    "name": "AMGEN INC",
    "group": {
@@ -2511,7 +2192,7 @@
     "en": "No clear conviction"
    },
    "confidence": "Media",
-   "covered_pct": 65,
+   "covered_pct": 80,
    "driver": {
     "name": {
      "it": "Settore",
@@ -2544,7 +2225,7 @@
     "en": "No clear conviction"
    },
    "confidence": "Media",
-   "covered_pct": 65,
+   "covered_pct": 80,
    "driver": {
     "name": {
      "it": "Contesto di prezzo",
@@ -2557,73 +2238,7 @@
     "c": 399.05,
     "v": 2690200
    },
-   "tx": 927,
-   "buyers": 0,
-   "sellers": 0,
-   "net_musd": 0.0,
-   "cluster": false,
-   "errors": 0
-  },
-  {
-   "ticker": "VRTX",
-   "name": "VERTEX PHARMACEUTICALS INC / MA",
-   "group": {
-    "it": "Sanità",
-    "en": "Health care"
-   },
-   "score": 51,
-   "verdict": {
-    "it": "Nessuna convinzione chiara",
-    "en": "No clear conviction"
-   },
-   "confidence": "Media",
-   "covered_pct": 65,
-   "driver": {
-    "name": {
-     "it": "Settore",
-     "en": "Sector"
-    },
-    "up": true
-   },
-   "last": {
-    "d": "2026-11-20",
-    "c": 515.02,
-    "v": 1767700
-   },
-   "tx": 8,
-   "buyers": 0,
-   "sellers": 0,
-   "net_musd": 0.0,
-   "cluster": false,
-   "errors": 0
-  },
-  {
-   "ticker": "CI",
-   "name": "Cigna Group",
-   "group": {
-    "it": "Sanità",
-    "en": "Health care"
-   },
-   "score": 51,
-   "verdict": {
-    "it": "Nessuna convinzione chiara",
-    "en": "No clear conviction"
-   },
-   "confidence": "Media",
-   "covered_pct": 65,
-   "driver": {
-    "name": {
-     "it": "Settore",
-     "en": "Sector"
-    },
-    "up": true
-   },
-   "last": {
-    "d": "2026-11-20",
-    "c": 270.9,
-    "v": 2619800
-   },
-   "tx": 6,
+   "tx": 1298,
    "buyers": 0,
    "sellers": 0,
    "net_musd": 0.0,
@@ -2643,7 +2258,7 @@
     "en": "No clear conviction"
    },
    "confidence": "Media",
-   "covered_pct": 65,
+   "covered_pct": 80,
    "driver": {
     "name": {
      "it": "Fatti rilevanti (8-K)",
@@ -2656,73 +2271,7 @@
     "c": 79.11,
     "v": 6096800
    },
-   "tx": 3,
-   "buyers": 0,
-   "sellers": 0,
-   "net_musd": 0.0,
-   "cluster": false,
-   "errors": 0
-  },
-  {
-   "ticker": "UNP",
-   "name": "UNION PACIFIC CORP",
-   "group": {
-    "it": "Industria",
-    "en": "Industrials"
-   },
-   "score": 51,
-   "verdict": {
-    "it": "Nessuna convinzione chiara",
-    "en": "No clear conviction"
-   },
-   "confidence": "Media",
-   "covered_pct": 65,
-   "driver": {
-    "name": {
-     "it": "Settore",
-     "en": "Sector"
-    },
-    "up": true
-   },
-   "last": {
-    "d": "2026-11-20",
-    "c": 287.29,
-    "v": 4278400
-   },
-   "tx": 18,
-   "buyers": 0,
-   "sellers": 0,
-   "net_musd": 0.0,
-   "cluster": false,
-   "errors": 0
-  },
-  {
-   "ticker": "DE",
-   "name": "DEERE & CO",
-   "group": {
-    "it": "Industria",
-    "en": "Industrials"
-   },
-   "score": 51,
-   "verdict": {
-    "it": "Nessuna convinzione chiara",
-    "en": "No clear conviction"
-   },
-   "confidence": "Media",
-   "covered_pct": 65,
-   "driver": {
-    "name": {
-     "it": "Fatti rilevanti (8-K)",
-     "en": "Material events (8-K)"
-    },
-    "up": false
-   },
-   "last": {
-    "d": "2026-11-20",
-    "c": 609.25,
-    "v": 2178200
-   },
-   "tx": 35,
+   "tx": 436,
    "buyers": 0,
    "sellers": 0,
    "net_musd": 0.0,
@@ -2742,7 +2291,7 @@
     "en": "No clear conviction"
    },
    "confidence": "Media",
-   "covered_pct": 65,
+   "covered_pct": 80,
    "driver": {
     "name": {
      "it": "Settore",
@@ -2763,11 +2312,11 @@
    "errors": 0
   },
   {
-   "ticker": "CMI",
-   "name": "CUMMINS INC",
+   "ticker": "PHM",
+   "name": "PULTEGROUP INC/MI/",
    "group": {
-    "it": "Industria",
-    "en": "Industrials"
+    "it": "Consumi discrezionali",
+    "en": "Consumer discretionary"
    },
    "score": 51,
    "verdict": {
@@ -2775,7 +2324,7 @@
     "en": "No clear conviction"
    },
    "confidence": "Media",
-   "covered_pct": 65,
+   "covered_pct": 80,
    "driver": {
     "name": {
      "it": "Settore",
@@ -2785,74 +2334,8 @@
    },
    "last": {
     "d": "2026-11-20",
-    "c": 403.61,
-    "v": 2232000
-   },
-   "tx": 13,
-   "buyers": 0,
-   "sellers": 1,
-   "net_musd": -0.399,
-   "cluster": false,
-   "errors": 0
-  },
-  {
-   "ticker": "LNG",
-   "name": "Cheniere Energy, Inc.",
-   "group": {
-    "it": "Energia",
-    "en": "Energy"
-   },
-   "score": 51,
-   "verdict": {
-    "it": "Nessuna convinzione chiara",
-    "en": "No clear conviction"
-   },
-   "confidence": "Media",
-   "covered_pct": 65,
-   "driver": {
-    "name": {
-     "it": "Contesto di prezzo",
-     "en": "Price context"
-    },
-    "up": true
-   },
-   "last": {
-    "d": "2026-11-20",
-    "c": 294.84,
-    "v": 1947200
-   },
-   "tx": 3,
-   "buyers": 0,
-   "sellers": 0,
-   "net_musd": 0.0,
-   "cluster": false,
-   "errors": 0
-  },
-  {
-   "ticker": "EQT",
-   "name": "EQT Corp",
-   "group": {
-    "it": "Energia",
-    "en": "Energy"
-   },
-   "score": 51,
-   "verdict": {
-    "it": "Nessuna convinzione chiara",
-    "en": "No clear conviction"
-   },
-   "confidence": "Media",
-   "covered_pct": 65,
-   "driver": {
-    "name": {
-     "it": "Fatti rilevanti (8-K)",
-     "en": "Material events (8-K)"
-    },
-    "up": true
-   },
-   "last": {
-    "d": "2026-11-20",
-    "c": 48.89,
-    "v": 7709900
+    "c": 124.67,
+    "v": 2367400
    },
    "tx": 4,
    "buyers": 0,
@@ -2862,140 +2345,8 @@
    "errors": 0
   },
   {
-   "ticker": "OVV",
-   "name": "Ovintiv Inc.",
-   "group": {
-    "it": "Energia",
-    "en": "Energy"
-   },
-   "score": 51,
-   "verdict": {
-    "it": "Nessuna convinzione chiara",
-    "en": "No clear conviction"
-   },
-   "confidence": "Media",
-   "covered_pct": 65,
-   "driver": {
-    "name": {
-     "it": "Settore",
-     "en": "Sector"
-    },
-    "up": false
-   },
-   "last": {
-    "d": "2026-11-20",
-    "c": 60.85,
-    "v": 2448100
-   },
-   "tx": 5,
-   "buyers": 0,
-   "sellers": 0,
-   "net_musd": 0.0,
-   "cluster": false,
-   "errors": 0
-  },
-  {
-   "ticker": "SBUX",
-   "name": "STARBUCKS CORP",
-   "group": {
-    "it": "Consumi discrezionali",
-    "en": "Consumer discretionary"
-   },
-   "score": 51,
-   "verdict": {
-    "it": "Nessuna convinzione chiara",
-    "en": "No clear conviction"
-   },
-   "confidence": "Media",
-   "covered_pct": 65,
-   "driver": {
-    "name": {
-     "it": "Settore",
-     "en": "Sector"
-    },
-    "up": true
-   },
-   "last": {
-    "d": "2026-11-20",
-    "c": 103.13,
-    "v": 10989100
-   },
-   "tx": 25,
-   "buyers": 0,
-   "sellers": 0,
-   "net_musd": 0.0,
-   "cluster": false,
-   "errors": 0
-  },
-  {
-   "ticker": "CMG",
-   "name": "CHIPOTLE MEXICAN GRILL INC",
-   "group": {
-    "it": "Consumi discrezionali",
-    "en": "Consumer discretionary"
-   },
-   "score": 51,
-   "verdict": {
-    "it": "Nessuna convinzione chiara",
-    "en": "No clear conviction"
-   },
-   "confidence": "Media",
-   "covered_pct": 65,
-   "driver": {
-    "name": {
-     "it": "Settore",
-     "en": "Sector"
-    },
-    "up": true
-   },
-   "last": {
-    "d": "2026-11-20",
-    "c": 35.55,
-    "v": 19144200
-   },
-   "tx": 10,
-   "buyers": 0,
-   "sellers": 0,
-   "net_musd": 0.0,
-   "cluster": false,
-   "errors": 0
-  },
-  {
-   "ticker": "DHI",
-   "name": "HORTON D R INC /DE/",
-   "group": {
-    "it": "Consumi discrezionali",
-    "en": "Consumer discretionary"
-   },
-   "score": 51,
-   "verdict": {
-    "it": "Nessuna convinzione chiara",
-    "en": "No clear conviction"
-   },
-   "confidence": "Media",
-   "covered_pct": 65,
-   "driver": {
-    "name": {
-     "it": "Settore",
-     "en": "Sector"
-    },
-    "up": true
-   },
-   "last": {
-    "d": "2026-11-20",
-    "c": 145.44,
-    "v": 3052300
-   },
-   "tx": 42,
-   "buyers": 0,
-   "sellers": 0,
-   "net_musd": 0.0,
-   "cluster": false,
-   "errors": 0
-  },
-  {
-   "ticker": "MKC",
-   "name": "MCCORMICK & CO INC",
+   "ticker": "PM",
+   "name": "Philip Morris International Inc.",
    "group": {
     "it": "Beni di prima necessità",
     "en": "Consumer staples"
@@ -3006,23 +2357,23 @@
     "en": "No clear conviction"
    },
    "confidence": "Media",
-   "covered_pct": 65,
+   "covered_pct": 80,
    "driver": {
     "name": {
-     "it": "Settore",
-     "en": "Sector"
+     "it": "Mercato",
+     "en": "Market"
     },
     "up": true
    },
    "last": {
     "d": "2026-11-20",
-    "c": 47.4,
-    "v": 5921700
+    "c": 184.09,
+    "v": 9582000
    },
-   "tx": 15,
-   "buyers": 1,
+   "tx": 0,
+   "buyers": 0,
    "sellers": 0,
-   "net_musd": 0.045,
+   "net_musd": 0.0,
    "cluster": false,
    "errors": 0
   },
@@ -3126,11 +2477,11 @@
    "errors": 0
   },
   {
-   "ticker": "XOM",
-   "name": "ExxonMobil Holdings Corp",
+   "ticker": "WFC",
+   "name": "WELLS FARGO & COMPANY/MN",
    "group": {
-    "it": "Grandi capitalizzazioni USA",
-    "en": "US large caps"
+    "it": "Finanza",
+    "en": "Financials"
    },
    "score": 50,
    "verdict": {
@@ -3138,20 +2489,20 @@
     "en": "No clear conviction"
    },
    "confidence": "Media",
-   "covered_pct": 65,
+   "covered_pct": 80,
    "driver": {
     "name": {
-     "it": "Fatti rilevanti (8-K)",
-     "en": "Material events (8-K)"
+     "it": "Mercato",
+     "en": "Market"
     },
     "up": false
    },
    "last": {
     "d": "2026-11-20",
-    "c": 159.99,
-    "v": 18670900
+    "c": 78.62,
+    "v": 15596700
    },
-   "tx": 298,
+   "tx": 691,
    "buyers": 0,
    "sellers": 0,
    "net_musd": 0.0,
@@ -3159,11 +2510,11 @@
    "errors": 0
   },
   {
-   "ticker": "INTU",
-   "name": "INTUIT INC.",
+   "ticker": "WAL",
+   "name": "WESTERN ALLIANCE BANCORPORATION",
    "group": {
-    "it": "Software",
-    "en": "Software"
+    "it": "Banche regionali",
+    "en": "Regional banks"
    },
    "score": 50,
    "verdict": {
@@ -3171,32 +2522,98 @@
     "en": "No clear conviction"
    },
    "confidence": "Media",
-   "covered_pct": 65,
+   "covered_pct": 80,
    "driver": {
     "name": {
-     "it": "Settore",
-     "en": "Sector"
+     "it": "Mercato",
+     "en": "Market"
     },
     "up": false
    },
    "last": {
     "d": "2026-11-20",
-    "c": 270.44,
-    "v": 9829800
+    "c": 67.9,
+    "v": 1105300
    },
-   "tx": 1960,
+   "tx": 1434,
+   "buyers": 0,
+   "sellers": 0,
+   "net_musd": 0.0,
+   "cluster": false,
+   "errors": 0
+  },
+  {
+   "ticker": "UMBF",
+   "name": "UMB FINANCIAL CORP",
+   "group": {
+    "it": "Banche regionali",
+    "en": "Regional banks"
+   },
+   "score": 50,
+   "verdict": {
+    "it": "Nessuna convinzione chiara",
+    "en": "No clear conviction"
+   },
+   "confidence": "Media",
+   "covered_pct": 80,
+   "driver": {
+    "name": {
+     "it": "Settore",
+     "en": "Sector"
+    },
+    "up": true
+   },
+   "last": {
+    "d": "2026-11-20",
+    "c": 126.5,
+    "v": 690400
+   },
+   "tx": 2623,
+   "buyers": 2,
+   "sellers": 1,
+   "net_musd": 0.153,
+   "cluster": false,
+   "errors": 0
+  },
+  {
+   "ticker": "RTX",
+   "name": "RTX Corp",
+   "group": {
+    "it": "Industria",
+    "en": "Industrials"
+   },
+   "score": 50,
+   "verdict": {
+    "it": "Nessuna convinzione chiara",
+    "en": "No clear conviction"
+   },
+   "confidence": "Media",
+   "covered_pct": 80,
+   "driver": {
+    "name": {
+     "it": "Mercato",
+     "en": "Market"
+    },
+    "up": true
+   },
+   "last": {
+    "d": "2026-11-20",
+    "c": 190.17,
+    "v": 6038000
+   },
+   "tx": 18,
    "buyers": 0,
    "sellers": 1,
-   "net_musd": -0.314,
+   "net_musd": -1.83,
    "cluster": false,
    "errors": 0
   },
   {
-   "ticker": "PFE",
-   "name": "PFIZER INC",
+   "ticker": "EMR",
+   "name": "EMERSON ELECTRIC CO",
    "group": {
-    "it": "Sanità",
-    "en": "Health care"
+    "it": "Industria",
+    "en": "Industrials"
    },
    "score": 50,
    "verdict": {
@@ -3204,62 +2621,62 @@
     "en": "No clear conviction"
    },
    "confidence": "Media",
-   "covered_pct": 65,
+   "covered_pct": 80,
    "driver": {
     "name": {
-     "it": "Fatti rilevanti (8-K)",
-     "en": "Material events (8-K)"
-    },
-    "up": false
-   },
-   "last": {
-    "d": "2026-11-20",
-    "c": 27.4,
-    "v": 38289900
-   },
-   "tx": 334,
-   "buyers": 0,
-   "sellers": 0,
-   "net_musd": 0.0,
-   "cluster": false,
-   "errors": 0
-  },
-  {
-   "ticker": "VLO",
-   "name": "VALERO ENERGY CORP/TX",
-   "group": {
-    "it": "Energia",
-    "en": "Energy"
-   },
-   "score": 50,
-   "verdict": {
-    "it": "Nessuna convinzione chiara",
-    "en": "No clear conviction"
-   },
-   "confidence": "Media",
-   "covered_pct": 65,
-   "driver": {
-    "name": {
-     "it": "Contesto di prezzo",
-     "en": "Price context"
+     "it": "Mercato",
+     "en": "Market"
     },
     "up": true
    },
    "last": {
     "d": "2026-11-20",
-    "c": 334.18,
-    "v": 3008000
+    "c": 150.93,
+    "v": 3458000
    },
-   "tx": 4,
+   "tx": 67,
    "buyers": 0,
-   "sellers": 0,
-   "net_musd": 0.0,
+   "sellers": 1,
+   "net_musd": -2.937,
    "cluster": false,
    "errors": 0
   },
   {
-   "ticker": "OXY",
-   "name": "OCCIDENTAL PETROLEUM CORP /DE/",
+   "ticker": "PH",
+   "name": "Parker-Hannifin Corp",
+   "group": {
+    "it": "Industria",
+    "en": "Industrials"
+   },
+   "score": 50,
+   "verdict": {
+    "it": "Nessuna convinzione chiara",
+    "en": "No clear conviction"
+   },
+   "confidence": "Media",
+   "covered_pct": 80,
+   "driver": {
+    "name": {
+     "it": "Insider",
+     "en": "Insiders"
+    },
+    "up": false
+   },
+   "last": {
+    "d": "2026-11-20",
+    "c": 871.86,
+    "v": 831500
+   },
+   "tx": 31,
+   "buyers": 0,
+   "sellers": 2,
+   "net_musd": -0.78,
+   "cluster": false,
+   "errors": 0
+  },
+  {
+   "ticker": "MPC",
+   "name": "Marathon Petroleum Corp",
    "group": {
     "it": "Energia",
     "en": "Energy"
@@ -3270,7 +2687,40 @@
     "en": "No clear conviction"
    },
    "confidence": "Media",
-   "covered_pct": 65,
+   "covered_pct": 80,
+   "driver": {
+    "name": {
+     "it": "Insider",
+     "en": "Insiders"
+    },
+    "up": false
+   },
+   "last": {
+    "d": "2026-11-20",
+    "c": 367.19,
+    "v": 3294800
+   },
+   "tx": 14,
+   "buyers": 0,
+   "sellers": 3,
+   "net_musd": -1.677,
+   "cluster": false,
+   "errors": 0
+  },
+  {
+   "ticker": "OVV",
+   "name": "Ovintiv Inc.",
+   "group": {
+    "it": "Energia",
+    "en": "Energy"
+   },
+   "score": 50,
+   "verdict": {
+    "it": "Nessuna convinzione chiara",
+    "en": "No clear conviction"
+   },
+   "confidence": "Media",
+   "covered_pct": 80,
    "driver": {
     "name": {
      "it": "Settore",
@@ -3280,43 +2730,10 @@
    },
    "last": {
     "d": "2026-11-20",
-    "c": 53.9,
-    "v": 9549100
+    "c": 60.85,
+    "v": 2448100
    },
-   "tx": 3,
-   "buyers": 0,
-   "sellers": 0,
-   "net_musd": 0.0,
-   "cluster": false,
-   "errors": 0
-  },
-  {
-   "ticker": "APA",
-   "name": "APA Corp",
-   "group": {
-    "it": "Energia",
-    "en": "Energy"
-   },
-   "score": 50,
-   "verdict": {
-    "it": "Nessuna convinzione chiara",
-    "en": "No clear conviction"
-   },
-   "confidence": "Media",
-   "covered_pct": 65,
-   "driver": {
-    "name": {
-     "it": "Contesto di prezzo",
-     "en": "Price context"
-    },
-    "up": true
-   },
-   "last": {
-    "d": "2026-11-20",
-    "c": 45.03,
-    "v": 4915300
-   },
-   "tx": 9,
+   "tx": 5,
    "buyers": 0,
    "sellers": 0,
    "net_musd": 0.0,
@@ -3336,7 +2753,7 @@
     "en": "No clear conviction"
    },
    "confidence": "Media",
-   "covered_pct": 65,
+   "covered_pct": 80,
    "driver": {
     "name": {
      "it": "Fatti rilevanti (8-K)",
@@ -3357,11 +2774,11 @@
    "errors": 0
   },
   {
-   "ticker": "YUM",
-   "name": "YUM BRANDS INC",
+   "ticker": "MDLZ",
+   "name": "Mondelez International, Inc.",
    "group": {
-    "it": "Consumi discrezionali",
-    "en": "Consumer discretionary"
+    "it": "Beni di prima necessità",
+    "en": "Consumer staples"
    },
    "score": 50,
    "verdict": {
@@ -3369,23 +2786,23 @@
     "en": "No clear conviction"
    },
    "confidence": "Media",
-   "covered_pct": 65,
+   "covered_pct": 80,
    "driver": {
     "name": {
-     "it": "Fatti rilevanti (8-K)",
-     "en": "Material events (8-K)"
+     "it": "Mercato",
+     "en": "Market"
     },
-    "up": false
+    "up": true
    },
    "last": {
     "d": "2026-11-20",
-    "c": 160.7,
-    "v": 2644700
+    "c": 66.28,
+    "v": 12069400
    },
-   "tx": 26,
+   "tx": 11,
    "buyers": 0,
-   "sellers": 1,
-   "net_musd": -0.106,
+   "sellers": 0,
+   "net_musd": 0.0,
    "cluster": false,
    "errors": 0
   },
@@ -3419,6 +2836,39 @@
    "buyers": 0,
    "sellers": 2,
    "net_musd": -3.495,
+   "cluster": false,
+   "errors": 0
+  },
+  {
+   "ticker": "KLAC",
+   "name": "KLA CORP",
+   "group": {
+    "it": "Semiconduttori e apparecchiature",
+    "en": "Semiconductors and equipment"
+   },
+   "score": 49,
+   "verdict": {
+    "it": "Nessuna convinzione chiara",
+    "en": "No clear conviction"
+   },
+   "confidence": "Media",
+   "covered_pct": 80,
+   "driver": {
+    "name": {
+     "it": "Mercato",
+     "en": "Market"
+    },
+    "up": false
+   },
+   "last": {
+    "d": "2026-11-20",
+    "c": 126.87,
+    "v": 22642500
+   },
+   "tx": 541,
+   "buyers": 0,
+   "sellers": 0,
+   "net_musd": 0.0,
    "cluster": false,
    "errors": 0
   },
@@ -3489,11 +2939,11 @@
    "errors": 0
   },
   {
-   "ticker": "KEY",
-   "name": "KEYCORP /NEW/",
+   "ticker": "ABBV",
+   "name": "AbbVie Inc.",
    "group": {
-    "it": "Banche regionali",
-    "en": "Regional banks"
+    "it": "Sanità",
+    "en": "Health care"
    },
    "score": 49,
    "verdict": {
@@ -3501,7 +2951,7 @@
     "en": "No clear conviction"
    },
    "confidence": "Media",
-   "covered_pct": 65,
+   "covered_pct": 80,
    "driver": {
     "name": {
      "it": "Insider",
@@ -3511,22 +2961,22 @@
    },
    "last": {
     "d": "2026-11-20",
-    "c": 19.45,
-    "v": 21373700
+    "c": 286.2,
+    "v": 8756400
    },
-   "tx": 419,
+   "tx": 550,
    "buyers": 0,
    "sellers": 1,
-   "net_musd": -0.83,
+   "net_musd": -11.926,
    "cluster": false,
    "errors": 0
   },
   {
-   "ticker": "ZION",
-   "name": "ZIONS BANCORPORATION, NATIONAL ASSOCIATION /UT/",
+   "ticker": "BSX",
+   "name": "BOSTON SCIENTIFIC CORP",
    "group": {
-    "it": "Banche regionali",
-    "en": "Regional banks"
+    "it": "Sanità",
+    "en": "Health care"
    },
    "score": 49,
    "verdict": {
@@ -3534,32 +2984,32 @@
     "en": "No clear conviction"
    },
    "confidence": "Media",
-   "covered_pct": 65,
+   "covered_pct": 80,
    "driver": {
     "name": {
-     "it": "Fatti rilevanti (8-K)",
-     "en": "Material events (8-K)"
+     "it": "Mercato",
+     "en": "Market"
     },
     "up": false
    },
    "last": {
     "d": "2026-11-20",
-    "c": 61.0,
-    "v": 1781600
+    "c": 41.98,
+    "v": 15224700
    },
-   "tx": 764,
-   "buyers": 0,
-   "sellers": 1,
-   "net_musd": -0.181,
+   "tx": 1112,
+   "buyers": 1,
+   "sellers": 0,
+   "net_musd": 0.1,
    "cluster": false,
    "errors": 0
   },
   {
-   "ticker": "BOKF",
-   "name": "BOK FINANCIAL CORP",
+   "ticker": "CI",
+   "name": "Cigna Group",
    "group": {
-    "it": "Banche regionali",
-    "en": "Regional banks"
+    "it": "Sanità",
+    "en": "Health care"
    },
    "score": 49,
    "verdict": {
@@ -3567,29 +3017,29 @@
     "en": "No clear conviction"
    },
    "confidence": "Media",
-   "covered_pct": 65,
+   "covered_pct": 80,
    "driver": {
     "name": {
-     "it": "Settore",
-     "en": "Sector"
+     "it": "Mercato",
+     "en": "Market"
     },
     "up": false
    },
    "last": {
     "d": "2026-11-20",
-    "c": 124.51,
-    "v": 255600
+    "c": 270.9,
+    "v": 2619800
    },
-   "tx": 608,
+   "tx": 505,
    "buyers": 0,
-   "sellers": 1,
-   "net_musd": -0.233,
+   "sellers": 0,
+   "net_musd": 0.0,
    "cluster": false,
    "errors": 0
   },
   {
-   "ticker": "PH",
-   "name": "Parker-Hannifin Corp",
+   "ticker": "BA",
+   "name": "BOEING CO",
    "group": {
     "it": "Industria",
     "en": "Industrials"
@@ -3600,62 +3050,29 @@
     "en": "No clear conviction"
    },
    "confidence": "Media",
-   "covered_pct": 65,
-   "driver": {
-    "name": {
-     "it": "Insider",
-     "en": "Insiders"
-    },
-    "up": false
-   },
-   "last": {
-    "d": "2026-11-20",
-    "c": 871.86,
-    "v": 831500
-   },
-   "tx": 31,
-   "buyers": 0,
-   "sellers": 2,
-   "net_musd": -0.78,
-   "cluster": false,
-   "errors": 0
-  },
-  {
-   "ticker": "GWW",
-   "name": "W.W. GRAINGER, INC.",
-   "group": {
-    "it": "Industria",
-    "en": "Industrials"
-   },
-   "score": 49,
-   "verdict": {
-    "it": "Nessuna convinzione chiara",
-    "en": "No clear conviction"
-   },
-   "confidence": "Media",
-   "covered_pct": 65,
+   "covered_pct": 80,
    "driver": {
     "name": {
      "it": "Settore",
      "en": "Sector"
     },
-    "up": false
+    "up": true
    },
    "last": {
     "d": "2026-11-20",
-    "c": 1357.35,
-    "v": 478300
+    "c": 155.89,
+    "v": 11135300
    },
-   "tx": 10,
-   "buyers": 0,
-   "sellers": 2,
-   "net_musd": -0.448,
-   "cluster": false,
+   "tx": 8,
+   "buyers": 3,
+   "sellers": 1,
+   "net_musd": 1.485,
+   "cluster": true,
    "errors": 0
   },
   {
-   "ticker": "COP",
-   "name": "CONOCOPHILLIPS",
+   "ticker": "OXY",
+   "name": "OCCIDENTAL PETROLEUM CORP /DE/",
    "group": {
     "it": "Energia",
     "en": "Energy"
@@ -3666,20 +3083,20 @@
     "en": "No clear conviction"
    },
    "confidence": "Media",
-   "covered_pct": 65,
+   "covered_pct": 80,
    "driver": {
     "name": {
-     "it": "Fatti rilevanti (8-K)",
-     "en": "Material events (8-K)"
+     "it": "Mercato",
+     "en": "Market"
     },
     "up": false
    },
    "last": {
     "d": "2026-11-20",
-    "c": 136.12,
-    "v": 8467500
+    "c": 53.9,
+    "v": 9549100
    },
-   "tx": 2,
+   "tx": 3,
    "buyers": 0,
    "sellers": 0,
    "net_musd": 0.0,
@@ -3687,8 +3104,8 @@
    "errors": 0
   },
   {
-   "ticker": "OKE",
-   "name": "ONEOK INC /NEW/",
+   "ticker": "WMB",
+   "name": "WILLIAMS COMPANIES, INC.",
    "group": {
     "it": "Energia",
     "en": "Energy"
@@ -3699,23 +3116,188 @@
     "en": "No clear conviction"
    },
    "confidence": "Media",
-   "covered_pct": 65,
+   "covered_pct": 80,
    "driver": {
     "name": {
-     "it": "Fatti rilevanti (8-K)",
-     "en": "Material events (8-K)"
+     "it": "Mercato",
+     "en": "Market"
     },
     "up": false
    },
    "last": {
     "d": "2026-11-20",
-    "c": 84.37,
-    "v": 3576800
+    "c": 64.31,
+    "v": 9351000
+   },
+   "tx": 13,
+   "buyers": 1,
+   "sellers": 0,
+   "net_musd": 0.005,
+   "cluster": false,
+   "errors": 0
+  },
+  {
+   "ticker": "SBUX",
+   "name": "STARBUCKS CORP",
+   "group": {
+    "it": "Consumi discrezionali",
+    "en": "Consumer discretionary"
+   },
+   "score": 49,
+   "verdict": {
+    "it": "Nessuna convinzione chiara",
+    "en": "No clear conviction"
+   },
+   "confidence": "Media",
+   "covered_pct": 80,
+   "driver": {
+    "name": {
+     "it": "Mercato",
+     "en": "Market"
+    },
+    "up": false
+   },
+   "last": {
+    "d": "2026-11-20",
+    "c": 103.13,
+    "v": 10989100
+   },
+   "tx": 25,
+   "buyers": 0,
+   "sellers": 0,
+   "net_musd": 0.0,
+   "cluster": false,
+   "errors": 0
+  },
+  {
+   "ticker": "CMG",
+   "name": "CHIPOTLE MEXICAN GRILL INC",
+   "group": {
+    "it": "Consumi discrezionali",
+    "en": "Consumer discretionary"
+   },
+   "score": 49,
+   "verdict": {
+    "it": "Nessuna convinzione chiara",
+    "en": "No clear conviction"
+   },
+   "confidence": "Media",
+   "covered_pct": 80,
+   "driver": {
+    "name": {
+     "it": "Mercato",
+     "en": "Market"
+    },
+    "up": false
+   },
+   "last": {
+    "d": "2026-11-20",
+    "c": 35.55,
+    "v": 19144200
    },
    "tx": 10,
    "buyers": 0,
    "sellers": 0,
    "net_musd": 0.0,
+   "cluster": false,
+   "errors": 0
+  },
+  {
+   "ticker": "DHI",
+   "name": "HORTON D R INC /DE/",
+   "group": {
+    "it": "Consumi discrezionali",
+    "en": "Consumer discretionary"
+   },
+   "score": 49,
+   "verdict": {
+    "it": "Nessuna convinzione chiara",
+    "en": "No clear conviction"
+   },
+   "confidence": "Media",
+   "covered_pct": 80,
+   "driver": {
+    "name": {
+     "it": "Mercato",
+     "en": "Market"
+    },
+    "up": false
+   },
+   "last": {
+    "d": "2026-11-20",
+    "c": 145.44,
+    "v": 3052300
+   },
+   "tx": 42,
+   "buyers": 0,
+   "sellers": 0,
+   "net_musd": 0.0,
+   "cluster": false,
+   "errors": 0
+  },
+  {
+   "ticker": "CLX",
+   "name": "CLOROX CO /DE/",
+   "group": {
+    "it": "Beni di prima necessità",
+    "en": "Consumer staples"
+   },
+   "score": 49,
+   "verdict": {
+    "it": "Nessuna convinzione chiara",
+    "en": "No clear conviction"
+   },
+   "confidence": "Media",
+   "covered_pct": 80,
+   "driver": {
+    "name": {
+     "it": "Mercato",
+     "en": "Market"
+    },
+    "up": false
+   },
+   "last": {
+    "d": "2026-11-20",
+    "c": 104.73,
+    "v": 3044700
+   },
+   "tx": 27,
+   "buyers": 1,
+   "sellers": 0,
+   "net_musd": 0.4,
+   "cluster": false,
+   "errors": 0
+  },
+  {
+   "ticker": "HRL",
+   "name": "HORMEL FOODS CORP /DE/",
+   "group": {
+    "it": "Beni di prima necessità",
+    "en": "Consumer staples"
+   },
+   "score": 49,
+   "verdict": {
+    "it": "Nessuna convinzione chiara",
+    "en": "No clear conviction"
+   },
+   "confidence": "Media",
+   "covered_pct": 80,
+   "driver": {
+    "name": {
+     "it": "Mercato",
+     "en": "Market"
+    },
+    "up": false
+   },
+   "last": {
+    "d": "2026-11-20",
+    "c": 23.54,
+    "v": 5150500
+   },
+   "tx": 11,
+   "buyers": 1,
+   "sellers": 0,
+   "net_musd": 0.201,
    "cluster": false,
    "errors": 0
   },
@@ -3753,8 +3335,140 @@
    "errors": 0
   },
   {
-   "ticker": "WTFC",
-   "name": "WINTRUST FINANCIAL CORP",
+   "ticker": "XOM",
+   "name": "ExxonMobil Holdings Corp",
+   "group": {
+    "it": "Grandi capitalizzazioni USA",
+    "en": "US large caps"
+   },
+   "score": 48,
+   "verdict": {
+    "it": "Nessuna convinzione chiara",
+    "en": "No clear conviction"
+   },
+   "confidence": "Media",
+   "covered_pct": 80,
+   "driver": {
+    "name": {
+     "it": "Fatti rilevanti (8-K)",
+     "en": "Material events (8-K)"
+    },
+    "up": false
+   },
+   "last": {
+    "d": "2026-11-20",
+    "c": 159.99,
+    "v": 18670900
+   },
+   "tx": 298,
+   "buyers": 0,
+   "sellers": 0,
+   "net_musd": 0.0,
+   "cluster": false,
+   "errors": 0
+  },
+  {
+   "ticker": "NOW",
+   "name": "ServiceNow, Inc.",
+   "group": {
+    "it": "Software",
+    "en": "Software"
+   },
+   "score": 48,
+   "verdict": {
+    "it": "Nessuna convinzione chiara",
+    "en": "No clear conviction"
+   },
+   "confidence": "Media",
+   "covered_pct": 80,
+   "driver": {
+    "name": {
+     "it": "Insider",
+     "en": "Insiders"
+    },
+    "up": false
+   },
+   "last": {
+    "d": "2026-11-20",
+    "c": 87.61,
+    "v": 19612800
+   },
+   "tx": 2515,
+   "buyers": 0,
+   "sellers": 2,
+   "net_musd": -0.667,
+   "cluster": false,
+   "errors": 0
+  },
+  {
+   "ticker": "ADSK",
+   "name": "Autodesk, Inc.",
+   "group": {
+    "it": "Software",
+    "en": "Software"
+   },
+   "score": 48,
+   "verdict": {
+    "it": "Nessuna convinzione chiara",
+    "en": "No clear conviction"
+   },
+   "confidence": "Media",
+   "covered_pct": 80,
+   "driver": {
+    "name": {
+     "it": "Mercato",
+     "en": "Market"
+    },
+    "up": false
+   },
+   "last": {
+    "d": "2026-11-20",
+    "c": 244.48,
+    "v": 2570300
+   },
+   "tx": 372,
+   "buyers": 0,
+   "sellers": 0,
+   "net_musd": 0.0,
+   "cluster": false,
+   "errors": 0
+  },
+  {
+   "ticker": "PNC",
+   "name": "PNC FINANCIAL SERVICES GROUP, INC.",
+   "group": {
+    "it": "Finanza",
+    "en": "Financials"
+   },
+   "score": 48,
+   "verdict": {
+    "it": "Nessuna convinzione chiara",
+    "en": "No clear conviction"
+   },
+   "confidence": "Media",
+   "covered_pct": 80,
+   "driver": {
+    "name": {
+     "it": "Mercato",
+     "en": "Market"
+    },
+    "up": false
+   },
+   "last": {
+    "d": "2026-11-20",
+    "c": 213.12,
+    "v": 1685600
+   },
+   "tx": 628,
+   "buyers": 0,
+   "sellers": 0,
+   "net_musd": 0.0,
+   "cluster": false,
+   "errors": 0
+  },
+  {
+   "ticker": "KEY",
+   "name": "KEYCORP /NEW/",
    "group": {
     "it": "Banche regionali",
     "en": "Regional banks"
@@ -3765,23 +3479,56 @@
     "en": "No clear conviction"
    },
    "confidence": "Media",
-   "covered_pct": 65,
+   "covered_pct": 80,
    "driver": {
     "name": {
-     "it": "Insider",
-     "en": "Insiders"
+     "it": "Mercato",
+     "en": "Market"
     },
     "up": false
    },
    "last": {
     "d": "2026-11-20",
-    "c": 144.55,
-    "v": 467500
+    "c": 19.45,
+    "v": 21373700
    },
-   "tx": 451,
+   "tx": 419,
    "buyers": 0,
    "sellers": 1,
-   "net_musd": -1.061,
+   "net_musd": -0.83,
+   "cluster": false,
+   "errors": 0
+  },
+  {
+   "ticker": "HWC",
+   "name": "HANCOCK WHITNEY CORP",
+   "group": {
+    "it": "Banche regionali",
+    "en": "Regional banks"
+   },
+   "score": 48,
+   "verdict": {
+    "it": "Nessuna convinzione chiara",
+    "en": "No clear conviction"
+   },
+   "confidence": "Media",
+   "covered_pct": 80,
+   "driver": {
+    "name": {
+     "it": "Mercato",
+     "en": "Market"
+    },
+    "up": false
+   },
+   "last": {
+    "d": "2026-11-20",
+    "c": 59.3,
+    "v": 2072100
+   },
+   "tx": 389,
+   "buyers": 0,
+   "sellers": 0,
+   "net_musd": 0.0,
    "cluster": false,
    "errors": 0
   },
@@ -3798,7 +3545,7 @@
     "en": "No clear conviction"
    },
    "confidence": "Media",
-   "covered_pct": 65,
+   "covered_pct": 80,
    "driver": {
     "name": {
      "it": "Insider",
@@ -3819,8 +3566,8 @@
    "errors": 0
   },
   {
-   "ticker": "BMY",
-   "name": "BRISTOL MYERS SQUIBB CO",
+   "ticker": "TMO",
+   "name": "THERMO FISHER SCIENTIFIC INC.",
    "group": {
     "it": "Sanità",
     "en": "Health care"
@@ -3831,7 +3578,7 @@
     "en": "No clear conviction"
    },
    "confidence": "Media",
-   "covered_pct": 65,
+   "covered_pct": 80,
    "driver": {
     "name": {
      "it": "Insider",
@@ -3841,22 +3588,22 @@
    },
    "last": {
     "d": "2026-11-20",
-    "c": 58.8,
-    "v": 12626700
+    "c": 669.54,
+    "v": 2360600
    },
-   "tx": 20,
+   "tx": 1394,
    "buyers": 0,
-   "sellers": 3,
-   "net_musd": -0.678,
+   "sellers": 1,
+   "net_musd": -2.0,
    "cluster": false,
    "errors": 0
   },
   {
-   "ticker": "WM",
-   "name": "WASTE MANAGEMENT INC",
+   "ticker": "VRTX",
+   "name": "VERTEX PHARMACEUTICALS INC / MA",
    "group": {
-    "it": "Industria",
-    "en": "Industrials"
+    "it": "Sanità",
+    "en": "Health care"
    },
    "score": 48,
    "verdict": {
@@ -3864,23 +3611,56 @@
     "en": "No clear conviction"
    },
    "confidence": "Media",
-   "covered_pct": 65,
+   "covered_pct": 80,
    "driver": {
     "name": {
-     "it": "Settore",
-     "en": "Sector"
+     "it": "Mercato",
+     "en": "Market"
     },
     "up": false
    },
    "last": {
     "d": "2026-11-20",
-    "c": 239.63,
-    "v": 2475800
+    "c": 515.02,
+    "v": 1767700
    },
-   "tx": 10,
+   "tx": 1067,
    "buyers": 0,
-   "sellers": 2,
-   "net_musd": -0.421,
+   "sellers": 0,
+   "net_musd": 0.0,
+   "cluster": false,
+   "errors": 0
+  },
+  {
+   "ticker": "REGN",
+   "name": "REGENERON PHARMACEUTICALS, INC.",
+   "group": {
+    "it": "Sanità",
+    "en": "Health care"
+   },
+   "score": 48,
+   "verdict": {
+    "it": "Nessuna convinzione chiara",
+    "en": "No clear conviction"
+   },
+   "confidence": "Media",
+   "covered_pct": 80,
+   "driver": {
+    "name": {
+     "it": "Insider",
+     "en": "Insiders"
+    },
+    "up": false
+   },
+   "last": {
+    "d": "2026-11-20",
+    "c": 920.69,
+    "v": 877700
+   },
+   "tx": 1736,
+   "buyers": 0,
+   "sellers": 5,
+   "net_musd": -45.241,
    "cluster": false,
    "errors": 0
   },
@@ -3897,7 +3677,7 @@
     "en": "No clear conviction"
    },
    "confidence": "Media",
-   "covered_pct": 65,
+   "covered_pct": 80,
    "driver": {
     "name": {
      "it": "Insider",
@@ -3918,8 +3698,8 @@
    "errors": 0
   },
   {
-   "ticker": "SLB",
-   "name": "SLB LIMITED/NV",
+   "ticker": "OKE",
+   "name": "ONEOK INC /NEW/",
    "group": {
     "it": "Energia",
     "en": "Energy"
@@ -3930,29 +3710,29 @@
     "en": "No clear conviction"
    },
    "confidence": "Media",
-   "covered_pct": 65,
+   "covered_pct": 80,
    "driver": {
     "name": {
-     "it": "Insider",
-     "en": "Insiders"
+     "it": "Fatti rilevanti (8-K)",
+     "en": "Material events (8-K)"
     },
     "up": false
    },
    "last": {
     "d": "2026-11-20",
-    "c": 45.89,
-    "v": 15670700
+    "c": 84.37,
+    "v": 3576800
    },
-   "tx": 8,
+   "tx": 10,
    "buyers": 0,
-   "sellers": 2,
-   "net_musd": -1.663,
+   "sellers": 0,
+   "net_musd": 0.0,
    "cluster": false,
    "errors": 0
   },
   {
-   "ticker": "MPC",
-   "name": "Marathon Petroleum Corp",
+   "ticker": "LNG",
+   "name": "Cheniere Energy, Inc.",
    "group": {
     "it": "Energia",
     "en": "Energy"
@@ -3963,56 +3743,23 @@
     "en": "No clear conviction"
    },
    "confidence": "Media",
-   "covered_pct": 65,
+   "covered_pct": 80,
    "driver": {
     "name": {
-     "it": "Insider",
-     "en": "Insiders"
+     "it": "Mercato",
+     "en": "Market"
     },
     "up": false
    },
    "last": {
     "d": "2026-11-20",
-    "c": 367.19,
-    "v": 3294800
+    "c": 294.84,
+    "v": 1947200
    },
-   "tx": 14,
+   "tx": 3,
    "buyers": 0,
-   "sellers": 3,
-   "net_musd": -1.677,
-   "cluster": false,
-   "errors": 0
-  },
-  {
-   "ticker": "TRGP",
-   "name": "Targa Resources Corp.",
-   "group": {
-    "it": "Energia",
-    "en": "Energy"
-   },
-   "score": 48,
-   "verdict": {
-    "it": "Nessuna convinzione chiara",
-    "en": "No clear conviction"
-   },
-   "confidence": "Media",
-   "covered_pct": 65,
-   "driver": {
-    "name": {
-     "it": "Insider",
-     "en": "Insiders"
-    },
-    "up": false
-   },
-   "last": {
-    "d": "2026-11-20",
-    "c": 278.3,
-    "v": 1228100
-   },
-   "tx": 17,
-   "buyers": 0,
-   "sellers": 2,
-   "net_musd": -1.408,
+   "sellers": 0,
+   "net_musd": 0.0,
    "cluster": false,
    "errors": 0
   },
@@ -4029,7 +3776,7 @@
     "en": "No clear conviction"
    },
    "confidence": "Media",
-   "covered_pct": 65,
+   "covered_pct": 80,
    "driver": {
     "name": {
      "it": "Settore",
@@ -4050,41 +3797,8 @@
    "errors": 0
   },
   {
-   "ticker": "NKE",
-   "name": "NIKE, Inc.",
-   "group": {
-    "it": "Consumi discrezionali",
-    "en": "Consumer discretionary"
-   },
-   "score": 48,
-   "verdict": {
-    "it": "Nessuna convinzione chiara",
-    "en": "No clear conviction"
-   },
-   "confidence": "Media",
-   "covered_pct": 65,
-   "driver": {
-    "name": {
-     "it": "Fatti rilevanti (8-K)",
-     "en": "Material events (8-K)"
-    },
-    "up": false
-   },
-   "last": {
-    "d": "2026-11-20",
-    "c": 32.92,
-    "v": 32001800
-   },
-   "tx": 45,
-   "buyers": 0,
-   "sellers": 0,
-   "net_musd": 0.0,
-   "cluster": false,
-   "errors": 0
-  },
-  {
-   "ticker": "KMB",
-   "name": "KIMBERLY CLARK CORP",
+   "ticker": "TSN",
+   "name": "TYSON FOODS, INC.",
    "group": {
     "it": "Beni di prima necessità",
     "en": "Consumer staples"
@@ -4095,7 +3809,40 @@
     "en": "No clear conviction"
    },
    "confidence": "Media",
-   "covered_pct": 65,
+   "covered_pct": 80,
+   "driver": {
+    "name": {
+     "it": "Mercato",
+     "en": "Market"
+    },
+    "up": false
+   },
+   "last": {
+    "d": "2026-11-20",
+    "c": 65.12,
+    "v": 7171300
+   },
+   "tx": 30,
+   "buyers": 1,
+   "sellers": 0,
+   "net_musd": 1.002,
+   "cluster": false,
+   "errors": 0
+  },
+  {
+   "ticker": "CPB",
+   "name": "CAMPBELL'S Co",
+   "group": {
+    "it": "Beni di prima necessità",
+    "en": "Consumer staples"
+   },
+   "score": 48,
+   "verdict": {
+    "it": "Nessuna convinzione chiara",
+    "en": "No clear conviction"
+   },
+   "confidence": "Media",
+   "covered_pct": 80,
    "driver": {
     "name": {
      "it": "Settore",
@@ -4105,10 +3852,10 @@
    },
    "last": {
     "d": "2026-11-20",
-    "c": 106.38,
-    "v": 5755200
+    "c": 23.78,
+    "v": 8844400
    },
-   "tx": 14,
+   "tx": 26,
    "buyers": 0,
    "sellers": 0,
    "net_musd": 0.0,
@@ -4149,8 +3896,74 @@
    "errors": 0
   },
   {
-   "ticker": "TMO",
-   "name": "THERMO FISHER SCIENTIFIC INC.",
+   "ticker": "PANW",
+   "name": "Palo Alto Networks Inc",
+   "group": {
+    "it": "Software",
+    "en": "Software"
+   },
+   "score": 47,
+   "verdict": {
+    "it": "Nessuna convinzione chiara",
+    "en": "No clear conviction"
+   },
+   "confidence": "Media",
+   "covered_pct": 80,
+   "driver": {
+    "name": {
+     "it": "Insider",
+     "en": "Insiders"
+    },
+    "up": false
+   },
+   "last": {
+    "d": "2026-11-20",
+    "c": 343.32,
+    "v": 12509200
+   },
+   "tx": 1454,
+   "buyers": 0,
+   "sellers": 3,
+   "net_musd": -9.241,
+   "cluster": false,
+   "errors": 0
+  },
+  {
+   "ticker": "ZION",
+   "name": "ZIONS BANCORPORATION, NATIONAL ASSOCIATION /UT/",
+   "group": {
+    "it": "Banche regionali",
+    "en": "Regional banks"
+   },
+   "score": 47,
+   "verdict": {
+    "it": "Nessuna convinzione chiara",
+    "en": "No clear conviction"
+   },
+   "confidence": "Media",
+   "covered_pct": 80,
+   "driver": {
+    "name": {
+     "it": "Mercato",
+     "en": "Market"
+    },
+    "up": false
+   },
+   "last": {
+    "d": "2026-11-20",
+    "c": 61.0,
+    "v": 1781600
+   },
+   "tx": 764,
+   "buyers": 0,
+   "sellers": 1,
+   "net_musd": -0.181,
+   "cluster": false,
+   "errors": 0
+  },
+  {
+   "ticker": "BMY",
+   "name": "BRISTOL MYERS SQUIBB CO",
    "group": {
     "it": "Sanità",
     "en": "Health care"
@@ -4161,29 +3974,29 @@
     "en": "No clear conviction"
    },
    "confidence": "Media",
-   "covered_pct": 65,
+   "covered_pct": 80,
    "driver": {
     "name": {
-     "it": "Insider",
-     "en": "Insiders"
+     "it": "Mercato",
+     "en": "Market"
     },
     "up": false
    },
    "last": {
     "d": "2026-11-20",
-    "c": 669.54,
-    "v": 2360600
+    "c": 58.8,
+    "v": 12626700
    },
-   "tx": 1394,
+   "tx": 736,
    "buyers": 0,
-   "sellers": 1,
-   "net_musd": -2.0,
+   "sellers": 3,
+   "net_musd": -0.678,
    "cluster": false,
    "errors": 0
   },
   {
-   "ticker": "RTX",
-   "name": "RTX Corp",
+   "ticker": "UNP",
+   "name": "UNION PACIFIC CORP",
    "group": {
     "it": "Industria",
     "en": "Industrials"
@@ -4194,29 +4007,29 @@
     "en": "No clear conviction"
    },
    "confidence": "Media",
-   "covered_pct": 65,
+   "covered_pct": 80,
    "driver": {
     "name": {
-     "it": "Insider",
-     "en": "Insiders"
+     "it": "Mercato",
+     "en": "Market"
     },
     "up": false
    },
    "last": {
     "d": "2026-11-20",
-    "c": 190.17,
-    "v": 6038000
+    "c": 287.29,
+    "v": 4278400
    },
    "tx": 18,
    "buyers": 0,
-   "sellers": 1,
-   "net_musd": -1.83,
+   "sellers": 0,
+   "net_musd": 0.0,
    "cluster": false,
    "errors": 0
   },
   {
-   "ticker": "UPS",
-   "name": "UNITED PARCEL SERVICE INC",
+   "ticker": "GWW",
+   "name": "W.W. GRAINGER, INC.",
    "group": {
     "it": "Industria",
     "en": "Industrials"
@@ -4227,32 +4040,32 @@
     "en": "No clear conviction"
    },
    "confidence": "Media",
-   "covered_pct": 65,
+   "covered_pct": 80,
    "driver": {
     "name": {
-     "it": "Fatti rilevanti (8-K)",
-     "en": "Material events (8-K)"
+     "it": "Mercato",
+     "en": "Market"
     },
     "up": false
    },
    "last": {
     "d": "2026-11-20",
-    "c": 106.22,
-    "v": 6724200
+    "c": 1357.35,
+    "v": 478300
    },
-   "tx": 1,
+   "tx": 10,
    "buyers": 0,
-   "sellers": 1,
-   "net_musd": -0.877,
+   "sellers": 2,
+   "net_musd": -0.448,
    "cluster": false,
    "errors": 0
   },
   {
-   "ticker": "PM",
-   "name": "Philip Morris International Inc.",
+   "ticker": "EQT",
+   "name": "EQT Corp",
    "group": {
-    "it": "Beni di prima necessità",
-    "en": "Consumer staples"
+    "it": "Energia",
+    "en": "Energy"
    },
    "score": 47,
    "verdict": {
@@ -4260,119 +4073,20 @@
     "en": "No clear conviction"
    },
    "confidence": "Media",
-   "covered_pct": 65,
+   "covered_pct": 80,
    "driver": {
     "name": {
-     "it": "Settore",
-     "en": "Sector"
+     "it": "Mercato",
+     "en": "Market"
     },
     "up": false
    },
    "last": {
     "d": "2026-11-20",
-    "c": 184.09,
-    "v": 9582000
+    "c": 48.89,
+    "v": 7709900
    },
-   "tx": 0,
-   "buyers": 0,
-   "sellers": 0,
-   "net_musd": 0.0,
-   "cluster": false,
-   "errors": 0
-  },
-  {
-   "ticker": "MDLZ",
-   "name": "Mondelez International, Inc.",
-   "group": {
-    "it": "Beni di prima necessità",
-    "en": "Consumer staples"
-   },
-   "score": 47,
-   "verdict": {
-    "it": "Nessuna convinzione chiara",
-    "en": "No clear conviction"
-   },
-   "confidence": "Media",
-   "covered_pct": 65,
-   "driver": {
-    "name": {
-     "it": "Settore",
-     "en": "Sector"
-    },
-    "up": false
-   },
-   "last": {
-    "d": "2026-11-20",
-    "c": 66.28,
-    "v": 12069400
-   },
-   "tx": 11,
-   "buyers": 0,
-   "sellers": 0,
-   "net_musd": 0.0,
-   "cluster": false,
-   "errors": 0
-  },
-  {
-   "ticker": "CAG",
-   "name": "CONAGRA BRANDS INC.",
-   "group": {
-    "it": "Beni di prima necessità",
-    "en": "Consumer staples"
-   },
-   "score": 47,
-   "verdict": {
-    "it": "Nessuna convinzione chiara",
-    "en": "No clear conviction"
-   },
-   "confidence": "Media",
-   "covered_pct": 65,
-   "driver": {
-    "name": {
-     "it": "Settore",
-     "en": "Sector"
-    },
-    "up": false
-   },
-   "last": {
-    "d": "2026-11-20",
-    "c": 14.92,
-    "v": 13510100
-   },
-   "tx": 17,
-   "buyers": 0,
-   "sellers": 0,
-   "net_musd": 0.0,
-   "cluster": false,
-   "errors": 0
-  },
-  {
-   "ticker": "CPB",
-   "name": "CAMPBELL'S Co",
-   "group": {
-    "it": "Beni di prima necessità",
-    "en": "Consumer staples"
-   },
-   "score": 47,
-   "verdict": {
-    "it": "Nessuna convinzione chiara",
-    "en": "No clear conviction"
-   },
-   "confidence": "Media",
-   "covered_pct": 65,
-   "driver": {
-    "name": {
-     "it": "Settore",
-     "en": "Sector"
-    },
-    "up": false
-   },
-   "last": {
-    "d": "2026-11-20",
-    "c": 23.78,
-    "v": 8844400
-   },
-   "tx": 26,
+   "tx": 4,
    "buyers": 0,
    "sellers": 0,
    "net_musd": 0.0,
@@ -4446,8 +4160,41 @@
    "errors": 0
   },
   {
-   "ticker": "RF",
-   "name": "REGIONS FINANCIAL CORP",
+   "ticker": "AIG",
+   "name": "AMERICAN INTERNATIONAL GROUP, INC.",
+   "group": {
+    "it": "Finanza",
+    "en": "Financials"
+   },
+   "score": 46,
+   "verdict": {
+    "it": "Nessuna convinzione chiara",
+    "en": "No clear conviction"
+   },
+   "confidence": "Media",
+   "covered_pct": 80,
+   "driver": {
+    "name": {
+     "it": "Mercato",
+     "en": "Market"
+    },
+    "up": false
+   },
+   "last": {
+    "d": "2026-11-20",
+    "c": 79.68,
+    "v": 4595700
+   },
+   "tx": 346,
+   "buyers": 1,
+   "sellers": 0,
+   "net_musd": 0.01,
+   "cluster": false,
+   "errors": 0
+  },
+  {
+   "ticker": "BOKF",
+   "name": "BOK FINANCIAL CORP",
    "group": {
     "it": "Banche regionali",
     "en": "Regional banks"
@@ -4458,29 +4205,62 @@
     "en": "No clear conviction"
    },
    "confidence": "Media",
-   "covered_pct": 65,
+   "covered_pct": 80,
    "driver": {
     "name": {
-     "it": "Insider",
-     "en": "Insiders"
+     "it": "Mercato",
+     "en": "Market"
     },
     "up": false
    },
    "last": {
     "d": "2026-11-20",
-    "c": 26.6,
-    "v": 16237400
+    "c": 124.51,
+    "v": 255600
    },
-   "tx": 258,
+   "tx": 608,
    "buyers": 0,
-   "sellers": 2,
-   "net_musd": -0.0,
+   "sellers": 1,
+   "net_musd": -0.233,
    "cluster": false,
    "errors": 0
   },
   {
-   "ticker": "MDT",
-   "name": "Medtronic plc",
+   "ticker": "SSB",
+   "name": "SouthState Bank Corp",
+   "group": {
+    "it": "Banche regionali",
+    "en": "Regional banks"
+   },
+   "score": 46,
+   "verdict": {
+    "it": "Nessuna convinzione chiara",
+    "en": "No clear conviction"
+   },
+   "confidence": "Media",
+   "covered_pct": 80,
+   "driver": {
+    "name": {
+     "it": "Mercato",
+     "en": "Market"
+    },
+    "up": false
+   },
+   "last": {
+    "d": "2026-11-20",
+    "c": 99.18,
+    "v": 643600
+   },
+   "tx": 533,
+   "buyers": 0,
+   "sellers": 0,
+   "net_musd": 0.0,
+   "cluster": false,
+   "errors": 0
+  },
+  {
+   "ticker": "MRK",
+   "name": "Merck & Co., Inc.",
    "group": {
     "it": "Sanità",
     "en": "Health care"
@@ -4491,7 +4271,7 @@
     "en": "No clear conviction"
    },
    "confidence": "Media",
-   "covered_pct": 65,
+   "covered_pct": 80,
    "driver": {
     "name": {
      "it": "Insider",
@@ -4501,19 +4281,52 @@
    },
    "last": {
     "d": "2026-11-20",
-    "c": 99.94,
-    "v": 9033700
+    "c": 133.72,
+    "v": 15606500
    },
-   "tx": 23,
+   "tx": 419,
    "buyers": 0,
    "sellers": 1,
-   "net_musd": -0.139,
+   "net_musd": -8.612,
    "cluster": false,
    "errors": 0
   },
   {
-   "ticker": "EMR",
-   "name": "EMERSON ELECTRIC CO",
+   "ticker": "HCA",
+   "name": "HCA Healthcare, Inc.",
+   "group": {
+    "it": "Sanità",
+    "en": "Health care"
+   },
+   "score": 46,
+   "verdict": {
+    "it": "Nessuna convinzione chiara",
+    "en": "No clear conviction"
+   },
+   "confidence": "Media",
+   "covered_pct": 80,
+   "driver": {
+    "name": {
+     "it": "Insider",
+     "en": "Insiders"
+    },
+    "up": false
+   },
+   "last": {
+    "d": "2026-11-20",
+    "c": 475.57,
+    "v": 1579400
+   },
+   "tx": 165,
+   "buyers": 0,
+   "sellers": 3,
+   "net_musd": -18.251,
+   "cluster": false,
+   "errors": 0
+  },
+  {
+   "ticker": "WM",
+   "name": "WASTE MANAGEMENT INC",
    "group": {
     "it": "Industria",
     "en": "Industrials"
@@ -4524,23 +4337,89 @@
     "en": "No clear conviction"
    },
    "confidence": "Media",
-   "covered_pct": 65,
+   "covered_pct": 80,
    "driver": {
     "name": {
-     "it": "Insider",
-     "en": "Insiders"
+     "it": "Mercato",
+     "en": "Market"
     },
     "up": false
    },
    "last": {
     "d": "2026-11-20",
-    "c": 150.93,
-    "v": 3458000
+    "c": 239.63,
+    "v": 2475800
    },
-   "tx": 67,
+   "tx": 10,
    "buyers": 0,
-   "sellers": 1,
-   "net_musd": -2.937,
+   "sellers": 2,
+   "net_musd": -0.421,
+   "cluster": false,
+   "errors": 0
+  },
+  {
+   "ticker": "SLB",
+   "name": "SLB LIMITED/NV",
+   "group": {
+    "it": "Energia",
+    "en": "Energy"
+   },
+   "score": 46,
+   "verdict": {
+    "it": "Nessuna convinzione chiara",
+    "en": "No clear conviction"
+   },
+   "confidence": "Media",
+   "covered_pct": 80,
+   "driver": {
+    "name": {
+     "it": "Mercato",
+     "en": "Market"
+    },
+    "up": false
+   },
+   "last": {
+    "d": "2026-11-20",
+    "c": 45.89,
+    "v": 15670700
+   },
+   "tx": 8,
+   "buyers": 0,
+   "sellers": 2,
+   "net_musd": -1.663,
+   "cluster": false,
+   "errors": 0
+  },
+  {
+   "ticker": "MKC",
+   "name": "MCCORMICK & CO INC",
+   "group": {
+    "it": "Beni di prima necessità",
+    "en": "Consumer staples"
+   },
+   "score": 46,
+   "verdict": {
+    "it": "Nessuna convinzione chiara",
+    "en": "No clear conviction"
+   },
+   "confidence": "Media",
+   "covered_pct": 80,
+   "driver": {
+    "name": {
+     "it": "Mercato",
+     "en": "Market"
+    },
+    "up": false
+   },
+   "last": {
+    "d": "2026-11-20",
+    "c": 47.4,
+    "v": 5921700
+   },
+   "tx": 15,
+   "buyers": 1,
+   "sellers": 0,
+   "net_musd": 0.045,
    "cluster": false,
    "errors": 0
   },
@@ -4644,11 +4523,11 @@
    "errors": 0
   },
   {
-   "ticker": "CBSH",
-   "name": "COMMERCE BANCSHARES INC /MO/",
+   "ticker": "ZS",
+   "name": "Zscaler, Inc.",
    "group": {
-    "it": "Banche regionali",
-    "en": "Regional banks"
+    "it": "Software",
+    "en": "Software"
    },
    "score": 45,
    "verdict": {
@@ -4656,7 +4535,7 @@
     "en": "Mildly bearish"
    },
    "confidence": "Media",
-   "covered_pct": 65,
+   "covered_pct": 80,
    "driver": {
     "name": {
      "it": "Insider",
@@ -4666,13 +4545,145 @@
    },
    "last": {
     "d": "2026-11-20",
-    "c": 52.87,
-    "v": 898800
+    "c": 194.82,
+    "v": 3643300
    },
-   "tx": 871,
+   "tx": 569,
+   "buyers": 0,
+   "sellers": 5,
+   "net_musd": -4.013,
+   "cluster": false,
+   "errors": 0
+  },
+  {
+   "ticker": "SCHW",
+   "name": "SCHWAB CHARLES CORP",
+   "group": {
+    "it": "Finanza",
+    "en": "Financials"
+   },
+   "score": 45,
+   "verdict": {
+    "it": "Leggermente ribassista",
+    "en": "Mildly bearish"
+   },
+   "confidence": "Media",
+   "covered_pct": 80,
+   "driver": {
+    "name": {
+     "it": "Insider",
+     "en": "Insiders"
+    },
+    "up": false
+   },
+   "last": {
+    "d": "2026-11-20",
+    "c": 90.16,
+    "v": 11707000
+   },
+   "tx": 798,
+   "buyers": 0,
+   "sellers": 4,
+   "net_musd": -75.153,
+   "cluster": false,
+   "errors": 0
+  },
+  {
+   "ticker": "CB",
+   "name": "Chubb Ltd",
+   "group": {
+    "it": "Finanza",
+    "en": "Financials"
+   },
+   "score": 45,
+   "verdict": {
+    "it": "Leggermente ribassista",
+    "en": "Mildly bearish"
+   },
+   "confidence": "Media",
+   "covered_pct": 80,
+   "driver": {
+    "name": {
+     "it": "Insider",
+     "en": "Insiders"
+    },
+    "up": false
+   },
+   "last": {
+    "d": "2026-11-20",
+    "c": 371.63,
+    "v": 2250300
+   },
+   "tx": 630,
+   "buyers": 0,
+   "sellers": 2,
+   "net_musd": -10.023,
+   "cluster": false,
+   "errors": 0
+  },
+  {
+   "ticker": "USB",
+   "name": "US BANCORP \\DE\\",
+   "group": {
+    "it": "Finanza",
+    "en": "Financials"
+   },
+   "score": 45,
+   "verdict": {
+    "it": "Leggermente ribassista",
+    "en": "Mildly bearish"
+   },
+   "confidence": "Media",
+   "covered_pct": 80,
+   "driver": {
+    "name": {
+     "it": "Insider",
+     "en": "Insiders"
+    },
+    "up": false
+   },
+   "last": {
+    "d": "2026-11-20",
+    "c": 56.05,
+    "v": 9169300
+   },
+   "tx": 418,
    "buyers": 0,
    "sellers": 1,
-   "net_musd": -0.039,
+   "net_musd": -1.701,
+   "cluster": false,
+   "errors": 0
+  },
+  {
+   "ticker": "ELV",
+   "name": "Elevance Health, Inc.",
+   "group": {
+    "it": "Sanità",
+    "en": "Health care"
+   },
+   "score": 45,
+   "verdict": {
+    "it": "Leggermente ribassista",
+    "en": "Mildly bearish"
+   },
+   "confidence": "Media",
+   "covered_pct": 80,
+   "driver": {
+    "name": {
+     "it": "Insider",
+     "en": "Insiders"
+    },
+    "up": false
+   },
+   "last": {
+    "d": "2026-11-20",
+    "c": 394.48,
+    "v": 2035100
+   },
+   "tx": 315,
+   "buyers": 1,
+   "sellers": 2,
+   "net_musd": -4.846,
    "cluster": false,
    "errors": 0
   },
@@ -4710,11 +4721,11 @@
    "errors": 0
   },
   {
-   "ticker": "NOW",
-   "name": "ServiceNow, Inc.",
+   "ticker": "BLK",
+   "name": "BlackRock, Inc.",
    "group": {
-    "it": "Software",
-    "en": "Software"
+    "it": "Finanza",
+    "en": "Financials"
    },
    "score": 44,
    "verdict": {
@@ -4722,7 +4733,7 @@
     "en": "Mildly bearish"
    },
    "confidence": "Media",
-   "covered_pct": 65,
+   "covered_pct": 80,
    "driver": {
     "name": {
      "it": "Insider",
@@ -4732,55 +4743,22 @@
    },
    "last": {
     "d": "2026-11-20",
-    "c": 87.61,
-    "v": 19612800
+    "c": 1101.72,
+    "v": 1193500
    },
-   "tx": 2515,
-   "buyers": 0,
-   "sellers": 2,
-   "net_musd": -0.667,
-   "cluster": false,
-   "errors": 0
-  },
-  {
-   "ticker": "ONB",
-   "name": "OLD NATIONAL BANCORP /IN/",
-   "group": {
-    "it": "Banche regionali",
-    "en": "Regional banks"
-   },
-   "score": 44,
-   "verdict": {
-    "it": "Leggermente ribassista",
-    "en": "Mildly bearish"
-   },
-   "confidence": "Media",
-   "covered_pct": 65,
-   "driver": {
-    "name": {
-     "it": "Insider",
-     "en": "Insiders"
-    },
-    "up": false
-   },
-   "last": {
-    "d": "2026-11-20",
-    "c": 23.34,
-    "v": 5891400
-   },
-   "tx": 471,
+   "tx": 787,
    "buyers": 0,
    "sellers": 1,
-   "net_musd": -0.493,
+   "net_musd": -8.537,
    "cluster": false,
    "errors": 0
   },
   {
-   "ticker": "REGN",
-   "name": "REGENERON PHARMACEUTICALS, INC.",
+   "ticker": "ITW",
+   "name": "ILLINOIS TOOL WORKS INC",
    "group": {
-    "it": "Sanità",
-    "en": "Health care"
+    "it": "Industria",
+    "en": "Industrials"
    },
    "score": 44,
    "verdict": {
@@ -4788,7 +4766,7 @@
     "en": "Mildly bearish"
    },
    "confidence": "Media",
-   "covered_pct": 65,
+   "covered_pct": 80,
    "driver": {
     "name": {
      "it": "Insider",
@@ -4798,22 +4776,22 @@
    },
    "last": {
     "d": "2026-11-20",
-    "c": 920.69,
-    "v": 877700
+    "c": 273.57,
+    "v": 1280200
    },
-   "tx": 121,
+   "tx": 23,
    "buyers": 0,
-   "sellers": 5,
-   "net_musd": -45.241,
+   "sellers": 1,
+   "net_musd": -17.572,
    "cluster": false,
    "errors": 0
   },
   {
-   "ticker": "HCA",
-   "name": "HCA Healthcare, Inc.",
+   "ticker": "CMI",
+   "name": "CUMMINS INC",
    "group": {
-    "it": "Sanità",
-    "en": "Health care"
+    "it": "Industria",
+    "en": "Industrials"
    },
    "score": 44,
    "verdict": {
@@ -4821,23 +4799,23 @@
     "en": "Mildly bearish"
    },
    "confidence": "Media",
-   "covered_pct": 65,
+   "covered_pct": 80,
    "driver": {
     "name": {
-     "it": "Insider",
-     "en": "Insiders"
+     "it": "Mercato",
+     "en": "Market"
     },
     "up": false
    },
    "last": {
     "d": "2026-11-20",
-    "c": 475.57,
-    "v": 1579400
+    "c": 403.61,
+    "v": 2232000
    },
-   "tx": 30,
+   "tx": 13,
    "buyers": 0,
-   "sellers": 3,
-   "net_musd": -18.251,
+   "sellers": 1,
+   "net_musd": -0.399,
    "cluster": false,
    "errors": 0
   },
@@ -4854,7 +4832,7 @@
     "en": "Mildly bearish"
    },
    "confidence": "Media",
-   "covered_pct": 65,
+   "covered_pct": 80,
    "driver": {
     "name": {
      "it": "Insider",
@@ -4875,11 +4853,11 @@
    "errors": 0
   },
   {
-   "ticker": "DRI",
-   "name": "DARDEN RESTAURANTS INC",
+   "ticker": "FANG",
+   "name": "Diamondback Energy, Inc.",
    "group": {
-    "it": "Consumi discrezionali",
-    "en": "Consumer discretionary"
+    "it": "Energia",
+    "en": "Energy"
    },
    "score": 44,
    "verdict": {
@@ -4887,7 +4865,7 @@
     "en": "Mildly bearish"
    },
    "confidence": "Media",
-   "covered_pct": 65,
+   "covered_pct": 80,
    "driver": {
     "name": {
      "it": "Insider",
@@ -4897,13 +4875,46 @@
    },
    "last": {
     "d": "2026-11-20",
-    "c": 225.74,
-    "v": 1176900
+    "c": 175.75,
+    "v": 3341700
    },
-   "tx": 95,
+   "tx": 28,
    "buyers": 0,
-   "sellers": 1,
-   "net_musd": -0.448,
+   "sellers": 5,
+   "net_musd": -3744.919,
+   "cluster": false,
+   "errors": 0
+  },
+  {
+   "ticker": "CAG",
+   "name": "CONAGRA BRANDS INC.",
+   "group": {
+    "it": "Beni di prima necessità",
+    "en": "Consumer staples"
+   },
+   "score": 44,
+   "verdict": {
+    "it": "Leggermente ribassista",
+    "en": "Mildly bearish"
+   },
+   "confidence": "Media",
+   "covered_pct": 80,
+   "driver": {
+    "name": {
+     "it": "Mercato",
+     "en": "Market"
+    },
+    "up": false
+   },
+   "last": {
+    "d": "2026-11-20",
+    "c": 14.92,
+    "v": 13510100
+   },
+   "tx": 17,
+   "buyers": 0,
+   "sellers": 0,
+   "net_musd": 0.0,
    "cluster": false,
    "errors": 0
   },
@@ -5073,11 +5084,11 @@
    "errors": 0
   },
   {
-   "ticker": "PANW",
-   "name": "Palo Alto Networks Inc",
+   "ticker": "FITB",
+   "name": "FIFTH THIRD BANCORP",
    "group": {
-    "it": "Software",
-    "en": "Software"
+    "it": "Banche regionali",
+    "en": "Regional banks"
    },
    "score": 43,
    "verdict": {
@@ -5085,7 +5096,7 @@
     "en": "Mildly bearish"
    },
    "confidence": "Media",
-   "covered_pct": 65,
+   "covered_pct": 80,
    "driver": {
     "name": {
      "it": "Insider",
@@ -5095,22 +5106,22 @@
    },
    "last": {
     "d": "2026-11-20",
-    "c": 343.32,
-    "v": 12509200
+    "c": 49.39,
+    "v": 7043300
    },
-   "tx": 1454,
+   "tx": 741,
    "buyers": 0,
    "sellers": 3,
-   "net_musd": -9.241,
+   "net_musd": -1.534,
    "cluster": false,
    "errors": 0
   },
   {
-   "ticker": "SCHW",
-   "name": "SCHWAB CHARLES CORP",
+   "ticker": "WTFC",
+   "name": "WINTRUST FINANCIAL CORP",
    "group": {
-    "it": "Finanza",
-    "en": "Financials"
+    "it": "Banche regionali",
+    "en": "Regional banks"
    },
    "score": 43,
    "verdict": {
@@ -5118,7 +5129,40 @@
     "en": "Mildly bearish"
    },
    "confidence": "Media",
-   "covered_pct": 65,
+   "covered_pct": 80,
+   "driver": {
+    "name": {
+     "it": "Mercato",
+     "en": "Market"
+    },
+    "up": false
+   },
+   "last": {
+    "d": "2026-11-20",
+    "c": 144.55,
+    "v": 467500
+   },
+   "tx": 451,
+   "buyers": 0,
+   "sellers": 1,
+   "net_musd": -1.061,
+   "cluster": false,
+   "errors": 0
+  },
+  {
+   "ticker": "CBSH",
+   "name": "COMMERCE BANCSHARES INC /MO/",
+   "group": {
+    "it": "Banche regionali",
+    "en": "Regional banks"
+   },
+   "score": 43,
+   "verdict": {
+    "it": "Leggermente ribassista",
+    "en": "Mildly bearish"
+   },
+   "confidence": "Media",
+   "covered_pct": 80,
    "driver": {
     "name": {
      "it": "Insider",
@@ -5128,22 +5172,88 @@
    },
    "last": {
     "d": "2026-11-20",
-    "c": 90.16,
-    "v": 11707000
+    "c": 52.87,
+    "v": 898800
    },
-   "tx": 798,
+   "tx": 871,
+   "buyers": 0,
+   "sellers": 1,
+   "net_musd": -0.039,
+   "cluster": false,
+   "errors": 0
+  },
+  {
+   "ticker": "SYK",
+   "name": "STRYKER CORP",
+   "group": {
+    "it": "Sanità",
+    "en": "Health care"
+   },
+   "score": 43,
+   "verdict": {
+    "it": "Leggermente ribassista",
+    "en": "Mildly bearish"
+   },
+   "confidence": "Media",
+   "covered_pct": 80,
+   "driver": {
+    "name": {
+     "it": "Insider",
+     "en": "Insiders"
+    },
+    "up": false
+   },
+   "last": {
+    "d": "2026-11-20",
+    "c": 310.0,
+    "v": 2383100
+   },
+   "tx": 574,
+   "buyers": 0,
+   "sellers": 1,
+   "net_musd": -178.925,
+   "cluster": false,
+   "errors": 0
+  },
+  {
+   "ticker": "HLT",
+   "name": "Hilton Worldwide Holdings Inc.",
+   "group": {
+    "it": "Consumi discrezionali",
+    "en": "Consumer discretionary"
+   },
+   "score": 43,
+   "verdict": {
+    "it": "Leggermente ribassista",
+    "en": "Mildly bearish"
+   },
+   "confidence": "Media",
+   "covered_pct": 80,
+   "driver": {
+    "name": {
+     "it": "Insider",
+     "en": "Insiders"
+    },
+    "up": false
+   },
+   "last": {
+    "d": "2026-11-20",
+    "c": 356.25,
+    "v": 2787700
+   },
+   "tx": 34,
    "buyers": 0,
    "sellers": 4,
-   "net_musd": -75.153,
+   "net_musd": -61.986,
    "cluster": false,
    "errors": 0
   },
   {
-   "ticker": "BLK",
-   "name": "BlackRock, Inc.",
+   "ticker": "ULTA",
+   "name": "Ulta Beauty, Inc.",
    "group": {
-    "it": "Finanza",
-    "en": "Financials"
+    "it": "Consumi discrezionali",
+    "en": "Consumer discretionary"
    },
    "score": 43,
    "verdict": {
@@ -5151,7 +5261,7 @@
     "en": "Mildly bearish"
    },
    "confidence": "Media",
-   "covered_pct": 65,
+   "covered_pct": 80,
    "driver": {
     "name": {
      "it": "Insider",
@@ -5161,22 +5271,22 @@
    },
    "last": {
     "d": "2026-11-20",
-    "c": 1101.72,
-    "v": 1193500
+    "c": 615.74,
+    "v": 539200
    },
-   "tx": 787,
+   "tx": 4,
    "buyers": 0,
-   "sellers": 1,
-   "net_musd": -8.537,
+   "sellers": 2,
+   "net_musd": -1.414,
    "cluster": false,
    "errors": 0
   },
   {
-   "ticker": "USB",
-   "name": "US BANCORP \\DE\\",
+   "ticker": "GIS",
+   "name": "GENERAL MILLS INC",
    "group": {
-    "it": "Finanza",
-    "en": "Financials"
+    "it": "Beni di prima necessità",
+    "en": "Consumer staples"
    },
    "score": 43,
    "verdict": {
@@ -5184,7 +5294,7 @@
     "en": "Mildly bearish"
    },
    "confidence": "Media",
-   "covered_pct": 65,
+   "covered_pct": 80,
    "driver": {
     "name": {
      "it": "Insider",
@@ -5194,46 +5304,13 @@
    },
    "last": {
     "d": "2026-11-20",
-    "c": 56.05,
-    "v": 9169300
-   },
-   "tx": 418,
-   "buyers": 0,
-   "sellers": 1,
-   "net_musd": -1.701,
-   "cluster": false,
-   "errors": 0
-  },
-  {
-   "ticker": "ITW",
-   "name": "ILLINOIS TOOL WORKS INC",
-   "group": {
-    "it": "Industria",
-    "en": "Industrials"
-   },
-   "score": 43,
-   "verdict": {
-    "it": "Leggermente ribassista",
-    "en": "Mildly bearish"
-   },
-   "confidence": "Media",
-   "covered_pct": 65,
-   "driver": {
-    "name": {
-     "it": "Insider",
-     "en": "Insiders"
-    },
-    "up": false
-   },
-   "last": {
-    "d": "2026-11-20",
-    "c": 273.57,
-    "v": 1280200
+    "c": 35.74,
+    "v": 14666900
    },
    "tx": 23,
    "buyers": 0,
-   "sellers": 1,
-   "net_musd": -17.572,
+   "sellers": 2,
+   "net_musd": -0.869,
    "cluster": false,
    "errors": 0
   },
@@ -5271,11 +5348,11 @@
    "errors": 0
   },
   {
-   "ticker": "ABBV",
-   "name": "AbbVie Inc.",
+   "ticker": "PG",
+   "name": "PROCTER & GAMBLE Co",
    "group": {
-    "it": "Sanità",
-    "en": "Health care"
+    "it": "Grandi capitalizzazioni USA",
+    "en": "US large caps"
    },
    "score": 42,
    "verdict": {
@@ -5283,7 +5360,7 @@
     "en": "Mildly bearish"
    },
    "confidence": "Media",
-   "covered_pct": 65,
+   "covered_pct": 80,
    "driver": {
     "name": {
      "it": "Insider",
@@ -5293,22 +5370,22 @@
    },
    "last": {
     "d": "2026-11-20",
-    "c": 286.2,
-    "v": 8756400
+    "c": 169.37,
+    "v": 11952900
    },
-   "tx": 550,
+   "tx": 844,
    "buyers": 0,
-   "sellers": 1,
-   "net_musd": -11.926,
+   "sellers": 10,
+   "net_musd": -31.814,
    "cluster": false,
    "errors": 0
   },
   {
-   "ticker": "MRK",
-   "name": "Merck & Co., Inc.",
+   "ticker": "RF",
+   "name": "REGIONS FINANCIAL CORP",
    "group": {
-    "it": "Sanità",
-    "en": "Health care"
+    "it": "Banche regionali",
+    "en": "Regional banks"
    },
    "score": 42,
    "verdict": {
@@ -5316,29 +5393,95 @@
     "en": "Mildly bearish"
    },
    "confidence": "Media",
-   "covered_pct": 65,
+   "covered_pct": 80,
    "driver": {
     "name": {
-     "it": "Insider",
-     "en": "Insiders"
+     "it": "Mercato",
+     "en": "Market"
     },
     "up": false
    },
    "last": {
     "d": "2026-11-20",
-    "c": 133.72,
-    "v": 15606500
+    "c": 26.6,
+    "v": 16237400
    },
-   "tx": 419,
+   "tx": 258,
    "buyers": 0,
-   "sellers": 1,
-   "net_musd": -8.612,
+   "sellers": 2,
+   "net_musd": -0.0,
    "cluster": false,
    "errors": 0
   },
   {
-   "ticker": "SYK",
-   "name": "STRYKER CORP",
+   "ticker": "FHN",
+   "name": "FIRST HORIZON CORP",
+   "group": {
+    "it": "Banche regionali",
+    "en": "Regional banks"
+   },
+   "score": 42,
+   "verdict": {
+    "it": "Leggermente ribassista",
+    "en": "Mildly bearish"
+   },
+   "confidence": "Media",
+   "covered_pct": 80,
+   "driver": {
+    "name": {
+     "it": "Insider",
+     "en": "Insiders"
+    },
+    "up": false
+   },
+   "last": {
+    "d": "2026-11-20",
+    "c": 21.76,
+    "v": 7066900
+   },
+   "tx": 515,
+   "buyers": 0,
+   "sellers": 1,
+   "net_musd": -2.38,
+   "cluster": false,
+   "errors": 0
+  },
+  {
+   "ticker": "ONB",
+   "name": "OLD NATIONAL BANCORP /IN/",
+   "group": {
+    "it": "Banche regionali",
+    "en": "Regional banks"
+   },
+   "score": 42,
+   "verdict": {
+    "it": "Leggermente ribassista",
+    "en": "Mildly bearish"
+   },
+   "confidence": "Media",
+   "covered_pct": 80,
+   "driver": {
+    "name": {
+     "it": "Insider",
+     "en": "Insiders"
+    },
+    "up": false
+   },
+   "last": {
+    "d": "2026-11-20",
+    "c": 23.34,
+    "v": 5891400
+   },
+   "tx": 471,
+   "buyers": 0,
+   "sellers": 1,
+   "net_musd": -0.493,
+   "cluster": false,
+   "errors": 0
+  },
+  {
+   "ticker": "ABT",
+   "name": "ABBOTT LABORATORIES",
    "group": {
     "it": "Sanità",
     "en": "Health care"
@@ -5349,7 +5492,7 @@
     "en": "Mildly bearish"
    },
    "confidence": "Media",
-   "covered_pct": 65,
+   "covered_pct": 80,
    "driver": {
     "name": {
      "it": "Insider",
@@ -5359,13 +5502,310 @@
    },
    "last": {
     "d": "2026-11-20",
-    "c": 310.0,
-    "v": 2383100
+    "c": 103.0,
+    "v": 7293200
    },
-   "tx": 37,
+   "tx": 423,
+   "buyers": 0,
+   "sellers": 3,
+   "net_musd": -46.614,
+   "cluster": false,
+   "errors": 0
+  },
+  {
+   "ticker": "MDT",
+   "name": "Medtronic plc",
+   "group": {
+    "it": "Sanità",
+    "en": "Health care"
+   },
+   "score": 42,
+   "verdict": {
+    "it": "Leggermente ribassista",
+    "en": "Mildly bearish"
+   },
+   "confidence": "Media",
+   "covered_pct": 80,
+   "driver": {
+    "name": {
+     "it": "Mercato",
+     "en": "Market"
+    },
+    "up": false
+   },
+   "last": {
+    "d": "2026-11-20",
+    "c": 99.94,
+    "v": 9033700
+   },
+   "tx": 373,
    "buyers": 0,
    "sellers": 1,
-   "net_musd": -178.925,
+   "net_musd": -0.139,
+   "cluster": false,
+   "errors": 0
+  },
+  {
+   "ticker": "UPS",
+   "name": "UNITED PARCEL SERVICE INC",
+   "group": {
+    "it": "Industria",
+    "en": "Industrials"
+   },
+   "score": 42,
+   "verdict": {
+    "it": "Leggermente ribassista",
+    "en": "Mildly bearish"
+   },
+   "confidence": "Media",
+   "covered_pct": 80,
+   "driver": {
+    "name": {
+     "it": "Mercato",
+     "en": "Market"
+    },
+    "up": false
+   },
+   "last": {
+    "d": "2026-11-20",
+    "c": 106.22,
+    "v": 6724200
+   },
+   "tx": 1,
+   "buyers": 0,
+   "sellers": 1,
+   "net_musd": -0.877,
+   "cluster": false,
+   "errors": 0
+  },
+  {
+   "ticker": "GD",
+   "name": "GENERAL DYNAMICS CORP",
+   "group": {
+    "it": "Industria",
+    "en": "Industrials"
+   },
+   "score": 42,
+   "verdict": {
+    "it": "Leggermente ribassista",
+    "en": "Mildly bearish"
+   },
+   "confidence": "Media",
+   "covered_pct": 80,
+   "driver": {
+    "name": {
+     "it": "Insider",
+     "en": "Insiders"
+    },
+    "up": false
+   },
+   "last": {
+    "d": "2026-11-20",
+    "c": 341.5,
+    "v": 1256500
+   },
+   "tx": 59,
+   "buyers": 0,
+   "sellers": 3,
+   "net_musd": -23.808,
+   "cluster": false,
+   "errors": 0
+  },
+  {
+   "ticker": "PSX",
+   "name": "Phillips 66",
+   "group": {
+    "it": "Energia",
+    "en": "Energy"
+   },
+   "score": 42,
+   "verdict": {
+    "it": "Leggermente ribassista",
+    "en": "Mildly bearish"
+   },
+   "confidence": "Media",
+   "covered_pct": 80,
+   "driver": {
+    "name": {
+     "it": "Insider",
+     "en": "Insiders"
+    },
+    "up": false
+   },
+   "last": {
+    "d": "2026-11-20",
+    "c": 239.33,
+    "v": 6381100
+   },
+   "tx": 21,
+   "buyers": 0,
+   "sellers": 1,
+   "net_musd": -6.202,
+   "cluster": false,
+   "errors": 0
+  },
+  {
+   "ticker": "TRGP",
+   "name": "Targa Resources Corp.",
+   "group": {
+    "it": "Energia",
+    "en": "Energy"
+   },
+   "score": 42,
+   "verdict": {
+    "it": "Leggermente ribassista",
+    "en": "Mildly bearish"
+   },
+   "confidence": "Media",
+   "covered_pct": 80,
+   "driver": {
+    "name": {
+     "it": "Mercato",
+     "en": "Market"
+    },
+    "up": false
+   },
+   "last": {
+    "d": "2026-11-20",
+    "c": 278.3,
+    "v": 1228100
+   },
+   "tx": 17,
+   "buyers": 0,
+   "sellers": 2,
+   "net_musd": -1.408,
+   "cluster": false,
+   "errors": 0
+  },
+  {
+   "ticker": "YUM",
+   "name": "YUM BRANDS INC",
+   "group": {
+    "it": "Consumi discrezionali",
+    "en": "Consumer discretionary"
+   },
+   "score": 42,
+   "verdict": {
+    "it": "Leggermente ribassista",
+    "en": "Mildly bearish"
+   },
+   "confidence": "Media",
+   "covered_pct": 80,
+   "driver": {
+    "name": {
+     "it": "Mercato",
+     "en": "Market"
+    },
+    "up": false
+   },
+   "last": {
+    "d": "2026-11-20",
+    "c": 160.7,
+    "v": 2644700
+   },
+   "tx": 26,
+   "buyers": 0,
+   "sellers": 1,
+   "net_musd": -0.106,
+   "cluster": false,
+   "errors": 0
+  },
+  {
+   "ticker": "EBAY",
+   "name": "EBAY INC",
+   "group": {
+    "it": "Consumi discrezionali",
+    "en": "Consumer discretionary"
+   },
+   "score": 42,
+   "verdict": {
+    "it": "Leggermente ribassista",
+    "en": "Mildly bearish"
+   },
+   "confidence": "Media",
+   "covered_pct": 80,
+   "driver": {
+    "name": {
+     "it": "Insider",
+     "en": "Insiders"
+    },
+    "up": false
+   },
+   "last": {
+    "d": "2026-11-20",
+    "c": 115.59,
+    "v": 5674900
+   },
+   "tx": 128,
+   "buyers": 0,
+   "sellers": 4,
+   "net_musd": -16.625,
+   "cluster": false,
+   "errors": 0
+  },
+  {
+   "ticker": "KMB",
+   "name": "KIMBERLY CLARK CORP",
+   "group": {
+    "it": "Beni di prima necessità",
+    "en": "Consumer staples"
+   },
+   "score": 42,
+   "verdict": {
+    "it": "Leggermente ribassista",
+    "en": "Mildly bearish"
+   },
+   "confidence": "Media",
+   "covered_pct": 80,
+   "driver": {
+    "name": {
+     "it": "Mercato",
+     "en": "Market"
+    },
+    "up": false
+   },
+   "last": {
+    "d": "2026-11-20",
+    "c": 106.38,
+    "v": 5755200
+   },
+   "tx": 14,
+   "buyers": 0,
+   "sellers": 0,
+   "net_musd": 0.0,
+   "cluster": false,
+   "errors": 0
+  },
+  {
+   "ticker": "STZ",
+   "name": "CONSTELLATION BRANDS, INC.",
+   "group": {
+    "it": "Beni di prima necessità",
+    "en": "Consumer staples"
+   },
+   "score": 42,
+   "verdict": {
+    "it": "Leggermente ribassista",
+    "en": "Mildly bearish"
+   },
+   "confidence": "Media",
+   "covered_pct": 80,
+   "driver": {
+    "name": {
+     "it": "Insider",
+     "en": "Insiders"
+    },
+    "up": false
+   },
+   "last": {
+    "d": "2026-11-20",
+    "c": 141.87,
+    "v": 2007200
+   },
+   "tx": 14,
+   "buyers": 0,
+   "sellers": 11,
+   "net_musd": -261.109,
    "cluster": false,
    "errors": 0
   },
@@ -5436,11 +5876,11 @@
    "errors": 0
   },
   {
-   "ticker": "FHN",
-   "name": "FIRST HORIZON CORP",
+   "ticker": "DDOG",
+   "name": "Datadog, Inc.",
    "group": {
-    "it": "Banche regionali",
-    "en": "Regional banks"
+    "it": "Software",
+    "en": "Software"
    },
    "score": 41,
    "verdict": {
@@ -5448,7 +5888,7 @@
     "en": "Mildly bearish"
    },
    "confidence": "Media",
-   "covered_pct": 65,
+   "covered_pct": 80,
    "driver": {
     "name": {
      "it": "Insider",
@@ -5458,22 +5898,22 @@
    },
    "last": {
     "d": "2026-11-20",
-    "c": 21.76,
-    "v": 7066900
+    "c": 157.37,
+    "v": 4978200
    },
-   "tx": 515,
+   "tx": 2910,
    "buyers": 0,
-   "sellers": 1,
-   "net_musd": -2.38,
+   "sellers": 8,
+   "net_musd": -24.555,
    "cluster": false,
    "errors": 0
   },
   {
-   "ticker": "CFR",
-   "name": "CULLEN/FROST BANKERS, INC.",
+   "ticker": "AXP",
+   "name": "AMERICAN EXPRESS CO",
    "group": {
-    "it": "Banche regionali",
-    "en": "Regional banks"
+    "it": "Finanza",
+    "en": "Financials"
    },
    "score": 41,
    "verdict": {
@@ -5481,7 +5921,7 @@
     "en": "Mildly bearish"
    },
    "confidence": "Media",
-   "covered_pct": 65,
+   "covered_pct": 80,
    "driver": {
     "name": {
      "it": "Insider",
@@ -5491,244 +5931,13 @@
    },
    "last": {
     "d": "2026-11-20",
-    "c": 144.56,
-    "v": 299400
+    "c": 301.7,
+    "v": 3507800
    },
-   "tx": 356,
+   "tx": 390,
    "buyers": 0,
    "sellers": 3,
-   "net_musd": -0.922,
-   "cluster": false,
-   "errors": 0
-  },
-  {
-   "ticker": "ELV",
-   "name": "Elevance Health, Inc.",
-   "group": {
-    "it": "Sanità",
-    "en": "Health care"
-   },
-   "score": 41,
-   "verdict": {
-    "it": "Leggermente ribassista",
-    "en": "Mildly bearish"
-   },
-   "confidence": "Media",
-   "covered_pct": 65,
-   "driver": {
-    "name": {
-     "it": "Insider",
-     "en": "Insiders"
-    },
-    "up": false
-   },
-   "last": {
-    "d": "2026-11-20",
-    "c": 394.48,
-    "v": 2035100
-   },
-   "tx": 20,
-   "buyers": 1,
-   "sellers": 2,
-   "net_musd": -4.846,
-   "cluster": false,
-   "errors": 0
-  },
-  {
-   "ticker": "HLT",
-   "name": "Hilton Worldwide Holdings Inc.",
-   "group": {
-    "it": "Consumi discrezionali",
-    "en": "Consumer discretionary"
-   },
-   "score": 41,
-   "verdict": {
-    "it": "Leggermente ribassista",
-    "en": "Mildly bearish"
-   },
-   "confidence": "Media",
-   "covered_pct": 65,
-   "driver": {
-    "name": {
-     "it": "Insider",
-     "en": "Insiders"
-    },
-    "up": false
-   },
-   "last": {
-    "d": "2026-11-20",
-    "c": 356.25,
-    "v": 2787700
-   },
-   "tx": 34,
-   "buyers": 0,
-   "sellers": 4,
-   "net_musd": -61.986,
-   "cluster": false,
-   "errors": 0
-  },
-  {
-   "ticker": "ULTA",
-   "name": "Ulta Beauty, Inc.",
-   "group": {
-    "it": "Consumi discrezionali",
-    "en": "Consumer discretionary"
-   },
-   "score": 41,
-   "verdict": {
-    "it": "Leggermente ribassista",
-    "en": "Mildly bearish"
-   },
-   "confidence": "Media",
-   "covered_pct": 65,
-   "driver": {
-    "name": {
-     "it": "Insider",
-     "en": "Insiders"
-    },
-    "up": false
-   },
-   "last": {
-    "d": "2026-11-20",
-    "c": 615.74,
-    "v": 539200
-   },
-   "tx": 4,
-   "buyers": 0,
-   "sellers": 2,
-   "net_musd": -1.414,
-   "cluster": false,
-   "errors": 0
-  },
-  {
-   "ticker": "GIS",
-   "name": "GENERAL MILLS INC",
-   "group": {
-    "it": "Beni di prima necessità",
-    "en": "Consumer staples"
-   },
-   "score": 41,
-   "verdict": {
-    "it": "Leggermente ribassista",
-    "en": "Mildly bearish"
-   },
-   "confidence": "Media",
-   "covered_pct": 65,
-   "driver": {
-    "name": {
-     "it": "Insider",
-     "en": "Insiders"
-    },
-    "up": false
-   },
-   "last": {
-    "d": "2026-11-20",
-    "c": 35.74,
-    "v": 14666900
-   },
-   "tx": 23,
-   "buyers": 0,
-   "sellers": 2,
-   "net_musd": -0.869,
-   "cluster": false,
-   "errors": 0
-  },
-  {
-   "ticker": "STZ",
-   "name": "CONSTELLATION BRANDS, INC.",
-   "group": {
-    "it": "Beni di prima necessità",
-    "en": "Consumer staples"
-   },
-   "score": 41,
-   "verdict": {
-    "it": "Leggermente ribassista",
-    "en": "Mildly bearish"
-   },
-   "confidence": "Media",
-   "covered_pct": 65,
-   "driver": {
-    "name": {
-     "it": "Insider",
-     "en": "Insiders"
-    },
-    "up": false
-   },
-   "last": {
-    "d": "2026-11-20",
-    "c": 141.87,
-    "v": 2007200
-   },
-   "tx": 14,
-   "buyers": 0,
-   "sellers": 11,
-   "net_musd": -261.109,
-   "cluster": false,
-   "errors": 0
-  },
-  {
-   "ticker": "CRWD",
-   "name": "CrowdStrike Holdings, Inc.",
-   "group": {
-    "it": "Software",
-    "en": "Software"
-   },
-   "score": 40,
-   "verdict": {
-    "it": "Leggermente ribassista",
-    "en": "Mildly bearish"
-   },
-   "confidence": "Media",
-   "covered_pct": 65,
-   "driver": {
-    "name": {
-     "it": "Insider",
-     "en": "Insiders"
-    },
-    "up": false
-   },
-   "last": {
-    "d": "2026-11-20",
-    "c": 229.44,
-    "v": 12798700
-   },
-   "tx": 3627,
-   "buyers": 0,
-   "sellers": 7,
-   "net_musd": -213.672,
-   "cluster": false,
-   "errors": 0
-  },
-  {
-   "ticker": "ZS",
-   "name": "Zscaler, Inc.",
-   "group": {
-    "it": "Software",
-    "en": "Software"
-   },
-   "score": 40,
-   "verdict": {
-    "it": "Leggermente ribassista",
-    "en": "Mildly bearish"
-   },
-   "confidence": "Media",
-   "covered_pct": 65,
-   "driver": {
-    "name": {
-     "it": "Insider",
-     "en": "Insiders"
-    },
-    "up": false
-   },
-   "last": {
-    "d": "2026-11-20",
-    "c": 194.82,
-    "v": 3643300
-   },
-   "tx": 569,
-   "buyers": 0,
-   "sellers": 5,
-   "net_musd": -4.013,
+   "net_musd": -137.069,
    "cluster": false,
    "errors": 0
   },
@@ -5739,13 +5948,13 @@
     "it": "Finanza",
     "en": "Financials"
    },
-   "score": 40,
+   "score": 41,
    "verdict": {
     "it": "Leggermente ribassista",
     "en": "Mildly bearish"
    },
    "confidence": "Media",
-   "covered_pct": 65,
+   "covered_pct": 80,
    "driver": {
     "name": {
      "it": "Insider",
@@ -5766,19 +5975,19 @@
    "errors": 0
   },
   {
-   "ticker": "FITB",
-   "name": "FIFTH THIRD BANCORP",
+   "ticker": "MET",
+   "name": "METLIFE INC",
    "group": {
-    "it": "Banche regionali",
-    "en": "Regional banks"
+    "it": "Finanza",
+    "en": "Financials"
    },
-   "score": 40,
+   "score": 41,
    "verdict": {
     "it": "Leggermente ribassista",
     "en": "Mildly bearish"
    },
    "confidence": "Media",
-   "covered_pct": 65,
+   "covered_pct": 80,
    "driver": {
     "name": {
      "it": "Insider",
@@ -5788,13 +5997,178 @@
    },
    "last": {
     "d": "2026-11-20",
-    "c": 49.39,
-    "v": 7043300
+    "c": 95.67,
+    "v": 4308900
    },
-   "tx": 741,
+   "tx": 634,
    "buyers": 0,
-   "sellers": 3,
-   "net_musd": -1.534,
+   "sellers": 2,
+   "net_musd": -19.951,
+   "cluster": false,
+   "errors": 0
+  },
+  {
+   "ticker": "GM",
+   "name": "General Motors Co",
+   "group": {
+    "it": "Consumi discrezionali",
+    "en": "Consumer discretionary"
+   },
+   "score": 41,
+   "verdict": {
+    "it": "Leggermente ribassista",
+    "en": "Mildly bearish"
+   },
+   "confidence": "Media",
+   "covered_pct": 80,
+   "driver": {
+    "name": {
+     "it": "Insider",
+     "en": "Insiders"
+    },
+    "up": false
+   },
+   "last": {
+    "d": "2026-11-20",
+    "c": 78.71,
+    "v": 7433300
+   },
+   "tx": 21,
+   "buyers": 0,
+   "sellers": 2,
+   "net_musd": -2.661,
+   "cluster": false,
+   "errors": 0
+  },
+  {
+   "ticker": "ADBE",
+   "name": "ADOBE INC.",
+   "group": {
+    "it": "Software",
+    "en": "Software"
+   },
+   "score": 40,
+   "verdict": {
+    "it": "Leggermente ribassista",
+    "en": "Mildly bearish"
+   },
+   "confidence": "Media",
+   "covered_pct": 80,
+   "driver": {
+    "name": {
+     "it": "Insider",
+     "en": "Insiders"
+    },
+    "up": false
+   },
+   "last": {
+    "d": "2026-11-20",
+    "c": 217.71,
+    "v": 5442800
+   },
+   "tx": 1472,
+   "buyers": 0,
+   "sellers": 1,
+   "net_musd": -31.345,
+   "cluster": false,
+   "errors": 0
+  },
+  {
+   "ticker": "CRWD",
+   "name": "CrowdStrike Holdings, Inc.",
+   "group": {
+    "it": "Software",
+    "en": "Software"
+   },
+   "score": 40,
+   "verdict": {
+    "it": "Leggermente ribassista",
+    "en": "Mildly bearish"
+   },
+   "confidence": "Media",
+   "covered_pct": 80,
+   "driver": {
+    "name": {
+     "it": "Insider",
+     "en": "Insiders"
+    },
+    "up": false
+   },
+   "last": {
+    "d": "2026-11-20",
+    "c": 229.44,
+    "v": 12798700
+   },
+   "tx": 3627,
+   "buyers": 0,
+   "sellers": 7,
+   "net_musd": -213.672,
+   "cluster": false,
+   "errors": 0
+  },
+  {
+   "ticker": "GS",
+   "name": "GOLDMAN SACHS GROUP INC",
+   "group": {
+    "it": "Finanza",
+    "en": "Financials"
+   },
+   "score": 40,
+   "verdict": {
+    "it": "Leggermente ribassista",
+    "en": "Mildly bearish"
+   },
+   "confidence": "Media",
+   "covered_pct": 80,
+   "driver": {
+    "name": {
+     "it": "Insider",
+     "en": "Insiders"
+    },
+    "up": false
+   },
+   "last": {
+    "d": "2026-11-20",
+    "c": 790.69,
+    "v": 4716100
+   },
+   "tx": 475,
+   "buyers": 0,
+   "sellers": 2,
+   "net_musd": -12.001,
+   "cluster": false,
+   "errors": 0
+  },
+  {
+   "ticker": "TRV",
+   "name": "TRAVELERS COMPANIES, INC.",
+   "group": {
+    "it": "Finanza",
+    "en": "Financials"
+   },
+   "score": 40,
+   "verdict": {
+    "it": "Leggermente ribassista",
+    "en": "Mildly bearish"
+   },
+   "confidence": "Media",
+   "covered_pct": 80,
+   "driver": {
+    "name": {
+     "it": "Insider",
+     "en": "Insiders"
+    },
+    "up": false
+   },
+   "last": {
+    "d": "2026-11-20",
+    "c": 393.24,
+    "v": 1352600
+   },
+   "tx": 772,
+   "buyers": 0,
+   "sellers": 8,
+   "net_musd": -77.818,
    "cluster": false,
    "errors": 0
   },
@@ -5811,7 +6185,7 @@
     "en": "Mildly bearish"
    },
    "confidence": "Media",
-   "covered_pct": 65,
+   "covered_pct": 80,
    "driver": {
     "name": {
      "it": "Insider",
@@ -5832,6 +6206,138 @@
    "errors": 0
   },
   {
+   "ticker": "NKE",
+   "name": "NIKE, Inc.",
+   "group": {
+    "it": "Consumi discrezionali",
+    "en": "Consumer discretionary"
+   },
+   "score": 40,
+   "verdict": {
+    "it": "Leggermente ribassista",
+    "en": "Mildly bearish"
+   },
+   "confidence": "Media",
+   "covered_pct": 80,
+   "driver": {
+    "name": {
+     "it": "Mercato",
+     "en": "Market"
+    },
+    "up": false
+   },
+   "last": {
+    "d": "2026-11-20",
+    "c": 32.92,
+    "v": 32001800
+   },
+   "tx": 45,
+   "buyers": 0,
+   "sellers": 0,
+   "net_musd": 0.0,
+   "cluster": false,
+   "errors": 0
+  },
+  {
+   "ticker": "ORLY",
+   "name": "O REILLY AUTOMOTIVE INC",
+   "group": {
+    "it": "Consumi discrezionali",
+    "en": "Consumer discretionary"
+   },
+   "score": 40,
+   "verdict": {
+    "it": "Leggermente ribassista",
+    "en": "Mildly bearish"
+   },
+   "confidence": "Media",
+   "covered_pct": 80,
+   "driver": {
+    "name": {
+     "it": "Insider",
+     "en": "Insiders"
+    },
+    "up": false
+   },
+   "last": {
+    "d": "2026-11-20",
+    "c": 92.65,
+    "v": 7818900
+   },
+   "tx": 20,
+   "buyers": 0,
+   "sellers": 8,
+   "net_musd": -16.394,
+   "cluster": false,
+   "errors": 0
+  },
+  {
+   "ticker": "MAR",
+   "name": "MARRIOTT INTERNATIONAL INC /MD/",
+   "group": {
+    "it": "Consumi discrezionali",
+    "en": "Consumer discretionary"
+   },
+   "score": 40,
+   "verdict": {
+    "it": "Leggermente ribassista",
+    "en": "Mildly bearish"
+   },
+   "confidence": "Media",
+   "covered_pct": 80,
+   "driver": {
+    "name": {
+     "it": "Insider",
+     "en": "Insiders"
+    },
+    "up": false
+   },
+   "last": {
+    "d": "2026-11-20",
+    "c": 406.64,
+    "v": 1989400
+   },
+   "tx": 39,
+   "buyers": 0,
+   "sellers": 8,
+   "net_musd": -42.432,
+   "cluster": false,
+   "errors": 0
+  },
+  {
+   "ticker": "ROST",
+   "name": "ROSS STORES, INC.",
+   "group": {
+    "it": "Consumi discrezionali",
+    "en": "Consumer discretionary"
+   },
+   "score": 40,
+   "verdict": {
+    "it": "Leggermente ribassista",
+    "en": "Mildly bearish"
+   },
+   "confidence": "Media",
+   "covered_pct": 80,
+   "driver": {
+    "name": {
+     "it": "Insider",
+     "en": "Insiders"
+    },
+    "up": false
+   },
+   "last": {
+    "d": "2026-11-20",
+    "c": 213.46,
+    "v": 5994200
+   },
+   "tx": 7,
+   "buyers": 0,
+   "sellers": 2,
+   "net_musd": -12.767,
+   "cluster": false,
+   "errors": 0
+  },
+  {
    "ticker": "HSY",
    "name": "HERSHEY CO",
    "group": {
@@ -5844,7 +6350,7 @@
     "en": "Mildly bearish"
    },
    "confidence": "Media",
-   "covered_pct": 65,
+   "covered_pct": 80,
    "driver": {
     "name": {
      "it": "Insider",
@@ -5861,6 +6367,39 @@
    "buyers": 0,
    "sellers": 1,
    "net_musd": -105.629,
+   "cluster": false,
+   "errors": 0
+  },
+  {
+   "ticker": "EL",
+   "name": "ESTEE LAUDER COMPANIES INC",
+   "group": {
+    "it": "Beni di prima necessità",
+    "en": "Consumer staples"
+   },
+   "score": 40,
+   "verdict": {
+    "it": "Leggermente ribassista",
+    "en": "Mildly bearish"
+   },
+   "confidence": "Media",
+   "covered_pct": 80,
+   "driver": {
+    "name": {
+     "it": "Insider",
+     "en": "Insiders"
+    },
+    "up": false
+   },
+   "last": {
+    "d": "2026-11-20",
+    "c": 99.46,
+    "v": 3790900
+   },
+   "tx": 43,
+   "buyers": 0,
+   "sellers": 6,
+   "net_musd": -24.581,
    "cluster": false,
    "errors": 0
   },
@@ -5898,448 +6437,19 @@
    "errors": 0
   },
   {
-   "ticker": "TYL",
-   "name": "TYLER TECHNOLOGIES INC",
-   "group": {
-    "it": "Software",
-    "en": "Software"
-   },
-   "score": 39,
-   "verdict": {
-    "it": "Leggermente ribassista",
-    "en": "Mildly bearish"
-   },
-   "confidence": "Media",
-   "covered_pct": 65,
-   "driver": {
-    "name": {
-     "it": "Insider",
-     "en": "Insiders"
-    },
-    "up": false
-   },
-   "last": {
-    "d": "2026-11-20",
-    "c": 404.44,
-    "v": 545300
-   },
-   "tx": 790,
-   "buyers": 0,
-   "sellers": 3,
-   "net_musd": -27.706,
-   "cluster": false,
-   "errors": 0
-  },
-  {
-   "ticker": "IDXX",
-   "name": "IDEXX LABORATORIES INC /DE",
-   "group": {
-    "it": "Sanità",
-    "en": "Health care"
-   },
-   "score": 39,
-   "verdict": {
-    "it": "Leggermente ribassista",
-    "en": "Mildly bearish"
-   },
-   "confidence": "Media",
-   "covered_pct": 65,
-   "driver": {
-    "name": {
-     "it": "Insider",
-     "en": "Insiders"
-    },
-    "up": false
-   },
-   "last": {
-    "d": "2026-11-20",
-    "c": 676.21,
-    "v": 614300
-   },
-   "tx": 679,
-   "buyers": 0,
-   "sellers": 5,
-   "net_musd": -28.568,
-   "cluster": false,
-   "errors": 0
-  },
-  {
-   "ticker": "PSX",
-   "name": "Phillips 66",
-   "group": {
-    "it": "Energia",
-    "en": "Energy"
-   },
-   "score": 39,
-   "verdict": {
-    "it": "Leggermente ribassista",
-    "en": "Mildly bearish"
-   },
-   "confidence": "Media",
-   "covered_pct": 65,
-   "driver": {
-    "name": {
-     "it": "Insider",
-     "en": "Insiders"
-    },
-    "up": false
-   },
-   "last": {
-    "d": "2026-11-20",
-    "c": 239.33,
-    "v": 6381100
-   },
-   "tx": 21,
-   "buyers": 0,
-   "sellers": 1,
-   "net_musd": -6.202,
-   "cluster": false,
-   "errors": 0
-  },
-  {
-   "ticker": "FANG",
-   "name": "Diamondback Energy, Inc.",
-   "group": {
-    "it": "Energia",
-    "en": "Energy"
-   },
-   "score": 39,
-   "verdict": {
-    "it": "Leggermente ribassista",
-    "en": "Mildly bearish"
-   },
-   "confidence": "Media",
-   "covered_pct": 65,
-   "driver": {
-    "name": {
-     "it": "Insider",
-     "en": "Insiders"
-    },
-    "up": false
-   },
-   "last": {
-    "d": "2026-11-20",
-    "c": 175.75,
-    "v": 3341700
-   },
-   "tx": 28,
-   "buyers": 0,
-   "sellers": 5,
-   "net_musd": -3744.919,
-   "cluster": false,
-   "errors": 0
-  },
-  {
-   "ticker": "MAR",
-   "name": "MARRIOTT INTERNATIONAL INC /MD/",
-   "group": {
-    "it": "Consumi discrezionali",
-    "en": "Consumer discretionary"
-   },
-   "score": 39,
-   "verdict": {
-    "it": "Leggermente ribassista",
-    "en": "Mildly bearish"
-   },
-   "confidence": "Media",
-   "covered_pct": 65,
-   "driver": {
-    "name": {
-     "it": "Insider",
-     "en": "Insiders"
-    },
-    "up": false
-   },
-   "last": {
-    "d": "2026-11-20",
-    "c": 406.64,
-    "v": 1989400
-   },
-   "tx": 39,
-   "buyers": 0,
-   "sellers": 8,
-   "net_musd": -42.432,
-   "cluster": false,
-   "errors": 0
-  },
-  {
-   "ticker": "PG",
-   "name": "PROCTER & GAMBLE Co",
-   "group": {
-    "it": "Grandi capitalizzazioni USA",
-    "en": "US large caps"
-   },
-   "score": 38,
-   "verdict": {
-    "it": "Leggermente ribassista",
-    "en": "Mildly bearish"
-   },
-   "confidence": "Media",
-   "covered_pct": 65,
-   "driver": {
-    "name": {
-     "it": "Insider",
-     "en": "Insiders"
-    },
-    "up": false
-   },
-   "last": {
-    "d": "2026-11-20",
-    "c": 169.37,
-    "v": 11952900
-   },
-   "tx": 844,
-   "buyers": 0,
-   "sellers": 10,
-   "net_musd": -31.814,
-   "cluster": false,
-   "errors": 0
-  },
-  {
-   "ticker": "SNPS",
-   "name": "SYNOPSYS INC",
-   "group": {
-    "it": "Software",
-    "en": "Software"
-   },
-   "score": 38,
-   "verdict": {
-    "it": "Leggermente ribassista",
-    "en": "Mildly bearish"
-   },
-   "confidence": "Media",
-   "covered_pct": 65,
-   "driver": {
-    "name": {
-     "it": "Insider",
-     "en": "Insiders"
-    },
-    "up": false
-   },
-   "last": {
-    "d": "2026-11-20",
-    "c": 396.17,
-    "v": 2438400
-   },
-   "tx": 704,
-   "buyers": 0,
-   "sellers": 4,
-   "net_musd": -51.366,
-   "cluster": false,
-   "errors": 0
-  },
-  {
-   "ticker": "DDOG",
-   "name": "Datadog, Inc.",
-   "group": {
-    "it": "Software",
-    "en": "Software"
-   },
-   "score": 38,
-   "verdict": {
-    "it": "Leggermente ribassista",
-    "en": "Mildly bearish"
-   },
-   "confidence": "Media",
-   "covered_pct": 65,
-   "driver": {
-    "name": {
-     "it": "Insider",
-     "en": "Insiders"
-    },
-    "up": false
-   },
-   "last": {
-    "d": "2026-11-20",
-    "c": 157.37,
-    "v": 4978200
-   },
-   "tx": 2910,
-   "buyers": 0,
-   "sellers": 8,
-   "net_musd": -24.555,
-   "cluster": false,
-   "errors": 0
-  },
-  {
-   "ticker": "ROP",
-   "name": "ROPER TECHNOLOGIES INC",
-   "group": {
-    "it": "Software",
-    "en": "Software"
-   },
-   "score": 38,
-   "verdict": {
-    "it": "Leggermente ribassista",
-    "en": "Mildly bearish"
-   },
-   "confidence": "Media",
-   "covered_pct": 65,
-   "driver": {
-    "name": {
-     "it": "Insider",
-     "en": "Insiders"
-    },
-    "up": false
-   },
-   "last": {
-    "d": "2026-11-20",
-    "c": 459.83,
-    "v": 1292800
-   },
-   "tx": 241,
-   "buyers": 0,
-   "sellers": 4,
-   "net_musd": -29.442,
-   "cluster": false,
-   "errors": 0
-  },
-  {
-   "ticker": "GS",
-   "name": "GOLDMAN SACHS GROUP INC",
-   "group": {
-    "it": "Finanza",
-    "en": "Financials"
-   },
-   "score": 38,
-   "verdict": {
-    "it": "Leggermente ribassista",
-    "en": "Mildly bearish"
-   },
-   "confidence": "Media",
-   "covered_pct": 65,
-   "driver": {
-    "name": {
-     "it": "Insider",
-     "en": "Insiders"
-    },
-    "up": false
-   },
-   "last": {
-    "d": "2026-11-20",
-    "c": 790.69,
-    "v": 4716100
-   },
-   "tx": 475,
-   "buyers": 0,
-   "sellers": 2,
-   "net_musd": -12.001,
-   "cluster": false,
-   "errors": 0
-  },
-  {
-   "ticker": "AXP",
-   "name": "AMERICAN EXPRESS CO",
-   "group": {
-    "it": "Finanza",
-    "en": "Financials"
-   },
-   "score": 38,
-   "verdict": {
-    "it": "Leggermente ribassista",
-    "en": "Mildly bearish"
-   },
-   "confidence": "Media",
-   "covered_pct": 65,
-   "driver": {
-    "name": {
-     "it": "Insider",
-     "en": "Insiders"
-    },
-    "up": false
-   },
-   "last": {
-    "d": "2026-11-20",
-    "c": 301.7,
-    "v": 3507800
-   },
-   "tx": 390,
-   "buyers": 0,
-   "sellers": 3,
-   "net_musd": -137.069,
-   "cluster": false,
-   "errors": 0
-  },
-  {
-   "ticker": "CB",
-   "name": "Chubb Ltd",
-   "group": {
-    "it": "Finanza",
-    "en": "Financials"
-   },
-   "score": 38,
-   "verdict": {
-    "it": "Leggermente ribassista",
-    "en": "Mildly bearish"
-   },
-   "confidence": "Media",
-   "covered_pct": 65,
-   "driver": {
-    "name": {
-     "it": "Insider",
-     "en": "Insiders"
-    },
-    "up": false
-   },
-   "last": {
-    "d": "2026-11-20",
-    "c": 371.63,
-    "v": 2250300
-   },
-   "tx": 630,
-   "buyers": 0,
-   "sellers": 2,
-   "net_musd": -10.023,
-   "cluster": false,
-   "errors": 0
-  },
-  {
-   "ticker": "MET",
-   "name": "METLIFE INC",
-   "group": {
-    "it": "Finanza",
-    "en": "Financials"
-   },
-   "score": 38,
-   "verdict": {
-    "it": "Leggermente ribassista",
-    "en": "Mildly bearish"
-   },
-   "confidence": "Media",
-   "covered_pct": 65,
-   "driver": {
-    "name": {
-     "it": "Insider",
-     "en": "Insiders"
-    },
-    "up": false
-   },
-   "last": {
-    "d": "2026-11-20",
-    "c": 95.67,
-    "v": 4308900
-   },
-   "tx": 634,
-   "buyers": 0,
-   "sellers": 2,
-   "net_musd": -19.951,
-   "cluster": false,
-   "errors": 0
-  },
-  {
    "ticker": "EWBC",
    "name": "EAST WEST BANCORP INC",
    "group": {
     "it": "Banche regionali",
     "en": "Regional banks"
    },
-   "score": 38,
+   "score": 39,
    "verdict": {
     "it": "Leggermente ribassista",
     "en": "Mildly bearish"
    },
    "confidence": "Media",
-   "covered_pct": 65,
+   "covered_pct": 80,
    "driver": {
     "name": {
      "it": "Insider",
@@ -6360,85 +6470,52 @@
    "errors": 0
   },
   {
-   "ticker": "ORLY",
-   "name": "O REILLY AUTOMOTIVE INC",
+   "ticker": "DRI",
+   "name": "DARDEN RESTAURANTS INC",
    "group": {
     "it": "Consumi discrezionali",
     "en": "Consumer discretionary"
    },
-   "score": 38,
+   "score": 39,
    "verdict": {
     "it": "Leggermente ribassista",
     "en": "Mildly bearish"
    },
    "confidence": "Media",
-   "covered_pct": 65,
+   "covered_pct": 80,
    "driver": {
     "name": {
-     "it": "Insider",
-     "en": "Insiders"
+     "it": "Mercato",
+     "en": "Market"
     },
     "up": false
    },
    "last": {
     "d": "2026-11-20",
-    "c": 92.65,
-    "v": 7818900
+    "c": 225.74,
+    "v": 1176900
    },
-   "tx": 20,
-   "buyers": 0,
-   "sellers": 8,
-   "net_musd": -16.394,
-   "cluster": false,
-   "errors": 0
-  },
-  {
-   "ticker": "AZO",
-   "name": "AUTOZONE INC",
-   "group": {
-    "it": "Consumi discrezionali",
-    "en": "Consumer discretionary"
-   },
-   "score": 38,
-   "verdict": {
-    "it": "Leggermente ribassista",
-    "en": "Mildly bearish"
-   },
-   "confidence": "Media",
-   "covered_pct": 65,
-   "driver": {
-    "name": {
-     "it": "Insider",
-     "en": "Insiders"
-    },
-    "up": false
-   },
-   "last": {
-    "d": "2026-11-20",
-    "c": 3255.4299,
-    "v": 177900
-   },
-   "tx": 24,
+   "tx": 95,
    "buyers": 0,
    "sellers": 1,
-   "net_musd": -22.906,
+   "net_musd": -0.448,
    "cluster": false,
    "errors": 0
   },
   {
-   "ticker": "GM",
-   "name": "General Motors Co",
+   "ticker": "CL",
+   "name": "COLGATE PALMOLIVE CO",
    "group": {
-    "it": "Consumi discrezionali",
-    "en": "Consumer discretionary"
+    "it": "Beni di prima necessità",
+    "en": "Consumer staples"
    },
-   "score": 38,
+   "score": 39,
    "verdict": {
     "it": "Leggermente ribassista",
     "en": "Mildly bearish"
    },
    "confidence": "Media",
-   "covered_pct": 65,
+   "covered_pct": 80,
    "driver": {
     "name": {
      "it": "Insider",
@@ -6448,46 +6525,46 @@
    },
    "last": {
     "d": "2026-11-20",
-    "c": 78.71,
-    "v": 7433300
+    "c": 98.71,
+    "v": 6552700
    },
-   "tx": 21,
+   "tx": 49,
+   "buyers": 0,
+   "sellers": 5,
+   "net_musd": -8.028,
+   "cluster": false,
+   "errors": 0
+  },
+  {
+   "ticker": "EOG",
+   "name": "EOG RESOURCES INC",
+   "group": {
+    "it": "Energia",
+    "en": "Energy"
+   },
+   "score": 38,
+   "verdict": {
+    "it": "Leggermente ribassista",
+    "en": "Mildly bearish"
+   },
+   "confidence": "Media",
+   "covered_pct": 80,
+   "driver": {
+    "name": {
+     "it": "Insider",
+     "en": "Insiders"
+    },
+    "up": false
+   },
+   "last": {
+    "d": "2026-11-20",
+    "c": 148.6,
+    "v": 4776700
+   },
+   "tx": 32,
    "buyers": 0,
    "sellers": 2,
-   "net_musd": -2.661,
-   "cluster": false,
-   "errors": 0
-  },
-  {
-   "ticker": "EBAY",
-   "name": "EBAY INC",
-   "group": {
-    "it": "Consumi discrezionali",
-    "en": "Consumer discretionary"
-   },
-   "score": 38,
-   "verdict": {
-    "it": "Leggermente ribassista",
-    "en": "Mildly bearish"
-   },
-   "confidence": "Media",
-   "covered_pct": 65,
-   "driver": {
-    "name": {
-     "it": "Insider",
-     "en": "Insiders"
-    },
-    "up": false
-   },
-   "last": {
-    "d": "2026-11-20",
-    "c": 115.59,
-    "v": 5674900
-   },
-   "tx": 128,
-   "buyers": 0,
-   "sellers": 4,
-   "net_musd": -16.625,
+   "net_musd": -6.552,
    "cluster": false,
    "errors": 0
   },
@@ -6525,8 +6602,74 @@
    "errors": 0
   },
   {
-   "ticker": "TRV",
-   "name": "TRAVELERS COMPANIES, INC.",
+   "ticker": "SNPS",
+   "name": "SYNOPSYS INC",
+   "group": {
+    "it": "Software",
+    "en": "Software"
+   },
+   "score": 37,
+   "verdict": {
+    "it": "Leggermente ribassista",
+    "en": "Mildly bearish"
+   },
+   "confidence": "Media",
+   "covered_pct": 80,
+   "driver": {
+    "name": {
+     "it": "Insider",
+     "en": "Insiders"
+    },
+    "up": false
+   },
+   "last": {
+    "d": "2026-11-20",
+    "c": 396.17,
+    "v": 2438400
+   },
+   "tx": 704,
+   "buyers": 0,
+   "sellers": 4,
+   "net_musd": -51.366,
+   "cluster": false,
+   "errors": 0
+  },
+  {
+   "ticker": "TYL",
+   "name": "TYLER TECHNOLOGIES INC",
+   "group": {
+    "it": "Software",
+    "en": "Software"
+   },
+   "score": 37,
+   "verdict": {
+    "it": "Leggermente ribassista",
+    "en": "Mildly bearish"
+   },
+   "confidence": "Media",
+   "covered_pct": 80,
+   "driver": {
+    "name": {
+     "it": "Insider",
+     "en": "Insiders"
+    },
+    "up": false
+   },
+   "last": {
+    "d": "2026-11-20",
+    "c": 404.44,
+    "v": 545300
+   },
+   "tx": 790,
+   "buyers": 0,
+   "sellers": 3,
+   "net_musd": -27.706,
+   "cluster": false,
+   "errors": 0
+  },
+  {
+   "ticker": "MCO",
+   "name": "MOODYS CORP /DE/",
    "group": {
     "it": "Finanza",
     "en": "Financials"
@@ -6537,7 +6680,7 @@
     "en": "Mildly bearish"
    },
    "confidence": "Media",
-   "covered_pct": 65,
+   "covered_pct": 80,
    "driver": {
     "name": {
      "it": "Insider",
@@ -6547,154 +6690,22 @@
    },
    "last": {
     "d": "2026-11-20",
-    "c": 393.24,
-    "v": 1352600
+    "c": 466.83,
+    "v": 871100
    },
-   "tx": 772,
-   "buyers": 0,
-   "sellers": 8,
-   "net_musd": -77.818,
-   "cluster": false,
-   "errors": 0
-  },
-  {
-   "ticker": "ABT",
-   "name": "ABBOTT LABORATORIES",
-   "group": {
-    "it": "Sanità",
-    "en": "Health care"
-   },
-   "score": 37,
-   "verdict": {
-    "it": "Leggermente ribassista",
-    "en": "Mildly bearish"
-   },
-   "confidence": "Media",
-   "covered_pct": 65,
-   "driver": {
-    "name": {
-     "it": "Insider",
-     "en": "Insiders"
-    },
-    "up": false
-   },
-   "last": {
-    "d": "2026-11-20",
-    "c": 103.0,
-    "v": 7293200
-   },
-   "tx": 423,
-   "buyers": 0,
-   "sellers": 3,
-   "net_musd": -46.614,
-   "cluster": false,
-   "errors": 0
-  },
-  {
-   "ticker": "GD",
-   "name": "GENERAL DYNAMICS CORP",
-   "group": {
-    "it": "Industria",
-    "en": "Industrials"
-   },
-   "score": 37,
-   "verdict": {
-    "it": "Leggermente ribassista",
-    "en": "Mildly bearish"
-   },
-   "confidence": "Media",
-   "covered_pct": 65,
-   "driver": {
-    "name": {
-     "it": "Insider",
-     "en": "Insiders"
-    },
-    "up": false
-   },
-   "last": {
-    "d": "2026-11-20",
-    "c": 341.5,
-    "v": 1256500
-   },
-   "tx": 59,
-   "buyers": 0,
-   "sellers": 3,
-   "net_musd": -23.808,
-   "cluster": false,
-   "errors": 0
-  },
-  {
-   "ticker": "CVX",
-   "name": "CHEVRON CORP",
-   "group": {
-    "it": "Energia",
-    "en": "Energy"
-   },
-   "score": 37,
-   "verdict": {
-    "it": "Leggermente ribassista",
-    "en": "Mildly bearish"
-   },
-   "confidence": "Media",
-   "covered_pct": 65,
-   "driver": {
-    "name": {
-     "it": "Insider",
-     "en": "Insiders"
-    },
-    "up": false
-   },
-   "last": {
-    "d": "2026-11-20",
-    "c": 208.37,
-    "v": 11889800
-   },
-   "tx": 43,
-   "buyers": 0,
-   "sellers": 3,
-   "net_musd": -30.484,
-   "cluster": false,
-   "errors": 0
-  },
-  {
-   "ticker": "EOG",
-   "name": "EOG RESOURCES INC",
-   "group": {
-    "it": "Energia",
-    "en": "Energy"
-   },
-   "score": 37,
-   "verdict": {
-    "it": "Leggermente ribassista",
-    "en": "Mildly bearish"
-   },
-   "confidence": "Media",
-   "covered_pct": 65,
-   "driver": {
-    "name": {
-     "it": "Insider",
-     "en": "Insiders"
-    },
-    "up": false
-   },
-   "last": {
-    "d": "2026-11-20",
-    "c": 148.6,
-    "v": 4776700
-   },
-   "tx": 32,
+   "tx": 714,
    "buyers": 0,
    "sellers": 2,
-   "net_musd": -6.552,
+   "net_musd": -5.199,
    "cluster": false,
    "errors": 0
   },
   {
-   "ticker": "ROST",
-   "name": "ROSS STORES, INC.",
+   "ticker": "CFR",
+   "name": "CULLEN/FROST BANKERS, INC.",
    "group": {
-    "it": "Consumi discrezionali",
-    "en": "Consumer discretionary"
+    "it": "Banche regionali",
+    "en": "Regional banks"
    },
    "score": 37,
    "verdict": {
@@ -6702,7 +6713,40 @@
     "en": "Mildly bearish"
    },
    "confidence": "Media",
-   "covered_pct": 65,
+   "covered_pct": 80,
+   "driver": {
+    "name": {
+     "it": "Mercato",
+     "en": "Market"
+    },
+    "up": false
+   },
+   "last": {
+    "d": "2026-11-20",
+    "c": 144.56,
+    "v": 299400
+   },
+   "tx": 356,
+   "buyers": 0,
+   "sellers": 3,
+   "net_musd": -0.922,
+   "cluster": false,
+   "errors": 0
+  },
+  {
+   "ticker": "CHD",
+   "name": "CHURCH & DWIGHT CO INC /DE/",
+   "group": {
+    "it": "Beni di prima necessità",
+    "en": "Consumer staples"
+   },
+   "score": 37,
+   "verdict": {
+    "it": "Leggermente ribassista",
+    "en": "Mildly bearish"
+   },
+   "confidence": "Media",
+   "covered_pct": 80,
    "driver": {
     "name": {
      "it": "Insider",
@@ -6712,13 +6756,13 @@
    },
    "last": {
     "d": "2026-11-20",
-    "c": 213.46,
-    "v": 5994200
+    "c": 110.84,
+    "v": 2096600
    },
-   "tx": 7,
+   "tx": 30,
    "buyers": 0,
-   "sellers": 2,
-   "net_musd": -12.767,
+   "sellers": 10,
+   "net_musd": -20.525,
    "cluster": false,
    "errors": 0
   },
@@ -6756,11 +6800,11 @@
    "errors": 0
   },
   {
-   "ticker": "ADBE",
-   "name": "ADOBE INC.",
+   "ticker": "IDXX",
+   "name": "IDEXX LABORATORIES INC /DE",
    "group": {
-    "it": "Software",
-    "en": "Software"
+    "it": "Sanità",
+    "en": "Health care"
    },
    "score": 36,
    "verdict": {
@@ -6768,7 +6812,7 @@
     "en": "Mildly bearish"
    },
    "confidence": "Media",
-   "covered_pct": 65,
+   "covered_pct": 80,
    "driver": {
     "name": {
      "it": "Insider",
@@ -6778,121 +6822,22 @@
    },
    "last": {
     "d": "2026-11-20",
-    "c": 217.71,
-    "v": 5442800
+    "c": 676.21,
+    "v": 614300
    },
-   "tx": 1472,
-   "buyers": 0,
-   "sellers": 1,
-   "net_musd": -31.345,
-   "cluster": false,
-   "errors": 0
-  },
-  {
-   "ticker": "MCO",
-   "name": "MOODYS CORP /DE/",
-   "group": {
-    "it": "Finanza",
-    "en": "Financials"
-   },
-   "score": 36,
-   "verdict": {
-    "it": "Leggermente ribassista",
-    "en": "Mildly bearish"
-   },
-   "confidence": "Media",
-   "covered_pct": 65,
-   "driver": {
-    "name": {
-     "it": "Insider",
-     "en": "Insiders"
-    },
-    "up": false
-   },
-   "last": {
-    "d": "2026-11-20",
-    "c": 466.83,
-    "v": 871100
-   },
-   "tx": 714,
-   "buyers": 0,
-   "sellers": 2,
-   "net_musd": -5.199,
-   "cluster": false,
-   "errors": 0
-  },
-  {
-   "ticker": "BNY",
-   "name": "Bank of New York Mellon Corp",
-   "group": {
-    "it": "Finanza",
-    "en": "Financials"
-   },
-   "score": 36,
-   "verdict": {
-    "it": "Leggermente ribassista",
-    "en": "Mildly bearish"
-   },
-   "confidence": "Media",
-   "covered_pct": 65,
-   "driver": {
-    "name": {
-     "it": "Insider",
-     "en": "Insiders"
-    },
-    "up": false
-   },
-   "last": {
-    "d": "2026-11-20",
-    "c": 141.24,
-    "v": 5659200
-   },
-   "tx": 424,
-   "buyers": 0,
-   "sellers": 1,
-   "net_musd": -7.391,
-   "cluster": false,
-   "errors": 0
-  },
-  {
-   "ticker": "CL",
-   "name": "COLGATE PALMOLIVE CO",
-   "group": {
-    "it": "Beni di prima necessità",
-    "en": "Consumer staples"
-   },
-   "score": 36,
-   "verdict": {
-    "it": "Leggermente ribassista",
-    "en": "Mildly bearish"
-   },
-   "confidence": "Media",
-   "covered_pct": 65,
-   "driver": {
-    "name": {
-     "it": "Insider",
-     "en": "Insiders"
-    },
-    "up": false
-   },
-   "last": {
-    "d": "2026-11-20",
-    "c": 98.71,
-    "v": 6552700
-   },
-   "tx": 49,
+   "tx": 679,
    "buyers": 0,
    "sellers": 5,
-   "net_musd": -8.028,
+   "net_musd": -28.568,
    "cluster": false,
    "errors": 0
   },
   {
-   "ticker": "EL",
-   "name": "ESTEE LAUDER COMPANIES INC",
+   "ticker": "CVX",
+   "name": "CHEVRON CORP",
    "group": {
-    "it": "Beni di prima necessità",
-    "en": "Consumer staples"
+    "it": "Energia",
+    "en": "Energy"
    },
    "score": 36,
    "verdict": {
@@ -6900,7 +6845,7 @@
     "en": "Mildly bearish"
    },
    "confidence": "Media",
-   "covered_pct": 65,
+   "covered_pct": 80,
    "driver": {
     "name": {
      "it": "Insider",
@@ -6910,13 +6855,13 @@
    },
    "last": {
     "d": "2026-11-20",
-    "c": 99.46,
-    "v": 3790900
+    "c": 208.37,
+    "v": 11889800
    },
    "tx": 43,
    "buyers": 0,
-   "sellers": 6,
-   "net_musd": -24.581,
+   "sellers": 3,
+   "net_musd": -30.484,
    "cluster": false,
    "errors": 0
   },
@@ -6927,13 +6872,13 @@
     "it": "Beni di prima necessità",
     "en": "Consumer staples"
    },
-   "score": 35,
+   "score": 36,
    "verdict": {
     "it": "Leggermente ribassista",
     "en": "Mildly bearish"
    },
    "confidence": "Media",
-   "covered_pct": 65,
+   "covered_pct": 80,
    "driver": {
     "name": {
      "it": "Insider",
@@ -6954,19 +6899,19 @@
    "errors": 0
   },
   {
-   "ticker": "CHD",
-   "name": "CHURCH & DWIGHT CO INC /DE/",
+   "ticker": "ROP",
+   "name": "ROPER TECHNOLOGIES INC",
    "group": {
-    "it": "Beni di prima necessità",
-    "en": "Consumer staples"
+    "it": "Software",
+    "en": "Software"
    },
-   "score": 35,
+   "score": 34,
    "verdict": {
-    "it": "Leggermente ribassista",
-    "en": "Mildly bearish"
+    "it": "Convinzione ribassista moderata",
+    "en": "Moderate bearish conviction"
    },
    "confidence": "Media",
-   "covered_pct": 65,
+   "covered_pct": 80,
    "driver": {
     "name": {
      "it": "Insider",
@@ -6976,13 +6921,79 @@
    },
    "last": {
     "d": "2026-11-20",
-    "c": 110.84,
-    "v": 2096600
+    "c": 459.83,
+    "v": 1292800
    },
-   "tx": 30,
+   "tx": 241,
    "buyers": 0,
-   "sellers": 10,
-   "net_musd": -20.525,
+   "sellers": 4,
+   "net_musd": -29.442,
+   "cluster": false,
+   "errors": 0
+  },
+  {
+   "ticker": "AZO",
+   "name": "AUTOZONE INC",
+   "group": {
+    "it": "Consumi discrezionali",
+    "en": "Consumer discretionary"
+   },
+   "score": 34,
+   "verdict": {
+    "it": "Convinzione ribassista moderata",
+    "en": "Moderate bearish conviction"
+   },
+   "confidence": "Media",
+   "covered_pct": 80,
+   "driver": {
+    "name": {
+     "it": "Insider",
+     "en": "Insiders"
+    },
+    "up": false
+   },
+   "last": {
+    "d": "2026-11-20",
+    "c": 3255.4299,
+    "v": 177900
+   },
+   "tx": 24,
+   "buyers": 0,
+   "sellers": 1,
+   "net_musd": -22.906,
+   "cluster": false,
+   "errors": 0
+  },
+  {
+   "ticker": "BNY",
+   "name": "Bank of New York Mellon Corp",
+   "group": {
+    "it": "Finanza",
+    "en": "Financials"
+   },
+   "score": 33,
+   "verdict": {
+    "it": "Convinzione ribassista moderata",
+    "en": "Moderate bearish conviction"
+   },
+   "confidence": "Media",
+   "covered_pct": 80,
+   "driver": {
+    "name": {
+     "it": "Insider",
+     "en": "Insiders"
+    },
+    "up": false
+   },
+   "last": {
+    "d": "2026-11-20",
+    "c": 141.24,
+    "v": 5659200
+   },
+   "tx": 424,
+   "buyers": 0,
+   "sellers": 1,
+   "net_musd": -7.391,
    "cluster": false,
    "errors": 0
   }
