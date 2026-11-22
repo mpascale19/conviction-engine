@@ -136,11 +136,24 @@ for i, who in enumerate(["Uno", "Due", "Tre"]):
 e = finish(cfg, build_one(cfg, old_cluster), universe)
 check("un cluster di un anno fa non viene segnalato", not e["cluster"], e["cluster"])
 check("il cluster è solo in AAAA", bool(a["cluster"]) and not b["cluster"])
-check("config con due universi", len(cfg["universi"]) == 2 and
-      sum(len(g["tickers"]) for g in cfg["universi"]) == 40,
+_all = [t for g in cfg["universi"] for t in g["tickers"]]
+check("config con dieci universi e duecento aziende", len(cfg["universi"]) == 10 and len(_all) == 200,
       [len(g["tickers"]) for g in cfg["universi"]])
-check("nessun ticker ripetuto fra gli universi",
-      len({t for g in cfg["universi"] for t in g["tickers"]}) == 40)
+check("nessun ticker ripetuto fra gli universi", len(set(_all)) == len(_all),
+      sorted({t for t in _all if _all.count(t) > 1}))
+check("ogni universo ha nome nelle due lingue, riferimento e almeno 5 aziende",
+      all(g.get("nome") and g.get("nome_en") and g.get("benchmark") and len(g["tickers"]) >= 5
+          for g in cfg["universi"]))
+check("ogni riferimento è diverso", len({g["benchmark"] for g in cfg["universi"]}) == len(cfg["universi"]))
+# Il registro delle previsioni confronta ogni azienda con il riferimento del
+# suo universo: le quaranta di partenza non devono cambiare universo, o le righe
+# già registrate non si potrebbero più misurare.
+_first = {g["benchmark"]: set(g["tickers"]) for g in cfg["universi"][:2]}
+check("le quaranta di partenza restano con SMH e SPY",
+      len(_first.get("SMH", ())) == 20 and len(_first.get("SPY", ())) == 20
+      and {"NVDA", "AEHR", "VECO"} <= _first["SMH"] and {"AAPL", "XOM", "KO"} <= _first["SPY"], _first.keys())
+check("i CIK precedenti sono di aziende che ci sono",
+      set(cfg.get("cik_predecessors") or {}) <= set(_all), cfg.get("cik_predecessors"))
 check("il settore ora ha un valore", a["score"]["subs"][3]["v"] is not None,
       a["score"]["subs"][3])
 check("chi compra da solo prende più settore di chi non compra",
@@ -332,17 +345,19 @@ SUBS = {"0000059478": {"name": "ELI LILLY & Co", "tickers": ["LLY"]},
 real_get, sources._SUBS = sources._get, {}
 try:
     sources._get = fake_sec("59478", SUBS)
+    sources._TICKERS = None            # la mappa si tiene per tutto il giro: qui cambia a ogni prova
     cik, name, how = sources.cik_for("ADI")
     check("un CIK con il ticker sbagliato viene scartato", cik == "0000006281", (cik, name, how))
     check("e si ripiega sulla ricerca di EDGAR", how == "browse-edgar", how)
     sources._SUBS = {}
     sources._get = fake_sec("6281", SUBS)
+    sources._TICKERS = None            # la mappa si tiene per tutto il giro: qui cambia a ogni prova
     cik, name, how = sources.cik_for("ADI")
     check("un CIK giusto viene accettato", (cik, how) == ("0000006281", "company_tickers.json"),
           (cik, how))
     check("e porta con sé il nome dell'azienda", name == "ANALOG DEVICES INC", name)
 finally:
-    sources._get, sources._SUBS = real_get, {}
+    sources._get, sources._SUBS, sources._TICKERS = real_get, {}, None
 
 # --------------------------------------------------------------- il backtest
 from pipeline import build
@@ -774,12 +789,25 @@ check("correlazione di rango perfetta", abs(PR.spearman([1, 2, 3, 4, 5], [10, 20
 check("e rovesciata", abs(PR.spearman([1, 2, 3, 4, 5], [5, 4, 3, 2, 1]) + 1) < 1e-12)
 check("una voce uguale per tutti non correla con niente", PR.spearman([7] * 6, [1, 2, 3, 4, 5, 6]) is None)
 check("sotto le cinque aziende non si calcola", PR.spearman([1, 2, 3, 4], [1, 2, 3, 4]) is None)
-check("con meno di tre blocchi nessun riassunto", PR.summarize({"g": [(0, .1), (60, .2)]}) is None)
-_s = PR.summarize({"g": [(i, .1) for i in range(0, 300, 5)]})
-check("il riassunto conta i blocchi di 60 sedute", _s["blocks"] == 5 and _s["dates"] == 60, _s)
+def _dd(i):                            # una data a `i` giorni dall'inizio di un blocco
+    return date.fromordinal((date(2024, 1, 1).toordinal() // 87) * 87 + i).isoformat()
 
 
-def _co(t, g, n=320, start=date(2025, 1, 1), ev=None, ev_from=None):
+check("con meno di tre blocchi nessun riassunto",
+      PR.summarize({"g": [(_dd(i), .1) for i in range(0, 174, 5)]}) is None)
+_s = PR.summarize({"g": [(_dd(i), .1) for i in range(0, 435, 5)]})
+check("il riassunto conta i blocchi di 87 giorni di calendario", _s["blocks"] == 5 and _s["dates"] == 87, _s)
+# due universi nello stesso periodo stanno nello stesso blocco: non sono prove indipendenti
+_s2 = PR.summarize({"a": [(_dd(i), .1) for i in range(0, 435, 5)],
+                    "b": [(_dd(i), .3) for i in range(0, 435, 5)]})
+check("due universi nello stesso periodo fanno un blocco solo", _s2["blocks"] == 5 and _s2["dates"] == 174, _s2)
+_s3 = PR.summarize({"a": [(_dd(i), .1 if (i // 87) % 2 else .3) for i in range(0, 435, 5)],
+                    "b": [(_dd(i), .1 if (i // 87) % 2 else .3) for i in range(0, 435, 5)]})
+_s4 = PR.summarize({"a": [(_dd(i), .1 if (i // 87) % 2 else .3) for i in range(0, 435, 5)]})
+check("e un universo copiato due volte non riduce l'incertezza", _s3["se"] == _s4["se"], (_s3, _s4))
+
+
+def _co(t, g, n=420, start=date(2025, 1, 1), ev=None, ev_from=None):
     ser = [[(start + timedelta(days=i)).isoformat(), round(100 * (1 + g) ** i, 6)] for i in range(n)]
     return {"company": {"ticker": t}, "group": {"it": "Prova", "en": "Test"},
             "price": {"series": ser}, "tx": [], "si_series": [],
@@ -858,8 +886,58 @@ try:
     _r = sources.insider_transactions("42", cache_dir=_cd2, budget=_b, status=_st)
     check("il giro dopo legge dalla cache e scarica solo i mancanti",
           len(_calls2) == 2 and len(_r) == 5 and _st["complete"], (_calls2, _st))
+
+    # i documenti recenti non aspettano: un'azienda nuova ha subito la voce di oggi
+    _new = {f"r{i}": _X.format(ic="0000000042") for i in range(3)}
+    _new.update({f"o{i}": _X.format(ic="0000000042") for i in range(3)})
+    _docs2.update(_new)
+    _recent = (date.today() - timedelta(days=10)).isoformat()
+    sources.form4_filings = lambda cik, months: (
+        [{"accession": f"r{i}", "date": _recent, "url": f"r{i}"} for i in range(3)] +
+        [{"accession": f"o{i}", "date": "2023-01-01", "url": f"o{i}"} for i in range(3)])
+    _calls2.clear(); _b = {"left": 0}; _st = {}
+    _r = sources.insider_transactions("42", cache_dir=tempfile.mkdtemp(), budget=_b, status=_st)
+    check("con il tetto esaurito i documenti recenti si scaricano lo stesso",
+          _calls2 == ["r0", "r1", "r2"] and _st == {"complete": False, "missing": 3}, (_calls2, _st))
+    check("e non consumano il tetto", _b["left"] == 0, _b)
+    _calls2.clear(); _b = {"left": 99, "until": 0}; _st = {}
+    _r = sources.insider_transactions("42", cache_dir=tempfile.mkdtemp(), budget=_b, status=_st)
+    check("passato l'orario la storia vecchia aspetta, anche con documenti nel tetto",
+          _calls2 == ["r0", "r1", "r2"] and _st["missing"] == 3 and _b["left"] == 99, (_calls2, _st, _b))
 finally:
     sources._get, sources.form4_filings = real_get, real_f4
+
+# gli archivi dei depositi si tengono su disco; se la SEC rifà l'archivio, si riscarica
+real_get, real_dir = sources._get, sources.ARCHIVE_DIR
+try:
+    _ag = []
+    sources._get = lambda url, **k: (_ag.append(url), _J({"accessionNumber": ["a"]}))[1]
+    sources.ARCHIVE_DIR = tempfile.mkdtemp()
+    _f = {"name": "CIK0000000077-submissions-001.json", "filingFrom": "2020-01-01",
+          "filingTo": "2022-12-31", "filingCount": 1}
+    _a1, _a2 = sources._archive(_f), sources._archive(_f)
+    check("un archivio letto una volta non si riscarica", len(_ag) == 1 and _a1 == _a2, _ag)
+    sources._archive(dict(_f, filingCount=2))
+    check("se la SEC dichiara un altro contenuto, si riscarica", len(_ag) == 2, _ag)
+    sources.ARCHIVE_DIR = None
+    sources._archive(_f)
+    check("senza cartella di cache si scarica e basta", len(_ag) == 3, _ag)
+finally:
+    sources._get, sources.ARCHIVE_DIR = real_get, real_dir
+
+# la mappa dei ticker della SEC si scarica una volta per giro
+real_get, real_conf = sources._get, sources.confirms
+try:
+    _tg = []
+    sources._get = lambda url, **k: (_tg.append(url), _J({"0": {"ticker": "AAA", "cik_str": 1},
+                                                           "1": {"ticker": "BBB", "cik_str": 2}}))[1]
+    sources.confirms = lambda cik, t: (True, t, [t])
+    sources._TICKERS = None
+    _c1, _c2 = sources.cik_for("AAA"), sources.cik_for("BBB")
+    check("due aziende, una sola richiesta della mappa dei ticker",
+          len(_tg) == 1 and _c1[0] == "0000000001" and _c2[0] == "0000000002", (_tg, _c1, _c2))
+finally:
+    sources._get, sources.confirms, sources._TICKERS = real_get, real_conf, None
 
 # i prezzi si tagliano alla stessa finestra per ogni fonte
 real_y, real_s = sources._prices_yahoo, sources._prices_stooq
@@ -881,6 +959,43 @@ check("nella scheda non escono le chiavi di lavoro", "_px_long" not in _card and
 check("e le operazioni sono quelle degli ultimi due anni",
       [t["date"] for t in _card["tx"]] == ["2024-12-01", "2026-11-01"], _card["tx"])
 check("il dizionario in memoria resta intero", len(_full["tx"]) == 3 and "_px_long" in _full)
+check("e la scheda dice quante sono in due anni", _card["tx_n"] == 2, _card.get("tx_n"))
+_end = date(2026, 11, 20)
+_many = [{"date": (_end - timedelta(days=700 - i)).isoformat()} for i in range(60)] + \
+        [{"date": (_end - timedelta(days=100 - i)).isoformat()} for i in range(30)]
+_cm = build.card_view({"price": {"last": {"d": _end.isoformat()}}, "tx": _many})
+check("con molte operazioni recenti la scheda le porta tutte, e solo quelle",
+      len(_cm["tx"]) == 30 and _cm["tx"][0]["date"] == (_end - timedelta(days=100)).isoformat()
+      and _cm["tx_n"] == 90, (len(_cm["tx"]), _cm["tx"][0]))
+_few = _many[:60] + _many[-5:]
+_cf = build.card_view({"price": {"last": {"d": _end.isoformat()}}, "tx": _few})
+check("con poche operazioni recenti porta le ultime 25", len(_cf["tx"]) == 25 and _cf["tx"][-1] == _few[-1],
+      len(_cf["tx"]))
+
+# i prezzi: se Yahoo non risponde vale la copia dell'ultimo giro riuscito, ma solo se è fresca
+real_p, real_cache = sources.prices, build.CACHE
+try:
+    build.CACHE = tempfile.mkdtemp()
+    _fresh = [{"d": (date.today() - timedelta(days=1)).isoformat(), "c": 10.0, "v": 1}]
+    sources.prices = lambda sym: (_fresh, "yahoo")
+    check("un giro riuscito salva i prezzi", build.prices_or_copy("ZZ") == (_fresh, "yahoo"))
+    def _down(sym):
+        raise RuntimeError("429 da Yahoo")
+    sources.prices = _down
+    _px, _src = build.prices_or_copy("ZZ")
+    check("il giro dopo, con Yahoo giù, usa la copia e lo dice", _px == _fresh and _src == "yahoo (cache)", _src)
+    try:
+        build.prices_or_copy("ZZ", max_age=0)
+        check("una copia troppo vecchia non vale", False)
+    except RuntimeError:
+        check("una copia troppo vecchia non vale", True)
+    try:
+        build.prices_or_copy("MAI")
+        check("senza copia l'errore resta", False)
+    except RuntimeError:
+        check("senza copia l'errore resta", True)
+finally:
+    sources.prices, build.CACHE = real_p, real_cache
 
 # la prova all'indietro usa la serie lunga e non si accorcia per un titolo giovane
 _long = [_co(f"L{k}", 0.0006 * (k + 1), n=900) for k in range(7)] + [_co("YOUNG", 0.003, n=250)]
