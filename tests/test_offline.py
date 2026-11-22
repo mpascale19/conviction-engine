@@ -1195,6 +1195,18 @@ for _msg in ["We have detected your API key as ... our standard API rate limit i
         check("quota finita o piano a pagamento fermano il giro: " + _msg[:30], False)
     except TR.Limit:
         check("quota finita o piano a pagamento fermano il giro: " + _msg[:30], True)
+# la call di un anno prima si scarta (TJX, 22 novembre 2026: chiesta 2026Q3, arrivata la fiscal 2026)
+_r26 = [{"speaker": "Op", "title": "", "content": "Welcome to the Third Quarter Fiscal 2026 call, 11/19/2025."}]
+_r27 = [{"speaker": "Op", "title": "", "content": "Welcome to the Third Quarter Fiscal 2027 call."}]
+check("una trascrizione dell'anno sbagliato non passa il controllo",
+      not TR.call_matches(_r26, "2027Q3") and TR.call_matches(_r27, "2027Q3"))
+check("vale anche la forma corta FY27",
+      TR.call_matches([{"speaker": "", "title": "", "content": "our FY27 third quarter"}], "2027Q3"))
+_st = TR.clean_state({"done": [["TJX", "2026-11-18"], ["BA", "2026-10-27"]]}, {"TJX": 1, "BA": 12})
+check("le call prese con la vecchia riserva si richiedono, quelle a calendario no",
+      _st["done"] == [["BA", "2026-10-27"]] and _st["v"] == 2, _st)
+check("e la pulizia si fa una volta sola",
+      TR.clean_state({"v": 2, "done": [["TJX", "x"]]}, {"TJX": 1})["done"] == [["TJX", "x"]])
 _calls = []
 check("la richiesta chiede il trimestre giusto",
       TR.fetch("AAA", "2026Q3", "k", get=lambda p: (_calls.append(p), {"transcript": []})[1]) == []
