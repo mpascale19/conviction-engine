@@ -18,6 +18,7 @@ from pipeline.sources import parse_form4, parse_prices_csv
 
 F = os.path.join(os.path.dirname(os.path.abspath(__file__)), "fixtures")
 ok, bad = 0, []
+_BAD0 = bad          # vedi l'ultimo controllo del file
 
 
 def check(name, cond, detail=""):
@@ -83,9 +84,10 @@ check("limite superiore 1,5", rules.track_multiplier([200, 200, 200]) == 1.5)
 print("\nRidistribuzione dei pesi")
 subs = {"insider": {"v": 80, "coverage": "Alta"}, "price": {"v": 60, "coverage": "Alta"},
         "guid": {"v": None, "coverage": "Assente"}, "market": {"v": None, "coverage": "Assente"},
-        "sector": {"v": None, "coverage": "Assente"}, "events": {"v": None, "coverage": "Assente"},
-        "social": {"v": None, "coverage": "Assente"}}
-w = {"insider": 30, "guid": 20, "market": 15, "sector": 10, "events": 10, "price": 10}
+        "sector": {"v": None, "coverage": "Assente"}, "events": {"v": None, "coverage": "Assente"}}
+# pesi di prova che sommano a 100: quando è stata tolta la voce social questi
+# sommavano a 95, e "il 40%" era diventato il 42% senza che nessuno lo vedesse
+w = {"insider": 30, "guid": 20, "market": 20, "sector": 10, "events": 10, "price": 10}
 tot, conf, missing, covered = score.combine(subs, w)
 check("media pesata sui soli disponibili", tot == 75, tot)
 check("confidenza bassa con il 40% dei pesi", conf == "Bassa" and covered == 40, (conf, covered))
@@ -147,7 +149,9 @@ check("chi compra da solo prende più settore di chi non compra",
 check("il punteggio di AAAA è più alto di quello di DDDD",
       a["score"]["value"] > built[3]["score"]["value"],
       (a["score"]["value"], built[3]["score"]["value"]))
-check("la copertura sale con il settore", a["score"]["covered_pct"] == 50,
+# insider 35 + settore 10 + prezzo 10: l'azienda di prova non ha guidance,
+# short interest né 8-K. Il valore atteso era rimasto a prima di prezzo ed eventi.
+check("la copertura sale con il settore", a["score"]["covered_pct"] == 55,
       a["score"]["covered_pct"])
 check("serializzabile in JSON", bool(json.dumps(built)))
 
@@ -172,8 +176,12 @@ def all_texts(d):
 
 for d in built:
     d["group"] = {"it": "Prova", "en": "Test"}
-bad = [t for d in built for t in all_texts(d) if not bilingual(t)]
-check("ogni testo generato esiste in italiano e in inglese", not bad, bad[:3])
+# Attenzione al nome: `bad` è l'elenco dei controlli falliti. Fino al 22
+# novembre 2026 questa riga lo riassegnava, cancellando ogni fallimento
+# registrato prima: due controlli fallivano da settimane e il riepilogo diceva
+# "0 falliti". Il controllo in fondo al file verifica che non succeda più.
+nonbil = [t for d in built for t in all_texts(d) if not bilingual(t)]
+check("ogni testo generato esiste in italiano e in inglese", not nonbil, nonbil[:3])
 check("l'inglese è diverso dall'italiano",
       a["score"]["verdict"]["en"] == "Moderate bullish conviction", a["score"]["verdict"])
 check("le ragioni del punteggio insider sono tradotte",
@@ -346,30 +354,46 @@ def fake_co(ticker, buys):
     for who, d, car, _ in buys:
         tracks.setdefault(who, {"buys": []})["buys"].append({"date": d, "car": car})
     return {"company": {"ticker": ticker},
-            "tx": [{"who": w, "date": d, "kind": "BUY", "is_senior": sr}
+            "tx": [{"who": w, "date": d, "kind": "BUY",
+                    "role": "Chief Executive Officer" if sr else "Director", "is_senior": sr}
                    for w, d, _, sr in buys],
             "tracks": tracks}
 
 # cinque dirigenti che comprano lo stesso giorno nella stessa azienda
 stesso_giorno = fake_co("UCTT", [(f"P{i}", "2025-03-07", -29.21, False) for i in range(5)])
-# e sei acquisti isolati, uno al mese, ciascuno in guadagno
+# e sei acquisti, uno al mese da gennaio a giugno, ciascuno in guadagno.
+# Il 15 aprile è esattamente al 90° giorno dal 15 gennaio: da gennaio ad aprile
+# è una campagna (media di 4, 5, 6, 7 = 5,5), maggio e giugno un'altra (8,5).
 isolati = fake_co("INTC", [(f"Q{i}", f"2025-0{i+1}-15", 4.0 + i, i == 0) for i in range(6)])
 
 bt = build.backtest([stesso_giorno, isolati], CFG)
 check("il backtest gira su un campione minimo", bt is not None)
-check("conta le firme", bt["all"]["n"] == 11, bt["all"]["n"])
-check("ma cinque firme nello stesso giorno sono un episodio solo",
-      bt["cluster"]["ep"] == 1 and bt["cluster"]["n"] == 5, bt["cluster"])
-check("gli acquisti isolati restano episodi distinti",
-      bt["solo"]["ep"] == 6 and bt["solo"]["n"] == 6, bt["solo"])
-check("la mediana è quella degli acquisti, non la media",
-      bt["solo"]["med"] == 6.5, bt["solo"]["med"])
-check("conta quanti sono andati in guadagno",
-      (bt["all"]["pos"], bt["cluster"]["pos"]) == (6, 0), bt["all"])
-check("separa i dirigenti apicali dagli altri",
-      bt["senior"]["n"] == 1 and bt["other"]["n"] == 10, (bt["senior"], bt["other"]))
+check("dichiara che conta per campagne", bt["unit"] == "campaign" and bt["days"] == 90, bt.get("unit"))
+check("le campagne sono tre", bt["all"]["camp"] == 3, bt["all"])
+check("e porta ancora episodi e acquisti, per mostrare la differenza",
+      (bt["all"]["ep"], bt["all"]["n"]) == (7, 11), bt["all"])
+check("il conteggio per acquisto resta disponibile", bt["by_purchase"]["n"] == 11, bt["by_purchase"])
+check("cinque firme nello stesso giorno sono un episodio e una campagna",
+      (bt["cluster"]["camp"], bt["cluster"]["ep"], bt["cluster"]["n"]) == (1, 1, 5), bt["cluster"])
+check("acquisti a meno di 90 giorni dal primo sono una campagna sola",
+      (bt["solo"]["camp"], bt["solo"]["ep"], bt["solo"]["n"]) == (2, 6, 6), bt["solo"])
+check("la mediana è quella delle campagne", (bt["all"]["med"], bt["solo"]["med"]) == (5.5, 7.0),
+      (bt["all"]["med"], bt["solo"]["med"]))
+check("conta le campagne in guadagno", (bt["all"]["pos"], bt["cluster"]["pos"]) == (2, 0), bt["all"])
+check("separa le campagne dei dirigenti apicali", (bt["senior"]["camp"], bt["other"]["camp"]) == (1, 2),
+      (bt["senior"], bt["other"]))
 check("dichiara l'orizzonte su cui misura",
       bt["horizon"] == CFG["rules"]["track_record_horizon_days"], bt["horizon"])
+check("e porta con sé la stima dei bonus", "bonus" in bt)
+
+# "apicale" nel backtest vuol dire quello che vuol dire nella formula: il flag
+# "officer" del Form 4 vale anche per un responsabile legale, e non basta
+legale = {"who": "X", "date": "2025-01-15", "kind": "BUY", "role": "Chief Legal Officer", "is_senior": True}
+cfo = {"who": "Y", "date": "2025-01-15", "kind": "BUY", "role": "EVP, CFO", "is_senior": True}
+r = build.backtest_rows([{"company": {"ticker": "Z"}, "tx": [legale, cfo],
+                          "tracks": {"X": {"buys": [{"date": "2025-01-15", "car": 1.0}]},
+                                     "Y": {"buys": [{"date": "2025-01-15", "car": 1.0}]}}}], CFG)
+check("un responsabile legale non è un dirigente apicale", [x["senior"] for x in r] == [False, True], r)
 
 # sotto le dieci osservazioni non dice nulla, invece di dire poco
 check("con pochi dati il backtest non esiste",
@@ -378,7 +402,7 @@ check("con pochi dati il backtest non esiste",
 senza = fake_co("ORCL", [(f"R{i}", f"2025-0{i+1}-20", 1.0, False) for i in range(6)])
 senza["tracks"] = {}
 check("un acquisto troppo recente per essere misurato viene escluso",
-      build.backtest([stesso_giorno, isolati, senza], CFG)["all"]["n"] == 11)
+      build.backtest([stesso_giorno, isolati, senza], CFG)["by_purchase"]["n"] == 11)
 
 from pipeline import sources
 # ------------------------------------------------- i fatti rilevanti (8-K)
@@ -629,6 +653,121 @@ check("con troppe poche aziende non si prova niente",
       stress.run({k: _subs[k] for k in list(_subs)[:3]}, _W,
                  score.combine, score.verdict, draws=50) is None)
 
+# --------------------------------- i bonus insider, stimati dai dati
+import random as _rnd
+from pipeline import bonus as BO
+
+_rows = [{"t": "A", "d": "2025-01-01", "car": 10.0, "people": 1, "senior": False},
+         {"t": "A", "d": "2025-01-01", "car": 10.0, "people": 1, "senior": True},
+         {"t": "A", "d": "2025-04-01", "car": 20.0, "people": 1, "senior": False},   # 90° giorno
+         {"t": "A", "d": "2025-04-02", "car": 30.0, "people": 2, "senior": False},   # 91°: nuova
+         {"t": "B", "d": "2025-01-01", "car": -5.0, "people": 4, "senior": False}]
+_c = BO.campaigns(_rows)
+check("due firme nello stesso giorno sono un episodio", len(BO.episodes(_rows)) == 4)
+check("il 90° giorno sta nella stessa campagna, il 91° no",
+      [(c["t"], c["episodes"], c["buys"]) for c in _c] == [("A", 2, 3), ("A", 1, 1), ("B", 1, 1)], _c)
+check("il rendimento di una campagna è la media dei suoi episodi", _c[0]["car"] == 15.0, _c[0])
+check("una caratteristica vale per la campagna se vale per un episodio", _c[0]["senior"] is True)
+check("un cluster non è anche 'due compratori'", _c[2]["cluster"] and not _c[2]["two"], _c[2])
+check("due compratori distinti si riconoscono", _c[1]["two"] and not _c[1]["cluster"], _c[1])
+check("troppe poche campagne: nessuna stima", BO.estimate(_c) is None)
+check("senza stima, nessun bonus", BO.points(None) == {"cluster": 0, "two": 0, "senior": 0})
+check("una matrice singolare non si inverte", BO._inverse([[1, 2], [2, 4]]) is None)
+
+
+def _fake_camps(n, eff, noise=20.0, seed=1):
+    r = _rnd.Random(seed); out = []
+    for i in range(n):
+        c = {"t": f"T{i}", "d": "2025-01-01", "episodes": 1, "buys": 1,
+             "cluster": r.random() < .2, "senior": r.random() < .35}
+        c["two"] = (not c["cluster"]) and r.random() < .2
+        c["car"] = sum(eff[f] for f in BO.FEATURES if c[f]) + r.gauss(0, noise)
+        out.append(c)
+    return out
+
+
+_vero = {"cluster": 10.0, "two": 4.0, "senior": 6.0}
+_e = BO.estimate(_fake_camps(5000, _vero, seed=3))
+_got = {r["id"]: r["points"] for r in _e["features"]}
+check("con molti dati ritrova gli effetti veri",
+      all(abs(_got[f] - _vero[f]) <= 1 for f in _vero), _got)
+check("e quasi non li restringe", all(r["shrink"] > .95 for r in _e["features"]), _e["features"])
+_e = BO.estimate(_fake_camps(26, _vero, seed=26))
+check("con 26 campagne anche effetti veri vengono ristretti molto",
+      all(abs(r["points"]) < abs(_vero[r["id"]]) for r in _e["features"]), _e["features"])
+_nulls = [BO.points(BO.estimate(_fake_camps(26, {f: 0 for f in BO.FEATURES}, seed=100 + s)))
+          for s in range(20)]
+check("senza effetti veri i bonus restano piccoli",
+      all(abs(p[f]) <= 6 for p in _nulls for f in p), _nulls)
+_one = [dict(c, cluster=False, two=False) for c in _fake_camps(30, {f: 0 for f in BO.FEATURES}, seed=7)]
+_one[0].update(cluster=True, car=-30.0)
+_e = BO.estimate(_one)
+_cl = [r for r in _e["features"] if r["id"] == "cluster"][0]
+check("una campagna sola non basta a dare un bonus", abs(_cl["points"]) <= 1, _cl)
+_tw = [r for r in _e["features"] if r["id"] == "two"][0]
+check("una caratteristica che nessuno ha vale zero", _tw["raw"] is None and _tw["points"] == 0, _tw)
+check("la sensibilità a tau è dichiarata", set(_cl["by_tau"]) == {"3", "5", "10"}, _cl["by_tau"])
+_big = BO.estimate(_fake_camps(5000, {"cluster": 60.0, "two": 0, "senior": 0}, noise=5, seed=4))
+check("nessun bonus supera il tetto",
+      all(abs(r["points"]) <= BO.MAX_POINTS for r in _big["features"]), _big["features"])
+
+# la voce insider usa i bonus che le si passano, e lo scrive
+_tx = rules.enrich([{"date": "2026-04-01", "who": w, "role": "Director", "code": "P", "plan": False,
+                     "shares": 1, "price": 1.0, "value": 1.0, "ad": "A"} for w in ("U", "V", "W")])
+_cl3 = rules.find_cluster(_tx, 30, 3)
+_today = date(2026, 4, 10)
+v_hand, w_hand, _ = score.insider_score(_tx, _cl3, {}, cfg, _today)
+v_est, w_est, _ = score.insider_score(_tx, _cl3, {}, cfg, _today, bonus={"cluster": 0, "two": 0, "senior": 0})
+check("senza bonus passati valgono quelli scritti a mano", v_hand - v_est == 18, (v_hand, v_est))
+check("con i bonus stimati il perché lo dice",
+      "stimato dai dati" in w_est[0]["it"] and "estimated from the data" in w_est[0]["en"], w_est[0])
+check("con quelli a mano non aggiunge niente", "stimato" not in w_hand[0]["it"], w_hand[0])
+
+# --------------------------------- il moltiplicatore conta le campagne
+_buys = [{"date": f"2025-01-{d:02d}", "car": 8.0} for d in range(1, 11)]
+check("dieci acquisti in dieci giorni sono una campagna", rules.person_campaigns(_buys) == [8.0])
+check("e il moltiplicatore li conta una volta: 1 + (8 / 4) / 10",
+      rules.track_multiplier(rules.person_campaigns(_buys), 3) == 1.2)
+check("due campagne distanti restano due",
+      len(rules.person_campaigns(_buys + [{"date": "2025-06-01", "car": -2.0}])) == 2)
+
+# --------------------------------- i Form 4 di un altro emittente
+_X = """<ownershipDocument><issuer><issuerCik>{ic}</issuerCik></issuer>
+<reportingOwner><reportingOwnerId><rptOwnerName>Rossi Ada</rptOwnerName></reportingOwnerId>
+<reportingOwnerRelationship><isDirector>1</isDirector></reportingOwnerRelationship></reportingOwner>
+<nonDerivativeTable><nonDerivativeTransaction><transactionDate><value>2026-01-05</value></transactionDate>
+<transactionCoding><transactionCode>P</transactionCode></transactionCoding><transactionAmounts>
+<transactionShares><value>100</value></transactionShares><transactionPricePerShare><value>10</value></transactionPricePerShare>
+<transactionAcquiredDisposedCode><value>A</value></transactionAcquiredDisposedCode></transactionAmounts>
+</nonDerivativeTransaction></nonDerivativeTable></ownershipDocument>"""
+check("un Form 4 dell'azienda stessa viene letto",
+      len(parse_form4(_X.format(ic="0000070858"), issuer_cik="70858")) == 1)
+check("uno di un altro emittente no", parse_form4(_X.format(ic="0001234567"), issuer_cik="0000070858") is None)
+check("senza CIK da confrontare si legge come prima", len(parse_form4(_X.format(ic="0001234567"))) == 1)
+
+_docs = {"f1": _X.format(ic="0009999999"), "f2": _X.format(ic="0000000042"),
+         "f3": _X.format(ic="0000000042"), "f4": _X.format(ic="0000000042")}
+_calls = []
+real_get, real_f4 = sources._get, sources.form4_filings
+try:
+    class _R:
+        def __init__(self, t): self.text = t
+    sources._get = lambda url, **k: (_calls.append(url), _R(_docs[url]))[1]
+    sources.form4_filings = lambda cik, months: [{"accession": k, "date": "2026-01-01", "url": k}
+                                                for k in ("f1", "f2", "f3", "f4")]
+    _cd = tempfile.mkdtemp()
+    _r = sources.insider_transactions("42", limit=2, cache_dir=_cd)
+    check("il limite conta solo i documenti dell'azienda", len(_r) == 2 and _calls == ["f1", "f2", "f3"], _calls)
+    _calls.clear()
+    _r2 = sources.insider_transactions("42", limit=2, cache_dir=_cd)
+    check("e dalla cache si ottiene lo stesso, senza riscaricare", len(_r2) == 2 and _calls == [], _calls)
+    check("il documento estraneo resta segnato come estraneo nella cache",
+          json.load(open(os.path.join(_cd, "f1.json"))) is None)
+finally:
+    sources._get, sources.form4_filings = real_get, real_f4
+
+# il riepilogo deve contare ogni fallimento: l'elenco non va mai sostituito
+check("l'elenco dei fallimenti è ancora quello di partenza", bad is _BAD0)
 print(f"\n{ok} controlli passati, {len(bad)} falliti")
 if bad:
     print("falliti:", ", ".join(bad))
