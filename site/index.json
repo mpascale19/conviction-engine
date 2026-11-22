@@ -1,6 +1,6 @@
 {
- "generated_at": "2026-11-22T20:39:03+00:00",
- "changed_at": "2026-11-22T20:39:03+00:00",
+ "generated_at": "2026-11-22T21:16:42+00:00",
+ "changed_at": "2026-11-22T21:16:42+00:00",
  "groups": [
   {
    "nome": {
@@ -97,7 +97,7 @@
    {
     "lo": -30,
     "hi": -25,
-    "n": 4
+    "n": 5
    },
    {
     "lo": -25,
@@ -107,47 +107,47 @@
    {
     "lo": -20,
     "hi": -15,
-    "n": 7
+    "n": 9
    },
    {
     "lo": -15,
     "hi": -10,
-    "n": 16
+    "n": 19
    },
    {
     "lo": -10,
     "hi": -5,
-    "n": 40
+    "n": 44
    },
    {
     "lo": -5,
     "hi": 0,
-    "n": 76
+    "n": 87
    },
    {
     "lo": 0,
     "hi": 5,
-    "n": 65
+    "n": 77
    },
    {
     "lo": 5,
     "hi": 10,
-    "n": 55
+    "n": 57
    },
    {
     "lo": 10,
     "hi": 15,
-    "n": 23
+    "n": 26
    },
    {
     "lo": 15,
     "hi": 20,
-    "n": 15
+    "n": 17
    },
    {
     "lo": 20,
     "hi": 25,
-    "n": 3
+    "n": 5
    },
    {
     "lo": 25,
@@ -161,97 +161,97 @@
    }
   ],
   "all": {
-   "camp": 328,
-   "ep": 592,
-   "n": 889,
-   "pos": 174,
-   "avg": 1.62,
-   "med": 0.56
+   "camp": 370,
+   "ep": 652,
+   "n": 964,
+   "pos": 195,
+   "avg": 1.46,
+   "med": 0.46
   },
   "by_purchase": {
-   "n": 889,
-   "ep": 592,
-   "pos": 477,
-   "avg": 1.85,
-   "med": 1.03
+   "n": 964,
+   "ep": 652,
+   "pos": 517,
+   "avg": 1.78,
+   "med": 1.08
   },
   "cluster": {
-   "camp": 35,
-   "ep": 127,
-   "n": 203,
-   "pos": 16,
-   "avg": -0.44,
+   "camp": 37,
+   "ep": 134,
+   "n": 216,
+   "pos": 17,
+   "avg": -0.37,
    "med": -0.73
   },
   "solo": {
-   "camp": 293,
-   "ep": 465,
-   "n": 686,
-   "pos": 158,
-   "avg": 1.86,
-   "med": 0.82
+   "camp": 333,
+   "ep": 518,
+   "n": 748,
+   "pos": 178,
+   "avg": 1.67,
+   "med": 0.63
   },
   "senior": {
-   "camp": 80,
-   "ep": 188,
-   "n": 337,
-   "pos": 34,
-   "avg": 0.1,
-   "med": -1.82
+   "camp": 83,
+   "ep": 193,
+   "n": 345,
+   "pos": 37,
+   "avg": 0.4,
+   "med": -1.29
   },
   "other": {
-   "camp": 248,
-   "ep": 404,
-   "n": 552,
-   "pos": 140,
-   "avg": 2.11,
-   "med": 1.14
+   "camp": 287,
+   "ep": 459,
+   "n": 619,
+   "pos": 158,
+   "avg": 1.77,
+   "med": 1.02
   },
   "bonus": {
    "tau": 5.0,
-   "camp": 328,
+   "camp": 370,
    "cap": 50.0,
    "days": 90,
-   "base": 2.16,
+   "base": 1.74,
    "features": [
     {
      "id": "cluster",
-     "n": 35,
+     "n": 37,
      "hand": 18,
-     "raw": -1.74,
-     "se": 2.46,
-     "shrink": 0.805,
-     "post": -1.4,
+     "raw": -1.53,
+     "se": 2.33,
+     "shrink": 0.821,
+     "post": -1.26,
      "points": -1,
      "by_tau": {
       "3": -1,
       "5": -1,
-      "10": -2
+      "10": -1
      }
     },
     {
      "id": "two",
-     "n": 56,
+     "n": 61,
      "hand": 8,
-     "raw": -1.99,
-     "se": 1.96,
-     "shrink": 0.866,
-     "post": -1.72,
-     "points": -2,
+     "raw": -1.2,
+     "se": 1.83,
+     "shrink": 0.882,
+     "post": -1.06,
+     "points": -1,
      "by_tau": {
       "3": -1,
-      "5": -2,
-      "10": -2
+      "5": -1,
+      "10": -1
      }
     },
     {
      "id": "senior",
-     "n": 80,
+     "n": 83,
      "hand": 10,
-     "raw": -1.43,
-     "se": 1.77,
-     "shrink": 0.888,
-     "post": -1.27,
+     "raw": -0.97,
+     "se": 1.69,
+     "shrink": 0.898,
+     "post": -0.87,
      "points": -1,
      "by_tau": {
       "3": -1,
@@ -305,20 +305,20 @@
    {
     "id": "market",
     "n": 200,
-    "rho": 0.85,
+    "rho": 0.851,
     "shift": 2.6
    },
    {
     "id": "sector",
     "n": 200,
-    "rho": 0.968,
+    "rho": 0.969,
     "shift": 1.1
    },
    {
     "id": "events",
     "n": 200,
     "rho": 0.988,
-    "shift": 0.8
+    "shift": 0.9
    },
    {
     "id": "price",
@@ -329,7 +329,7 @@
   ],
   "rho": {
    "med": 0.979,
-   "p5": 0.931,
+   "p5": 0.932,
    "min": 0.857
   },
   "top_overlap": {
@@ -355,19 +355,19 @@
    },
    {
     "id": "sector",
-    "ic": -0.014,
+    "ic": -0.017,
     "se": 0.009,
-    "t": -1.56,
+    "t": -1.88,
     "blocks": 19,
-    "dates": 1276
+    "dates": 1501
    },
    {
     "id": "market",
-    "ic": 0.013,
-    "se": 0.01,
-    "t": 1.34,
-    "blocks": 9,
-    "dates": 910
+    "ic": 0.007,
+    "se": 0.009,
+    "t": 0.8,
+    "blocks": 18,
+    "dates": 2020
    },
    {
     "id": "events",
@@ -380,19 +380,19 @@
   ]
  },
  "history": {
-  "complete": 119,
+  "complete": 131,
   "total": 200,
   "tx_from": "2021-10-18",
-  "missing": 26352
+  "missing": 22352
  },
  "short_interest": {
   "finra": 200,
   "manual": 0,
   "none": 0,
-  "from": "2024-07-15",
+  "from": "2022-04-29",
   "to": "2026-10-30",
-  "readings": 56,
-  "pending": 63,
+  "readings": 109,
+  "pending": 10,
   "error": null,
   "head": null
  },
@@ -1182,10 +1182,43 @@
     "c": 301.71,
     "v": 2764100
    },
-   "tx": 115,
+   "tx": 977,
    "buyers": 0,
    "sellers": 0,
    "net_musd": 0.0,
+   "cluster": false,
+   "errors": 0
+  },
+  {
+   "ticker": "ETN",
+   "name": "Eaton Corp plc",
+   "group": {
+    "it": "Industria",
+    "en": "Industrials"
+   },
+   "score": 54,
+   "verdict": {
+    "it": "Nessuna convinzione chiara",
+    "en": "No clear conviction"
+   },
+   "confidence": "Media",
+   "covered_pct": 80,
+   "driver": {
+    "name": {
+     "it": "Settore",
+     "en": "Sector"
+    },
+    "up": true
+   },
+   "last": {
+    "d": "2026-11-20",
+    "c": 311.33,
+    "v": 4783000
+   },
+   "tx": 697,
+   "buyers": 2,
+   "sellers": 0,
+   "net_musd": 0.171,
    "cluster": false,
    "errors": 0
   },
@@ -1512,43 +1545,10 @@
     "c": 609.25,
     "v": 2178200
    },
-   "tx": 35,
+   "tx": 389,
    "buyers": 0,
    "sellers": 0,
    "net_musd": 0.0,
-   "cluster": false,
-   "errors": 0
-  },
-  {
-   "ticker": "ETN",
-   "name": "Eaton Corp plc",
-   "group": {
-    "it": "Industria",
-    "en": "Industrials"
-   },
-   "score": 53,
-   "verdict": {
-    "it": "Nessuna convinzione chiara",
-    "en": "No clear conviction"
-   },
-   "confidence": "Media",
-   "covered_pct": 80,
-   "driver": {
-    "name": {
-     "it": "Settore",
-     "en": "Sector"
-    },
-    "up": true
-   },
-   "last": {
-    "d": "2026-11-20",
-    "c": 311.33,
-    "v": 4783000
-   },
-   "tx": 19,
-   "buyers": 2,
-   "sellers": 0,
-   "net_musd": 0.171,
    "cluster": false,
    "errors": 0
   },
@@ -2007,7 +2007,7 @@
     "c": 565.5,
     "v": 1479700
    },
-   "tx": 15,
+   "tx": 360,
    "buyers": 0,
    "sellers": 1,
    "net_musd": 0.0,
@@ -2304,7 +2304,7 @@
     "c": 534.31,
     "v": 779900
    },
-   "tx": 19,
+   "tx": 84,
    "buyers": 0,
    "sellers": 0,
    "net_musd": 0.0,
@@ -2601,7 +2601,7 @@
     "c": 190.17,
     "v": 6038000
    },
-   "tx": 18,
+   "tx": 397,
    "buyers": 0,
    "sellers": 1,
    "net_musd": -1.83,
@@ -3063,7 +3063,7 @@
     "c": 155.89,
     "v": 11135300
    },
-   "tx": 8,
+   "tx": 226,
    "buyers": 3,
    "sellers": 1,
    "net_musd": 1.485,
@@ -4020,7 +4020,7 @@
     "c": 287.29,
     "v": 4278400
    },
-   "tx": 18,
+   "tx": 616,
    "buyers": 0,
    "sellers": 0,
    "net_musd": 0.0,
@@ -4317,7 +4317,7 @@
     "c": 475.57,
     "v": 1579400
    },
-   "tx": 165,
+   "tx": 598,
    "buyers": 0,
    "sellers": 3,
    "net_musd": -18.251,
@@ -4779,7 +4779,7 @@
     "c": 273.57,
     "v": 1280200
    },
-   "tx": 23,
+   "tx": 357,
    "buyers": 0,
    "sellers": 1,
    "net_musd": -17.572,
@@ -5571,7 +5571,7 @@
     "c": 106.22,
     "v": 6724200
    },
-   "tx": 1,
+   "tx": 323,
    "buyers": 0,
    "sellers": 1,
    "net_musd": -0.877,
@@ -5604,7 +5604,7 @@
     "c": 341.5,
     "v": 1256500
    },
-   "tx": 59,
+   "tx": 789,
    "buyers": 0,
    "sellers": 3,
    "net_musd": -23.808,
@@ -6008,6 +6008,39 @@
    "errors": 0
   },
   {
+   "ticker": "CAT",
+   "name": "CATERPILLAR INC",
+   "group": {
+    "it": "Industria",
+    "en": "Industrials"
+   },
+   "score": 41,
+   "verdict": {
+    "it": "Leggermente ribassista",
+    "en": "Mildly bearish"
+   },
+   "confidence": "Media",
+   "covered_pct": 80,
+   "driver": {
+    "name": {
+     "it": "Insider",
+     "en": "Insiders"
+    },
+    "up": false
+   },
+   "last": {
+    "d": "2026-11-20",
+    "c": 510.45,
+    "v": 5075800
+   },
+   "tx": 542,
+   "buyers": 2,
+   "sellers": 1,
+   "net_musd": -25.383,
+   "cluster": false,
+   "errors": 0
+  },
+  {
    "ticker": "GM",
    "name": "General Motors Co",
    "group": {
@@ -6169,39 +6202,6 @@
    "buyers": 0,
    "sellers": 8,
    "net_musd": -77.818,
-   "cluster": false,
-   "errors": 0
-  },
-  {
-   "ticker": "CAT",
-   "name": "CATERPILLAR INC",
-   "group": {
-    "it": "Industria",
-    "en": "Industrials"
-   },
-   "score": 40,
-   "verdict": {
-    "it": "Leggermente ribassista",
-    "en": "Mildly bearish"
-   },
-   "confidence": "Media",
-   "covered_pct": 80,
-   "driver": {
-    "name": {
-     "it": "Insider",
-     "en": "Insiders"
-    },
-    "up": false
-   },
-   "last": {
-    "d": "2026-11-20",
-    "c": 510.45,
-    "v": 5075800
-   },
-   "tx": 18,
-   "buyers": 2,
-   "sellers": 1,
-   "net_musd": -25.383,
    "cluster": false,
    "errors": 0
   },
