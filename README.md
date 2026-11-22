@@ -118,9 +118,17 @@ workflow le usa nell'ordine in cui servono di più:
 Le date delle call sono quelle degli 8-K con item 2.02 (i risultati), che le
 schede hanno già. Alpha Vantage vuole il trimestre **fiscale**: la call di
 Nvidia di novembre 2026 è il `2027Q3`, perché il suo anno fiscale finisce a
-gennaio. Il mese di chiusura lo dà la SEC (`fiscalYearEnd`). Se con il
-trimestre fiscale non arriva niente si prova quello di calendario, e una call
-che resta vuota per due giorni non si chiede più.
+gennaio. Il mese di chiusura lo dà la SEC (`fiscalYearEnd`). Una call che
+resta vuota per due giorni non si chiede più, e il riepilogo dice che cosa ha
+risposto Alpha Vantage.
+
+Non c'è riserva sul trimestre di calendario: c'era, e il primo giro vero ha
+portato cinque call sbagliate. Per TJX, Salesforce, Sysco, Atlassian e Clorox
+il trimestre fiscale non ha risposto, e "2026Q3" per Alpha Vantage è il terzo
+trimestre dell'anno *fiscale* 2026: la call di TJX arrivata era del novembre
+2025, quella di Salesforce dell'agosto 2025. Ora ogni trascrizione si controlla
+(`call_matches`): nelle prime righe deve comparire l'anno del trimestre chiesto,
+altrimenti si scarta. Le cinque call sbagliate non sono state estratte.
 
 Ogni call diventa un file Word, `TICKER_TRIMESTRE.docx`, in un pacchetto che si
 scarica dalla pagina del giro (sezione *Artifacts*) e resta lì tre giorni, con
