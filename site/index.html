@@ -480,11 +480,16 @@ function renderHome(){
 function renderGuide(){
   var steps = T([
     ['Si scaricano i documenti',
-     'Per ogni azienda: i Form 4 degli ultimi due anni da SEC EDGAR, i prezzi di chiusura, le azioni ' +
-     'in circolazione dalla copertina dei 10-Q, e lo short interest pubblicato da FINRA.'],
+     'Per ogni azienda, da SEC EDGAR: i Form 4 degli ultimi due anni, gli 8-K degli ultimi sei mesi e ' +
+     'le azioni in circolazione dalla copertina dei 10-Q. Poi i prezzi di chiusura. Lo short interest ' +
+     '(dati FINRA) e le trascrizioni delle call non si scaricano da soli: arrivano da un export fatto a ' +
+     'mano dal terminale, e solo per le aziende per cui c’è.'],
     ['Il modello estrae, non giudica',
-     'Dalle trascrizioni delle earnings call ricava fatti strutturati: il tono, ogni voce di guidance ' +
-     'con la sua direzione, quanto sono dirette le risposte agli analisti. Numeri e frasi, non opinioni.'],
+     'Dalle trascrizioni delle call ricava fatti strutturati: ogni voce di guidance con la sua direzione, ' +
+     'quanto sono dirette le risposte agli analisti, che cosa è cambiato nel linguaggio. C’è un solo ' +
+     'numero che il modello assegna da sé, ed è giusto dirlo: il tono, da 0 a 100, sempre con la frase ' +
+     'che lo motiva. Il passo parte da solo quando nel repository c’è una chiave API; finora le ' +
+     'trascrizioni sono state estratte con lo stesso schema, a mano.'],
     ['Ogni operazione viene classificata',
      'Un acquisto sul mercato pesa. Una vendita programmata da un piano 10b5-1, le azioni trattenute ' +
      'per le imposte, un esercizio di opzioni: non pesano. Restano visibili, ma con peso zero.'],
@@ -496,11 +501,16 @@ function renderGuide(){
      'sito è un giudizio senza una fonte dietro.']
   ], [
     ['The documents are downloaded',
-     'For each company: the Form 4 filings of the last two years from SEC EDGAR, closing prices, shares ' +
-     'outstanding from the cover of the 10-Q, and the short interest published by FINRA.'],
+     'For each company, from SEC EDGAR: the Form 4 filings of the last two years, the 8-K filings of the ' +
+     'last six months and shares outstanding from the cover of the 10-Q. Then closing prices. Short ' +
+     'interest (FINRA data) and call transcripts do not download themselves: they come from a manual ' +
+     'terminal export, and only for the companies that have one.'],
     ['The model extracts, it does not judge',
-     'From the earnings-call transcripts it draws structured facts: the tone, every guidance item with ' +
-     'its direction, how direct the answers to analysts are. Numbers and phrases, not opinions.'],
+     'From the call transcripts it draws structured facts: every guidance item with its direction, how ' +
+     'direct the answers to analysts are, what changed in the language. There is one number the model ' +
+     'assigns by itself, and it should be said: the tone, from 0 to 100, always with the sentence that ' +
+     'justifies it. The step runs on its own when the repository holds an API key; so far the transcripts ' +
+     'have been extracted with the same schema, by hand.'],
     ['Every transaction is classified',
      'An open-market purchase counts. A sale scheduled under a 10b5-1 plan, shares withheld for taxes, ' +
      'an option exercise: they do not. They stay visible, at zero weight.'],
@@ -516,31 +526,42 @@ function renderGuide(){
      'periodo, e come sono andati i loro acquisti passati.'],
     ['Guidance e tono', 20, 'Il tono delle ultime quattro call e quante voci di guidance l’azienda ha ' +
      'alzato o ridotto nell’ultima.'],
-    ['Mercato', 15, 'Lo short interest: contro la storia del titolo e contro la mediana del suo settore.'],
+    ['Mercato', 15, 'Lo short interest, in due modi. Contro la storia del titolo: il livello di oggi ' +
+     'rispetto alla mediana dell’ultimo anno, come è cambiato in tre mesi, quanti giorni servono a ' +
+     'ricomprarlo. E contro il settore: in percentuale delle azioni in circolazione (dalla SEC), ' +
+     'confrontato con la mediana delle altre aziende dello stesso universo.'],
     ['Settore', 10, 'Se il segnale è isolato o se lo stanno facendo anche i concorrenti.'],
     ['Fatti rilevanti (8-K)', 10, 'I fatti che l’azienda è obbligata a dichiarare alla SEC entro quattro ' +
      'giorni: rettifiche dei conti, cambi di revisore, uscite di dirigenti, nuovi accordi. Contano i codici ' +
      'item, che sono fissati dalla SEC, non il tono di un articolo.'],
-    ['Contesto di prezzo', 10, 'Distanza dai massimi e dai minimi di sei mesi, momentum a tre mesi.']
+    ['Contesto di prezzo', 10, 'Due misure che tirano in direzioni opposte, ed è voluto. La distanza dal ' +
+     'massimo di sei mesi aggiunge punti quanto più il titolo è sceso (una lettura da bastian contrario), ' +
+     'il momentum a tre mesi ne aggiunge se sale. Il minimo di sei mesi è mostrato ma non pesa.']
   ], [
     ['Insiders', 35, 'Who buys, how much, whether they are a top executive, whether several people buy in ' +
      'the same window, and how their past purchases turned out.'],
     ['Guidance and tone', 20, 'The tone of the last four calls and how many guidance items the company ' +
      'raised or lowered in the latest one.'],
-    ['Market', 15, 'Short interest: against the stock’s own history and against its sector median.'],
+    ['Market', 15, 'Short interest, in two ways. Against the stock’s own history: today’s level against ' +
+     'the median of the last year, how it moved over three months, how many days it would take to buy ' +
+     'back. And against the sector: as a share of shares outstanding (from the SEC), compared with the ' +
+     'median of the other companies in the same universe.'],
     ['Sector', 10, 'Whether the signal is isolated or the peers are doing the same.'],
     ['Material events (8-K)', 10, 'What the company is legally required to disclose to the SEC within four ' +
      'days: restatements, auditor changes, officer departures, new material agreements. What counts is the ' +
      'item codes, which the SEC fixes, not the tone of an article.'],
-    ['Price context', 10, 'Distance from the six-month high and low, three-month momentum.']
+    ['Price context', 10, 'Two measures pulling in opposite directions, on purpose. Distance from the ' +
+     'six-month high adds points the further the stock has fallen (a contrarian reading); three-month ' +
+     'momentum adds points if it is rising. The six-month low is shown but carries no weight.']
   ]);
   var faq = T([
     ['Il punteggio dice di comprare?',
      'No. Dice quanto sono allineati i segnali che il sistema sa leggere, e lascia a te la lettura. ' +
      'Un punteggio alto con copertura bassa vale meno di un punteggio medio con copertura piena.'],
     ['Che cos’è la copertura?',
-     'La percentuale dei pesi effettivamente alimentata da dati. Un’azienda con solo i dati SEC sta ' +
-     'al 50%; con call e short interest arriva all’85%. Il resto manca e viene dichiarato.'],
+     'La percentuale dei pesi effettivamente alimentata da dati. Con i soli dati pubblici (SEC e prezzi) ' +
+     'un’azienda sta al 65%; con lo short interest arriva all’80%; con le trascrizioni delle call al 100%. ' +
+     'Il resto manca e viene dichiarato.'],
     ['Perché una vendita a volte non conta?',
      'Perché era già programmata. Un piano 10b5-1 si firma mesi prima: la vendita di oggi non dice ' +
      'niente su quello che il dirigente pensa oggi. Resta scritta nella tabella, con peso zero.'],
@@ -551,21 +572,34 @@ function renderGuide(){
      'Perché non tutti gli insider sono ugualmente informati. Ogni compratore porta con sé il rendimento ' +
      'a 60 giorni dei suoi acquisti passati, rispetto al settore: chi ci ha preso pesa di più.'],
     ['Da dove vengono i dati?',
-     'Form 4, azioni in circolazione: SEC EDGAR. Prezzi: Yahoo Finance, con stooq come riserva. ' +
+     'Form 4, 8-K, azioni in circolazione: SEC EDGAR. Prezzi: Yahoo Finance, con stooq come riserva. ' +
      'Short interest: FINRA, via export da terminale. Trascrizioni: export da terminale, e nel ' +
      'repository finiscono solo i fatti estratti, non il testo.'],
     ['Ogni quanto si aggiorna?',
-     'Tre volte al giorno nei giorni feriali. Short interest e trascrizioni richiedono un export ' +
-     'manuale: due volte al mese il primo, una volta a trimestre le seconde.'],
+     'Ogni ora nei giorni feriali, diciotto volte al giorno (dalle 6 alle 23 UTC). Un giro che non trova ' +
+     'niente di nuovo aggiorna solo l’ora del controllo e non riscrive nessuna scheda: per questo può ' +
+     'girare così spesso senza appesantire niente. Il registro ' +
+     'delle previsioni invece aggiunge una riga per azienda una sola volta per seduta. Short interest e ' +
+     'trascrizioni richiedono un export manuale: due volte al mese il primo, una volta a trimestre le ' +
+     'seconde.'],
+    ['Come faccio a sapere se il punteggio funziona?',
+     'Oggi non lo sai ancora, e il sito non finge il contrario. Ci sono tre prove, ognuna con il suo ' +
+     'limite. Il backtest mette alla prova due regole della voce insider, non il punteggio intero, ' +
+     'perché guidance e short interest non esistono giorno per giorno nel passato. Il registro delle ' +
+     'previsioni segna il punteggio di ogni giorno e lo misura dopo 90 giorni: è la prova vera, e il ' +
+     'primo risultato arriva a febbraio 2027. La prova dei pesi, su questa pagina, dice quanto la ' +
+     'classifica dipende dai numeri scelti a mano.'],
     ['Posso vedere il codice?',
-     'Sì, tutto. Compresa la formula del punteggio e i 67 test che la controllano.']
+     'Sì, tutto. Compresa la formula del punteggio e gli oltre cento controlli che la verificano. ' +
+     'Girano prima di ogni aggiornamento: se uno solo fallisce, il sito resta com’era.']
   ], [
     ['Does the score tell me to buy?',
      'No. It says how aligned the signals it can read are, and leaves the reading to you. A high score ' +
      'with low coverage is worth less than a middling score with full coverage.'],
     ['What is coverage?',
-     'The share of the weights actually fed by data. A company with only SEC data sits at 50%; with ' +
-     'calls and short interest it reaches 85%. The rest is missing, and said so.'],
+     'The share of the weights actually fed by data. With public data only (SEC and prices) a company ' +
+     'sits at 65%; with short interest it reaches 80%; with call transcripts, 100%. The rest is missing, ' +
+     'and said so.'],
     ['Why does a sale sometimes not count?',
      'Because it was already scheduled. A 10b5-1 plan is signed months ahead: today’s sale says ' +
      'nothing about what the executive thinks today. It stays in the table, at zero weight.'],
@@ -576,14 +610,25 @@ function renderGuide(){
      'Because not all insiders are equally informed. Each buyer carries the 60-day return of their past ' +
      'purchases against the sector: those who were right weigh more.'],
     ['Where does the data come from?',
-     'Form 4 filings and shares outstanding: SEC EDGAR. Prices: Yahoo Finance, with stooq as a fallback. ' +
-     'Short interest: FINRA, via a terminal export. Transcripts: a terminal export, and only the ' +
-     'extracted facts go into the repository, never the text.'],
+     'Form 4, 8-K filings and shares outstanding: SEC EDGAR. Prices: Yahoo Finance, with stooq as a ' +
+     'fallback. Short interest: FINRA, via a terminal export. Transcripts: a terminal export, and only ' +
+     'the extracted facts go into the repository, never the text.'],
     ['How often does it update?',
-     'Three times a day on weekdays. Short interest and transcripts need a manual export: twice a month ' +
-     'for the first, once a quarter for the second.'],
+     'Every hour on weekdays, eighteen times a day (06:00 to 23:00 UTC). A run that finds nothing new only ' +
+     'updates the time of the check and rewrites no company page, which is why it can run this often ' +
+     'without weighing anything down. The prediction register, ' +
+     'instead, adds one row per company only once per trading session. Short interest and transcripts ' +
+     'need a manual export: twice a month for the first, once a quarter for the second.'],
+    ['How do I know whether the score works?',
+     'Today you do not know yet, and the site does not pretend otherwise. There are three tests, each with ' +
+     'its limit. The backtest tests two rules inside the insider input, not the whole score, because ' +
+     'guidance and short interest do not exist day by day in the past. The prediction register records ' +
+     'the score every day and measures it after 90 days: that is the real test, and the first result ' +
+     'arrives in February 2027. The weight test, on this page, says how much the ranking depends on ' +
+     'numbers picked by hand.'],
     ['Can I see the code?',
-     'All of it. Including the scoring formula and the 67 tests that check it.']
+     'All of it. Including the scoring formula and the more than one hundred checks that verify it. They ' +
+     'run before every update: if a single one fails, the site stays as it was.']
   ]);
 
   app.innerHTML = navBar('guida') +
