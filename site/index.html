@@ -1068,10 +1068,13 @@ function historyNote(){
   return '<p class="sub" style="margin-top:-4px">' + T(
     'Lo storico dei Form 4 si sta allungando a cinque anni, un aggiornamento dopo l\u2019altro: è completo ' +
     'per ' + hs.complete + ' aziende su ' + hs.total + ' (mancano ancora ' + miss + ' documenti). ' +
-    'Finché non ha finito, i numeri di questa pagina cambiano da un giro all\u2019altro.',
+    'Finché non ha finito, i numeri di questa pagina cambiano da un giro all\u2019altro. ' +
+    'Il punteggio di oggi invece è già completo per tutte: i documenti degli ultimi quattro mesi ' +
+    'si scaricano sempre per primi.',
     'The Form 4 history is being extended to five years, one update after another: it is complete for ' +
     hs.complete + ' companies out of ' + hs.total + ' (' + miss + ' documents still to go). Until it ' +
-    'finishes, the numbers on this page change from one run to the next.') + '</p>';
+    'finishes, the numbers on this page change from one run to the next. Today\u2019s score, though, is ' +
+    'already complete for all of them: the documents of the last four months are always downloaded first.') + '</p>';
 }
 
 /* Le voci che si possono ricostruire nel passato, messe alla prova. La
@@ -1708,6 +1711,21 @@ function paneOverview(d){
 
 function paneInsider(d){
   var tx = (d.tx || []).slice(-25).reverse(), tracks = d.tracks || {};
+  // la scheda porta solo le operazioni recenti; il conto dei due anni sta in tx_n
+  var nTx = d.tx_n != null ? d.tx_n : (d.tx || []).length;
+  var h = d.history || {};
+  // un'azienda appena aggiunta ha subito le operazioni recenti, la storia arriva a rate
+  var filling = h.tx_complete === false
+    ? '<p class="sub">' + T(
+        'La storia dei Form 4 di questa azienda sta ancora arrivando' +
+          (h.tx_from ? ' (per ora parte da ' + monthYear(h.tx_from) + ')' : '') +
+          ': lo storico dei compratori si allungherà nei prossimi aggiornamenti. Le operazioni ' +
+          'degli ultimi quattro mesi, che pesano sul punteggio di oggi, ci sono già tutte.',
+        'This company\u2019s Form 4 history is still arriving' +
+          (h.tx_from ? ' (for now it starts in ' + monthYear(h.tx_from) + ')' : '') +
+          ': the buyers\u2019 track record will grow over the next updates. The transactions of the last ' +
+          'four months, which weigh on today\u2019s score, are all here already.') + '</p>'
+    : '';
   return (Object.keys(tracks).length
     ? '<div class="card"><h2>' + T('Storico dei compratori', 'Buyers’ track record') + '</h2>' +
       '<p class="sub">' + T('Rendimento a 60 giorni dopo i loro acquisti passati, rispetto al settore. ' +
@@ -1728,12 +1746,12 @@ function paneInsider(d){
     : '') +
   '<div class="card"><h2>' + T('Operazioni degli insider', 'Insider transactions') + '</h2>' +
     '<p class="sub">' +
-    T('Ultime ' + tx.length + ' delle ' + (d.tx || []).length + ' operazioni degli ultimi due anni ' +
+    T('Ultime ' + tx.length + ' delle ' + nTx + ' operazioni degli ultimi due anni ' +
         '(i calcoli usano tutta la storia disponibile, fino a cinque anni). ' +
         'La colonna di destra dice perché un’operazione pesa o no.',
-      'The last ' + tx.length + ' of the ' + (d.tx || []).length + ' transactions of the last two years ' +
+      'The last ' + tx.length + ' of the ' + nTx + ' transactions of the last two years ' +
         '(the calculations use all the history available, up to five years). ' +
-        'The right-hand column says why a transaction counts or not.') + '</p>' +
+        'The right-hand column says why a transaction counts or not.') + '</p>' + filling +
     (tx.length ? '<div class="scroll"><table><thead><tr><th>' + T('Data', 'Date') + '</th>' +
       '<th>' + T('Insider', 'Insider') + '</th><th class="num">' + T('Valore', 'Value') + '</th>' +
       '<th>' + T('Lettura', 'Reading') + '</th></tr></thead><tbody>' +
