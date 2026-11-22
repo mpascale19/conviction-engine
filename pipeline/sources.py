@@ -1,6 +1,6 @@
 """Fonti pubbliche e gratuite.
 
-Prezzi : stooq.com, CSV, nessuna chiave.
+Prezzi : Yahoo Finance (due host), con stooq.com come riserva; nessuna chiave.
 Insider: SEC EDGAR, submissions JSON + XML del Form 4.
 
 La SEC chiede uno User-Agent con un contatto vero: imposta la variabile

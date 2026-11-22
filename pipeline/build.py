@@ -131,8 +131,8 @@ def build_one(cfg, raw, extracted=None):
     for k, note in [
         ("guid", L("Serve l'export delle trascrizioni delle call.",
                    "Needs the export of the earnings-call transcripts.")),
-        ("market", L("Servono revisioni delle stime e short interest (Bloomberg).",
-                     "Needs estimate revisions and short interest (Bloomberg).")),
+        ("market", L("Serve l'export dello short interest dal terminale (dati FINRA).",
+                     "Needs the short-interest export from the terminal (FINRA data).")),
         ("sector", L("In attesa del confronto con il resto dell'universo.",
                      "Waiting for the comparison with the rest of the universe.")),
         ("events", L("I depositi SEC non sono stati raggiunti.",

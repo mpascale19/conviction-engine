@@ -257,6 +257,11 @@ def market_score(rows, today=None, shares=None):
     contro la storia del titolo stesso. Così due aziende di dimensioni diverse
     restano confrontabili, e un numero grande non conta per il fatto di essere
     grande. Short interest che scende = ribassisti che escono = punto a favore.
+
+    Attenzione: questo è solo metà della voce. Il confronto con le altre
+    aziende lo aggiunge dopo `market_peers()`, chiamata da build.py, usando le
+    azioni in circolazione prese dalla SEC. Chi legge solo questa funzione
+    conclude che il settore non c'entra, e sbaglia.
     """
     if len(rows) < 8:
         return None, [L("Storico dello short interest troppo corto.",
