@@ -892,6 +892,35 @@ check("con la serie lunga le date arrivano indietro",
 check("un titolo con meno storia non accorcia gli altri",
       [x for x in _rl["rows"] if x["id"] == "price"][0]["dates"] >= 100, _rl["rows"][0])
 
+
+# --------------------------------- i CIK precedenti (ExxonMobil in Texas)
+_new = {"filings": {"recent": {"form": ["8-K", "4"], "accessionNumber": ["N-1", "N-2"],
+                               "filingDate": ["2026-09-01", "2026-08-01"],
+                               "primaryDocument": ["n.htm", "n.xml"], "items": ["7.01", ""]}}}
+_old = {"filings": {"recent": {"form": ["4", "8-K"], "accessionNumber": ["O-1", "O-2"],
+                               "filingDate": ["2025-03-01", "2024-02-01"],
+                               "primaryDocument": ["o.xml", "o.htm"], "items": ["", "5.02"]}}}
+try:
+    sources._SUBS, sources._TAB = {"0002115436": _new, "0000034088": _old}, {}
+    sources.PREDECESSORS = {"0002115436": ["0000034088"]}
+    _cols, _cov = sources.filings_table("2115436", "2024-01-01")
+    check("i depositi del CIK precedente si uniscono a quelli nuovi",
+          _cols["accessionNumber"] == ["N-1", "N-2", "O-1", "O-2"], _cols["accessionNumber"])
+    check("e l'elenco è completo da quando lo è quello vecchio", _cov == "2024-02-01", _cov)
+    _again, _ = sources.filings_table("2115436", "2024-01-01")
+    check("una seconda chiamata non li unisce due volte", len(_again["accessionNumber"]) == 4, _again["accessionNumber"])
+    _f4 = sources.form4_filings("2115436", 60)
+    check("un Form 4 vecchio si prende dalla cartella del CIK vecchio",
+          [f["url"].split("/data/")[1].split("/")[0] for f in _f4] == ["2115436", "34088"], [f["url"] for f in _f4])
+    check("gli 8-K arrivano da entrambi",
+          [e["date"] for e in sources.recent_8k("2115436", "2024-01-01")] == ["2024-02-01", "2026-09-01"])
+    check("un Form 4 con l'emittente vecchio viene accettato",
+          len(parse_form4(_X.format(ic="0000034088"), issuer_cik=["0002115436", "0000034088"])) == 1)
+    check("uno di un altro emittente no",
+          parse_form4(_X.format(ic="0000000099"), issuer_cik=["0002115436", "0000034088"]) is None)
+finally:
+    sources._SUBS, sources._TAB, sources.PREDECESSORS = {}, {}, {}
+
 # il riepilogo deve contare ogni fallimento: l'elenco non va mai sostituito
 check("l'elenco dei fallimenti è ancora quello di partenza", bad is _BAD0)
 print(f"\n{ok} controlli passati, {len(bad)} falliti")
