@@ -14,13 +14,14 @@ import json
 import os
 from datetime import date, datetime, timedelta, timezone
 
-from . import bonus, history, market, rules, score, stress
+from . import bonus, history, market, predict, rules, score, stress
 from .rules import L
 from .extract import extract_all
 
 CACHE = "cache"
 OUTDIR = "site"
 EVENT_DAYS = 180        # finestra dei fatti rilevanti 8-K: due trimestri
+EVENT_HIST_DAYS = 760   # quanto storico di 8-K tenere per la prova all'indietro
 
 
 def load_config(path="config.json"):
@@ -74,15 +75,25 @@ def gather(cfg, ticker, bench, offline=False):
         failed.append("tx")
         print(f"  ! Form 4: {e}")
 
-    events = None
+    events = events_hist = events_from = None
     if cik:                               # azioni in circolazione: dalla copertina dei 10-Q/10-K
         shares, sh_date = sources.shares_outstanding(cik)
         if shares:
             print(f"  azioni in circolazione: {shares/1e6:.0f} milioni (al {sh_date})")
         try:                              # fatti rilevanti: stesso JSON, nessuna richiesta in più
             since = (date.today() - timedelta(days=EVENT_DAYS)).isoformat()
-            events = sources.recent_8k(cik, since)
-            print(f"  8-K negli ultimi {EVENT_DAYS} giorni: {len(events)}")
+            # due anni, per poter rifare la prova all'indietro (pipeline/predict.py);
+            # il punteggio di oggi usa solo gli ultimi EVENT_DAYS giorni
+            since_hist = (date.today() - timedelta(days=EVENT_HIST_DAYS)).isoformat()
+            events_hist = sources.recent_8k(cik, since_hist)
+            events = [e for e in events_hist if e["date"] >= since]
+            # Il file dei depositi tiene gli ultimi mille moduli di ogni tipo: per
+            # un'azienda con molti Form 4 può coprire meno di due anni. Prima di
+            # questa data "nessun 8-K" non vuol dire niente.
+            dates = (sources.submissions(cik).get("filings") or {}).get("recent", {}).get("filingDate") or []
+            events_from = min(dates) if dates else None
+            print(f"  8-K negli ultimi {EVENT_DAYS} giorni: {len(events)} "
+                  f"(storico dal {events_from}: {len(events_hist)})")
         except Exception as e:
             errors.append(f"8-K di {ticker}: {e}")
             print(f"  ! 8-K: {e}")
@@ -90,6 +101,7 @@ def gather(cfg, ticker, bench, offline=False):
     raw = {"ticker": ticker, "name": name, "cik": cik, "prices": px, "bench": bench,
            "tx": tx, "errors": errors, "failed": failed, "price_source": src,
            "shares": shares, "shares_date": sh_date, "events": events,
+           "events_hist": events_hist, "events_from": events_from,
            "fetched_at": datetime.now(timezone.utc).isoformat(timespec="seconds")}
     os.makedirs(CACHE, exist_ok=True)
     with open(raw_path, "w", encoding="utf-8") as f:
@@ -216,6 +228,11 @@ def build_one(cfg, raw, extracted=None):
                                      "guidance", "qa", "language_changes") if k in e}
                   for e in (extracted or [])],
         "si_series": [[r["date"], round(r["si"]), r["dtc"]] for r in si[-48:]],
+        # gli 8-K di due anni, per la prova all'indietro; e da quando il file
+        # della SEC li copre davvero
+        "events_hist": ([[e["date"], e["items"]] for e in raw["events_hist"]]
+                        if raw.get("events_hist") is not None else None),
+        "events_from": raw.get("events_from"),
         "si_pct": si_pct,
         "shares": raw.get("shares"),
         "tx": tx,
@@ -445,6 +462,14 @@ def write_all(results, cfg, outdir=OUTDIR, forward=None):
         st = None
     per = (st or {}).get("per") or {}
 
+    # Le voci che si possono ricostruire nel passato, messe alla prova: vedi
+    # pipeline/predict.py. Un errore qui non deve fermare il resto del giro.
+    try:
+        ic = predict.run(results, cfg)
+    except Exception as e:
+        print(f"! prova all'indietro delle voci: {e}")
+        ic = None
+
     rows, touched = [], 0
     for d in results:
         t = d["company"]["ticker"]
@@ -481,6 +506,7 @@ def write_all(results, cfg, outdir=OUTDIR, forward=None):
         # l'insieme va nell'indice, le fasce delle singole aziende stanno
         # già nelle schede: nell'indice sarebbero quaranta righe in più
         "stress": {k: v for k, v in (st or {}).items() if k != "per"} or None,
+        "ic": ic,
         "companies": rows,
         "errors": sorted({e for d in results for e in d["errors"]}),
     }
