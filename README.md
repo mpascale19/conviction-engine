@@ -15,7 +15,7 @@ legge le trascrizioni e ne tira fuori campi strutturati; il punteggio lo calcola
 | Prezzi e volumi | Yahoo Finance, con stooq.com come riserva | sì, senza chiave |
 | Operazioni degli insider (Form 4) | SEC EDGAR | sì, senza chiave |
 | Rendimento del settore | Yahoo / stooq (ETF di settore) | sì |
-| Tono e guidance dalle call | il tuo export + LLM | sì, se metti i testi in `input/transcripts/` **e** nei segreti del repository c'è `ANTHROPIC_API_KEY`; finora le 24 estrazioni sono state fatte a mano, con lo stesso schema |
+| Tono e guidance dalle call | Alpha Vantage (chiave gratuita) + estrazione in una conversazione con Claude, oppure un LLM via API | sì, se metti i testi in `input/transcripts/` **e** nei segreti del repository c'è `ANTHROPIC_API_KEY`; finora le 24 estrazioni sono state fatte a mano, con lo stesso schema |
 | Short interest | FINRA, file pubblici (riserva: export Bloomberg) | sì, senza chiave |
 | Concorrenti | SEC EDGAR | sì, quando aggiungi i loro ticker |
 | Fatti rilevanti (8-K) | SEC EDGAR | sì, senza chiave e senza richieste in più |
@@ -42,7 +42,7 @@ aggiornato. Parte da solo anche quando carichi file in `pipeline/`, `input/`,
 | Azioni in circolazione | da solo, SEC | a ogni giro |
 | Fatti rilevanti 8-K | da solo, SEC EDGAR | a ogni giro |
 | Short interest | da solo, FINRA | due volte al mese, quando FINRA pubblica |
-| Trascrizioni delle call | export manuale | una volta a trimestre |
+| Trascrizioni delle call | da sole, Alpha Vantage (25 al giorno); i fatti a mano | dopo ogni stagione degli utili |
 
 Lo short interest lo pubblica FINRA due volte al mese, con la data di
 regolamento del 15 e quella di fine mese, circa sette giorni di Borsa dopo. La
@@ -102,8 +102,44 @@ riga `CIK` deve avere accanto il nome giusto dell'azienda.
 
 ## Le trascrizioni delle call
 
-Il testo delle earnings call arriva dall'export di Bloomberg ed è materiale
-sotto licenza: **non va nel repository pubblico**. Per questo la pipeline legge
+### Da dove arrivano: Alpha Vantage, senza Bloomberg
+
+Dal 22 novembre 2026 le trascrizioni non servono più da Bloomberg. Un workflow
+a sé, **Scarica trascrizioni** (`.github/workflows/trascrizioni.yml`, codice in
+`pipeline/trascrizioni.py`), le chiede ad Alpha Vantage una volta al giorno, o
+quando lo si preme a mano. La chiave gratuita dà 25 richieste al giorno, e il
+workflow le usa nell'ordine in cui servono di più:
+
+1. prima le aziende con un cluster di acquisti, poi quelle con più compratori
+   negli ultimi 90 giorni, poi le altre per punteggio;
+2. per ogni azienda prima l'ultima call, poi la penultima: tutte hanno la più
+   recente prima che qualcuna abbia la seconda.
+
+Le date delle call sono quelle degli 8-K con item 2.02 (i risultati), che le
+schede hanno già. Alpha Vantage vuole il trimestre **fiscale**: la call di
+Nvidia di novembre 2026 è il `2027Q3`, perché il suo anno fiscale finisce a
+gennaio. Il mese di chiusura lo dà la SEC (`fiscalYearEnd`). Se con il
+trimestre fiscale non arriva niente si prova quello di calendario, e una call
+che resta vuota per due giorni non si chiede più.
+
+Ogni call diventa un file Word, `TICKER_TRIMESTRE.docx`, in un pacchetto che si
+scarica dalla pagina del giro (sezione *Artifacts*) e resta lì tre giorni, con
+un `riepilogo.txt` di che cosa è arrivato e che cosa no. **Non entra nel
+repository né sul sito**: sono testi protetti, e il repository è pubblico.
+
+Il passo dopo è a mano, e per questo è gratis: i file Word si danno a Claude in
+una conversazione, Claude ne estrae i fatti con lo schema qui sotto, e il JSON
+che ne esce si carica in `input/extracted/`. Le 24 estrazioni di prima sono
+state fatte nello stesso modo. Chi ha una chiave API di un modello può invece
+mettere i testi in `input/transcripts/` e lasciare che lo faccia `extract.py`.
+
+Per farlo funzionare serve un segreto del repository, `ALPHAVANTAGE_KEY`: la
+chiave gratuita si chiede su alphavantage.co con un indirizzo email.
+
+### Il testo e i fatti
+
+Il testo delle earnings call è materiale sotto licenza: **non va nel
+repository pubblico**. Per questo la pipeline legge
 due cartelle diverse.
 
 ```
