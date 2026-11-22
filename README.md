@@ -630,6 +630,17 @@ letti restano in cache. Ogni scheda dice se il suo storico è completo
 Backtest avvisa finché il riempimento non ha finito: nel frattempo i numeri
 del backtest cambiano da un giro all'altro, ed è normale.
 
+**I CIK precedenti.** Controllando il riempimento è venuto fuori che XOM non
+aveva **nessuna** operazione di insider, fin dal primo giorno del progetto.
+ExxonMobil si è trasferita in Texas con effetto dal 1° luglio 2026 e da allora
+deposita con un CIK nuovo (0002115436); tutta la sua storia, Form 4 e 8-K, sta
+sotto quello vecchio (0000034088). La voce insider di XOM era quindi sempre
+vuota, e il backtest non vedeva Exxon. Ora `config.json` ha `cik_predecessors`
+(`{"XOM": ["0000034088"]}`): la pipeline unisce i depositi dei CIK precedenti a
+quelli nuovi, prende ogni documento dalla cartella del CIK che l'ha depositato,
+e accetta come emittente uno qualunque dei CIK dell'azienda. Se un'altra azienda
+dell'universo cambia sede o capogruppo, basta aggiungerla lì.
+
 **Le schede non ingrassano.** La serie lunga dei prezzi (`_px_long`) resta in
 memoria durante il giro e non viene scritta; nella scheda la tabella delle
 operazioni mostra gli ultimi due anni (`card_view`). Senza questo, le schede più

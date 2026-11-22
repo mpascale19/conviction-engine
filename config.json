@@ -59,6 +59,9 @@
   "NVDA": "0001045810",
   "ADI": "0000006281"
  },
+ "cik_predecessors": {
+  "XOM": ["0000034088"]
+ },
  "months_of_history": 60,
  "max_filings_per_ticker": 2000,
  "max_new_filings_per_run": 2000,
