@@ -1,6 +1,6 @@
 {
- "generated_at": "2026-11-22T18:48:23+00:00",
- "changed_at": "2026-11-22T18:48:23+00:00",
+ "generated_at": "2026-11-22T19:12:19+00:00",
+ "changed_at": "2026-11-22T19:12:19+00:00",
  "groups": [
   {
    "nome": {
@@ -117,32 +117,32 @@
    {
     "lo": -10,
     "hi": -5,
-    "n": 28
+    "n": 33
    },
    {
     "lo": -5,
     "hi": 0,
-    "n": 38
+    "n": 48
    },
    {
     "lo": 0,
     "hi": 5,
-    "n": 36
+    "n": 43
    },
    {
     "lo": 5,
     "hi": 10,
-    "n": 34
+    "n": 39
    },
    {
     "lo": 10,
     "hi": 15,
-    "n": 12
+    "n": 15
    },
    {
     "lo": 15,
     "hi": 20,
-    "n": 13
+    "n": 14
    },
    {
     "lo": 20,
@@ -157,101 +157,101 @@
    {
     "lo": 30,
     "hi": null,
-    "n": 9
+    "n": 10
    }
   ],
   "all": {
-   "camp": 207,
-   "ep": 349,
-   "n": 524,
-   "pos": 108,
-   "avg": 1.22,
+   "camp": 239,
+   "ep": 416,
+   "n": 639,
+   "pos": 125,
+   "avg": 1.43,
    "med": 0.63
   },
   "by_purchase": {
-   "n": 524,
-   "ep": 349,
-   "pos": 277,
-   "avg": 1.79,
-   "med": 0.98
+   "n": 639,
+   "ep": 416,
+   "pos": 330,
+   "avg": 1.86,
+   "med": 0.63
   },
   "cluster": {
-   "camp": 12,
-   "ep": 41,
-   "n": 68,
-   "pos": 4,
-   "avg": -2.61,
-   "med": -2.29
+   "camp": 17,
+   "ep": 65,
+   "n": 101,
+   "pos": 6,
+   "avg": -0.08,
+   "med": -1.29
   },
   "solo": {
-   "camp": 195,
-   "ep": 308,
-   "n": 456,
-   "pos": 104,
-   "avg": 1.45,
+   "camp": 222,
+   "ep": 351,
+   "n": 538,
+   "pos": 119,
+   "avg": 1.54,
    "med": 1.02
   },
   "senior": {
-   "camp": 48,
-   "ep": 96,
-   "n": 170,
-   "pos": 18,
-   "avg": -0.98,
-   "med": -4.64
+   "camp": 59,
+   "ep": 123,
+   "n": 236,
+   "pos": 24,
+   "avg": -0.2,
+   "med": -3.28
   },
   "other": {
-   "camp": 159,
-   "ep": 253,
-   "n": 354,
-   "pos": 90,
-   "avg": 1.88,
-   "med": 1.45
+   "camp": 180,
+   "ep": 293,
+   "n": 403,
+   "pos": 101,
+   "avg": 1.96,
+   "med": 1.44
   },
   "bonus": {
    "tau": 5.0,
-   "camp": 207,
+   "camp": 239,
    "cap": 50.0,
    "days": 90,
-   "base": 1.59,
+   "base": 1.74,
    "features": [
     {
      "id": "cluster",
-     "n": 12,
+     "n": 17,
      "hand": 18,
-     "raw": -2.12,
-     "se": 4.83,
-     "shrink": 0.517,
-     "post": -1.1,
-     "points": -1,
+     "raw": -0.24,
+     "se": 3.85,
+     "shrink": 0.628,
+     "post": -0.15,
+     "points": 0,
      "by_tau": {
-      "3": -1,
-      "5": -1,
-      "10": -2
+      "3": 0,
+      "5": 0,
+      "10": 0
      }
     },
     {
      "id": "two",
-     "n": 26,
+     "n": 30,
      "hand": 8,
-     "raw": -1.77,
-     "se": 3.21,
-     "shrink": 0.708,
-     "post": -1.25,
-     "points": -1,
+     "raw": -2.01,
+     "se": 2.85,
+     "shrink": 0.755,
+     "post": -1.52,
+     "points": -2,
      "by_tau": {
       "3": -1,
-      "5": -1,
+      "5": -2,
       "10": -2
      }
     },
     {
      "id": "senior",
-     "n": 48,
+     "n": 59,
      "hand": 10,
-     "raw": -2.27,
-     "se": 2.74,
-     "shrink": 0.769,
-     "post": -1.75,
+     "raw": -1.92,
+     "se": 2.34,
+     "shrink": 0.82,
+     "post": -1.57,
      "points": -2,
      "by_tau": {
       "3": -1,
@@ -299,8 +299,8 @@
    {
     "id": "insider",
     "n": 200,
-    "rho": 0.751,
-    "shift": 4.6
+    "rho": 0.75,
+    "shift": 4.7
    },
    {
     "id": "market",
@@ -311,14 +311,14 @@
    {
     "id": "sector",
     "n": 200,
-    "rho": 0.911,
+    "rho": 0.905,
     "shift": 1.3
    },
    {
     "id": "events",
     "n": 200,
-    "rho": 0.978,
-    "shift": 1.0
+    "rho": 0.977,
+    "shift": 1.1
    },
    {
     "id": "price",
@@ -329,8 +329,8 @@
   ],
   "rho": {
    "med": 0.984,
-   "p5": 0.959,
-   "min": 0.917
+   "p5": 0.958,
+   "min": 0.916
   },
   "top_overlap": {
    "med": 8,
@@ -355,11 +355,11 @@
    },
    {
     "id": "sector",
-    "ic": 0.003,
-    "se": 0.013,
-    "t": -0.31,
+    "ic": 0.001,
+    "se": 0.012,
+    "t": -0.51,
     "blocks": 19,
-    "dates": 916
+    "dates": 1089
    },
    {
     "id": "market",
@@ -380,10 +380,10 @@
   ]
  },
  "history": {
-  "complete": 77,
+  "complete": 86,
   "total": 200,
   "tx_from": "2021-10-18",
-  "missing": 42352
+  "missing": 38352
  },
  "companies": [
   {
@@ -746,72 +746,6 @@
    "buyers": 1,
    "sellers": 0,
    "net_musd": 2.225,
-   "cluster": false,
-   "errors": 0
-  },
-  {
-   "ticker": "HBAN",
-   "name": "HUNTINGTON BANCSHARES INC /MD/",
-   "group": {
-    "it": "Banche regionali",
-    "en": "Regional banks"
-   },
-   "score": 54,
-   "verdict": {
-    "it": "Nessuna convinzione chiara",
-    "en": "No clear conviction"
-   },
-   "confidence": "Media",
-   "covered_pct": 65,
-   "driver": {
-    "name": {
-     "it": "Settore",
-     "en": "Sector"
-    },
-    "up": true
-   },
-   "last": {
-    "d": "2026-11-20",
-    "c": 14.28,
-    "v": 25006100
-   },
-   "tx": 63,
-   "buyers": 2,
-   "sellers": 1,
-   "net_musd": 0.406,
-   "cluster": false,
-   "errors": 0
-  },
-  {
-   "ticker": "UMBF",
-   "name": "UMB FINANCIAL CORP",
-   "group": {
-    "it": "Banche regionali",
-    "en": "Regional banks"
-   },
-   "score": 54,
-   "verdict": {
-    "it": "Nessuna convinzione chiara",
-    "en": "No clear conviction"
-   },
-   "confidence": "Media",
-   "covered_pct": 65,
-   "driver": {
-    "name": {
-     "it": "Settore",
-     "en": "Sector"
-    },
-    "up": true
-   },
-   "last": {
-    "d": "2026-11-20",
-    "c": 126.5,
-    "v": 690400
-   },
-   "tx": 29,
-   "buyers": 2,
-   "sellers": 1,
-   "net_musd": 0.153,
    "cluster": false,
    "errors": 0
   },
@@ -1237,10 +1171,43 @@
     "c": 79.68,
     "v": 4595700
    },
-   "tx": 310,
+   "tx": 346,
    "buyers": 1,
    "sellers": 0,
    "net_musd": 0.01,
+   "cluster": false,
+   "errors": 0
+  },
+  {
+   "ticker": "HBAN",
+   "name": "HUNTINGTON BANCSHARES INC /MD/",
+   "group": {
+    "it": "Banche regionali",
+    "en": "Regional banks"
+   },
+   "score": 53,
+   "verdict": {
+    "it": "Nessuna convinzione chiara",
+    "en": "No clear conviction"
+   },
+   "confidence": "Media",
+   "covered_pct": 65,
+   "driver": {
+    "name": {
+     "it": "Settore",
+     "en": "Sector"
+    },
+    "up": true
+   },
+   "last": {
+    "d": "2026-11-20",
+    "c": 14.28,
+    "v": 25006100
+   },
+   "tx": 1260,
+   "buyers": 2,
+   "sellers": 1,
+   "net_musd": 0.406,
    "cluster": false,
    "errors": 0
   },
@@ -1274,6 +1241,39 @@
    "buyers": 0,
    "sellers": 0,
    "net_musd": 0.0,
+   "cluster": false,
+   "errors": 0
+  },
+  {
+   "ticker": "UMBF",
+   "name": "UMB FINANCIAL CORP",
+   "group": {
+    "it": "Banche regionali",
+    "en": "Regional banks"
+   },
+   "score": 53,
+   "verdict": {
+    "it": "Nessuna convinzione chiara",
+    "en": "No clear conviction"
+   },
+   "confidence": "Media",
+   "covered_pct": 65,
+   "driver": {
+    "name": {
+     "it": "Settore",
+     "en": "Sector"
+    },
+    "up": true
+   },
+   "last": {
+    "d": "2026-11-20",
+    "c": 126.5,
+    "v": 690400
+   },
+   "tx": 29,
+   "buyers": 2,
+   "sellers": 1,
+   "net_musd": 0.153,
    "cluster": false,
    "errors": 0
   },
@@ -2425,7 +2425,7 @@
     "c": 58.71,
     "v": 4456800
    },
-   "tx": 29,
+   "tx": 526,
    "buyers": 0,
    "sellers": 0,
    "net_musd": 0.0,
@@ -2458,7 +2458,7 @@
     "c": 208.3,
     "v": 1184800
    },
-   "tx": 10,
+   "tx": 765,
    "buyers": 0,
    "sellers": 0,
    "net_musd": 0.0,
@@ -3514,7 +3514,7 @@
     "c": 19.45,
     "v": 21373700
    },
-   "tx": 7,
+   "tx": 419,
    "buyers": 0,
    "sellers": 1,
    "net_musd": -0.83,
@@ -3547,7 +3547,7 @@
     "c": 61.0,
     "v": 1781600
    },
-   "tx": 24,
+   "tx": 582,
    "buyers": 0,
    "sellers": 1,
    "net_musd": -0.181,
@@ -4471,7 +4471,7 @@
     "c": 26.6,
     "v": 16237400
    },
-   "tx": 2,
+   "tx": 258,
    "buyers": 0,
    "sellers": 2,
    "net_musd": -0.0,
@@ -5791,7 +5791,7 @@
     "c": 49.39,
     "v": 7043300
    },
-   "tx": 35,
+   "tx": 741,
    "buyers": 0,
    "sellers": 3,
    "net_musd": -1.534,
@@ -6319,7 +6319,7 @@
     "c": 95.67,
     "v": 4308900
    },
-   "tx": 30,
+   "tx": 634,
    "buyers": 0,
    "sellers": 2,
    "net_musd": -19.951,
@@ -6847,7 +6847,7 @@
     "c": 141.24,
     "v": 5659200
    },
-   "tx": 20,
+   "tx": 424,
    "buyers": 0,
    "sellers": 1,
    "net_musd": -7.391,
