@@ -1,6 +1,6 @@
 {
- "generated_at": "2026-11-22T16:04:06+00:00",
- "changed_at": "2026-11-22T16:04:06+00:00",
+ "generated_at": "2026-11-22T16:38:11+00:00",
+ "changed_at": "2026-11-22T16:38:11+00:00",
  "groups": [
   {
    "nome": {
@@ -92,12 +92,12 @@
    {
     "lo": null,
     "hi": -30,
-    "n": 3
+    "n": 4
    },
    {
     "lo": -30,
     "hi": -25,
-    "n": 3
+    "n": 4
    },
    {
     "lo": -25,
@@ -107,12 +107,12 @@
    {
     "lo": -20,
     "hi": -15,
-    "n": 5
+    "n": 6
    },
    {
     "lo": -15,
     "hi": -10,
-    "n": 9
+    "n": 11
    },
    {
     "lo": -10,
@@ -122,17 +122,17 @@
    {
     "lo": -5,
     "hi": 0,
-    "n": 18
+    "n": 22
    },
    {
     "lo": 0,
     "hi": 5,
-    "n": 21
+    "n": 22
    },
    {
     "lo": 5,
     "hi": 10,
-    "n": 19
+    "n": 21
    },
    {
     "lo": 10,
@@ -157,70 +157,70 @@
    {
     "lo": 30,
     "hi": null,
-    "n": 8
+    "n": 9
    }
   ],
   "all": {
-   "camp": 126,
-   "ep": 200,
-   "n": 287,
-   "pos": 69,
-   "avg": 2.05,
-   "med": 1.65
+   "camp": 139,
+   "ep": 224,
+   "n": 345,
+   "pos": 73,
+   "avg": 1.41,
+   "med": 1.15
   },
   "by_purchase": {
-   "n": 287,
-   "ep": 200,
-   "pos": 162,
-   "avg": 2.52,
-   "med": 2.29
+   "n": 345,
+   "ep": 224,
+   "pos": 187,
+   "avg": 1.99,
+   "med": 1.44
   },
   "cluster": {
-   "camp": 9,
-   "ep": 27,
-   "n": 44,
+   "camp": 10,
+   "ep": 29,
+   "n": 47,
    "pos": 3,
-   "avg": -3.96,
-   "med": -3.28
+   "avg": -3.64,
+   "med": -2.29
   },
   "solo": {
-   "camp": 117,
-   "ep": 173,
-   "n": 243,
-   "pos": 66,
-   "avg": 2.51,
-   "med": 1.76
+   "camp": 129,
+   "ep": 195,
+   "n": 298,
+   "pos": 70,
+   "avg": 1.8,
+   "med": 1.45
   },
   "senior": {
-   "camp": 31,
-   "ep": 63,
-   "n": 120,
+   "camp": 33,
+   "ep": 67,
+   "n": 127,
    "pos": 12,
-   "avg": -1.33,
-   "med": -6.57
+   "avg": -1.42,
+   "med": -5.44
   },
   "other": {
-   "camp": 95,
-   "ep": 137,
-   "n": 167,
-   "pos": 57,
-   "avg": 3.15,
-   "med": 2.29
+   "camp": 106,
+   "ep": 157,
+   "n": 218,
+   "pos": 61,
+   "avg": 2.29,
+   "med": 1.71
   },
   "bonus": {
    "tau": 5.0,
-   "camp": 126,
+   "camp": 139,
    "cap": 50.0,
    "days": 90,
-   "base": 2.67,
+   "base": 1.94,
    "features": [
     {
      "id": "cluster",
-     "n": 9,
+     "n": 10,
      "hand": 18,
-     "raw": -3.07,
-     "se": 6.79,
-     "shrink": 0.352,
+     "raw": -2.93,
+     "se": 6.54,
+     "shrink": 0.369,
      "post": -1.08,
      "points": -1,
      "by_tau": {
@@ -231,12 +231,12 @@
     },
     {
      "id": "two",
-     "n": 12,
+     "n": 14,
      "hand": 8,
-     "raw": -3.57,
-     "se": 5.25,
-     "shrink": 0.475,
-     "post": -1.7,
+     "raw": -4.33,
+     "se": 4.92,
+     "shrink": 0.508,
+     "post": -2.2,
      "points": -2,
      "by_tau": {
       "3": -1,
@@ -246,17 +246,17 @@
     },
     {
      "id": "senior",
-     "n": 31,
+     "n": 33,
      "hand": 10,
-     "raw": -3.56,
-     "se": 4.08,
-     "shrink": 0.601,
-     "post": -2.14,
+     "raw": -2.66,
+     "se": 4.0,
+     "shrink": 0.61,
+     "post": -1.62,
      "points": -2,
      "by_tau": {
       "3": -1,
       "5": -2,
-      "10": -3
+      "10": -2
      }
     }
    ]
@@ -287,7 +287,7 @@
   "equal": {
    "rho": 0.956,
    "shift": 2.4,
-   "top": 8
+   "top": 7
   },
   "drop": [
    {
@@ -311,14 +311,14 @@
    {
     "id": "sector",
     "n": 200,
-    "rho": 0.907,
+    "rho": 0.905,
     "shift": 1.3
    },
    {
     "id": "events",
     "n": 200,
     "rho": 0.977,
-    "shift": 1.1
+    "shift": 1.0
    },
    {
     "id": "price",
@@ -329,8 +329,8 @@
   ],
   "rho": {
    "med": 0.984,
-   "p5": 0.959,
-   "min": 0.918
+   "p5": 0.958,
+   "min": 0.916
   },
   "top_overlap": {
    "med": 8,
@@ -355,11 +355,11 @@
    },
    {
     "id": "sector",
-    "ic": 0.002,
-    "se": 0.02,
-    "t": -0.15,
+    "ic": -0.008,
+    "se": 0.017,
+    "t": -0.73,
     "blocks": 19,
-    "dates": 701
+    "dates": 705
    },
    {
     "id": "market",
@@ -380,10 +380,10 @@
   ]
  },
  "history": {
-  "complete": 51,
+  "complete": 59,
   "total": 200,
   "tx_from": "2021-10-18",
-  "missing": 54353
+  "missing": 50352
  },
  "companies": [
   {
@@ -449,39 +449,6 @@
    "buyers": 1,
    "sellers": 1,
    "net_musd": 3.085,
-   "cluster": false,
-   "errors": 0
-  },
-  {
-   "ticker": "HUBS",
-   "name": "HUBSPOT INC",
-   "group": {
-    "it": "Software",
-    "en": "Software"
-   },
-   "score": 58,
-   "verdict": {
-    "it": "Leggermente rialzista",
-    "en": "Mildly bullish"
-   },
-   "confidence": "Media",
-   "covered_pct": 65,
-   "driver": {
-    "name": {
-     "it": "Insider",
-     "en": "Insiders"
-    },
-    "up": true
-   },
-   "last": {
-    "d": "2026-11-20",
-    "c": 193.88,
-    "v": 1483100
-   },
-   "tx": 19,
-   "buyers": 1,
-   "sellers": 0,
-   "net_musd": 4.998,
    "cluster": false,
    "errors": 0
   },
@@ -676,10 +643,43 @@
     "c": 134.65,
     "v": 3807900
    },
-   "tx": 121,
+   "tx": 12006,
    "buyers": 1,
    "sellers": 3,
    "net_musd": 10.696,
+   "cluster": false,
+   "errors": 0
+  },
+  {
+   "ticker": "HUBS",
+   "name": "HUBSPOT INC",
+   "group": {
+    "it": "Software",
+    "en": "Software"
+   },
+   "score": 55,
+   "verdict": {
+    "it": "Leggermente rialzista",
+    "en": "Mildly bullish"
+   },
+   "confidence": "Media",
+   "covered_pct": 65,
+   "driver": {
+    "name": {
+     "it": "Settore",
+     "en": "Sector"
+    },
+    "up": true
+   },
+   "last": {
+    "d": "2026-11-20",
+    "c": 193.88,
+    "v": 1483100
+   },
+   "tx": 768,
+   "buyers": 1,
+   "sellers": 0,
+   "net_musd": 4.998,
    "cluster": false,
    "errors": 0
   },
@@ -1138,7 +1138,7 @@
     "c": 195.1,
     "v": 2448400
    },
-   "tx": 19,
+   "tx": 806,
    "buyers": 0,
    "sellers": 0,
    "net_musd": 0.0,
@@ -1633,7 +1633,7 @@
     "c": 143.49,
     "v": 36556700
    },
-   "tx": 73,
+   "tx": 1496,
    "buyers": 0,
    "sellers": 0,
    "net_musd": 0.0,
@@ -2194,7 +2194,7 @@
     "c": 285.9,
     "v": 1627300
    },
-   "tx": 48,
+   "tx": 497,
    "buyers": 0,
    "sellers": 0,
    "net_musd": 0.0,
@@ -5725,7 +5725,7 @@
     "c": 194.82,
     "v": 3643300
    },
-   "tx": 52,
+   "tx": 569,
    "buyers": 0,
    "sellers": 5,
    "net_musd": -4.013,
@@ -5923,7 +5923,7 @@
     "c": 404.44,
     "v": 545300
    },
-   "tx": 28,
+   "tx": 790,
    "buyers": 0,
    "sellers": 3,
    "net_musd": -27.706,
@@ -6154,7 +6154,7 @@
     "c": 157.37,
     "v": 4978200
    },
-   "tx": 1916,
+   "tx": 2910,
    "buyers": 0,
    "sellers": 8,
    "net_musd": -24.555,
@@ -6187,7 +6187,7 @@
     "c": 459.83,
     "v": 1292800
    },
-   "tx": 27,
+   "tx": 241,
    "buyers": 0,
    "sellers": 4,
    "net_musd": -29.442,
