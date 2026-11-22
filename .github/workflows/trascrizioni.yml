@@ -1,0 +1,61 @@
+name: Scarica trascrizioni
+
+# Una volta al giorno (e quando lo premi a mano) chiede ad Alpha Vantage le
+# trascrizioni delle call che mancano, al massimo 25: tante quante ne dà la
+# chiave gratuita in un giorno. Le salva in Word in un pacchetto che si scarica
+# dalla pagina del giro, sotto "Artifacts", e che resta lì tre giorni.
+#
+# Le trascrizioni NON vengono salvate nel repository né pubblicate sul sito:
+# sono testi protetti. Si danno a Claude in una conversazione, e nel repository
+# entrano solo i fatti estratti (input/extracted/). Vedi pipeline/trascrizioni.py.
+
+on:
+  workflow_dispatch:
+    inputs:
+      limit:
+        description: "Quante richieste ad Alpha Vantage (al massimo 25 al giorno con la chiave gratuita)"
+        default: "25"
+  schedule:
+    - cron: "41 5 * * *"
+
+permissions:
+  contents: read
+
+concurrency:
+  group: trascrizioni
+  cancel-in-progress: false
+
+jobs:
+  scarica:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - run: pip install requests python-docx
+
+      # quali call sono già state scaricate, e il mese di chiusura dell'anno
+      # fiscale di ogni azienda: così non si spreca la quota di Alpha Vantage
+      - name: Stato dei giri precedenti
+        uses: actions/cache@v4
+        with:
+          path: cache-trascrizioni
+          key: trascrizioni-${{ github.run_id }}
+          restore-keys: |
+            trascrizioni-
+
+      - name: Scarica
+        env:
+          ALPHAVANTAGE_KEY: ${{ secrets.ALPHAVANTAGE_KEY }}
+          SEC_UA: ${{ secrets.SEC_UA }}
+        run: python -m pipeline.trascrizioni --limit "${{ github.event.inputs.limit || '25' }}"
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: trascrizioni-${{ github.run_number }}
+          path: trascrizioni/
+          retention-days: 3
+          if-no-files-found: warn
