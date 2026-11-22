@@ -1,6 +1,6 @@
 {
- "generated_at": "2026-11-22T22:11:49+00:00",
- "changed_at": "2026-11-22T22:11:49+00:00",
+ "generated_at": "2026-11-22T22:50:39+00:00",
+ "changed_at": "2026-11-22T22:50:39+00:00",
  "groups": [
   {
    "nome": {
@@ -107,47 +107,47 @@
    {
     "lo": -20,
     "hi": -15,
-    "n": 13
+    "n": 14
    },
    {
     "lo": -15,
     "hi": -10,
-    "n": 22
+    "n": 26
    },
    {
     "lo": -10,
     "hi": -5,
-    "n": 48
+    "n": 52
    },
    {
     "lo": -5,
     "hi": 0,
-    "n": 100
+    "n": 102
    },
    {
     "lo": 0,
     "hi": 5,
-    "n": 92
+    "n": 96
    },
    {
     "lo": 5,
     "hi": 10,
-    "n": 65
+    "n": 74
    },
    {
     "lo": 10,
     "hi": 15,
-    "n": 31
+    "n": 36
    },
    {
     "lo": 15,
     "hi": 20,
-    "n": 20
+    "n": 23
    },
    {
     "lo": 20,
     "hi": 25,
-    "n": 6
+    "n": 9
    },
    {
     "lo": 25,
@@ -161,82 +161,99 @@
    }
   ],
   "all": {
-   "camp": 427,
-   "ep": 806,
-   "n": 1197,
-   "pos": 228,
-   "avg": 1.47,
-   "med": 0.82
+   "camp": 462,
+   "ep": 863,
+   "n": 1291,
+   "pos": 252,
+   "avg": 1.68,
+   "med": 1.08
   },
   "by_purchase": {
-   "n": 1197,
-   "ep": 806,
-   "pos": 647,
-   "avg": 1.72,
-   "med": 1.04
+   "n": 1291,
+   "ep": 863,
+   "pos": 702,
+   "avg": 1.79,
+   "med": 1.17
   },
   "cluster": {
-   "camp": 42,
-   "ep": 146,
-   "n": 237,
-   "pos": 20,
-   "avg": -0.38,
+   "camp": 46,
+   "ep": 157,
+   "n": 268,
+   "pos": 22,
+   "avg": -0.4,
    "med": -0.56
   },
   "solo": {
-   "camp": 385,
-   "ep": 660,
-   "n": 960,
-   "pos": 208,
-   "avg": 1.68,
-   "med": 0.99
+   "camp": 416,
+   "ep": 706,
+   "n": 1023,
+   "pos": 230,
+   "avg": 1.91,
+   "med": 1.16
   },
   "senior": {
-   "camp": 93,
-   "ep": 221,
-   "n": 404,
-   "pos": 42,
-   "avg": 0.45,
-   "med": -1.29
+   "camp": 103,
+   "ep": 244,
+   "n": 452,
+   "pos": 50,
+   "avg": 0.92,
+   "med": -0.73
   },
   "other": {
-   "camp": 334,
-   "ep": 585,
-   "n": 793,
-   "pos": 186,
-   "avg": 1.76,
-   "med": 1.14
+   "camp": 359,
+   "ep": 619,
+   "n": 839,
+   "pos": 202,
+   "avg": 1.9,
+   "med": 1.44
   },
+  "beat": null,
+  "nobeat": null,
   "bonus": {
    "tau": 5.0,
-   "camp": 427,
+   "camp": 462,
    "cap": 50.0,
    "days": 90,
-   "base": 1.7,
+   "base": 1.77,
    "features": [
     {
      "id": "cluster",
-     "n": 42,
+     "n": 46,
      "hand": 18,
-     "raw": -1.51,
-     "se": 2.12,
-     "shrink": 0.848,
-     "post": -1.28,
-     "points": -1,
+     "raw": -1.76,
+     "se": 2.04,
+     "shrink": 0.858,
+     "post": -1.51,
+     "points": -2,
      "by_tau": {
       "3": -1,
-      "5": -1,
-      "10": -1
+      "5": -2,
+      "10": -2
      }
     },
     {
      "id": "two",
-     "n": 67,
+     "n": 73,
      "hand": 8,
-     "raw": -0.74,
-     "se": 1.69,
-     "shrink": 0.897,
-     "post": -0.66,
+     "raw": 0.03,
+     "se": 1.62,
+     "shrink": 0.905,
+     "post": 0.03,
+     "points": 0,
+     "by_tau": {
+      "3": 0,
+      "5": 0,
+      "10": 0
+     }
+    },
+    {
+     "id": "senior",
+     "n": 103,
+     "hand": 10,
+     "raw": -0.69,
+     "se": 1.48,
+     "shrink": 0.92,
+     "post": -0.64,
      "points": -1,
      "by_tau": {
       "3": -1,
@@ -245,18 +262,19 @@
      }
     },
     {
-     "id": "senior",
-     "n": 93,
-     "hand": 10,
-     "raw": -0.99,
-     "se": 1.54,
-     "shrink": 0.914,
-     "post": -0.91,
-     "points": -1,
+     "id": "beat",
+     "n": 0,
+     "hand": 0,
+     "known": 0,
+     "raw": null,
+     "se": null,
+     "shrink": 0.0,
+     "post": 0.0,
+     "points": 0,
      "by_tau": {
-      "3": -1,
-      "5": -1,
-      "10": -1
+      "3": 0,
+      "5": 0,
+      "10": 0
      }
     }
    ]
@@ -285,56 +303,56 @@
   "hi": 2.0,
   "top": 10,
   "equal": {
-   "rho": 0.945,
+   "rho": 0.944,
    "shift": 1.9,
-   "top": 7
+   "top": 8
   },
   "drop": [
    {
-    "id": "guid",
-    "n": 5,
-    "rho": 0.7,
-    "shift": 4.8
-   },
-   {
     "id": "insider",
     "n": 200,
-    "rho": 0.729,
-    "shift": 4.2
+    "rho": 0.73,
+    "shift": 4.3
+   },
+   {
+    "id": "guid",
+    "n": 20,
+    "rho": 0.77,
+    "shift": 4.5
    },
    {
     "id": "market",
     "n": 200,
-    "rho": 0.851,
-    "shift": 2.6
+    "rho": 0.856,
+    "shift": 2.5
    },
    {
     "id": "sector",
     "n": 200,
-    "rho": 0.969,
-    "shift": 1.1
+    "rho": 0.975,
+    "shift": 1.0
    },
    {
     "id": "events",
     "n": 200,
-    "rho": 0.988,
-    "shift": 0.9
+    "rho": 0.989,
+    "shift": 0.8
    },
    {
     "id": "price",
     "n": 200,
-    "rho": 0.994,
+    "rho": 0.995,
     "shift": 1.2
    }
   ],
   "rho": {
-   "med": 0.979,
+   "med": 0.978,
    "p5": 0.932,
-   "min": 0.857
+   "min": 0.861
   },
   "top_overlap": {
-   "med": 8,
-   "min": 5
+   "med": 9,
+   "min": 6
   },
   "width_med": 5,
   "kept_avg": 89
@@ -355,11 +373,11 @@
    },
    {
     "id": "sector",
-    "ic": -0.013,
-    "se": 0.009,
-    "t": -1.5,
+    "ic": -0.018,
+    "se": 0.01,
+    "t": -1.75,
     "blocks": 19,
-    "dates": 1716
+    "dates": 1896
    },
    {
     "id": "market",
@@ -376,14 +394,18 @@
     "t": -1.23,
     "blocks": 19,
     "dates": 2130
+   },
+   {
+    "id": "surprise",
+    "ic": null
    }
   ]
  },
  "history": {
-  "complete": 157,
+  "complete": 166,
   "total": 200,
   "tx_from": "2021-10-18",
-  "missing": 14352
+  "missing": 10457
  },
  "short_interest": {
   "finra": 200,
@@ -396,6 +418,13 @@
   "error": null,
   "head": null
  },
+ "alphavantage": {
+  "earnings": 0,
+  "total": 200,
+  "calendar_on": null,
+  "listing_on": null,
+  "not_listed": []
+ },
  "companies": [
   {
    "ticker": "KMI",
@@ -404,17 +433,17 @@
     "it": "Energia",
     "en": "Energy"
    },
-   "score": 61,
+   "score": 67,
    "verdict": {
-    "it": "Leggermente rialzista",
-    "en": "Mildly bullish"
+    "it": "Convinzione rialzista moderata",
+    "en": "Moderate bullish conviction"
    },
-   "confidence": "Media",
-   "covered_pct": 80,
+   "confidence": "Alta",
+   "covered_pct": 100,
    "driver": {
     "name": {
-     "it": "Insider",
-     "en": "Insiders"
+     "it": "Guidance e tono",
+     "en": "Guidance and tone"
     },
     "up": true
    },
@@ -428,7 +457,178 @@
    "sellers": 0,
    "net_musd": 14.994,
    "cluster": false,
-   "errors": 0
+   "errors": 0,
+   "next_report": null
+  },
+  {
+   "ticker": "CVS",
+   "name": "CVS HEALTH Corp",
+   "group": {
+    "it": "Sanità",
+    "en": "Health care"
+   },
+   "score": 64,
+   "verdict": {
+    "it": "Leggermente rialzista",
+    "en": "Mildly bullish"
+   },
+   "confidence": "Alta",
+   "covered_pct": 100,
+   "driver": {
+    "name": {
+     "it": "Guidance e tono",
+     "en": "Guidance and tone"
+    },
+    "up": true
+   },
+   "last": {
+    "d": "2026-11-20",
+    "c": 80.84,
+    "v": 10714400
+   },
+   "tx": 310,
+   "buyers": 1,
+   "sellers": 0,
+   "net_musd": 2.001,
+   "cluster": false,
+   "errors": 0,
+   "next_report": null
+  },
+  {
+   "ticker": "ETN",
+   "name": "Eaton Corp plc",
+   "group": {
+    "it": "Industria",
+    "en": "Industrials"
+   },
+   "score": 62,
+   "verdict": {
+    "it": "Leggermente rialzista",
+    "en": "Mildly bullish"
+   },
+   "confidence": "Alta",
+   "covered_pct": 100,
+   "driver": {
+    "name": {
+     "it": "Guidance e tono",
+     "en": "Guidance and tone"
+    },
+    "up": true
+   },
+   "last": {
+    "d": "2026-11-20",
+    "c": 311.33,
+    "v": 4783000
+   },
+   "tx": 697,
+   "buyers": 2,
+   "sellers": 0,
+   "net_musd": 0.171,
+   "cluster": false,
+   "errors": 0,
+   "next_report": null
+  },
+  {
+   "ticker": "BKR",
+   "name": "Baker Hughes Co",
+   "group": {
+    "it": "Energia",
+    "en": "Energy"
+   },
+   "score": 61,
+   "verdict": {
+    "it": "Leggermente rialzista",
+    "en": "Mildly bullish"
+   },
+   "confidence": "Alta",
+   "covered_pct": 100,
+   "driver": {
+    "name": {
+     "it": "Guidance e tono",
+     "en": "Guidance and tone"
+    },
+    "up": true
+   },
+   "last": {
+    "d": "2026-11-20",
+    "c": 44.81,
+    "v": 15213000
+   },
+   "tx": 405,
+   "buyers": 1,
+   "sellers": 0,
+   "net_musd": 0.531,
+   "cluster": false,
+   "errors": 0,
+   "next_report": null
+  },
+  {
+   "ticker": "MO",
+   "name": "ALTRIA GROUP, INC.",
+   "group": {
+    "it": "Beni di prima necessità",
+    "en": "Consumer staples"
+   },
+   "score": 60,
+   "verdict": {
+    "it": "Leggermente rialzista",
+    "en": "Mildly bullish"
+   },
+   "confidence": "Alta",
+   "covered_pct": 100,
+   "driver": {
+    "name": {
+     "it": "Guidance e tono",
+     "en": "Guidance and tone"
+    },
+    "up": true
+   },
+   "last": {
+    "d": "2026-11-20",
+    "c": 74.87,
+    "v": 10292100
+   },
+   "tx": 2,
+   "buyers": 1,
+   "sellers": 0,
+   "net_musd": 0.101,
+   "cluster": false,
+   "errors": 0,
+   "next_report": null
+  },
+  {
+   "ticker": "ADM",
+   "name": "Archer-Daniels-Midland Co",
+   "group": {
+    "it": "Beni di prima necessità",
+    "en": "Consumer staples"
+   },
+   "score": 60,
+   "verdict": {
+    "it": "Leggermente rialzista",
+    "en": "Mildly bullish"
+   },
+   "confidence": "Alta",
+   "covered_pct": 100,
+   "driver": {
+    "name": {
+     "it": "Guidance e tono",
+     "en": "Guidance and tone"
+    },
+    "up": true
+   },
+   "last": {
+    "d": "2026-11-20",
+    "c": 66.95,
+    "v": 4639700
+   },
+   "tx": 4,
+   "buyers": 1,
+   "sellers": 0,
+   "net_musd": 0.197,
+   "cluster": false,
+   "errors": 0,
+   "next_report": null
   },
   {
    "ticker": "ORCL",
@@ -461,7 +661,8 @@
    "sellers": 1,
    "net_musd": 3.085,
    "cluster": false,
-   "errors": 0
+   "errors": 0,
+   "next_report": null
   },
   {
    "ticker": "TEAM",
@@ -494,7 +695,42 @@
    "sellers": 3,
    "net_musd": 10.696,
    "cluster": false,
-   "errors": 0
+   "errors": 0,
+   "next_report": null
+  },
+  {
+   "ticker": "DVN",
+   "name": "DEVON ENERGY CORP/DE",
+   "group": {
+    "it": "Energia",
+    "en": "Energy"
+   },
+   "score": 58,
+   "verdict": {
+    "it": "Leggermente rialzista",
+    "en": "Mildly bullish"
+   },
+   "confidence": "Alta",
+   "covered_pct": 100,
+   "driver": {
+    "name": {
+     "it": "Guidance e tono",
+     "en": "Guidance and tone"
+    },
+    "up": true
+   },
+   "last": {
+    "d": "2026-11-20",
+    "c": 41.54,
+    "v": 14412200
+   },
+   "tx": 418,
+   "buyers": 1,
+   "sellers": 1,
+   "net_musd": -0.144,
+   "cluster": false,
+   "errors": 0,
+   "next_report": null
   },
   {
    "ticker": "BAC",
@@ -527,7 +763,8 @@
    "sellers": 0,
    "net_musd": 0.0,
    "cluster": false,
-   "errors": 0
+   "errors": 0,
+   "next_report": null
   },
   {
    "ticker": "FTNT",
@@ -560,73 +797,8 @@
    "sellers": 0,
    "net_musd": 0.0,
    "cluster": false,
-   "errors": 0
-  },
-  {
-   "ticker": "CVS",
-   "name": "CVS HEALTH Corp",
-   "group": {
-    "it": "Sanità",
-    "en": "Health care"
-   },
-   "score": 57,
-   "verdict": {
-    "it": "Leggermente rialzista",
-    "en": "Mildly bullish"
-   },
-   "confidence": "Media",
-   "covered_pct": 80,
-   "driver": {
-    "name": {
-     "it": "Settore",
-     "en": "Sector"
-    },
-    "up": true
-   },
-   "last": {
-    "d": "2026-11-20",
-    "c": 80.84,
-    "v": 10714400
-   },
-   "tx": 310,
-   "buyers": 1,
-   "sellers": 0,
-   "net_musd": 2.001,
-   "cluster": false,
-   "errors": 0
-  },
-  {
-   "ticker": "MO",
-   "name": "ALTRIA GROUP, INC.",
-   "group": {
-    "it": "Beni di prima necessità",
-    "en": "Consumer staples"
-   },
-   "score": 57,
-   "verdict": {
-    "it": "Leggermente rialzista",
-    "en": "Mildly bullish"
-   },
-   "confidence": "Media",
-   "covered_pct": 80,
-   "driver": {
-    "name": {
-     "it": "Mercato",
-     "en": "Market"
-    },
-    "up": true
-   },
-   "last": {
-    "d": "2026-11-20",
-    "c": 74.87,
-    "v": 10292100
-   },
-   "tx": 2,
-   "buyers": 1,
-   "sellers": 0,
-   "net_musd": 0.101,
-   "cluster": false,
-   "errors": 0
+   "errors": 0,
+   "next_report": null
   },
   {
    "ticker": "WDAY",
@@ -659,40 +831,8 @@
    "sellers": 0,
    "net_musd": 0.0,
    "cluster": false,
-   "errors": 0
-  },
-  {
-   "ticker": "HUBS",
-   "name": "HUBSPOT INC",
-   "group": {
-    "it": "Software",
-    "en": "Software"
-   },
-   "score": 56,
-   "verdict": {
-    "it": "Leggermente rialzista",
-    "en": "Mildly bullish"
-   },
-   "confidence": "Media",
-   "covered_pct": 80,
-   "driver": {
-    "name": {
-     "it": "Settore",
-     "en": "Sector"
-    },
-    "up": true
-   },
-   "last": {
-    "d": "2026-11-20",
-    "c": 193.88,
-    "v": 1483100
-   },
-   "tx": 768,
-   "buyers": 1,
-   "sellers": 0,
-   "net_musd": 4.998,
-   "cluster": false,
-   "errors": 0
+   "errors": 0,
+   "next_report": null
   },
   {
    "ticker": "COF",
@@ -725,40 +865,42 @@
    "sellers": 0,
    "net_musd": 0.0,
    "cluster": false,
-   "errors": 0
+   "errors": 0,
+   "next_report": null
   },
   {
-   "ticker": "ADM",
-   "name": "Archer-Daniels-Midland Co",
+   "ticker": "UMBF",
+   "name": "UMB FINANCIAL CORP",
    "group": {
-    "it": "Beni di prima necessità",
-    "en": "Consumer staples"
+    "it": "Banche regionali",
+    "en": "Regional banks"
    },
    "score": 56,
    "verdict": {
     "it": "Leggermente rialzista",
     "en": "Mildly bullish"
    },
-   "confidence": "Media",
-   "covered_pct": 80,
+   "confidence": "Alta",
+   "covered_pct": 100,
    "driver": {
     "name": {
-     "it": "Mercato",
-     "en": "Market"
+     "it": "Guidance e tono",
+     "en": "Guidance and tone"
     },
     "up": true
    },
    "last": {
     "d": "2026-11-20",
-    "c": 66.95,
-    "v": 4639700
+    "c": 126.5,
+    "v": 690400
    },
-   "tx": 4,
-   "buyers": 1,
-   "sellers": 0,
-   "net_musd": 0.197,
+   "tx": 2623,
+   "buyers": 2,
+   "sellers": 1,
+   "net_musd": 0.153,
    "cluster": false,
-   "errors": 0
+   "errors": 0,
+   "next_report": null
   },
   {
    "ticker": "INTC",
@@ -791,7 +933,8 @@
    "sellers": 0,
    "net_musd": 9.71,
    "cluster": false,
-   "errors": 0
+   "errors": 0,
+   "next_report": null
   },
   {
    "ticker": "PTC",
@@ -824,7 +967,8 @@
    "sellers": 0,
    "net_musd": 0.0,
    "cluster": false,
-   "errors": 0
+   "errors": 0,
+   "next_report": null
   },
   {
    "ticker": "ICE",
@@ -857,7 +1001,8 @@
    "sellers": 2,
    "net_musd": -1.131,
    "cluster": false,
-   "errors": 0
+   "errors": 0,
+   "next_report": null
   },
   {
    "ticker": "VLO",
@@ -890,40 +1035,8 @@
    "sellers": 0,
    "net_musd": 0.0,
    "cluster": false,
-   "errors": 0
-  },
-  {
-   "ticker": "BKR",
-   "name": "Baker Hughes Co",
-   "group": {
-    "it": "Energia",
-    "en": "Energy"
-   },
-   "score": 55,
-   "verdict": {
-    "it": "Leggermente rialzista",
-    "en": "Mildly bullish"
-   },
-   "confidence": "Media",
-   "covered_pct": 80,
-   "driver": {
-    "name": {
-     "it": "Settore",
-     "en": "Sector"
-    },
-    "up": true
-   },
-   "last": {
-    "d": "2026-11-20",
-    "c": 44.81,
-    "v": 15213000
-   },
-   "tx": 405,
-   "buyers": 1,
-   "sellers": 0,
-   "net_musd": 0.531,
-   "cluster": false,
-   "errors": 0
+   "errors": 0,
+   "next_report": null
   },
   {
    "ticker": "TJX",
@@ -951,12 +1064,13 @@
     "c": 139.62,
     "v": 9645600
    },
-   "tx": 1,
+   "tx": 299,
    "buyers": 1,
    "sellers": 0,
    "net_musd": 0.2,
    "cluster": false,
-   "errors": 0
+   "errors": 0,
+   "next_report": null
   },
   {
    "ticker": "BKNG",
@@ -984,12 +1098,13 @@
     "c": 144.91,
     "v": 7679200
    },
-   "tx": 31,
+   "tx": 1271,
    "buyers": 0,
    "sellers": 0,
    "net_musd": 0.0,
    "cluster": false,
-   "errors": 0
+   "errors": 0,
+   "next_report": null
   },
   {
    "ticker": "LLY",
@@ -1022,7 +1137,8 @@
    "sellers": 0,
    "net_musd": 0.0,
    "cluster": false,
-   "errors": 0
+   "errors": 0,
+   "next_report": null
   },
   {
    "ticker": "CRM",
@@ -1055,7 +1171,8 @@
    "sellers": 1,
    "net_musd": -0.173,
    "cluster": false,
-   "errors": 0
+   "errors": 0,
+   "next_report": null
   },
   {
    "ticker": "PLTR",
@@ -1088,7 +1205,8 @@
    "sellers": 0,
    "net_musd": 0.0,
    "cluster": false,
-   "errors": 0
+   "errors": 0,
+   "next_report": null
   },
   {
    "ticker": "C",
@@ -1121,22 +1239,23 @@
    "sellers": 1,
    "net_musd": -0.2,
    "cluster": false,
-   "errors": 0
+   "errors": 0,
+   "next_report": null
   },
   {
-   "ticker": "HBAN",
-   "name": "HUNTINGTON BANCSHARES INC /MD/",
+   "ticker": "TFC",
+   "name": "TRUIST FINANCIAL CORP",
    "group": {
-    "it": "Banche regionali",
-    "en": "Regional banks"
+    "it": "Finanza",
+    "en": "Financials"
    },
    "score": 54,
    "verdict": {
     "it": "Nessuna convinzione chiara",
     "en": "No clear conviction"
    },
-   "confidence": "Media",
-   "covered_pct": 80,
+   "confidence": "Alta",
+   "covered_pct": 100,
    "driver": {
     "name": {
      "it": "Settore",
@@ -1146,15 +1265,16 @@
    },
    "last": {
     "d": "2026-11-20",
-    "c": 14.28,
-    "v": 25006100
+    "c": 45.81,
+    "v": 10144900
    },
-   "tx": 1260,
-   "buyers": 2,
-   "sellers": 1,
-   "net_musd": 0.406,
+   "tx": 332,
+   "buyers": 1,
+   "sellers": 0,
+   "net_musd": 2.225,
    "cluster": false,
-   "errors": 0
+   "errors": 0,
+   "next_report": null
   },
   {
    "ticker": "ADP",
@@ -1187,40 +1307,8 @@
    "sellers": 0,
    "net_musd": 0.0,
    "cluster": false,
-   "errors": 0
-  },
-  {
-   "ticker": "ETN",
-   "name": "Eaton Corp plc",
-   "group": {
-    "it": "Industria",
-    "en": "Industrials"
-   },
-   "score": 54,
-   "verdict": {
-    "it": "Nessuna convinzione chiara",
-    "en": "No clear conviction"
-   },
-   "confidence": "Media",
-   "covered_pct": 80,
-   "driver": {
-    "name": {
-     "it": "Settore",
-     "en": "Sector"
-    },
-    "up": true
-   },
-   "last": {
-    "d": "2026-11-20",
-    "c": 311.33,
-    "v": 4783000
-   },
-   "tx": 697,
-   "buyers": 2,
-   "sellers": 0,
-   "net_musd": 0.171,
-   "cluster": false,
-   "errors": 0
+   "errors": 0,
+   "next_report": null
   },
   {
    "ticker": "URI",
@@ -1253,7 +1341,8 @@
    "sellers": 0,
    "net_musd": 0.0,
    "cluster": false,
-   "errors": 0
+   "errors": 0,
+   "next_report": null
   },
   {
    "ticker": "NVDA",
@@ -1286,7 +1375,8 @@
    "sellers": 1,
    "net_musd": -946.628,
    "cluster": false,
-   "errors": 0
+   "errors": 0,
+   "next_report": null
   },
   {
    "ticker": "AVGO",
@@ -1319,7 +1409,8 @@
    "sellers": 0,
    "net_musd": 0.0,
    "cluster": false,
-   "errors": 0
+   "errors": 0,
+   "next_report": null
   },
   {
    "ticker": "ACLS",
@@ -1352,7 +1443,8 @@
    "sellers": 0,
    "net_musd": 0.0,
    "cluster": false,
-   "errors": 0
+   "errors": 0,
+   "next_report": null
   },
   {
    "ticker": "CDNS",
@@ -1385,40 +1477,8 @@
    "sellers": 1,
    "net_musd": -0.252,
    "cluster": false,
-   "errors": 0
-  },
-  {
-   "ticker": "TFC",
-   "name": "TRUIST FINANCIAL CORP",
-   "group": {
-    "it": "Finanza",
-    "en": "Financials"
-   },
-   "score": 53,
-   "verdict": {
-    "it": "Nessuna convinzione chiara",
-    "en": "No clear conviction"
-   },
-   "confidence": "Media",
-   "covered_pct": 80,
-   "driver": {
-    "name": {
-     "it": "Settore",
-     "en": "Sector"
-    },
-    "up": true
-   },
-   "last": {
-    "d": "2026-11-20",
-    "c": 45.81,
-    "v": 10144900
-   },
-   "tx": 332,
-   "buyers": 1,
-   "sellers": 0,
-   "net_musd": 2.225,
-   "cluster": false,
-   "errors": 0
+   "errors": 0,
+   "next_report": null
   },
   {
    "ticker": "MTB",
@@ -1451,7 +1511,8 @@
    "sellers": 0,
    "net_musd": 0.0,
    "cluster": false,
-   "errors": 0
+   "errors": 0,
+   "next_report": null
   },
   {
    "ticker": "FNB",
@@ -1484,7 +1545,8 @@
    "sellers": 0,
    "net_musd": 0.0,
    "cluster": false,
-   "errors": 0
+   "errors": 0,
+   "next_report": null
   },
   {
    "ticker": "GILD",
@@ -1517,7 +1579,8 @@
    "sellers": 0,
    "net_musd": 0.0,
    "cluster": false,
-   "errors": 0
+   "errors": 0,
+   "next_report": null
   },
   {
    "ticker": "DE",
@@ -1550,40 +1613,8 @@
    "sellers": 0,
    "net_musd": 0.0,
    "cluster": false,
-   "errors": 0
-  },
-  {
-   "ticker": "DVN",
-   "name": "DEVON ENERGY CORP/DE",
-   "group": {
-    "it": "Energia",
-    "en": "Energy"
-   },
-   "score": 53,
-   "verdict": {
-    "it": "Nessuna convinzione chiara",
-    "en": "No clear conviction"
-   },
-   "confidence": "Media",
-   "covered_pct": 80,
-   "driver": {
-    "name": {
-     "it": "Settore",
-     "en": "Sector"
-    },
-    "up": true
-   },
-   "last": {
-    "d": "2026-11-20",
-    "c": 41.54,
-    "v": 14412200
-   },
-   "tx": 418,
-   "buyers": 1,
-   "sellers": 1,
-   "net_musd": -0.144,
-   "cluster": false,
-   "errors": 0
+   "errors": 0,
+   "next_report": null
   },
   {
    "ticker": "F",
@@ -1616,40 +1647,8 @@
    "sellers": 0,
    "net_musd": 0.0,
    "cluster": false,
-   "errors": 0
-  },
-  {
-   "ticker": "PEP",
-   "name": "PEPSICO INC",
-   "group": {
-    "it": "Beni di prima necessità",
-    "en": "Consumer staples"
-   },
-   "score": 53,
-   "verdict": {
-    "it": "Nessuna convinzione chiara",
-    "en": "No clear conviction"
-   },
-   "confidence": "Media",
-   "covered_pct": 80,
-   "driver": {
-    "name": {
-     "it": "Settore",
-     "en": "Sector"
-    },
-    "up": true
-   },
-   "last": {
-    "d": "2026-11-20",
-    "c": 140.54,
-    "v": 13742600
-   },
-   "tx": 38,
-   "buyers": 1,
-   "sellers": 1,
-   "net_musd": 19.632,
-   "cluster": false,
-   "errors": 0
+   "errors": 0,
+   "next_report": null
   },
   {
    "ticker": "SYY",
@@ -1682,7 +1681,8 @@
    "sellers": 0,
    "net_musd": 0.192,
    "cluster": false,
-   "errors": 0
+   "errors": 0,
+   "next_report": null
   },
   {
    "ticker": "MU",
@@ -1715,7 +1715,8 @@
    "sellers": 0,
    "net_musd": 0.0,
    "cluster": false,
-   "errors": 0
+   "errors": 0,
+   "next_report": null
   },
   {
    "ticker": "AMZN",
@@ -1748,7 +1749,8 @@
    "sellers": 0,
    "net_musd": 0.0,
    "cluster": false,
-   "errors": 0
+   "errors": 0,
+   "next_report": null
   },
   {
    "ticker": "JPM",
@@ -1781,7 +1783,8 @@
    "sellers": 1,
    "net_musd": -0.882,
    "cluster": false,
-   "errors": 0
+   "errors": 0,
+   "next_report": null
   },
   {
    "ticker": "WMT",
@@ -1814,7 +1817,8 @@
    "sellers": 0,
    "net_musd": 0.0,
    "cluster": false,
-   "errors": 0
+   "errors": 0,
+   "next_report": null
   },
   {
    "ticker": "INTU",
@@ -1847,7 +1851,8 @@
    "sellers": 1,
    "net_musd": -0.314,
    "cluster": false,
-   "errors": 0
+   "errors": 0,
+   "next_report": null
   },
   {
    "ticker": "MDB",
@@ -1880,7 +1885,8 @@
    "sellers": 0,
    "net_musd": 0.0,
    "cluster": false,
-   "errors": 0
+   "errors": 0,
+   "next_report": null
   },
   {
    "ticker": "PGR",
@@ -1913,7 +1919,42 @@
    "sellers": 0,
    "net_musd": 0.0,
    "cluster": false,
-   "errors": 0
+   "errors": 0,
+   "next_report": null
+  },
+  {
+   "ticker": "HBAN",
+   "name": "HUNTINGTON BANCSHARES INC /MD/",
+   "group": {
+    "it": "Banche regionali",
+    "en": "Regional banks"
+   },
+   "score": 52,
+   "verdict": {
+    "it": "Nessuna convinzione chiara",
+    "en": "No clear conviction"
+   },
+   "confidence": "Alta",
+   "covered_pct": 100,
+   "driver": {
+    "name": {
+     "it": "Settore",
+     "en": "Sector"
+    },
+    "up": true
+   },
+   "last": {
+    "d": "2026-11-20",
+    "c": 14.28,
+    "v": 25006100
+   },
+   "tx": 1260,
+   "buyers": 2,
+   "sellers": 1,
+   "net_musd": 0.406,
+   "cluster": false,
+   "errors": 0,
+   "next_report": null
   },
   {
    "ticker": "CFG",
@@ -1946,7 +1987,8 @@
    "sellers": 0,
    "net_musd": 0.0,
    "cluster": false,
-   "errors": 0
+   "errors": 0,
+   "next_report": null
   },
   {
    "ticker": "PFE",
@@ -1979,7 +2021,8 @@
    "sellers": 0,
    "net_musd": 0.0,
    "cluster": false,
-   "errors": 0
+   "errors": 0,
+   "next_report": null
   },
   {
    "ticker": "LMT",
@@ -2012,7 +2055,8 @@
    "sellers": 1,
    "net_musd": 0.0,
    "cluster": false,
-   "errors": 0
+   "errors": 0,
+   "next_report": null
   },
   {
    "ticker": "PCAR",
@@ -2045,7 +2089,8 @@
    "sellers": 1,
    "net_musd": -0.0,
    "cluster": false,
-   "errors": 0
+   "errors": 0,
+   "next_report": null
   },
   {
    "ticker": "COP",
@@ -2078,7 +2123,8 @@
    "sellers": 0,
    "net_musd": 0.0,
    "cluster": false,
-   "errors": 0
+   "errors": 0,
+   "next_report": null
   },
   {
    "ticker": "APA",
@@ -2106,12 +2152,47 @@
     "c": 45.03,
     "v": 4915300
    },
-   "tx": 14,
+   "tx": 565,
    "buyers": 0,
    "sellers": 0,
    "net_musd": 0.0,
    "cluster": false,
-   "errors": 0
+   "errors": 0,
+   "next_report": null
+  },
+  {
+   "ticker": "PEP",
+   "name": "PEPSICO INC",
+   "group": {
+    "it": "Beni di prima necessità",
+    "en": "Consumer staples"
+   },
+   "score": 52,
+   "verdict": {
+    "it": "Nessuna convinzione chiara",
+    "en": "No clear conviction"
+   },
+   "confidence": "Alta",
+   "covered_pct": 100,
+   "driver": {
+    "name": {
+     "it": "Settore",
+     "en": "Sector"
+    },
+    "up": true
+   },
+   "last": {
+    "d": "2026-11-20",
+    "c": 140.54,
+    "v": 13742600
+   },
+   "tx": 38,
+   "buyers": 1,
+   "sellers": 1,
+   "net_musd": 19.632,
+   "cluster": false,
+   "errors": 0,
+   "next_report": null
   },
   {
    "ticker": "UNH",
@@ -2144,7 +2225,42 @@
    "sellers": 0,
    "net_musd": 0.0,
    "cluster": false,
-   "errors": 0
+   "errors": 0,
+   "next_report": null
+  },
+  {
+   "ticker": "HUBS",
+   "name": "HUBSPOT INC",
+   "group": {
+    "it": "Software",
+    "en": "Software"
+   },
+   "score": 51,
+   "verdict": {
+    "it": "Nessuna convinzione chiara",
+    "en": "No clear conviction"
+   },
+   "confidence": "Alta",
+   "covered_pct": 100,
+   "driver": {
+    "name": {
+     "it": "Guidance e tono",
+     "en": "Guidance and tone"
+    },
+    "up": false
+   },
+   "last": {
+    "d": "2026-11-20",
+    "c": 193.88,
+    "v": 1483100
+   },
+   "tx": 768,
+   "buyers": 1,
+   "sellers": 0,
+   "net_musd": 4.998,
+   "cluster": false,
+   "errors": 0,
+   "next_report": null
   },
   {
    "ticker": "MS",
@@ -2177,7 +2293,8 @@
    "sellers": 1,
    "net_musd": -0.454,
    "cluster": false,
-   "errors": 0
+   "errors": 0,
+   "next_report": null
   },
   {
    "ticker": "AMGN",
@@ -2210,7 +2327,8 @@
    "sellers": 0,
    "net_musd": 0.0,
    "cluster": false,
-   "errors": 0
+   "errors": 0,
+   "next_report": null
   },
   {
    "ticker": "ISRG",
@@ -2243,7 +2361,8 @@
    "sellers": 0,
    "net_musd": 0.0,
    "cluster": false,
-   "errors": 0
+   "errors": 0,
+   "next_report": null
   },
   {
    "ticker": "ZTS",
@@ -2276,7 +2395,8 @@
    "sellers": 0,
    "net_musd": 0.0,
    "cluster": false,
-   "errors": 0
+   "errors": 0,
+   "next_report": null
   },
   {
    "ticker": "NOC",
@@ -2309,7 +2429,8 @@
    "sellers": 0,
    "net_musd": 0.0,
    "cluster": false,
-   "errors": 0
+   "errors": 0,
+   "next_report": null
   },
   {
    "ticker": "PHM",
@@ -2342,7 +2463,8 @@
    "sellers": 0,
    "net_musd": 0.0,
    "cluster": false,
-   "errors": 0
+   "errors": 0,
+   "next_report": null
   },
   {
    "ticker": "PM",
@@ -2375,7 +2497,8 @@
    "sellers": 0,
    "net_musd": 0.0,
    "cluster": false,
-   "errors": 0
+   "errors": 0,
+   "next_report": null
   },
   {
    "ticker": "QCOM",
@@ -2408,7 +2531,8 @@
    "sellers": 2,
    "net_musd": -0.035,
    "cluster": false,
-   "errors": 0
+   "errors": 0,
+   "next_report": null
   },
   {
    "ticker": "VECO",
@@ -2441,7 +2565,8 @@
    "sellers": 1,
    "net_musd": -0.08,
    "cluster": false,
-   "errors": 0
+   "errors": 0,
+   "next_report": null
   },
   {
    "ticker": "MA",
@@ -2474,7 +2599,8 @@
    "sellers": 0,
    "net_musd": 0.0,
    "cluster": false,
-   "errors": 0
+   "errors": 0,
+   "next_report": null
   },
   {
    "ticker": "WFC",
@@ -2507,7 +2633,8 @@
    "sellers": 0,
    "net_musd": 0.0,
    "cluster": false,
-   "errors": 0
+   "errors": 0,
+   "next_report": null
   },
   {
    "ticker": "WAL",
@@ -2540,40 +2667,8 @@
    "sellers": 0,
    "net_musd": 0.0,
    "cluster": false,
-   "errors": 0
-  },
-  {
-   "ticker": "UMBF",
-   "name": "UMB FINANCIAL CORP",
-   "group": {
-    "it": "Banche regionali",
-    "en": "Regional banks"
-   },
-   "score": 50,
-   "verdict": {
-    "it": "Nessuna convinzione chiara",
-    "en": "No clear conviction"
-   },
-   "confidence": "Media",
-   "covered_pct": 80,
-   "driver": {
-    "name": {
-     "it": "Settore",
-     "en": "Sector"
-    },
-    "up": true
-   },
-   "last": {
-    "d": "2026-11-20",
-    "c": 126.5,
-    "v": 690400
-   },
-   "tx": 2623,
-   "buyers": 2,
-   "sellers": 1,
-   "net_musd": 0.153,
-   "cluster": false,
-   "errors": 0
+   "errors": 0,
+   "next_report": null
   },
   {
    "ticker": "RTX",
@@ -2606,7 +2701,8 @@
    "sellers": 1,
    "net_musd": -1.83,
    "cluster": false,
-   "errors": 0
+   "errors": 0,
+   "next_report": null
   },
   {
    "ticker": "EMR",
@@ -2639,7 +2735,8 @@
    "sellers": 1,
    "net_musd": -2.937,
    "cluster": false,
-   "errors": 0
+   "errors": 0,
+   "next_report": null
   },
   {
    "ticker": "PH",
@@ -2672,7 +2769,8 @@
    "sellers": 2,
    "net_musd": -0.78,
    "cluster": false,
-   "errors": 0
+   "errors": 0,
+   "next_report": null
   },
   {
    "ticker": "MPC",
@@ -2705,7 +2803,8 @@
    "sellers": 3,
    "net_musd": -1.677,
    "cluster": false,
-   "errors": 0
+   "errors": 0,
+   "next_report": null
   },
   {
    "ticker": "OVV",
@@ -2733,12 +2832,13 @@
     "c": 60.85,
     "v": 2448100
    },
-   "tx": 5,
+   "tx": 346,
    "buyers": 0,
    "sellers": 0,
    "net_musd": 0.0,
    "cluster": false,
-   "errors": 0
+   "errors": 0,
+   "next_report": null
   },
   {
    "ticker": "LOW",
@@ -2766,12 +2866,13 @@
     "c": 220.84,
     "v": 4869100
    },
-   "tx": 5,
+   "tx": 242,
    "buyers": 0,
    "sellers": 0,
    "net_musd": 0.0,
    "cluster": false,
-   "errors": 0
+   "errors": 0,
+   "next_report": null
   },
   {
    "ticker": "MDLZ",
@@ -2804,7 +2905,8 @@
    "sellers": 0,
    "net_musd": 0.0,
    "cluster": false,
-   "errors": 0
+   "errors": 0,
+   "next_report": null
   },
   {
    "ticker": "ADI",
@@ -2837,7 +2939,8 @@
    "sellers": 2,
    "net_musd": -3.495,
    "cluster": false,
-   "errors": 0
+   "errors": 0,
+   "next_report": null
   },
   {
    "ticker": "KLAC",
@@ -2870,7 +2973,8 @@
    "sellers": 0,
    "net_musd": 0.0,
    "cluster": false,
-   "errors": 0
+   "errors": 0,
+   "next_report": null
   },
   {
    "ticker": "GOOGL",
@@ -2903,7 +3007,8 @@
    "sellers": 0,
    "net_musd": 0.0,
    "cluster": false,
-   "errors": 0
+   "errors": 0,
+   "next_report": null
   },
   {
    "ticker": "JNJ",
@@ -2936,7 +3041,8 @@
    "sellers": 2,
    "net_musd": -12.948,
    "cluster": false,
-   "errors": 0
+   "errors": 0,
+   "next_report": null
   },
   {
    "ticker": "ABBV",
@@ -2969,40 +3075,8 @@
    "sellers": 1,
    "net_musd": -11.926,
    "cluster": false,
-   "errors": 0
-  },
-  {
-   "ticker": "BSX",
-   "name": "BOSTON SCIENTIFIC CORP",
-   "group": {
-    "it": "Sanità",
-    "en": "Health care"
-   },
-   "score": 49,
-   "verdict": {
-    "it": "Nessuna convinzione chiara",
-    "en": "No clear conviction"
-   },
-   "confidence": "Media",
-   "covered_pct": 80,
-   "driver": {
-    "name": {
-     "it": "Mercato",
-     "en": "Market"
-    },
-    "up": false
-   },
-   "last": {
-    "d": "2026-11-20",
-    "c": 41.98,
-    "v": 15224700
-   },
-   "tx": 1112,
-   "buyers": 1,
-   "sellers": 0,
-   "net_musd": 0.1,
-   "cluster": false,
-   "errors": 0
+   "errors": 0,
+   "next_report": null
   },
   {
    "ticker": "CI",
@@ -3035,7 +3109,8 @@
    "sellers": 0,
    "net_musd": 0.0,
    "cluster": false,
-   "errors": 0
+   "errors": 0,
+   "next_report": null
   },
   {
    "ticker": "BA",
@@ -3049,8 +3124,8 @@
     "it": "Nessuna convinzione chiara",
     "en": "No clear conviction"
    },
-   "confidence": "Media",
-   "covered_pct": 80,
+   "confidence": "Alta",
+   "covered_pct": 100,
    "driver": {
     "name": {
      "it": "Settore",
@@ -3068,7 +3143,8 @@
    "sellers": 1,
    "net_musd": 1.485,
    "cluster": true,
-   "errors": 0
+   "errors": 0,
+   "next_report": null
   },
   {
    "ticker": "OXY",
@@ -3101,7 +3177,8 @@
    "sellers": 0,
    "net_musd": 0.0,
    "cluster": false,
-   "errors": 0
+   "errors": 0,
+   "next_report": null
   },
   {
    "ticker": "WMB",
@@ -3134,7 +3211,8 @@
    "sellers": 0,
    "net_musd": 0.005,
    "cluster": false,
-   "errors": 0
+   "errors": 0,
+   "next_report": null
   },
   {
    "ticker": "SBUX",
@@ -3162,12 +3240,13 @@
     "c": 103.13,
     "v": 10989100
    },
-   "tx": 25,
+   "tx": 264,
    "buyers": 0,
    "sellers": 0,
    "net_musd": 0.0,
    "cluster": false,
-   "errors": 0
+   "errors": 0,
+   "next_report": null
   },
   {
    "ticker": "CMG",
@@ -3195,12 +3274,13 @@
     "c": 35.55,
     "v": 19144200
    },
-   "tx": 10,
+   "tx": 548,
    "buyers": 0,
    "sellers": 0,
    "net_musd": 0.0,
    "cluster": false,
-   "errors": 0
+   "errors": 0,
+   "next_report": null
   },
   {
    "ticker": "DHI",
@@ -3233,7 +3313,8 @@
    "sellers": 0,
    "net_musd": 0.0,
    "cluster": false,
-   "errors": 0
+   "errors": 0,
+   "next_report": null
   },
   {
    "ticker": "CLX",
@@ -3266,7 +3347,8 @@
    "sellers": 0,
    "net_musd": 0.4,
    "cluster": false,
-   "errors": 0
+   "errors": 0,
+   "next_report": null
   },
   {
    "ticker": "HRL",
@@ -3299,7 +3381,8 @@
    "sellers": 0,
    "net_musd": 0.201,
    "cluster": false,
-   "errors": 0
+   "errors": 0,
+   "next_report": null
   },
   {
    "ticker": "FORM",
@@ -3332,7 +3415,8 @@
    "sellers": 1,
    "net_musd": -0.202,
    "cluster": false,
-   "errors": 0
+   "errors": 0,
+   "next_report": null
   },
   {
    "ticker": "XOM",
@@ -3365,7 +3449,8 @@
    "sellers": 0,
    "net_musd": 0.0,
    "cluster": false,
-   "errors": 0
+   "errors": 0,
+   "next_report": null
   },
   {
    "ticker": "NOW",
@@ -3398,7 +3483,8 @@
    "sellers": 2,
    "net_musd": -0.667,
    "cluster": false,
-   "errors": 0
+   "errors": 0,
+   "next_report": null
   },
   {
    "ticker": "ADSK",
@@ -3431,7 +3517,8 @@
    "sellers": 0,
    "net_musd": 0.0,
    "cluster": false,
-   "errors": 0
+   "errors": 0,
+   "next_report": null
   },
   {
    "ticker": "PNC",
@@ -3464,7 +3551,8 @@
    "sellers": 0,
    "net_musd": 0.0,
    "cluster": false,
-   "errors": 0
+   "errors": 0,
+   "next_report": null
   },
   {
    "ticker": "KEY",
@@ -3497,7 +3585,8 @@
    "sellers": 1,
    "net_musd": -0.83,
    "cluster": false,
-   "errors": 0
+   "errors": 0,
+   "next_report": null
   },
   {
    "ticker": "HWC",
@@ -3530,7 +3619,8 @@
    "sellers": 0,
    "net_musd": 0.0,
    "cluster": false,
-   "errors": 0
+   "errors": 0,
+   "next_report": null
   },
   {
    "ticker": "PB",
@@ -3563,7 +3653,8 @@
    "sellers": 1,
    "net_musd": -0.843,
    "cluster": false,
-   "errors": 0
+   "errors": 0,
+   "next_report": null
   },
   {
    "ticker": "TMO",
@@ -3596,7 +3687,8 @@
    "sellers": 1,
    "net_musd": -2.0,
    "cluster": false,
-   "errors": 0
+   "errors": 0,
+   "next_report": null
   },
   {
    "ticker": "VRTX",
@@ -3629,7 +3721,8 @@
    "sellers": 0,
    "net_musd": 0.0,
    "cluster": false,
-   "errors": 0
+   "errors": 0,
+   "next_report": null
   },
   {
    "ticker": "REGN",
@@ -3662,7 +3755,8 @@
    "sellers": 5,
    "net_musd": -45.241,
    "cluster": false,
-   "errors": 0
+   "errors": 0,
+   "next_report": null
   },
   {
    "ticker": "CSX",
@@ -3695,7 +3789,8 @@
    "sellers": 1,
    "net_musd": -0.999,
    "cluster": false,
-   "errors": 0
+   "errors": 0,
+   "next_report": null
   },
   {
    "ticker": "OKE",
@@ -3728,7 +3823,8 @@
    "sellers": 0,
    "net_musd": 0.0,
    "cluster": false,
-   "errors": 0
+   "errors": 0,
+   "next_report": null
   },
   {
    "ticker": "LNG",
@@ -3761,7 +3857,8 @@
    "sellers": 0,
    "net_musd": 0.0,
    "cluster": false,
-   "errors": 0
+   "errors": 0,
+   "next_report": null
   },
   {
    "ticker": "MCD",
@@ -3789,12 +3886,13 @@
     "c": 273.24,
     "v": 5843100
    },
-   "tx": 5,
+   "tx": 421,
    "buyers": 0,
    "sellers": 1,
    "net_musd": -0.417,
    "cluster": false,
-   "errors": 0
+   "errors": 0,
+   "next_report": null
   },
   {
    "ticker": "TSN",
@@ -3827,7 +3925,8 @@
    "sellers": 0,
    "net_musd": 1.002,
    "cluster": false,
-   "errors": 0
+   "errors": 0,
+   "next_report": null
   },
   {
    "ticker": "CPB",
@@ -3860,7 +3959,8 @@
    "sellers": 0,
    "net_musd": 0.0,
    "cluster": false,
-   "errors": 0
+   "errors": 0,
+   "next_report": null
   },
   {
    "ticker": "LRCX",
@@ -3893,7 +3993,8 @@
    "sellers": 1,
    "net_musd": -3.008,
    "cluster": false,
-   "errors": 0
+   "errors": 0,
+   "next_report": null
   },
   {
    "ticker": "PANW",
@@ -3926,7 +4027,8 @@
    "sellers": 3,
    "net_musd": -9.241,
    "cluster": false,
-   "errors": 0
+   "errors": 0,
+   "next_report": null
   },
   {
    "ticker": "ZION",
@@ -3959,7 +4061,8 @@
    "sellers": 1,
    "net_musd": -0.181,
    "cluster": false,
-   "errors": 0
+   "errors": 0,
+   "next_report": null
   },
   {
    "ticker": "BMY",
@@ -3992,7 +4095,42 @@
    "sellers": 3,
    "net_musd": -0.678,
    "cluster": false,
-   "errors": 0
+   "errors": 0,
+   "next_report": null
+  },
+  {
+   "ticker": "CAT",
+   "name": "CATERPILLAR INC",
+   "group": {
+    "it": "Industria",
+    "en": "Industrials"
+   },
+   "score": 47,
+   "verdict": {
+    "it": "Nessuna convinzione chiara",
+    "en": "No clear conviction"
+   },
+   "confidence": "Alta",
+   "covered_pct": 100,
+   "driver": {
+    "name": {
+     "it": "Insider",
+     "en": "Insiders"
+    },
+    "up": false
+   },
+   "last": {
+    "d": "2026-11-20",
+    "c": 510.45,
+    "v": 5075800
+   },
+   "tx": 542,
+   "buyers": 2,
+   "sellers": 1,
+   "net_musd": -25.383,
+   "cluster": false,
+   "errors": 0,
+   "next_report": null
   },
   {
    "ticker": "UNP",
@@ -4025,7 +4163,8 @@
    "sellers": 0,
    "net_musd": 0.0,
    "cluster": false,
-   "errors": 0
+   "errors": 0,
+   "next_report": null
   },
   {
    "ticker": "GWW",
@@ -4058,7 +4197,8 @@
    "sellers": 2,
    "net_musd": -0.448,
    "cluster": false,
-   "errors": 0
+   "errors": 0,
+   "next_report": null
   },
   {
    "ticker": "EQT",
@@ -4091,7 +4231,8 @@
    "sellers": 0,
    "net_musd": 0.0,
    "cluster": false,
-   "errors": 0
+   "errors": 0,
+   "next_report": null
   },
   {
    "ticker": "TSLA",
@@ -4124,7 +4265,8 @@
    "sellers": 1,
    "net_musd": -0.938,
    "cluster": false,
-   "errors": 0
+   "errors": 0,
+   "next_report": null
   },
   {
    "ticker": "KO",
@@ -4157,7 +4299,8 @@
    "sellers": 4,
    "net_musd": -16.481,
    "cluster": false,
-   "errors": 0
+   "errors": 0,
+   "next_report": null
   },
   {
    "ticker": "AIG",
@@ -4190,7 +4333,8 @@
    "sellers": 0,
    "net_musd": 0.01,
    "cluster": false,
-   "errors": 0
+   "errors": 0,
+   "next_report": null
   },
   {
    "ticker": "BOKF",
@@ -4223,7 +4367,8 @@
    "sellers": 1,
    "net_musd": -0.233,
    "cluster": false,
-   "errors": 0
+   "errors": 0,
+   "next_report": null
   },
   {
    "ticker": "SSB",
@@ -4256,7 +4401,8 @@
    "sellers": 0,
    "net_musd": 0.0,
    "cluster": false,
-   "errors": 0
+   "errors": 0,
+   "next_report": null
   },
   {
    "ticker": "MRK",
@@ -4289,7 +4435,8 @@
    "sellers": 1,
    "net_musd": -8.612,
    "cluster": false,
-   "errors": 0
+   "errors": 0,
+   "next_report": null
   },
   {
    "ticker": "HCA",
@@ -4322,7 +4469,8 @@
    "sellers": 3,
    "net_musd": -18.251,
    "cluster": false,
-   "errors": 0
+   "errors": 0,
+   "next_report": null
   },
   {
    "ticker": "WM",
@@ -4355,7 +4503,8 @@
    "sellers": 2,
    "net_musd": -0.421,
    "cluster": false,
-   "errors": 0
+   "errors": 0,
+   "next_report": null
   },
   {
    "ticker": "SLB",
@@ -4388,7 +4537,8 @@
    "sellers": 2,
    "net_musd": -1.663,
    "cluster": false,
-   "errors": 0
+   "errors": 0,
+   "next_report": null
   },
   {
    "ticker": "MKC",
@@ -4421,7 +4571,8 @@
    "sellers": 0,
    "net_musd": 0.045,
    "cluster": false,
-   "errors": 0
+   "errors": 0,
+   "next_report": null
   },
   {
    "ticker": "TER",
@@ -4454,7 +4605,8 @@
    "sellers": 0,
    "net_musd": 0.0,
    "cluster": false,
-   "errors": 0
+   "errors": 0,
+   "next_report": null
   },
   {
    "ticker": "AEHR",
@@ -4487,7 +4639,8 @@
    "sellers": 0,
    "net_musd": 0.0,
    "cluster": false,
-   "errors": 0
+   "errors": 0,
+   "next_report": null
   },
   {
    "ticker": "COHU",
@@ -4520,7 +4673,8 @@
    "sellers": 0,
    "net_musd": 0.0,
    "cluster": false,
-   "errors": 0
+   "errors": 0,
+   "next_report": null
   },
   {
    "ticker": "ZS",
@@ -4553,7 +4707,8 @@
    "sellers": 5,
    "net_musd": -4.013,
    "cluster": false,
-   "errors": 0
+   "errors": 0,
+   "next_report": null
   },
   {
    "ticker": "SCHW",
@@ -4586,7 +4741,8 @@
    "sellers": 4,
    "net_musd": -75.153,
    "cluster": false,
-   "errors": 0
+   "errors": 0,
+   "next_report": null
   },
   {
    "ticker": "CB",
@@ -4619,7 +4775,8 @@
    "sellers": 2,
    "net_musd": -10.023,
    "cluster": false,
-   "errors": 0
+   "errors": 0,
+   "next_report": null
   },
   {
    "ticker": "USB",
@@ -4652,7 +4809,8 @@
    "sellers": 1,
    "net_musd": -1.701,
    "cluster": false,
-   "errors": 0
+   "errors": 0,
+   "next_report": null
   },
   {
    "ticker": "ELV",
@@ -4685,7 +4843,8 @@
    "sellers": 2,
    "net_musd": -4.846,
    "cluster": false,
-   "errors": 0
+   "errors": 0,
+   "next_report": null
   },
   {
    "ticker": "AMD",
@@ -4718,7 +4877,8 @@
    "sellers": 1,
    "net_musd": -5.084,
    "cluster": false,
-   "errors": 0
+   "errors": 0,
+   "next_report": null
   },
   {
    "ticker": "BLK",
@@ -4751,7 +4911,8 @@
    "sellers": 1,
    "net_musd": -8.537,
    "cluster": false,
-   "errors": 0
+   "errors": 0,
+   "next_report": null
   },
   {
    "ticker": "ITW",
@@ -4784,7 +4945,8 @@
    "sellers": 1,
    "net_musd": -17.572,
    "cluster": false,
-   "errors": 0
+   "errors": 0,
+   "next_report": null
   },
   {
    "ticker": "CMI",
@@ -4817,7 +4979,8 @@
    "sellers": 1,
    "net_musd": -0.399,
    "cluster": false,
-   "errors": 0
+   "errors": 0,
+   "next_report": null
   },
   {
    "ticker": "HAL",
@@ -4850,7 +5013,8 @@
    "sellers": 1,
    "net_musd": -0.929,
    "cluster": false,
-   "errors": 0
+   "errors": 0,
+   "next_report": null
   },
   {
    "ticker": "FANG",
@@ -4883,7 +5047,8 @@
    "sellers": 5,
    "net_musd": -3744.919,
    "cluster": false,
-   "errors": 0
+   "errors": 0,
+   "next_report": null
   },
   {
    "ticker": "CAG",
@@ -4916,7 +5081,8 @@
    "sellers": 0,
    "net_musd": 0.0,
    "cluster": false,
-   "errors": 0
+   "errors": 0,
+   "next_report": null
   },
   {
    "ticker": "ONTO",
@@ -4949,7 +5115,8 @@
    "sellers": 0,
    "net_musd": 0.0,
    "cluster": false,
-   "errors": 0
+   "errors": 0,
+   "next_report": null
   },
   {
    "ticker": "UCTT",
@@ -4982,7 +5149,8 @@
    "sellers": 0,
    "net_musd": 0.0,
    "cluster": false,
-   "errors": 0
+   "errors": 0,
+   "next_report": null
   },
   {
    "ticker": "AAPL",
@@ -5015,7 +5183,8 @@
    "sellers": 1,
    "net_musd": -31.766,
    "cluster": false,
-   "errors": 0
+   "errors": 0,
+   "next_report": null
   },
   {
    "ticker": "MSFT",
@@ -5048,7 +5217,8 @@
    "sellers": 3,
    "net_musd": -74.769,
    "cluster": false,
-   "errors": 0
+   "errors": 0,
+   "next_report": null
   },
   {
    "ticker": "HD",
@@ -5081,7 +5251,8 @@
    "sellers": 4,
    "net_musd": -7.803,
    "cluster": false,
-   "errors": 0
+   "errors": 0,
+   "next_report": null
   },
   {
    "ticker": "FITB",
@@ -5114,7 +5285,8 @@
    "sellers": 3,
    "net_musd": -1.534,
    "cluster": false,
-   "errors": 0
+   "errors": 0,
+   "next_report": null
   },
   {
    "ticker": "WTFC",
@@ -5147,7 +5319,8 @@
    "sellers": 1,
    "net_musd": -1.061,
    "cluster": false,
-   "errors": 0
+   "errors": 0,
+   "next_report": null
   },
   {
    "ticker": "CBSH",
@@ -5180,7 +5353,8 @@
    "sellers": 1,
    "net_musd": -0.039,
    "cluster": false,
-   "errors": 0
+   "errors": 0,
+   "next_report": null
   },
   {
    "ticker": "SYK",
@@ -5213,7 +5387,42 @@
    "sellers": 1,
    "net_musd": -178.925,
    "cluster": false,
-   "errors": 0
+   "errors": 0,
+   "next_report": null
+  },
+  {
+   "ticker": "BSX",
+   "name": "BOSTON SCIENTIFIC CORP",
+   "group": {
+    "it": "Sanità",
+    "en": "Health care"
+   },
+   "score": 43,
+   "verdict": {
+    "it": "Leggermente ribassista",
+    "en": "Mildly bearish"
+   },
+   "confidence": "Alta",
+   "covered_pct": 100,
+   "driver": {
+    "name": {
+     "it": "Guidance e tono",
+     "en": "Guidance and tone"
+    },
+    "up": false
+   },
+   "last": {
+    "d": "2026-11-20",
+    "c": 41.98,
+    "v": 15224700
+   },
+   "tx": 1112,
+   "buyers": 1,
+   "sellers": 0,
+   "net_musd": 0.1,
+   "cluster": false,
+   "errors": 0,
+   "next_report": null
   },
   {
    "ticker": "HLT",
@@ -5246,7 +5455,8 @@
    "sellers": 4,
    "net_musd": -61.986,
    "cluster": false,
-   "errors": 0
+   "errors": 0,
+   "next_report": null
   },
   {
    "ticker": "ULTA",
@@ -5279,7 +5489,8 @@
    "sellers": 2,
    "net_musd": -1.414,
    "cluster": false,
-   "errors": 0
+   "errors": 0,
+   "next_report": null
   },
   {
    "ticker": "GIS",
@@ -5312,7 +5523,8 @@
    "sellers": 2,
    "net_musd": -0.869,
    "cluster": false,
-   "errors": 0
+   "errors": 0,
+   "next_report": null
   },
   {
    "ticker": "ICHR",
@@ -5345,7 +5557,8 @@
    "sellers": 0,
    "net_musd": 0.0,
    "cluster": false,
-   "errors": 0
+   "errors": 0,
+   "next_report": null
   },
   {
    "ticker": "PG",
@@ -5378,7 +5591,8 @@
    "sellers": 10,
    "net_musd": -31.814,
    "cluster": false,
-   "errors": 0
+   "errors": 0,
+   "next_report": null
   },
   {
    "ticker": "RF",
@@ -5411,7 +5625,8 @@
    "sellers": 2,
    "net_musd": -0.0,
    "cluster": false,
-   "errors": 0
+   "errors": 0,
+   "next_report": null
   },
   {
    "ticker": "FHN",
@@ -5444,7 +5659,8 @@
    "sellers": 1,
    "net_musd": -2.38,
    "cluster": false,
-   "errors": 0
+   "errors": 0,
+   "next_report": null
   },
   {
    "ticker": "ONB",
@@ -5477,7 +5693,8 @@
    "sellers": 1,
    "net_musd": -0.493,
    "cluster": false,
-   "errors": 0
+   "errors": 0,
+   "next_report": null
   },
   {
    "ticker": "ABT",
@@ -5510,7 +5727,8 @@
    "sellers": 3,
    "net_musd": -46.614,
    "cluster": false,
-   "errors": 0
+   "errors": 0,
+   "next_report": null
   },
   {
    "ticker": "MDT",
@@ -5543,7 +5761,8 @@
    "sellers": 1,
    "net_musd": -0.139,
    "cluster": false,
-   "errors": 0
+   "errors": 0,
+   "next_report": null
   },
   {
    "ticker": "UPS",
@@ -5576,7 +5795,8 @@
    "sellers": 1,
    "net_musd": -0.877,
    "cluster": false,
-   "errors": 0
+   "errors": 0,
+   "next_report": null
   },
   {
    "ticker": "GD",
@@ -5609,7 +5829,8 @@
    "sellers": 3,
    "net_musd": -23.808,
    "cluster": false,
-   "errors": 0
+   "errors": 0,
+   "next_report": null
   },
   {
    "ticker": "PSX",
@@ -5642,7 +5863,8 @@
    "sellers": 1,
    "net_musd": -6.202,
    "cluster": false,
-   "errors": 0
+   "errors": 0,
+   "next_report": null
   },
   {
    "ticker": "TRGP",
@@ -5670,12 +5892,13 @@
     "c": 278.3,
     "v": 1228100
    },
-   "tx": 17,
+   "tx": 470,
    "buyers": 0,
    "sellers": 2,
    "net_musd": -1.408,
    "cluster": false,
-   "errors": 0
+   "errors": 0,
+   "next_report": null
   },
   {
    "ticker": "YUM",
@@ -5708,7 +5931,8 @@
    "sellers": 1,
    "net_musd": -0.106,
    "cluster": false,
-   "errors": 0
+   "errors": 0,
+   "next_report": null
   },
   {
    "ticker": "EBAY",
@@ -5741,7 +5965,8 @@
    "sellers": 4,
    "net_musd": -16.625,
    "cluster": false,
-   "errors": 0
+   "errors": 0,
+   "next_report": null
   },
   {
    "ticker": "KMB",
@@ -5774,7 +5999,8 @@
    "sellers": 0,
    "net_musd": 0.0,
    "cluster": false,
-   "errors": 0
+   "errors": 0,
+   "next_report": null
   },
   {
    "ticker": "STZ",
@@ -5807,7 +6033,8 @@
    "sellers": 11,
    "net_musd": -261.109,
    "cluster": false,
-   "errors": 0
+   "errors": 0,
+   "next_report": null
   },
   {
    "ticker": "TXN",
@@ -5840,7 +6067,8 @@
    "sellers": 6,
    "net_musd": -10.942,
    "cluster": false,
-   "errors": 0
+   "errors": 0,
+   "next_report": null
   },
   {
    "ticker": "AMAT",
@@ -5873,7 +6101,8 @@
    "sellers": 3,
    "net_musd": -4.454,
    "cluster": false,
-   "errors": 0
+   "errors": 0,
+   "next_report": null
   },
   {
    "ticker": "DDOG",
@@ -5906,7 +6135,8 @@
    "sellers": 8,
    "net_musd": -24.555,
    "cluster": false,
-   "errors": 0
+   "errors": 0,
+   "next_report": null
   },
   {
    "ticker": "AXP",
@@ -5939,7 +6169,8 @@
    "sellers": 3,
    "net_musd": -137.069,
    "cluster": false,
-   "errors": 0
+   "errors": 0,
+   "next_report": null
   },
   {
    "ticker": "CME",
@@ -5972,7 +6203,8 @@
    "sellers": 8,
    "net_musd": -18.198,
    "cluster": false,
-   "errors": 0
+   "errors": 0,
+   "next_report": null
   },
   {
    "ticker": "MET",
@@ -6005,40 +6237,8 @@
    "sellers": 2,
    "net_musd": -19.951,
    "cluster": false,
-   "errors": 0
-  },
-  {
-   "ticker": "CAT",
-   "name": "CATERPILLAR INC",
-   "group": {
-    "it": "Industria",
-    "en": "Industrials"
-   },
-   "score": 41,
-   "verdict": {
-    "it": "Leggermente ribassista",
-    "en": "Mildly bearish"
-   },
-   "confidence": "Media",
-   "covered_pct": 80,
-   "driver": {
-    "name": {
-     "it": "Insider",
-     "en": "Insiders"
-    },
-    "up": false
-   },
-   "last": {
-    "d": "2026-11-20",
-    "c": 510.45,
-    "v": 5075800
-   },
-   "tx": 542,
-   "buyers": 2,
-   "sellers": 1,
-   "net_musd": -25.383,
-   "cluster": false,
-   "errors": 0
+   "errors": 0,
+   "next_report": null
   },
   {
    "ticker": "GM",
@@ -6071,7 +6271,8 @@
    "sellers": 2,
    "net_musd": -2.661,
    "cluster": false,
-   "errors": 0
+   "errors": 0,
+   "next_report": null
   },
   {
    "ticker": "ADBE",
@@ -6104,7 +6305,8 @@
    "sellers": 1,
    "net_musd": -31.345,
    "cluster": false,
-   "errors": 0
+   "errors": 0,
+   "next_report": null
   },
   {
    "ticker": "CRWD",
@@ -6137,7 +6339,8 @@
    "sellers": 7,
    "net_musd": -213.672,
    "cluster": false,
-   "errors": 0
+   "errors": 0,
+   "next_report": null
   },
   {
    "ticker": "GS",
@@ -6170,7 +6373,8 @@
    "sellers": 2,
    "net_musd": -12.001,
    "cluster": false,
-   "errors": 0
+   "errors": 0,
+   "next_report": null
   },
   {
    "ticker": "TRV",
@@ -6203,7 +6407,8 @@
    "sellers": 8,
    "net_musd": -77.818,
    "cluster": false,
-   "errors": 0
+   "errors": 0,
+   "next_report": null
   },
   {
    "ticker": "NKE",
@@ -6231,12 +6436,13 @@
     "c": 32.92,
     "v": 32001800
    },
-   "tx": 45,
+   "tx": 351,
    "buyers": 0,
    "sellers": 0,
    "net_musd": 0.0,
    "cluster": false,
-   "errors": 0
+   "errors": 0,
+   "next_report": null
   },
   {
    "ticker": "ORLY",
@@ -6264,12 +6470,13 @@
     "c": 92.65,
     "v": 7818900
    },
-   "tx": 20,
+   "tx": 466,
    "buyers": 0,
    "sellers": 8,
    "net_musd": -16.394,
    "cluster": false,
-   "errors": 0
+   "errors": 0,
+   "next_report": null
   },
   {
    "ticker": "MAR",
@@ -6297,12 +6504,13 @@
     "c": 406.64,
     "v": 1989400
    },
-   "tx": 39,
+   "tx": 328,
    "buyers": 0,
    "sellers": 8,
    "net_musd": -42.432,
    "cluster": false,
-   "errors": 0
+   "errors": 0,
+   "next_report": null
   },
   {
    "ticker": "ROST",
@@ -6335,7 +6543,8 @@
    "sellers": 2,
    "net_musd": -12.767,
    "cluster": false,
-   "errors": 0
+   "errors": 0,
+   "next_report": null
   },
   {
    "ticker": "HSY",
@@ -6368,7 +6577,8 @@
    "sellers": 1,
    "net_musd": -105.629,
    "cluster": false,
-   "errors": 0
+   "errors": 0,
+   "next_report": null
   },
   {
    "ticker": "EL",
@@ -6401,7 +6611,8 @@
    "sellers": 6,
    "net_musd": -24.581,
    "cluster": false,
-   "errors": 0
+   "errors": 0,
+   "next_report": null
   },
   {
    "ticker": "V",
@@ -6434,7 +6645,8 @@
    "sellers": 2,
    "net_musd": -29.583,
    "cluster": false,
-   "errors": 0
+   "errors": 0,
+   "next_report": null
   },
   {
    "ticker": "EWBC",
@@ -6467,7 +6679,8 @@
    "sellers": 2,
    "net_musd": -9.3,
    "cluster": false,
-   "errors": 0
+   "errors": 0,
+   "next_report": null
   },
   {
    "ticker": "DRI",
@@ -6500,7 +6713,8 @@
    "sellers": 1,
    "net_musd": -0.448,
    "cluster": false,
-   "errors": 0
+   "errors": 0,
+   "next_report": null
   },
   {
    "ticker": "CL",
@@ -6533,7 +6747,8 @@
    "sellers": 5,
    "net_musd": -8.028,
    "cluster": false,
-   "errors": 0
+   "errors": 0,
+   "next_report": null
   },
   {
    "ticker": "EOG",
@@ -6566,7 +6781,8 @@
    "sellers": 2,
    "net_musd": -6.552,
    "cluster": false,
-   "errors": 0
+   "errors": 0,
+   "next_report": null
   },
   {
    "ticker": "COST",
@@ -6599,7 +6815,8 @@
    "sellers": 5,
    "net_musd": -5.607,
    "cluster": false,
-   "errors": 0
+   "errors": 0,
+   "next_report": null
   },
   {
    "ticker": "SNPS",
@@ -6632,7 +6849,8 @@
    "sellers": 4,
    "net_musd": -51.366,
    "cluster": false,
-   "errors": 0
+   "errors": 0,
+   "next_report": null
   },
   {
    "ticker": "TYL",
@@ -6665,7 +6883,8 @@
    "sellers": 3,
    "net_musd": -27.706,
    "cluster": false,
-   "errors": 0
+   "errors": 0,
+   "next_report": null
   },
   {
    "ticker": "MCO",
@@ -6698,7 +6917,8 @@
    "sellers": 2,
    "net_musd": -5.199,
    "cluster": false,
-   "errors": 0
+   "errors": 0,
+   "next_report": null
   },
   {
    "ticker": "CFR",
@@ -6731,7 +6951,8 @@
    "sellers": 3,
    "net_musd": -0.922,
    "cluster": false,
-   "errors": 0
+   "errors": 0,
+   "next_report": null
   },
   {
    "ticker": "CHD",
@@ -6764,7 +6985,8 @@
    "sellers": 10,
    "net_musd": -20.525,
    "cluster": false,
-   "errors": 0
+   "errors": 0,
+   "next_report": null
   },
   {
    "ticker": "META",
@@ -6797,7 +7019,8 @@
    "sellers": 2,
    "net_musd": -14.14,
    "cluster": false,
-   "errors": 0
+   "errors": 0,
+   "next_report": null
   },
   {
    "ticker": "IDXX",
@@ -6830,7 +7053,8 @@
    "sellers": 5,
    "net_musd": -28.568,
    "cluster": false,
-   "errors": 0
+   "errors": 0,
+   "next_report": null
   },
   {
    "ticker": "CVX",
@@ -6863,7 +7087,8 @@
    "sellers": 3,
    "net_musd": -30.484,
    "cluster": false,
-   "errors": 0
+   "errors": 0,
+   "next_report": null
   },
   {
    "ticker": "KR",
@@ -6896,7 +7121,8 @@
    "sellers": 1,
    "net_musd": -4.425,
    "cluster": false,
-   "errors": 0
+   "errors": 0,
+   "next_report": null
   },
   {
    "ticker": "ROP",
@@ -6929,7 +7155,8 @@
    "sellers": 4,
    "net_musd": -29.442,
    "cluster": false,
-   "errors": 0
+   "errors": 0,
+   "next_report": null
   },
   {
    "ticker": "AZO",
@@ -6957,12 +7184,13 @@
     "c": 3255.4299,
     "v": 177900
    },
-   "tx": 24,
+   "tx": 964,
    "buyers": 0,
    "sellers": 1,
    "net_musd": -22.906,
    "cluster": false,
-   "errors": 0
+   "errors": 0,
+   "next_report": null
   },
   {
    "ticker": "BNY",
@@ -6995,7 +7223,8 @@
    "sellers": 1,
    "net_musd": -7.391,
    "cluster": false,
-   "errors": 0
+   "errors": 0,
+   "next_report": null
   }
  ],
  "errors": []
