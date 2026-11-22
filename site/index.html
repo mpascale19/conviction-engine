@@ -482,9 +482,9 @@ function renderGuide(){
     ['Si scaricano i documenti',
      'Per ogni azienda, da SEC EDGAR: i Form 4 e gli 8-K degli ultimi cinque anni (al punteggio di oggi ' +
      'servono gli ultimi 90 giorni dei primi e sei mesi dei secondi; il resto serve alle prove) e ' +
-     'le azioni in circolazione dalla copertina dei 10-Q. Poi i prezzi di chiusura. Lo short interest ' +
-     '(dati FINRA) e le trascrizioni delle call non si scaricano da soli: arrivano da un export fatto a ' +
-     'mano dal terminale, e solo per le aziende per cui c’è.'],
+     'le azioni in circolazione dalla copertina dei 10-Q. Poi i prezzi di chiusura, e da FINRA lo short ' +
+     'interest di cinque anni, due rilevazioni al mese. Solo le trascrizioni delle call non si scaricano ' +
+     'da sole: arrivano da un export fatto a mano dal terminale, e solo per le aziende per cui c’è.'],
     ['Il modello estrae, non giudica',
      'Dalle trascrizioni delle call ricava fatti strutturati: ogni voce di guidance con la sua direzione, ' +
      'quanto sono dirette le risposte agli analisti, che cosa è cambiato nel linguaggio. C’è un solo ' +
@@ -504,9 +504,9 @@ function renderGuide(){
     ['The documents are downloaded',
      'For each company, from SEC EDGAR: the Form 4 and 8-K filings of the last five years (today’s score ' +
      'needs the last 90 days of the first and six months of the second; the rest feeds the tests), and ' +
-     'shares outstanding from the cover of the 10-Q. Then closing prices. Short ' +
-     'interest (FINRA data) and call transcripts do not download themselves: they come from a manual ' +
-     'terminal export, and only for the companies that have one.'],
+     'shares outstanding from the cover of the 10-Q. Then closing prices, and from FINRA five years of ' +
+     'short interest, two readings a month. Only the call transcripts do not download themselves: they ' +
+     'come from a manual terminal export, and only for the companies that have one.'],
     ['The model extracts, it does not judge',
      'From the call transcripts it draws structured facts: every guidance item with its direction, how ' +
      'direct the answers to analysts are, what changed in the language. There is one number the model ' +
@@ -563,8 +563,8 @@ function renderGuide(){
      'No. Dice quanto sono allineati i segnali che il sistema sa leggere, e lascia a te la lettura. ' +
      'Un punteggio alto con copertura bassa vale meno di un punteggio medio con copertura piena.'],
     ['Che cos’è la copertura?',
-     'La percentuale dei pesi effettivamente alimentata da dati. Con i soli dati pubblici (SEC e prezzi) ' +
-     'un’azienda sta al 65%; con lo short interest arriva all’80%; con le trascrizioni delle call al 100%. ' +
+     'La percentuale dei pesi effettivamente alimentata da dati. Con i dati pubblici (SEC, prezzi e lo ' +
+     'short interest di FINRA) un’azienda arriva all’80%; con le trascrizioni delle call al 100%. ' +
      'Il resto manca e viene dichiarato.'],
     ['Perché una vendita a volte non conta?',
      'Perché era già programmata. Un piano 10b5-1 si firma mesi prima: la vendita di oggi non dice ' +
@@ -579,20 +579,20 @@ function renderGuide(){
      'acquisti si contano per campagna: dieci compere in tre settimane sono una prova sola.'],
     ['Da dove vengono i dati?',
      'Form 4, 8-K, azioni in circolazione: SEC EDGAR. Prezzi: Yahoo Finance, con stooq come riserva. ' +
-     'Short interest: FINRA, via export da terminale. Trascrizioni: export da terminale, e nel ' +
+     'Short interest: i file pubblici di FINRA. Trascrizioni: export da terminale, e nel ' +
      'repository finiscono solo i fatti estratti, non il testo.'],
     ['Ogni quanto si aggiorna?',
      'Ogni ora nei giorni feriali, diciotto volte al giorno (dalle 6 alle 23 UTC). Un giro che non trova ' +
      'niente di nuovo aggiorna solo l’ora del controllo e non riscrive nessuna scheda: per questo può ' +
      'girare così spesso senza appesantire niente. Il registro ' +
-     'delle previsioni invece aggiunge una riga per azienda una sola volta per seduta. Short interest e ' +
-     'trascrizioni richiedono un export manuale: due volte al mese il primo, una volta a trimestre le ' +
-     'seconde.'],
+     'delle previsioni invece aggiunge una riga per azienda una sola volta per seduta. Lo short interest ' +
+     'cambia due volte al mese, quando FINRA pubblica una rilevazione nuova; le trascrizioni richiedono ' +
+     'un export manuale una volta a trimestre.'],
     ['Come faccio a sapere se il punteggio funziona?',
      'Oggi non lo sai ancora, e il sito non finge il contrario. Ci sono tre prove, ognuna con il suo ' +
      'limite. Il backtest mette alla prova le regole della voce insider, contando una volta sola ogni ' +
-     'campagna di acquisti, e ne ricava i bonus; non prova il punteggio intero, perché guidance e ' +
-     'short interest non esistono giorno per giorno nel passato. Il registro delle ' +
+     'campagna di acquisti, e ne ricava i bonus; non prova il punteggio intero, perché la guidance ' +
+     'nel passato manca per quasi tutte le aziende. Il registro delle ' +
      'previsioni segna il punteggio di ogni giorno e lo misura dopo 90 giorni: è la prova vera, e il ' +
      'primo risultato arriva a febbraio 2027. La prova dei pesi, su questa pagina, dice quanto la ' +
      'classifica dipende dai numeri scelti a mano.'],
@@ -604,8 +604,8 @@ function renderGuide(){
      'No. It says how aligned the signals it can read are, and leaves the reading to you. A high score ' +
      'with low coverage is worth less than a middling score with full coverage.'],
     ['What is coverage?',
-     'The share of the weights actually fed by data. With public data only (SEC and prices) a company ' +
-     'sits at 65%; with short interest it reaches 80%; with call transcripts, 100%. The rest is missing, ' +
+     'The share of the weights actually fed by data. With public data (SEC, prices and FINRA short ' +
+     'interest) a company reaches 80%; with call transcripts, 100%. The rest is missing, ' +
      'and said so.'],
     ['Why does a sale sometimes not count?',
      'Because it was already scheduled. A 10b5-1 plan is signed months ahead: today’s sale says ' +
@@ -620,19 +620,19 @@ function renderGuide(){
      'campaign: ten buys in three weeks are a single piece of evidence.'],
     ['Where does the data come from?',
      'Form 4, 8-K filings and shares outstanding: SEC EDGAR. Prices: Yahoo Finance, with stooq as a ' +
-     'fallback. Short interest: FINRA, via a terminal export. Transcripts: a terminal export, and only ' +
+     'fallback. Short interest: FINRA’s public files. Transcripts: a terminal export, and only ' +
      'the extracted facts go into the repository, never the text.'],
     ['How often does it update?',
      'Every hour on weekdays, eighteen times a day (06:00 to 23:00 UTC). A run that finds nothing new only ' +
      'updates the time of the check and rewrites no company page, which is why it can run this often ' +
      'without weighing anything down. The prediction register, ' +
-     'instead, adds one row per company only once per trading session. Short interest and transcripts ' +
-     'need a manual export: twice a month for the first, once a quarter for the second.'],
+     'instead, adds one row per company only once per trading session. Short interest changes twice a ' +
+     'month, when FINRA publishes a new reading; transcripts need a manual export once a quarter.'],
     ['How do I know whether the score works?',
      'Today you do not know yet, and the site does not pretend otherwise. There are three tests, each with ' +
      'its limit. The backtest tests the rules of the insider input, counting each buying campaign only ' +
-     'once, and derives the bonuses from them; it does not test the whole score, because guidance and ' +
-     'short interest do not exist day by day in the past. The prediction register records ' +
+     'once, and derives the bonuses from them; it does not test the whole score, because past guidance ' +
+     'is missing for almost every company. The prediction register records ' +
      'the score every day and measures it after 90 days: that is the real test, and the first result ' +
      'arrives in February 2027. The weight test, on this page, says how much the ranking depends on ' +
      'numbers picked by hand.'],
@@ -886,14 +886,14 @@ function fwdCard(){
   var head = '<div class="card"><h2>' + T('Il punteggio alla prova', 'The score put to the test') +
     '</h2><p class="sub">' + T(
       'Il backtest qui sotto prova due regole dentro la voce insider, non il punteggio. Il ' +
-      'punteggio all\u2019indietro non si può provare: guidance e short interest non esistono ' +
-      'giorno per giorno nel passato, e ricostruirli vorrebbe dire inventarli. Quello che si può ' +
+      'punteggio all\u2019indietro non si può provare: la guidance nel passato manca per quasi ' +
+      'tutte le aziende, e ricostruirla vorrebbe dire inventarla. Quello che si può ' +
       'fare è segnarlo oggi e misurarlo dopo ' + f.horizon + ' giorni. Da qui in avanti ogni ' +
       'seduta lascia una riga per azienda in un file pubblico, e quando il tempo è passato quella ' +
       'riga diventa un risultato, giusto o sbagliato che sia.',
       'The backtest below tests two rules inside the insider input, not the score. The score ' +
-      'cannot be tested backwards: guidance and short interest do not exist day by day in the ' +
-      'past, and rebuilding them would mean inventing them. What can be done is to record it ' +
+      'cannot be tested backwards: past guidance is missing for almost every company, and ' +
+      'rebuilding it would mean inventing it. What can be done is to record it ' +
       'today and measure it after ' + f.horizon + ' days. From now on every session leaves one ' +
       'row per company in a public file, and once the time has passed that row becomes a result, ' +
       'right or wrong.') + '</p>' +
@@ -1242,8 +1242,8 @@ function renderBacktest(){
 
     '<div class="card"><h2>' + T('Che cosa questo backtest non è',
       'What this backtest is not') + '</h2><ul class="plain">' + T([
-      'Non è il backtest del punteggio. Guidance e short interest non esistono giorno per giorno ' +
-      'all’indietro: ricostruire il punteggio storico vorrebbe dire inventarlo.',
+      'Non è il backtest del punteggio. La guidance all’indietro manca per quasi tutte le aziende: ' +
+      'ricostruire il punteggio storico vorrebbe dire inventarla.',
       'Non è una strategia. Non ci sono costi, slittamenti di prezzo, dimensione delle posizioni ' +
       'né regole di uscita diverse dai ' + h + ' giorni fissi.',
       'Non è un campione grande. ' + k + ' campagne indipendenti' +
@@ -1253,8 +1253,8 @@ function renderBacktest(){
       'Il rendimento è sempre al netto del settore di appartenenza, non del mercato: misura la ' +
       'scelta dell’azienda, non l’andamento generale.'
     ], [
-      'It is not a backtest of the score. Guidance and short interest do not exist day by day going ' +
-      'backwards: rebuilding the historical score would mean inventing it.',
+      'It is not a backtest of the score. Past guidance is missing for almost every company: ' +
+      'rebuilding the historical score would mean inventing it.',
       'It is not a strategy. There are no costs, no slippage, no position sizing and no exit rule ' +
       'other than the fixed ' + h + ' days.',
       'It is not a large sample. ' + k + ' independent campaigns' +
