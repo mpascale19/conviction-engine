@@ -71,6 +71,12 @@ def gather(cfg, ticker, bench, offline=False, budget=None):
         fallback = (cfg.get("cik") or {}).get(ticker)
         cik, name, how = sources.cik_for(ticker, fallback)
         print(f"  CIK {cik} ({name}) via {how}")
+        # i CIK precedenti dell'azienda, se ha cambiato sede o capogruppo:
+        # la sua storia sta sotto di loro (vedi sources.PREDECESSORS)
+        olds = (cfg.get("cik_predecessors") or {}).get(ticker) or []
+        if olds:
+            sources.PREDECESSORS[str(cik).zfill(10)] = [str(c).zfill(10) for c in olds]
+            print(f"  anche i depositi dei CIK precedenti: {', '.join(olds)}")
         tx = sources.insider_transactions(cik, cfg["months_of_history"],
                                           limit=cfg.get("max_filings_per_ticker"),
                                           # v2: i documenti letti prima del controllo

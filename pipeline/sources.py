@@ -160,12 +160,44 @@ def submissions(cik):
 
 _TAB = {}
 
+# CIK precedenti di un'azienda: {cik attuale (10 cifre): [cik precedenti]}.
+# Quando un'azienda cambia sede o capogruppo deposita con un CIK nuovo, e tutta la
+# storia resta sotto quello vecchio: ExxonMobil, trasferita in Texas il 1° luglio
+# 2026, deposita come 0002115436, ma i suoi Form 4 e 8-K di prima stanno sotto
+# 0000034088. Lo riempie build.py da config.json ("cik_predecessors").
+PREDECESSORS = {}
+
 
 def filings_table(cik, since=None):
+    """I depositi dell'azienda e quelli dei suoi CIK precedenti, in un elenco solo.
+
+    Ogni riga porta in `_cik` il CIK che l'ha depositata: serve a costruire
+    l'indirizzo del documento, che sta nella cartella di quel CIK.
+    Restituisce (colonne, data da cui l'elenco è completo).
+    """
+    cik = str(cik).zfill(10)
+    cols, covered = _table_one(cik, since)
+    cols = {k: list(v) for k, v in cols.items()}    # copia: l'originale sta in cache
+    for old in PREDECESSORS.get(cik, []):
+        try:
+            more, cov2 = _table_one(str(old).zfill(10), since)
+        except Exception:
+            continue                      # senza il predecessore l'elenco parte dove parte
+        n, m = len(cols.get("filingDate") or []), len(more.get("filingDate") or [])
+        for k in set(cols) | set(more):
+            cols[k] = (list(cols.get(k) or []) + [""] * n)[:n] + (list(more.get(k) or []) + [""] * m)[:m]
+        if cov2 and (covered is None or cov2 < covered):
+            covered = cov2
+    order = sorted(range(len(cols.get("filingDate") or [])),
+                   key=lambda i: cols["filingDate"][i], reverse=True)
+    return {k: [v[i] for i in order] for k, v in cols.items()}, covered
+
+
+def _table_one(cik, since=None):
     """Tutti i depositi del CIK fino a `since`, anche quelli negli archivi.
 
     Il JSON principale tiene solo gli ultimi mille moduli di ogni tipo: per
-    un'azienda con molti Form 4 sono pochi mesi (per Exxon da luglio 2026).
+    un'azienda con molti Form 4 sono pochi mesi (per Google da novembre 2025).
     I più vecchi stanno in file d'archivio elencati in `filings.files`, con le
     date che coprono; si scaricano solo quelli che servono ad arrivare a
     `since`, una richiesta ciascuno.
@@ -179,6 +211,7 @@ def filings_table(cik, since=None):
     j = submissions(cik)
     rec = (j.get("filings") or {}).get("recent") or {}
     cols = {k: list(v) for k, v in rec.items() if isinstance(v, list)}
+    cols["_cik"] = [cik] * len(cols.get("filingDate") or [])
     dates = cols.get("filingDate") or []
     covered = min(dates) if dates else None
     if since and (covered is None or covered > since):
@@ -190,6 +223,7 @@ def filings_table(cik, since=None):
             except Exception:
                 break                     # senza questo archivio l'elenco si ferma qui
             n = len(more.get("accessionNumber") or [])
+            more = dict(more, _cik=[cik] * n)
             for k in cols:                # colonne mancanti o corte: vuote, per restare allineate
                 cols[k] += (list(more.get(k) or []) + [""] * n)[:n]
             got = [d for d in (more.get("filingDate") or []) if d]
@@ -347,12 +381,13 @@ def form4_filings(cik, months=24):
     cutoff = (date.today() - timedelta(days=31 * months)).isoformat()
     r, _ = filings_table(cik, cutoff)
     out = []
-    for form, acc, doc, fdate in zip(r["form"], r["accessionNumber"],
-                                     r["primaryDocument"], r["filingDate"]):
+    owners = r.get("_cik") or [cik] * len(r["form"])
+    for form, acc, doc, fdate, who in zip(r["form"], r["accessionNumber"],
+                                          r["primaryDocument"], r["filingDate"], owners):
         if form != "4" or fdate < cutoff:
             continue
         out.append({"accession": acc, "date": fdate,
-                    "url": raw_xml_url(cik, acc, doc)})
+                    "url": raw_xml_url(who or cik, acc, doc)})
     return out
 
 
@@ -383,7 +418,8 @@ def parse_form4(xml_text, issuer_cik=None):
     x = ET.fromstring(clean)
     if issuer_cik is not None:
         doc_issuer = x.findtext("issuer/issuerCik")
-        if doc_issuer is not None and not _same_cik(doc_issuer, issuer_cik):
+        mine = issuer_cik if isinstance(issuer_cik, (list, tuple, set)) else [issuer_cik]
+        if doc_issuer is not None and not any(_same_cik(doc_issuer, c) for c in mine):
             return None          # None, non []: è un documento di un altro, non un documento vuoto
     owner = (x.findtext("reportingOwner/reportingOwnerId/rptOwnerName") or "").strip()
     rel = x.find("reportingOwner/reportingOwnerRelationship")
@@ -456,6 +492,7 @@ def insider_transactions(cik, months=24, limit=None, cache_dir=None, budget=None
     storico di questa azienda è completo o sta ancora crescendo.
     """
     rows, done, failed, cached, foreign, own, missing = [], 0, 0, 0, 0, 0, 0
+    issuers = [cik] + list(PREDECESSORS.get(str(cik).zfill(10), []))
     filings = form4_filings(cik, months)
     if status is not None:
         status.update(complete=True, missing=0)
@@ -491,7 +528,7 @@ def insider_transactions(cik, months=24, limit=None, cache_dir=None, budget=None
         try:
             if budget is not None:
                 budget["left"] -= 1
-            got = parse_form4(_get(f["url"]).text, issuer_cik=cik)
+            got = parse_form4(_get(f["url"]).text, issuer_cik=issuers)
             done += 1
             if got is None:
                 foreign += 1
