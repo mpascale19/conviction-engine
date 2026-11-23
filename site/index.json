@@ -1,6 +1,6 @@
 {
- "generated_at": "2026-11-22T22:50:39+00:00",
- "changed_at": "2026-11-22T22:50:39+00:00",
+ "generated_at": "2026-11-23T08:04:17+00:00",
+ "changed_at": "2026-11-23T08:04:17+00:00",
  "groups": [
   {
    "nome": {
@@ -112,32 +112,32 @@
    {
     "lo": -15,
     "hi": -10,
-    "n": 26
+    "n": 27
    },
    {
     "lo": -10,
     "hi": -5,
-    "n": 52
+    "n": 57
    },
    {
     "lo": -5,
     "hi": 0,
-    "n": 102
+    "n": 108
    },
    {
     "lo": 0,
     "hi": 5,
-    "n": 96
+    "n": 101
    },
    {
     "lo": 5,
     "hi": 10,
-    "n": 74
+    "n": 76
    },
    {
     "lo": 10,
     "hi": 15,
-    "n": 36
+    "n": 38
    },
    {
     "lo": 15,
@@ -152,7 +152,7 @@
    {
     "lo": 25,
     "hi": 30,
-    "n": 1
+    "n": 2
    },
    {
     "lo": 30,
@@ -161,19 +161,19 @@
    }
   ],
   "all": {
-   "camp": 462,
-   "ep": 863,
-   "n": 1291,
-   "pos": 252,
-   "avg": 1.68,
-   "med": 1.08
+   "camp": 484,
+   "ep": 888,
+   "n": 1318,
+   "pos": 262,
+   "avg": 1.64,
+   "med": 1.02
   },
   "by_purchase": {
-   "n": 1291,
-   "ep": 863,
-   "pos": 702,
-   "avg": 1.79,
-   "med": 1.17
+   "n": 1318,
+   "ep": 888,
+   "pos": 713,
+   "avg": 1.75,
+   "med": 1.06
   },
   "cluster": {
    "camp": 46,
@@ -184,46 +184,46 @@
    "med": -0.56
   },
   "solo": {
-   "camp": 416,
-   "ep": 706,
-   "n": 1023,
-   "pos": 230,
-   "avg": 1.91,
-   "med": 1.16
+   "camp": 438,
+   "ep": 731,
+   "n": 1050,
+   "pos": 240,
+   "avg": 1.85,
+   "med": 1.12
   },
   "senior": {
-   "camp": 103,
-   "ep": 244,
-   "n": 452,
-   "pos": 50,
-   "avg": 0.92,
-   "med": -0.73
+   "camp": 108,
+   "ep": 250,
+   "n": 458,
+   "pos": 53,
+   "avg": 1.09,
+   "med": -0.56
   },
   "other": {
-   "camp": 359,
-   "ep": 619,
-   "n": 839,
-   "pos": 202,
-   "avg": 1.9,
-   "med": 1.44
+   "camp": 376,
+   "ep": 638,
+   "n": 860,
+   "pos": 209,
+   "avg": 1.79,
+   "med": 1.14
   },
   "beat": null,
   "nobeat": null,
   "bonus": {
    "tau": 5.0,
-   "camp": 462,
+   "camp": 484,
    "cap": 50.0,
    "days": 90,
-   "base": 1.77,
+   "base": 1.74,
    "features": [
     {
      "id": "cluster",
      "n": 46,
      "hand": 18,
-     "raw": -1.76,
-     "se": 2.04,
-     "shrink": 0.858,
-     "post": -1.51,
+     "raw": -1.96,
+     "se": 2.0,
+     "shrink": 0.862,
+     "post": -1.69,
      "points": -2,
      "by_tau": {
       "3": -1,
@@ -233,12 +233,12 @@
     },
     {
      "id": "two",
-     "n": 73,
+     "n": 77,
      "hand": 8,
-     "raw": 0.03,
-     "se": 1.62,
-     "shrink": 0.905,
-     "post": 0.03,
+     "raw": -0.47,
+     "se": 1.56,
+     "shrink": 0.912,
+     "post": -0.43,
      "points": 0,
      "by_tau": {
       "3": 0,
@@ -248,17 +248,17 @@
     },
     {
      "id": "senior",
-     "n": 103,
+     "n": 108,
      "hand": 10,
-     "raw": -0.69,
-     "se": 1.48,
-     "shrink": 0.92,
-     "post": -0.64,
-     "points": -1,
+     "raw": -0.31,
+     "se": 1.42,
+     "shrink": 0.926,
+     "post": -0.29,
+     "points": 0,
      "by_tau": {
-      "3": -1,
-      "5": -1,
-      "10": -1
+      "3": 0,
+      "5": 0,
+      "10": 0
      }
     },
     {
@@ -311,19 +311,19 @@
    {
     "id": "insider",
     "n": 200,
-    "rho": 0.73,
+    "rho": 0.727,
     "shift": 4.3
    },
    {
     "id": "guid",
     "n": 20,
-    "rho": 0.77,
-    "shift": 4.5
+    "rho": 0.786,
+    "shift": 4.3
    },
    {
     "id": "market",
     "n": 200,
-    "rho": 0.856,
+    "rho": 0.855,
     "shift": 2.5
    },
    {
@@ -346,9 +346,9 @@
    }
   ],
   "rho": {
-   "med": 0.978,
-   "p5": 0.932,
-   "min": 0.861
+   "med": 0.979,
+   "p5": 0.934,
+   "min": 0.86
   },
   "top_overlap": {
    "med": 9,
@@ -373,11 +373,11 @@
    },
    {
     "id": "sector",
-    "ic": -0.018,
-    "se": 0.01,
-    "t": -1.75,
+    "ic": -0.014,
+    "se": 0.011,
+    "t": -1.34,
     "blocks": 19,
-    "dates": 1896
+    "dates": 1941
    },
    {
     "id": "market",
@@ -402,10 +402,10 @@
   ]
  },
  "history": {
-  "complete": 166,
+  "complete": 184,
   "total": 200,
   "tx_from": "2021-10-18",
-  "missing": 10457
+  "missing": 6455
  },
  "short_interest": {
   "finra": 200,
@@ -588,7 +588,7 @@
     "c": 74.87,
     "v": 10292100
    },
-   "tx": 2,
+   "tx": 201,
    "buyers": 1,
    "sellers": 0,
    "net_musd": 0.101,
@@ -801,6 +801,40 @@
    "next_report": null
   },
   {
+   "ticker": "INTC",
+   "name": "INTEL CORP",
+   "group": {
+    "it": "Semiconduttori e apparecchiature",
+    "en": "Semiconductors and equipment"
+   },
+   "score": 56,
+   "verdict": {
+    "it": "Leggermente rialzista",
+    "en": "Mildly bullish"
+   },
+   "confidence": "Alta",
+   "covered_pct": 100,
+   "driver": {
+    "name": {
+     "it": "Insider",
+     "en": "Insiders"
+    },
+    "up": true
+   },
+   "last": {
+    "d": "2026-11-20",
+    "c": 51.28,
+    "v": 207757700
+   },
+   "tx": 589,
+   "buyers": 1,
+   "sellers": 0,
+   "net_musd": 9.71,
+   "cluster": false,
+   "errors": 0,
+   "next_report": null
+  },
+  {
    "ticker": "WDAY",
    "name": "Workday, Inc.",
    "group": {
@@ -826,7 +860,7 @@
     "c": 174.52,
     "v": 2585900
    },
-   "tx": 1482,
+   "tx": 1476,
    "buyers": 0,
    "sellers": 0,
    "net_musd": 0.0,
@@ -898,40 +932,6 @@
    "buyers": 2,
    "sellers": 1,
    "net_musd": 0.153,
-   "cluster": false,
-   "errors": 0,
-   "next_report": null
-  },
-  {
-   "ticker": "INTC",
-   "name": "INTEL CORP",
-   "group": {
-    "it": "Semiconduttori e apparecchiature",
-    "en": "Semiconductors and equipment"
-   },
-   "score": 55,
-   "verdict": {
-    "it": "Leggermente rialzista",
-    "en": "Mildly bullish"
-   },
-   "confidence": "Alta",
-   "covered_pct": 100,
-   "driver": {
-    "name": {
-     "it": "Insider",
-     "en": "Insiders"
-    },
-    "up": true
-   },
-   "last": {
-    "d": "2026-11-20",
-    "c": 51.28,
-    "v": 207757700
-   },
-   "tx": 589,
-   "buyers": 1,
-   "sellers": 0,
-   "net_musd": 9.71,
    "cluster": false,
    "errors": 0,
    "next_report": null
@@ -1166,7 +1166,7 @@
     "c": 180.62,
     "v": 8711600
    },
-   "tx": 5527,
+   "tx": 5522,
    "buyers": 1,
    "sellers": 1,
    "net_musd": -0.173,
@@ -1642,7 +1642,7 @@
     "c": 11.17,
     "v": 57453200
    },
-   "tx": 12,
+   "tx": 596,
    "buyers": 0,
    "sellers": 0,
    "net_musd": 0.0,
@@ -1850,6 +1850,40 @@
    "buyers": 0,
    "sellers": 1,
    "net_musd": -0.314,
+   "cluster": false,
+   "errors": 0,
+   "next_report": null
+  },
+  {
+   "ticker": "HUBS",
+   "name": "HUBSPOT INC",
+   "group": {
+    "it": "Software",
+    "en": "Software"
+   },
+   "score": 52,
+   "verdict": {
+    "it": "Nessuna convinzione chiara",
+    "en": "No clear conviction"
+   },
+   "confidence": "Alta",
+   "covered_pct": 100,
+   "driver": {
+    "name": {
+     "it": "Guidance e tono",
+     "en": "Guidance and tone"
+    },
+    "up": false
+   },
+   "last": {
+    "d": "2026-11-20",
+    "c": 193.88,
+    "v": 1483100
+   },
+   "tx": 768,
+   "buyers": 1,
+   "sellers": 0,
+   "net_musd": 4.998,
    "cluster": false,
    "errors": 0,
    "next_report": null
@@ -2186,7 +2220,7 @@
     "c": 140.54,
     "v": 13742600
    },
-   "tx": 38,
+   "tx": 433,
    "buyers": 1,
    "sellers": 1,
    "net_musd": 19.632,
@@ -2224,40 +2258,6 @@
    "buyers": 0,
    "sellers": 0,
    "net_musd": 0.0,
-   "cluster": false,
-   "errors": 0,
-   "next_report": null
-  },
-  {
-   "ticker": "HUBS",
-   "name": "HUBSPOT INC",
-   "group": {
-    "it": "Software",
-    "en": "Software"
-   },
-   "score": 51,
-   "verdict": {
-    "it": "Nessuna convinzione chiara",
-    "en": "No clear conviction"
-   },
-   "confidence": "Alta",
-   "covered_pct": 100,
-   "driver": {
-    "name": {
-     "it": "Guidance e tono",
-     "en": "Guidance and tone"
-    },
-    "up": false
-   },
-   "last": {
-    "d": "2026-11-20",
-    "c": 193.88,
-    "v": 1483100
-   },
-   "tx": 768,
-   "buyers": 1,
-   "sellers": 0,
-   "net_musd": 4.998,
    "cluster": false,
    "errors": 0,
    "next_report": null
@@ -2458,7 +2458,7 @@
     "c": 124.67,
     "v": 2367400
    },
-   "tx": 4,
+   "tx": 187,
    "buyers": 0,
    "sellers": 0,
    "net_musd": 0.0,
@@ -2492,7 +2492,7 @@
     "c": 184.09,
     "v": 9582000
    },
-   "tx": 0,
+   "tx": 264,
    "buyers": 0,
    "sellers": 0,
    "net_musd": 0.0,
@@ -2900,7 +2900,7 @@
     "c": 66.28,
     "v": 12069400
    },
-   "tx": 11,
+   "tx": 207,
    "buyers": 0,
    "sellers": 0,
    "net_musd": 0.0,
@@ -3274,7 +3274,7 @@
     "c": 35.55,
     "v": 19144200
    },
-   "tx": 548,
+   "tx": 550,
    "buyers": 0,
    "sellers": 0,
    "net_musd": 0.0,
@@ -3308,7 +3308,7 @@
     "c": 145.44,
     "v": 3052300
    },
-   "tx": 42,
+   "tx": 607,
    "buyers": 0,
    "sellers": 0,
    "net_musd": 0.0,
@@ -3346,6 +3346,40 @@
    "buyers": 1,
    "sellers": 0,
    "net_musd": 0.4,
+   "cluster": false,
+   "errors": 0,
+   "next_report": null
+  },
+  {
+   "ticker": "TSN",
+   "name": "TYSON FOODS, INC.",
+   "group": {
+    "it": "Beni di prima necessità",
+    "en": "Consumer staples"
+   },
+   "score": 49,
+   "verdict": {
+    "it": "Nessuna convinzione chiara",
+    "en": "No clear conviction"
+   },
+   "confidence": "Media",
+   "covered_pct": 80,
+   "driver": {
+    "name": {
+     "it": "Mercato",
+     "en": "Market"
+    },
+    "up": false
+   },
+   "last": {
+    "d": "2026-11-20",
+    "c": 65.12,
+    "v": 7171300
+   },
+   "tx": 30,
+   "buyers": 1,
+   "sellers": 0,
+   "net_musd": 1.002,
    "cluster": false,
    "errors": 0,
    "next_report": null
@@ -3546,7 +3580,7 @@
     "c": 213.12,
     "v": 1685600
    },
-   "tx": 628,
+   "tx": 627,
    "buyers": 0,
    "sellers": 0,
    "net_musd": 0.0,
@@ -3890,40 +3924,6 @@
    "buyers": 0,
    "sellers": 1,
    "net_musd": -0.417,
-   "cluster": false,
-   "errors": 0,
-   "next_report": null
-  },
-  {
-   "ticker": "TSN",
-   "name": "TYSON FOODS, INC.",
-   "group": {
-    "it": "Beni di prima necessità",
-    "en": "Consumer staples"
-   },
-   "score": 48,
-   "verdict": {
-    "it": "Nessuna convinzione chiara",
-    "en": "No clear conviction"
-   },
-   "confidence": "Media",
-   "covered_pct": 80,
-   "driver": {
-    "name": {
-     "it": "Mercato",
-     "en": "Market"
-    },
-    "up": false
-   },
-   "last": {
-    "d": "2026-11-20",
-    "c": 65.12,
-    "v": 7171300
-   },
-   "tx": 30,
-   "buyers": 1,
-   "sellers": 0,
-   "net_musd": 1.002,
    "cluster": false,
    "errors": 0,
    "next_report": null
@@ -4702,7 +4702,7 @@
     "c": 194.82,
     "v": 3643300
    },
-   "tx": 569,
+   "tx": 567,
    "buyers": 0,
    "sellers": 5,
    "net_musd": -4.013,
@@ -4736,7 +4736,7 @@
     "c": 90.16,
     "v": 11707000
    },
-   "tx": 798,
+   "tx": 789,
    "buyers": 0,
    "sellers": 4,
    "net_musd": -75.153,
@@ -5178,7 +5178,7 @@
     "c": 342.56,
     "v": 80464200
    },
-   "tx": 385,
+   "tx": 383,
    "buyers": 0,
    "sellers": 1,
    "net_musd": -31.766,
@@ -5450,7 +5450,7 @@
     "c": 356.25,
     "v": 2787700
    },
-   "tx": 34,
+   "tx": 397,
    "buyers": 0,
    "sellers": 4,
    "net_musd": -61.986,
@@ -5484,7 +5484,7 @@
     "c": 615.74,
     "v": 539200
    },
-   "tx": 4,
+   "tx": 213,
    "buyers": 0,
    "sellers": 2,
    "net_musd": -1.414,
@@ -5892,7 +5892,7 @@
     "c": 278.3,
     "v": 1228100
    },
-   "tx": 470,
+   "tx": 474,
    "buyers": 0,
    "sellers": 2,
    "net_musd": -1.408,
@@ -5926,7 +5926,7 @@
     "c": 160.7,
     "v": 2644700
    },
-   "tx": 26,
+   "tx": 610,
    "buyers": 0,
    "sellers": 1,
    "net_musd": -0.106,
@@ -5960,7 +5960,7 @@
     "c": 115.59,
     "v": 5674900
    },
-   "tx": 128,
+   "tx": 1436,
    "buyers": 0,
    "sellers": 4,
    "net_musd": -16.625,
@@ -6266,7 +6266,7 @@
     "c": 78.71,
     "v": 7433300
    },
-   "tx": 21,
+   "tx": 307,
    "buyers": 0,
    "sellers": 2,
    "net_musd": -2.661,
@@ -6504,7 +6504,7 @@
     "c": 406.64,
     "v": 1989400
    },
-   "tx": 328,
+   "tx": 558,
    "buyers": 0,
    "sellers": 8,
    "net_musd": -42.432,
@@ -6538,7 +6538,7 @@
     "c": 213.46,
     "v": 5994200
    },
-   "tx": 7,
+   "tx": 229,
    "buyers": 0,
    "sellers": 2,
    "net_musd": -12.767,
@@ -6708,7 +6708,7 @@
     "c": 225.74,
     "v": 1176900
    },
-   "tx": 95,
+   "tx": 688,
    "buyers": 0,
    "sellers": 1,
    "net_musd": -0.448,
@@ -6742,7 +6742,7 @@
     "c": 98.71,
     "v": 6552700
    },
-   "tx": 49,
+   "tx": 322,
    "buyers": 0,
    "sellers": 5,
    "net_musd": -8.028,
@@ -7150,7 +7150,7 @@
     "c": 459.83,
     "v": 1292800
    },
-   "tx": 241,
+   "tx": 240,
    "buyers": 0,
    "sellers": 4,
    "net_musd": -29.442,
