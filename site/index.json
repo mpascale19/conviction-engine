@@ -1,6 +1,6 @@
 {
- "generated_at": "2026-11-23T09:21:33+00:00",
- "changed_at": "2026-11-23T09:21:33+00:00",
+ "generated_at": "2026-11-23T09:49:31+00:00",
+ "changed_at": "2026-11-23T09:49:31+00:00",
  "groups": [
   {
    "nome": {
@@ -112,27 +112,27 @@
    {
     "lo": -15,
     "hi": -10,
-    "n": 27
+    "n": 28
    },
    {
     "lo": -10,
     "hi": -5,
-    "n": 61
+    "n": 65
    },
    {
     "lo": -5,
     "hi": 0,
-    "n": 112
+    "n": 117
    },
    {
     "lo": 0,
     "hi": 5,
-    "n": 103
+    "n": 104
    },
    {
     "lo": 5,
     "hi": 10,
-    "n": 81
+    "n": 82
    },
    {
     "lo": 10,
@@ -142,12 +142,12 @@
    {
     "lo": 15,
     "hi": 20,
-    "n": 23
+    "n": 24
    },
    {
     "lo": 20,
     "hi": 25,
-    "n": 9
+    "n": 10
    },
    {
     "lo": 25,
@@ -161,104 +161,104 @@
    }
   ],
   "all": {
-   "camp": 500,
-   "ep": 910,
-   "n": 1346,
-   "pos": 269,
-   "avg": 1.58,
-   "med": 1.0
+   "camp": 514,
+   "ep": 935,
+   "n": 1390,
+   "pos": 273,
+   "avg": 1.51,
+   "med": 0.75
   },
   "by_purchase": {
-   "n": 1346,
-   "ep": 910,
-   "pos": 728,
-   "avg": 1.72,
+   "n": 1390,
+   "ep": 935,
+   "pos": 748,
+   "avg": 1.68,
    "med": 1.06
   },
   "cluster": {
-   "camp": 49,
-   "ep": 165,
-   "n": 278,
-   "pos": 24,
-   "avg": -0.28,
-   "med": -0.4
+   "camp": 50,
+   "ep": 169,
+   "n": 285,
+   "pos": 25,
+   "avg": 0.03,
+   "med": 0.03
   },
   "solo": {
-   "camp": 451,
-   "ep": 745,
-   "n": 1068,
-   "pos": 245,
-   "avg": 1.78,
-   "med": 1.03
+   "camp": 464,
+   "ep": 766,
+   "n": 1105,
+   "pos": 248,
+   "avg": 1.67,
+   "med": 0.82
   },
   "senior": {
-   "camp": 112,
-   "ep": 259,
-   "n": 469,
-   "pos": 55,
-   "avg": 1.07,
-   "med": -0.56
+   "camp": 119,
+   "ep": 277,
+   "n": 503,
+   "pos": 57,
+   "avg": 0.89,
+   "med": -0.73
   },
   "other": {
-   "camp": 388,
-   "ep": 651,
-   "n": 877,
-   "pos": 214,
-   "avg": 1.72,
-   "med": 1.12
+   "camp": 395,
+   "ep": 658,
+   "n": 887,
+   "pos": 216,
+   "avg": 1.69,
+   "med": 1.03
   },
   "beat": null,
   "nobeat": null,
   "bonus": {
    "tau": 5.0,
-   "camp": 500,
+   "camp": 514,
    "cap": 50.0,
    "days": 90,
-   "base": 1.66,
+   "base": 1.63,
    "features": [
     {
      "id": "cluster",
-     "n": 49,
+     "n": 50,
      "hand": 18,
-     "raw": -1.77,
-     "se": 1.94,
-     "shrink": 0.869,
-     "post": -1.54,
-     "points": -2,
+     "raw": -1.27,
+     "se": 1.91,
+     "shrink": 0.873,
+     "post": -1.11,
+     "points": -1,
      "by_tau": {
       "3": -1,
-      "5": -2,
-      "10": -2
+      "5": -1,
+      "10": -1
      }
     },
     {
      "id": "two",
-     "n": 77,
+     "n": 80,
      "hand": 8,
-     "raw": -0.4,
-     "se": 1.53,
-     "shrink": 0.914,
-     "post": -0.37,
-     "points": 0,
+     "raw": -0.57,
+     "se": 1.5,
+     "shrink": 0.917,
+     "post": -0.53,
+     "points": -1,
      "by_tau": {
       "3": 0,
-      "5": 0,
-      "10": 0
+      "5": -1,
+      "10": -1
      }
     },
     {
      "id": "senior",
-     "n": 112,
+     "n": 119,
      "hand": 10,
-     "raw": -0.27,
-     "se": 1.39,
-     "shrink": 0.928,
-     "post": -0.25,
+     "raw": -0.52,
+     "se": 1.35,
+     "shrink": 0.932,
+     "post": -0.48,
      "points": 0,
      "by_tau": {
       "3": 0,
       "5": 0,
-      "10": 0
+      "10": -1
      }
     },
     {
@@ -303,7 +303,7 @@
   "hi": 2.0,
   "top": 10,
   "equal": {
-   "rho": 0.944,
+   "rho": 0.945,
    "shift": 1.9,
    "top": 8
   },
@@ -311,25 +311,25 @@
    {
     "id": "insider",
     "n": 200,
-    "rho": 0.727,
+    "rho": 0.728,
     "shift": 4.3
    },
    {
     "id": "guid",
     "n": 20,
-    "rho": 0.786,
-    "shift": 4.3
+    "rho": 0.806,
+    "shift": 4.4
    },
    {
     "id": "market",
     "n": 200,
-    "rho": 0.855,
+    "rho": 0.857,
     "shift": 2.5
    },
    {
     "id": "sector",
     "n": 200,
-    "rho": 0.975,
+    "rho": 0.973,
     "shift": 1.0
    },
    {
@@ -348,7 +348,7 @@
   "rho": {
    "med": 0.979,
    "p5": 0.934,
-   "min": 0.86
+   "min": 0.859
   },
   "top_overlap": {
    "med": 9,
@@ -373,11 +373,11 @@
    },
    {
     "id": "sector",
-    "ic": -0.014,
-    "se": 0.009,
-    "t": -1.5,
+    "ic": -0.013,
+    "se": 0.011,
+    "t": -1.16,
     "blocks": 19,
-    "dates": 2047
+    "dates": 2125
    },
    {
     "id": "market",
@@ -402,10 +402,10 @@
   ]
  },
  "history": {
-  "complete": 192,
+  "complete": 200,
   "total": 200,
   "tx_from": "2021-10-18",
-  "missing": 2456
+  "missing": 0
  },
  "short_interest": {
   "finra": 200,
@@ -501,7 +501,7 @@
     "it": "Industria",
     "en": "Industrials"
    },
-   "score": 62,
+   "score": 61,
    "verdict": {
     "it": "Leggermente rialzista",
     "en": "Mildly bullish"
@@ -563,6 +563,40 @@
    "next_report": null
   },
   {
+   "ticker": "ADM",
+   "name": "Archer-Daniels-Midland Co",
+   "group": {
+    "it": "Beni di prima necessità",
+    "en": "Consumer staples"
+   },
+   "score": 61,
+   "verdict": {
+    "it": "Leggermente rialzista",
+    "en": "Mildly bullish"
+   },
+   "confidence": "Alta",
+   "covered_pct": 100,
+   "driver": {
+    "name": {
+     "it": "Guidance e tono",
+     "en": "Guidance and tone"
+    },
+    "up": true
+   },
+   "last": {
+    "d": "2026-11-20",
+    "c": 66.95,
+    "v": 4639700
+   },
+   "tx": 301,
+   "buyers": 1,
+   "sellers": 0,
+   "net_musd": 0.197,
+   "cluster": false,
+   "errors": 0,
+   "next_report": null
+  },
+  {
    "ticker": "MO",
    "name": "ALTRIA GROUP, INC.",
    "group": {
@@ -592,40 +626,6 @@
    "buyers": 1,
    "sellers": 0,
    "net_musd": 0.101,
-   "cluster": false,
-   "errors": 0,
-   "next_report": null
-  },
-  {
-   "ticker": "ADM",
-   "name": "Archer-Daniels-Midland Co",
-   "group": {
-    "it": "Beni di prima necessità",
-    "en": "Consumer staples"
-   },
-   "score": 60,
-   "verdict": {
-    "it": "Leggermente rialzista",
-    "en": "Mildly bullish"
-   },
-   "confidence": "Alta",
-   "covered_pct": 100,
-   "driver": {
-    "name": {
-     "it": "Guidance e tono",
-     "en": "Guidance and tone"
-    },
-    "up": true
-   },
-   "last": {
-    "d": "2026-11-20",
-    "c": 66.95,
-    "v": 4639700
-   },
-   "tx": 4,
-   "buyers": 1,
-   "sellers": 0,
-   "net_musd": 0.197,
    "cluster": false,
    "errors": 0,
    "next_report": null
@@ -2705,6 +2705,40 @@
    "next_report": null
   },
   {
+   "ticker": "BA",
+   "name": "BOEING CO",
+   "group": {
+    "it": "Industria",
+    "en": "Industrials"
+   },
+   "score": 50,
+   "verdict": {
+    "it": "Nessuna convinzione chiara",
+    "en": "No clear conviction"
+   },
+   "confidence": "Alta",
+   "covered_pct": 100,
+   "driver": {
+    "name": {
+     "it": "Settore",
+     "en": "Sector"
+    },
+    "up": true
+   },
+   "last": {
+    "d": "2026-11-20",
+    "c": 155.89,
+    "v": 11135300
+   },
+   "tx": 226,
+   "buyers": 3,
+   "sellers": 1,
+   "net_musd": 1.485,
+   "cluster": true,
+   "errors": 0,
+   "next_report": null
+  },
+  {
    "ticker": "EMR",
    "name": "EMERSON ELECTRIC CO",
    "group": {
@@ -3113,40 +3147,6 @@
    "next_report": null
   },
   {
-   "ticker": "BA",
-   "name": "BOEING CO",
-   "group": {
-    "it": "Industria",
-    "en": "Industrials"
-   },
-   "score": 49,
-   "verdict": {
-    "it": "Nessuna convinzione chiara",
-    "en": "No clear conviction"
-   },
-   "confidence": "Alta",
-   "covered_pct": 100,
-   "driver": {
-    "name": {
-     "it": "Settore",
-     "en": "Sector"
-    },
-    "up": true
-   },
-   "last": {
-    "d": "2026-11-20",
-    "c": 155.89,
-    "v": 11135300
-   },
-   "tx": 226,
-   "buyers": 3,
-   "sellers": 1,
-   "net_musd": 1.485,
-   "cluster": true,
-   "errors": 0,
-   "next_report": null
-  },
-  {
    "ticker": "OXY",
    "name": "OCCIDENTAL PETROLEUM CORP /DE/",
    "group": {
@@ -3376,7 +3376,7 @@
     "c": 65.12,
     "v": 7171300
    },
-   "tx": 30,
+   "tx": 436,
    "buyers": 1,
    "sellers": 0,
    "net_musd": 1.002,
@@ -3410,7 +3410,7 @@
     "c": 23.54,
     "v": 5150500
    },
-   "tx": 11,
+   "tx": 334,
    "buyers": 1,
    "sellers": 0,
    "net_musd": 0.201,
@@ -3954,7 +3954,7 @@
     "c": 23.78,
     "v": 8844400
    },
-   "tx": 26,
+   "tx": 285,
    "buyers": 0,
    "sellers": 0,
    "net_musd": 0.0,
@@ -4566,7 +4566,7 @@
     "c": 47.4,
     "v": 5921700
    },
-   "tx": 205,
+   "tx": 666,
    "buyers": 1,
    "sellers": 0,
    "net_musd": 0.045,
@@ -5076,7 +5076,7 @@
     "c": 14.92,
     "v": 13510100
    },
-   "tx": 17,
+   "tx": 322,
    "buyers": 0,
    "sellers": 0,
    "net_musd": 0.0,
@@ -6606,7 +6606,7 @@
     "c": 99.46,
     "v": 3790900
    },
-   "tx": 43,
+   "tx": 414,
    "buyers": 0,
    "sellers": 6,
    "net_musd": -24.581,
