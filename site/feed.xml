@@ -1,0 +1,307 @@
+<?xml version='1.0' encoding='utf-8'?>
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+ <channel>
+  <title>Conviction Engine: acquisti degli insider</title>
+  <link>https://mpascale19.github.io/conviction-engine/?lang=it</link>
+  <description>Gli acquisti sul mercato degli insider di 200 aziende americane, dai Form 4 depositati alla SEC, con il punteggio di convinzione del momento. Strumento didattico, non una raccomandazione di investimento.</description>
+  <language>it</language>
+  <lastBuildDate>Fri, 20 Nov 2026 12:00:00 GMT</lastBuildDate>
+  <atom:link href="https://mpascale19.github.io/conviction-engine/feed.xml" rel="self" type="application/rss+xml" />
+  <item>
+   <title>TJX: PINTOFF CRAIG ADAM (Director) compra per 199.823 $</title>
+   <link>https://mpascale19.github.io/conviction-engine/?lang=it#TJX</link>
+   <description>TJX COMPANIES INC /DE/. Acquisto sul mercato del 20 novembre 2026: 1.427 azioni a 140,03 $ in media, 199.823 $ in tutto.</description>
+   <category>acquisto</category>
+   <guid isPermaLink="false">TJX-2026-11-20-pintoff-craig-adam-buy</guid>
+   <pubDate>Fri, 20 Nov 2026 12:00:00 GMT</pubDate>
+  </item>
+  <item>
+   <title>WMB: Tyson Jesse J (Director) compra per 4.841 $</title>
+   <link>https://mpascale19.github.io/conviction-engine/?lang=it#WMB</link>
+   <description>WILLIAMS COMPANIES, INC.. Acquisto sul mercato del 19 novembre 2026: 72 azioni a 67,23 $ in media, 4.841 $ in tutto.</description>
+   <category>acquisto</category>
+   <guid isPermaLink="false">WMB-2026-11-19-tyson-jesse-j-buy</guid>
+   <pubDate>Thu, 19 Nov 2026 12:00:00 GMT</pubDate>
+  </item>
+  <item>
+   <title>TEAM: Cannon-Brookes Michael (CEO, Co-Founder) compra per 1,8 milioni $</title>
+   <link>https://mpascale19.github.io/conviction-engine/?lang=it#TEAM</link>
+   <description>Atlassian Corp. Acquisto sul mercato del 19 novembre 2026: 13.400 azioni a 137,74 $ in media, 1,8 milioni $ in tutto.</description>
+   <category>acquisto</category>
+   <guid isPermaLink="false">TEAM-2026-11-19-cannon-brookes-michael-buy</guid>
+   <pubDate>Thu, 19 Nov 2026 12:00:00 GMT</pubDate>
+  </item>
+  <item>
+   <title>ELV: PERU RAMIRO G (Director) compra per 383.860 $</title>
+   <link>https://mpascale19.github.io/conviction-engine/?lang=it#ELV</link>
+   <description>Elevance Health, Inc.. Acquisto sul mercato del 19 novembre 2026: 1.000 azioni a 383,86 $ in media, 383.860 $ in tutto.</description>
+   <category>acquisto</category>
+   <guid isPermaLink="false">ELV-2026-11-19-peru-ramiro-g-buy</guid>
+   <pubDate>Thu, 19 Nov 2026 12:00:00 GMT</pubDate>
+  </item>
+  <item>
+   <title>TEAM: Cannon-Brookes Michael (CEO, Co-Founder) compra per 1,9 milioni $</title>
+   <link>https://mpascale19.github.io/conviction-engine/?lang=it#TEAM</link>
+   <description>Atlassian Corp. Acquisto sul mercato del 18 novembre 2026: 13.400 azioni a 140,44 $ in media, 1,9 milioni $ in tutto.</description>
+   <category>acquisto</category>
+   <guid isPermaLink="false">TEAM-2026-11-18-cannon-brookes-michael-buy</guid>
+   <pubDate>Wed, 18 Nov 2026 12:00:00 GMT</pubDate>
+  </item>
+  <item>
+   <title>TEAM: Cannon-Brookes Michael (CEO, Co-Founder) compra per 2,0 milioni $</title>
+   <link>https://mpascale19.github.io/conviction-engine/?lang=it#TEAM</link>
+   <description>Atlassian Corp. Acquisto sul mercato del 17 novembre 2026: 13.400 azioni a 146,31 $ in media, 2,0 milioni $ in tutto.</description>
+   <category>acquisto</category>
+   <guid isPermaLink="false">TEAM-2026-11-17-cannon-brookes-michael-buy</guid>
+   <pubDate>Tue, 17 Nov 2026 12:00:00 GMT</pubDate>
+  </item>
+  <item>
+   <title>BA: JOHRI AKHIL (Director) compra per 500.067 $</title>
+   <link>https://mpascale19.github.io/conviction-engine/?lang=it#BA</link>
+   <description>BOEING CO. Acquisto sul mercato del 17 novembre 2026: 3.000 azioni a 166,69 $ in media, 500.067 $ in tutto. Fa parte di un cluster di acquisti.</description>
+   <category>acquisto</category>
+   <guid isPermaLink="false">BA-2026-11-17-johri-akhil-buy</guid>
+   <pubDate>Tue, 17 Nov 2026 12:00:00 GMT</pubDate>
+  </item>
+  <item>
+   <title>BA: 3 insider comprano entro 30 giorni</title>
+   <link>https://mpascale19.github.io/conviction-engine/?lang=it#BA</link>
+   <description>BOEING CO. Dal 30 ottobre 2026 hanno comprato azioni sul mercato: Buckley Mortimer J, MOLLENKOPF STEVEN M, JOHRI AKHIL. Più persone che comprano insieme sono il segnale che il punteggio chiama cluster. </description>
+   <category>cluster</category>
+   <guid isPermaLink="false">BA-2026-10-30-cluster</guid>
+   <pubDate>Tue, 17 Nov 2026 12:00:00 GMT</pubDate>
+  </item>
+  <item>
+   <title>TEAM: Cannon-Brookes Michael (CEO, Co-Founder) compra per 2,0 milioni $</title>
+   <link>https://mpascale19.github.io/conviction-engine/?lang=it#TEAM</link>
+   <description>Atlassian Corp. Acquisto sul mercato del 16 novembre 2026: 13.400 azioni a 149,16 $ in media, 2,0 milioni $ in tutto.</description>
+   <category>acquisto</category>
+   <guid isPermaLink="false">TEAM-2026-11-16-cannon-brookes-michael-buy</guid>
+   <pubDate>Mon, 16 Nov 2026 12:00:00 GMT</pubDate>
+  </item>
+  <item>
+   <title>ETN: Johnson Gerald (Director) compra per 101.646 $</title>
+   <link>https://mpascale19.github.io/conviction-engine/?lang=it#ETN</link>
+   <description>Eaton Corp plc. Acquisto sul mercato del 16 novembre 2026: 300 azioni a 338,82 $ in media, 101.646 $ in tutto.</description>
+   <category>acquisto</category>
+   <guid isPermaLink="false">ETN-2026-11-16-johnson-gerald-buy</guid>
+   <pubDate>Mon, 16 Nov 2026 12:00:00 GMT</pubDate>
+  </item>
+  <item>
+   <title>ETN: Foster David B (See Remarks below.) compra per 69.248 $</title>
+   <link>https://mpascale19.github.io/conviction-engine/?lang=it#ETN</link>
+   <description>Eaton Corp plc. Acquisto sul mercato del 16 novembre 2026: 200 azioni a 346,24 $ in media, 69.248 $ in tutto.</description>
+   <category>acquisto</category>
+   <guid isPermaLink="false">ETN-2026-11-16-foster-david-b-buy</guid>
+   <pubDate>Mon, 16 Nov 2026 12:00:00 GMT</pubDate>
+  </item>
+  <item>
+   <title>TEAM: Cannon-Brookes Michael (CEO, Co-Founder) compra per 2,0 milioni $</title>
+   <link>https://mpascale19.github.io/conviction-engine/?lang=it#TEAM</link>
+   <description>Atlassian Corp. Acquisto sul mercato del 13 novembre 2026: 13.400 azioni a 150,06 $ in media, 2,0 milioni $ in tutto.</description>
+   <category>acquisto</category>
+   <guid isPermaLink="false">TEAM-2026-11-13-cannon-brookes-michael-buy</guid>
+   <pubDate>Fri, 13 Nov 2026 12:00:00 GMT</pubDate>
+  </item>
+  <item>
+   <title>HUBS: Halligan Brian (Chief Executive Officer) compra per 5,0 milioni $</title>
+   <link>https://mpascale19.github.io/conviction-engine/?lang=it#HUBS</link>
+   <description>HUBSPOT INC. Acquisto sul mercato del 13 novembre 2026: 22.985 azioni a 217,44 $ in media, 5,0 milioni $ in tutto.</description>
+   <category>acquisto</category>
+   <guid isPermaLink="false">HUBS-2026-11-13-halligan-brian-buy</guid>
+   <pubDate>Fri, 13 Nov 2026 12:00:00 GMT</pubDate>
+  </item>
+  <item>
+   <title>TEAM: Cannon-Brookes Michael (CEO, Co-Founder) compra per 2,0 milioni $</title>
+   <link>https://mpascale19.github.io/conviction-engine/?lang=it#TEAM</link>
+   <description>Atlassian Corp. Acquisto sul mercato del 12 novembre 2026: 13.400 azioni a 149,58 $ in media, 2,0 milioni $ in tutto.</description>
+   <category>acquisto</category>
+   <guid isPermaLink="false">TEAM-2026-11-12-cannon-brookes-michael-buy</guid>
+   <pubDate>Thu, 12 Nov 2026 12:00:00 GMT</pubDate>
+  </item>
+  <item>
+   <title>CAT: MacLennan David (Director) compra per 208.635 $</title>
+   <link>https://mpascale19.github.io/conviction-engine/?lang=it#CAT</link>
+   <description>CATERPILLAR INC. Acquisto sul mercato del 12 novembre 2026: 350 azioni a 596,10 $ in media, 208.635 $ in tutto.</description>
+   <category>acquisto</category>
+   <guid isPermaLink="false">CAT-2026-11-12-maclennan-david-buy</guid>
+   <pubDate>Thu, 12 Nov 2026 12:00:00 GMT</pubDate>
+  </item>
+  <item>
+   <title>TEAM: Cannon-Brookes Michael (CEO, Co-Founder) compra per 2,0 milioni $</title>
+   <link>https://mpascale19.github.io/conviction-engine/?lang=it#TEAM</link>
+   <description>Atlassian Corp. Acquisto sul mercato del 11 novembre 2026: 13.400 azioni a 150,30 $ in media, 2,0 milioni $ in tutto.</description>
+   <category>acquisto</category>
+   <guid isPermaLink="false">TEAM-2026-11-11-cannon-brookes-michael-buy</guid>
+   <pubDate>Wed, 11 Nov 2026 12:00:00 GMT</pubDate>
+  </item>
+  <item>
+   <title>AIG: Inglis John C (Director) compra per 10.000 $</title>
+   <link>https://mpascale19.github.io/conviction-engine/?lang=it#AIG</link>
+   <description>AMERICAN INTERNATIONAL GROUP, INC.. Acquisto sul mercato del 9 novembre 2026: 128 azioni a 78,41 $ in media, 10.000 $ in tutto.</description>
+   <category>acquisto</category>
+   <guid isPermaLink="false">AIG-2026-11-09-inglis-john-c-buy</guid>
+   <pubDate>Mon, 09 Nov 2026 12:00:00 GMT</pubDate>
+  </item>
+  <item>
+   <title>KMI: KINDER RICHARD D (Executive Chairman) compra per 15,0 milioni $</title>
+   <link>https://mpascale19.github.io/conviction-engine/?lang=it#KMI</link>
+   <description>KINDER MORGAN, INC.. Acquisto sul mercato del 6 novembre 2026: 500.000 azioni a 29,99 $ in media, 15,0 milioni $ in tutto.</description>
+   <category>acquisto</category>
+   <guid isPermaLink="false">KMI-2026-11-06-kinder-richard-d-buy</guid>
+   <pubDate>Fri, 06 Nov 2026 12:00:00 GMT</pubDate>
+  </item>
+  <item>
+   <title>CVS: Shah Prem S (EVP and Group President) compra per 2,0 milioni $</title>
+   <link>https://mpascale19.github.io/conviction-engine/?lang=it#CVS</link>
+   <description>CVS HEALTH Corp. Acquisto sul mercato del 6 novembre 2026: 23.855 azioni a 83,89 $ in media, 2,0 milioni $ in tutto.</description>
+   <category>acquisto</category>
+   <guid isPermaLink="false">CVS-2026-11-06-shah-prem-s-buy</guid>
+   <pubDate>Fri, 06 Nov 2026 12:00:00 GMT</pubDate>
+  </item>
+  <item>
+   <title>ADM: McAtee David R II (Director) compra per 196.756 $</title>
+   <link>https://mpascale19.github.io/conviction-engine/?lang=it#ADM</link>
+   <description>Archer-Daniels-Midland Co. Acquisto sul mercato del 5 novembre 2026: 2.800 azioni a 70,27 $ in media, 196.756 $ in tutto.</description>
+   <category>acquisto</category>
+   <guid isPermaLink="false">ADM-2026-11-05-mcatee-david-r-ii-buy</guid>
+   <pubDate>Thu, 05 Nov 2026 12:00:00 GMT</pubDate>
+  </item>
+  <item>
+   <title>SYY: Ondrof Thomas Gerard (Director) compra per 191.550 $</title>
+   <link>https://mpascale19.github.io/conviction-engine/?lang=it#SYY</link>
+   <description>SYSCO CORP. Acquisto sul mercato del 4 novembre 2026: 2.500 azioni a 76,62 $ in media, 191.550 $ in tutto.</description>
+   <category>acquisto</category>
+   <guid isPermaLink="false">SYY-2026-11-04-ondrof-thomas-gerard-buy</guid>
+   <pubDate>Wed, 04 Nov 2026 12:00:00 GMT</pubDate>
+  </item>
+  <item>
+   <title>CLX: Breber Pierre R (Director) compra per 400.251 $</title>
+   <link>https://mpascale19.github.io/conviction-engine/?lang=it#CLX</link>
+   <description>CLOROX CO /DE/. Acquisto sul mercato del 4 novembre 2026: 4.000 azioni a 100,06 $ in media, 400.251 $ in tutto.</description>
+   <category>acquisto</category>
+   <guid isPermaLink="false">CLX-2026-11-04-breber-pierre-r-buy</guid>
+   <pubDate>Wed, 04 Nov 2026 12:00:00 GMT</pubDate>
+  </item>
+  <item>
+   <title>BKR: RICE JOHN G (Director) compra per 531.000 $</title>
+   <link>https://mpascale19.github.io/conviction-engine/?lang=it#BKR</link>
+   <description>Baker Hughes Co. Acquisto sul mercato del 3 novembre 2026: 10.000 azioni a 53,10 $ in media, 531.000 $ in tutto.</description>
+   <category>acquisto</category>
+   <guid isPermaLink="false">BKR-2026-11-03-rice-john-g-buy</guid>
+   <pubDate>Tue, 03 Nov 2026 12:00:00 GMT</pubDate>
+  </item>
+  <item>
+   <title>UMBF: Peterman Tamara (Director) compra per 27.500 $</title>
+   <link>https://mpascale19.github.io/conviction-engine/?lang=it#UMBF</link>
+   <description>UMB FINANCIAL CORP. Acquisto sul mercato del 2 novembre 2026: 201 azioni a 137,02 $ in media, 27.500 $ in tutto.</description>
+   <category>acquisto</category>
+   <guid isPermaLink="false">UMBF-2026-11-02-peterman-tamara-buy</guid>
+   <pubDate>Mon, 02 Nov 2026 12:00:00 GMT</pubDate>
+  </item>
+  <item>
+   <title>UMBF: GRAVES GREG M (Director) compra per 40.000 $</title>
+   <link>https://mpascale19.github.io/conviction-engine/?lang=it#UMBF</link>
+   <description>UMB FINANCIAL CORP. Acquisto sul mercato del 2 novembre 2026: 292 azioni a 137,02 $ in media, 40.000 $ in tutto.</description>
+   <category>acquisto</category>
+   <guid isPermaLink="false">UMBF-2026-11-02-graves-greg-m-buy</guid>
+   <pubDate>Mon, 02 Nov 2026 12:00:00 GMT</pubDate>
+  </item>
+  <item>
+   <title>INTC: TAN LIP BU (CEO) compra per 9,7 milioni $</title>
+   <link>https://mpascale19.github.io/conviction-engine/?lang=it#INTC</link>
+   <description>INTEL CORP. Acquisto sul mercato del 2 novembre 2026: 150.000 azioni a 64,73 $ in media, 9,7 milioni $ in tutto.</description>
+   <category>acquisto</category>
+   <guid isPermaLink="false">INTC-2026-11-02-tan-lip-bu-buy</guid>
+   <pubDate>Mon, 02 Nov 2026 12:00:00 GMT</pubDate>
+  </item>
+  <item>
+   <title>CAT: Fish James C Jr (Director) compra per 620.390 $</title>
+   <link>https://mpascale19.github.io/conviction-engine/?lang=it#CAT</link>
+   <description>CATERPILLAR INC. Acquisto sul mercato del 2 novembre 2026: 1.000 azioni a 620,39 $ in media, 620.390 $ in tutto.</description>
+   <category>acquisto</category>
+   <guid isPermaLink="false">CAT-2026-11-02-fish-james-c-jr-buy</guid>
+   <pubDate>Mon, 02 Nov 2026 12:00:00 GMT</pubDate>
+  </item>
+  <item>
+   <title>BA: MOLLENKOPF STEVEN M (Director) compra per 510.427 $</title>
+   <link>https://mpascale19.github.io/conviction-engine/?lang=it#BA</link>
+   <description>BOEING CO. Acquisto sul mercato del 30 ottobre 2026: 2.950 azioni a 173,03 $ in media, 510.427 $ in tutto. Fa parte di un cluster di acquisti.</description>
+   <category>acquisto</category>
+   <guid isPermaLink="false">BA-2026-10-30-mollenkopf-steven-m-buy</guid>
+   <pubDate>Fri, 30 Oct 2026 12:00:00 GMT</pubDate>
+  </item>
+  <item>
+   <title>BA: Buckley Mortimer J (Director) compra per 998.421 $</title>
+   <link>https://mpascale19.github.io/conviction-engine/?lang=it#BA</link>
+   <description>BOEING CO. Acquisto sul mercato del 30 ottobre 2026: 5.820 azioni a 171,55 $ in media, 998.421 $ in tutto. Fa parte di un cluster di acquisti.</description>
+   <category>acquisto</category>
+   <guid isPermaLink="false">BA-2026-10-30-buckley-mortimer-j-buy</guid>
+   <pubDate>Fri, 30 Oct 2026 12:00:00 GMT</pubDate>
+  </item>
+  <item>
+   <title>TFC: Lyons Michael P. (President &amp; CEO) compra per 1,2 milioni $</title>
+   <link>https://mpascale19.github.io/conviction-engine/?lang=it#TFC</link>
+   <description>TRUIST FINANCIAL CORP. Acquisto sul mercato del 28 ottobre 2026: 25.000 azioni a 48,36 $ in media, 1,2 milioni $ in tutto.</description>
+   <category>acquisto</category>
+   <guid isPermaLink="false">TFC-2026-10-28-lyons-michael-p-buy</guid>
+   <pubDate>Wed, 28 Oct 2026 12:00:00 GMT</pubDate>
+  </item>
+  <item>
+   <title>HBAN: TORGOW GARY (Director) compra per 199.834 $</title>
+   <link>https://mpascale19.github.io/conviction-engine/?lang=it#HBAN</link>
+   <description>HUNTINGTON BANCSHARES INC /MD/. Acquisto sul mercato del 27 ottobre 2026: 12.700 azioni a 15,73 $ in media, 199.834 $ in tutto.</description>
+   <category>acquisto</category>
+   <guid isPermaLink="false">HBAN-2026-10-27-torgow-gary-buy</guid>
+   <pubDate>Tue, 27 Oct 2026 12:00:00 GMT</pubDate>
+  </item>
+  <item>
+   <title>HBAN: ROLLINS JAMES D III (Director) compra per 253.720 $</title>
+   <link>https://mpascale19.github.io/conviction-engine/?lang=it#HBAN</link>
+   <description>HUNTINGTON BANCSHARES INC /MD/. Acquisto sul mercato del 26 ottobre 2026: 14.000 azioni a 18,12 $ in media, 253.720 $ in tutto.</description>
+   <category>acquisto</category>
+   <guid isPermaLink="false">HBAN-2026-10-26-rollins-james-d-iii-buy</guid>
+   <pubDate>Mon, 26 Oct 2026 12:00:00 GMT</pubDate>
+  </item>
+  <item>
+   <title>PEP: POHLAD ROBERT C (Director) compra per 23,7 milioni $</title>
+   <link>https://mpascale19.github.io/conviction-engine/?lang=it#PEP</link>
+   <description>PEPSICO INC. Acquisto sul mercato del 14 ottobre 2026: 184.646 azioni a 128,28 $ in media, 23,7 milioni $ in tutto.</description>
+   <category>acquisto</category>
+   <guid isPermaLink="false">PEP-2026-10-14-pohlad-robert-c-buy</guid>
+   <pubDate>Wed, 14 Oct 2026 12:00:00 GMT</pubDate>
+  </item>
+  <item>
+   <title>HRL: Newlands William A (Director) compra per 201.000 $</title>
+   <link>https://mpascale19.github.io/conviction-engine/?lang=it#HRL</link>
+   <description>HORMEL FOODS CORP /DE/. Acquisto sul mercato del 5 ottobre 2026: 10.000 azioni a 20,10 $ in media, 201.000 $ in tutto.</description>
+   <category>acquisto</category>
+   <guid isPermaLink="false">HRL-2026-10-05-newlands-william-a-buy</guid>
+   <pubDate>Mon, 05 Oct 2026 12:00:00 GMT</pubDate>
+  </item>
+  <item>
+   <title>MKC: Hattersley Gavin (Director) compra per 44.610 $</title>
+   <link>https://mpascale19.github.io/conviction-engine/?lang=it#MKC</link>
+   <description>MCCORMICK &amp; CO INC. Acquisto sul mercato del 2 ottobre 2026: 1.000 azioni a 44,61 $ in media, 44.610 $ in tutto.</description>
+   <category>acquisto</category>
+   <guid isPermaLink="false">MKC-2026-10-02-hattersley-gavin-buy</guid>
+   <pubDate>Fri, 02 Oct 2026 12:00:00 GMT</pubDate>
+  </item>
+  <item>
+   <title>ORCL: RUSCKOWSKI STEPHEN H (Director) compra per 3,5 milioni $</title>
+   <link>https://mpascale19.github.io/conviction-engine/?lang=it#ORCL</link>
+   <description>ORACLE CORP. Acquisto sul mercato del 29 settembre 2026: 25.000 azioni a 139,35 $ in media, 3,5 milioni $ in tutto.</description>
+   <category>acquisto</category>
+   <guid isPermaLink="false">ORCL-2026-09-29-rusckowski-stephen-h-buy</guid>
+   <pubDate>Tue, 29 Sep 2026 12:00:00 GMT</pubDate>
+  </item>
+  <item>
+   <title>CME: SHEPARD WILLIAM R (Director) compra per 78.626 $</title>
+   <link>https://mpascale19.github.io/conviction-engine/?lang=it#CME</link>
+   <description>CME GROUP INC.. Acquisto sul mercato del 25 settembre 2026: 293 azioni a 268,76 $ in media, 78.626 $ in tutto.</description>
+   <category>acquisto</category>
+   <guid isPermaLink="false">CME-2026-09-25-shepard-william-r-buy</guid>
+   <pubDate>Fri, 25 Sep 2026 12:00:00 GMT</pubDate>
+  </item>
+ </channel>
+</rss>
