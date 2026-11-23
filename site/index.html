@@ -184,6 +184,12 @@
   .feed code{background:var(--sunken);border:1px solid var(--line);border-radius:8px;padding:8px 10px;
              font-size:13px;overflow-wrap:anywhere;min-width:0;flex:1 1 260px;user-select:all}
   @media (max-width:620px){ .thh{grid-template-columns:1fr;gap:10px} }
+  /* il radar */
+  .rdt tr[data-rk]{cursor:pointer}
+  .rdt tr[aria-expanded="true"] td{border-bottom-color:transparent}
+  .rdx td{background:var(--sunken)}
+  .rdd{padding:2px 0 6px}
+  .rdd table td{background:transparent}
   @media (max-width:620px){
     .hide-s{display:none}
     .subs li{grid-template-columns:minmax(0,1fr) 54px}
@@ -432,10 +438,10 @@ function spark(series){
 
 /* ------------------------------------------------------------------ pagine */
 var REPO = 'https://github.com/mpascale19/conviction-engine';
-var PAGES = ['home', 'aziende', 'confronto', 'backtest', 'guida', 'richieste'];
+var PAGES = ['home', 'aziende', 'radar', 'confronto', 'backtest', 'guida', 'richieste'];
 
 function navBar(cur){
-  var items = [['home', T('Home', 'Home')], ['aziende', T('Aziende', 'Companies')],
+  var items = [['home', T('Home', 'Home')], ['aziende', T('Aziende', 'Companies')], ['radar', T('Radar', 'Radar')],
                ['confronto', T('Confronta', 'Compare')],
                ['backtest', T('Backtest', 'Backtest')],
                ['guida', T('Come funziona', 'How it works')],
@@ -503,7 +509,7 @@ function renderHome(){
         '<td class="num">' + scoreCell(c.score) + '</td>' +
         '<td class="hide-s">' + esc(txt(c.verdict)) + '</td>' +
         '<td class="num">' + (c.covered_pct || 0) + '%</td></tr>';
-    }).join('') + '</tbody></table></div></div>' + thHome() + alertsCard() +
+    }).join('') + '</tbody></table></div></div>' + thHome() + radarHome() + alertsCard() +
 
     '<div class="card sub">' + T(
       'Strumento didattico, non una raccomandazione di investimento. Il codice, i dati e la ' +
@@ -622,7 +628,8 @@ function renderGuide(){
      'a 60 giorni dei suoi acquisti passati, rispetto al settore: chi ci ha preso pesa di più. Gli ' +
      'acquisti si contano per campagna: dieci compere in tre settimane sono una prova sola.'],
     ['Da dove vengono i dati?',
-     'Form 4, 8-K, azioni in circolazione: SEC EDGAR. Prezzi: Yahoo Finance, con stooq come riserva. ' +
+     'Form 4, 8-K, 13D, azioni in circolazione: SEC EDGAR. Tutto il mercato e i grandi fondi: i data set ' +
+     'dei Form 4 e dei 13F che la SEC pubblica ogni trimestre. Prezzi: Yahoo Finance, con stooq come riserva. ' +
      'Short interest: i file pubblici di FINRA. Utili contro attese, calendario delle trimestrali, ' +
      'elenco dei titoli quotati e trascrizioni: Alpha Vantage. Delle trascrizioni nel repository ' +
      'finiscono solo i fatti estratti, non il testo.'],
@@ -645,6 +652,16 @@ function renderGuide(){
      'all’indietro, come voce a sé: chi ha sorpreso in positivo ha poi reso di più? Nel punteggio non ' +
      'entra da sola, finché quella prova non dice di sì. Gli utili arrivano a rate, dodici aziende al ' +
      'giorno, e poi si rileggono dopo ogni trimestrale.'],
+    ['Che cos’è il radar?',
+     'L’elenco di tutte le società americane, non solo delle duecento, in cui amministratori e dirigenti hanno ' +
+     'comprato sul mercato negli ultimi 90 giorni, prima i cluster. Viene dai file della SEC e si aggiorna ogni ' +
+     'mattina con i depositi del giorno prima. Le aziende fuori dalle duecento non hanno punteggio: il radar dice ' +
+     'dove guardare, non che cosa comprare.'],
+    ['Che cosa sono il 13D e il 13F?',
+     'Il 13D lo deposita chi supera il 5% di una società senza essere un investitore passivo: attivisti, ' +
+     'fondatori, azionisti di controllo. Il 13F lo deposita ogni trimestre ogni gestore con più di 100 milioni ' +
+     'in azioni americane: l’elenco di quello che possiede. Nella scheda di ogni azienda, alla voce Fondi, ci ' +
+     'sono tutti e due; la pagina Backtest li mette alla prova. Per ora non spostano punti.'],
     ['Che cos’è il termometro degli insider?',
      'Una lettura del mercato, non di un’azienda. Fra tutti gli insider delle aziende seguite che negli ' +
      'ultimi tre mesi hanno comprato sul mercato o venduto fuori da un piano 10b5-1, la quota di quelli che ' +
@@ -695,7 +712,8 @@ function renderGuide(){
      'purchases against the sector: those who were right weigh more. Purchases are counted per ' +
      'campaign: ten buys in three weeks are a single piece of evidence.'],
     ['Where does the data come from?',
-     'Form 4, 8-K filings and shares outstanding: SEC EDGAR. Prices: Yahoo Finance, with stooq as a ' +
+     'Form 4, 8-K and 13D filings and shares outstanding: SEC EDGAR. The whole market and the large funds: ' +
+     'the Form 4 and 13F data sets the SEC publishes every quarter. Prices: Yahoo Finance, with stooq as a ' +
      'fallback. Short interest: FINRA’s public files. Earnings against estimates, the results calendar, ' +
      'the list of listed stocks and the transcripts: Alpha Vantage. Of the transcripts, only the ' +
      'extracted facts go into the repository, never the text.'],
@@ -718,6 +736,16 @@ function renderGuide(){
      'as an input of its own: did the companies that surprised on the upside go on to do better? It does ' +
      'not enter the score by itself until that test says yes. Earnings arrive in instalments, twelve ' +
      'companies a day, and are then re-read after every quarterly report.'],
+    ['What is the radar?',
+     'The list of all US companies, not just the two hundred, where directors and officers bought on the open ' +
+     'market in the last 90 days, clusters first. It comes from the SEC files and updates every morning with ' +
+     'the previous day’s filings. Companies outside the two hundred have no score: the radar says where to ' +
+     'look, not what to buy.'],
+    ['What are the 13D and the 13F?',
+     'A 13D is filed by whoever crosses 5% of a company without being a passive investor: activists, founders, ' +
+     'controlling shareholders. A 13F is filed every quarter by every manager with more than 100 million in US ' +
+     'shares: the list of what it owns. Each company page has both, under Funds; the Backtest page puts them ' +
+     'to the test. For now they move no points.'],
     ['What is the insider thermometer?',
      'A reading of the market, not of one company. Among all the insiders of the companies followed who in ' +
      'the last three months bought on the open market or sold outside a 10b5-1 plan, the share who bought. ' +
@@ -1220,13 +1248,16 @@ function icCard(){
   if (!ic || !ic.rows) return '';
   var names = { price: T('Contesto di prezzo', 'Price context'), sector: T('Settore', 'Sector'),
                 market: T('Mercato', 'Market'), events: T('Fatti rilevanti (8-K)', 'Material events (8-K)'),
-                surprise: T('Sorpresa sugli utili', 'Earnings surprise') };
+                surprise: T('Sorpresa sugli utili', 'Earnings surprise'),
+                breadth: T('Ampiezza dei grandi fondi (13F)', 'Breadth of fund ownership (13F)') };
   var notes = { price: T('dalle chiusure', 'from closing prices'),
                 sector: T('dai Form 4 di tutto l’universo', 'from the Form 4s of the whole universe'),
                 market: T('solo la storia dello short interest del titolo', 'only the stock’s own short-interest history'),
                 events: T('solo le date coperte dal file della SEC', 'only the dates covered by the SEC file'),
                 surprise: T('non è nel punteggio: l’ultima trimestrale contro le attese',
-                            'not in the score: the latest results against estimates') };
+                            'not in the score: the latest results against estimates'),
+                breadth: T('non è nel punteggio: quanti più gestori lo possiedono rispetto al trimestre prima',
+                           'not in the score: how many more managers own it than the quarter before') };
   var rows = ic.rows.map(function(r){
     var read, col = 'var(--ink3)';
     if (r.ic == null) read = T('non ancora calcolabile', 'not computable yet');
@@ -1250,14 +1281,14 @@ function icCard(){
   return '<div class="card"><h2>' + T('Le altre voci, alla prova', 'The other inputs, put to the test') +
     '</h2><p class="sub">' + T(
       'Quattro voci del punteggio si possono ricostruire giorno per giorno nel passato senza inventare ' +
-      'niente, e con loro la sorpresa sugli utili, che nel punteggio non c’è: se qui mostrasse un ' +
-      'segnale, sarebbe la ragione per farla entrare. Per ogni data, dentro ogni universo, si guarda se le aziende con il valore più alto hanno ' +
+      'niente, e con loro due che nel punteggio non ci sono, la sorpresa sugli utili e l’ampiezza dei grandi ' +
+      'fondi: se qui una delle due mostrasse un segnale, sarebbe la ragione per farla entrare. Per ogni data, dentro ogni universo, si guarda se le aziende con il valore più alto hanno ' +
       'poi reso di più delle altre nei ' + ic.horizon + ' giorni successivi: 1 vorrebbe dire sempre, 0 per ' +
       'niente, −1 sempre al contrario. Il confronto è fra aziende nella stessa data, quindi ' +
       'l’andamento del mercato si annulla. Date fra ' + fmtD(ic.from) + ' e ' + fmtD(ic.to) + '.',
       'Four inputs of the score can be rebuilt day by day in the past without inventing anything, and so ' +
-      'can the earnings surprise, which is not in the score: if it showed a signal here, that would be ' +
-      'the reason to bring it in. For each date, within each universe, we check whether the companies with the highest value went on to ' +
+      'can two that are not in the score, the earnings surprise and the breadth of fund ownership: if either ' +
+      'showed a signal here, that would be the reason to bring it in. For each date, within each universe, we check whether the companies with the highest value went on to ' +
       'beat the others over the next ' + ic.horizon + ' days: 1 would mean always, 0 not at all, −1 ' +
       'always the opposite. The comparison is between companies on the same date, so the market’s ' +
       'direction cancels out. Dates between ' + fmtD(ic.from) + ' and ' + fmtD(ic.to) + '.') + '</p>' +
@@ -1648,6 +1679,21 @@ function thDay(s){                           // «1 settembre 2026» dentro una 
 }
 function thN(n){ return Number(n).toLocaleString(LOC); }
 
+/* Due termometri: tutto il mercato (dai data set della SEC, dal 2006) e le
+   duecento aziende. thSel() dà quello scelto con i pulsanti, nella stessa forma. */
+var THS = 'all';
+function thSel(scope){
+  var b = IDX.thermometer;
+  if (!b) return null;
+  var want = scope || THS;
+  if (want === 'all' && b.all && b.all.series && b.all.series.length)
+    return Object.assign({}, b, b.all, { scope: 'all', companies: 1, ncos: b.companies });
+  if (b.series && b.series.length) return Object.assign({}, b, { scope: '200', ncos: b.companies });
+  if (b.all && b.all.series && b.all.series.length)
+    return Object.assign({}, b, b.all, { scope: 'all', companies: 1, ncos: b.companies });
+  return null;
+}
+
 /* La frase di oggi: quanti, quanto, e dove sta rispetto alla storia. */
 function thReading(th){
   var n = th.now, y0 = th.series.length ? th.series[0].m.slice(0, 4) : '';
@@ -1655,10 +1701,16 @@ function thReading(th){
     'Negli ultimi tre mesi gli insider che hanno comprato o venduto sono meno di ' + th.min_people +
     ': troppo pochi per una lettura.',
     'In the last three months fewer than ' + th.min_people + ' insiders bought or sold: too few for a reading.');
-  var it = 'Dal ' + thDay(n.from) + ' a oggi ' + thN(n.b) + ' insider hanno comprato azioni della propria azienda e ' +
-    thN(n.s) + ' ne hanno vendute fuori dai piani programmati: i compratori sono il ' + pc1(n.r) + '.';
-  var en = 'From ' + thDay(n.from) + ' to today ' + thN(n.b) + ' insiders bought shares in their own company and ' +
-    thN(n.s) + ' sold outside pre-arranged plans: buyers are ' + pc1(n.r) + '.';
+  var it = th.scope === 'all'
+    ? 'In tutto il mercato, dal ' + thDay(n.from) + ', ' + thN(n.b) + ' volte un amministratore o un dirigente ha comprato ' +
+      'azioni della propria azienda in un mese, e ' + thN(n.s) + ' volte ne ha vendute: i compratori sono il ' + pc1(n.r) + '.'
+    : 'Dal ' + thDay(n.from) + ' a oggi ' + thN(n.b) + ' insider hanno comprato azioni della propria azienda e ' +
+      thN(n.s) + ' ne hanno vendute fuori dai piani programmati: i compratori sono il ' + pc1(n.r) + '.';
+  var en = th.scope === 'all'
+    ? 'Across the whole market, since ' + thDay(n.from) + ', a director or officer bought shares in their own company ' +
+      thN(n.b) + ' times in a month, and sold ' + thN(n.s) + ' times: buyers are ' + pc1(n.r) + '.'
+    : 'From ' + thDay(n.from) + ' to today ' + thN(n.b) + ' insiders bought shares in their own company and ' +
+      thN(n.s) + ' sold outside pre-arranged plans: buyers are ' + pc1(n.r) + '.';
   if (n.pct != null && n.median != null) {
     var lowIt = n.pct < 50;
     it += ' È una quota ' + (lowIt ? 'più bassa che ' + nelPct(100 - n.pct) : 'più alta che ' + nelPct(n.pct)) +
@@ -1694,7 +1746,7 @@ function thVerdict(th){
 
 /* Sulla Home: il numero di oggi, la frase, e la linea dei dieci anni senza assi. */
 function thHome(){
-  var th = IDX.thermometer;
+  var th = thSel('all');
   if (!th || !th.series || !th.series.length) return '';
   var n = th.now, pts = th.series.filter(function(r){ return r.r != null; });
   var sp = '';
@@ -1712,7 +1764,10 @@ function thHome(){
   }
   return '<div class="card"><h2>' + T('Il termometro degli insider', 'The insider thermometer') + '</h2>' +
     '<div class="thh"><div class="thn"><b>' + pc1(n.r) + '</b><span>' +
-    esc(T('dei ' + thN(n.b + n.s) + ' insider attivi negli ultimi tre mesi ha comprato',
+    esc(th.scope === 'all'
+      ? T('degli insider che hanno comprato o venduto negli ultimi tre mesi, in tutto il mercato',
+          'of the insiders who bought or sold in the last three months, across the whole market')
+      : T('dei ' + thN(n.b + n.s) + ' insider attivi negli ultimi tre mesi ha comprato',
           'of the ' + thN(n.b + n.s) + ' insiders active in the last three months bought')) + '</span></div>' +
     '<div class="thw"><p>' + esc(thReading(th)) + '</p>' + sp + '</div></div>' +
     '<div class="cta" style="margin-top:12px"><a class="btn ghost" href="#termometro">' +
@@ -1721,8 +1776,14 @@ function thHome(){
 
 /* Sulla pagina Backtest: il disegno, la tabella dei terzi, il verdetto. */
 function thCard(){
-  var th = IDX.thermometer;
+  var th = thSel();
   if (!th || !th.series || !th.series.length) return '';
+  var b = IDX.thermometer, both = b.all && b.all.series && b.all.series.length && b.series && b.series.length;
+  var pills = both ? '<div class="evp" role="group" aria-label="' + esc(T('Quale termometro', 'Which thermometer')) + '">' +
+    [['all', T('Tutto il mercato', 'The whole market')], ['200', T('Le ' + b.companies + ' aziende', 'The ' + b.companies + ' companies')]]
+      .map(function(p){ return '<button type="button" class="gf" data-ths="' + p[0] + '" aria-pressed="' + (p[0] === th.scope) +
+        '">' + esc(p[1]) + '</button>'; }).join('') + '</div>' : '';
+  var indep = th.test && th.test.h && th.test.h['6'] && th.test.h['6'].n ? Math.max(1, Math.round(th.test.h['6'].n / 6)) : 0;
   var t = th.test, h3 = t && t.h && t.h['3'], h6 = t && t.h && t.h['6'];
   var cell = function(x, i){
     var v = x && x.terc ? x.terc[i] : x;
@@ -1749,7 +1810,8 @@ function thCard(){
       '</tbody></table></div>';
   }
   var key = '<div class="evl"><span><i style="background:var(--c1)"></i>' +
-    esc(T('quota di compratori, finestra di tre mesi', 'share of buyers, three-month window')) + '</span>' +
+    esc(th.scope === 'all' ? T('quota di compratori, tutto il mercato', 'share of buyers, whole market')
+                           : T('quota di compratori, le ' + th.ncos + ' aziende', 'share of buyers, the ' + th.ncos + ' companies')) + '</span>' +
     '<span><i class="thdash"></i>' + esc(T('mediana', 'median')) + '</span>' +
     (th.series.some(function(r){ return r.r != null && r.co < th.cover_min * th.companies; }) ?
       '<span><i class="thlow"></i>' + esc(T('meno del 90% delle aziende coperte', 'under 90% of companies covered')) + '</span>' : '') +
@@ -1762,7 +1824,21 @@ function thCard(){
       ' at six (t ' + sg(h6.t, 1) + ') for every 10 points of share. Spearman rank correlation: ' +
       sg(h3.rho, 2) + ' and ' + sg(h6.rho, 2) + '.') + '</p>' : '';
   return '<div class="card" id="th"><h2>' + T('Il termometro degli insider', 'The insider thermometer') +
-    '</h2><p class="sub">' + T(
+    '</h2><p class="sub">' + (th.scope === 'all' ? T(
+      'Tutte le società americane, dai data set dei Form 4 che la SEC pubblica dal 2006. Ogni fine mese, per gli ' +
+      'ultimi tre mesi, si contano gli amministratori e i dirigenti che hanno comprato azioni della propria azienda ' +
+      'sul mercato e quelli che ne hanno vendute, una volta per persona e per mese. Il termometro è la quota di ' +
+      'compratori. Qui le vendite dei piani 10b5-1 restano dentro, perché i data set non le distinguono per tutti ' +
+      'gli anni: la quota è più bassa di quella delle duecento aziende, ma è la stessa misura per vent’anni. Negli ' +
+      'studi classici (Seyhun, 1988 e 1992; Lakonishok e Lee, 2001) gli insider nel loro insieme comprano di più ' +
+      'dopo i cali, e la borsa nei mesi dopo è andata meglio della media.',
+      'All US companies, from the Form 4 data sets the SEC has published since 2006. At the end of each month, for ' +
+      'the last three months, we count the directors and officers who bought shares in their own company on the ' +
+      'open market and those who sold, once per person per month. The thermometer is the share of buyers. Sales ' +
+      'under 10b5-1 plans stay in here, because the data sets do not flag them for every year: the share is lower ' +
+      'than for the two hundred companies, but it is the same measure for twenty years. In the classic studies ' +
+      '(Seyhun, 1988 and 1992; Lakonishok and Lee, 2001) insiders as a whole buy more after falls, and the market ' +
+      'did better than average in the months after.') : T(
       'Tutte le ' + th.companies + ' aziende insieme. Ogni fine mese si contano gli insider che negli ultimi tre ' +
       'mesi hanno comprato azioni della propria azienda sul mercato e quelli che ne hanno vendute fuori dai ' +
       'piani 10b5-1, una volta per persona. Il termometro è la quota di compratori. Le vendite sono sempre ' +
@@ -1774,8 +1850,8 @@ function thCard(){
       '10b5-1 plans, once per person. The thermometer is the share of buyers. Sales always far outnumber ' +
       'purchases (pay in shares, taxes, diversification): what matters is whether the share is high or low ' +
       'against its own history. In the classic studies (Seyhun, 1988 and 1992; Lakonishok and Lee, 2001) ' +
-      'insiders as a whole buy more after falls, and the market did better than average in the months after.') +
-    '</p><p class="evr">' + esc(thReading(th)) + '</p>' + key +
+      'insiders as a whole buy more after falls, and the market did better than average in the months after.')) +
+    '</p>' + pills + '<p class="evr">' + esc(thReading(th)) + '</p>' + key +
     '<div class="evw" id="thw"><div class="evtip" id="thtip" hidden></div></div>' +
     (t ? '<h3 class="thh3">' + T('La prova: che cosa ha fatto la borsa dopo', 'The test: what the market did next') + '</h3>' +
       '<p class="sub">' + T(
@@ -1787,15 +1863,17 @@ function thCard(){
         'three equal groups, from the lowest share to the highest.') + '</p>' + table + stats +
       '<p class="evr">' + esc(thVerdict(th)) + '</p>' : '') +
     '<p class="sub" style="margin-top:12px">' + T(
-      'Con rendimenti a sei mesi che si sovrappongono, ' + (h6 ? h6.n : 0) + ' mesi valgono una ventina di prove ' +
+      'Con rendimenti a sei mesi che si sovrappongono, ' + (h6 ? h6.n : 0) + ' mesi valgono circa ' + indep + ' prove ' +
       'indipendenti al massimo: l’errore standard della retta ne tiene conto (Newey-West), ma il risultato va ' +
-      'letto con questa misura. Nella prova entrano i mesi chiusi con almeno il 90% delle aziende coperte' +
+      'letto con questa misura. Nella prova entrano i mesi chiusi' +
+      (th.scope === 'all' ? ' e già letti per intero' : ' con almeno il 90% delle aziende coperte') +
       (t && t.from ? ', da ' + thMonth(t.from) + ' a ' + thMonth(t.to) : '') + '. La lettura non si dà se gli ' +
       'insider attivi sono meno di ' + th.min_people + '. Il termometro non entra nel punteggio delle aziende: ' +
       'dice com’è il mercato, non quale azienda scegliere.',
-      'With six-month returns that overlap, ' + (h6 ? h6.n : 0) + ' months are worth about twenty independent ' +
+      'With six-month returns that overlap, ' + (h6 ? h6.n : 0) + ' months are worth about ' + indep + ' independent ' +
       'tests at most: the standard error of the line allows for it (Newey-West), but the result should be read ' +
-      'with that in mind. The test uses closed months with at least 90% of companies covered' +
+      'with that in mind. The test uses closed months' +
+      (th.scope === 'all' ? ' already read in full' : ' with at least 90% of companies covered') +
       (t && t.from ? ', from ' + thMonth(t.from) + ' to ' + thMonth(t.to) : '') + '. No reading is given with ' +
       'fewer than ' + th.min_people + ' active insiders. The thermometer does not enter the companies’ scores: ' +
       'it describes the market, not which company to pick.') + '</p></div>';
@@ -1803,7 +1881,7 @@ function thCard(){
 
 /* Il disegno: una linea, la mediana tratteggiata, l'ultimo mese vuoto perché è in corso. */
 function thDraw(){
-  var th = IDX && IDX.thermometer, box = document.getElementById('thw');
+  var th = IDX && thSel(), box = document.getElementById('thw');
   if (!th || !box) return;
   var S = th.series, N = S.length;
   var W = Math.max(280, box.clientWidth), narrow = W < 480;
@@ -1824,7 +1902,7 @@ function thDraw(){
   // gennaio di ogni anno (uno sì e uno no se lo spazio è poco)
   var years = [];
   S.forEach(function(r, i){ if (r.m.slice(5) === '01') years.push(i); });
-  var every = narrow ? 2 : 1;
+  var every = (narrow ? 2 : 1) * (years.length > 14 ? 2 : 1);
   years.forEach(function(i, j){
     if (j % every) return;
     g += '<line x1="' + X(i) + '" x2="' + X(i) + '" y1="' + (H - m.b) + '" y2="' + (H - m.b + 4) + '" stroke="var(--axis)"/>' +
@@ -1879,8 +1957,8 @@ function thDraw(){
     tip.innerHTML = '<div class="evth">' + esc(T('Tre mesi fino a ', 'Three months to ') + thMonth(r.m)) +
       (r.part ? ' · ' + esc(T('in corso', 'in progress')) : '') + '</div>' +
       '<div><i style="background:var(--c1)"></i>' + esc(T('Compratori: ', 'Buyers: ')) + '<b>' + pc1(r.r) + '</b></div>' +
-      '<div class="nm">' + thN(r.b) + ' ' + T('compratori', 'buyers') + ', ' + thN(r.s) + ' ' + T('venditori', 'sellers') + ' · ' +
-      r.co + ' ' + T('aziende', 'companies') + '</div>';
+      '<div class="nm">' + thN(r.b) + ' ' + T('compratori', 'buyers') + ', ' + thN(r.s) + ' ' + T('venditori', 'sellers') +
+      (th.scope === 'all' ? '' : ' · ' + r.co + ' ' + T('aziende', 'companies')) + '</div>';
     tip.hidden = false;
     var tw = tip.offsetWidth, left = x + 14;
     if (left + tw > W - 4) left = Math.max(4, x - 14 - tw);
@@ -1907,6 +1985,15 @@ function thMount(){
   if (!document.getElementById('thw')) return;
   THK = null;
   thDraw();
+  [].forEach.call(app.querySelectorAll('[data-ths]'), function(b){
+    b.addEventListener('click', function(){
+      THS = b.dataset.ths;
+      var card = document.getElementById('th');
+      if (!card) return;
+      card.outerHTML = thCard();
+      thMount();
+    });
+  });
 }
 window.addEventListener('resize', function(){
   clearTimeout(thMount.t);
@@ -1953,6 +2040,275 @@ function alertsMount(){
       navigator.clipboard.writeText(code.textContent).then(done, pick);
     } catch (e) { pick(); }
   });
+}
+
+/* ------------------------------------------------------------------ radar di tutto il mercato
+   Gli acquisti degli insider di tutte le società americane negli ultimi 90
+   giorni, dai file della SEC (pipeline/mercato.py). Il file è a parte,
+   radar.json, perché sono centinaia di aziende. */
+var RADAR = null, RF = 'tutte', RQ = '', RMORE = 60, ROPEN = {};
+
+function radarTiles(r){
+  var cs = r.companies || [];
+  return '<div class="tiles">' +
+    statTile(thN(cs.length), T('aziende con acquisti', 'companies with buying'),
+             T('ultimi ' + r.window + ' giorni', 'last ' + r.window + ' days')) +
+    statTile(thN(cs.filter(function(c){ return c.cluster; }).length), T('cluster', 'clusters'),
+             T('3+ compratori in 30 giorni', '3+ buyers in 30 days')) +
+    statTile(thN(cs.filter(function(c){ return c.senior; }).length), T('con un dirigente apicale', 'with a top executive'),
+             T('CEO, CFO o presidente', 'CEO, CFO or president')) +
+    statTile(r.through ? esc(day(r.through)) : '—', T('depositi letti fino al', 'filings read up to'),
+             r.pending ? T(r.pending + ' giorni ancora da leggere', r.pending + ' days still to read') : T('nessun buco', 'no gaps')) +
+  '</div>';
+}
+
+function radarRows(r){
+  var q = RQ.trim().toLowerCase();
+  return (r.companies || []).filter(function(c){
+    if (RF === 'cluster' && !c.cluster) return false;
+    if (RF === 'senior' && !c.senior) return false;
+    if (RF === 'nostre' && !c.ours) return false;
+    if (q && (c.t || '').toLowerCase().indexOf(q) < 0 && (c.name || '').toLowerCase().indexOf(q) < 0) return false;
+    return true;
+  });
+}
+
+function radarTable(r){
+  var rows = radarRows(r), shown = rows.slice(0, RMORE);
+  if (!rows.length) return '<p class="sub" style="margin-top:12px">' +
+    T('Nessuna azienda con questi filtri.', 'No company with these filters.') + '</p>';
+  var edgar = function(c){
+    return 'https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=' + encodeURIComponent(c.cik) + '&type=4';
+  };
+  return '<div class="scroll" style="margin-top:12px"><table class="t-narrow rdt"><thead><tr><th>' + T('Azienda', 'Company') +
+    '</th><th class="num">' + T('Compratori', 'Buyers') + '</th><th class="num">' + T('Comprato', 'Bought') +
+    '</th><th class="num hide-s">' + T('Ultimo acquisto', 'Last purchase') + '</th><th class="hide-s">' +
+    T('Chi ha comprato di più', 'Biggest buyer') + '</th></tr></thead><tbody>' +
+    shown.map(function(c, i){
+      var key = c.t || c.cik, open = ROPEN[key], w = c.who[0] || {};
+      var chips = (c.cluster ? '<span class="chip good">cluster</span> ' : '') +
+        (c.ours ? '<span class="chip">' + T('seguita', 'followed') + '</span> ' : '');
+      var row = '<tr data-rk="' + esc(key) + '" aria-expanded="' + !!open + '"><td><span class="tk">' + esc(c.t || '—') +
+        '</span> ' + chips + '<div class="nm">' + esc(c.name) + '</div></td>' +
+        '<td class="num">' + c.buyers + '</td><td class="num">' + money(c.value) +
+        (c.big_value ? '<div class="nm">' + T('+ ', '+ ') + money(c.big_value) + ' ' + T('da grandi azionisti', 'by large holders') + '</div>' : '') +
+        '</td><td class="num hide-s">' + esc(day(c.last)) + '</td><td class="hide-s">' + esc(w.who || '') +
+        '<div class="nm">' + esc(w.role || '') + '</div></td></tr>';
+      if (!open) return row;
+      return row + '<tr class="rdx"><td colspan="5"><div class="rdd">' +
+        '<table class="t-narrow"><tbody>' + c.who.map(function(p){
+          return '<tr style="cursor:default"><td>' + esc(p.who) + '<div class="nm">' + esc(p.role) + '</div></td>' +
+            '<td class="num">' + money(p.v) + '<div class="nm">' + T('ultimo il ', 'last on ') + esc(day(p.last)) + '</div></td></tr>';
+        }).join('') + '</tbody></table>' +
+        '<p class="sub" style="margin:8px 0 0">' + T(
+          c.n + ' acquisti dal ' + day(c.first) + ' al ' + day(c.last) + ', a $' + n2(c.avg_price) + ' in media per azione.',
+          c.n + ' purchases from ' + day(c.first) + ' to ' + day(c.last) + ', at $' + n2(c.avg_price) + ' a share on average.') +
+        ' ' + (c.ours ? '<a href="#' + esc(c.t) + '">' + T('Apri la scheda', 'Open the page') + '</a> · ' : '') +
+        '<a href="' + edgar(c) + '" target="_blank" rel="noopener">' + T('I Form 4 alla SEC', 'The Form 4s at the SEC') + '</a></p>' +
+        '</div></td></tr>';
+    }).join('') + '</tbody></table></div>' +
+    (rows.length > shown.length ? '<div style="margin-top:12px"><button type="button" id="rdmore">' +
+      T('Mostra altre ' + Math.min(60, rows.length - shown.length), 'Show ' + Math.min(60, rows.length - shown.length) + ' more') +
+      '</button> <span class="nm">' + T(shown.length + ' di ' + rows.length, shown.length + ' of ' + rows.length) + '</span></div>' : '');
+}
+
+function renderRadar(){
+  if (!RADAR) {
+    app.innerHTML = navBar('radar') + '<div class="card">' + T('Carico il radar…', 'Loading the radar…') + '</div>';
+    fetch('radar.json?' + Date.now())
+      .then(function(r){ if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); })
+      .then(function(j){ RADAR = j; renderRadar(); })
+      .catch(function(){
+        app.innerHTML = navBar('radar') + '<div class="card"><h1>' + T('Radar', 'Radar') + '</h1><p class="lead">' + T(
+          'Il radar di tutto il mercato non è ancora pronto: lo prepara il workflow «Tutto il mercato», che scarica ' +
+          'i file della SEC ogni tre ore. Il primo giro dura circa un’ora.',
+          'The whole-market radar is not ready yet: the “Tutto il mercato” workflow prepares it, downloading the SEC ' +
+          'files every three hours. The first run takes about an hour.') + '</p></div>';
+      });
+    return;
+  }
+  var r = RADAR;
+  var pills = [['tutte', T('Tutte', 'All')], ['cluster', T('Solo cluster', 'Clusters only')],
+               ['senior', T('Con un dirigente apicale', 'With a top executive')], ['nostre', T('Solo quelle seguite', 'Followed only')]];
+  app.innerHTML = navBar('radar') +
+    '<div class="card hero"><h1>' + T('Radar: tutto il mercato', 'Radar: the whole market') + '</h1><p class="lead">' + T(
+      'Le duecento aziende del sito sono una scelta. Qui ci sono tutte le società americane in cui, negli ultimi ' +
+      r.window + ' giorni, amministratori e dirigenti hanno comprato azioni sul mercato per almeno ' + money(r.min_value) +
+      ' in tutto. Prima i cluster, poi le aziende con più compratori.',
+      'The two hundred companies on this site are a selection. Here are all the US companies where, in the last ' +
+      r.window + ' days, directors and officers bought shares on the open market for at least ' + money(r.min_value) +
+      ' in all. Clusters first, then the companies with the most buyers.') + '</p>' + radarTiles(r) +
+    '<p class="sub">' + T(
+      'Dai file della SEC: i data set trimestrali dei Form 4 e, per i giorni dopo, l’indice giornaliero di EDGAR, ' +
+      'letto la sera. Il radar è quindi di ieri sera, non dell’ultima ora. Senza punteggio: le aziende fuori dalle ' +
+      'duecento non hanno prezzi, short interest e call nel sistema.',
+      'From the SEC files: the quarterly Form 4 data sets and, for the days after, the EDGAR daily index, read in the ' +
+      'evening. So the radar is as of last night, not the last hour. No score: companies outside the two hundred have ' +
+      'no prices, short interest or calls in the system.') + '</p></div>' +
+    '<div class="card"><div class="evp" role="group" aria-label="' + esc(T('Filtri', 'Filters')) + '">' + pills.map(function(p){
+      return '<button type="button" class="gf" data-rf="' + p[0] + '" aria-pressed="' + (p[0] === RF) + '">' + esc(p[1]) + '</button>';
+    }).join('') + '</div>' +
+    '<div class="field" style="margin-top:12px;max-width:340px"><input id="rq" type="search" placeholder="' +
+      esc(T('Cerca un ticker o un nome', 'Search a ticker or a name')) + '" value="' + esc(RQ) + '"></div>' +
+    '<div id="rdt">' + radarTable(r) + '</div>' +
+    '<p class="sub" style="margin-top:12px">' + T(
+      'Un cluster è di almeno tre persone diverse entro 30 giorni. Contano gli acquisti sul mercato (codice P) a un ' +
+      'prezzo di almeno ' + money(r.min_price) + ' per azione. Chi possiede più del 10% senza essere amministratore o ' +
+      'dirigente (spesso un fondo) si mostra a parte e non porta un’azienda nel radar. Tocca una riga per i dettagli.',
+      'A cluster is at least three different people within 30 days. Open-market purchases (code P) count, at a price ' +
+      'of at least ' + money(r.min_price) + ' a share. Owners of more than 10% who are not directors or officers (often ' +
+      'a fund) are shown apart and do not bring a company onto the radar. Tap a row for details.') + '</p></div>';
+  radarMount();
+}
+
+function radarMount(){
+  var redraw = function(){
+    var box = document.getElementById('rdt');
+    if (box) { box.innerHTML = radarTable(RADAR); radarRowsMount(); }
+  };
+  [].forEach.call(app.querySelectorAll('[data-rf]'), function(b){
+    b.addEventListener('click', function(){
+      RF = b.dataset.rf; RMORE = 60;
+      [].forEach.call(app.querySelectorAll('[data-rf]'), function(x){ x.setAttribute('aria-pressed', String(x === b)); });
+      redraw();
+    });
+  });
+  var q = document.getElementById('rq');
+  if (q) q.addEventListener('input', function(){ RQ = q.value; RMORE = 60; redraw(); });
+  radarRowsMount();
+  function radarRowsMount(){
+    [].forEach.call(app.querySelectorAll('tr[data-rk]'), function(tr){
+      tr.addEventListener('click', function(ev){
+        if (ev.target.closest('a')) return;
+        ROPEN[tr.dataset.rk] = !ROPEN[tr.dataset.rk];
+        redraw();
+      });
+    });
+    var m = document.getElementById('rdmore');
+    if (m) m.addEventListener('click', function(){ RMORE += 60; redraw(); });
+  }
+}
+
+/* Sulla Home: le prime righe del radar, dall'indice. */
+function radarHome(){
+  var rd = IDX.radar;
+  if (!rd || !rd.n) return '';
+  return '<div class="card"><h2>' + T('Radar: tutto il mercato', 'Radar: the whole market') + '</h2><p class="sub">' + T(
+      'Fuori dalle duecento: ' + thN(rd.n) + ' società americane con acquisti degli insider negli ultimi 90 giorni, ' +
+      rd.clusters + ' con un cluster. Le prime:',
+      'Beyond the two hundred: ' + thN(rd.n) + ' US companies with insider buying in the last 90 days, ' + rd.clusters +
+      ' with a cluster. The first ones:') + '</p>' +
+    '<div class="scroll"><table class="t-narrow"><tbody>' + rd.top.map(function(c){
+      return '<tr style="cursor:default"><td><span class="tk">' + esc(c.t || '—') + '</span> ' +
+        (c.cluster ? '<span class="chip good">cluster</span>' : '') + '<div class="nm">' + esc(c.name) + '</div></td>' +
+        '<td class="num">' + c.buyers + ' ' + T('compratori', 'buyers') + '</td><td class="num">' + money(c.value) + '</td></tr>';
+    }).join('') + '</tbody></table></div>' +
+    '<div class="cta" style="margin-top:12px"><a class="btn ghost" href="#radar">' + T('Apri il radar', 'Open the radar') + '</a></div></div>';
+}
+
+/* ------------------------------------------------------------------ 13D sulla pagina Backtest */
+function actCard(){
+  var a = IDX.activists;
+  if (!a) return '';
+  var rows = [['before', T('Nei 20 giorni prima', 'In the 20 days before'), T('da −20 a −1', 'from −20 to −1')],
+              ['around', T('Intorno al deposito', 'Around the filing'), T('da −1 a +1', 'from −1 to +1')],
+              ['to60', T('Da +1 a +60', 'From +1 to +60'), T('quello che si poteva prendere', 'what could be captured')],
+              ['to120', T('Da +1 a +120', 'From +1 to +120'), '']];
+  var cell = function(x){
+    if (!x || x.mean == null) return '<td class="num">—<div class="nm">' + (x ? x.n : 0) + '</div></td>';
+    var col = Math.abs(x.t || 0) < 2 ? 'inherit' : x.mean > 0 ? 'var(--bull)' : 'var(--bear)';
+    return '<td class="num"><b style="color:' + col + '">' + sg(x.mean, 1) + '%</b><div class="nm">t ' +
+      (x.t == null ? '—' : sg(x.t, 1)) + ' · ' + x.n + '</div></td>';
+  };
+  var few = a.events < a.min;
+  return '<div class="card"><h2>' + T('Chi supera il 5% per contare (13D)', 'Crossing 5% to have a say (13D)') + '</h2><p class="sub">' + T(
+      'Chi arriva a più del 5% di una società e non è un investitore passivo deposita lo Schedule 13D, e scrive che ' +
+      'cosa vuole fare: posti nel consiglio, una vendita, un riacquisto. Sono gli attivisti, ma anche fondatori e ' +
+      'azionisti di controllo. Nello studio classico (Brav, Jiang, Partnoy e Thomas, 2008) il titolo fa circa il 7% ' +
+      'oltre il mercato intorno al deposito. Qui: rendimento oltre il settore, il giorno zero è quello del deposito.',
+      'Whoever goes above 5% of a company and is not a passive investor files Schedule 13D, and writes what they want ' +
+      'to do: board seats, a sale, a buyback. They are activists, but also founders and controlling shareholders. In ' +
+      'the classic study (Brav, Jiang, Partnoy and Thomas, 2008) the stock does about 7% above the market around the ' +
+      'filing. Here: return over the sector, day zero is the filing date.') + '</p>' +
+    '<div class="scroll" style="margin-top:12px"><table class="t-narrow"><thead><tr><th>' + T('Tratto', 'Stretch') +
+    '</th><th class="num">' + T('Media', 'Average') + '</th></tr></thead><tbody>' + rows.map(function(r){
+      return '<tr style="cursor:default"><td><b>' + esc(r[1]) + '</b>' + (r[2] ? '<div class="nm">' + esc(r[2]) + '</div>' : '') +
+        '</td>' + cell(a.seg[r[0]]) + '</tr>';
+    }).join('') + '</tbody></table></div>' +
+    '<p class="evr">' + esc(few ? T(
+      'Nelle duecento aziende, in dieci anni, i 13D iniziali con i prezzi per misurarli sono ' + a.events + ': meno dei ' +
+      a.min + ' che servono per dire qualcosa. Le grandi società raramente ne ricevono: gli attivisti restano quasi ' +
+      'sempre sotto il 5%. I numeri qui sopra sono casi, non una tendenza.',
+      'In the two hundred companies, over ten years, the initial 13Ds with prices to measure them are ' + a.events +
+      ': fewer than the ' + a.min + ' needed to say anything. Large companies rarely get them: activists almost always ' +
+      'stay below 5%. The numbers above are cases, not a trend.')
+      : T('Nelle duecento aziende i 13D iniziali misurabili sono ' + a.events + ', dal ' + day(a.from) + '.',
+          'In the two hundred companies there are ' + a.events + ' measurable initial 13Ds, since ' + day(a.from) + '.')) + '</p>' +
+    (a.recent && a.recent.length ? '<h3 class="thh3">' + T('Gli ultimi', 'The latest') + '</h3>' +
+      '<div class="scroll"><table class="t-narrow"><tbody>' + a.recent.map(function(e){
+        return '<tr data-t="' + esc(e.t) + '"><td><span class="tk">' + esc(e.t) + '</span><div class="nm">' + esc(day(e.d)) +
+          '</div></td><td>' + esc((e.who || []).join(', ') || '—') + '</td><td class="num">' +
+          (e.pct != null ? nu(e.pct.toFixed(1)) + '%' : '—') + '</td></tr>';
+      }).join('') + '</tbody></table></div>' : '') +
+    '<p class="sub" style="margin-top:12px">' + T(
+      'Sotto ogni valore: t e quanti depositi. Il 13D non sposta punti nel punteggio: compare nella scheda dell’azienda.',
+      'Under each value: t and how many filings. The 13D moves no points in the score: it shows on the company page.') + '</p></div>';
+}
+
+/* ------------------------------------------------------------------ scheda: grandi azionisti */
+function paneHolders(d){
+  var rows = (d.inst || []).slice().reverse(), a = d.activists, last = rows[0];
+  var map = ((IDX.funds || {}).map || {})[(d.company || {}).ticker];
+  var inst = '';
+  if (last) {
+    var dbr = last.dbr, dir = dbr == null ? '' : dbr > 0 ? T('in più', 'more') : T('in meno', 'fewer');
+    inst = '<div class="card"><h2>' + T('Grandi fondi (13F)', 'Large funds (13F)') + '</h2><p class="sub">' + T(
+        'Ogni gestore con più di 100 milioni di dollari in azioni americane dichiara ogni trimestre che cosa possiede, ' +
+        'entro 45 giorni. L’ampiezza è la quota di gestori che possiedono il titolo: cresce quando lo comprano fondi ' +
+        'nuovi, scende quando lo lasciano.',
+        'Every manager with more than 100 million dollars in US shares reports each quarter what it owns, within 45 ' +
+        'days. Breadth is the share of managers that own the stock: it rises when new funds buy it, falls when they ' +
+        'leave.') + '</p>' +
+      '<p class="evr">' + esc(T(
+        'Al ' + day(last.q) + ' (dato pubblico dal ' + day(last.avail) + ') lo possedevano ' + thN(last.h) + ' gestori su ' +
+        thN(last.N) + ': un’ampiezza del ' + nu(last.br.toFixed(1)) + '%' +
+        (dbr != null ? ', ' + nu(Math.abs(dbr).toFixed(2)) + ' punti ' + dir + ' del trimestre prima.' : '.'),
+        'On ' + day(last.q) + ' (public from ' + day(last.avail) + ') ' + thN(last.h) + ' managers out of ' + thN(last.N) +
+        ' owned it: a breadth of ' + last.br.toFixed(1) + '%' +
+        (dbr != null ? ', ' + Math.abs(dbr).toFixed(2) + ' points ' + dir + ' than the quarter before.' : '.'))) + '</p>' +
+      '<div class="scroll" style="margin-top:12px"><table class="t-narrow"><thead><tr><th>' + T('Trimestre', 'Quarter') +
+      '</th><th class="num">' + T('Gestori', 'Managers') + '</th><th class="num">' + T('Ampiezza', 'Breadth') +
+      '</th><th class="num">' + T('Variazione', 'Change') + '</th><th class="num hide-s">' + T('Azioni', 'Shares') +
+      '</th></tr></thead><tbody>' + rows.map(function(r){
+        var col = r.dbr == null ? 'inherit' : r.dbr > 0 ? 'var(--bull2)' : r.dbr < 0 ? 'var(--bear2)' : 'inherit';
+        return '<tr style="cursor:default"><td>' + esc(day(r.q)) + '</td><td class="num">' + thN(r.h) + '</td>' +
+          '<td class="num">' + nu(r.br.toFixed(1)) + '%</td><td class="num" style="color:' + col + '">' +
+          (r.dbr == null ? '—' : sg(r.dbr, 2)) + '</td><td class="num hide-s">' +
+          (r.sh ? nu((r.sh / 1e6).toFixed(0)) + T(' mln', 'm') : '—') + '</td></tr>';
+      }).join('') + '</tbody></table></div>' +
+      '<p class="sub" style="margin-top:12px">' + T(
+        'Fonte: i data set 13F della SEC. Il titolo è riconosciuto dal CUSIP ' + (map ? map[0] + ' («' + map[1] + '»)' : '') +
+        '. L’ampiezza non è nel punteggio: la pagina Backtest la mette alla prova (Chen, Hong e Stein, 2002).',
+        'Source: the SEC 13F data sets. The stock is identified by CUSIP ' + (map ? map[0] + ' (“' + map[1] + '”)' : '') +
+        '. Breadth is not in the score: the Backtest page puts it to the test (Chen, Hong and Stein, 2002).') + '</p></div>';
+  }
+  var act = '';
+  if (a) {
+    act = '<div class="card"><h2>' + T('Oltre il 5% per contare (13D)', 'Above 5% to have a say (13D)') + '</h2>' +
+      (a.first.length ? '<div class="scroll"><table class="t-narrow"><tbody>' + a.first.map(function(e){
+          return '<tr style="cursor:default"><td>' + esc(day(e.date)) + '</td><td>' + esc((e.who || []).join(', ') || '—') +
+            '</td><td class="num">' + (e.pct != null ? nu(e.pct.toFixed(1)) + '%' : '—') + '</td></tr>';
+        }).join('') + '</tbody></table></div>'
+        : '<p class="sub">' + T('Nessun 13D nuovo nell’ultimo anno.', 'No new 13D in the last year.') + '</p>') +
+      (a.amend ? '<p class="sub">' + T(a.amend + ' correzioni di 13D già depositati, l’ultima il ' + day(a.last_amend) + '.',
+                                       a.amend + ' amendments to 13Ds already filed, the latest on ' + day(a.last_amend) + '.') + '</p>' : '') +
+      '<p class="sub" style="margin-top:10px">' + T(
+        'Chi supera il 5% e non è passivo deposita lo Schedule 13D, con le sue intenzioni. Non sposta punti: è un fatto da leggere.',
+        'Whoever crosses 5% and is not passive files Schedule 13D, with their intentions. It moves no points: it is a fact to read.') +
+      '</p></div>';
+  }
+  return inst + act || '<div class="card"><p class="sub">' + T('Nessun dato sui grandi azionisti per ora.',
+                                                                  'No data on large holders yet.') + '</p></div>';
 }
 
 function renderBacktest(){
@@ -2009,7 +2365,7 @@ function renderBacktest(){
       'Counting individual purchases, as this page did until 22 November 2026, the median would be ' +
       sg(bp.med, 1) + '% over ' + bp.n + ' purchases. It was an inflated number: a few campaigns ' +
       'counted many times.') + '</p>' : '') +
-    distChart(bt) + '</div>' + evCard() + habitsCard() + thCard() + fwdCard() +
+    distChart(bt) + '</div>' + evCard() + habitsCard() + thCard() + actCard() + fwdCard() +
 
     '<div class="card"><h2>' + T('Le regole della formula, messe alla prova',
       'The formula’s rules, put to the test') + '</h2><p class="sub">' +
@@ -2717,12 +3073,14 @@ function renderDetail(d){
   if ((d.si_series || []).length) tabs.push(['mercato', T('Mercato', 'Market')]);
   if ((d.calls || []).length) tabs.push(['call', T('Call', 'Calls')]);
   if ((d.earnings || []).length) tabs.push(['utili', T('Utili', 'Earnings')]);
+  if ((d.inst || []).length || d.activists) tabs.push(['fondi', T('Fondi', 'Funds')]);
   tabs.push(['memo', T('Memo', 'Memo')]);
   if (!tabs.some(function(t){ return t[0] === TAB; })) TAB = 'panoramica';
   var pane = TAB === 'insider' ? paneInsider(d)
            : TAB === 'mercato' ? paneMarket(d)
            : TAB === 'call' ? paneCalls(d)
            : TAB === 'utili' ? paneEarnings(d)
+           : TAB === 'fondi' ? paneHolders(d)
            : TAB === 'memo' ? paneMemo(d) : paneOverview(d);
 
   app.innerHTML = problems(d.errors) +
@@ -2738,7 +3096,9 @@ function renderDetail(d){
           ['CIK', esc(co.cik || '—')],
           [T('Universo', 'Universe'), d.group ? esc(txt(d.group)) : '—']
         ].concat(d.next_report ? [[T('Prossima trimestrale', 'Next results'),
-                                   esc(day(d.next_report.date))]] : []).map(function(f){
+                                   esc(day(d.next_report.date))]] : [])
+         .concat(d.activists && d.activists.first.length ? [['13D', esc(day(d.activists.first[0].date)) + ' · ' +
+                  esc((d.activists.first[0].who || [])[0] || '—')]] : []).map(function(f){
           return '<span><em>' + f[0] + '</em>' + f[1] + '</span>';
         }).join('') + '</div></div></div>' +
       '<div class="big">' + (s.value == null ? '—' : s.value) +
@@ -2900,6 +3260,7 @@ function show(){
   if (!raw || p === 'home') return renderHome();
   if (p === 'aziende') return renderList();
   if (p === 'backtest') return renderBacktest();
+  if (p === 'radar') return renderRadar();
   if (p === 'termometro') {                  // il termometro sta nella pagina Backtest
     renderBacktest();
     var el = document.getElementById('th');

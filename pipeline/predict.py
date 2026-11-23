@@ -19,6 +19,10 @@ classica della "deriva dopo l'annuncio": chi ha sorpreso in positivo continua a
 fare meglio nei mesi dopo? Se la prova dicesse di sì, sarebbe la ragione per
 farla entrare nel punteggio; finché dice "indistinguibile dal caso", resta fuori.
 
+E un'altra, l'**ampiezza della proprietà** dei grandi fondi (pipeline/fondi.py):
+di quanto è cambiata, nell'ultimo 13F già pubblico quel giorno, la quota di
+gestori che possiedono il titolo (Chen, Hong e Stein, 2002).
+
 Per ogni data e per ogni universo si calcola la correlazione di rango
 (Spearman) fra il valore della voce in quel giorno e il rendimento delle 60
 sedute successive, fra le aziende dello stesso universo. Il confronto è nella
@@ -39,7 +43,7 @@ Il calcolo è deterministico: stessi dati, stesso risultato.
 import statistics as st
 from datetime import date, timedelta
 
-from . import alphavantage, rules, score
+from . import alphavantage, fondi, rules, score
 
 H = 60          # sedute dopo cui si misura
 START = 126     # sei mesi di storia prima della prima data: il prezzo ne ha bisogno
@@ -47,7 +51,7 @@ STEP = 5        # una data ogni cinque sedute basta, le vicine dicono la stessa 
 EVENT_DAYS = 180
 MIN_CO = 5      # sotto le cinque aziende una correlazione non dice niente
 
-SIGNALS = ("price", "sector", "market", "events", "surprise")
+SIGNALS = ("price", "sector", "market", "events", "surprise", "breadth")
 
 
 def _ranks(xs):
@@ -139,6 +143,10 @@ def _signals_on(group, pos, day, cfg):
         ls = alphavantage.last_surprise(d.get("_earn") or [], day)
         if ls is not None:
             out["surprise"][t] = ls["sp"]
+        # i grandi fondi: la variazione dell'ampiezza dell'ultimo 13F già pubblico quel giorno
+        fr = fondi.as_of(d.get("_inst") or [], day)
+        if fr is not None and fr["dbr"] is not None:
+            out["breadth"][t] = fr["dbr"]
     if len(summ) >= 4:
         for t, me in summ.items():
             out["sector"][t] = score.sector_score(me, list(summ.values()), cfg)[0]

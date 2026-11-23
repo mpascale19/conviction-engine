@@ -72,6 +72,12 @@ def day_text(d, lang):
     return f"{dd} {MONTHS_IT[m - 1]} {y}" if lang == "it" else f"{MONTHS_EN[m - 1]} {dd}, {y}"
 
 
+def company(name):
+    """Il nome come lo scrive la SEC, ripulito per una frase: senza lo stato
+    d'origine ("/DE/") e senza il punto finale ("INC.."), che la frase aggiunge già."""
+    return re.sub(r"\s*/[A-Z]{2}/?\s*$", "", name or "").rstrip(" .") or name
+
+
 def slug(s):
     return re.sub(r"[^a-z0-9]+", "-", s.lower()).strip("-")
 
@@ -129,11 +135,11 @@ def texts(e, lang, cluster_days=30, with_score=True):
         who = ", ".join(e["people"])
         if it:
             return (f"{e['t']}: {n} insider comprano entro {cluster_days} giorni",
-                    f"{e['name']}. Dal {day_text(e['first'], 'it')} hanno comprato azioni sul mercato: "
+                    f"{company(e['name'])}. Dal {day_text(e['first'], 'it')} hanno comprato azioni sul mercato: "
                     f"{who}. Più persone che comprano insieme sono il segnale che il punteggio "
                     f"chiama cluster. {score}")
         return (f"{e['t']}: {n} insiders buy within {cluster_days} days",
-                f"{e['name']}. Since {day_text(e['first'], 'en')} these people have bought shares "
+                f"{company(e['name'])}. Since {day_text(e['first'], 'en')} these people have bought shares "
                 f"on the open market: {who}. Several people buying together is the signal the "
                 f"score calls a cluster. {score}")
     role = f" ({e['role']})" if e.get("role") else ""
@@ -141,12 +147,12 @@ def texts(e, lang, cluster_days=30, with_score=True):
         if e.get("price") else ""
     if it:
         return (f"{e['t']}: {e['who']}{role} compra per {money(e['value'], 'it')}",
-                f"{e['name']}. Acquisto sul mercato del {day_text(e['date'], 'it')}: "
+                f"{company(e['name'])}. Acquisto sul mercato del {day_text(e['date'], 'it')}: "
                 f"{_num(e['shares'], 'it')} azioni{price}, {money(e['value'], 'it')} in tutto."
                 + (" Fa parte di un cluster di acquisti." if e.get("cluster") else "")
                 + (f" {score}" if score else ""))
     return (f"{e['t']}: {e['who']}{role} buys {money(e['value'], 'en')}",
-            f"{e['name']}. Open-market purchase on {day_text(e['date'], 'en')}: "
+            f"{company(e['name'])}. Open-market purchase on {day_text(e['date'], 'en')}: "
             f"{_num(e['shares'], 'en')} shares{price}, {money(e['value'], 'en')} in total."
             + (" Part of a cluster of purchases." if e.get("cluster") else "")
             + (f" {score}" if score else ""))

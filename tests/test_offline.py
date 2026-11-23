@@ -1861,6 +1861,9 @@ check("titolo in italiano", _tit == "ZZ: Rossi Anna (CEO) compra per 102.000 $",
 check("descrizione con data, prezzo, cluster e punteggio",
       "2 novembre 2026" in _des and "51,00 $" in _des and "cluster" in _des and "71/100" in _des, _des)
 check("in inglese", fdm.texts(_ra, "en")[0] == "ZZ: Rossi Anna (CEO) buys $102,000")
+check("il nome dell'azienda senza lo stato d'origine e senza il punto doppio",
+      fdm.company("TJX COMPANIES INC /DE/") == "TJX COMPANIES INC" and
+      fdm.company("WILLIAMS COMPANIES, INC.") == "WILLIAMS COMPANIES, INC")
 check("i milioni", fdm.money(1500000, "it") == "1,5 milioni $" and fdm.money(1500000, "en") == "$1.5m")
 check("il link porta alla scheda, in inglese con la lingua",
       fdm.link("https://a.b/ce/", "ZZ", "it") == "https://a.b/ce/?lang=it#ZZ" and
@@ -1899,6 +1902,264 @@ _bf = build_one(cfg, dict(raws[0], ticker="FFF"))
 _ixf = write_all([finish(cfg, _bf, [_bf["insider_90d"]])], cfg, _fd)
 check("la pipeline scrive il feed e lo dice nell'indice", _ixf["feed"] is not None and "items" in _ixf["feed"], _ixf["feed"])
 check("l'indice ha il blocco del termometro (anche vuoto)", "thermometer" in _ixf)
+
+# --------------------------------- tutto il mercato: i data set della SEC
+print("\nTutto il mercato (data set dei Form 4 e indice giornaliero)")
+import zipfile as _zf
+from pipeline import mercato as mkt, fondi as fnd, attivisti as att
+
+
+def _tsv(head, rows):
+    return "\t".join(head) + "\n" + "".join("\t".join(str(x) for x in r) + "\n" for r in rows)
+
+
+check("le date dei data set", mkt.sec_date("15-MAR-2010") == "2010-03-15" and mkt.sec_date("2010-03-15") == "2010-03-15"
+      and mkt.sec_date("20261120") == "2026-11-20" and mkt.sec_date("") is None)
+check("il trimestre dal nome del file", mkt.quarter_of("2026q3_form345.zip") == ("2026-07-01", "2026-09-30")
+      and mkt.quarter_of("2025q4_form345.zip") == ("2025-10-01", "2025-12-31"))
+_html = ('<a href="https://www.sec.gov/files/structureddata/data/insider-transactions-data-sets/2026q1_form345.zip">x</a>'
+         '<a href="/files/datastandardsinnovation/data/insider-transactions-data-sets/2026q3_form345.zip">y</a>'
+         '<a href="/files/structureddata/data/form-13f-data-sets/01jun2026-31aug2026_form13f.zip">z</a>')
+_ls = mkt.parse_listing(_html, "_form345.zip")
+check("l'elenco dei data set si legge dalla pagina, anche con le cartelle nuove",
+      [n for n, _ in _ls] == ["2026q1_form345.zip", "2026q3_form345.zip"] and
+      _ls[1][1].startswith("https://www.sec.gov/files/datastandardsinnovation/"), _ls)
+check("e quello dei 13F", mkt.parse_listing(_html, "_form13f.zip")[0][0] == "01jun2026-31aug2026_form13f.zip")
+check("i ticker strani non valgono", mkt.ticker_of(" brk.b ") == "BRK.B" and mkt.ticker_of("NONE") == "" and mkt.ticker_of("") == "")
+
+_zp = os.path.join(tempfile.mkdtemp(), "2026q3_form345.zip")
+with _zf.ZipFile(_zp, "w") as z:
+    z.writestr("SUBMISSION.tsv", _tsv(["ACCESSION_NUMBER", "FILING_DATE", "DOCUMENT_TYPE", "ISSUERCIK", "ISSUERNAME", "ISSUERTRADINGSYMBOL"], [
+        ["A1", "03-SEP-2026", "4", "0000000011", "ALFA INC", "alfa"],
+        ["A2", "05-SEP-2026", "4", "0000000011", "ALFA INC", "ALFA"],
+        ["A3", "06-SEP-2026", "4/A", "0000000011", "ALFA INC", "ALFA"],
+        ["A4", "07-SEP-2026", "4", "0000000022", "BETA CORP", "NONE"],
+        ["A5", "08-SEP-2026", "4", "0000000011", "ALFA INC", "ALFA"]]))
+    z.writestr("REPORTINGOWNER.tsv", _tsv(["ACCESSION_NUMBER", "RPTOWNERCIK", "RPTOWNERNAME", "RPTOWNER_RELATIONSHIP", "RPTOWNER_TITLE"], [
+        ["A1", "0000000101", "Rossi Anna", "Director,Officer", "CEO"],
+        ["A2", "0000000102", "Bianchi Luca", "Officer", "CFO"],
+        ["A3", "0000000101", "Rossi Anna", "Director", ""],
+        ["A4", "0000000103", "Fondo Grande LP", "TenPercentOwner", ""],
+        ["A5", "0000000101", "Rossi Anna", "Director,Officer", "CEO"]]))
+    z.writestr("NONDERIV_TRANS.tsv", _tsv(["ACCESSION_NUMBER", "NONDERIV_TRANS_SK", "TRANS_DATE", "TRANS_CODE", "TRANS_SHARES", "TRANS_PRICEPERSHARE", "TRANS_ACQUIRED_DISP_CD"], [
+        ["A1", 1, "01-SEP-2026", "P", "1000", "20.5", "A"],
+        ["A1", 2, "02-SEP-2026", "P", "500", "21", "A"],
+        ["A2", 3, "03-SEP-2026", "S", "300", "22", "D"],
+        ["A2", 4, "03-SEP-2026", "M", "300", "10", "A"],
+        ["A3", 5, "01-SEP-2026", "P", "1000", "20.5", "A"],
+        ["A4", 6, "04-SEP-2026", "P", "9000", "5", "A"],
+        ["A5", 7, "28-AUG-2026", "S", "100", "19", "D"]]))
+_q = mkt.read_form345(_zp, "2026-06-01")
+check("i mesi contano persone: due acquisti della stessa persona sono un compratore",
+      _q["months"]["2026-09"] == {"b": 1, "s": 1} and _q["months"]["2026-08"] == {"b": 0, "s": 1}, _q["months"])
+check("le correzioni 4/A e i codici diversi da P e S non entrano", _q["rows"] == 5, _q["rows"])
+check("gli acquisti tenuti per il radar: anche il grande azionista, ma segnato",
+      len(_q["buys"]) == 3 and next(b for b in _q["buys"] if b["a"] == "A4")["ten"] and
+      next(b for b in _q["buys"] if b["a"] == "A4")["t"] == "", _q["buys"])
+check("con i dati dell'acquisto", next(b for b in _q["buys"] if b["a"] == "A1" and b["d"] == "2026-09-01") ==
+      dict(i="11", n="ALFA INC", t="ALFA", f="2026-09-03", d="2026-09-01", a="A1", o="Rossi Anna", oc="101",
+           r="CEO", dir=True, off=True, ten=False, sh=1000.0, p=20.5, v=20500.0))
+check("prima del giorno indicato gli acquisti non si tengono", mkt.read_form345(_zp, "2026-09-02")["buys"][0]["d"] >= "2026-09-02")
+
+_master = ("Description: Daily Index\n\nCIK|Company Name|Form Type|Date Filed|Filename\n"
+           "--------------------------------------------------------------------------------\n"
+           "11|ALFA INC|4|20261120|edgar/data/11/0000000011-26-000001.txt\n"
+           "101|Rossi Anna|4|20261120|edgar/data/101/0000000011-26-000001.txt\n"
+           "11|ALFA INC|8-K|20261120|edgar/data/11/0000000011-26-000002.txt\n"
+           "22|BETA CORP|4/A|20261120|edgar/data/22/0000000022-26-000003.txt\n")
+check("l'indice giornaliero: un Form 4 una volta sola, niente altri moduli",
+      mkt.parse_master(_master) == [("11", "2026-11-20", "edgar/data/11/0000000011-26-000001.txt")])
+_full = "<SEC-DOCUMENT>\n<DOCUMENT>\n<TYPE>4\n<TEXT>\n<XML>\n" + read("form4_buy.xml") + "\n</XML>\n</TEXT>\n</DOCUMENT>"
+_pf = mkt.parse_filing(_full)
+check("un deposito completo: emittente e operazioni",
+      _pf["i"] == "1045810" and _pf["t"] == "EXSM" and _pf["oc"] == "1234567" and len(_pf["rows"]) == 1, _pf)
+check("un deposito senza XML non si legge", mkt.parse_filing("niente") is None)
+_ds = mkt.day_summary([("0000000011-26-000001", "2026-09-19", _pf), ("x", "2026-09-19", None)])
+check("il riassunto del giorno: il compratore e l'acquisto",
+      _ds["b"] == ["2026-09|1045810:1234567"] and _ds["s"] == [] and _ds["buys"][0]["v"] == 1604000.0 and
+      _ds["buys"][0]["off"] and _ds["buys"][0]["d"] == "2026-09-18", _ds)
+
+_mf = tempfile.mkdtemp()
+mkt._write(os.path.join(_mf, "insider", "2026q3_form345.json"), dict(_q, name="2026q3_form345.zip", **{"from": "2026-07-01", "to": "2026-09-30"}))
+mkt._write(os.path.join(_mf, "giorni", "2026-10-01.json"), dict(mkt.day_summary([("D1", "2026-10-01", dict(_pf, rows=[dict(_pf["rows"][0], date="2026-09-30")]))]), complete=True))
+mkt._write(os.path.join(_mf, "giorni", "2026-10-02.json"), {"b": [], "s": ["2026-10|9:9"], "buys": [], "complete": False})
+mkt._write(os.path.join(_mf, "giorni", "2026-09-30.json"), {"b": ["2026-09|x:y"], "s": [], "buys": [], "complete": True})
+mkt._write(os.path.join(_mf, "stato.json"), {"today": "2026-10-06", "quarters": ["2026q3_form345.zip"]})
+_ld = mkt.load(_mf)
+check("i giorni già coperti dal data set non si contano due volte; quelli dopo sì",
+      _ld["months"]["2026-09"] == {"b": 2, "s": 1} and _ld["months"]["2026-10"] == {"b": 0, "s": 1}, _ld["months"])
+check("fin dove è coperto senza buchi, e i giorni da leggere",
+      _ld["through"] == "2026-10-01" and _ld["pending"] == ["2026-10-02", "2026-10-05"], (_ld["through"], _ld["pending"]))
+check("gli acquisti dai data set e dai giorni", len(_ld["buys"]) == 4)
+
+_rb = [dict(i="11", n="ALFA INC", t="ALFA", f="2026-11-03", d="2026-11-01", a="B1", o="Rossi Anna", oc="101", r="CEO",
+            dir=True, off=True, ten=False, sh=2000.0, p=30.0, v=60000.0),
+       dict(i="11", n="ALFA INC", t="ALFA", f="2026-11-06", d="2026-11-04", a="B2", o="Verdi Ugo", oc="104", r="",
+            dir=True, off=False, ten=False, sh=100.0, p=30.0, v=3000.0),
+       dict(i="11", n="ALFA INC", t="ALFA", f="2026-11-12", d="2026-11-10", a="B3", o="Neri Pia", oc="105", r="Director",
+            dir=True, off=False, ten=False, sh=100.0, p=30.0, v=3000.0),
+       dict(i="22", n="BETA CORP", t="", f="2026-11-05", d="2026-11-03", a="B4", o="Fondo", oc="103", r="",
+            dir=False, off=False, ten=True, sh=1e6, p=5.0, v=5e6),
+       dict(i="33", n="GAMMA INC", t="GAM", f="2026-11-05", d="2026-11-03", a="B5", o="Blu Eva", oc="106", r="Director",
+            dir=True, off=False, ten=False, sh=10.0, p=30.0, v=300.0),
+       dict(i="44", n="PENNY INC", t="PNY", f="2026-11-05", d="2026-11-03", a="B6", o="Gialli Tea", oc="107", r="CEO",
+            dir=False, off=True, ten=False, sh=1e6, p=0.5, v=5e5),
+       dict(i="55", n="VECCHIA INC", t="OLD", f="2026-01-05", d="2026-01-03", a="B7", o="Viola Ada", oc="108", r="CEO",
+            dir=False, off=True, ten=False, sh=1e5, p=10.0, v=1e6)]
+_rad = mkt.radar(_rb + [dict(_rb[0])], "2026-11-20", ["ALFA"])
+check("il radar: solo chi supera la soglia, a un prezzo sensato, nella finestra",
+      [c["t"] for c in _rad] == ["ALFA"], [c["t"] for c in _rad])
+_a = _rad[0]
+check("tre persone in trenta giorni sono un cluster; lo stesso acquisto due volte conta una",
+      _a["cluster"] and _a["buyers"] == 3 and _a["value"] == 66000 and _a["senior"] and _a["ours"], _a)
+check("il primo nome è chi ha comprato di più", _a["who"][0]["who"] == "Rossi Anna" and _a["avg_price"] == 30.0)
+check("un grande azionista da solo non porta un'azienda nel radar",
+      not any(c["cik"] == "22" for c in mkt.radar(_rb, "2026-11-20")))
+
+print("\nI grandi fondi (13F)")
+check("i nomi ripuliti", fnd.norm("Boeing Co/The") == "BOEING" and fnd.norm("BOEING CO") == "BOEING"
+      and fnd.norm("TJX COMPANIES INC /DE/") == "TJX COMPANIES" and fnd.norm("JPMorgan Chase & Co.") == "JPMORGAN CHASE"
+      and fnd.norm("ALPHABET INC CAP STK CL A") == "ALPHABET", fnd.norm("ALPHABET INC CAP STK CL A"))
+_mt = fnd.matcher({"BA": "BOEING CO", "JPM": "JPMORGAN CHASE & CO", "AXP": "AMERICAN EXPRESS CO",
+                   "MS": "MORGAN STANLEY", "BAC": "BANK OF AMERICA CORP /DE/"})
+check("le corrispondenze esatte e quelle abbreviate",
+      _mt("BOEING CO") == "BA" and _mt("Bank Amer Corp") == "BAC" and _mt("BANK OF AMERICA CORPORATION") == "BAC"
+      and _mt("JPMORGAN CHASE & CO COM") == "JPM" and _mt("AMERICAN EXPRESS CO") == "AXP"
+      and _mt("AMERICAN AIRLINES GROUP") is None and _mt("AMERICAN") is None)
+# "MORGAN STANLEY DIRECT LENDING FD" finisce fra i candidati di MS: vince comunque il CUSIP con più detentori
+check("un nome più lungo è solo un candidato", _mt("MORGAN STANLEY DIRECT LENDING FD") == "MS")
+_z13 = os.path.join(tempfile.mkdtemp(), "01jun2026-31aug2026_form13f.zip")
+with _zf.ZipFile(_z13, "w") as z:
+    z.writestr("SUBMISSION.tsv", _tsv(["ACCESSION_NUMBER", "FILING_DATE", "SUBMISSIONTYPE", "CIK", "PERIODOFREPORT"], [
+        ["F1", "10-AUG-2026", "13F-HR", "0000000901", "30-JUN-2026"],
+        ["F2", "11-AUG-2026", "13F-HR", "0000000902", "30-JUN-2026"],
+        ["F3", "12-AUG-2026", "13F-HR/A", "0000000902", "30-JUN-2026"],
+        ["F4", "13-AUG-2026", "13F-HR", "0000000903", "30-JUN-2026"],
+        ["F5", "01-JUN-2026", "13F-HR", "0000000904", "31-MAR-2026"],
+        ["F6", "14-AUG-2026", "13F-HR", "0000000903", "30-JUN-2026"]]))
+    z.writestr("INFOTABLE.tsv", _tsv(["ACCESSION_NUMBER", "INFOTABLE_SK", "NAMEOFISSUER", "TITLEOFCLASS", "CUSIP", "VALUE", "SSHPRNAMT", "SSHPRNAMTTYPE", "PUTCALL"], [
+        ["F1", 1, "BOEING CO", "COM", "097023105", 1, 100, "SH", ""],
+        ["F1", 2, "BOEING CO", "COM", "097023105", 1, 50, "SH", ""],
+        ["F2", 3, "Boeing Co/The", "COM", "097023105", 1, 200, "SH", ""],
+        ["F2", 4, "BOEING CO", "NOTE", "097023AA1", 1, 999, "PRN", ""],
+        ["F2", 5, "BOEING CO", "CALL", "097023105", 1, 999, "SH", "Call"],
+        ["F3", 6, "BOEING CO", "COM", "097023105", 1, 777, "SH", ""],
+        ["F4", 7, "BOEING CO", "COM", "097023105", 1, 777, "SH", ""],
+        ["F6", 8, "BOEING CO", "COM", "097023105", 1, 300, "SH", ""],
+        ["F6", 9, "BOEING CO CL B", "COM", "097023999", 1, 5, "SH", ""],
+        ["F5", 10, "BOEING CO", "COM", "097023105", 1, 40, "SH", ""],
+        ["F1", 11, "MICROSOFT CORP", "COM", "594918104", 1, 10, "SH", ""]]))
+_r13 = fnd.read_13f(_z13, {"BA": "BOEING CO", "MSFT": "MICROSOFT CORP"})
+check("13F: un gestore per trimestre, il deposito più recente, niente correzioni, opzioni e obbligazioni",
+      _r13["2026-06-30"]["N"] == 3 and _r13["2026-06-30"]["co"]["BA"] == {"h": 3, "sh": 650, "cusip": "097023105", "name": "BOEING CO"},
+      _r13["2026-06-30"])
+check("i trimestri vecchi depositati in ritardo stanno a parte", _r13["2026-03-31"]["co"]["BA"]["h"] == 1)
+check("il CUSIP fissato a mano vince sul nome",
+      fnd.read_13f(_z13, {"BA": "BOEING CO"}, {"BA": "097023999"})["2026-06-30"]["co"]["BA"]["cusip"] == "097023999")
+_pp = {"2026-03-31": {"N": 100, "co": {"BA": {"h": 40, "sh": 1, "cusip": "c", "name": "n"}}},
+       "2026-06-30": {"N": 110, "co": {"BA": {"h": 50, "sh": 1, "cusip": "c", "name": "n"}}},
+       "2026-12-31": {"N": 100, "co": {"BA": {"h": 30, "sh": 1, "cusip": "c", "name": "n"}}}}
+_se = fnd.series(_pp, "BA")
+check("ampiezza e sua variazione, solo fra trimestri consecutivi",
+      [r["br"] for r in _se] == [40.0, 45.455, 30.0] and _se[1]["dbr"] == 5.455 and _se[1]["dh"] == 25.0
+      and _se[2]["dbr"] is None and _se[0]["avail"] == "2026-05-16", _se)
+check("il dato vale dal giorno in cui è pubblico",
+      fnd.as_of(_se, "2026-08-14")["q"] == "2026-03-31" and fnd.as_of(_se, "2026-08-15")["q"] == "2026-06-30"
+      and fnd.as_of(_se, "2026-01-01") is None)
+check("l'ordine dei file 13F", fnd._start("01jun2026-31aug2026_form13f.zip") == "2026-06" and fnd._start("2016q4_form13f.zip") == "2016-10")
+_fdir = tempfile.mkdtemp()
+mkt._write(os.path.join(_fdir, "a.json"), {"2026-06-30": {"N": 5, "co": {}}})
+mkt._write(os.path.join(_fdir, "b.json"), {"2026-06-30": {"N": 900, "co": {"BA": {"h": 1, "sh": 1, "cusip": "c", "name": "n"}}}})
+check("per ogni trimestre il file con più depositi", fnd.load(_fdir)["2026-06-30"]["N"] == 900)
+check("la tabella delle corrispondenze", fnd.mapping(fnd.load(_fdir)) == {"BA": ["c", "n", 1]})
+
+print("\nSchedule 13D")
+_cols = {"form": ["4", "SC 13D", "SC 13D/A", "SCHEDULE 13D", "SC 13G"],
+         "filingDate": ["2026-11-01", "2024-03-01", "2024-05-01", "2026-02-01", "2026-02-02"],
+         "accessionNumber": ["a0", "a1", "a2", "a3", "a4"], "primaryDocument": ["x", "d1.htm", "d2.htm", "xslSCHEDULE_13D_X01/primary_doc.xml", "y"],
+         "_cik": ["77"] * 5}
+_t13 = att.from_table(_cols, "2016-01-01")
+check("dalla tabella dei depositi: i 13D, iniziali e correzioni, non i 13G",
+      [(r["acc"], r["first"]) for r in _t13] == [("a1", True), ("a2", False), ("a3", True)])
+_hdr = ("<SUBMISSION>\n<ACCESSION-NUMBER>a1\n<TYPE>SC 13D\n<SUBJECT-COMPANY>\n<COMPANY-DATA>\n<CONFORMED-NAME>BOEING CO\n"
+        "</COMPANY-DATA>\n</SUBJECT-COMPANY>\n<FILED-BY>\n<COMPANY-DATA>\n<CONFORMED-NAME>ICAHN CARL C\n</COMPANY-DATA>\n</FILED-BY>\n")
+check("chi deposita, dall'intestazione SGML", att.parse_header(_hdr) == ["ICAHN CARL C"])
+_txt = ("SUBJECT COMPANY:\n\n\tCOMPANY DATA:\n\t\tCOMPANY CONFORMED NAME:\t\t\tBOEING CO\n\n"
+        "FILED BY:\n\n\tCOMPANY DATA:\n\t\tCOMPANY CONFORMED NAME:\t\t\tTRIAN FUND MANAGEMENT, L.P.\n")
+check("e da quella in testo", att.parse_header(_txt) == ["TRIAN FUND MANAGEMENT, L.P."])
+check("la quota dall'XML", att.parse_percent("<x><percentOfClass>7.3</percentOfClass><percentOfClass>6.1</percentOfClass></x>") == 7.3)
+check("la quota dal vecchio modulo",
+      att.parse_percent("<td>13</td><td>PERCENT OF CLASS REPRESENTED BY AMOUNT IN ROW (11)</td><td>&nbsp;</td><td>5.4%</td>") == 5.4)
+check("senza quota, None", att.parse_percent("niente") is None)
+_cd13 = tempfile.mkdtemp()
+_calls13 = []
+real_get = sources._get
+try:
+    class _R13:
+        def __init__(self, t): self.text = t
+    def _g13(url, **k):
+        _calls13.append(url)
+        if url.endswith(".hdr.sgml"):
+            return _R13(_hdr)
+        if url.endswith("primary_doc.xml"):
+            return _R13("<percentOfClass>8.2</percentOfClass>")
+        raise RuntimeError("richiesta fallita: 404 Client Error")
+    sources._get = _g13
+    _b13 = {"left": 1}
+    _ev13 = att.collect(_cols, "77", "2016-01-01", _cd13, _b13)
+    check("si legge un'intestazione per giro, nei limiti; un documento che manca lascia la quota vuota",
+          _b13["left"] == 0 and len(_calls13) == 2 and _ev13[0]["who"] == ["ICAHN CARL C"] and _ev13[0]["pct"] is None
+          and _ev13[2]["who"] == [], (_calls13, _ev13))
+    _calls13.clear()
+    _ev13 = att.collect(_cols, "77", "2016-01-01", _cd13, {"left": 5})
+    check("dalla cache non si riscarica; il deposito nuovo in XML dà la quota",
+          len(_calls13) == 2 and _ev13[2]["pct"] == 8.2 and _ev13[0]["who"] == ["ICAHN CARL C"], (_calls13, _ev13))
+    check("l'XML grezzo, non la versione impaginata", "xsl" not in _calls13[1], _calls13)
+    _calls13.clear()
+    att.collect(_cols, "77", "2016-01-01", _cd13, {"left": 5})
+    check("al giro dopo, nessuna richiesta", _calls13 == [], _calls13)
+finally:
+    sources._get = real_get
+_sm = att.summary(_ev13, "2026-11-20")
+check("per la scheda: l'ultimo anno", [e["acc"] for e in _sm["first"]] == ["a3"] and _sm["amend"] == 0)
+_dd13 = [date(2025, 1, 2) + timedelta(days=k) for k in range(400)]
+_dd13 = [d.isoformat() for d in _dd13 if d.weekday() < 5]
+_px13 = [[d, 100.0 if i < 60 else 110.0] for i, d in enumerate(_dd13)]
+_bh13 = [{"d": d, "c": 50.0} for d in _dd13]
+_co13 = {"company": {"ticker": "ZZ"}, "_px_long": _px13, "_bench_long": _bh13,
+         "_13d": [{"date": _dd13[60], "first": True, "who": ["ICAHN CARL C"], "pct": 8.2},
+                  {"date": _dd13[60], "first": True, "who": ["ALTRO"], "pct": None},
+                  {"date": _dd13[90], "first": False, "who": [], "pct": None}]}
+_ra13 = att.run([_co13])
+check("studio di evento dei 13D: il salto del giorno del deposito, un evento per giorno",
+      _ra13["events"] == 1 and _ra13["filings"] == 2 and abs(_ra13["seg"]["around"].get("mean", 10.0) - 10.0) < 1e-6
+      if "mean" in _ra13["seg"]["around"] else _ra13["seg"]["around"]["n"] == 1, _ra13)
+check("e l'elenco degli ultimi", _ra13["recent"][0]["t"] == "ZZ" and _ra13["recent"][0]["pct"] in (8.2, None))
+check("senza 13D niente blocco", att.run([dict(_co13, _13d=[])]) is None)
+
+print("\nIl termometro di tutto il mercato")
+_mm = {}
+for _y in range(2006, 2027):
+    for _m in range(1, 13):
+        _mm[f"{_y}-{_m:02d}"] = {"b": 100 + (_y % 3) * 50, "s": 900}
+_mr = thm.market_rows(_mm, "2026-11-20", through="2026-10-15")
+check("la serie di mercato comincia quando la prima finestra è intera", _mr[0]["m"] == "2006-03" and _mr[0]["b"] == 3 * 200, _mr[0])
+check("la quota somma i tre mesi", _mr[0]["r"] == round(600 / (600 + 2700) * 100, 1), _mr[0])
+check("i mesi non ancora coperti per intero sono in corso",
+      [r["m"] for r in _mr if r["part"]] == ["2026-10", "2026-11"], [r["m"] for r in _mr if r["part"]])
+_thm2 = thm.run([], "2026-11-20", market=_mm, market_px=_mk, through="2026-10-15")
+check("il blocco ha la parte di mercato anche senza le duecento aziende",
+      _thm2["all"]["series"] and _thm2["all"]["now"]["r"] is not None and _thm2["series"] == [] and _thm2["all"]["test"], _thm2["all"]["now"])
+
+_bw = build_one(cfg, dict(raws[0], ticker="BA"))
+_bw["_inst"] = fnd.series(_pp, "BA")
+_ow = tempfile.mkdtemp()
+_ixw = write_all([finish(cfg, _bw, [_bw["insider_90d"]])], cfg, _ow, mk=_ld, periods=_pp)
+_rj = json.load(open(os.path.join(_ow, "radar.json"), encoding="utf-8"))
+check("la pipeline scrive il radar e lo riassume nell'indice",
+      _ixw["radar"]["n"] == len(_rj["companies"]) >= 1 and _rj["companies"][0]["t"] == "EXSM", (_ixw["radar"], _rj["companies"][:1]))
+check("e l'elenco delle corrispondenze dei 13F", _ixw["funds"]["map"]["BA"][0] == "c" and _ixw["funds"]["missing"] == [])
+check("il termometro ha anche la parte di mercato", _ixw["thermometer"] and "all" in _ixw["thermometer"])
 
 # il riepilogo deve contare ogni fallimento: l'elenco non va mai sostituito
 check("l'elenco dei fallimenti è ancora quello di partenza", bad is _BAD0)

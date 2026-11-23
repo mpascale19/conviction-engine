@@ -259,16 +259,36 @@ def market_prices(results, symbol=MARKET):
     return []
 
 
-def run(results, today=None):
-    """-> il blocco "thermometer" dell'indice, o None se non c'è ancora niente da leggere.
+def market_rows(months, today, through=None, first="2006-01"):
+    """La lettura di tutto il mercato, dai conteggi mensili di pipeline/mercato.py.
 
-    `today`: "AAAA-MM-GG", per le prove; di solito oggi.
+    Lì le persone si contano una volta per mese (persona-mese), non una volta
+    per finestra: la quota di una finestra è la somma dei compratori dei tre
+    mesi su quella dei compratori e dei venditori. Un mese è "in corso" se è
+    quello di oggi o se i depositi che lo riguardano non sono ancora stati
+    letti tutti (`through`: l'ultimo giorno coperto senza buchi).
     """
-    today = today or date.today().isoformat()
-    rows = series(results, today)
-    if not rows:
-        return None
-    px = market_prices(results)
+    now = _key(*_ym(today))
+    open_from = now
+    if through:
+        nxt = (date.fromisoformat(through) + timedelta(days=1)).isoformat()
+        open_from = min(now, nxt[:7])
+    out = []
+    y, m = _ym(first + "-01")
+    y, m = _add(y, m, WINDOW - 1)
+    while _key(y, m) <= now:
+        k = _key(y, m)
+        win = [_key(*_add(y, m, -i)) for i in range(WINDOW)]
+        b = sum((months.get(w) or {}).get("b", 0) for w in win)
+        s = sum((months.get(w) or {}).get("s", 0) for w in win)
+        n = b + s
+        out.append({"m": k, "b": b, "s": s, "r": round(b / n * 100, 1) if n >= MIN_PEOPLE else None,
+                    "co": 1, "part": k >= open_from})
+        y, m = _add(y, m, 1)
+    return out
+
+
+def _reading(rows, today, companies, px):
     closed = [r["r"] for r in rows if not r["part"] and r["r"] is not None]
     now = rows[-1]
     pct = None
@@ -281,10 +301,38 @@ def run(results, today=None):
         med = srt[k] if len(srt) % 2 else (srt[k - 1] + srt[k]) / 2
     y, m = _ym(now["m"] + "-01")
     since = _key(*_add(y, m, -(WINDOW - 1))) + "-01"
-    return {"window": WINDOW, "min_people": MIN_PEOPLE, "start_day": START_DAY,
-            "market": MARKET, "cover_min": COVER_MIN, "companies": len(results),
-            "series": rows,
+    return {"series": rows,
             "now": {"m": now["m"], "r": now["r"], "b": now["b"], "s": now["s"], "co": now["co"],
                     "from": since, "to": today, "pct": pct,
                     "median": round(med, 1) if med is not None else None},
             "test": test(rows, px) if px else None}
+
+
+def run(results, today=None, market=None, market_px=None, through=None):
+    """-> il blocco "thermometer" dell'indice, o None se non c'è ancora niente da leggere.
+
+    `today`: "AAAA-MM-GG", per le prove; di solito oggi.
+    """
+    today = today or date.today().isoformat()
+    rows = series(results, today)
+    mk = None
+    if market:
+        mrows = market_rows(market, today, through)
+        if any(r["r"] is not None for r in mrows):
+            mk = dict(_reading(mrows, today, None, market_px), through=through)
+            # se la serie di mercato ha l'ultimo mese senza lettura, la lettura di oggi è l'ultima che c'è
+            if mk["now"]["r"] is None:
+                last = next((r for r in reversed(mrows) if r["r"] is not None), None)
+                if last:
+                    y, m = _ym(last["m"] + "-01")
+                    mk["now"].update(m=last["m"], r=last["r"], b=last["b"], s=last["s"],
+                                     **{"from": _key(*_add(y, m, -(WINDOW - 1))) + "-01"})
+    if not rows and not mk:
+        return None
+    out = {"window": WINDOW, "min_people": MIN_PEOPLE, "start_day": START_DAY,
+           "market": MARKET, "cover_min": COVER_MIN, "companies": len(results), "all": mk}
+    if rows:
+        out.update(_reading(rows, today, len(results), market_prices(results)))
+    else:
+        out.update(series=[], now=None, test=None)
+    return out

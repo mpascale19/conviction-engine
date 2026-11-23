@@ -9,6 +9,7 @@ Scrive:
     site/index.json          l'elenco con punteggio e riassunto di ogni azienda
     site/data/<TICKER>.json  il dettaglio di una singola azienda
     site/feed.xml            gli acquisti degli insider come feed RSS (feed-en.xml in inglese)
+    site/radar.json          gli acquisti degli insider di tutto il mercato (pipeline/mercato.py)
 """
 import argparse
 import json
@@ -16,8 +17,8 @@ import os
 import time
 from datetime import date, datetime, timedelta, timezone
 
-from . import (alphavantage, bonus, eventstudy, feed, finra, habits, history, market, predict, rules,
-               score, stress, thermometer)
+from . import (alphavantage, attivisti, bonus, eventstudy, feed, finra, fondi, habits, history, market,
+               mercato, predict, rules, score, stress, thermometer)
 from .rules import L
 from .extract import extract_all
 
@@ -34,6 +35,8 @@ PRICE_COPY_DAYS = 5     # quanto può essere vecchia la copia dei prezzi se Yaho
 AV_DIR = alphavantage.DIR   # utili, calendario e titoli: li scarica il workflow delle trascrizioni
 CARD_EARN_Q = 12        # quanti trimestri di utili contro attese porta la scheda
 SITE_URL = "https://mpascale19.github.io/conviction-engine/"   # se config.json non dice altro
+MK_DIR = mercato.DIR    # tutto il mercato e i grandi fondi: li scarica il workflow mercato.yml
+CARD_INST_Q = 12        # quanti trimestri di 13F porta la scheda
 
 
 def load_config(path="config.json"):
@@ -131,7 +134,8 @@ def gather(cfg, ticker, bench, offline=False, budget=None):
         failed.append("tx")
         print(f"  ! Form 4: {e}")
 
-    events = events_hist = events_from = None
+    events = events_hist = events_from = acts = None
+    since_hist = (date.today() - timedelta(days=EVENT_HIST_DAYS)).isoformat()
     if cik:                               # azioni in circolazione: dalla copertina dei 10-Q/10-K
         shares, sh_date = sources.shares_outstanding(cik)
         if shares:
@@ -140,7 +144,6 @@ def gather(cfg, ticker, bench, offline=False, budget=None):
             since = (date.today() - timedelta(days=EVENT_DAYS)).isoformat()
             # due anni, per poter rifare la prova all'indietro (pipeline/predict.py);
             # il punteggio di oggi usa solo gli ultimi EVENT_DAYS giorni
-            since_hist = (date.today() - timedelta(days=EVENT_HIST_DAYS)).isoformat()
             events_hist = sources.recent_8k(cik, since_hist)
             events = [e for e in events_hist if e["date"] >= since]
             # Da quando l'elenco dei depositi è completo. filings_table va a
@@ -153,12 +156,22 @@ def gather(cfg, ticker, bench, offline=False, budget=None):
         except Exception as e:
             errors.append(f"8-K di {ticker}: {e}")
             print(f"  ! 8-K: {e}")
+        try:                              # Schedule 13D: stesso JSON, più l'intestazione dei nuovi
+            cols, _ = sources.filings_table(cik, since_hist)
+            b13 = (budget if budget is not None else {}).setdefault("13d", {"left": attivisti.NEW_PER_RUN})
+            acts = attivisti.collect(cols, cik, since_hist, os.path.join(CACHE, "13d"), b13)
+            if acts:
+                print(f"  13D: {sum(1 for a in acts if a['first'])} depositi iniziali, "
+                      f"{sum(1 for a in acts if not a['first'])} correzioni")
+        except Exception as e:
+            acts = None
+            print(f"  ! 13D: {e}")
 
     raw = {"ticker": ticker, "name": name, "cik": cik, "prices": px, "bench": bench,
            "tx": tx, "errors": errors, "failed": failed, "price_source": src,
            "shares": shares, "shares_date": sh_date, "events": events,
            "events_hist": events_hist, "events_from": events_from,
-           "tx_status": tx_status,
+           "tx_status": tx_status, "activists": acts,
            "fetched_at": datetime.now(timezone.utc).isoformat(timespec="seconds")}
     os.makedirs(CACHE, exist_ok=True)
     with open(raw_path, "w", encoding="utf-8") as f:
@@ -360,6 +373,10 @@ def build_one(cfg, raw, extracted=None):
                       "sp": e["sp"]} for e in earn[-CARD_EARN_Q:]] or None,
         "next_report": nxt,
         "_earn_long": earn,
+        # chi ha superato il 5% per contare (Schedule 13D, pipeline/attivisti.py)
+        "activists": attivisti.summary(raw.get("activists") or [], today.isoformat())
+                     if raw.get("activists") is not None else None,
+        "_13d": raw.get("activists") or [],
         "tx": tx,
         "cluster": [t["date"] + " " + t["who"] for t in cluster],
         "tracks": tracks,
@@ -613,7 +630,7 @@ def same_but_for_the_clock(path, data):
     return a == b
 
 
-def write_all(results, cfg, outdir=OUTDIR, forward=None, si_status=None, av=None):
+def write_all(results, cfg, outdir=OUTDIR, forward=None, si_status=None, av=None, mk=None, periods=None):
     ddir = os.path.join(outdir, "data")
     os.makedirs(ddir, exist_ok=True)
 
@@ -653,12 +670,51 @@ def write_all(results, cfg, outdir=OUTDIR, forward=None, si_status=None, av=None
         print(f"! curva dopo un acquisto: {e}")
         ev = None
 
-    # Il termometro degli insider sul mercato: pipeline/thermometer.py.
+    # Il termometro degli insider sul mercato: pipeline/thermometer.py. Con i
+    # data set della SEC (pipeline/mercato.py) anche su tutto il mercato, dal 2006.
     try:
-        th = thermometer.run(results)
+        th = thermometer.run(results, market=(mk or {}).get("months"), market_px=(mk or {}).get("spy"),
+                             through=(mk or {}).get("through"))
     except Exception as e:
         print(f"! termometro degli insider: {e}")
         th = None
+
+    # Chi supera il 5% per contare: lo studio di evento dei 13D (pipeline/attivisti.py).
+    try:
+        act = attivisti.run(results)
+    except Exception as e:
+        print(f"! 13D: {e}")
+        act = None
+
+    # Il radar di tutto il mercato: un file a parte, site/radar.json, perché
+    # sono centinaia di aziende e il sito lo legge solo nella sua pagina.
+    rd = None
+    if mk and mk.get("buys"):
+        try:
+            today = date.today().isoformat()
+            ours = [d["company"]["ticker"] for d in results]
+            comp = mercato.radar(mk["buys"], today, ours)
+            radar_doc = {"today": today, "window": mercato.WINDOW, "min_value": mercato.MIN_VALUE,
+                         "min_price": mercato.MIN_PRICE, "through": mk.get("through"),
+                         "pending": len(mk.get("pending") or []), "companies": comp}
+            rpath = os.path.join(outdir, "radar.json")
+            if not same_but_for_the_clock(rpath, radar_doc):
+                with open(rpath, "w", encoding="utf-8") as f:
+                    json.dump(radar_doc, f, ensure_ascii=False, separators=(",", ":"))
+            rd = {"n": len(comp), "clusters": sum(1 for c in comp if c["cluster"]),
+                  "through": mk.get("through"), "pending": len(mk.get("pending") or []),
+                  "top": [{k: c[k] for k in ("t", "name", "buyers", "value", "cluster", "ours")} for c in comp[:5]]}
+        except Exception as e:
+            print(f"! radar: {e}")
+
+    # I grandi fondi: quali CUSIP sono stati riconosciuti per ogni azienda, per un controllo a mano.
+    fd13 = None
+    if periods:
+        mp = fondi.mapping(periods)
+        fd13 = {"quarters": len(periods), "from": min(periods), "to": max(periods),
+                "found": len(mp), "missing": sorted(d["company"]["ticker"] for d in results
+                                                    if d["company"]["ticker"] not in mp),
+                "map": mp}
 
     # Gli avvisi: il feed RSS degli acquisti, site/feed.xml e site/feed-en.xml.
     try:
@@ -717,6 +773,12 @@ def write_all(results, cfg, outdir=OUTDIR, forward=None, si_status=None, av=None
         "thermometer": th,
         # il feed RSS degli acquisti (site/feed.xml): quante voci ha
         "feed": fd,
+        # il radar di tutto il mercato (il dettaglio in site/radar.json)
+        "radar": rd,
+        # i 13D iniziali delle duecento aziende e che cosa ha fatto il titolo dopo
+        "activists": act,
+        # i grandi fondi (13F): da quando, e quale CUSIP per ogni azienda
+        "funds": fd13,
         # salti di prezzo: gli scorpori corretti (config.json, corporate_actions) e i
         # giorni sotto il settore di più di 25 punti, da controllare a mano
         "price_jumps": {
@@ -820,6 +882,22 @@ def main():
     # Utili, calendario e titoli da Alpha Vantage: li ha già scaricati il
     # workflow delle trascrizioni; se la cartella non c'è, tutto resta vuoto.
     av = alphavantage.load(AV_DIR)
+    # Tutto il mercato e i grandi fondi: li ha scaricati il workflow mercato.yml
+    # (pipeline/mercato.py e pipeline/fondi.py). Se la cartella non c'è, il
+    # radar, il termometro di mercato e i 13F restano vuoti e il giro va avanti.
+    try:
+        mk = mercato.load(MK_DIR)
+        print(f"Tutto il mercato: {len(mk['months'])} mesi, {len(mk['buys'])} acquisti, "
+              f"coperto fino al {mk['through'] or '-'}, {len(mk['pending'])} giorni da leggere")
+    except Exception as e:
+        mk = None
+        print(f"! tutto il mercato: {e}")
+    try:
+        periods = fondi.load(os.path.join(MK_DIR, "13f"))
+        print(f"13F: {len(periods)} trimestri" + (f", l'ultimo al {max(periods)}" if periods else ""))
+    except Exception as e:
+        periods = {}
+        print(f"! 13F: {e}")
     print(f"Alpha Vantage: utili di {len(av['earnings'])} aziende, calendario del "
           f"{av['calendar_on'] or '-'}, elenco dei titoli del {(av['listing'] or {}).get('on') or '-'}")
     for g in groups:
@@ -850,6 +928,9 @@ def main():
                 d["group"] = group_name(g)
                 d["benchmark"] = g["benchmark"]
                 d["_bench_long"] = bench          # per la curva "dopo un acquisto" (eventstudy.py)
+                # i grandi fondi trimestre per trimestre (pipeline/fondi.py)
+                d["_inst"] = fondi.series(periods, t.upper())
+                d["inst"] = d["_inst"][-CARD_INST_Q:] or None
                 built.append(d)
             except Exception as e:
                 print(f"  !! {t} saltato: {e}")
@@ -895,7 +976,7 @@ def main():
     except Exception as e:
         print(f"! registro delle previsioni: {e}")
 
-    index = write_all(results, cfg, a.out, forward=fwd, si_status=si_status, av=av)
+    index = write_all(results, cfg, a.out, forward=fwd, si_status=si_status, av=av, mk=mk, periods=periods)
     total = sum(len(g["tickers"]) for g in groups)
     print(f"\n{len(results)} aziende su {total}")
     for r in index["companies"][:12]:

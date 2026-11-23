@@ -68,11 +68,18 @@ vecchio va in `cik_predecessors`).
 
 ### Farlo partire da solo
 
-In `.github/workflows/update.yml` ci sono due righe commentate sotto
-`schedule`. Togliendo il cancelletto l'aggiornamento parte ogni giorno feriale
-alle 22:30 UTC, dopo la chiusura di New York. Da sapere: GitHub sospende le
-pianificazioni nei repository fermi da 60 giorni, avvisando per email; basta
-riattivarle dalla scheda Actions.
+Parte già da solo, con tre workflow nella scheda Actions:
+
+- **Aggiorna i dati** (`update.yml`): ogni ora nei giorni feriali, dalle 06:17
+  alle 23:17 UTC, e a ogni file caricato in `pipeline/`, `site/` o `config.json`;
+- **Scarica trascrizioni** (`trascrizioni.yml`): ogni giorno alle 05:41 UTC, con
+  le 25 richieste giornaliere di Alpha Vantage;
+- **Tutto il mercato** (`mercato.yml`): ogni tre ore, anche nel fine settimana,
+  per il radar, il termometro di tutto il mercato e i 13F.
+
+Tutti e tre si lanciano anche a mano, con "Run workflow". Da sapere: GitHub
+sospende le pianificazioni nei repository fermi da 60 giorni, avvisando per
+email; basta riattivarle dalla scheda Actions.
 
 ### Se qualcosa si rompe
 
@@ -284,6 +291,97 @@ di Spearman. Con dieci anni e rendimenti a sei mesi le prove indipendenti sono
 una ventina: la pagina lo dice. **Il termometro non entra nel punteggio**:
 descrive il mercato, non sceglie l'azienda. Sulla Home c'è la lettura di oggi;
 `#termometro` porta direttamente alla scheda nella pagina Backtest.
+
+## Tutto il mercato: il radar
+
+Dal 23 novembre 2026 (codice in `pipeline/mercato.py`, workflow
+`.github/workflows/mercato.yml`). Le duecento aziende sono una scelta; il radar
+guarda tutte le società americane. Scaricare i Form 4 uno alla volta, come per
+le duecento, non reggerebbe (più di mille al giorno), ma la SEC pubblica due cose
+che lo rendono possibile:
+
+- **i data set trimestrali dei Form 3, 4 e 5** ("Insider Transactions Data
+  Sets"), dal 2006: un file zip di circa 10 MB per trimestre di deposito, con
+  tutte le operazioni già in tabella. L'elenco dei file si legge dalla pagina
+  della SEC, perché gli indirizzi cambiano cartella;
+- **l'indice giornaliero di EDGAR** (`master.AAAAMMGG.idx`), pubblicato la sera:
+  per i giorni dopo l'ultimo data set si leggono i Form 4 del giorno, uno alla
+  volta, al ritmo di sempre (una richiesta ogni 0,15 secondi). I giorni si
+  leggono dal più recente, e un giorno lasciato a metà riprende al giro dopo.
+
+Il workflow **Tutto il mercato** gira ogni tre ore e salva tutto nella cache
+`mercato-` (non nel repository); il giro orario la ripristina e scrive
+`site/radar.json`. **Il radar è quindi di ieri sera**, non dell'ultima ora.
+
+- Entra un'azienda se nei 90 giorni amministratori e dirigenti hanno comprato
+  sul mercato (codice P), a un prezzo di almeno 1 dollaro, per almeno 50.000
+  dollari in tutto. Chi possiede più del 10% senza essere amministratore o
+  dirigente (spesso un fondo) si mostra a parte e non basta a farla entrare.
+- In cima i cluster (tre persone diverse entro 30 giorni), poi le aziende con
+  più compratori, poi quelle con più dollari. Filtri: solo cluster, solo con un
+  dirigente apicale, solo le aziende seguite.
+- Le aziende fuori dalle duecento non hanno punteggio: non hanno prezzi,
+  short interest e call nel sistema. Il radar dice dove guardare.
+
+Il primo giro scarica un'ottantina di data set e comincia a leggere i giorni del
+trimestre in corso (circa mille Form 4 al giorno): servono alcuni giri per
+arrivare in pari, e la pagina dice fino a che giorno i depositi sono stati letti.
+Per farlo partire subito: scheda Actions, "Tutto il mercato", "Run workflow".
+
+Dagli stessi data set viene il **termometro di tutto il mercato**: per ogni
+mese dal 2006, quanti amministratori e dirigenti hanno comprato e quanti hanno
+venduto (una volta per persona e per mese). Le vendite dei piani 10b5-1 qui
+restano dentro, perché i data set non le distinguono per tutti gli anni: la
+quota è più bassa di quella delle duecento aziende ma è la stessa misura per
+vent'anni. La prova usa trent'anni di chiusure dello SPY, scaricate dallo
+stesso workflow. Nella pagina Backtest due pulsanti passano da un termometro
+all'altro; la Home mostra quello di tutto il mercato.
+
+## I grandi fondi (13F)
+
+Codice in `pipeline/fondi.py`, scaricato dallo stesso workflow. Ogni gestore con
+più di 100 milioni di dollari in azioni americane deposita ogni trimestre il
+Form 13F con le sue posizioni, entro 45 giorni; la SEC li pubblica in tabella
+(circa 90 MB ogni tre mesi di depositi, sei file per giro, dieci anni in tutto).
+
+- Per ogni azienda e trimestre: quanti gestori la possiedono (solo azioni, non
+  opzioni né obbligazioni), quante azioni in tutto, e l'**ampiezza**: detentori
+  diviso il numero di gestori che hanno depositato. La variazione dell'ampiezza
+  è la misura di Chen, Hong e Stein (2002).
+- Si usa il 13F-HR originale (non le correzioni), il più recente se un gestore
+  ne ha due per lo stesso trimestre; per ogni trimestre il file che ne contiene
+  di più.
+- **Il CUSIP.** Il 13F identifica il titolo con il CUSIP, che la pipeline non ha:
+  lo si trova dal nome dell'emittente, ripulito (maiuscole, niente "INC",
+  "/DE/", abbreviazioni dei gestori sciolte: "INSTRS", "PETE", "COS"…), e fra i
+  CUSIP che corrispondono vince quello con più detentori. Le aziende che hanno
+  cambiato nome in dieci anni (Facebook, Anthem, Schlumberger…) hanno i nomi di
+  allora in `fondi.ALIASES`. L'indice del sito, alla voce `funds.map`, dice per
+  ogni azienda quale CUSIP è stato scelto e con quale nome, e `funds.missing`
+  quali non sono state trovate; in `config.json`, `cusip` fissa a mano quello
+  giusto e `nomi_13f` aggiunge altri nomi.
+- Nella scheda, scheda **Fondi**: gli ultimi dodici trimestri. Nella prova
+  all'indietro (pipeline/predict.py) la variazione dell'ampiezza è una voce in
+  più, usata solo dal 46° giorno dopo la fine del trimestre, quando è pubblica.
+  **Non entra nel punteggio** finché la prova non dice che c'è un segnale.
+
+## Chi supera il 5% per contare (13D)
+
+Codice in `pipeline/attivisti.py`, nel giro orario. Chi supera il 5% di una
+società senza essere un investitore passivo deposita lo Schedule 13D: attivisti
+(Icahn, Elliott, Trian…), ma anche fondatori e azionisti di controllo.
+
+- Il JSON dei depositi di ogni azienda (lo stesso dei Form 4 e degli 8-K) elenca
+  anche i 13D che altri hanno depositato su di lei: nessuna richiesta in più.
+- Per sapere chi l'ha depositato si legge l'intestazione del deposito
+  (`.hdr.sgml`), e la quota dalla copertina del documento: una volta sola, poi
+  resta in cache (`cache/13d/`), al più 40 depositi nuovi per giro.
+- Dal 18 dicembre 2024 il modulo si chiama "SCHEDULE 13D" ed è in XML; prima
+  "SC 13D". Si leggono tutti e due. Le correzioni (13D/A) si contano soltanto.
+- Nella scheda: i 13D dell'ultimo anno, e il più recente fra i dati in alto.
+  Nella pagina Backtest lo studio di evento (Brav, Jiang, Partnoy e Thomas,
+  2008) sulle duecento aziende: le grandi società ne ricevono pochi, e la
+  pagina lo dice quando sono meno di 20. **Non sposta punti.**
 
 ## Gli avvisi: il feed RSS degli acquisti
 
@@ -1346,6 +1444,9 @@ pipeline/eventstudy.py    la curva "dopo un acquisto" della pagina Backtest
 pipeline/habits.py        insider abituali o opportunisti (Cohen, Malloy e Pomorski)
 pipeline/thermometer.py   il termometro degli insider sul mercato, e la sua prova
 pipeline/feed.py          gli avvisi: il feed RSS degli acquisti (site/feed.xml)
+pipeline/mercato.py       tutto il mercato: data set dei Form 4, indice giornaliero, radar
+pipeline/fondi.py         i grandi fondi: data set 13F, ampiezza della proprietà
+pipeline/attivisti.py     gli Schedule 13D delle duecento aziende
 pipeline/build.py      mette tutto insieme e scrive site/data.json
 site/                  il sito pubblicato: legge data.json a ogni apertura
 tests/test_offline.py  i test che girano anche dentro GitHub Actions
@@ -1385,6 +1486,12 @@ stessa call non si paga due volte.
 - Il termometro degli insider conta le persone di duecento grandi aziende
   americane, non di tutto il mercato, e la sua prova ha una ventina di
   osservazioni indipendenti: è una descrizione, non un segnale di mercato.
+- Il radar di tutto il mercato è di ieri sera (l'indice giornaliero di EDGAR
+  esce dopo le 22 di New York) e non ha punteggi. I suoi acquisti sono quelli
+  dichiarati nei Form 4 originali: una correzione (4/A) non si legge.
+- I 13F arrivano fino a 45 giorni dopo la fine del trimestre e il titolo si
+  riconosce dal nome: una corrispondenza sbagliata è possibile, e l'indice
+  elenca quelle scelte per un controllo a mano.
 - Il feed RSS arriva con il giro che trova il Form 4: fino a un'ora dopo il
   deposito, e il Form 4 arriva fino a due giorni lavorativi dopo l'operazione.
 - Lo score non è una raccomandazione di investimento.

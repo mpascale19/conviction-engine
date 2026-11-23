@@ -292,6 +292,12 @@
   },
   "max_filings_per_ticker": 2000,
  "site_url": "https://mpascale19.github.io/conviction-engine/",
+ "cusip": {
+  "_nota": "13F (pipeline/fondi.py): il CUSIP giusto di un'azienda, se il riconoscimento per nome sbaglia. Esempio: \"BA\": \"097023105\". L'indice del sito, alla voce funds.map, dice quale CUSIP è stato scelto."
+ },
+ "nomi_13f": {
+  "_nota": "13F: altri nomi con cui un'azienda compare nei 13F vecchi, oltre a quelli già in pipeline/fondi.py (ALIASES). Esempio: \"META\": [\"FACEBOOK INC\"]."
+ },
  "max_new_filings_per_run": 10000,
  "history_minutes_per_run": 50,
  "rules": {
