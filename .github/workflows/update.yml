@@ -75,6 +75,16 @@ jobs:
           restore-keys: |
             alphavantage-
 
+      # Tutto il mercato e i grandi fondi: li scarica mercato.yml ogni tre ore.
+      # Anche qui solo restore, come per Alpha Vantage.
+      - name: Dati di tutto il mercato
+        uses: actions/cache/restore@v4
+        with:
+          path: cache-mercato
+          key: mercato-${{ github.run_id }}
+          restore-keys: |
+            mercato-
+
       - name: Test delle regole (senza rete)
         run: python -m tests.test_offline
 
