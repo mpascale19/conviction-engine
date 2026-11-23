@@ -2057,10 +2057,8 @@ function radarTiles(r){
              T('3+ compratori in 30 giorni', '3+ buyers in 30 days')) +
     statTile(thN(cs.filter(function(c){ return c.senior; }).length), T('con un dirigente apicale', 'with a top executive'),
              T('CEO, CFO o presidente', 'CEO, CFO or president')) +
-    (r.pending && r.last_q
-      ? statTile((r.read || 0) + '/' + ((r.read || 0) + r.pending), T('giorni letti dal ' + day(r.last_q), 'days read since ' + day(r.last_q)),
-                 T('dal più recente: gli altri ai prossimi giri', 'newest first: the rest in the next runs'))
-      : statTile(r.through ? esc(day(r.through)) : '—', T('depositi letti fino al', 'filings read up to'), T('nessun buco', 'no gaps'))) +
+    statTile(r.through ? esc(day(r.through)) : '—', T('depositi letti fino al', 'filings read up to'),
+             r.pending ? T(r.pending + ' giorni ancora da leggere', r.pending + ' days still to read') : T('nessun buco', 'no gaps')) +
   '</div>';
 }
 
