@@ -5,8 +5,40 @@
   <link>https://mpascale19.github.io/conviction-engine/?lang=it</link>
   <description>Gli acquisti sul mercato degli insider di 200 aziende americane, dai Form 4 depositati alla SEC, con il punteggio di convinzione del momento. Strumento didattico, non una raccomandazione di investimento.</description>
   <language>it</language>
-  <lastBuildDate>Mon, 23 Nov 2026 19:04:08 GMT</lastBuildDate>
+  <lastBuildDate>Mon, 23 Nov 2026 22:13:11 GMT</lastBuildDate>
   <atom:link href="https://mpascale19.github.io/conviction-engine/feed.xml" rel="self" type="application/rss+xml" />
+  <item>
+   <title>URI: Taussig Alexander R. (Director) compra per 150.086 $</title>
+   <link>https://mpascale19.github.io/conviction-engine/?lang=it#URI</link>
+   <description>UNITED RENTALS, INC. Acquisto sul mercato del 20 novembre 2026: 149 azioni a 1.007,29 $ in media, 150.086 $ in tutto. Punteggio dell'azienda in quel momento: 56/100, leggermente rialzista.</description>
+   <category>acquisto</category>
+   <guid isPermaLink="false">URI-2026-11-20-taussig-alexander-r-buy</guid>
+   <pubDate>Mon, 23 Nov 2026 22:13:11 GMT</pubDate>
+  </item>
+  <item>
+   <title>ETN: RUIZ STERNADT PAULO (See Remarks below.) compra per 96.789 $</title>
+   <link>https://mpascale19.github.io/conviction-engine/?lang=it#ETN</link>
+   <description>Eaton Corp plc. Acquisto sul mercato del 20 novembre 2026: 300 azioni a 322,63 $ in media, 96.789 $ in tutto. Fa parte di un cluster di acquisti. Punteggio dell'azienda in quel momento: 62/100, leggermente rialzista.</description>
+   <category>acquisto</category>
+   <guid isPermaLink="false">ETN-2026-11-20-ruiz-sternadt-paulo-buy</guid>
+   <pubDate>Mon, 23 Nov 2026 22:13:11 GMT</pubDate>
+  </item>
+  <item>
+   <title>ETN: Foster David B (See Remarks below.) compra per 48.540 $</title>
+   <link>https://mpascale19.github.io/conviction-engine/?lang=it#ETN</link>
+   <description>Eaton Corp plc. Acquisto sul mercato del 20 novembre 2026: 150 azioni a 323,60 $ in media, 48.540 $ in tutto. Fa parte di un cluster di acquisti. Punteggio dell'azienda in quel momento: 62/100, leggermente rialzista.</description>
+   <category>acquisto</category>
+   <guid isPermaLink="false">ETN-2026-11-20-foster-david-b-buy</guid>
+   <pubDate>Mon, 23 Nov 2026 22:13:11 GMT</pubDate>
+  </item>
+  <item>
+   <title>ETN: 3 insider comprano entro 30 giorni</title>
+   <link>https://mpascale19.github.io/conviction-engine/?lang=it#ETN</link>
+   <description>Eaton Corp plc. Dal 16 novembre 2026 hanno comprato azioni sul mercato: Johnson Gerald, Foster David B, RUIZ STERNADT PAULO. Più persone che comprano insieme sono il segnale che il punteggio chiama cluster. Punteggio dell'azienda in quel momento: 62/100, leggermente rialzista.</description>
+   <category>cluster</category>
+   <guid isPermaLink="false">ETN-2026-11-16-cluster</guid>
+   <pubDate>Mon, 23 Nov 2026 22:13:11 GMT</pubDate>
+  </item>
   <item>
    <title>WMB: Turner Robb E (Director) compra per 646.500 $</title>
    <link>https://mpascale19.github.io/conviction-engine/?lang=it#WMB</link>
