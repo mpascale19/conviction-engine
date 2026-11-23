@@ -1,0 +1,93 @@
+{
+  "ticker": "HRL",
+  "quarter": "T3 '26 (anno fiscale)",
+  "call_date": "2026-08-27",
+  "tone": 55,
+  "tone_why": {
+    "it": "Un trimestre «solido, ma non forte come il T2», detto dallo stesso amministratore delegato ad interim nella sua ultima call. L'utile per azione rettificato cresce del 6%. Ma i ricavi organici scendono del 2%, con i volumi delle vendite al dettaglio in calo a una cifra alta, e la crescita dei ricavi dell'anno viene ristretta all'1-2% (prima 1-4%). La guidance sull'utile sale nella parte bassa, ma il T4 implicito scende: circa 0,37 $ al centro invece dei 0,40 attesi dopo il T2. Sullo sfondo, un cambio quasi completo al vertice: nuovo amministratore delegato (John Ghingo), nuovo direttore finanziario in arrivo, consumatori «sotto pressione» anche nel 2027.",
+    "en": "A \"solid quarter, though admittedly not as strong as Q2\", in the interim CEO's own words on his last call. Adjusted EPS grows 6%. But organic net sales fall 2%, with retail volumes down high single digits, and full-year sales growth is narrowed to 1-2% (previously 1-4%). EPS guidance rises at the low end, but the implied Q4 falls: about $0.37 at the midpoint instead of the $0.40 expected after Q2. In the background, an almost complete change at the top: a new CEO (John Ghingo), a new CFO coming in, consumers \"strained\" into 2027 as well."
+  },
+  "guidance": [
+    {
+      "metric": {"it": "Utile per azione rettificato 2026", "en": "2026 adjusted EPS"},
+      "value": {"it": "1,45-1,51 $, dalla fascia 1,43-1,51 $: crescita del 6-10%", "en": "$1.45-1.51, from the $1.43-1.51 range: 6-10% growth"},
+      "direction": "alzata"
+    },
+    {
+      "metric": {"it": "Crescita organica dei ricavi 2026", "en": "2026 organic net sales growth"},
+      "value": {"it": "1-2%, dalla fascia 1-4%; ricavi 12,1-12,2 miliardi $", "en": "1-2%, from the 1-4% range; net sales $12.1-12.2bn"},
+      "direction": "ridotta"
+    },
+    {
+      "metric": {"it": "Utile per azione del T4", "en": "Q4 EPS"},
+      "value": {"it": "circa 0,37 $ al centro, con 0,40 $ come massimo; dopo il T2 l'attesa era circa 0,40 $", "en": "about $0.37 at the midpoint, with $0.40 as the high end; after Q2 the expectation was about $0.40"},
+      "direction": "ridotta"
+    },
+    {
+      "metric": {"it": "Primi elementi sul 2027", "en": "Early 2027 building blocks"},
+      "value": {"it": "a favore: servizi di ristorazione, marchi prioritari, costo del maiale più basso, una 53ª settimana; contro: consumatori senza miglioramenti, logistica, cereali, manzo, cessioni", "en": "for: foodservice, priority brands, lower pork costs, a 53rd week; against: no improvement in the consumer, logistics, grain, beef, divestitures"},
+      "direction": "prima"
+    },
+    {
+      "metric": {"it": "Dividendo", "en": "Dividend"},
+      "value": {"it": "resta la priorità del capitale; 392° pagamento trimestrale consecutivo", "en": "remains the capital priority; 392nd consecutive quarterly payment"},
+      "direction": "confermata"
+    }
+  ],
+  "qa": [
+    {
+      "question": {"it": "Che cosa c'è dietro il taglio dei ricavi e il rialzo dell'utile?", "en": "What is behind the sales cut and the earnings raise?"},
+      "answer_summary": {"it": "Risposta piena con i numeri: il T4 passa da circa 0,40 $ a 0,37 $ al centro per volumi più deboli e trasporti più cari, con i possibili margini di miglioramento detti uno per uno.", "en": "A full answer with numbers: Q4 goes from about $0.40 to $0.37 at the midpoint on weaker volumes and dearer freight, with the possible upsides named one by one."},
+      "directness": 5
+    },
+    {
+      "question": {"it": "Quali sono i mattoni per il 2027?", "en": "What are the building blocks for 2027?"},
+      "answer_summary": {"it": "Nessuna guidance, ma un elenco ordinato di fattori a favore e contro, compresa la 53ª settimana.", "en": "No guidance, but an orderly list of tailwinds and headwinds, including the 53rd week."},
+      "directness": 4
+    },
+    {
+      "question": {"it": "Visto il T4, bisogna stare nella parte bassa dell'1-2%?", "en": "Given Q4, should we lean to the low end of 1-2%?"},
+      "answer_summary": {"it": "«Siamo a nostro agio con la fascia»; ammette che il T4 non sarà +2-3% come i primi trimestri, senza dire dove cadrà.", "en": "\"We're comfortable with the range\"; he concedes Q4 will not be +2-3% like the first quarters, without saying where it will land."},
+      "directness": 3
+    },
+    {
+      "question": {"it": "Quanto pesa sui volumi internazionali il cambio di società per le esportazioni di SPAM?", "en": "How much does the SPAM export legal-entity change weigh on international volumes?"},
+      "answer_summary": {"it": "«Non voglio entrare nei dettagli»: solo che è la maggior parte del calo.", "en": "\"I don't want to get into specifics\": only that it is the majority of the decline."},
+      "directness": 2
+    },
+    {
+      "question": {"it": "Che cosa è andato peggio del previsto nel riequilibrio delle scorte? Si può quantificare?", "en": "What came in worse than expected in the inventory rebalancing? Can you quantify it?"},
+      "answer_summary": {"it": "Elenca le cause (meno produzione, caldo sui tacchini, blackout per maltempo) e le dice temporanee, ma nessuna cifra.", "en": "He lists the causes (lower production, heat on turkeys, weather power outages) and calls them temporary, but gives no figure."},
+      "directness": 3
+    }
+  ],
+  "language_changes": [
+    {
+      "topic": {"it": "Vertice", "en": "Leadership"},
+      "from": {"it": "amministratore delegato e direttore finanziario ad interim", "en": "interim CEO and interim CFO"},
+      "to": {"it": "John Ghingo nuovo amministratore delegato, Ash Bhumbla nuovo direttore finanziario; Ettinger resta nel consiglio", "en": "John Ghingo as new CEO, Ash Bhumbla as new CFO; Ettinger stays on the board"},
+      "note": {"it": "La call è un passaggio di consegne: il nuovo capo promette di «semplificare» e di spostare le risorse verso la crescita.", "en": "The call is a handover: the new chief promises to \"simplify\" and move resources toward growth."}
+    },
+    {
+      "topic": {"it": "Volumi al dettaglio", "en": "Retail volumes"},
+      "from": {"it": "un secondo semestre «più rumoroso», previsto", "en": "a \"noisier\" second half, anticipated"},
+      "to": {"it": "calo «un po' maggiore del previsto»: metà per uscite volute, il resto per i prezzi alzati e consumi più deboli", "en": "a decline \"somewhat greater than we originally expected\": half from deliberate exits, the rest from price increases and softer takeaway"},
+      "note": {"it": "Le cessioni spiegano solo metà del calo.", "en": "The divestitures explain only half of the decline."}
+    },
+    {
+      "topic": {"it": "Internazionale", "en": "International"},
+      "from": {"it": "presenza in Brasile e in Asia", "en": "presence in Brazil and Asia"},
+      "to": {"it": "Brasile venduto, svalutazione in Indonesia, il responsabile spostato a Singapore: tutto sull'Asia-Pacifico", "en": "Brazil sold, an impairment in Indonesia, the head moved to Singapore: all in on Asia-Pacific"},
+      "note": {"it": "Tre fatti straordinari nello stesso trimestre rendono il segmento difficile da leggere.", "en": "Three one-off items in the same quarter make the segment hard to read."}
+    },
+    {
+      "topic": {"it": "Consumatore", "en": "Consumer"},
+      "from": {"it": "ambiente difficile", "en": "a challenging environment"},
+      "to": {"it": "«non in miglioramento», e nessun miglioramento atteso nel 2027; carburante al massimo dall'inizio del conflitto", "en": "\"not improving\", and no improvement expected in 2027; fuel at its highest since the conflict began"},
+      "note": {"it": "La guidance 2027 partirà da un consumatore debole per ipotesi.", "en": "2027 guidance will start from a weak consumer by assumption."}
+    }
+  ],
+  "file": "HRL_2026Q3.json",
+  "source": "Alpha Vantage transcript (non ridistribuito)",
+  "extracted_by": "Claude (estrazione manuale, stessa forma del passo automatico)"
+}

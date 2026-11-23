@@ -1,0 +1,98 @@
+{
+  "ticker": "TSN",
+  "quarter": "T4 '26 (anno fiscale)",
+  "call_date": "2026-11-16",
+  "tone": 62,
+  "tone_why": {
+    "it": "Prima call del nuovo amministratore delegato, Jeff Schomburger, ex Procter & Gamble, con un discorso tutto sui marchi e sulla proteina: «vendere più proteina è divertente». Il 2026 chiude come promesso a settembre: utile operativo rettificato 1,98 miliardi $, utile per azione 3,44 $ (4,12 $ nel 2025). Cibi pronti al record, pollo a 1,86 miliardi in un anno di prezzi in calo, manzo in perdita di 654 milioni $ per il ciclo del bestiame. Dividendo alzato per il 15° anno, riacquisti accelerati. Ma la prima guidance 2027 ha il centro dell'utile operativo sotto il 2026 (1,7-2,15 miliardi $), con pollo e maiale in calo. E l'amministratore delegato ammette che servirà «uno o due anni» per vedere i risultati del nuovo corso.",
+    "en": "The first call of the new CEO, Jeff Schomburger, formerly of Procter & Gamble, with a speech all about brands and protein: \"selling more protein is fun\". 2026 ends as promised in September: adjusted operating income $1.98bn, EPS $3.44 ($4.12 in 2025). Prepared Foods at a record, chicken at $1.86bn in a year of falling prices, beef losing $654m on the cattle cycle. The dividend rises for the 15th year, buybacks accelerate. But the first 2027 guidance puts the operating income midpoint below 2026 ($1.7-2.15bn), with chicken and pork lower. And the CEO concedes it will take \"one or two years\" to see the results of the new course."
+  },
+  "guidance": [
+    {
+      "metric": {"it": "Risultati 2026", "en": "2026 results"},
+      "value": {"it": "utile operativo rettificato 1,98 miliardi $ e utile per azione 3,44 $, «dove avevamo detto a settembre»", "en": "adjusted operating income $1.98bn and EPS $3.44, \"where we said it would in September\""},
+      "direction": "confermata"
+    },
+    {
+      "metric": {"it": "Dividendo", "en": "Dividend"},
+      "value": {"it": "0,52 $ a trimestre per le azioni di classe A, +2%: 15° anno di aumenti", "en": "$0.52 a quarter per Class A share, +2%: 15th consecutive year of increases"},
+      "direction": "alzata"
+    },
+    {
+      "metric": {"it": "Riacquisti di azioni", "en": "Share buybacks"},
+      "value": {"it": "accelerati: 300 milioni $ nel T4, 427 nell'anno, altri 93 nelle prime settimane del 2027; «attraenti» a questi prezzi", "en": "accelerated: $300m in Q4, $427m for the year, another $93m in the first weeks of 2027; \"attractive\" at these prices"},
+      "direction": "alzata"
+    },
+    {
+      "metric": {"it": "Utile operativo rettificato 2027", "en": "2027 adjusted operating income"},
+      "value": {"it": "1,7-2,15 miliardi $ (centro sotto gli 1,98 del 2026); ricavi in calo del 3,5-5,5% per il manzo, pollo e cibi pronti insieme +3-4%", "en": "$1.7-2.15bn (midpoint below 2026's $1.98bn); sales down 3.5-5.5% on beef, chicken and prepared foods together +3-4%"},
+      "direction": "prima"
+    },
+    {
+      "metric": {"it": "Segmenti 2027", "en": "2027 segments"},
+      "value": {"it": "cibi pronti 1,25-1,4 miliardi $; pollo 1,3-1,6 miliardi (meno del 2026); manzo da −300 a +100 milioni; maiale 75-175 milioni; internazionale 125-200 milioni", "en": "prepared foods $1.25-1.4bn; chicken $1.3-1.6bn (below 2026); beef −$300m to +$100m; pork $75-175m; international $125-200m"},
+      "direction": "prima"
+    },
+    {
+      "metric": {"it": "Flusso di cassa libero 2027", "en": "2027 free cash flow"},
+      "value": {"it": "0,8-1,3 miliardi $ (1,7 nel 2026), con investimenti saliti a 1,1-1,4 miliardi", "en": "$0.8-1.3bn ($1.7bn in 2026), with capital spending up to $1.1-1.4bn"},
+      "direction": "prima"
+    }
+  ],
+  "qa": [
+    {
+      "question": {"it": "Le prospettive dei cibi pronti erano di crescita di volumi e margini, ma la guidance è piatta: è cambiata la vostra visione?", "en": "The prepared foods outlook pointed to volume and margin growth, but guidance is flat: has your view changed?"},
+      "answer_summary": {"it": "Elenca le cause (inflazione, cereali per i tacchini, più spesa in promozione), ma non dice se la visione è cambiata.", "en": "He lists the causes (inflation, grain for turkeys, more promotional spending), but does not say whether the view has changed."},
+      "directness": 3
+    },
+    {
+      "question": {"it": "Nel manzo, dove sareste nella fascia con le condizioni di oggi?", "en": "In beef, where would you be in the range in today's conditions?"},
+      "answer_summary": {"it": "Indicatori del ciclo del bestiame e frontiera messicana, ma la posizione nella fascia non la dice: «lascio a voi stimarlo».", "en": "Cattle-cycle indicators and the Mexican border, but not the position in the range: \"I'll leave you to estimate\"."},
+      "directness": 2
+    },
+    {
+      "question": {"it": "Il T1 del manzo sarà forte, o ci saranno coperture e rettifiche di magazzino?", "en": "Will beef Q1 be strong, or will there be hedging and inventory adjustments?"},
+      "answer_summary": {"it": "«Non posso dare guidance trimestrale»: solo il richiamo al T2 stagionalmente difficile.", "en": "\"I can't give quarterly guidance\": only a reminder of the seasonally difficult Q2."},
+      "directness": 2
+    },
+    {
+      "question": {"it": "Nel miglioramento del manzo nel 2027, quanto viene dalla rete ristrutturata e quanto dal mercato?", "en": "In the 2027 beef improvement, how much comes from the restructured network and how much from the market?"},
+      "answer_summary": {"it": "Il mercato pesa più o meno zero; il miglioramento è circa metà efficienza e metà rete ristrutturata.", "en": "The market is roughly neutral; the improvement is about half efficiency and half the restructured network."},
+      "directness": 4
+    },
+    {
+      "question": {"it": "Gli incentivi dei dirigenti cambiano per seguire i nuovi indicatori?", "en": "Are management incentives changing to track the new metrics?"},
+      "answer_summary": {"it": "«Assolutamente»: nel quadro di valutazione aziendale le misure su clienti e consumatori passano da due a cinque.", "en": "\"Absolutely\": in the enterprise scorecard, customer and consumer measures go from two to five."},
+      "directness": 4
+    }
+  ],
+  "language_changes": [
+    {
+      "topic": {"it": "Strategia", "en": "Strategy"},
+      "from": {"it": "un'azienda guidata dalle operazioni e dal ciclo delle carni", "en": "a company run by operations and the meat cycle"},
+      "to": {"it": "«guidata dal commerciale e resa possibile dalle operazioni»: marchi, prodotti preferiti nei test alla cieca, «One Tyson» con i clienti", "en": "\"commercially led and operations enabled\": brands, products preferred in blind tests, \"One Tyson\" with customers"},
+      "note": {"it": "Il nuovo amministratore delegato ammette che l'innovazione «non è dove dovrebbe essere» e che servono uno o due anni.", "en": "The new CEO concedes innovation is \"not where it needs to be\" and that it will take one or two years."}
+    },
+    {
+      "topic": {"it": "Manzo", "en": "Beef"},
+      "from": {"it": "chiusure e ristrutturazione della rete annunciate ad agosto", "en": "closures and network restructuring announced in August"},
+      "to": {"it": "secondo turno di Amarillo riaperto entro l'estate 2027, accordo con Allied Beef; «un problema del ciclo del bestiame, non del business»", "en": "Amarillo's second shift fully reopened by summer 2027, a partnership with Allied Beef; \"a cattle cycle issue, not a broad deterioration\""},
+      "note": {"it": "Tre mesi dopo i tagli si torna ad aggiungere capacità: segnale di fiducia sul ciclo.", "en": "Three months after the cuts capacity is being added again: a signal of confidence in the cycle."}
+    },
+    {
+      "topic": {"it": "Pollo", "en": "Chicken"},
+      "from": {"it": "un «anno fantastico», 1,86 miliardi $ nonostante prezzi giù del 25%", "en": "a \"fantastic year\", $1.86bn despite prices down 25%"},
+      "to": {"it": "1,3-1,6 miliardi nel 2027 per più offerta e cereali più cari: il modello «attutisce ma non elimina» la pressione", "en": "$1.3-1.6bn in 2027 on more supply and dearer grain: the model \"cushions but does not eliminate\" the pressure"},
+      "note": {"it": "Il segmento più forte del 2026 è quello che scende di più nella guidance.", "en": "2026's strongest segment is the one that falls most in the guidance."}
+    },
+    {
+      "topic": {"it": "Misure di successo", "en": "Measures of success"},
+      "from": {"it": "indicatori finanziari e operativi", "en": "financial and operating metrics"},
+      "to": {"it": "rendimento del capitale investito come prima misura, più quota di mercato, prodotti preferiti, penetrazione nelle famiglie", "en": "return on invested capital as the first measure, plus market share, preferred products, household penetration"},
+      "note": {"it": "Ogni attività dovrà rendere più del suo costo del capitale: un criterio che potrebbe toccare il manzo.", "en": "Every business will have to earn above its cost of capital: a criterion that could touch beef."}
+    }
+  ],
+  "file": "TSN_2026Q4.json",
+  "source": "Alpha Vantage transcript (non ridistribuito)",
+  "extracted_by": "Claude (estrazione manuale, stessa forma del passo automatico)"
+}
