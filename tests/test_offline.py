@@ -788,6 +788,10 @@ try:
     _cd = tempfile.mkdtemp()
     _r = sources.insider_transactions("42", limit=2, cache_dir=_cd)
     check("il limite conta solo i documenti dell'azienda", len(_r) == 2 and _calls == ["f1", "f2", "f3"], _calls)
+    _stl = {}
+    sources.insider_transactions("42", limit=2, cache_dir=_cd, status=_stl)
+    check("il tetto per azienda taglia la storia, e lo stato lo dice", _stl["holes_until"] == "2026-01-01", _stl)
+    _calls.clear()
     _calls.clear()
     _r2 = sources.insider_transactions("42", limit=2, cache_dir=_cd)
     check("e dalla cache si ottiene lo stesso, senza riscaricare", len(_r2) == 2 and _calls == [], _calls)
@@ -901,7 +905,8 @@ try:
     _cd2 = tempfile.mkdtemp(); _b = {"left": 3}; _st = {}
     _r = sources.insider_transactions("42", cache_dir=_cd2, budget=_b, status=_st)
     check("con il tetto a 3 se ne scaricano 3", len(_calls2) == 3 and _b["left"] == 0, (_calls2, _b))
-    check("e lo storico risulta ancora incompleto", _st == {"complete": False, "missing": 2}, _st)
+    check("e lo storico risulta ancora incompleto", _st == {"complete": False, "missing": 2,
+                                                           "holes_until": "2026-01-01"}, _st)
     _calls2.clear(); _b = {"left": 3}; _st = {}
     _r = sources.insider_transactions("42", cache_dir=_cd2, budget=_b, status=_st)
     check("il giro dopo legge dalla cache e scarica solo i mancanti",
@@ -918,7 +923,9 @@ try:
     _calls2.clear(); _b = {"left": 0}; _st = {}
     _r = sources.insider_transactions("42", cache_dir=tempfile.mkdtemp(), budget=_b, status=_st)
     check("con il tetto esaurito i documenti recenti si scaricano lo stesso",
-          _calls2 == ["r0", "r1", "r2"] and _st == {"complete": False, "missing": 3}, (_calls2, _st))
+          _calls2 == ["r0", "r1", "r2"] and _st == {"complete": False, "missing": 3,
+                                                   "holes_until": "2023-01-01"}, (_calls2, _st))
+    check("e dice fino a quando la storia ha buchi: dopo è intera", _st["holes_until"] == "2023-01-01", _st)
     check("e non consumano il tetto", _b["left"] == 0, _b)
     _calls2.clear(); _b = {"left": 99, "until": 0}; _st = {}
     _r = sources.insider_transactions("42", cache_dir=tempfile.mkdtemp(), budget=_b, status=_st)
@@ -1743,6 +1750,155 @@ check("senza la data in config.json il salto resta e viene segnalato",
       _bk["_adjusted"] == [] and _bk["_jumps"] and _bk["_jumps"][0]["rel"] == -40.0, _bk["_jumps"])
 _ixj = write_all([finish(cfg, _bk, [_bk["insider_90d"]])], cfg, tempfile.mkdtemp())
 check("l'indice elenca i salti da controllare", _ixj["price_jumps"]["flagged"][0]["t"] == "KKK", _ixj["price_jumps"])
+
+# --------------------------------- il termometro degli insider
+print("\nIl termometro degli insider")
+from pipeline import thermometer as thm, feed as fdm
+
+
+def _thco(t, tx, start="2020-01-15", holes=None, bench=None, sym="XLK"):
+    return {"company": {"ticker": t, "name": t}, "tx": tx, "_tx_start": start,
+            "history": {"tx_holes_until": holes}, "benchmark": sym, "_bench_long": bench or []}
+
+
+def _tt(d, who, kind):
+    return {"date": d, "who": who, "kind": kind}
+
+
+check("il primo mese intero dopo l'inizio della storia", thm.full_from(_thco("A", [], "2020-01-15")) == "2020-02")
+check("se la storia comincia il primo del mese, quel mese vale", thm.full_from(_thco("A", [], "2020-03-01")) == "2020-03")
+check("con un buco, dal mese intero dopo il buco",
+      thm.full_from(_thco("A", [], "2016-01-15", holes="2021-06-30")) == "2021-07")
+_ppl = [_tt("2020-03-10", f"B{i}", "BUY") for i in range(10)] + \
+       [_tt("2020-04-10", f"S{i}", "SELL_D") for i in range(30)] + \
+       [_tt("2020-04-11", "S0", "SELL_D"), _tt("2020-04-12", "P0", "SELL_P"), _tt("2020-04-12", "X", "GRANT")]
+_ser = thm.series([_thco("A", _ppl)], "2020-06-20")
+check("la prima lettura è quando la finestra di tre mesi è tutta coperta", _ser[0]["m"] == "2020-04", _ser[0])
+check("si contano persone: chi vende due volte è un venditore solo; i piani e le assegnazioni non contano",
+      (_ser[0]["b"], _ser[0]["s"]) == (10, 30), _ser[0])
+check("la lettura è la quota di compratori", _ser[0]["r"] == 25.0, _ser[0])
+check("l'ultimo mese è in corso", _ser[-1]["m"] == "2020-06" and _ser[-1]["part"] and not _ser[0]["part"])
+check("la stessa persona in due aziende sono due insider",
+      thm.series([_thco("A", _ppl), _thco("B", _ppl)], "2020-04-30")[0]["b"] == 20)
+check("sotto il minimo di persone la lettura non si dà",
+      thm.series([_thco("A", _ppl[:5])], "2020-04-30")[0]["r"] is None)
+_late = thm.series([_thco("A", _ppl), _thco("B", _ppl, start="2020-03-20")], "2020-06-30")
+check("un'azienda entra solo quando copre tutta la finestra",
+      [r["co"] for r in _late] == [1, 1, 2] and _late[0]["b"] == 10, _late)
+_mkt = [{"d": d.isoformat(), "c": 100.0 + i} for i, d in enumerate(
+    date(2020, 1, 1) + timedelta(days=k) for k in range(400))]
+check("il rendimento parte dal giorno 5 del mese dopo",
+      abs(thm.forward(_mkt, "2020-01", 3) - ((100 + 125) / (100 + 35) - 1) * 100) < 1e-9,   # 5/2 -> 5/5
+      thm.forward(_mkt, "2020-01", 3))
+check("se i prezzi non arrivano fin lì, niente rendimento", thm.forward(_mkt, "2020-12", 6) is None)
+_b, _se = thm.ols_nw([1, 2, 3, 4, 5, 6], [2.1, 3.9, 6.2, 7.8, 10.1, 12.0], 0)
+check("la retta trova la pendenza", abs(_b - 1.98) < 0.05, _b)
+check("e con le correlazioni l'errore standard cresce",
+      thm.ols_nw([1, 2, 3, 4, 5, 6, 7, 8], [1, 3, 2, 5, 4, 7, 6, 9], 3)[1] >= 0)
+check("Spearman: ordine perfetto", thm.spearman([1, 2, 3, 4], [10, 20, 30, 40]) == 1.0)
+check("Spearman: i pari merito hanno il rango medio", abs(thm.spearman([1, 1, 2], [1, 2, 3]) - 0.866) < 0.01)
+check("tre terzi uguali", thm.bands(list(range(9))) == [(0, 2), (3, 5), (6, 8)])
+_bb = thm.by_band([(0, 1.0), (1, 3.0), (4, -2.0), (7, 5.0), (8, 6.0)], [(0, 2), (3, 5), (6, 8)])
+check("rendimento medio per terzo", [x["mean"] for x in _bb] == [2.0, -2.0, 5.5] and _bb[1]["pos"] == 0, _bb)
+
+# una storia finta di dieci anni, a blocchi di sei mesi: in alcuni blocchi gli insider
+# comprano molto, e il blocco dopo la borsa sale; negli altri comprano poco e il blocco dopo scende
+import random as _rnd
+_rnd.seed(3)
+_days = [date(2016, 1, 4) + timedelta(days=k) for k in range(4000)]
+_days = [d for d in _days if d.weekday() < 5 and d <= date(2026, 11, 20)]
+_hot = {b: _rnd.random() < 0.5 for b in range(40)}
+_blk = lambda d: ((d.year - 2016) * 12 + d.month - 1) // 6
+_lvl, _mk, _cheap = 100.0, [], {}
+for d in _days:
+    b = _blk(d)
+    _lvl *= 1 + (0.003 if _hot.get(b - 1) else -0.0015)
+    _mk.append({"d": d.isoformat(), "c": round(_lvl, 4)})
+    _cheap[d.isoformat()[:7]] = _hot[b]
+_cos = []
+for i in range(40):
+    _tx = []
+    for d in _days[::7]:
+        k = d.isoformat()
+        if _rnd.random() < (0.5 if _cheap[k[:7]] else 0.1):
+            _tx.append(_tt(k, f"P{_rnd.randrange(30)}", "BUY"))
+        if _rnd.random() < 0.6:
+            _tx.append(_tt(k, f"P{_rnd.randrange(30)}", "SELL_D"))
+    _cos.append(_thco(f"C{i}", _tx, start="2016-01-01", bench=_mk, sym="SPY" if i == 0 else "XLK"))
+_th = thm.run(_cos, "2026-11-20")
+check("il blocco ha la serie, la lettura di oggi e la prova",
+      _th["series"] and _th["now"]["m"] == "2026-11" and _th["test"]["h"]["6"]["n"] >= 100, _th["now"])
+check("la percentuale storica della lettura di oggi sta fra 0 e 100", 0 <= (_th["now"]["pct"] or -1) <= 100, _th["now"])
+check("la borsa la prende dal gruppo dello SPY", thm.market_prices(_cos) is _mk)
+check("quando gli insider comprano dopo i cali e la borsa poi risale, la prova lo vede",
+      _th["test"]["h"]["6"]["t"] > 2 and _th["test"]["h"]["6"]["terc"][2]["mean"] > _th["test"]["h"]["6"]["terc"][0]["mean"],
+      _th["test"]["h"]["6"])
+check("i terzi sono gli stessi per i due orizzonti", len(_th["test"]["bands"]) == 3)
+check("senza lo SPY la serie c'è ma la prova no",
+      thm.run([dict(c, benchmark="XLK") for c in _cos], "2026-11-20")["test"] is None)
+check("senza storia niente termometro", thm.run([_thco("A", [], start=None)], "2026-11-20") is None)
+
+print("\nGli avvisi: il feed RSS")
+from xml.etree import ElementTree as _ET
+from datetime import datetime, timezone
+_fco = {"company": {"ticker": "ZZ", "name": "Zeta Corp"},
+        "score": {"value": 71, "verdict": {"it": "Convinzione moderata", "en": "Moderate conviction"}},
+        "cluster": ["2026-11-02 Rossi Anna", "2026-11-05 Bianchi Luca", "2026-11-09 Verdi Carla"],
+        "tx": [{"date": "2026-11-02", "who": "Rossi Anna", "role": "CEO", "kind": "BUY", "shares": 1000.0, "value": 50000.0},
+               {"date": "2026-11-02", "who": "Rossi Anna", "role": "CEO", "kind": "BUY", "shares": 1000.0, "value": 52000.0},
+               {"date": "2026-11-05", "who": "Bianchi Luca", "role": "Director", "kind": "BUY", "shares": 30000.0, "value": 1500000.0},
+               {"date": "2026-11-09", "who": "Verdi Carla", "role": "CFO", "kind": "BUY", "shares": 10.0, "value": 500.0},
+               {"date": "2026-11-10", "who": "Neri Ugo", "role": "", "kind": "SELL_D", "shares": 10.0, "value": 500.0},
+               {"date": "2026-06-01", "who": "Vecchio Leo", "role": "", "kind": "BUY", "shares": 10.0, "value": 500.0}]}
+_ev = fdm.events([_fco], "2026-11-20")
+check("una voce per insider e giorno, più il cluster; niente vendite né acquisti vecchi",
+      sorted(e["guid"] for e in _ev) == ["ZZ-2026-11-02-cluster", "ZZ-2026-11-02-rossi-anna-buy",
+                                         "ZZ-2026-11-05-bianchi-luca-buy", "ZZ-2026-11-09-verdi-carla-buy"], [e["guid"] for e in _ev])
+_ra = next(e for e in _ev if e.get("who") == "Rossi Anna")
+check("le righe dello stesso giorno si sommano", _ra["shares"] == 2000 and _ra["value"] == 102000 and _ra["price"] == 51.0, _ra)
+_tit, _des = fdm.texts(_ra, "it")
+check("titolo in italiano", _tit == "ZZ: Rossi Anna (CEO) compra per 102.000 $", _tit)
+check("descrizione con data, prezzo, cluster e punteggio",
+      "2 novembre 2026" in _des and "51,00 $" in _des and "cluster" in _des and "71/100" in _des, _des)
+check("in inglese", fdm.texts(_ra, "en")[0] == "ZZ: Rossi Anna (CEO) buys $102,000")
+check("i milioni", fdm.money(1500000, "it") == "1,5 milioni $" and fdm.money(1500000, "en") == "$1.5m")
+check("il link porta alla scheda, in inglese con la lingua",
+      fdm.link("https://a.b/ce/", "ZZ", "it") == "https://a.b/ce/?lang=it#ZZ" and
+      fdm.link("https://a.b/ce", "ZZ", "en") == "https://a.b/ce/?lang=en#ZZ")
+_fd = tempfile.mkdtemp()
+_now1 = datetime(2026, 11, 20, 15, 0, tzinfo=timezone.utc)
+_w1 = fdm.write([_fco], _fd, "https://a.b/ce/", today="2026-11-20", now=_now1)
+_x1 = open(os.path.join(_fd, "feed.xml"), encoding="utf-8").read()
+_root = _ET.fromstring(_x1.encode())
+check("il feed è RSS 2.0 valido, con le voci", _root.tag == "rss" and len(_root.findall("channel/item")) == 4, _w1)
+check("al primo giro la data è quella dell'operazione e niente punteggio",
+      "Fri, 20 Nov 2026" not in _x1 and "Mon, 02 Nov 2026 12:00:00 GMT" in _x1 and "71/100" not in _x1)
+check("c'è anche il feed in inglese", os.path.exists(os.path.join(_fd, "feed-en.xml")) and _w1["en"][0] == 4)
+_fco2 = dict(_fco, tx=_fco["tx"] + [{"date": "2026-11-19", "who": "Gialli Pia", "role": "Director", "kind": "BUY",
+                                       "shares": 100.0, "value": 9000.0}])
+_now2 = datetime(2026, 11, 20, 16, 0, tzinfo=timezone.utc)
+_w2 = fdm.write([_fco2], _fd, "https://a.b/ce/", today="2026-11-20", now=_now2)
+_x2 = open(os.path.join(_fd, "feed.xml"), encoding="utf-8").read()
+_its = _ET.fromstring(_x2.encode()).findall("channel/item")
+check("al giro dopo, la voce nuova ha l'ora del giro ed è la prima", _w2["it"] == (5, 1) and
+      _its[0].findtext("guid") == "ZZ-2026-11-19-gialli-pia-buy" and
+      _its[0].findtext("pubDate") == "Fri, 20 Nov 2026 16:00:00 GMT", [i.findtext("guid") for i in _its])
+check("e porta il punteggio di quel momento", "71/100" in _its[0].findtext("description"))
+check("le voci già uscite restano identiche",
+      [i.findtext("pubDate") for i in _its[1:]] == [i.findtext("pubDate") for i in _ET.fromstring(_x1.encode()).findall("channel/item")])
+_w3 = fdm.write([_fco2], _fd, "https://a.b/ce/", today="2026-11-20", now=datetime(2026, 11, 20, 17, 0, tzinfo=timezone.utc))
+check("un giro senza niente di nuovo lascia il file identico",
+      open(os.path.join(_fd, "feed.xml"), encoding="utf-8").read() == _x2 and _w3["it"] == (5, 0))
+fdm.write([], _fd, "https://a.b/ce/", today="2026-11-20", now=datetime(2026, 11, 20, 18, 0, tzinfo=timezone.utc))
+check("se un'azienda manca per un giro, le sue voci restano",
+      len(_ET.parse(os.path.join(_fd, "feed.xml")).getroot().findall("channel/item")) == 5)
+fdm.write([], _fd, "https://a.b/ce/", today="2027-03-01", now=datetime(2027, 3, 1, 9, 0, tzinfo=timezone.utc))
+check("finché sono dentro la finestra: poi escono",
+      len(_ET.parse(os.path.join(_fd, "feed.xml")).getroot().findall("channel/item")) == 0)
+_bf = build_one(cfg, dict(raws[0], ticker="FFF"))
+_ixf = write_all([finish(cfg, _bf, [_bf["insider_90d"]])], cfg, _fd)
+check("la pipeline scrive il feed e lo dice nell'indice", _ixf["feed"] is not None and "items" in _ixf["feed"], _ixf["feed"])
+check("l'indice ha il blocco del termometro (anche vuoto)", "thermometer" in _ixf)
 
 # il riepilogo deve contare ogni fallimento: l'elenco non va mai sostituito
 check("l'elenco dei fallimenti è ancora quello di partenza", bad is _BAD0)

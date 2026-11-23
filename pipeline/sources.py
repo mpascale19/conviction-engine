@@ -544,15 +544,18 @@ def insider_transactions(cik, months=24, limit=None, cache_dir=None, budget=None
     storia arriva nei giri successivi. `budget` può avere anche "until", un
     orario (time.time()) dopo cui la storia vecchia aspetta il giro dopo.
 
-    `status`, se passato, riceve {"complete": bool, "missing": n}: se lo
-    storico di questa azienda è completo o sta ancora crescendo.
+    `status`, se passato, riceve {"complete": bool, "missing": n, "holes_until": giorno}:
+    se lo storico di questa azienda è completo o sta ancora crescendo e, se ha
+    dei buchi, il giorno del documento mancante più recente. Dopo quel giorno
+    la storia è intera: i documenti si leggono dal più recente al più vecchio.
     """
     rows, done, failed, cached, foreign, own, missing = [], 0, 0, 0, 0, 0, 0
+    holes = None                          # il giorno del documento mancante più recente
     issuers = [cik] + list(PREDECESSORS.get(str(cik).zfill(10), []))
     filings = form4_filings(cik, months)
     recent_from = (date.today() - timedelta(days=RECENT_DAYS)).isoformat()
     if status is not None:
-        status.update(complete=True, missing=0)
+        status.update(complete=True, missing=0, holes_until=None)
     if not filings:
         return rows
     if cache_dir:
@@ -563,6 +566,7 @@ def insider_transactions(cik, months=24, limit=None, cache_dir=None, budget=None
     # contandoli gli insider veri finivano fuori dal limite.
     for f in filings:
         if limit and own >= limit:
+            holes = f["date"]             # il tetto per azienda taglia la storia qui
             break
         # un documento depositato non cambia più: una volta letto si tiene
         cf = os.path.join(cache_dir, f["accession"] + ".json") if cache_dir else None
@@ -582,6 +586,7 @@ def insider_transactions(cik, months=24, limit=None, cache_dir=None, budget=None
         old = f["date"] < recent_from
         if old and _exhausted(budget):
             missing += 1                  # tocca al prossimo giro
+            holes = max(holes or f["date"], f["date"])
             continue
         try:
             if budget is not None and old:
@@ -598,6 +603,7 @@ def insider_transactions(cik, months=24, limit=None, cache_dir=None, budget=None
                     json.dump(got, fh)
         except Exception as e:
             failed += 1
+            holes = max(holes or f["date"], f["date"])
             print(f"  ! salto {f['accession']}: {e}")
             if done == 0 and failed >= 3:
                 raise SourceError(
@@ -605,7 +611,8 @@ def insider_transactions(cik, months=24, limit=None, cache_dir=None, budget=None
                     f"({e}): www.sec.gov sta rifiutando le richieste")
     rows.sort(key=lambda r: r["date"])
     if status is not None:
-        status.update(complete=(missing == 0 and failed == 0), missing=missing + failed)
+        status.update(complete=(missing == 0 and failed == 0), missing=missing + failed,
+                      holes_until=holes)
     print(f"  {done} documenti scaricati, {cached} dalla cache, {failed} saltati, "
           f"{foreign} di altri emittenti esclusi"
           + (f", {missing} rimandati al prossimo giro" if missing else ""))

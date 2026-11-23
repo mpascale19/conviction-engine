@@ -247,6 +247,70 @@ accanto all'operazione, e la voce insider la scrive fra le ragioni. **Per ora
 non sposta punti**: con meno di due anni di operazioni classificabili la prova è
 piccola, e una regola entra nel punteggio solo quando i dati la sostengono.
 
+## Il termometro degli insider sul mercato
+
+Dal 23 novembre 2026 (codice in `pipeline/thermometer.py`). Il resto del
+progetto guarda un'azienda alla volta; il termometro le guarda tutte insieme. È
+un'idea classica (Seyhun 1988 e 1992; Lakonishok e Lee, "Are Insider Trades
+Informative?", 2001): gli insider nel loro insieme comprano di più quando la
+borsa è scesa, e in quegli studi la borsa nei mesi dopo è andata meglio della
+media.
+
+- **Finestra di tre mesi**, mobile, letta a ogni fine mese: una trimestrale per
+  azienda, così le finestre di acquisto che si aprono dopo i conti pesano
+  sempre allo stesso modo.
+- **Persone, non dollari**: un insider (azienda, nome) che compra sul mercato
+  almeno una volta nella finestra è un compratore; uno che vende fuori da un
+  piano 10b5-1 è un venditore. Le assegnazioni e le vendite dei piani non
+  contano.
+- **La lettura è la quota di compratori**, in percentuale. Le vendite sono
+  sempre molte di più, quindi conta se la quota è alta o bassa rispetto alla
+  sua storia. Sotto 30 insider attivi la lettura non si dà.
+- **Solo la storia intera**: un'azienda entra dal primo mese intero in cui la
+  sua storia dei Form 4 non ha buchi. Per saperlo, `sources.insider_transactions`
+  dice ora anche il giorno del documento mancante più recente (`holes_until`):
+  i documenti si leggono dal più recente al più vecchio, quindi dopo quel
+  giorno la storia è completa. Il tetto per azienda
+  (`max_filings_per_ticker`) conta come un buco.
+
+La prova, sulla pagina Backtest: per ogni mese chiuso con almeno il 90% delle
+aziende coperte, il rendimento dello SPY (il riferimento del gruppo "Grandi
+capitalizzazioni USA") dal giorno 5 del mese dopo, quando i Form 4 di fine mese
+sono arrivati, a tre e a sei mesi. Tre gruppi uguali di mesi dalla quota più
+bassa alla più alta, la pendenza della retta per 10 punti di quota con
+l'errore standard di Newey-West (ritardi: orizzonte − 1 + finestra − 1, perché
+si sovrappongono sia le finestre sia i rendimenti), e la correlazione di rango
+di Spearman. Con dieci anni e rendimenti a sei mesi le prove indipendenti sono
+una ventina: la pagina lo dice. **Il termometro non entra nel punteggio**:
+descrive il mercato, non sceglie l'azienda. Sulla Home c'è la lettura di oggi;
+`#termometro` porta direttamente alla scheda nella pagina Backtest.
+
+## Gli avvisi: il feed RSS degli acquisti
+
+Dal 23 novembre 2026 (codice in `pipeline/feed.py`). A ogni giro la pipeline
+scrive `site/feed.xml` (italiano) e `site/feed-en.xml` (inglese), pubblicati con
+il sito: `https://mpascale19.github.io/conviction-engine/feed.xml`. L'indirizzo
+è sulla Home, con un pulsante per copiarlo, e la pagina lo dichiara ai browser
+e ai lettori di feed (`<link rel="alternate">`).
+
+- **Che cosa esce**: ogni acquisto sul mercato degli ultimi 60 giorni, una voce
+  per insider e giorno (le righe dello stesso Form 4 si sommano), e ogni nuovo
+  cluster. Le vendite no.
+- **Che cosa dice**: chi, che ruolo, quante azioni, a che prezzo medio, per
+  quanto in tutto, se fa parte di un cluster, e il punteggio dell'azienda in
+  quel momento. Il link porta alla scheda nella lingua del feed
+  (`?lang=it` o `?lang=en`, che il sito ora legge).
+- **Una voce uscita non cambia più.** Il feed nuovo rilegge quello del giro
+  prima (è nel repository, perché `update.yml` fa il commit di `site/`) e
+  tiene com'erano le voci già uscite; quelle nuove hanno l'ora del giro che le
+  ha trovate. Un giro che non trova niente lascia il file identico. Se
+  un'azienda manca per un giro (un errore, o un giro su un solo titolo), le
+  sue voci restano finché sono dentro i 60 giorni.
+- **Il primo giro** non ha un feed precedente: le voci prendono la data
+  dell'operazione e non dicono il punteggio, perché quello di oggi non è
+  quello di quel giorno.
+- L'indirizzo del sito sta in `config.json`, `site_url`.
+
 ## Utili contro attese, calendario e titoli quotati (Alpha Vantage)
 
 Dal 23 novembre 2026 la stessa chiave di Alpha Vantage serve anche a tre cose
@@ -841,9 +905,13 @@ dall'autunno 2016. Lo short interest di FINRA resta di cinque anni. Perché:
 - il periodo comprende un ciclo intero: il 2018, il crollo del 2020, i tassi del
   2022.
 
-La storia nuova si riempie a rate come la prima volta (4.000 documenti vecchi per
-giro, i recenti sempre subito), e il sito torna a dire, in giallo, quante aziende
-sono complete. Servono circa quindici giri, cioè un giorno feriale.
+La storia nuova si riempie a rate come la prima volta (i recenti sempre subito),
+e il sito torna a dire, in giallo, quante aziende sono complete. Per farla in
+giornata il tetto per giro è salito da 4.000 documenti e 35 minuti a 10.000
+documenti e 50 minuti: un giro dura quasi un'ora, e quello dell'ora dopo aspetta
+in coda invece di fermarlo (vedi `update.yml`). Il ritmo verso la SEC non cambia,
+al massimo una richiesta ogni 0,15 secondi, sotto il limite di 10 al secondo:
+cambia solo quanto a lungo si scarica in ogni giro.
 
 **Gli scorpori.** La chiusura di Yahoo è corretta per i frazionamenti, non per
 gli scorpori né per i dividendi straordinari: il giorno in cui gli azionisti di
@@ -1276,6 +1344,8 @@ pipeline/trascrizioni.py  il giro giornaliero di Alpha Vantage: trascrizioni in 
 pipeline/alphavantage.py  utili contro attese, calendario e titoli quotati
 pipeline/eventstudy.py    la curva "dopo un acquisto" della pagina Backtest
 pipeline/habits.py        insider abituali o opportunisti (Cohen, Malloy e Pomorski)
+pipeline/thermometer.py   il termometro degli insider sul mercato, e la sua prova
+pipeline/feed.py          gli avvisi: il feed RSS degli acquisti (site/feed.xml)
 pipeline/build.py      mette tutto insieme e scrive site/data.json
 site/                  il sito pubblicato: legge data.json a ogni apertura
 tests/test_offline.py  i test che girano anche dentro GitHub Actions
@@ -1312,6 +1382,11 @@ stessa call non si paga due volte.
   la media delle stime che Alpha Vantage raccoglie, non quella di un fornitore a
   pagamento. Una sorpresa calcolata su attese vicine a zero può venire enorme;
   il bonus guarda solo il segno, la prova all'indietro solo l'ordine.
+- Il termometro degli insider conta le persone di duecento grandi aziende
+  americane, non di tutto il mercato, e la sua prova ha una ventina di
+  osservazioni indipendenti: è una descrizione, non un segnale di mercato.
+- Il feed RSS arriva con il giro che trova il Form 4: fino a un'ora dopo il
+  deposito, e il Form 4 arriva fino a due giorni lavorativi dopo l'operazione.
 - Lo score non è una raccomandazione di investimento.
 
 ## Passo successivo

@@ -8,6 +8,7 @@ calcola i punteggi e scrive i file che il sito legge.
 Scrive:
     site/index.json          l'elenco con punteggio e riassunto di ogni azienda
     site/data/<TICKER>.json  il dettaglio di una singola azienda
+    site/feed.xml            gli acquisti degli insider come feed RSS (feed-en.xml in inglese)
 """
 import argparse
 import json
@@ -15,7 +16,8 @@ import os
 import time
 from datetime import date, datetime, timedelta, timezone
 
-from . import alphavantage, bonus, eventstudy, finra, habits, history, market, predict, rules, score, stress
+from . import (alphavantage, bonus, eventstudy, feed, finra, habits, history, market, predict, rules,
+               score, stress, thermometer)
 from .rules import L
 from .extract import extract_all
 
@@ -31,6 +33,7 @@ HISTORY_MINUTES = 35    # dopo quanti minuti di giro la storia vecchia aspetta i
 PRICE_COPY_DAYS = 5     # quanto può essere vecchia la copia dei prezzi se Yahoo non risponde
 AV_DIR = alphavantage.DIR   # utili, calendario e titoli: li scarica il workflow delle trascrizioni
 CARD_EARN_Q = 12        # quanti trimestri di utili contro attese porta la scheda
+SITE_URL = "https://mpascale19.github.io/conviction-engine/"   # se config.json non dice altro
 
 
 def load_config(path="config.json"):
@@ -338,7 +341,10 @@ def build_one(cfg, raw, extracted=None):
         # quanto è lungo lo storico dei Form 4, e se ha finito di riempirsi
         "history": {"tx_from": tx[0]["date"] if tx else None,
                     "tx_complete": bool((raw.get("tx_status") or {}).get("complete")),
-                    "tx_missing": (raw.get("tx_status") or {}).get("missing")},
+                    "tx_missing": (raw.get("tx_status") or {}).get("missing"),
+                    # se la storia ha buchi, il giorno del documento mancante più recente:
+                    # dopo quel giorno è intera (vedi sources.insider_transactions)
+                    "tx_holes_until": (raw.get("tx_status") or {}).get("holes_until")},
         # dieci anni di chiusure per la prova all'indietro: restano in memoria,
         # nella scheda va solo la serie corta (vedi card_view)
         "_px_long": [[p["d"], p["c"]] for p in px],
@@ -647,6 +653,22 @@ def write_all(results, cfg, outdir=OUTDIR, forward=None, si_status=None, av=None
         print(f"! curva dopo un acquisto: {e}")
         ev = None
 
+    # Il termometro degli insider sul mercato: pipeline/thermometer.py.
+    try:
+        th = thermometer.run(results)
+    except Exception as e:
+        print(f"! termometro degli insider: {e}")
+        th = None
+
+    # Gli avvisi: il feed RSS degli acquisti, site/feed.xml e site/feed-en.xml.
+    try:
+        fd = feed.write(results, outdir, cfg.get("site_url") or SITE_URL, cfg["rules"]["cluster_days"])
+        print(f"  feed RSS: {fd['it'][0]} voci, {fd['it'][1]} nuove")
+        fd = {"items": fd["it"][0]}
+    except Exception as e:
+        print(f"! feed RSS: {e}")
+        fd = None
+
     rows, touched = [], 0
     for d in results:
         t = d["company"]["ticker"]
@@ -690,6 +712,11 @@ def write_all(results, cfg, outdir=OUTDIR, forward=None, si_status=None, av=None
         "event": ev,
         # insider abituali o opportunisti (Cohen, Malloy e Pomorski 2012), alla prova
         "habits": hb,
+        # quanti insider comprano e quanti vendono, tutte le aziende insieme, e che cosa
+        # ha fatto la borsa dopo
+        "thermometer": th,
+        # il feed RSS degli acquisti (site/feed.xml): quante voci ha
+        "feed": fd,
         # salti di prezzo: gli scorpori corretti (config.json, corporate_actions) e i
         # giorni sotto il settore di più di 25 punti, da controllare a mano
         "price_jumps": {

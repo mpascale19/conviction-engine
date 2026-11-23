@@ -291,8 +291,9 @@
     "MRK": ["2021-06-03"]
   },
   "max_filings_per_ticker": 2000,
- "max_new_filings_per_run": 4000,
- "history_minutes_per_run": 35,
+ "site_url": "https://mpascale19.github.io/conviction-engine/",
+ "max_new_filings_per_run": 10000,
+ "history_minutes_per_run": 50,
  "rules": {
   "cluster_days": 30,
   "cluster_min_people": 3,

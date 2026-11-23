@@ -2,6 +2,8 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Conviction Engine</title>
+<link rel="alternate" type="application/rss+xml" title="Conviction Engine: acquisti degli insider" href="feed.xml">
+<link rel="alternate" type="application/rss+xml" title="Conviction Engine: insider buying" href="feed-en.xml" hreflang="en">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Spectral:wght@500;600&display=swap">
@@ -167,6 +169,21 @@
   .evd summary{cursor:pointer;font-size:13.5px;font-weight:600;color:var(--ink2)}
   .evd[open] summary{margin-bottom:8px}
   .spark{width:100%;height:56px;display:block}
+  /* il termometro degli insider e gli avvisi */
+  .evl i.thdash{height:0;border-top:1.5px dashed var(--ink3);background:none;border-radius:0}
+  .evl i.thlow{height:0;border-top:2px dotted var(--c1);background:none;border-radius:0}
+  .thh{display:grid;grid-template-columns:minmax(150px,200px) minmax(0,1fr);gap:18px;align-items:start;margin-top:12px}
+  .thn b{display:block;font-size:40px;font-weight:650;letter-spacing:-.02em;line-height:1;font-variant-numeric:tabular-nums}
+  .thn span{display:block;font-size:12.5px;color:var(--ink2);margin-top:8px;line-height:1.4}
+  .thw{min-width:0}
+  .thw p{margin:0 0 10px;font-size:14px;line-height:1.55;max-width:70ch}
+  .thsp{width:100%;height:64px;display:block}
+  .thspx{display:flex;justify-content:space-between;gap:8px;font-size:11px;color:var(--ink3);margin-top:3px}
+  .thh3{font-size:15px;margin:22px 0 4px}
+  .feed{display:flex;flex-wrap:wrap;gap:8px 10px;align-items:center;margin-top:12px}
+  .feed code{background:var(--sunken);border:1px solid var(--line);border-radius:8px;padding:8px 10px;
+             font-size:13px;overflow-wrap:anywhere;min-width:0;flex:1 1 260px;user-select:all}
+  @media (max-width:620px){ .thh{grid-template-columns:1fr;gap:10px} }
   @media (max-width:620px){
     .hide-s{display:none}
     .subs li{grid-template-columns:minmax(0,1fr) 54px}
@@ -272,6 +289,8 @@
 var LANGS = ['it', 'en'], LOCS = { it: 'it-IT', en: 'en-GB' }, LANG, LI, LOC;
 function readLang(){
   var v = null;
+  var q = /[?&]lang=(it|en)\b/.exec(location.search || '');   // i link del feed in inglese
+  if (q) return q[1];
   try { v = localStorage.getItem('ce-lang'); } catch (e) {}
   if (LANGS.indexOf(v) < 0) v = /^it\b/i.test(navigator.language || '') ? 'it' : 'en';
   return v;
@@ -484,7 +503,7 @@ function renderHome(){
         '<td class="num">' + scoreCell(c.score) + '</td>' +
         '<td class="hide-s">' + esc(txt(c.verdict)) + '</td>' +
         '<td class="num">' + (c.covered_pct || 0) + '%</td></tr>';
-    }).join('') + '</tbody></table></div></div>' +
+    }).join('') + '</tbody></table></div></div>' + thHome() + alertsCard() +
 
     '<div class="card sub">' + T(
       'Strumento didattico, non una raccomandazione di investimento. Il codice, i dati e la ' +
@@ -493,6 +512,7 @@ function renderHome(){
   [].forEach.call(app.querySelectorAll('tbody tr'), function(tr){
     tr.addEventListener('click', function(){ location.hash = tr.dataset.t; });
   });
+  alertsMount();
 }
 
 function renderGuide(){
@@ -625,6 +645,17 @@ function renderGuide(){
      'all’indietro, come voce a sé: chi ha sorpreso in positivo ha poi reso di più? Nel punteggio non ' +
      'entra da sola, finché quella prova non dice di sì. Gli utili arrivano a rate, dodici aziende al ' +
      'giorno, e poi si rileggono dopo ogni trimestrale.'],
+    ['Che cos’è il termometro degli insider?',
+     'Una lettura del mercato, non di un’azienda. Fra tutti gli insider delle aziende seguite che negli ' +
+     'ultimi tre mesi hanno comprato sul mercato o venduto fuori da un piano 10b5-1, la quota di quelli che ' +
+     'hanno comprato. È sempre bassa, perché le vendite per stipendio e tasse sono la norma: conta se è alta ' +
+     'o bassa rispetto ai dieci anni prima. La pagina Backtest mostra la storia e che cosa ha fatto lo S&P 500 ' +
+     'nei tre e sei mesi dopo. Non entra nel punteggio.'],
+    ['Come ricevo un avviso quando un insider compra?',
+     'Con il feed RSS: l’indirizzo è sulla Home, con il pulsante per copiarlo. Si incolla in un lettore di ' +
+     'feed o in un servizio che manda una mail per ogni voce nuova. Escono gli acquisti sul mercato e i ' +
+     'cluster, non le vendite; ogni voce dice chi, quanto, a che prezzo e il punteggio dell’azienda in quel ' +
+     'momento, e porta alla sua scheda. Il feed si aggiorna con il sito, ogni ora nei giorni feriali.'],
     ['Ogni quanto si aggiorna?',
      'Ogni ora nei giorni feriali, diciotto volte al giorno (dalle 6 alle 23 UTC). Un giro che non trova ' +
      'niente di nuovo aggiorna solo l’ora del controllo e non riscrive nessuna scheda: per questo può ' +
@@ -687,6 +718,17 @@ function renderGuide(){
      'as an input of its own: did the companies that surprised on the upside go on to do better? It does ' +
      'not enter the score by itself until that test says yes. Earnings arrive in instalments, twelve ' +
      'companies a day, and are then re-read after every quarterly report.'],
+    ['What is the insider thermometer?',
+     'A reading of the market, not of one company. Among all the insiders of the companies followed who in ' +
+     'the last three months bought on the open market or sold outside a 10b5-1 plan, the share who bought. ' +
+     'It is always low, because sales for pay and taxes are the norm: what matters is whether it is high or ' +
+     'low against the previous ten years. The Backtest page shows its history and what the S&P 500 did in ' +
+     'the three and six months after. It does not enter the score.'],
+    ['How do I get an alert when an insider buys?',
+     'With the RSS feed: the address is on the Home page, with a button to copy it. Paste it into a feed ' +
+     'reader or into a service that sends an email for each new item. Open-market purchases and clusters ' +
+     'come out, not sales; each item says who, how much, at what price and the company’s score at that ' +
+     'moment, and links to its page. The feed updates with the site, every hour on weekdays.'],
     ['How often does it update?',
      'Every hour on weekdays, eighteen times a day (06:00 to 23:00 UTC). A run that finds nothing new only ' +
      'updates the time of the check and rewrites no company page, which is why it can run this often ' +
@@ -1589,13 +1631,338 @@ function habitsCard(){
       'appears only when t exceeds 2 in absolute value.') + '</p></div>';
 }
 
+/* ------------------------------------------------------------------ il termometro degli insider
+   Tutte le aziende insieme: su cento insider che hanno comprato o venduto
+   negli ultimi tre mesi, quanti hanno comprato. I numeri li calcola
+   pipeline/thermometer.py; qui si mostrano, e la lettura nasce dai numeri. */
+var THK = null;                              // il mese sotto il cursore nel disegno
+
+function pc1(v){ return v == null ? '—' : nu(v.toFixed(1)) + '%'; }
+function nelPct(n){                          // «nel 96%», ma «nell'80%», «nell'8%», «nell'11%»
+  return (n === 1 || n === 8 || n === 11 || (n >= 80 && n < 90)) ? 'nell’' + n + '%' : 'nel ' + n + '%';
+}
+function thMonth(m){ return monthYear(m + '-01'); }
+function thDay(s){                           // «1 settembre 2026» dentro una frase
+  try { return new Date(s + 'T12:00:00Z').toLocaleDateString(LOC, { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' }); }
+  catch (e) { return s; }
+}
+function thN(n){ return Number(n).toLocaleString(LOC); }
+
+/* La frase di oggi: quanti, quanto, e dove sta rispetto alla storia. */
+function thReading(th){
+  var n = th.now, y0 = th.series.length ? th.series[0].m.slice(0, 4) : '';
+  if (n.r == null) return T(
+    'Negli ultimi tre mesi gli insider che hanno comprato o venduto sono meno di ' + th.min_people +
+    ': troppo pochi per una lettura.',
+    'In the last three months fewer than ' + th.min_people + ' insiders bought or sold: too few for a reading.');
+  var it = 'Dal ' + thDay(n.from) + ' a oggi ' + thN(n.b) + ' insider hanno comprato azioni della propria azienda e ' +
+    thN(n.s) + ' ne hanno vendute fuori dai piani programmati: i compratori sono il ' + pc1(n.r) + '.';
+  var en = 'From ' + thDay(n.from) + ' to today ' + thN(n.b) + ' insiders bought shares in their own company and ' +
+    thN(n.s) + ' sold outside pre-arranged plans: buyers are ' + pc1(n.r) + '.';
+  if (n.pct != null && n.median != null) {
+    var lowIt = n.pct < 50;
+    it += ' È una quota ' + (lowIt ? 'più bassa che ' + nelPct(100 - n.pct) : 'più alta che ' + nelPct(n.pct)) +
+      ' dei mesi dal ' + y0 + ' (la mediana è ' + pc1(n.median) + ').';
+    en += ' That share is ' + (lowIt ? 'lower than in ' + (100 - n.pct) : 'higher than in ' + n.pct) +
+      '% of months since ' + y0 + ' (the median is ' + pc1(n.median) + ').';
+  }
+  return T(it, en);
+}
+
+/* Che cosa dice la prova, a sei mesi: la pendenza e il suo t. */
+function thVerdict(th){
+  var t = th.test, h = t && t.h && t.h['6'];
+  if (!t || !h || h.slope == null) {
+    var n = h ? h.n : 0;
+    return T('La prova vuole almeno 24 mesi con i sei mesi dopo già passati: per ora ne ha ' + n + '.',
+             'The test needs at least 24 months whose following six months have already passed: so far it has ' + n + '.');
+  }
+  var big = h.t != null && Math.abs(h.t) >= 2;
+  if (!big) return T(
+    'Fra la quota di compratori e la borsa dei sei mesi dopo non c’è un legame più forte di quanto il caso ' +
+    'spieghi: ' + sg(h.slope, 1) + ' punti di rendimento per ogni 10 punti di quota in più (t = ' + nu(h.t.toFixed(1)) + ').',
+    'Between the share of buyers and the market over the following six months there is no link stronger than ' +
+    'chance explains: ' + sg(h.slope, 1) + ' points of return for every 10 extra points of share (t = ' + h.t.toFixed(1) + ').');
+  return T(
+    'Nei mesi con più compratori la borsa ha fatto ' + (h.slope > 0 ? 'meglio' : 'peggio') + ' nei sei mesi dopo: ' +
+    sg(h.slope, 1) + ' punti per ogni 10 punti di quota in più (t = ' + nu(h.t.toFixed(1)) + '), più di quanto il ' +
+    'caso spieghi di solito.',
+    'In months with more buyers the market did ' + (h.slope > 0 ? 'better' : 'worse') + ' over the following six ' +
+    'months: ' + sg(h.slope, 1) + ' points for every 10 extra points of share (t = ' + h.t.toFixed(1) + '), more than ' +
+    'chance usually explains.');
+}
+
+/* Sulla Home: il numero di oggi, la frase, e la linea dei dieci anni senza assi. */
+function thHome(){
+  var th = IDX.thermometer;
+  if (!th || !th.series || !th.series.length) return '';
+  var n = th.now, pts = th.series.filter(function(r){ return r.r != null; });
+  var sp = '';
+  if (pts.length > 1) {
+    var w = 600, h = 64, lo = Math.min.apply(null, pts.map(function(r){ return r.r; })),
+        hi = Math.max.apply(null, pts.map(function(r){ return r.r; })), rg = (hi - lo) || 1;
+    var P = function(i, v){ return (i / (pts.length - 1) * w).toFixed(1) + ',' + (h - 6 - (v - lo) / rg * (h - 12)).toFixed(1); };
+    var med = n.median != null ? (h - 6 - (n.median - lo) / rg * (h - 12)).toFixed(1) : null;
+    sp = '<svg class="thsp" viewBox="0 0 ' + w + ' ' + h + '" preserveAspectRatio="none" aria-hidden="true">' +
+      (med != null ? '<line x1="0" x2="' + w + '" y1="' + med + '" y2="' + med + '" stroke="var(--ink3)" stroke-width="1" stroke-dasharray="4 4" vector-effect="non-scaling-stroke"/>' : '') +
+      '<polyline points="' + pts.map(function(r, i){ return P(i, r.r); }).join(' ') +
+      '" fill="none" stroke="var(--c1)" stroke-width="2" stroke-linejoin="round" vector-effect="non-scaling-stroke"/></svg>' +
+      '<div class="thspx"><span>' + esc(thMonth(pts[0].m)) + '</span><span>' +
+      esc(T('tratteggio: la mediana', 'dashes: the median')) + '</span><span>' + esc(T('oggi', 'today')) + '</span></div>';
+  }
+  return '<div class="card"><h2>' + T('Il termometro degli insider', 'The insider thermometer') + '</h2>' +
+    '<div class="thh"><div class="thn"><b>' + pc1(n.r) + '</b><span>' +
+    esc(T('dei ' + thN(n.b + n.s) + ' insider attivi negli ultimi tre mesi ha comprato',
+          'of the ' + thN(n.b + n.s) + ' insiders active in the last three months bought')) + '</span></div>' +
+    '<div class="thw"><p>' + esc(thReading(th)) + '</p>' + sp + '</div></div>' +
+    '<div class="cta" style="margin-top:12px"><a class="btn ghost" href="#termometro">' +
+    T('La storia e la prova', 'The history and the test') + '</a></div></div>';
+}
+
+/* Sulla pagina Backtest: il disegno, la tabella dei terzi, il verdetto. */
+function thCard(){
+  var th = IDX.thermometer;
+  if (!th || !th.series || !th.series.length) return '';
+  var t = th.test, h3 = t && t.h && t.h['3'], h6 = t && t.h && t.h['6'];
+  var cell = function(x, i){
+    var v = x && x.terc ? x.terc[i] : x;
+    if (!v || v.mean == null) return '<td class="num">—</td>';
+    var m = v.mean != null ? v.mean : v.all;
+    return '<td class="num"><b>' + sg(m, 1) + '%</b><div class="nm">' + v.pos + '% ' + T('positivi', 'positive') + '</div></td>';
+  };
+  var names = [T('Pochi compratori', 'Few buyers'), T('Nella media', 'Middle'), T('Molti compratori', 'Many buyers')];
+  var table = '';
+  if (t && t.bands && h3 && h3.terc) {
+    table = '<div class="scroll" style="margin-top:14px"><table class="t-narrow"><thead><tr><th>' +
+      T('Mesi con', 'Months with') + '</th><th class="num">' + T('Borsa a 3 mesi', 'Market at 3 months') +
+      '</th><th class="num">' + T('a 6 mesi', 'at 6 months') + '</th></tr></thead><tbody>' +
+      t.bands.map(function(b, i){
+        return '<tr style="cursor:default"><td><b>' + esc(names[i]) + '</b><div class="nm">' +
+          T('quota dal ', 'share from ') + pc1(b[0]) + T(' al ', ' to ') + pc1(b[1]) + ' · ' + h3.terc[i].n + ' ' +
+          T('mesi', 'months') + '</div></td>' + cell(h3, i) + cell(h6, i) + '</tr>';
+      }).join('') +
+      '<tr style="cursor:default"><td><b>' + T('Tutti i mesi', 'All months') + '</b><div class="nm">' + h3.n + ' ' +
+      T('mesi', 'months') + '</div></td>' +
+      '<td class="num"><b>' + sg(h3.all, 1) + '%</b><div class="nm">' + h3.pos + '% ' + T('positivi', 'positive') + '</div></td>' +
+      (h6 && h6.all != null ? '<td class="num"><b>' + sg(h6.all, 1) + '%</b><div class="nm">' + h6.pos + '% ' +
+        T('positivi', 'positive') + '</div></td>' : '<td class="num">—</td>') + '</tr>' +
+      '</tbody></table></div>';
+  }
+  var key = '<div class="evl"><span><i style="background:var(--c1)"></i>' +
+    esc(T('quota di compratori, finestra di tre mesi', 'share of buyers, three-month window')) + '</span>' +
+    '<span><i class="thdash"></i>' + esc(T('mediana', 'median')) + '</span>' +
+    (th.series.some(function(r){ return r.r != null && r.co < th.cover_min * th.companies; }) ?
+      '<span><i class="thlow"></i>' + esc(T('meno del 90% delle aziende coperte', 'under 90% of companies covered')) + '</span>' : '') +
+    '</div>';
+  var stats = h6 && h6.slope != null ? '<p class="sub" style="margin-top:6px">' + T(
+      'La retta: ' + sg(h3.slope, 1) + ' punti a tre mesi (t ' + sg(h3.t, 1) + '), ' + sg(h6.slope, 1) +
+      ' a sei (t ' + sg(h6.t, 1) + ') per ogni 10 punti di quota. Correlazione di rango di Spearman: ' +
+      sg(h3.rho, 2) + ' e ' + sg(h6.rho, 2) + '.',
+      'The line: ' + sg(h3.slope, 1) + ' points at three months (t ' + sg(h3.t, 1) + '), ' + sg(h6.slope, 1) +
+      ' at six (t ' + sg(h6.t, 1) + ') for every 10 points of share. Spearman rank correlation: ' +
+      sg(h3.rho, 2) + ' and ' + sg(h6.rho, 2) + '.') + '</p>' : '';
+  return '<div class="card" id="th"><h2>' + T('Il termometro degli insider', 'The insider thermometer') +
+    '</h2><p class="sub">' + T(
+      'Tutte le ' + th.companies + ' aziende insieme. Ogni fine mese si contano gli insider che negli ultimi tre ' +
+      'mesi hanno comprato azioni della propria azienda sul mercato e quelli che ne hanno vendute fuori dai ' +
+      'piani 10b5-1, una volta per persona. Il termometro è la quota di compratori. Le vendite sono sempre ' +
+      'molte di più (stipendi pagati in azioni, tasse, diversificazione): conta se la quota è alta o bassa ' +
+      'rispetto alla sua storia. Negli studi classici (Seyhun, 1988 e 1992; Lakonishok e Lee, 2001) gli ' +
+      'insider nel loro insieme comprano di più dopo i cali, e la borsa nei mesi dopo è andata meglio della media.',
+      'All ' + th.companies + ' companies together. At the end of each month we count the insiders who in the ' +
+      'last three months bought shares in their own company on the open market and those who sold outside ' +
+      '10b5-1 plans, once per person. The thermometer is the share of buyers. Sales always far outnumber ' +
+      'purchases (pay in shares, taxes, diversification): what matters is whether the share is high or low ' +
+      'against its own history. In the classic studies (Seyhun, 1988 and 1992; Lakonishok and Lee, 2001) ' +
+      'insiders as a whole buy more after falls, and the market did better than average in the months after.') +
+    '</p><p class="evr">' + esc(thReading(th)) + '</p>' + key +
+    '<div class="evw" id="thw"><div class="evtip" id="thtip" hidden></div></div>' +
+    (t ? '<h3 class="thh3">' + T('La prova: che cosa ha fatto la borsa dopo', 'The test: what the market did next') + '</h3>' +
+      '<p class="sub">' + T(
+        'Il rendimento dello ' + th.market + ' (l’S&P 500) dal giorno ' + th.start_day + ' del mese dopo ogni ' +
+        'lettura, quando i Form 4 di fine mese sono arrivati, a tre e a sei mesi più in là. I mesi sono divisi ' +
+        'in tre gruppi uguali, dalla quota più bassa alla più alta.',
+        'The return of ' + th.market + ' (the S&P 500) from day ' + th.start_day + ' of the month after each ' +
+        'reading, once the month-end Form 4s are in, to three and six months later. The months are split into ' +
+        'three equal groups, from the lowest share to the highest.') + '</p>' + table + stats +
+      '<p class="evr">' + esc(thVerdict(th)) + '</p>' : '') +
+    '<p class="sub" style="margin-top:12px">' + T(
+      'Con rendimenti a sei mesi che si sovrappongono, ' + (h6 ? h6.n : 0) + ' mesi valgono una ventina di prove ' +
+      'indipendenti al massimo: l’errore standard della retta ne tiene conto (Newey-West), ma il risultato va ' +
+      'letto con questa misura. Nella prova entrano i mesi chiusi con almeno il 90% delle aziende coperte' +
+      (t && t.from ? ', da ' + thMonth(t.from) + ' a ' + thMonth(t.to) : '') + '. La lettura non si dà se gli ' +
+      'insider attivi sono meno di ' + th.min_people + '. Il termometro non entra nel punteggio delle aziende: ' +
+      'dice com’è il mercato, non quale azienda scegliere.',
+      'With six-month returns that overlap, ' + (h6 ? h6.n : 0) + ' months are worth about twenty independent ' +
+      'tests at most: the standard error of the line allows for it (Newey-West), but the result should be read ' +
+      'with that in mind. The test uses closed months with at least 90% of companies covered' +
+      (t && t.from ? ', from ' + thMonth(t.from) + ' to ' + thMonth(t.to) : '') + '. No reading is given with ' +
+      'fewer than ' + th.min_people + ' active insiders. The thermometer does not enter the companies’ scores: ' +
+      'it describes the market, not which company to pick.') + '</p></div>';
+}
+
+/* Il disegno: una linea, la mediana tratteggiata, l'ultimo mese vuoto perché è in corso. */
+function thDraw(){
+  var th = IDX && IDX.thermometer, box = document.getElementById('thw');
+  if (!th || !box) return;
+  var S = th.series, N = S.length;
+  var W = Math.max(280, box.clientWidth), narrow = W < 480;
+  var H = narrow ? 210 : 250, m = { l: narrow ? 40 : 46, r: narrow ? 14 : 20, t: 16, b: 30 };
+  var vals = S.filter(function(r){ return r.r != null; }).map(function(r){ return r.r; });
+  if (!vals.length) return;
+  var lo = Math.min.apply(null, vals), hi = Math.max.apply(null, vals), span = Math.max(hi - lo, 1);
+  var step = [0.5, 1, 2, 2.5, 5, 10, 20].filter(function(x){ return span / x <= 5; })[0] || 25;
+  lo = Math.floor(lo / step) * step; hi = Math.ceil(hi / step) * step;
+  if (hi === lo) hi = lo + step;
+  var X = function(i){ return m.l + (N > 1 ? i / (N - 1) : 0.5) * (W - m.l - m.r); };
+  var Y = function(v){ return m.t + (hi - v) / (hi - lo) * (H - m.t - m.b); };
+  var g = '';
+  for (var v = lo; v <= hi + 1e-9; v += step) {
+    g += '<line x1="' + m.l + '" x2="' + (W - m.r) + '" y1="' + Y(v) + '" y2="' + Y(v) + '" stroke="var(--line)" stroke-width="1"/>' +
+      '<text x="' + (m.l - 6) + '" y="' + (Y(v) + 4) + '" text-anchor="end" class="evax">' + nu(v.toFixed(step < 1 ? 1 : 0)) + '%</text>';
+  }
+  // gennaio di ogni anno (uno sì e uno no se lo spazio è poco)
+  var years = [];
+  S.forEach(function(r, i){ if (r.m.slice(5) === '01') years.push(i); });
+  var every = narrow ? 2 : 1;
+  years.forEach(function(i, j){
+    if (j % every) return;
+    g += '<line x1="' + X(i) + '" x2="' + X(i) + '" y1="' + (H - m.b) + '" y2="' + (H - m.b + 4) + '" stroke="var(--axis)"/>' +
+      '<text x="' + X(i) + '" y="' + (H - m.b + 17) + '" text-anchor="middle" class="evax">' + S[i].m.slice(0, 4) + '</text>';
+  });
+  g += '<line x1="' + m.l + '" x2="' + (W - m.r) + '" y1="' + (H - m.b) + '" y2="' + (H - m.b) + '" stroke="var(--axis)"/>';
+  if (th.now.median != null) {
+    g += '<line x1="' + m.l + '" x2="' + (W - m.r) + '" y1="' + Y(th.now.median) + '" y2="' + Y(th.now.median) +
+      '" stroke="var(--ink3)" stroke-width="1" stroke-dasharray="4 4"/>';
+  }
+  // la linea, a tratti: piena dove la copertura basta, tratteggiata dove no, interrotta dove manca la lettura
+  var full = function(r){ return r.co >= th.cover_min * th.companies; };
+  var seg = [], segs = [];
+  S.forEach(function(r, i){
+    if (r.r == null) { if (seg.length) segs.push(seg); seg = []; return; }
+    if (seg.length && full(S[seg[seg.length - 1]]) !== full(r)) { segs.push(seg); seg = [seg[seg.length - 1]]; }
+    seg.push(i);
+  });
+  if (seg.length) segs.push(seg);
+  segs.forEach(function(sg_){
+    var ok = full(S[sg_[sg_.length - 1]]);
+    g += '<polyline points="' + sg_.map(function(i){ return X(i).toFixed(1) + ',' + Y(S[i].r).toFixed(1); }).join(' ') +
+      '" fill="none" stroke="var(--c1)" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"' +
+      (ok ? '' : ' stroke-dasharray="2 4" stroke-opacity=".7"') + '/>';
+  });
+  var last = S[N - 1];
+  if (last.r != null) {
+    g += '<circle cx="' + X(N - 1) + '" cy="' + Y(last.r) + '" r="4.5" fill="' + (last.part ? 'var(--card)' : 'var(--c1)') +
+      '" stroke="var(--c1)" stroke-width="2"/>';
+  }
+  g += '<g id="thhair" style="display:none"><line id="thhl" y1="' + m.t + '" y2="' + (H - m.b) + '" stroke="var(--ink2)" stroke-width="1"/>' +
+    '<circle id="thhd" r="4" fill="var(--c1)" stroke="var(--card)" stroke-width="2"/></g>';
+  var label = T('Quota di compratori fra gli insider attivi, finestra mobile di tre mesi, dal ',
+                'Share of buyers among active insiders, rolling three-month window, from ') + thMonth(S[0].m) +
+    T(' a ', ' to ') + thMonth(last.m);
+  var svg = '<svg width="' + W + '" height="' + H + '" viewBox="0 0 ' + W + ' ' + H + '" role="img" tabindex="0" aria-label="' +
+    esc(label + '. ' + thReading(th)) + '">' + g + '<rect x="' + m.l + '" y="0" width="' + (W - m.l - m.r) +
+    '" height="' + H + '" fill="transparent"/></svg>';
+  var tip = document.getElementById('thtip');
+  [].forEach.call(box.querySelectorAll('svg'), function(n){ n.remove(); });
+  box.insertAdjacentHTML('afterbegin', svg);
+  var el = box.querySelector('svg');
+  var showI = function(i){
+    if (i == null) { document.getElementById('thhair').style.display = 'none'; tip.hidden = true; return; }
+    i = Math.max(0, Math.min(N - 1, i)); THK = i;
+    var r = S[i], x = X(i);
+    document.getElementById('thhair').style.display = '';
+    var hl = document.getElementById('thhl'); hl.setAttribute('x1', x); hl.setAttribute('x2', x);
+    var dot = document.getElementById('thhd');
+    if (r.r == null) dot.style.display = 'none';
+    else { dot.style.display = ''; dot.setAttribute('cx', x); dot.setAttribute('cy', Y(r.r)); }
+    tip.innerHTML = '<div class="evth">' + esc(T('Tre mesi fino a ', 'Three months to ') + thMonth(r.m)) +
+      (r.part ? ' · ' + esc(T('in corso', 'in progress')) : '') + '</div>' +
+      '<div><i style="background:var(--c1)"></i>' + esc(T('Compratori: ', 'Buyers: ')) + '<b>' + pc1(r.r) + '</b></div>' +
+      '<div class="nm">' + thN(r.b) + ' ' + T('compratori', 'buyers') + ', ' + thN(r.s) + ' ' + T('venditori', 'sellers') + ' · ' +
+      r.co + ' ' + T('aziende', 'companies') + '</div>';
+    tip.hidden = false;
+    var tw = tip.offsetWidth, left = x + 14;
+    if (left + tw > W - 4) left = Math.max(4, x - 14 - tw);
+    tip.style.left = left + 'px';
+    tip.style.top = m.t + 'px';
+  };
+  var fromEvent = function(e){
+    var rc = el.getBoundingClientRect(), px = (e.clientX - rc.left) * (W / rc.width);
+    return Math.round((px - m.l) / (W - m.l - m.r) * (N - 1));
+  };
+  el.addEventListener('pointermove', function(e){ showI(fromEvent(e)); });
+  el.addEventListener('pointerdown', function(e){ showI(fromEvent(e)); });
+  el.addEventListener('pointerleave', function(e){ if (e.pointerType === 'mouse') showI(null); });
+  el.addEventListener('blur', function(){ showI(null); });
+  el.addEventListener('keydown', function(e){
+    var i = THK == null ? N - 1 : THK;
+    if (e.key === 'ArrowRight') { showI(i + (e.shiftKey ? 12 : 1)); e.preventDefault(); }
+    else if (e.key === 'ArrowLeft') { showI(i - (e.shiftKey ? 12 : 1)); e.preventDefault(); }
+    else if (e.key === 'Escape') { showI(null); }
+  });
+}
+
+function thMount(){
+  if (!document.getElementById('thw')) return;
+  THK = null;
+  thDraw();
+}
+window.addEventListener('resize', function(){
+  clearTimeout(thMount.t);
+  thMount.t = setTimeout(function(){ if (document.getElementById('thw')) thDraw(); }, 120);
+});
+
+/* ------------------------------------------------------------------ avvisi automatici
+   Il feed RSS degli acquisti (pipeline/feed.py). L'indirizzo si mostra come
+   testo da copiare: aprire un feed nel browser non serve a niente. */
+function feedUrl(){
+  var base = location.origin + location.pathname.replace(/[^\/]*$/, '');
+  return base + (LANG === 'en' ? 'feed-en.xml' : 'feed.xml');
+}
+function alertsCard(){
+  if (!IDX.feed) return '';
+  var url = feedUrl();
+  return '<div class="card"><h2>' + T('Avvisi automatici', 'Automatic alerts') + '</h2><p class="sub">' + T(
+      'Ogni nuovo acquisto di un insider sul mercato, e ogni nuovo cluster, esce anche come feed RSS. Copia ' +
+      'l’indirizzo in un lettore di feed (Feedly, Inoreader, NetNewsWire, Outlook, Thunderbird) o in un servizio ' +
+      'che manda una mail per ogni voce nuova: l’avviso arriva al giro in cui il Form 4 compare, entro un’ora.',
+      'Every new open-market insider purchase, and every new cluster, also comes out as an RSS feed. Copy the ' +
+      'address into a feed reader (Feedly, Inoreader, NetNewsWire, Outlook, Thunderbird) or into a service that ' +
+      'sends an email for each new item: the alert arrives with the run in which the Form 4 shows up, within the hour.') +
+    '</p><div class="feed"><code id="feedurl">' + esc(url) + '</code><button type="button" id="feedcopy">' +
+    T('Copia l’indirizzo', 'Copy the address') + '</button></div>' +
+    '<p class="sub" style="margin-top:8px">' + T(
+      'Le vendite non entrano: sono molte di più e quasi sempre vogliono dire poco. Il feed in inglese è ',
+      'Sales are left out: there are far more of them and they rarely mean much. The Italian feed is ') +
+    '<code>' + esc(url.replace(/feed(-en)?\.xml$/, LANG === 'en' ? 'feed.xml' : 'feed-en.xml')) + '</code>.</p></div>';
+}
+function alertsMount(){
+  var b = document.getElementById('feedcopy');
+  if (!b) return;
+  b.addEventListener('click', function(){
+    var code = document.getElementById('feedurl'), done = function(){
+      b.textContent = T('Copiato', 'Copied');
+      setTimeout(function(){ b.textContent = T('Copia l’indirizzo', 'Copy the address'); }, 1600);
+    };
+    var pick = function(){                     // se gli appunti non si possono usare, si seleziona il testo
+      var r = document.createRange(); r.selectNodeContents(code);
+      var s = window.getSelection(); s.removeAllRanges(); s.addRange(r);
+    };
+    try {
+      navigator.clipboard.writeText(code.textContent).then(done, pick);
+    } catch (e) { pick(); }
+  });
+}
+
 function renderBacktest(){
   var bt = IDX.backtest;
   if (!bt) {
     app.innerHTML = navBar('backtest') + '<div class="card"><h1>' + T('Backtest', 'Backtest') +
       '</h1><p class="lead">' + T('Non ci sono ancora abbastanza acquisti con 60 giorni ' +
       'trascorsi per dire qualcosa.', 'There are not yet enough purchases with 60 days elapsed ' +
-      'to say anything.') + '</p></div>' + fwdCard();
+      'to say anything.') + '</p></div>' + thCard() + fwdCard();
+    thMount();
     return;
   }
   if (bt.unit !== 'campaign') {
@@ -1605,7 +1972,8 @@ function renderBacktest(){
       '</h1><p class="lead">' + T('Il backtest si sta ricalcolando con il metodo nuovo, che conta ' +
       'una volta sola ogni campagna di acquisti. Torna fra qualche minuto.',
       'The backtest is being recomputed with the new method, which counts each buying campaign only ' +
-      'once. Come back in a few minutes.') + '</p></div>' + fwdCard();
+      'once. Come back in a few minutes.') + '</p></div>' + thCard() + fwdCard();
+    thMount();
     return;
   }
   var a = bt.all, h = bt.horizon, isC = true, k = btCount(a);
@@ -1641,7 +2009,7 @@ function renderBacktest(){
       'Counting individual purchases, as this page did until 22 November 2026, the median would be ' +
       sg(bp.med, 1) + '% over ' + bp.n + ' purchases. It was an inflated number: a few campaigns ' +
       'counted many times.') + '</p>' : '') +
-    distChart(bt) + '</div>' + evCard() + habitsCard() + fwdCard() +
+    distChart(bt) + '</div>' + evCard() + habitsCard() + thCard() + fwdCard() +
 
     '<div class="card"><h2>' + T('Le regole della formula, messe alla prova',
       'The formula’s rules, put to the test') + '</h2><p class="sub">' +
@@ -1731,6 +2099,7 @@ function renderBacktest(){
       'choice of company, not the general trend.'
     ]).map(function(x){ return '<li>' + esc(x) + '</li>'; }).join('') + '</ul></div>';
   evMount();
+  thMount();
 }
 
 /* ------------------------------------------------------------------ elenco */
@@ -2531,6 +2900,12 @@ function show(){
   if (!raw || p === 'home') return renderHome();
   if (p === 'aziende') return renderList();
   if (p === 'backtest') return renderBacktest();
+  if (p === 'termometro') {                  // il termometro sta nella pagina Backtest
+    renderBacktest();
+    var el = document.getElementById('th');
+    if (el) el.scrollIntoView();
+    return;
+  }
   if (p === 'confronto' || p.indexOf('confronto-') === 0) {
     var bits = raw.split('-');                 // confronto-NVDA-INTC: condivisibile
     if (bits.length >= 3) { CMP.a = bits[1].toUpperCase(); CMP.b = bits[2].toUpperCase(); }
