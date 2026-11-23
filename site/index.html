@@ -606,6 +606,11 @@ function renderGuide(){
      'Short interest: i file pubblici di FINRA. Utili contro attese, calendario delle trimestrali, ' +
      'elenco dei titoli quotati e trascrizioni: Alpha Vantage. Delle trascrizioni nel repository ' +
      'finiscono solo i fatti estratti, non il testo.'],
+    ['Che cosa vuol dire «abituale» accanto a un’operazione?',
+     'Che il suo autore ha fatto un’operazione dello stesso verso nello stesso mese in ciascuno dei tre ' +
+     'anni precedenti: segue il calendario, non quello che sa. «Opportunistica» vuol dire che opera ogni ' +
+     'anno ma non in quel mese. È la distinzione di Cohen, Malloy e Pomorski (2012); la pagina Backtest ' +
+     'la mette alla prova su questi dati. Per ora non sposta punti.'],
     ['Che cosa mostra la curva «dopo un acquisto»?',
      'Nella pagina Backtest: tutte le campagne di acquisto degli insider allineate sul loro primo ' +
      'giorno, e la media di quanto il titolo ha fatto meglio o peggio del suo settore, seduta per ' +
@@ -663,6 +668,11 @@ function renderGuide(){
      'fallback. Short interest: FINRA’s public files. Earnings against estimates, the results calendar, ' +
      'the list of listed stocks and the transcripts: Alpha Vantage. Of the transcripts, only the ' +
      'extracted facts go into the repository, never the text.'],
+    ['What does “routine” next to a trade mean?',
+     'That its author made a trade in the same direction in the same month in each of the three previous ' +
+     'years: they follow the calendar, not what they know. “Opportunistic” means they trade every year ' +
+     'but not in that month. It is the distinction of Cohen, Malloy and Pomorski (2012); the Backtest ' +
+     'page puts it to the test on this data. For now it moves no points.'],
     ['What does the “after a purchase” curve show?',
      'On the Backtest page: every insider buying campaign lined up on its first day, and the average of ' +
      'how much the stock did better or worse than its sector, day by day, from 20 trading days before to ' +
@@ -1496,6 +1506,89 @@ window.addEventListener('resize', function(){
   evResize = setTimeout(function(){ if (document.getElementById('evw')) evDraw(); }, 120);
 });
 
+/* ------------------------------------------------------------------ abituali o opportunisti
+   Cohen, Malloy e Pomorski (2012): chi compra o vende ogni anno nello stesso
+   mese segue il calendario, non quello che sa. I numeri li calcola
+   pipeline/habits.py; qui si mostrano, e la lettura nasce dai numeri. */
+function habitsCard(){
+  var hb = IDX.habits;
+  if (!hb || !hb.buy) return '';
+  var y0 = +String(hb.from).slice(0, 4);
+  var row = function(label, s, note){
+    if (!s || s.mean == null) return '<tr style="cursor:default"><td><b>' + esc(label) + '</b>' +
+      (note ? '<div class="nm">' + esc(note) + '</div>' : '') + '</td><td class="num">' + (s ? s.n : 0) +
+      '</td><td class="num hide-s">' + (s ? s.people : 0) + '</td><td class="num hide-s">—</td><td class="num">—</td></tr>';
+    var col = (s.t != null && Math.abs(s.t) >= 2) ? (s.mean > 0 ? 'var(--bull)' : 'var(--bear)') : 'inherit';
+    return '<tr style="cursor:default"><td><b>' + esc(label) + '</b>' + (note ? '<div class="nm">' + esc(note) + '</div>' : '') +
+      '</td><td class="num">' + s.n + '</td><td class="num hide-s">' + s.people + '</td><td class="num hide-s">' + s.pos + '%</td>' +
+      '<td class="num"><b style="color:' + col + '">' + sg(s.mean, 1) + '%</b><div class="nm">t ' +
+      (s.t == null ? '—' : sg(s.t, 1)) + '</div></td></tr>';
+  };
+  var head = '<tr><td colspan="5" class="nm" style="padding-top:14px"><b>';
+  // le parole cambiano con il verso: gli acquisti (maschile), le vendite (femminile)
+  var W = { buy: { it: ['Gli acquisti opportunistici', 'agli abituali', 'acquisti'], en: ['Opportunistic purchases', 'routine ones', 'purchases'] },
+            sell: { it: ['Le vendite discrezionali opportunistiche', 'alle abituali', 'vendite discrezionali'], en: ['Opportunistic discretionary sales', 'routine ones', 'discretionary sales'] } };
+  var read = function(side){
+    var s = hb[side], r = s.routine, o = s.opp, d = s.diff;
+    var w = W[side];
+    if (!r || r.mean == null || !o || o.mean == null || !d) return T(
+      'Per ' + (side === 'buy' ? 'gli ' : 'le ') + w.it[2] + ' i casi classificabili sono ancora troppo pochi per un ' +
+      'confronto (servono almeno ' + hb.min + ' per gruppo).',
+      'For ' + w.en[2] + ' the classifiable cases are still too few for a comparison (at least ' + hb.min +
+      ' per group are needed).');
+    var big = d.t != null && Math.abs(d.t) >= 2;
+    return T(
+      w.it[0] + ' hanno reso ' + sg(d.mean, 1) + ' punti rispetto ' + w.it[1] + ' (t = ' +
+      nu(d.t.toFixed(1)) + '): ' + (big ? 'una differenza più grande di quanto il caso spieghi di solito.'
+                                        : 'una differenza che il caso può ancora spiegare.'),
+      w.en[0] + ' returned ' + sg(d.mean, 1) + ' points relative to ' + w.en[1] + ' (t = ' +
+      d.t.toFixed(1) + '): ' + (big ? 'a gap larger than chance usually explains.'
+                                   : 'a gap that chance can still explain.'));
+  };
+  return '<div class="card"><h2>' + T('Abituali o opportunisti', 'Routine or opportunistic') + '</h2><p class="sub">' + T(
+      'Molti insider comprano o vendono sempre nello stesso periodo dell’anno: dopo il bonus, prima delle ' +
+      'tasse, all’apertura di una certa finestra. Quelle operazioni seguono il calendario, non quello che ' +
+      'l’insider sa. Cohen, Malloy e Pomorski (Journal of Finance, 2012) le hanno separate dalle altre: ' +
+      'un’operazione è abituale se il suo autore ne ha fatta una dello stesso verso nello stesso mese in ' +
+      'ciascuno dei tre anni precedenti, opportunistica se ha operato in tutti e tre gli anni ma non in ' +
+      'quel mese. Nel loro studio solo le opportunistiche anticipano i rendimenti. Qui la stessa prova, ' +
+      'sulle operazioni dal ' + y0 + ' in poi (prima mancano tre anni interi di storia), con il rendimento ' +
+      'oltre il settore nelle ' + hb.horizon + ' sedute dopo. Ogni insider conta una volta per mese: un caso è una persona in un mese.',
+      'Many insiders always buy or sell at the same time of year: after the bonus, before taxes, when a ' +
+      'certain window opens. Those trades follow the calendar, not what the insider knows. Cohen, Malloy ' +
+      'and Pomorski (Journal of Finance, 2012) separated them from the rest: a trade is routine if its ' +
+      'author made one in the same direction in the same month in each of the three previous years, ' +
+      'opportunistic if they traded in all three years but not in that month. In their study only the ' +
+      'opportunistic ones predict returns. Here is the same test, on trades from ' + y0 + ' onwards ' +
+      '(before that three full years of history are missing), with the return over the sector in the ' +
+      hb.horizon + ' trading days after. Each insider counts once per month: a case is one person in one month.') + '</p>' +
+    '<div class="scroll" style="margin-top:12px"><table class="t-narrow"><thead><tr><th>' + T('Operazioni', 'Trades') + '</th>' +
+    '<th class="num">' + T('Casi', 'Cases') + '</th><th class="num hide-s">' + T('Insider', 'Insiders') +
+    '</th><th class="num hide-s">' + T('In guadagno', 'In the money') + '</th><th class="num">' +
+    T('Rendimento', 'Return') + '</th></tr></thead><tbody>' +
+    head + esc(T('Acquisti', 'Purchases')) + '</b></td></tr>' +
+    row(T('Abituali', 'Routine'), hb.buy.routine, T('stesso mese nei tre anni prima', 'same month in the three years before')) +
+    row(T('Opportunistici', 'Opportunistic'), hb.buy.opp, T('ogni anno, ma non in questo mese', 'every year, but not in this month')) +
+    row(T('Non classificabili', 'Not classifiable'), hb.buy.none, T('non hanno operato in tutti e tre gli anni', 'did not trade in all three years')) +
+    head + esc(T('Vendite discrezionali', 'Discretionary sales')) + '</b></td></tr>' +
+    row(T('Abituali', 'Routine'), hb.sell.routine) +
+    row(T('Opportunistiche', 'Opportunistic'), hb.sell.opp) +
+    row(T('Non classificabili', 'Not classifiable'), hb.sell.none) +
+    '</tbody></table></div>' +
+    '<p class="evr">' + esc(read('buy')) + ' ' + esc(read('sell')) + '</p>' +
+    '<p class="sub" style="margin-top:10px">' + T(
+      'Per una vendita ci si aspetta il contrario di un acquisto: se l’insider sa qualcosa, dopo il titolo ' +
+      'scende. L’etichetta compare nelle operazioni di ogni scheda e fra le ragioni della voce insider, ma ' +
+      'per ora non sposta punti: li sposterà se questa prova, con più anni, dirà che la differenza c’è. ' +
+      'L’incertezza tiene conto che operazioni degli stessi mesi vivono la stessa borsa. Il colore compare ' +
+      'solo se t supera 2 in valore assoluto.',
+      'For a sale one expects the opposite of a purchase: if the insider knows something, the stock falls ' +
+      'afterwards. The label shows up in each company’s transactions and among the reasons of the insider ' +
+      'input, but for now it moves no points: it will if this test, with more years, says the gap is real. ' +
+      'The uncertainty allows for trades in the same months living through the same market. Colour ' +
+      'appears only when t exceeds 2 in absolute value.') + '</p></div>';
+}
+
 function renderBacktest(){
   var bt = IDX.backtest;
   if (!bt) {
@@ -1548,7 +1641,7 @@ function renderBacktest(){
       'Counting individual purchases, as this page did until 22 November 2026, the median would be ' +
       sg(bp.med, 1) + '% over ' + bp.n + ' purchases. It was an inflated number: a few campaigns ' +
       'counted many times.') + '</p>' : '') +
-    distChart(bt) + '</div>' + evCard() + fwdCard() +
+    distChart(bt) + '</div>' + evCard() + habitsCard() + fwdCard() +
 
     '<div class="card"><h2>' + T('Le regole della formula, messe alla prova',
       'The formula’s rules, put to the test') + '</h2><p class="sub">' +
@@ -2134,7 +2227,9 @@ function paneInsider(d){
           '<td>' + esc(t.who) + '<div class="nm">' + esc(t.role) + '</div></td>' +
           '<td class="num">' + money(t.value) + '</td>' +
           '<td><span class="chip ' + (t.kind === 'BUY' ? 'good' : t.weight ? 'warn' : '') + '">' +
-          esc(t.kind) + '</span><div class="nm">' + esc(txt(t.read)) + '</div></td></tr>';
+          esc(t.kind) + '</span>' + (t.habit ? ' <span class="chip">' + esc(t.habit === 'routine'
+            ? T('abituale', 'routine') : T('opportunistica', 'opportunistic')) + '</span>' : '') +
+          '<div class="nm">' + esc(txt(t.read)) + '</div></td></tr>';
       }).join('') + '</tbody></table></div>'
       : '<p class="sub">' + T('Nessuna operazione trovata nel periodo.',
                               'No transaction found in the period.') + '</p>') + '</div>';

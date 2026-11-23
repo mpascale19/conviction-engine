@@ -223,6 +223,30 @@ di borsa prima ai 120 dopo.
 dell'effetto, e a separare quello che un insider sa da quello che un
 investitore da fuori può usare.
 
+## Insider abituali o opportunisti
+
+Sempre dal 23 novembre 2026 (codice in `pipeline/habits.py`). L'idea è di Cohen,
+Malloy e Pomorski ("Decoding Inside Information", Journal of Finance, 2012):
+molti insider comprano o vendono ogni anno nello stesso periodo, e quelle
+operazioni seguono il calendario, non quello che sanno.
+
+- **Abituale**: l'autore ha fatto un'operazione dello stesso verso nello stesso
+  mese in ciascuno dei tre anni solari precedenti.
+- **Opportunistica**: ha operato in tutti e tre gli anni, ma non in quel mese.
+- **Non classificabile**: non ha operato in tutti e tre gli anni.
+- Per le vendite la storia conta anche quelle dei piani 10b5-1, ma si
+  classificano e si misurano solo le discrezionali, le sole che il punteggio usa.
+- Con la storia dall'ottobre 2021 il primo anno intero è il 2022: si
+  classificano le operazioni dal 2025. Se la storia di un'azienda non è
+  completa, nessuna etichetta.
+
+La pagina Backtest misura il rendimento oltre il settore nelle 60 sedute dopo,
+per i tre gruppi, contando ogni insider una volta per mese (persona-mese), con
+l'errore a grappoli dello studio di evento. Nelle schede l'etichetta compare
+accanto all'operazione, e la voce insider la scrive fra le ragioni. **Per ora
+non sposta punti**: con meno di due anni di operazioni classificabili la prova è
+piccola, e una regola entra nel punteggio solo quando i dati la sostengono.
+
 ## Utili contro attese, calendario e titoli quotati (Alpha Vantage)
 
 Dal 23 novembre 2026 la stessa chiave di Alpha Vantage serve anche a tre cose
@@ -1206,6 +1230,7 @@ pipeline/extract.py    il passo dell'LLM sulle trascrizioni, con cache su disco
 pipeline/trascrizioni.py  il giro giornaliero di Alpha Vantage: trascrizioni in Word
 pipeline/alphavantage.py  utili contro attese, calendario e titoli quotati
 pipeline/eventstudy.py    la curva "dopo un acquisto" della pagina Backtest
+pipeline/habits.py        insider abituali o opportunisti (Cohen, Malloy e Pomorski)
 pipeline/build.py      mette tutto insieme e scrive site/data.json
 site/                  il sito pubblicato: legge data.json a ogni apertura
 tests/test_offline.py  i test che girano anche dentro GitHub Actions

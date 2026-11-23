@@ -15,7 +15,7 @@ import os
 import time
 from datetime import date, datetime, timedelta, timezone
 
-from . import alphavantage, bonus, eventstudy, finra, history, market, predict, rules, score, stress
+from . import alphavantage, bonus, eventstudy, finra, habits, history, market, predict, rules, score, stress
 from .rules import L
 from .extract import extract_all
 
@@ -178,6 +178,11 @@ def build_one(cfg, raw, extracted=None):
     oldest = (today - timedelta(days=31 * int(cfg.get("months_of_history") or 24))).isoformat()
     tx = rules.enrich(sorted([t for t in (raw.get("tx") or []) if t["date"] >= oldest],
                              key=lambda t: t["date"]))
+    # Abituali o opportunisti (pipeline/habits.py): l'etichetta va solo se la
+    # storia è completa, altrimenti un'abitudine sembrerebbe mancare.
+    complete = bool((raw.get("tx_status") or {}).get("complete", True))
+    for i, h in habits.classify(tx, oldest if complete else None).items():
+        tx[i]["habit"] = h
 
     # Il cluster conta solo se è recente: tre acquisti di un anno fa non
     # dicono niente sul presente, e il resto del punteggio guarda 90 giorni.
@@ -324,6 +329,7 @@ def build_one(cfg, raw, extracted=None):
         # cinque anni di chiusure per la prova all'indietro: restano in memoria,
         # nella scheda va solo la serie corta (vedi card_view)
         "_px_long": [[p["d"], p["c"]] for p in px],
+        "_tx_start": oldest,               # da quando la storia dei Form 4 copre tutto
         "si_pct": si_pct,
         "shares": raw.get("shares"),
         # utili contro attese degli ultimi tre anni e la prossima trimestrale
@@ -611,6 +617,13 @@ def write_all(results, cfg, outdir=OUTDIR, forward=None, si_status=None, av=None
         print(f"! prova all'indietro delle voci: {e}")
         ic = None
 
+    # Abituali o opportunisti, alla prova: pipeline/habits.py.
+    try:
+        hb = habits.run(results, cfg)
+    except Exception as e:
+        print(f"! abituali o opportunisti: {e}")
+        hb = None
+
     # Che cosa succede dopo un acquisto, seduta per seduta: pipeline/eventstudy.py.
     try:
         ev = eventstudy.run(results, cfg)
@@ -659,6 +672,8 @@ def write_all(results, cfg, outdir=OUTDIR, forward=None, si_status=None, av=None
         "ic": ic,
         # la curva media dopo un acquisto, dai 20 giorni prima ai 120 dopo
         "event": ev,
+        # insider abituali o opportunisti (Cohen, Malloy e Pomorski 2012), alla prova
+        "habits": hb,
         # quante aziende hanno già lo storico dei Form 4 completo: con il
         # passaggio a cinque anni la storia si riempie a rate, un giro dopo l'altro
         "history": {

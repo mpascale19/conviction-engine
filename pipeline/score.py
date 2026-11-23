@@ -106,6 +106,35 @@ def insider_score(rows, cluster, tracks, cfg, today=None, bonus=None, beat=None)
                          f"{'in line with' if sp == 0 else 'below'} expectations "
                          f"(earnings per share {sp:+.1f}% against estimates, reported on {when})."))
 
+    # Abituali o opportunisti (pipeline/habits.py): per ora solo una ragione
+    # scritta, senza punti. I punti verranno se la prova sulla pagina Backtest
+    # dirà che la differenza c'è.
+    def _names(xs):
+        n = sorted({t["who"] for t in xs})
+        return ", ".join(n[:2]) + (f" e altri {len(n) - 2}" if len(n) > 2 else ""), \
+            ", ".join(n[:2]) + (f" and {len(n) - 2} more" if len(n) > 2 else "")
+    rb = [t for t in buys if t.get("habit") == "routine"]
+    ob = [t for t in buys if t.get("habit") == "opp"]
+    rs = [t for t in sells if t.get("habit") == "routine"]
+    if rb:
+        it, en = _names(rb)
+        why.append(L(f"Acquisto abituale: {it} ha comprato nello stesso mese anche in ciascuno dei tre anni "
+                     f"precedenti. Secondo la ricerca gli acquisti abituali dicono poco; per ora non cambia "
+                     f"il punteggio.",
+                     f"Routine purchase: {en} also bought in the same month in each of the three previous "
+                     f"years. Research finds routine purchases say little; for now it does not change the score."))
+    if ob:
+        it, en = _names(ob)
+        why.append(L(f"Acquisto opportunistico: {it} compra da almeno tre anni, ma non in questo mese "
+                     f"dell'anno. Per ora non cambia il punteggio.",
+                     f"Opportunistic purchase: {en} has bought for at least three years, but not in this "
+                     f"month of the year. For now it does not change the score."))
+    if rs:
+        it, en = _names(rs)
+        why.append(L(f"Vendita abituale: {it} ha venduto nello stesso mese anche in ciascuno dei tre anni "
+                     f"precedenti.",
+                     f"Routine sale: {en} also sold in the same month in each of the three previous years."))
+
     if any(is_senior(t, titles) for t in sells):
         v -= 10
         why.append(L("Un dirigente apicale ha venduto in modo discrezionale.",

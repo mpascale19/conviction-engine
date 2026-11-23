@@ -1639,6 +1639,71 @@ check("con meno di venti campagne in tutto niente curva", EV.run(_ecos2[:10], cf
 check("e senza il prezzo del settore nemmeno",
       EV.run([dict(c, _bench_long=[]) for c in _ecos2], cfg) is None)
 
+# --------------------------------- abituali o opportunisti
+print("\nAbituali o opportunisti (Cohen, Malloy e Pomorski)")
+from pipeline import habits as HB
+
+check("il primo anno intero di una storia che comincia a ottobre è il successivo",
+      HB.first_full_year("2021-10-18") == 2022 and HB.first_full_year("2022-01-01") == 2022)
+
+
+def _t(d, who, kind):
+    return {"date": d, "who": who, "kind": kind, "role": "Director"}
+
+
+_htx = sorted([_t("2022-03-10", "A", "BUY"), _t("2023-03-14", "A", "BUY"), _t("2024-03-05", "A", "BUY"),
+               _t("2025-03-11", "A", "BUY"), _t("2024-03-20", "A", "BUY"),
+               _t("2022-01-10", "B", "BUY"), _t("2023-06-14", "B", "BUY"), _t("2024-09-05", "B", "BUY"),
+               _t("2025-03-12", "B", "BUY"),
+               _t("2023-03-10", "C", "BUY"), _t("2024-03-10", "C", "BUY"), _t("2025-03-10", "C", "BUY"),
+               _t("2022-05-02", "D", "SELL_P"), _t("2023-05-02", "D", "SELL_P"), _t("2024-05-02", "D", "SELL_P"),
+               _t("2025-05-20", "D", "SELL_D"), _t("2025-05-21", "D", "SELL_P")], key=lambda t: t["date"])
+_lab = {(_htx[i]["who"], _htx[i]["date"]): v for i, v in HB.classify(_htx, "2021-10-18").items()}
+check("chi compra nello stesso mese da tre anni fa un acquisto abituale", _lab.get(("A", "2025-03-11")) == "routine", _lab)
+check("chi compra ogni anno ma in mesi diversi fa un acquisto opportunistico", _lab.get(("B", "2025-03-12")) == "opp", _lab)
+check("chi non ha tre anni di acquisti non si classifica", ("C", "2025-03-10") not in _lab, _lab)
+check("un'operazione senza tre anni interi di storia alle spalle non si classifica", ("A", "2024-03-20") not in _lab, _lab)
+check("per le vendite contano anche quelle dei piani, ma si etichetta solo la discrezionale",
+      _lab.get(("D", "2025-05-20")) == "routine" and ("D", "2025-05-21") not in _lab, _lab)
+check("senza una storia completa nessuna etichetta", HB.classify(_htx, None) == {})
+
+# dodici aziende: sei con un insider abituale (dopo, il titolo resta piatto), sei con
+# uno opportunistico (dopo, il titolo fa +0,1% al giorno sul settore)
+_hd = _sessions(1300, date(2022, 1, 3))
+_hflat = [{"d": d, "c": 100.0} for d in _hd]
+_hcos = []
+for _k in range(12):
+    mon = 1 + _k
+    buy = f"2025-{mon:02d}-1{_k % 9}"
+    opp = _k % 2 == 1
+    hist = [_t(f"{y}-{(mon if not opp else (mon % 12) + 1):02d}-05", "X", "BUY") for y in (2022, 2023, 2024)]
+    i0 = next(i for i, d in enumerate(_hd) if d >= buy)
+    px, c = [], 100.0
+    for i, d in enumerate(_hd):
+        if opp and i0 < i <= i0 + 60:
+            c *= 1.001
+        px.append([d, c])
+    tx = sorted(hist + [_t(buy, "X", "BUY")], key=lambda t: t["date"])
+    _hcos.append({"company": {"ticker": f"H{_k}"}, "tx": tx, "_px_long": px, "_bench_long": _hflat,
+                  "_tx_start": "2021-10-18", "history": {"tx_complete": True}})
+_hr = HB.run(_hcos, cfg)
+check("sei acquisti abituali e sei opportunistici", _hr["buy"]["routine"]["n"] == 6 and _hr["buy"]["opp"]["n"] == 6, _hr["buy"])
+check("dopo gli opportunistici +6%, dopo gli abituali zero",
+      abs(_hr["buy"]["opp"]["mean"] - 6.18) < 0.05 and _hr["buy"]["routine"]["mean"] == 0.0, _hr["buy"])
+check("la differenza ha il suo errore standard", _hr["buy"]["diff"] and _hr["buy"]["diff"]["mean"] > 6, _hr["buy"]["diff"])
+check("le operazioni di prima che si possano classificare non entrano", _hr["buy"]["none"]["n"] == 0, _hr["buy"]["none"])
+check("ogni insider conta una volta per mese",
+      HB.run([dict(_hcos[1], tx=_hcos[1]["tx"] + [_t(_hcos[1]["tx"][-1]["date"][:8] + "28", "X", "BUY")])] + _hcos[2:], cfg)["buy"]["opp"]["n"] == 6)
+check("senza aziende classificabili niente blocco", HB.run([dict(c, _tx_start=None) for c in _hcos], cfg) is None)
+check("con pochi casi un gruppo non ha media", "mean" not in HB.run(_hcos[:4], cfg)["buy"]["routine"])
+
+_rt = [dict(_t((date(2026, 4, 1)).isoformat(), "Rossi", "BUY"), value=50000.0, shares=100.0, price=500.0,
+            habit="routine", weight=1.0)]
+_v, _w, _ = score.insider_score(_rt, [], {}, cfg, date(2026, 4, 20))
+check("un acquisto abituale lo dice fra le ragioni, senza punti", any("Acquisto abituale" in w["it"] and "Rossi" in w["it"] for w in _w), _w)
+_v2, _w2, _ = score.insider_score([dict(_rt[0], habit=None)], [], {}, cfg, date(2026, 4, 20))
+check("e il punteggio non cambia", _v == _v2, (_v, _v2))
+
 # il riepilogo deve contare ogni fallimento: l'elenco non va mai sostituito
 check("l'elenco dei fallimenti è ancora quello di partenza", bad is _BAD0)
 print(f"\n{ok} controlli passati, {len(bad)} falliti")
