@@ -111,7 +111,14 @@ jobs:
             # origin/main e lascia nel disco i file appena generati, così
             # il commit contiene solo site/.
             git reset --quiet origin/main
-            git add -A site
+            # site/index.html non lo genera la pipeline: è la pagina, caricata a
+            # mano. Quella nel disco è quella che il runner aveva all'avvio, e
+            # con "git add -A site" il commit rimetteva la versione vecchia sopra
+            # quella caricata durante il giro (è successo il 23/11, due volte).
+            # Si salvano solo i file generati, e la pagina si riprende da origin
+            # anche nel disco, perché la pubblicazione qui sotto usa quella.
+            git add -A -- site ':(exclude)site/index.html'
+            git checkout origin/main -- site/index.html
             if git diff --staged --quiet; then
               echo "nessuna variazione da salvare"
               exit 0
