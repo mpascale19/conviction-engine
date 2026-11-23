@@ -20,9 +20,14 @@ non sposta punti, compare fra i fatti dell'azienda.
 Da dove si legge, senza richieste in più dove si può:
 
 - il JSON dei depositi di ogni azienda (quello dei Form 4 e degli 8-K) elenca
-  anche i 13D che altri hanno depositato su di lei: tipo, data, accessione;
-- per sapere **chi** l'ha depositato si legge l'intestazione del deposito
-  (`<accessione>.hdr.sgml`, pochi kilobyte), una volta sola: resta in cache;
+  i 13D in cui l'azienda compare: tipo, data, accessione. Attenzione: ci sono
+  sia quelli che altri hanno depositato **su di lei**, sia quelli che lei ha
+  depositato **su altre società** (una banca come JPMorgan ne deposita molti,
+  per i fondi che gestisce). Il JSON non li distingue;
+- per questo si legge l'intestazione del deposito (`<accessione>.hdr.sgml`,
+  pochi kilobyte), una volta sola, poi resta in cache: dice **chi** l'ha
+  depositato e **su quale società** (SUBJECT COMPANY). Un 13D conta solo se la
+  società è la nostra; finché l'intestazione non è stata letta, non conta;
 - la **quota** (la percentuale della classe) si cerca nel documento
   principale; se non si trova, la scheda non la dice.
 
@@ -36,7 +41,7 @@ from datetime import date
 
 FIRST = ("SC 13D", "SCHEDULE 13D")
 AMEND = ("SC 13D/A", "SCHEDULE 13D/A")
-NEW_PER_RUN = 40          # intestazioni nuove da leggere per giro, in tutto
+NEW_PER_RUN = 300         # intestazioni nuove da leggere per giro, in tutto (pochi kilobyte l'una)
 DOC_LIMIT = 600_000       # del documento principale si guarda al più l'inizio: la quota sta in copertina
 
 
@@ -59,22 +64,35 @@ def from_table(cols, since):
     return out
 
 
-def parse_header(text):
-    """I nomi di chi deposita, dall'intestazione SGML o da quella in testo."""
-    names = []
-    for block in re.findall(r"<FILED-BY>(.*?)(?:</FILED-BY>|<SUBJECT-COMPANY>|$)", text, re.S | re.I):
-        names += re.findall(r"<CONFORMED-NAME>\s*([^\r\n<]+)", block, re.I)
-    if not names:
-        for block in re.split(r"(?=SUBJECT COMPANY:|FILED BY:)", text):
-            if block.strip().upper().startswith("FILED BY:"):
-                names += re.findall(r"COMPANY CONFORMED NAME:\s*([^\r\n]+)", block)
+def _uniq(xs):
     seen, out = set(), []
-    for n in names:
-        n = n.strip()
-        if n and n not in seen:
-            seen.add(n)
-            out.append(n)
+    for x in xs:
+        x = x.strip()
+        if x and x not in seen:
+            seen.add(x)
+            out.append(x)
     return out
+
+
+def parse_header(text):
+    """{"who": nomi di chi deposita, "subject": CIK della società su cui si deposita}.
+
+    Dall'intestazione SGML (<FILED-BY>, <SUBJECT-COMPANY>) o da quella in
+    testo ("FILED BY:", "SUBJECT COMPANY:"). I CIK senza zeri davanti.
+    """
+    names, subj = [], []
+    for block in re.findall(r"<FILED-BY>(.*?)(?=</FILED-BY>|<SUBJECT-COMPANY>|<FILED-BY>|$)", text, re.S | re.I):
+        names += re.findall(r"<CONFORMED-NAME>\s*([^\r\n<]+)", block, re.I)
+    for block in re.findall(r"<SUBJECT-COMPANY>(.*?)(?=</SUBJECT-COMPANY>|<FILED-BY>|<SUBJECT-COMPANY>|$)", text, re.S | re.I):
+        subj += re.findall(r"<CIK>\s*0*(\d+)", block, re.I)
+    if not names and not subj:
+        for block in re.split(r"(?=SUBJECT COMPANY:|FILED BY:)", text):
+            head = block.strip().upper()
+            if head.startswith("FILED BY:"):
+                names += re.findall(r"COMPANY CONFORMED NAME:\s*([^\r\n]+)", block)
+            elif head.startswith("SUBJECT COMPANY:"):
+                subj += re.findall(r"CENTRAL INDEX KEY:\s*0*(\d+)", block)
+    return {"who": _uniq(names), "subject": _uniq(subj)}
 
 
 def parse_percent(text):
@@ -99,12 +117,18 @@ def _folder(cik, acc):
     return f"https://www.sec.gov/Archives/edgar/data/{int(cik)}/{acc.replace('-', '')}/"
 
 
-def details(row, cache_dir, budget):
-    """{who, pct} di un 13D: dalla cache, o due richieste se c'è ancora posto nel giro."""
+def details(row, cache_dir, budget, doc=True):
+    """{who, subject, pct} di un 13D: dalla cache, o una o due richieste se c'è posto nel giro.
+
+    `doc`: se leggere anche il documento principale per la quota (per le
+    correzioni no: basta l'intestazione).
+    """
     path = os.path.join(cache_dir, row["acc"] + ".json")
     try:
         with open(path, encoding="utf-8") as f:
-            return json.load(f)
+            got = json.load(f)
+        if "subject" in got:               # le voci della prima versione non lo avevano: si rileggono
+            return got
     except (OSError, ValueError):
         pass
     if budget["left"] <= 0:
@@ -112,12 +136,12 @@ def details(row, cache_dir, budget):
     from .sources import _get
     budget["left"] -= 1
     base = _folder(row["cik"], row["acc"])
-    got = {"who": [], "pct": None}
+    got = {"who": [], "subject": [], "pct": None}
     try:
-        got["who"] = parse_header(_get(base + row["acc"] + ".hdr.sgml").text)
+        got.update(parse_header(_get(base + row["acc"] + ".hdr.sgml").text))
     except Exception as e:
         got["err"] = str(e)[:200]
-    if row.get("doc"):
+    if doc and row.get("doc") and str(row.get("cik") or "").lstrip("0") in got["subject"]:
         try:
             doc = re.sub(r"^xsl[^/]+/", "", row["doc"])     # l'XML grezzo, non la versione impaginata
             got["pct"] = parse_percent(_get(base + doc).text[:DOC_LIMIT])
@@ -132,16 +156,24 @@ def details(row, cache_dir, budget):
 
 
 def collect(cols, cik, since, cache_dir, budget):
-    """I 13D di un'azienda, ciascuno con chi e quanto: [{date, form, first, who, pct, acc}].
+    """I 13D depositati SU questa azienda: [{date, form, first, who, pct, acc, mine}].
 
-    Le correzioni (13D/A) si elencano ma non si leggono: basta sapere che ci
-    sono, e chi le firma è quasi sempre chi ha depositato il primo.
+    `mine`: True se l'intestazione dice che la società è questa, None se
+    l'intestazione non è ancora stata letta (budget del giro finito). Quelli
+    che l'azienda ha depositato su altre società non escono. Dal più recente,
+    così il budget va prima a quelli che la scheda mostra.
     """
+    me = str(cik or "").lstrip("0")
     out = []
-    for r in from_table(cols, since):
+    for r in sorted(from_table(cols, since), key=lambda r: r["date"], reverse=True):
         r = dict(r, cik=r["cik"] or cik)
-        det = details(r, cache_dir, budget) if r["first"] else None
-        out.append({"date": r["date"], "form": r["form"], "first": r["first"], "acc": r["acc"],
+        det = details(r, cache_dir, budget, doc=r["first"])
+        mine = None
+        if det is not None and det.get("subject"):
+            mine = me in det["subject"]
+        if mine is False:
+            continue
+        out.append({"date": r["date"], "form": r["form"], "first": r["first"], "acc": r["acc"], "mine": mine,
                     "who": (det or {}).get("who") or [], "pct": (det or {}).get("pct")})
     return out
 
@@ -149,10 +181,12 @@ def collect(cols, cik, since, cache_dir, budget):
 def summary(events, today, days=365):
     """Per la scheda: i 13D dell'ultimo anno, il più recente primo."""
     lo = date.fromordinal(date.fromisoformat(today).toordinal() - days).isoformat()
-    first = [e for e in events if e["first"] and e["date"] >= lo]
-    amend = [e for e in events if not e["first"] and e["date"] >= lo]
+    ok = [e for e in events if e.get("mine") is True and e["date"] >= lo]
+    first = [e for e in ok if e["first"]]
+    amend = [e for e in ok if not e["first"]]
     return {"first": sorted(first, key=lambda e: e["date"], reverse=True),
-            "amend": len(amend), "last_amend": max((e["date"] for e in amend), default=None)}
+            "amend": len(amend), "last_amend": max((e["date"] for e in amend), default=None),
+            "unread": sum(1 for e in events if e.get("mine") is None and e["date"] >= lo)}
 
 
 def run(results):
@@ -164,12 +198,15 @@ def run(results):
     grappoli di 87 giorni, valori limitati a ±50 punti.
     """
     from . import eventstudy as es
-    evs, recent = [], []
+    evs, recent, unread = [], [], 0
     for d in results:
         px = [{"d": x[0], "c": x[1]} for x in (d.get("_px_long") or []) if x[1]]
         bench = d.get("_bench_long") or []
         seen = set()
         for e in d.get("_13d") or []:
+            if e.get("mine") is None:
+                unread += 1                # non si sa ancora su chi è: non conta
+                continue
             if not e["first"]:
                 continue
             recent.append({"t": d["company"]["ticker"], "d": e["date"], "who": e["who"][:2], "pct": e["pct"]})
@@ -180,7 +217,8 @@ def run(results):
             if p is not None:
                 evs.append({"d": e["date"], "path": p})
     if not recent:
-        return None
+        return {"events": 0, "filings": 0, "unread": unread, "min": es.MIN_EVENTS, "seg": {},
+                "recent": [], "from": None} if unread else None
     segs = (("before", -es.PRE, -1), ("around", -1, 1), ("to60", 1, 60), ("to120", 1, 120))
     seg = {}
     for sid, a, b in segs:
@@ -195,4 +233,4 @@ def run(results):
                     "n": n, "blocks": G, "pos": round(sum(1 for _, v in vals if v > 0) / n * 100)}
     recent.sort(key=lambda r: r["d"], reverse=True)
     return {"events": len(evs), "filings": len(recent), "min": es.MIN_EVENTS,
-            "from": min(r["d"] for r in recent), "seg": seg, "recent": recent[:15]}
+            "from": min(r["d"] for r in recent), "seg": seg, "recent": recent[:15], "unread": unread}

@@ -2250,6 +2250,13 @@ function actCard(){
           '</div></td><td>' + esc((e.who || []).join(', ') || '—') + '</td><td class="num">' +
           (e.pct != null ? nu(e.pct.toFixed(1)) + '%' : '—') + '</td></tr>';
       }).join('') + '</tbody></table></div>' : '') +
+    (a.unread ? '<p class="sub" style="margin-top:12px">' + T(
+      'Ancora da controllare: ' + a.unread + ' depositi. Il JSON della SEC elenca anche i 13D che un’azienda ha ' +
+      'depositato su altre società (le banche ne fanno molti per i loro fondi); conta solo quello che, ' +
+      'nell’intestazione, ha la nostra azienda come società oggetto. Le intestazioni si leggono 300 per giro.',
+      'Still to check: ' + a.unread + ' filings. The SEC JSON also lists the 13Ds a company filed on other ' +
+      'companies (banks file many for their funds); only those whose header names our company as the subject ' +
+      'count. Headers are read 300 per run.') + '</p>' : '') +
     '<p class="sub" style="margin-top:12px">' + T(
       'Sotto ogni valore: t e quanti depositi. Il 13D non sposta punti nel punteggio: compare nella scheda dell’azienda.',
       'Under each value: t and how many filings. The 13D moves no points in the score: it shows on the company page.') + '</p></div>';
@@ -2300,6 +2307,8 @@ function paneHolders(d){
             '</td><td class="num">' + (e.pct != null ? nu(e.pct.toFixed(1)) + '%' : '—') + '</td></tr>';
         }).join('') + '</tbody></table></div>'
         : '<p class="sub">' + T('Nessun 13D nuovo nell’ultimo anno.', 'No new 13D in the last year.') + '</p>') +
+      (a.unread ? '<p class="sub">' + T(a.unread + ' depositi dell’ultimo anno ancora da controllare.',
+                                        a.unread + ' filings from the last year still to check.') + '</p>' : '') +
       (a.amend ? '<p class="sub">' + T(a.amend + ' correzioni di 13D già depositati, l’ultima il ' + day(a.last_amend) + '.',
                                        a.amend + ' amendments to 13Ds already filed, the latest on ' + day(a.last_amend) + '.') + '</p>' : '') +
       '<p class="sub" style="margin-top:10px">' + T(

@@ -2074,19 +2074,25 @@ check("per ogni trimestre il file con più depositi", fnd.load(_fdir)["2026-06-3
 check("la tabella delle corrispondenze", fnd.mapping(fnd.load(_fdir)) == {"BA": ["c", "n", 1]})
 
 print("\nSchedule 13D")
-_cols = {"form": ["4", "SC 13D", "SC 13D/A", "SCHEDULE 13D", "SC 13G"],
-         "filingDate": ["2026-11-01", "2024-03-01", "2024-05-01", "2026-02-01", "2026-02-02"],
-         "accessionNumber": ["a0", "a1", "a2", "a3", "a4"], "primaryDocument": ["x", "d1.htm", "d2.htm", "xslSCHEDULE_13D_X01/primary_doc.xml", "y"],
-         "_cik": ["77"] * 5}
+_cols = {"form": ["4", "SC 13D", "SC 13D/A", "SCHEDULE 13D", "SC 13G", "SC 13D"],
+         "filingDate": ["2026-11-01", "2024-03-01", "2024-05-01", "2026-02-01", "2026-02-02", "2025-06-01"],
+         "accessionNumber": ["a0", "a1", "a2", "a3", "a4", "a5"],
+         "primaryDocument": ["x", "d1.htm", "d2.htm", "xslSCHEDULE_13D_X01/primary_doc.xml", "y", "d5.htm"],
+         "_cik": ["77"] * 6}
 _t13 = att.from_table(_cols, "2016-01-01")
 check("dalla tabella dei depositi: i 13D, iniziali e correzioni, non i 13G",
-      [(r["acc"], r["first"]) for r in _t13] == [("a1", True), ("a2", False), ("a3", True)])
+      [(r["acc"], r["first"]) for r in _t13] == [("a1", True), ("a2", False), ("a3", True), ("a5", True)])
 _hdr = ("<SUBMISSION>\n<ACCESSION-NUMBER>a1\n<TYPE>SC 13D\n<SUBJECT-COMPANY>\n<COMPANY-DATA>\n<CONFORMED-NAME>BOEING CO\n"
-        "</COMPANY-DATA>\n</SUBJECT-COMPANY>\n<FILED-BY>\n<COMPANY-DATA>\n<CONFORMED-NAME>ICAHN CARL C\n</COMPANY-DATA>\n</FILED-BY>\n")
-check("chi deposita, dall'intestazione SGML", att.parse_header(_hdr) == ["ICAHN CARL C"])
-_txt = ("SUBJECT COMPANY:\n\n\tCOMPANY DATA:\n\t\tCOMPANY CONFORMED NAME:\t\t\tBOEING CO\n\n"
-        "FILED BY:\n\n\tCOMPANY DATA:\n\t\tCOMPANY CONFORMED NAME:\t\t\tTRIAN FUND MANAGEMENT, L.P.\n")
-check("e da quella in testo", att.parse_header(_txt) == ["TRIAN FUND MANAGEMENT, L.P."])
+        "<CIK>0000000077\n</COMPANY-DATA>\n</SUBJECT-COMPANY>\n<FILED-BY>\n<COMPANY-DATA>\n<CONFORMED-NAME>ICAHN CARL C\n"
+        "<CIK>0000921669\n</COMPANY-DATA>\n</FILED-BY>\n")
+check("chi deposita e su chi, dall'intestazione SGML",
+      att.parse_header(_hdr) == {"who": ["ICAHN CARL C"], "subject": ["77"]}, att.parse_header(_hdr))
+_txt = ("SUBJECT COMPANY:\n\n\tCOMPANY DATA:\n\t\tCOMPANY CONFORMED NAME:\t\t\tBOEING CO\n"
+        "\t\tCENTRAL INDEX KEY:\t\t\t0000012927\n\n"
+        "FILED BY:\n\n\tCOMPANY DATA:\n\t\tCOMPANY CONFORMED NAME:\t\t\tTRIAN FUND MANAGEMENT, L.P.\n"
+        "\t\tCENTRAL INDEX KEY:\t\t\t0001345471\n")
+check("e da quella in testo", att.parse_header(_txt) == {"who": ["TRIAN FUND MANAGEMENT, L.P."], "subject": ["12927"]},
+      att.parse_header(_txt))
 check("la quota dall'XML", att.parse_percent("<x><percentOfClass>7.3</percentOfClass><percentOfClass>6.1</percentOfClass></x>") == 7.3)
 check("la quota dal vecchio modulo",
       att.parse_percent("<td>13</td><td>PERCENT OF CLASS REPRESENTED BY AMOUNT IN ROW (11)</td><td>&nbsp;</td><td>5.4%</td>") == 5.4)
@@ -2099,6 +2105,8 @@ try:
         def __init__(self, t): self.text = t
     def _g13(url, **k):
         _calls13.append(url)
+        if url.endswith(".hdr.sgml") and "/a5" in url.replace("-", ""):
+            return _R13(_hdr.replace("<CIK>0000000077", "<CIK>0000000099"))   # depositato dall'azienda su un'altra
         if url.endswith(".hdr.sgml"):
             return _R13(_hdr)
         if url.endswith("primary_doc.xml"):
@@ -2107,34 +2115,48 @@ try:
     sources._get = _g13
     _b13 = {"left": 1}
     _ev13 = att.collect(_cols, "77", "2016-01-01", _cd13, _b13)
-    check("si legge un'intestazione per giro, nei limiti; un documento che manca lascia la quota vuota",
-          _b13["left"] == 0 and len(_calls13) == 2 and _ev13[0]["who"] == ["ICAHN CARL C"] and _ev13[0]["pct"] is None
-          and _ev13[2]["who"] == [], (_calls13, _ev13))
+    check("si legge un'intestazione per giro, nei limiti, dal deposito più recente",
+          _b13["left"] == 0 and len(_calls13) == 2 and [e["acc"] for e in _ev13] == ["a3", "a5", "a2", "a1"]
+          and _ev13[0]["who"] == ["ICAHN CARL C"] and _ev13[0]["pct"] == 8.2 and _ev13[0]["mine"] is True
+          and _ev13[1]["mine"] is None, (_calls13, _ev13))
+    check("l'XML grezzo, non la versione impaginata", "xsl" not in _calls13[1], _calls13)
     _calls13.clear()
     _ev13 = att.collect(_cols, "77", "2016-01-01", _cd13, {"left": 5})
-    check("dalla cache non si riscarica; il deposito nuovo in XML dà la quota",
-          len(_calls13) == 2 and _ev13[2]["pct"] == 8.2 and _ev13[0]["who"] == ["ICAHN CARL C"], (_calls13, _ev13))
-    check("l'XML grezzo, non la versione impaginata", "xsl" not in _calls13[1], _calls13)
+    check("un 13D che l'azienda ha depositato su un'altra società non esce",
+          [e["acc"] for e in _ev13] == ["a3", "a2", "a1"], [e["acc"] for e in _ev13])
+    check("per la correzione basta l'intestazione; un documento che manca (404) lascia la quota vuota",
+          not any("d2.htm" in c for c in _calls13) and _ev13[2]["pct"] is None and _ev13[2]["who"] == ["ICAHN CARL C"],
+          _calls13)
+    check("e per un 13D non nostro non si scarica il documento", not any("d5.htm" in c for c in _calls13), _calls13)
     _calls13.clear()
     att.collect(_cols, "77", "2016-01-01", _cd13, {"left": 5})
     check("al giro dopo, nessuna richiesta", _calls13 == [], _calls13)
+    with open(os.path.join(_cd13, "old.json"), "w") as _f:
+        json.dump({"who": ["X"], "pct": None}, _f)
+    _calls13.clear()
+    att.details({"acc": "old", "cik": "77", "doc": ""}, _cd13, {"left": 1})
+    check("le voci in cache senza la società si rileggono", len(_calls13) == 1, _calls13)
 finally:
     sources._get = real_get
 _sm = att.summary(_ev13, "2026-11-20")
-check("per la scheda: l'ultimo anno", [e["acc"] for e in _sm["first"]] == ["a3"] and _sm["amend"] == 0)
+check("per la scheda: l'ultimo anno", [e["acc"] for e in _sm["first"]] == ["a3"] and _sm["amend"] == 0 and _sm["unread"] == 0)
+check("quelli non ancora letti si contano a parte",
+      att.summary([dict(_ev13[0], mine=None)], "2026-11-20") == {"first": [], "amend": 0, "last_amend": None, "unread": 1})
 _dd13 = [date(2025, 1, 2) + timedelta(days=k) for k in range(400)]
 _dd13 = [d.isoformat() for d in _dd13 if d.weekday() < 5]
 _px13 = [[d, 100.0 if i < 60 else 110.0] for i, d in enumerate(_dd13)]
 _bh13 = [{"d": d, "c": 50.0} for d in _dd13]
 _co13 = {"company": {"ticker": "ZZ"}, "_px_long": _px13, "_bench_long": _bh13,
-         "_13d": [{"date": _dd13[60], "first": True, "who": ["ICAHN CARL C"], "pct": 8.2},
-                  {"date": _dd13[60], "first": True, "who": ["ALTRO"], "pct": None},
-                  {"date": _dd13[90], "first": False, "who": [], "pct": None}]}
+         "_13d": [{"date": _dd13[60], "first": True, "who": ["ICAHN CARL C"], "pct": 8.2, "mine": True},
+                  {"date": _dd13[60], "first": True, "who": ["ALTRO"], "pct": None, "mine": True},
+                  {"date": _dd13[70], "first": True, "who": [], "pct": None, "mine": None},
+                  {"date": _dd13[90], "first": False, "who": [], "pct": None, "mine": True}]}
 _ra13 = att.run([_co13])
 check("studio di evento dei 13D: il salto del giorno del deposito, un evento per giorno",
       _ra13["events"] == 1 and _ra13["filings"] == 2 and abs(_ra13["seg"]["around"].get("mean", 10.0) - 10.0) < 1e-6
       if "mean" in _ra13["seg"]["around"] else _ra13["seg"]["around"]["n"] == 1, _ra13)
 check("e l'elenco degli ultimi", _ra13["recent"][0]["t"] == "ZZ" and _ra13["recent"][0]["pct"] in (8.2, None))
+check("quelli non ancora letti non entrano nella prova, ma si contano", _ra13["unread"] == 1 and _ra13["filings"] == 2, _ra13)
 check("senza 13D niente blocco", att.run([dict(_co13, _13d=[])]) is None)
 
 print("\nIl termometro di tutto il mercato")

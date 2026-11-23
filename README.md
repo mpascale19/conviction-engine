@@ -372,10 +372,14 @@ società senza essere un investitore passivo deposita lo Schedule 13D: attivisti
 (Icahn, Elliott, Trian…), ma anche fondatori e azionisti di controllo.
 
 - Il JSON dei depositi di ogni azienda (lo stesso dei Form 4 e degli 8-K) elenca
-  anche i 13D che altri hanno depositato su di lei: nessuna richiesta in più.
-- Per sapere chi l'ha depositato si legge l'intestazione del deposito
-  (`.hdr.sgml`), e la quota dalla copertina del documento: una volta sola, poi
-  resta in cache (`cache/13d/`), al più 40 depositi nuovi per giro.
+  i 13D in cui l'azienda compare: sia quelli depositati **su di lei**, sia quelli
+  che lei ha depositato **su altre società** (le banche ne depositano molti per
+  i loro fondi: il primo giro, il 23 novembre, ne contava 158 per sbaglio).
+- Per questo si legge l'intestazione del deposito (`.hdr.sgml`): dice chi l'ha
+  depositato e su quale società. Conta solo se la società è la nostra; finché
+  l'intestazione non è letta, non conta. La quota si legge dalla copertina del
+  documento, solo per i 13D iniziali nostri. Una volta sola, poi resta in cache
+  (`cache/13d/`), al più 300 intestazioni nuove per giro.
 - Dal 18 dicembre 2024 il modulo si chiama "SCHEDULE 13D" ed è in XML; prima
   "SC 13D". Si leggono tutti e due. Le correzioni (13D/A) si contano soltanto.
 - Nella scheda: i 13D dell'ultimo anno, e il più recente fra i dati in alto.
