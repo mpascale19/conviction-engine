@@ -2036,7 +2036,9 @@ with _zf.ZipFile(_z13, "w") as z:
         ["F3", "12-AUG-2026", "13F-HR/A", "0000000902", "30-JUN-2026"],
         ["F4", "13-AUG-2026", "13F-HR", "0000000903", "30-JUN-2026"],
         ["F5", "01-JUN-2026", "13F-HR", "0000000904", "31-MAR-2026"],
-        ["F6", "14-AUG-2026", "13F-HR", "0000000903", "30-JUN-2026"]]))
+        ["F6", "14-AUG-2026", "13F-HR", "0000000903", "30-JUN-2026"],
+        ["F7", "14-AUG-2026", "13F-HR", "0000000905", "30-JUN-2026"],
+        ["F8", "14-AUG-2026", "13F-HR", "0000000906", "30-SEP-2001"]]))
     z.writestr("INFOTABLE.tsv", _tsv(["ACCESSION_NUMBER", "INFOTABLE_SK", "NAMEOFISSUER", "TITLEOFCLASS", "CUSIP", "VALUE", "SSHPRNAMT", "SSHPRNAMTTYPE", "PUTCALL"], [
         ["F1", 1, "BOEING CO", "COM", "097023105", 1, 100, "SH", ""],
         ["F1", 2, "BOEING CO", "COM", "097023105", 1, 50, "SH", ""],
@@ -2048,12 +2050,16 @@ with _zf.ZipFile(_z13, "w") as z:
         ["F6", 8, "BOEING CO", "COM", "097023105", 1, 300, "SH", ""],
         ["F6", 9, "BOEING CO CL B", "COM", "097023999", 1, 5, "SH", ""],
         ["F5", 10, "BOEING CO", "COM", "097023105", 1, 40, "SH", ""],
-        ["F1", 11, "MICROSOFT CORP", "COM", "594918104", 1, 10, "SH", ""]]))
+        ["F1", 11, "MICROSOFT CORP", "COM", "594918104", 1, 10, "SH", ""],
+        ["F7", 12, "BOING CORP", "COM", "097023105", 1, 25, "SH", ""],
+        ["F8", 13, "BOEING CO", "COM", "097023105", 1, 1, "SH", ""]]))
 _r13 = fnd.read_13f(_z13, {"BA": "BOEING CO", "MSFT": "MICROSOFT CORP"})
 check("13F: un gestore per trimestre, il deposito più recente, niente correzioni, opzioni e obbligazioni",
-      _r13["2026-06-30"]["N"] == 3 and _r13["2026-06-30"]["co"]["BA"] == {"h": 3, "sh": 650, "cusip": "097023105", "name": "BOEING CO"},
+      _r13["2026-06-30"]["N"] == 4 and _r13["2026-06-30"]["co"]["BA"] == {"h": 4, "sh": 675, "cusip": "097023105", "name": "BOEING CO"},
       _r13["2026-06-30"])
-check("i trimestri vecchi depositati in ritardo stanno a parte", _r13["2026-03-31"]["co"]["BA"]["h"] == 1)
+check("dal CUSIP si contano anche i gestori che scrivono il nome in un altro modo",
+      _r13["2026-06-30"]["co"]["BA"]["h"] == 4)
+check("del file si tiene solo il trimestre principale: niente ritardatari, niente 2001", list(_r13) == ["2026-06-30"], list(_r13))
 check("il CUSIP fissato a mano vince sul nome",
       fnd.read_13f(_z13, {"BA": "BOEING CO"}, {"BA": "097023999"})["2026-06-30"]["co"]["BA"]["cusip"] == "097023999")
 _pp = {"2026-03-31": {"N": 100, "co": {"BA": {"h": 40, "sh": 1, "cusip": "c", "name": "n"}}},

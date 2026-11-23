@@ -81,6 +81,13 @@ Tutti e tre si lanciano anche a mano, con "Run workflow". Da sapere: GitHub
 sospende le pianificazioni nei repository fermi da 60 giorni, avvisando per
 email; basta riattivarle dalla scheda Actions.
 
+### La pagina e i dati nello stesso repository
+
+`site/index.html` lo carichi tu, il resto di `site/` lo scrive il giro orario.
+Il giro salva solo i file che genera: fino al 23 novembre salvava tutta la
+cartella, e un giro partito prima di un caricamento rimetteva la pagina vecchia
+sopra quella nuova (è successo due volte quel giorno).
+
 ### Se qualcosa si rompe
 
 | Sintomo | Causa quasi certa |
@@ -322,6 +329,10 @@ Il workflow **Tutto il mercato** gira ogni tre ore e salva tutto nella cache
   dirigente apicale, solo le aziende seguite.
 - Le aziende fuori dalle duecento non hanno punteggio: non hanno prezzi,
   short interest e call nel sistema. Il radar dice dove guardare.
+- Servono un simbolo di borsa: senza, sono fondi non quotati o società private,
+  dove gli amministratori che "comprano" sottoscrivono quote.
+- Dal 2026 anche amministratori e dirigenti delle società estere quotate negli
+  Stati Uniti depositano il Form 4 (TSMC, Bradesco, Amdocs…): entrano nel radar.
 
 Il primo giro scarica un'ottantina di data set e comincia a leggere i giorni del
 trimestre in corso (circa mille Form 4 al giorno): servono alcuni giri per
@@ -349,12 +360,16 @@ Form 13F con le sue posizioni, entro 45 giorni; la SEC li pubblica in tabella
   diviso il numero di gestori che hanno depositato. La variazione dell'ampiezza
   è la misura di Chen, Hong e Stein (2002).
 - Si usa il 13F-HR originale (non le correzioni), il più recente se un gestore
-  ne ha due per lo stesso trimestre; per ogni trimestre il file che ne contiene
-  di più.
+  ne ha due per lo stesso trimestre. Di ogni file si tiene solo il trimestre
+  principale: il primo giro, il 23 novembre, aveva preso anche i depositi in
+  ritardo (e qualcuno datato 2001), con trimestri di poche decine di gestori.
 - **Il CUSIP.** Il 13F identifica il titolo con il CUSIP, che la pipeline non ha:
   lo si trova dal nome dell'emittente, ripulito (maiuscole, niente "INC",
   "/DE/", abbreviazioni dei gestori sciolte: "INSTRS", "PETE", "COS"…), e fra i
-  CUSIP che corrispondono vince quello con più detentori. Le aziende che hanno
+  CUSIP che corrispondono vince quello con più detentori. Poi si contano tutte
+  le righe con quel CUSIP (le prime otto cifre), comunque il gestore abbia
+  scritto il nome: al primo giro General Motors risultava in mano a 223 gestori,
+  perché molti scrivono "GENERAL MTRS CO". Le aziende che hanno
   cambiato nome in dieci anni (Facebook, Anthem, Schlumberger…) hanno i nomi di
   allora in `fondi.ALIASES`. L'indice del sito, alla voce `funds.map`, dice per
   ogni azienda quale CUSIP è stato scelto e con quale nome, e `funds.missing`

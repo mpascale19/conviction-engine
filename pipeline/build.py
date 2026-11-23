@@ -696,7 +696,8 @@ def write_all(results, cfg, outdir=OUTDIR, forward=None, si_status=None, av=None
             comp = mercato.radar(mk["buys"], today, ours)
             radar_doc = {"today": today, "window": mercato.WINDOW, "min_value": mercato.MIN_VALUE,
                          "min_price": mercato.MIN_PRICE, "through": mk.get("through"),
-                         "pending": len(mk.get("pending") or []), "companies": comp}
+                         "pending": len(mk.get("pending") or []), "read": mk.get("read") or 0,
+                         "last_q": mk.get("last_q"), "companies": comp}
             rpath = os.path.join(outdir, "radar.json")
             if not same_but_for_the_clock(rpath, radar_doc):
                 with open(rpath, "w", encoding="utf-8") as f:

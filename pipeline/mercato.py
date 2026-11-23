@@ -325,7 +325,7 @@ def load(folder=DIR):
         m = months.setdefault(k, {"b": 0, "s": 0})
         m["b"] += len(v["b"])
         m["s"] += len(v["s"])
-    through, pending = last_q, []
+    through, pending, read = last_q, [], 0
     if last_q:
         day = date.fromisoformat(last_q) + timedelta(days=1)
         end = date.fromisoformat(st.get("today") or date.today().isoformat()) - timedelta(days=1)
@@ -333,6 +333,7 @@ def load(folder=DIR):
             k = day.isoformat()
             if day.weekday() < 5:
                 if (days.get(k) or {}).get("complete"):
+                    read += 1
                     if not pending:
                         through = k
                 elif k not in (st.get("no_index") or []):
@@ -340,6 +341,7 @@ def load(folder=DIR):
             day += timedelta(days=1)
     spy = (_read(os.path.join(folder, "spy.json"), {}) or {}).get("px") or []
     return {"months": months, "buys": buys, "spy": spy, "through": through, "pending": pending,
+            "read": read, "last_q": last_q,
             "quarters": st.get("quarters") or [], "updated": st.get("updated")}
 
 
@@ -362,14 +364,18 @@ def radar(buys, today, universe=(), window=WINDOW, min_value=MIN_VALUE):
     """Le aziende di tutto il mercato con acquisti degli insider negli ultimi `window` giorni.
 
     Contano gli acquisti sul mercato di amministratori e dirigenti, a un prezzo
-    di almeno MIN_PRICE dollari; un'azienda entra se insieme hanno comprato per
-    almeno `min_value` dollari. Gli acquisti di chi possiede più del 10% senza
+    di almeno MIN_PRICE dollari, in società con un simbolo di borsa (senza,
+    sono fondi non quotati o società private: i loro amministratori che
+    "comprano" sottoscrivono quote); un'azienda entra se insieme hanno comprato
+    per almeno `min_value` dollari. Gli acquisti di chi possiede più del 10% senza
     essere amministratore o dirigente (spesso fondi) si mostrano a parte.
     """
     start = (date.fromisoformat(today) - timedelta(days=window)).isoformat()
     seen, by = set(), {}
     for b in buys:
         if not (start <= b["d"] <= today) or (b.get("p") or 0) < MIN_PRICE or (b.get("v") or 0) <= 0:
+            continue
+        if not b.get("t"):                # senza simbolo di borsa: fondi non quotati, società private
             continue
         k = (b["a"], b["d"], b["o"], b["sh"], b["p"])
         if k in seen:                     # lo stesso acquisto da due fonti

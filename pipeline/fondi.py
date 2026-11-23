@@ -23,17 +23,19 @@ Il dato è lento: arriva fino a 45 giorni dopo la fine del trimestre. La prova
 all'indietro (pipeline/predict.py) lo usa solo dal 46° giorno.
 
 **Come si trova l'azienda nel file.** Il 13F identifica un titolo con il CUSIP,
-che la pipeline non ha. Per ogni CUSIP si prende il nome dell'emittente più
-scritto dai gestori, lo si ripulisce (maiuscole, niente "INC", "CORP", "/DE/",
-abbreviazioni sciolte) e lo si confronta con il nome dell'azienda alla SEC. Se
-più CUSIP corrispondono, vince quello con più detentori: la classe principale.
+che la pipeline non ha. Il nome dell'emittente scritto dai gestori, ripulito
+(maiuscole, niente "INC", "CORP", "/DE/", abbreviazioni sciolte), si confronta
+con il nome dell'azienda alla SEC; fra i CUSIP che corrispondono vince quello
+con più detentori, la classe principale. Poi si contano tutte le righe con quel
+CUSIP, anche quelle in cui il nome è scritto in un altro modo.
 L'indice del sito elenca le corrispondenze trovate, per un controllo a mano;
 in config.json, "cusip", si può fissare quella giusta.
 
 Le correzioni (13F-HR/A) non si leggono: si usa il deposito originale, e se un
-gestore ne ha fatti due per lo stesso trimestre, il più recente. Un trimestre
-può avere qualche deposito in ritardo nel file dei tre mesi dopo: si tiene il
-file che ne ha di più.
+gestore ne ha fatti due per lo stesso trimestre, il più recente. Di ogni file si
+tiene solo il trimestre principale: i depositi in ritardo di trimestri vecchi
+(o con date sbagliate, ce ne sono del 2001) farebbero trimestri con poche
+decine di gestori, e un'ampiezza che non vuol dire niente.
 """
 import io
 import json
@@ -49,7 +51,8 @@ from .mercato import _download, _listing, _read, _write, sec_date
 LIST_13F = ("https://www.sec.gov/data-research/sec-markets-data/form-13f-data-sets",
             "https://www.sec.gov/dera/data/form-13f")
 FIRST_YEAR = 2015            # dieci anni di trimestri, più uno per la prima variazione
-FILES_PER_RUN = 6            # ogni file sono circa 90 MB: sei per giro
+FILES_PER_RUN = 10           # ogni file sono circa 90 MB: dieci per giro, un minuto l'uno
+VERSION = 2                  # cambia quando cambia il modo di leggere i file: si rileggono tutti
 DEADLINE = 45                # giorni dopo la fine del trimestre entro cui si deposita
 
 STOP = {"INC", "INCORPORATED", "CORP", "CORPORATION", "CO", "COMPANY", "LTD", "LIMITED", "PLC",
@@ -140,10 +143,22 @@ def _rows(zf, stem):
 def read_13f(path, companies, fixed=None):
     """Uno zip 13F -> {trimestre: {"N": gestori, "co": {ticker: {"h", "sh", "cusip", "name"}}}}.
 
-    `companies`: {ticker: nome}; `fixed`: {ticker: CUSIP} scelti a mano.
+    `companies`: {ticker: nome o nomi}; `fixed`: {ticker: CUSIP} scelti a mano.
+
+    Un file contiene un trimestre principale (quello dei depositi puntuali) e
+    qualche deposito in ritardo di trimestri vecchi, o con date sbagliate: si
+    tiene solo il principale, quello con più gestori. Poi due passate sulla
+    tabella delle posizioni:
+
+    1. **dal nome al CUSIP**: le righe il cui emittente corrisponde a una delle
+       nostre aziende dicono quale CUSIP le appartiene (vince quello con più
+       detentori);
+    2. **dal CUSIP ai detentori**: si contano tutte le righe con quel CUSIP,
+       comunque il gestore abbia scritto il nome ("GENERAL MTRS CO",
+       "ESTEE LAUDER COMPANIES-CL A"…). Bastano le prime otto cifre:
+       la nona è solo di controllo, e qualcuno la sbaglia.
     """
-    fixed = {t: c.upper() for t, c in (fixed or {}).items()}
-    by_cusip = {c: t for t, c in fixed.items()}
+    fixed = {t: c.upper()[:8] for t, c in (fixed or {}).items()}
     match = matcher(companies)
     with zipfile.ZipFile(path) as zf:
         latest = {}                           # (gestore, trimestre) -> (data di deposito, accessione)
@@ -157,45 +172,59 @@ def read_13f(path, companies, fixed=None):
             k = (g("CIK").lstrip("0"), per)
             if k not in latest or (fd, g("ACCESSION_NUMBER")) > latest[k]:
                 latest[k] = (fd, g("ACCESSION_NUMBER"))
-        acc = {a: k for k, (_, a) in latest.items()}
         n_by = {}
         for (cik, per) in latest:
             n_by[per] = n_by.get(per, 0) + 1
-        cand = {}                             # (trimestre, ticker, cusip) -> [gestori, azioni, nomi]
-        pos = None
-        for idx, v in _rows(zf, "INFOTABLE"):
-            if pos is None:                   # tre milioni di righe a file: niente ricerche per nome
-                pos = [idx.get(c, -1) for c in ("ACCESSION_NUMBER", "SSHPRNAMTTYPE", "PUTCALL",
-                                                "CUSIP", "NAMEOFISSUER", "SSHPRNAMT")]
-                ia, it, ip, ic, iname, ish = pos
-            if len(v) <= max(pos):
-                v = v + [""] * (max(pos) + 1 - len(v))
-            k = acc.get(v[ia])
-            if not k or v[it].strip().upper() != "SH" or (ip >= 0 and v[ip].strip()):
-                continue
-            cusip = v[ic].strip().upper()
-            t = by_cusip.get(cusip)
-            nm = v[iname].strip()
-            if t is None:
-                t = match(nm)
-                if t is None or t in fixed:
+        if not n_by:
+            return {}
+        main = max(n_by, key=n_by.get)        # il trimestre principale del file
+        acc = {a: k[0] for k, (_, a) in latest.items() if k[1] == main}
+
+        def rows():
+            pos = None
+            for idx, v in _rows(zf, "INFOTABLE"):
+                if pos is None:               # tre milioni di righe a file: niente ricerche per nome
+                    pos = [idx.get(c, -1) for c in ("ACCESSION_NUMBER", "SSHPRNAMTTYPE", "PUTCALL",
+                                                    "CUSIP", "NAMEOFISSUER", "SSHPRNAMT")]
+                    ia, it, ip, ic, iname, ish = pos
+                if len(v) <= max(pos):
+                    v = v + [""] * (max(pos) + 1 - len(v))
+                who = acc.get(v[ia])
+                if not who or v[it].strip().upper() != "SH" or (ip >= 0 and v[ip].strip()):
                     continue
-            c = cand.get((k[1], t, cusip))
-            if c is None:
-                c = cand[(k[1], t, cusip)] = [set(), 0.0, {}]
-            c[0].add(k[0])
+                yield who, v[ic].strip().upper(), v[iname].strip(), v[ish]
+
+        # 1. dal nome al CUSIP
+        cand = {}                             # (ticker, cusip a 8) -> gestori
+        for who, cusip, nm, _ in rows():
+            t = match(nm)
+            if t is not None and t not in fixed and len(cusip) >= 8:
+                cand.setdefault((t, cusip[:8]), set()).add(who)
+        best = dict(fixed)
+        size = {}
+        for (t, c8), w in cand.items():
+            if len(w) > size.get(t, 0):
+                best[t], size[t] = c8, len(w)
+        by8 = {c8: t for t, c8 in best.items()}
+        # 2. dal CUSIP ai detentori
+        agg = {}                              # ticker -> [gestori, azioni, nomi, cusip completi]
+        for who, cusip, nm, sh in rows():
+            t = by8.get(cusip[:8])
+            if t is None:
+                continue
+            a = agg.get(t)
+            if a is None:
+                a = agg[t] = [set(), 0.0, {}, {}]
+            a[0].add(who)
             try:
-                c[1] += float(v[ish] or 0)
+                a[1] += float(sh or 0)
             except ValueError:
                 pass
-            c[2][nm] = c[2].get(nm, 0) + 1
-    out = {}
-    for (per, t, cusip), (who, sh, names) in cand.items():
-        cur = out.setdefault(per, {"N": n_by.get(per, 0), "co": {}})["co"].get(t)
-        if cur is None or len(who) > cur["h"]:
-            out[per]["co"][t] = {"h": len(who), "sh": round(sh), "cusip": cusip,
-                                 "name": max(names, key=names.get)}
-    return out
+            a[2][nm] = a[2].get(nm, 0) + 1
+            a[3][cusip] = a[3].get(cusip, 0) + 1
+    co = {t: {"h": len(w), "sh": round(sh), "cusip": max(cs, key=cs.get), "name": max(nms, key=nms.get)}
+          for t, (w, sh, nms, cs) in agg.items()}
+    return {main: {"N": n_by[main], "co": co}}
 
 
 def update(folder, until, max_files=FILES_PER_RUN, companies=None, fixed=None):
@@ -206,7 +235,7 @@ def update(folder, until, max_files=FILES_PER_RUN, companies=None, fixed=None):
     st = _read(st_path, {}) or {}
     done = set(st.get("files") or [])
     # la corrispondenza dei nomi è cambiata (aziende nuove, CUSIP fissati a mano): si rifà tutto
-    sig = json.dumps([sorted(companies.items()), sorted((fixed or {}).items())])
+    sig = json.dumps([VERSION, sorted(companies.items()), sorted((fixed or {}).items())])
     if st.get("sig") != sig:
         done = set()
         st["sig"] = sig
