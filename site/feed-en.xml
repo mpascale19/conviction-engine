@@ -5,8 +5,16 @@
   <link>https://mpascale19.github.io/conviction-engine/?lang=en</link>
   <description>Open-market insider purchases at 200 US companies, from the Form 4 filings at the SEC, with the conviction score at that moment. A teaching tool, not investment advice.</description>
   <language>en</language>
-  <lastBuildDate>Mon, 23 Nov 2026 22:19:26 GMT</lastBuildDate>
+  <lastBuildDate>Mon, 23 Nov 2026 23:04:51 GMT</lastBuildDate>
   <atom:link href="https://mpascale19.github.io/conviction-engine/feed-en.xml" rel="self" type="application/rss+xml" />
+  <item>
+   <title>TEAM: Cannon-Brookes Michael (CEO, Co-Founder) buys $1.8m</title>
+   <link>https://mpascale19.github.io/conviction-engine/?lang=en#TEAM</link>
+   <description>Atlassian Corp. Open-market purchase on November 20, 2026: 13,400 shares at $136.14 on average, $1.8m in total. Company score at that moment: 58/100, mildly bullish.</description>
+   <category>purchase</category>
+   <guid isPermaLink="false">TEAM-2026-11-20-cannon-brookes-michael-buy</guid>
+   <pubDate>Mon, 23 Nov 2026 23:04:51 GMT</pubDate>
+  </item>
   <item>
    <title>URI: Taussig Alexander R. (Director) buys $150,086</title>
    <link>https://mpascale19.github.io/conviction-engine/?lang=en#URI</link>
