@@ -183,12 +183,9 @@ def parse_av(payload):
 
 def fetch(ticker, label, key, get=None):
     if get is None:
-        import requests
-
+        # la stessa funzione degli utili: tiene la pausa fra una richiesta e l'altra
         def get(params):
-            r = requests.get(AV, params=params, timeout=60)
-            r.raise_for_status()
-            return r.json()
+            return json.loads(alphavantage.request(params, key))
     return parse_av(get({"function": "EARNINGS_CALL_TRANSCRIPT", "symbol": ticker,
                          "quarter": label, "apikey": key}))
 
@@ -276,7 +273,15 @@ def main():
                 time.sleep(0.15)
             lab = fiscal_label(day, fy_end[t])
             used += 1
-            rows = fetch(t, lab, key)
+            try:
+                rows = fetch(t, lab, key)
+            except alphavantage.Burst:
+                # troppe richieste in un secondo, non nel giorno: si aspetta e si riprova
+                log.append(f"PAUSA Alpha Vantage chiede di rallentare: aspetto {alphavantage.BURST_WAIT} "
+                           f"secondi e riprovo {t}")
+                time.sleep(alphavantage.BURST_WAIT)
+                used += 1
+                rows = fetch(t, lab, key)      # un secondo Burst è un Limit: il giro si ferma
             time.sleep(1.5)
             why = getattr(parse_av, "note", "") or "nessuna trascrizione"
             if rows and not call_matches(rows, lab):

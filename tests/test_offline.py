@@ -1369,6 +1369,91 @@ _u, _lg, _stop = AVM.update(tempfile.mkdtemp(), _uni, "k", budget=25, today=date
 check("anche un errore inatteso si scrive e non fa cadere il programma",
       not _stop and any("RuntimeError" in x for x in _lg), _lg)
 
+# 23/11/2026, secondo giro: richieste troppo ravvicinate. Alpha Vantage ne
+# regge una al secondo; il suo messaggio cita anche le 25 al giorno e veniva
+# preso per il limite del giorno. E un calendario vuoto era stato salvato.
+_burst = json.dumps({"Information": "Thank you for using Alpha Vantage! Please consider spreading out your free "
+                                    "API requests more sparingly (1 request per second). You may subscribe to any "
+                                    "of the premium plans at https://www.alphavantage.co/premium/ to lift the free "
+                                    "key rate limit (25 requests per day), raise the per-second burst limit"})
+try:
+    AVM.parse_earnings(_burst)
+    check("il messaggio «rallenta» si riconosce come tale", False)
+except AVM.Burst as e:
+    check("il messaggio «rallenta» si riconosce come tale, non come limite del giorno", isinstance(e, AVM.Limit))
+try:
+    AVM.parse_earnings(_lim)
+    check("il limite del giorno resta il limite del giorno", False)
+except AVM.Burst:
+    check("il limite del giorno resta il limite del giorno", False)
+except AVM.Limit:
+    check("il limite del giorno resta il limite del giorno", True)
+
+
+def _burstget(times):
+    left = {"n": times}
+
+    def g(params):
+        _asked.append(params["function"])
+        if params["function"] == "EARNINGS_CALENDAR" and left["n"] > 0:
+            left["n"] -= 1
+            return _burst
+        return _avget(params)
+    return g
+
+
+_asked.clear()
+_d3 = tempfile.mkdtemp()
+_u, _lg, _stop = AVM.update(_d3, _uni, "k", budget=25, today=date(2026, 11, 23), per_day=1, get=_burstget(1))
+check("dopo un «rallenta» si aspetta, si riprova e il calendario arriva",
+      not _stop and AVM.load(_d3)["next"].get("AAPL") and any(x.startswith("PAUSA") for x in _lg), _lg)
+check("e la richiesta ripetuta si conta", _u == 4, _u)
+_u, _lg, _stop = AVM.update(tempfile.mkdtemp(), _uni, "k", budget=25, today=date(2026, 11, 23), get=_burstget(2))
+check("due «rallenta» di fila fermano il giro", _stop and _lg[-1].startswith("STOP"), _lg)
+check("un CSV con il BOM all'inizio si legge lo stesso",
+      list(AVM.parse_calendar("﻿" + _cal, ["NVDA"])) == ["NVDA"])
+for _empty in ("", "symbol,name,reportDate,fiscalDateEnding,estimate,currency\n"):
+    try:
+        AVM.parse_calendar(_empty, ["NVDA"])
+        check("un calendario vuoto è un errore, non un calendario", False)
+    except ValueError:
+        check("un calendario vuoto è un errore, non un calendario", True)
+try:
+    AVM.parse_calendar(_cal, ["XXXX"])
+    check("un calendario senza nessuna azienda dell'universo è un errore", False)
+except ValueError:
+    check("un calendario senza nessuna azienda dell'universo è un errore", True)
+_d4 = tempfile.mkdtemp()
+os.makedirs(_d4, exist_ok=True)
+json.dump({"calendar_on": "2026-11-23"}, open(os.path.join(_d4, "stato.json"), "w"))
+json.dump({"on": "2026-11-23", "next": {}, "seen": {}}, open(os.path.join(_d4, "calendario.json"), "w"))
+_asked.clear()
+AVM.update(_d4, _uni, "k", budget=25, today=date(2026, 11, 23), per_day=0, get=_avget)
+check("un calendario vuoto salvato oggi si richiede lo stesso giorno", "EARNINGS_CALENDAR" in _asked, _asked)
+
+# con la rete vera, fra due richieste passa almeno PAUSE secondi, anche per le trascrizioni
+import requests as _rq
+_slept, _orig = [], (_rq.get, AVM.time.sleep)
+
+
+class _Resp:
+    content = json.dumps({"symbol": "X", "transcript": []}).encode()
+
+    def raise_for_status(self):
+        pass
+
+
+_rq.get = lambda *a, **k: _Resp()
+AVM.time.sleep = lambda x: _slept.append(x)
+try:
+    AVM._last[0] = 0.0
+    AVM.request({"function": "EARNINGS", "symbol": "X"}, "k")
+    TR.fetch("X", "2026Q3", "k")
+finally:
+    _rq.get, AVM.time.sleep = _orig
+check("fra una richiesta e la successiva si aspetta (anche fra utili e trascrizioni)",
+      len(_slept) == 1 and _slept[0] > AVM.PAUSE - .2, _slept)
+
 # quando rileggere gli utili di un'azienda che li ha già
 _st = {"earnings_on": {"AAA": "2026-10-01"}}
 _rep = {"AAA": ["2026-11-01"]}

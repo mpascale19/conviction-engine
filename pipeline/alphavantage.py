@@ -32,6 +32,7 @@ import csv
 import io
 import json
 import os
+import time
 from datetime import date, timedelta
 
 AV = "https://www.alphavantage.co/query"
@@ -43,17 +44,30 @@ RETRY_DAYS = 3            # dopo una trimestrale, per quanti giorni riprovare se
 REPORT_LOOKBACK = 120     # le trimestrali degli ultimi 120 giorni fanno rileggere gli utili
 KEEP_QUARTERS = 32        # otto anni di trimestri: la prova all'indietro ne usa cinque
 SURPRISE_DAYS = 100       # una trimestrale "conta" per i 100 giorni dopo l'annuncio
+PAUSE = 1.5               # secondi fra una richiesta e l'altra: la chiave gratuita ne regge una al secondo
+BURST_WAIT = 10           # se Alpha Vantage chiede di rallentare, quanto aspettare prima di riprovare
 
 
 class Limit(Exception):
     """Alpha Vantage dice che le richieste di oggi sono finite (o che la chiave non va)."""
 
 
+class Burst(Limit):
+    """Alpha Vantage dice di rallentare: troppe richieste in un secondo, non nel giorno.
+
+    È una sottoclasse di Limit, così chi non la gestisce si ferma come prima;
+    chi la gestisce aspetta e riprova una volta.
+    """
+
+
 LIMIT_WORDS = ("rate limit", "requests per day", "premium", "frequency", "25 requests", "apikey")
+# Il messaggio del limite al secondo cita anche le 25 al giorno: va riconosciuto
+# per primo, altrimenti sembra quello del giorno (è successo il 23/11/2026).
+BURST_WORDS = ("per second", "spreading out", "burst", "more sparingly")
 
 
 def limit_note(payload):
-    """Il messaggio di Alpha Vantage in una risposta JSON, e Limit se dice che oggi è finita.
+    """Il messaggio di Alpha Vantage in una risposta JSON; Burst o Limit se dice di fermarsi.
 
     Alpha Vantage risponde sempre 200: l'errore sta nel testo, nei campi
     Information, Note o Error Message.
@@ -61,20 +75,35 @@ def limit_note(payload):
     if not isinstance(payload, dict):
         return ""
     note = " ".join(str(payload.get(k, "")) for k in ("Information", "Note", "Error Message")).strip()
-    if any(w in note.lower() for w in LIMIT_WORDS):
+    low = note.lower()
+    if any(w in low for w in BURST_WORDS):
+        raise Burst(note[:300])
+    if any(w in low for w in LIMIT_WORDS):
         raise Limit(note[:300])
     return note[:200]
 
 
+_last = [0.0]      # quando è partita l'ultima richiesta vera, per tutto il programma
+
+
 def _default_get(params):
     import requests
+    wait = _last[0] + PAUSE - time.monotonic()
+    if wait > 0:
+        time.sleep(wait)
+    _last[0] = time.monotonic()
     r = requests.get(AV, params=params, timeout=60)
     r.raise_for_status()
-    return r.text
+    # utf-8-sig toglie l'eventuale BOM all'inizio dei CSV, che rovinerebbe il nome della prima colonna
+    return r.content.decode("utf-8-sig", errors="replace")
 
 
 def request(params, key, get=None):
-    """Il testo della risposta. `get(params) -> testo` si può sostituire nei test."""
+    """Il testo della risposta. `get(params) -> testo` si può sostituire nei test.
+
+    Con la rete vera fra una richiesta e l'altra passano almeno PAUSE secondi,
+    anche fra questa parte e le trascrizioni, che usano la stessa funzione.
+    """
     return (get or _default_get)(dict(params, apikey=key))
 
 
@@ -89,11 +118,12 @@ def _num(x):
 
 def parse_csv(text):
     """CSV -> righe. Un JSON al posto del CSV è un messaggio d'errore."""
-    s = (text or "").lstrip()
+    s = (text or "").lstrip("\ufeff").lstrip()
     if s.startswith("{"):
         note = limit_note(json.loads(s))
         raise ValueError(note or f"nessun CSV, Alpha Vantage ha risposto {s[:80]!r}")
-    return list(csv.DictReader(io.StringIO(s)))
+    return [{(k or "").strip().lstrip("\ufeff"): v for k, v in r.items()}
+            for r in csv.DictReader(io.StringIO(s))]
 
 
 def parse_listing(text, wanted):
@@ -111,15 +141,26 @@ def parse_listing(text, wanted):
 
 
 def parse_calendar(text, wanted):
-    """EARNINGS_CALENDAR -> {ticker: [{date, fiscal_end, estimate}]} in ordine di data."""
+    """EARNINGS_CALENDAR -> {ticker: [{date, fiscal_end, estimate}]} in ordine di data.
+
+    Un calendario senza righe, o senza nessuna azienda dell'universo, è una
+    risposta sbagliata (in tre mesi duecento grandi aziende annunciano per
+    forza): ValueError, così non si salva al posto di quello buono. Il 23/11/2026
+    ne era arrivato uno vuoto ed era stato preso per buono.
+    """
     wanted = set(wanted)
     out = {}
-    for r in parse_csv(text):
+    rows = parse_csv(text)
+    if not rows:
+        raise ValueError(f"calendario senza righe, Alpha Vantage ha risposto {(text or '')[:80]!r}")
+    for r in rows:
         t = (r.get("symbol") or "").strip().upper()
         d = (r.get("reportDate") or "").strip()
         if t in wanted and len(d) == 10:
             out.setdefault(t, []).append({"date": d, "fiscal_end": (r.get("fiscalDateEnding") or "").strip() or None,
                                           "estimate": _num(r.get("estimate"))})
+    if not out:
+        raise ValueError(f"nel calendario ({len(rows)} righe) non c'è nessuna azienda dell'universo")
     for v in out.values():
         v.sort(key=lambda x: x["date"])
     return out
@@ -217,6 +258,16 @@ def update(folder, tickers, key, budget, today=None, reports=None, per_day=EARNI
         used += 1
         return request(params, key, get)
 
+    def call(params, parse):
+        """Una richiesta letta con `parse`; se Alpha Vantage chiede di rallentare, aspetta e riprova una volta."""
+        try:
+            return parse(ask(params))
+        except Burst:
+            log.append(f"PAUSA Alpha Vantage chiede di rallentare: aspetto {BURST_WAIT} secondi e riprovo")
+            if get is None:
+                time.sleep(BURST_WAIT)
+            return parse(ask(params))          # un secondo Burst è un Limit: il giro si ferma
+
     stopped = False
     try:
         # 1. l'elenco dei titoli quotati: una richiesta alla settimana. Se va
@@ -225,7 +276,7 @@ def update(folder, tickers, key, budget, today=None, reports=None, per_day=EARNI
         last = state.get("listing_on")
         if budget - used >= 1 and (not last or (today - date.fromisoformat(last)).days >= LISTING_DAYS):
             try:
-                active = parse_listing(ask({"function": "LISTING_STATUS"}), tickers)
+                active = call({"function": "LISTING_STATUS"}, lambda x: parse_listing(x, tickers))
                 if len(active) < LISTING_MIN_SHARE * len(tickers):
                     raise ValueError(f"l'elenco ha solo {len(active)} dei {len(tickers)} ticker: non lo uso")
                 _write(p["listing"], {"on": today.isoformat(), "active": active, "delisted": {}})
@@ -238,9 +289,10 @@ def update(folder, tickers, key, budget, today=None, reports=None, per_day=EARNI
 
         # 2. il calendario delle trimestrali: una richiesta al giorno
         cal = _read(p["calendar"], {})
-        if budget - used >= 1 and state.get("calendar_on") != today.isoformat():
+        if budget - used >= 1 and (state.get("calendar_on") != today.isoformat() or not cal.get("next")):
             try:
-                nxt = parse_calendar(ask({"function": "EARNINGS_CALENDAR", "horizon": "3month"}), tickers)
+                nxt = call({"function": "EARNINGS_CALENDAR", "horizon": "3month"},
+                           lambda x: parse_calendar(x, tickers))
                 seen = cal.get("seen") or {}
                 for t, rows in nxt.items():
                     seen[t] = sorted(set(seen.get(t) or []) | {r["date"] for r in rows})[-8:]
@@ -266,7 +318,7 @@ def update(folder, tickers, key, budget, today=None, reports=None, per_day=EARNI
                 break
             n += 1
             try:
-                rows = parse_earnings(ask({"function": "EARNINGS", "symbol": t}))
+                rows = call({"function": "EARNINGS", "symbol": t}, parse_earnings)
             except Limit:
                 raise
             except Exception as e:            # un'azienda che non va non ferma le altre

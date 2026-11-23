@@ -211,6 +211,16 @@ riepilogo come riga `ERR` e il giro continua con gli altri e con le
 trascrizioni; un elenco dei titoli con meno di metà dell'universo non si usa,
 perché farebbe comparire cento avvisi falsi.
 
+Oltre alle 25 al giorno c'è un secondo limite: al massimo una richiesta al
+secondo. Il secondo giro del 23 novembre l'ha superato (le richieste di questa
+parte partivano una dietro l'altra) e il messaggio, che cita anche le 25 al
+giorno, è stato preso per il limite del giorno; nella stessa raffica il
+calendario è arrivato vuoto ed è stato salvato. Ora fra una richiesta e l'altra
+passano almeno 1,5 secondi, anche fra gli utili e le trascrizioni; se Alpha
+Vantage chiede comunque di rallentare, il giro aspetta dieci secondi e riprova
+una volta; un calendario vuoto o senza nessuna azienda dell'universo non si
+salva e si richiede al giro dopo.
+
 **Chi usa le 25 richieste.** Sono una quota sola, e passano tutte dal workflow
 **Scarica trascrizioni**, una volta al giorno. Prima l'elenco dei titoli, se ha
 più di una settimana; poi il calendario; poi gli utili di al massimo 12 aziende
