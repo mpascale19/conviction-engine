@@ -1,6 +1,6 @@
 {
- "generated_at": "2026-11-23T10:00:10+00:00",
- "changed_at": "2026-11-23T09:54:19+00:00",
+ "generated_at": "2026-11-23T10:06:59+00:00",
+ "changed_at": "2026-11-23T10:06:59+00:00",
  "groups": [
   {
    "nome": {
@@ -207,8 +207,22 @@
    "avg": 1.69,
    "med": 1.03
   },
-  "beat": null,
-  "nobeat": null,
+  "beat": {
+   "camp": 43,
+   "ep": 71,
+   "n": 99,
+   "pos": 17,
+   "avg": -1.27,
+   "med": -0.97
+  },
+  "nobeat": {
+   "camp": 19,
+   "ep": 35,
+   "n": 46,
+   "pos": 11,
+   "avg": 2.19,
+   "med": 2.66
+  },
   "bonus": {
    "tau": 5.0,
    "camp": 514,
@@ -263,18 +277,18 @@
     },
     {
      "id": "beat",
-     "n": 0,
+     "n": 43,
      "hand": 0,
-     "known": 0,
-     "raw": null,
-     "se": null,
-     "shrink": 0.0,
-     "post": 0.0,
-     "points": 0,
+     "known": 62,
+     "raw": -2.84,
+     "se": 2.97,
+     "shrink": 0.739,
+     "post": -2.1,
+     "points": -2,
      "by_tau": {
-      "3": 0,
-      "5": 0,
-      "10": 0
+      "3": -1,
+      "5": -2,
+      "10": -3
      }
     }
    ]
@@ -303,7 +317,7 @@
   "hi": 2.0,
   "top": 10,
   "equal": {
-   "rho": 0.945,
+   "rho": 0.946,
    "shift": 1.9,
    "top": 8
   },
@@ -311,25 +325,25 @@
    {
     "id": "insider",
     "n": 200,
-    "rho": 0.728,
+    "rho": 0.73,
     "shift": 4.3
    },
    {
     "id": "guid",
-    "n": 20,
-    "rho": 0.806,
-    "shift": 4.4
+    "n": 22,
+    "rho": 0.747,
+    "shift": 4.2
    },
    {
     "id": "market",
     "n": 200,
-    "rho": 0.857,
+    "rho": 0.861,
     "shift": 2.5
    },
    {
     "id": "sector",
     "n": 200,
-    "rho": 0.973,
+    "rho": 0.974,
     "shift": 1.0
    },
    {
@@ -346,13 +360,13 @@
    }
   ],
   "rho": {
-   "med": 0.979,
-   "p5": 0.934,
-   "min": 0.859
+   "med": 0.978,
+   "p5": 0.935,
+   "min": 0.863
   },
   "top_overlap": {
    "med": 9,
-   "min": 6
+   "min": 5
   },
   "width_med": 5,
   "kept_avg": 89
@@ -419,7 +433,7 @@
   "head": null
  },
  "alphavantage": {
-  "earnings": 0,
+  "earnings": 12,
   "total": 200,
   "calendar_on": "2026-11-23",
   "listing_on": "2026-11-23",
@@ -433,7 +447,7 @@
     "it": "Energia",
     "en": "Energy"
    },
-   "score": 67,
+   "score": 66,
    "verdict": {
     "it": "Convinzione rialzista moderata",
     "en": "Moderate bullish conviction"
@@ -467,7 +481,7 @@
     "it": "Sanità",
     "en": "Health care"
    },
-   "score": 64,
+   "score": 63,
    "verdict": {
     "it": "Leggermente rialzista",
     "en": "Mildly bullish"
@@ -535,7 +549,7 @@
     "it": "Energia",
     "en": "Energy"
    },
-   "score": 61,
+   "score": 60,
    "verdict": {
     "it": "Leggermente rialzista",
     "en": "Mildly bullish"
@@ -558,40 +572,6 @@
    "buyers": 1,
    "sellers": 0,
    "net_musd": 0.531,
-   "cluster": false,
-   "errors": 0,
-   "next_report": null
-  },
-  {
-   "ticker": "ADM",
-   "name": "Archer-Daniels-Midland Co",
-   "group": {
-    "it": "Beni di prima necessità",
-    "en": "Consumer staples"
-   },
-   "score": 61,
-   "verdict": {
-    "it": "Leggermente rialzista",
-    "en": "Mildly bullish"
-   },
-   "confidence": "Alta",
-   "covered_pct": 100,
-   "driver": {
-    "name": {
-     "it": "Guidance e tono",
-     "en": "Guidance and tone"
-    },
-    "up": true
-   },
-   "last": {
-    "d": "2026-11-20",
-    "c": 66.95,
-    "v": 4639700
-   },
-   "tx": 301,
-   "buyers": 1,
-   "sellers": 0,
-   "net_musd": 0.197,
    "cluster": false,
    "errors": 0,
    "next_report": null
@@ -631,13 +611,47 @@
    "next_report": null
   },
   {
+   "ticker": "ADM",
+   "name": "Archer-Daniels-Midland Co",
+   "group": {
+    "it": "Beni di prima necessità",
+    "en": "Consumer staples"
+   },
+   "score": 60,
+   "verdict": {
+    "it": "Leggermente rialzista",
+    "en": "Mildly bullish"
+   },
+   "confidence": "Alta",
+   "covered_pct": 100,
+   "driver": {
+    "name": {
+     "it": "Guidance e tono",
+     "en": "Guidance and tone"
+    },
+    "up": true
+   },
+   "last": {
+    "d": "2026-11-20",
+    "c": 66.95,
+    "v": 4639700
+   },
+   "tx": 301,
+   "buyers": 1,
+   "sellers": 0,
+   "net_musd": 0.197,
+   "cluster": false,
+   "errors": 0,
+   "next_report": null
+  },
+  {
    "ticker": "ORCL",
    "name": "ORACLE CORP",
    "group": {
     "it": "Grandi capitalizzazioni USA",
     "en": "US large caps"
    },
-   "score": 59,
+   "score": 58,
    "verdict": {
     "it": "Leggermente rialzista",
     "en": "Mildly bullish"
@@ -662,7 +676,7 @@
    "net_musd": 3.085,
    "cluster": false,
    "errors": 0,
-   "next_report": null
+   "next_report": "2026-12-14"
   },
   {
    "ticker": "TEAM",
@@ -671,7 +685,7 @@
     "it": "Software",
     "en": "Software"
    },
-   "score": 59,
+   "score": 58,
    "verdict": {
     "it": "Leggermente rialzista",
     "en": "Mildly bullish"
@@ -764,7 +778,7 @@
    "net_musd": 0.0,
    "cluster": false,
    "errors": 0,
-   "next_report": null
+   "next_report": "2027-01-13"
   },
   {
    "ticker": "FTNT",
@@ -866,7 +880,7 @@
    "net_musd": 0.0,
    "cluster": false,
    "errors": 0,
-   "next_report": null
+   "next_report": "2026-11-24"
   },
   {
    "ticker": "COF",
@@ -898,40 +912,6 @@
    "buyers": 0,
    "sellers": 0,
    "net_musd": 0.0,
-   "cluster": false,
-   "errors": 0,
-   "next_report": null
-  },
-  {
-   "ticker": "UMBF",
-   "name": "UMB FINANCIAL CORP",
-   "group": {
-    "it": "Banche regionali",
-    "en": "Regional banks"
-   },
-   "score": 56,
-   "verdict": {
-    "it": "Leggermente rialzista",
-    "en": "Mildly bullish"
-   },
-   "confidence": "Alta",
-   "covered_pct": 100,
-   "driver": {
-    "name": {
-     "it": "Guidance e tono",
-     "en": "Guidance and tone"
-    },
-    "up": true
-   },
-   "last": {
-    "d": "2026-11-20",
-    "c": 126.5,
-    "v": 690400
-   },
-   "tx": 2623,
-   "buyers": 2,
-   "sellers": 1,
-   "net_musd": 0.153,
    "cluster": false,
    "errors": 0,
    "next_report": null
@@ -1000,6 +980,40 @@
    "buyers": 0,
    "sellers": 2,
    "net_musd": -1.131,
+   "cluster": false,
+   "errors": 0,
+   "next_report": null
+  },
+  {
+   "ticker": "UMBF",
+   "name": "UMB FINANCIAL CORP",
+   "group": {
+    "it": "Banche regionali",
+    "en": "Regional banks"
+   },
+   "score": 55,
+   "verdict": {
+    "it": "Leggermente rialzista",
+    "en": "Mildly bullish"
+   },
+   "confidence": "Alta",
+   "covered_pct": 100,
+   "driver": {
+    "name": {
+     "it": "Guidance e tono",
+     "en": "Guidance and tone"
+    },
+    "up": true
+   },
+   "last": {
+    "d": "2026-11-20",
+    "c": 126.5,
+    "v": 690400
+   },
+   "tx": 2623,
+   "buyers": 2,
+   "sellers": 1,
+   "net_musd": 0.153,
    "cluster": false,
    "errors": 0,
    "next_report": null
@@ -1172,7 +1186,7 @@
    "net_musd": -0.173,
    "cluster": false,
    "errors": 0,
-   "next_report": null
+   "next_report": "2026-12-02"
   },
   {
    "ticker": "PLTR",
@@ -1240,7 +1254,7 @@
    "net_musd": -0.2,
    "cluster": false,
    "errors": 0,
-   "next_report": null
+   "next_report": "2027-01-13"
   },
   {
    "ticker": "TFC",
@@ -1274,7 +1288,7 @@
    "net_musd": 2.225,
    "cluster": false,
    "errors": 0,
-   "next_report": null
+   "next_report": "2027-01-20"
   },
   {
    "ticker": "ADP",
@@ -1410,7 +1424,7 @@
    "net_musd": 0.0,
    "cluster": false,
    "errors": 0,
-   "next_report": null
+   "next_report": "2026-12-09"
   },
   {
    "ticker": "ACLS",
@@ -1512,7 +1526,7 @@
    "net_musd": 0.0,
    "cluster": false,
    "errors": 0,
-   "next_report": null
+   "next_report": "2027-01-19"
   },
   {
    "ticker": "FNB",
@@ -1614,7 +1628,7 @@
    "net_musd": 0.0,
    "cluster": false,
    "errors": 0,
-   "next_report": null
+   "next_report": "2026-11-25"
   },
   {
    "ticker": "F",
@@ -1716,7 +1730,7 @@
    "net_musd": 0.0,
    "cluster": false,
    "errors": 0,
-   "next_report": null
+   "next_report": "2026-12-16"
   },
   {
    "ticker": "AMZN",
@@ -1784,7 +1798,7 @@
    "net_musd": -0.882,
    "cluster": false,
    "errors": 0,
-   "next_report": null
+   "next_report": "2027-01-12"
   },
   {
    "ticker": "WMT",
@@ -1920,7 +1934,7 @@
    "net_musd": 0.0,
    "cluster": false,
    "errors": 0,
-   "next_report": null
+   "next_report": "2026-12-01"
   },
   {
    "ticker": "PGR",
@@ -2022,7 +2036,7 @@
    "net_musd": 0.0,
    "cluster": false,
    "errors": 0,
-   "next_report": null
+   "next_report": "2027-01-20"
   },
   {
    "ticker": "PFE",
@@ -2056,7 +2070,7 @@
    "net_musd": 0.0,
    "cluster": false,
    "errors": 0,
-   "next_report": null
+   "next_report": "2027-02-02"
   },
   {
    "ticker": "LMT",
@@ -2224,6 +2238,40 @@
    "buyers": 1,
    "sellers": 1,
    "net_musd": 19.632,
+   "cluster": false,
+   "errors": 0,
+   "next_report": null
+  },
+  {
+   "ticker": "TSN",
+   "name": "TYSON FOODS, INC.",
+   "group": {
+    "it": "Beni di prima necessità",
+    "en": "Consumer staples"
+   },
+   "score": 52,
+   "verdict": {
+    "it": "Nessuna convinzione chiara",
+    "en": "No clear conviction"
+   },
+   "confidence": "Alta",
+   "covered_pct": 100,
+   "driver": {
+    "name": {
+     "it": "Guidance e tono",
+     "en": "Guidance and tone"
+    },
+    "up": true
+   },
+   "last": {
+    "d": "2026-11-20",
+    "c": 65.12,
+    "v": 7171300
+   },
+   "tx": 436,
+   "buyers": 1,
+   "sellers": 0,
+   "net_musd": 1.002,
    "cluster": false,
    "errors": 0,
    "next_report": null
@@ -2634,7 +2682,7 @@
    "net_musd": 0.0,
    "cluster": false,
    "errors": 0,
-   "next_report": null
+   "next_report": "2027-01-13"
   },
   {
    "ticker": "WAL",
@@ -2943,6 +2991,40 @@
    "next_report": null
   },
   {
+   "ticker": "HRL",
+   "name": "HORMEL FOODS CORP /DE/",
+   "group": {
+    "it": "Beni di prima necessità",
+    "en": "Consumer staples"
+   },
+   "score": 50,
+   "verdict": {
+    "it": "Nessuna convinzione chiara",
+    "en": "No clear conviction"
+   },
+   "confidence": "Alta",
+   "covered_pct": 100,
+   "driver": {
+    "name": {
+     "it": "Mercato",
+     "en": "Market"
+    },
+    "up": false
+   },
+   "last": {
+    "d": "2026-11-20",
+    "c": 23.54,
+    "v": 5150500
+   },
+   "tx": 334,
+   "buyers": 1,
+   "sellers": 0,
+   "net_musd": 0.201,
+   "cluster": false,
+   "errors": 0,
+   "next_report": "2026-12-03"
+  },
+  {
    "ticker": "ADI",
    "name": "ANALOG DEVICES INC",
    "group": {
@@ -2974,7 +3056,7 @@
    "net_musd": -3.495,
    "cluster": false,
    "errors": 0,
-   "next_report": null
+   "next_report": "2026-11-24"
   },
   {
    "ticker": "KLAC",
@@ -3178,7 +3260,7 @@
    "net_musd": 0.0,
    "cluster": false,
    "errors": 0,
-   "next_report": null
+   "next_report": "2027-02-17"
   },
   {
    "ticker": "WMB",
@@ -3351,74 +3433,6 @@
    "next_report": null
   },
   {
-   "ticker": "TSN",
-   "name": "TYSON FOODS, INC.",
-   "group": {
-    "it": "Beni di prima necessità",
-    "en": "Consumer staples"
-   },
-   "score": 49,
-   "verdict": {
-    "it": "Nessuna convinzione chiara",
-    "en": "No clear conviction"
-   },
-   "confidence": "Media",
-   "covered_pct": 80,
-   "driver": {
-    "name": {
-     "it": "Mercato",
-     "en": "Market"
-    },
-    "up": false
-   },
-   "last": {
-    "d": "2026-11-20",
-    "c": 65.12,
-    "v": 7171300
-   },
-   "tx": 436,
-   "buyers": 1,
-   "sellers": 0,
-   "net_musd": 1.002,
-   "cluster": false,
-   "errors": 0,
-   "next_report": null
-  },
-  {
-   "ticker": "HRL",
-   "name": "HORMEL FOODS CORP /DE/",
-   "group": {
-    "it": "Beni di prima necessità",
-    "en": "Consumer staples"
-   },
-   "score": 49,
-   "verdict": {
-    "it": "Nessuna convinzione chiara",
-    "en": "No clear conviction"
-   },
-   "confidence": "Media",
-   "covered_pct": 80,
-   "driver": {
-    "name": {
-     "it": "Mercato",
-     "en": "Market"
-    },
-    "up": false
-   },
-   "last": {
-    "d": "2026-11-20",
-    "c": 23.54,
-    "v": 5150500
-   },
-   "tx": 334,
-   "buyers": 1,
-   "sellers": 0,
-   "net_musd": 0.201,
-   "cluster": false,
-   "errors": 0,
-   "next_report": null
-  },
-  {
    "ticker": "FORM",
    "name": "FORMFACTOR INC",
    "group": {
@@ -3552,7 +3566,7 @@
    "net_musd": 0.0,
    "cluster": false,
    "errors": 0,
-   "next_report": null
+   "next_report": "2026-11-24"
   },
   {
    "ticker": "PNC",
@@ -3620,7 +3634,7 @@
    "net_musd": -0.83,
    "cluster": false,
    "errors": 0,
-   "next_report": null
+   "next_report": "2027-01-20"
   },
   {
    "ticker": "HWC",
@@ -3960,7 +3974,7 @@
    "net_musd": 0.0,
    "cluster": false,
    "errors": 0,
-   "next_report": null
+   "next_report": "2026-12-09"
   },
   {
    "ticker": "LRCX",
@@ -4094,40 +4108,6 @@
    "buyers": 0,
    "sellers": 3,
    "net_musd": -0.678,
-   "cluster": false,
-   "errors": 0,
-   "next_report": null
-  },
-  {
-   "ticker": "CAT",
-   "name": "CATERPILLAR INC",
-   "group": {
-    "it": "Industria",
-    "en": "Industrials"
-   },
-   "score": 47,
-   "verdict": {
-    "it": "Nessuna convinzione chiara",
-    "en": "No clear conviction"
-   },
-   "confidence": "Alta",
-   "covered_pct": 100,
-   "driver": {
-    "name": {
-     "it": "Insider",
-     "en": "Insiders"
-    },
-    "up": false
-   },
-   "last": {
-    "d": "2026-11-20",
-    "c": 510.45,
-    "v": 5075800
-   },
-   "tx": 542,
-   "buyers": 2,
-   "sellers": 1,
-   "net_musd": -25.383,
    "cluster": false,
    "errors": 0,
    "next_report": null
@@ -4473,6 +4453,40 @@
    "next_report": null
   },
   {
+   "ticker": "CAT",
+   "name": "CATERPILLAR INC",
+   "group": {
+    "it": "Industria",
+    "en": "Industrials"
+   },
+   "score": 46,
+   "verdict": {
+    "it": "Nessuna convinzione chiara",
+    "en": "No clear conviction"
+   },
+   "confidence": "Alta",
+   "covered_pct": 100,
+   "driver": {
+    "name": {
+     "it": "Insider",
+     "en": "Insiders"
+    },
+    "up": false
+   },
+   "last": {
+    "d": "2026-11-20",
+    "c": 510.45,
+    "v": 5075800
+   },
+   "tx": 542,
+   "buyers": 2,
+   "sellers": 1,
+   "net_musd": -25.383,
+   "cluster": false,
+   "errors": 0,
+   "next_report": null
+  },
+  {
    "ticker": "WM",
    "name": "WASTE MANAGEMENT INC",
    "group": {
@@ -4708,7 +4722,7 @@
    "net_musd": -4.013,
    "cluster": false,
    "errors": 0,
-   "next_report": null
+   "next_report": "2026-12-02"
   },
   {
    "ticker": "SCHW",
@@ -4810,7 +4824,7 @@
    "net_musd": -1.701,
    "cluster": false,
    "errors": 0,
-   "next_report": null
+   "next_report": "2027-01-19"
   },
   {
    "ticker": "ELV",
@@ -5082,7 +5096,7 @@
    "net_musd": 0.0,
    "cluster": false,
    "errors": 0,
-   "next_report": null
+   "next_report": "2026-12-18"
   },
   {
    "ticker": "ONTO",
@@ -5116,7 +5130,7 @@
    "net_musd": 0.0,
    "cluster": false,
    "errors": 0,
-   "next_report": null
+   "next_report": "2027-02-18"
   },
   {
    "ticker": "UCTT",
@@ -5490,7 +5504,7 @@
    "net_musd": -1.414,
    "cluster": false,
    "errors": 0,
-   "next_report": null
+   "next_report": "2026-12-03"
   },
   {
    "ticker": "GIS",
@@ -5524,7 +5538,7 @@
    "net_musd": -0.869,
    "cluster": false,
    "errors": 0,
-   "next_report": null
+   "next_report": "2026-12-17"
   },
   {
    "ticker": "ICHR",
@@ -5762,7 +5776,7 @@
    "net_musd": -0.139,
    "cluster": false,
    "errors": 0,
-   "next_report": null
+   "next_report": "2026-11-24"
   },
   {
    "ticker": "UPS",
@@ -6034,7 +6048,7 @@
    "net_musd": -261.109,
    "cluster": false,
    "errors": 0,
-   "next_report": null
+   "next_report": "2027-01-06"
   },
   {
    "ticker": "TXN",
@@ -6306,7 +6320,7 @@
    "net_musd": -31.345,
    "cluster": false,
    "errors": 0,
-   "next_report": null
+   "next_report": "2026-12-09"
   },
   {
    "ticker": "CRWD",
@@ -6340,7 +6354,7 @@
    "net_musd": -213.672,
    "cluster": false,
    "errors": 0,
-   "next_report": null
+   "next_report": "2026-12-01"
   },
   {
    "ticker": "GS",
@@ -6442,7 +6456,7 @@
    "net_musd": 0.0,
    "cluster": false,
    "errors": 0,
-   "next_report": null
+   "next_report": "2026-12-17"
   },
   {
    "ticker": "ORLY",
@@ -6714,7 +6728,7 @@
    "net_musd": -0.448,
    "cluster": false,
    "errors": 0,
-   "next_report": null
+   "next_report": "2026-12-18"
   },
   {
    "ticker": "CL",
@@ -6816,7 +6830,7 @@
    "net_musd": -5.607,
    "cluster": false,
    "errors": 0,
-   "next_report": null
+   "next_report": "2026-12-10"
   },
   {
    "ticker": "SNPS",
@@ -6850,7 +6864,7 @@
    "net_musd": -51.366,
    "cluster": false,
    "errors": 0,
-   "next_report": null
+   "next_report": "2026-12-08"
   },
   {
    "ticker": "TYL",
@@ -7122,7 +7136,7 @@
    "net_musd": -4.425,
    "cluster": false,
    "errors": 0,
-   "next_report": null
+   "next_report": "2026-12-03"
   },
   {
    "ticker": "ROP",
@@ -7190,7 +7204,7 @@
    "net_musd": -22.906,
    "cluster": false,
    "errors": 0,
-   "next_report": null
+   "next_report": "2026-12-08"
   },
   {
    "ticker": "BNY",
@@ -7224,7 +7238,7 @@
    "net_musd": -7.391,
    "cluster": false,
    "errors": 0,
-   "next_report": null
+   "next_report": "2027-01-12"
   }
  ],
  "errors": []
