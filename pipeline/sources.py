@@ -105,7 +105,7 @@ def parse_prices_yahoo(payload):
     return out
 
 
-HIST_YEARS = 5      # quanta storia di prezzi: abbastanza per una prova all'indietro sensata
+HIST_YEARS = 10     # quanta storia di prezzi: dieci anni dal 23/11/2026 (prima cinque)
 
 
 def _prices_yahoo(ticker, years=HIST_YEARS, host="query1"):

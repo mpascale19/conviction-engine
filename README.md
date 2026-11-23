@@ -829,6 +829,51 @@ scheda (`events_hist`). `events_from` dice da quando l'elenco è completo; prima
 di quella data la voce non viene ricostruita, perché "nessun 8-K" vorrebbe dire
 solo "non lo sappiamo".
 
+## Dieci anni di storia, e gli scorpori
+
+Dal 23 novembre 2026 la storia è di **dieci anni** (`months_of_history`: 120 in
+`config.json`, `HIST_YEARS = 10` in `pipeline/sources.py`): Form 4, 8-K e prezzi
+dall'autunno 2016. Lo short interest di FINRA resta di cinque anni. Perché:
+
+- con cinque anni le campagne di acquisto erano circa 500, e le prove (bonus,
+  curva dopo un acquisto) avevano bande larghe; con dieci sono circa il doppio;
+- abituali e opportunisti si classificano dal 2020 invece che dal 2025;
+- il periodo comprende un ciclo intero: il 2018, il crollo del 2020, i tassi del
+  2022.
+
+La storia nuova si riempie a rate come la prima volta (4.000 documenti vecchi per
+giro, i recenti sempre subito), e il sito torna a dire, in giallo, quante aziende
+sono complete. Servono circa quindici giri, cioè un giorno feriale.
+
+**Gli scorpori.** La chiusura di Yahoo è corretta per i frazionamenti, non per
+gli scorpori né per i dividendi straordinari: il giorno in cui gli azionisti di
+Pfizer ricevono le azioni di Viatris, la serie di Pfizer mostra un crollo che
+nessuno ha subìto. Con cinque anni le aziende con uno scorporo recente erano
+state lasciate fuori dall'universo; con dieci nell'universo ce ne sono altre,
+con scorpori fra il 2017 e il 2021. Le loro date stanno in `config.json`, alla voce
+`corporate_actions`:
+
+| Titolo | Che cosa | Data |
+|---|---|---|
+| HLT | scorporo di Park Hotels e Hilton Grand Vacations | gennaio 2017 |
+| BKR | dividendo straordinario della fusione Baker Hughes-GE | luglio 2017 |
+| MET | scorporo di Brighthouse Financial | agosto 2017 |
+| EQT | scorporo di Equitrans Midstream | novembre 2018 |
+| RTX | scorporo di Carrier e Otis, fusione con Raytheon | aprile 2020 |
+| PFE | Upjohn in Viatris | novembre 2020 |
+| MRK | scorporo di Organon | giugno 2021 |
+
+Per ognuna `rules.neutralize` cerca, entro una settimana dalla data, la seduta
+peggiore rispetto al settore; se è davvero un salto (più di 5 punti sotto),
+corregge i prezzi precedenti in modo che quel giorno il titolo faccia quanto il
+settore. Si perde un giorno di informazione vera, ma non si inventa un crollo.
+
+Le date le ho scritte io, e un elenco a mano può avere buchi. Per questo ogni giro
+elenca nell'indice (`price_jumps.flagged`) ogni seduta in cui un titolo ha fatto
+peggio del suo settore di più di 25 punti. Quelle non si correggono, perché un
+crollo vero è informazione, ma si guardano a mano: se è uno scorporo, la data va
+aggiunta a `config.json`.
+
 ## Cinque anni di storia, riempiti a rate
 
 Fino al 22 novembre 2026 la pipeline guardava due anni di Form 4, con un limite
@@ -1257,9 +1302,10 @@ stessa call non si paga due volte.
 - I bonus della voce insider sono stimati su poche decine di campagne: con così
   pochi dati restano vicini a zero qualunque sia l'effetto vero. Con duecento
   aziende le campagne aumentano, man mano che la storia si riempie.
-- Le chiusure di Yahoo sono corrette per i frazionamenti, non per i dividendi,
-  e non è detto che lo siano per gli scorpori. Per questo le aziende con uno spin-off negli ultimi cinque anni sono
-  rimaste fuori; un'azienda aggiunta dopo va controllata.
+- Le chiusure di Yahoo sono corrette per i frazionamenti, non per i dividendi
+  né per gli scorpori. Gli scorpori noti degli ultimi dieci anni si correggono
+  (vedi "Dieci anni di storia, e gli scorpori"); i salti sospetti si elencano
+  nell'indice per un controllo a mano. Un'azienda aggiunta dopo va controllata.
 - La guidance copre solo le aziende per cui c'è un export delle trascrizioni
   fatto a mano: con duecento aziende la maggior parte ha copertura all'80%.
 - Gli utili contro attese sono quelli di Alpha Vantage: l'utile «rettificato» e

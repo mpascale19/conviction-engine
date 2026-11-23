@@ -60,6 +60,78 @@ def enrich(rows):
     return rows
 
 
+JUMP_FLAG = -25.0     # un giorno sotto il settore di più di 25 punti: da controllare a mano
+NEUTRAL_MIN = -5.0    # uno scorporo noto si corregge solo se quel giorno il salto c'è davvero
+
+
+def _rel_day(px, i, bmap):
+    """Rendimento del titolo meno quello del settore nella seduta i, in frazione."""
+    r = px[i]["c"] / px[i - 1]["c"] - 1
+    b0, b1 = bmap.get(px[i - 1]["d"]), bmap.get(px[i]["d"])
+    rb = (b1 / b0 - 1) if b0 and b1 else 0.0
+    return r - rb, rb
+
+
+def neutralize(px, bench, dates, days=7):
+    """Corregge i salti degli scorpori che la chiusura di Yahoo non corregge.
+
+    La chiusura di Yahoo è corretta per i frazionamenti, non per gli scorpori
+    né per i dividendi straordinari: il giorno in cui gli azionisti di Pfizer
+    ricevono le azioni di Viatris, la serie di Pfizer mostra un crollo che
+    nessuno ha subìto. Con cinque anni di storia le aziende con uno scorporo
+    erano state lasciate fuori dall'universo; con dieci non si può, e le date
+    note stanno in config.json ("corporate_actions").
+
+    Per ogni data si cerca, entro `days` giorni, la seduta peggiore rispetto al
+    settore; se è davvero un salto (sotto NEUTRAL_MIN punti), tutti i prezzi
+    prima di quella seduta si moltiplicano per un fattore che rende il suo
+    rendimento uguale a quello del settore. È come se quel giorno il titolo
+    avesse fatto quanto il settore: si perde un giorno di informazione vera,
+    ma non si inventa un crollo. -> (prezzi corretti, [{d, rel}] dei giorni corretti)
+    """
+    if not dates or len(px) < 2:
+        return px, []
+    out = [dict(p) for p in px]
+    bmap = {b["d"]: b["c"] for b in bench or []}
+    fixed = []
+    for dt in dates:
+        d0 = date.fromisoformat(dt[:10])
+        best = None
+        for i in range(1, len(out)):
+            if abs((date.fromisoformat(out[i]["d"][:10]) - d0).days) > days:
+                continue
+            if not (out[i]["c"] and out[i - 1]["c"]):
+                continue
+            rel, rb = _rel_day(out, i, bmap)
+            if best is None or rel < best[1]:
+                best = (i, rel, rb)
+        if best is None or best[1] * 100 > NEUTRAL_MIN:
+            continue
+        i, rel, rb = best
+        f = out[i]["c"] / (out[i - 1]["c"] * (1 + rb))
+        for j in range(i):
+            out[j]["c"] = round(out[j]["c"] * f, 4)
+        fixed.append({"d": out[i]["d"], "rel": round(rel * 100, 1)})
+    return out, fixed
+
+
+def jumps(px, bench, limit=JUMP_FLAG):
+    """Le sedute in cui il titolo ha fatto peggio del settore di più di `limit` punti.
+
+    Non si correggono: un crollo vero (una trimestrale disastrosa) è
+    informazione. Si elencano perché qualcuno guardi se sono scorpori non
+    ancora in config.json.
+    """
+    bmap = {b["d"]: b["c"] for b in bench or []}
+    out = []
+    for i in range(1, len(px)):
+        if px[i]["c"] and px[i - 1]["c"]:
+            rel, _ = _rel_day(px, i, bmap)
+            if rel * 100 <= limit:
+                out.append({"d": px[i]["d"], "rel": round(rel * 100, 1)})
+    return out
+
+
 def is_senior(tx, titles):
     t = (tx.get("role") or "").lower()
     return any(k in t for k in titles)

@@ -279,8 +279,18 @@
   "XOM": ["0000034088"],
   "BLK": ["0001364742"]
  },
- "months_of_history": 60,
- "max_filings_per_ticker": 2000,
+ "months_of_history": 120,
+ "corporate_actions": {
+    "_nota": "Scorpori e dividendi straordinari che la chiusura di Yahoo non corregge: quel giorno il rendimento del titolo viene posto uguale a quello del settore. Vedi pipeline/rules.py, neutralize. Le date sono il giorno ex-distribuzione; si cerca il salto entro una settimana.",
+    "HLT": ["2017-01-04"],
+    "BKR": ["2017-07-05"],
+    "MET": ["2017-08-07"],
+    "EQT": ["2018-11-13"],
+    "RTX": ["2020-04-03"],
+    "PFE": ["2020-11-17"],
+    "MRK": ["2021-06-03"]
+  },
+  "max_filings_per_ticker": 2000,
  "max_new_filings_per_run": 4000,
  "history_minutes_per_run": 35,
  "rules": {

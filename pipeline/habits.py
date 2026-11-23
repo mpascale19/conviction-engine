@@ -20,8 +20,9 @@ Per le vendite la storia conta anche quelle dei piani 10b5-1: un piano è
 un'abitudine messa per iscritto. Ma si classificano e si misurano solo le
 vendite discrezionali, perché sono le sole che il punteggio usa.
 
-Con cinque anni di Form 4 (dall'ottobre 2021) il primo anno solare completo è
-il 2022, quindi si possono classificare le operazioni dal 2025 in poi.
+Con dieci anni di Form 4 (dall'autunno 2016) il primo anno solare completo è
+il 2017, quindi si possono classificare le operazioni dal 2020 in poi (con
+cinque anni, fino al 23/11/2026, solo dal 2025).
 
 Qui si fanno due cose. `classify` mette l'etichetta alle operazioni di
 un'azienda (finisce nella scheda e fra le ragioni della voce insider, senza

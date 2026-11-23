@@ -963,11 +963,12 @@ finally:
 real_y, real_s = sources._prices_yahoo, sources._prices_stooq
 try:
     sources._prices_yahoo = lambda *a, **k: (_ for _ in ()).throw(RuntimeError("giù"))
-    _old = [{"d": (date.today() - timedelta(days=d)).isoformat(), "c": 1.0, "v": 1} for d in range(4000, -1, -1)]
+    _old = [{"d": (date.today() - timedelta(days=d)).isoformat(), "c": 1.0, "v": 1} for d in range(4100, -1, -1)]
     sources._prices_stooq = lambda *a, **k: _old
     _px, _src = sources.prices("ZZZ")
-    check("stooq dà dieci anni, se ne tengono cinque",
-          _src == "stooq" and _px[0]["d"] >= (date.today() - timedelta(days=int(5 * 365.25) + 8)).isoformat(), _px[0])
+    check("stooq dà undici anni, se ne tengono dieci",
+          _src == "stooq" and _px[0]["d"] >= (date.today() - timedelta(days=int(sources.HIST_YEARS * 365.25) + 7)).isoformat()
+          and sources.HIST_YEARS == 10, _px[0])
 finally:
     sources._prices_yahoo, sources._prices_stooq = real_y, real_s
 
@@ -1712,6 +1713,36 @@ _v, _w, _ = score.insider_score(_rt, [], {}, cfg, date(2026, 4, 20))
 check("un acquisto abituale lo dice fra le ragioni, senza punti", any("Acquisto abituale" in w["it"] and "Rossi" in w["it"] for w in _w), _w)
 _v2, _w2, _ = score.insider_score([dict(_rt[0], habit=None)], [], {}, cfg, date(2026, 4, 20))
 check("e il punteggio non cambia", _v == _v2, (_v, _v2))
+
+# --------------------------------- dieci anni: gli scorpori
+print("\nDieci anni di storia e scorpori")
+check("la storia dei Form 4 è di dieci anni", CFG["months_of_history"] == 120)
+check("gli scorpori noti stanno in config.json",
+      {"PFE", "MRK", "RTX", "MET", "HLT", "EQT"} <= set(CFG.get("corporate_actions") or {}))
+_sd = _sessions(60, date(2020, 10, 1))
+_spx = [{"d": d, "c": 100.0 if i < 30 else 60.0} for i, d in enumerate(_sd)]
+_sb = [{"d": d, "c": 50.0} for d in _sd]
+_n, _fx = rules.neutralize(_spx, _sb, [_sd[28]])
+check("lo scorporo noto si trova anche se la data è di qualche giorno sbagliata",
+      _fx and _fx[0]["d"] == _sd[30] and _fx[0]["rel"] == -40.0, _fx)
+check("e quel giorno il titolo fa come il settore", abs(_n[30]["c"] / _n[29]["c"] - 1) < 1e-9)
+check("i prezzi dopo restano quelli veri", _n[-1]["c"] == 60.0 and _spx[0]["c"] == 100.0)
+check("senza un salto vero non si tocca niente",
+      rules.neutralize([dict(p, c=100.0) for p in _spx], _sb, [_sd[28]]) == ([dict(p, c=100.0) for p in _spx], []))
+check("una data lontana dal salto non lo corregge", rules.neutralize(_spx, _sb, [_sd[5]])[1] == [])
+check("un crollo non annunciato si segnala per un controllo a mano",
+      rules.jumps(_spx, _sb) == [{"d": _sd[30], "rel": -40.0}])
+check("ma non si corregge", rules.jumps(_n, _sb) == [])
+_cfgj = dict(cfg, corporate_actions={"JMP": [_sd[30]]})
+_rawj = dict(raws[0], ticker="JMP", prices=_spx, bench=_sb)
+_bj = build_one(_cfgj, _rawj)
+check("nella pipeline lo scorporo si corregge prima di ogni calcolo",
+      _bj["_adjusted"] and _bj["_jumps"] == [] and _bj["_px_long"][0][1] == 60.0, (_bj["_adjusted"], _bj["_jumps"]))
+_bk = build_one(cfg, dict(raws[0], ticker="KKK", prices=_spx, bench=_sb))
+check("senza la data in config.json il salto resta e viene segnalato",
+      _bk["_adjusted"] == [] and _bk["_jumps"] and _bk["_jumps"][0]["rel"] == -40.0, _bk["_jumps"])
+_ixj = write_all([finish(cfg, _bk, [_bk["insider_90d"]])], cfg, tempfile.mkdtemp())
+check("l'indice elenca i salti da controllare", _ixj["price_jumps"]["flagged"][0]["t"] == "KKK", _ixj["price_jumps"])
 
 # il riepilogo deve contare ogni fallimento: l'elenco non va mai sostituito
 check("l'elenco dei fallimenti è ancora quello di partenza", bad is _BAD0)

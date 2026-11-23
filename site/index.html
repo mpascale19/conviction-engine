@@ -498,9 +498,9 @@ function renderHome(){
 function renderGuide(){
   var steps = T([
     ['Si scaricano i documenti',
-     'Per ogni azienda, da SEC EDGAR: i Form 4 e gli 8-K degli ultimi cinque anni (al punteggio di oggi ' +
+     'Per ogni azienda, da SEC EDGAR: i Form 4 e gli 8-K degli ultimi dieci anni (al punteggio di oggi ' +
      'servono gli ultimi 90 giorni dei primi e sei mesi dei secondi; il resto serve alle prove) e ' +
-     'le azioni in circolazione dalla copertina dei 10-Q. Poi i prezzi di chiusura, e da FINRA lo short ' +
+     'le azioni in circolazione dalla copertina dei 10-Q. Poi dieci anni di prezzi di chiusura, e da FINRA lo short ' +
      'interest di cinque anni, due rilevazioni al mese. Da Alpha Vantage, con 25 richieste al giorno: ' +
      'gli utili di ogni trimestre contro le attese degli analisti, il calendario delle prossime ' +
      'trimestrali, l’elenco dei titoli quotati e le trascrizioni delle call. Dalle trascrizioni i fatti ' +
@@ -522,9 +522,9 @@ function renderGuide(){
      'sito è un giudizio senza una fonte dietro.']
   ], [
     ['The documents are downloaded',
-     'For each company, from SEC EDGAR: the Form 4 and 8-K filings of the last five years (today’s score ' +
+     'For each company, from SEC EDGAR: the Form 4 and 8-K filings of the last ten years (today’s score ' +
      'needs the last 90 days of the first and six months of the second; the rest feeds the tests), and ' +
-     'shares outstanding from the cover of the 10-Q. Then closing prices, and from FINRA five years of ' +
+     'shares outstanding from the cover of the 10-Q. Then ten years of closing prices, and from FINRA five years of ' +
      'short interest, two readings a month. From Alpha Vantage, with 25 requests a day: each quarter’s ' +
      'earnings against analysts’ estimates, the calendar of upcoming results, the list of listed stocks ' +
      'and the call transcripts. From the transcripts the facts are extracted by hand, and only for the ' +
@@ -1152,19 +1152,19 @@ function monthYear(s){
           { month: 'long', year: 'numeric' }); } catch (e) { return s; }
 }
 
-/* Mentre lo storico dei Form 4 si allunga a cinque anni, a rate, la pagina lo
+/* Mentre lo storico dei Form 4 si allunga (a cinque anni, poi dal 23/11/2026 a dieci), a rate, la pagina lo
    dice: i numeri qui sotto crescono da un giro all'altro, e non è un errore. */
 function historyNote(){
   var hs = IDX.history;
   if (!hs || !hs.total || hs.complete >= hs.total) return '';
   var miss = (hs.missing || 0).toLocaleString(T('it-IT', 'en-GB'));
   return '<p class="sub" style="margin-top:-4px">' + T(
-    'Lo storico dei Form 4 si sta allungando a cinque anni, un aggiornamento dopo l\u2019altro: è completo ' +
+    'Lo storico dei Form 4 si sta allungando a dieci anni, un aggiornamento dopo l\u2019altro: è completo ' +
     'per ' + hs.complete + ' aziende su ' + hs.total + ' (mancano ancora ' + miss + ' documenti). ' +
     'Finché non ha finito, i numeri di questa pagina cambiano da un giro all\u2019altro. ' +
     'Il punteggio di oggi invece è già completo per tutte: i documenti degli ultimi quattro mesi ' +
     'si scaricano sempre per primi.',
-    'The Form 4 history is being extended to five years, one update after another: it is complete for ' +
+    'The Form 4 history is being extended to ten years, one update after another: it is complete for ' +
     hs.complete + ' companies out of ' + hs.total + ' (' + miss + ' documents still to go). Until it ' +
     'finishes, the numbers on this page change from one run to the next. Today\u2019s score, though, is ' +
     'already complete for all of them: the documents of the last four months are always downloaded first.') + '</p>';
@@ -2214,10 +2214,10 @@ function paneInsider(d){
   '<div class="card"><h2>' + T('Operazioni degli insider', 'Insider transactions') + '</h2>' +
     '<p class="sub">' +
     T('Ultime ' + tx.length + ' delle ' + nTx + ' operazioni degli ultimi due anni ' +
-        '(i calcoli usano tutta la storia disponibile, fino a cinque anni). ' +
+        '(i calcoli usano tutta la storia disponibile, fino a dieci anni). ' +
         'La colonna di destra dice perché un’operazione pesa o no.',
       'The last ' + tx.length + ' of the ' + nTx + ' transactions of the last two years ' +
-        '(the calculations use all the history available, up to five years). ' +
+        '(the calculations use all the history available, up to ten years). ' +
         'The right-hand column says why a transaction counts or not.') + '</p>' + filling +
     (tx.length ? '<div class="scroll"><table><thead><tr><th>' + T('Data', 'Date') + '</th>' +
       '<th>' + T('Insider', 'Insider') + '</th><th class="num">' + T('Valore', 'Value') + '</th>' +

@@ -22,7 +22,7 @@ from .extract import extract_all
 CACHE = "cache"
 OUTDIR = "site"
 EVENT_DAYS = 180        # finestra dei fatti rilevanti 8-K: due trimestri
-EVENT_HIST_DAYS = 1834  # quanto storico di 8-K tenere per la prova all'indietro: cinque anni
+EVENT_HIST_DAYS = 3670  # quanto storico di 8-K tenere per la prova all'indietro: dieci anni
 CARD_TX_MONTHS = 24     # di quanti mesi la scheda conta le operazioni
 CARD_TX_DAYS = 120      # ... e di quanti giorni le porta per intero (il sito ne legge 90)
 CARD_TX_LAST = 25       # più le ultime 25, che il sito mostra in tabella
@@ -167,6 +167,12 @@ def gather(cfg, ticker, bench, offline=False, budget=None):
 def build_one(cfg, raw, extracted=None):
     px = raw.get("prices") or []
     bench = raw.get("bench") or []
+    # scorpori noti che la chiusura di Yahoo non corregge (rules.neutralize)
+    px, adjusted = rules.neutralize(px, bench, (cfg.get("corporate_actions") or {}).get(
+        (raw.get("ticker") or "").upper()) or [])
+    flagged = [j for j in rules.jumps(px, bench)
+               if not any(abs((date.fromisoformat(j["d"]) - date.fromisoformat(a["d"])).days) <= 7
+                          for a in adjusted)]
     R, W = cfg["rules"], cfg["weights"]
     failed = raw.get("failed") or []
     today = date.fromisoformat(px[-1]["d"]) if px else date.today()
@@ -333,10 +339,13 @@ def build_one(cfg, raw, extracted=None):
         "history": {"tx_from": tx[0]["date"] if tx else None,
                     "tx_complete": bool((raw.get("tx_status") or {}).get("complete")),
                     "tx_missing": (raw.get("tx_status") or {}).get("missing")},
-        # cinque anni di chiusure per la prova all'indietro: restano in memoria,
+        # dieci anni di chiusure per la prova all'indietro: restano in memoria,
         # nella scheda va solo la serie corta (vedi card_view)
         "_px_long": [[p["d"], p["c"]] for p in px],
         "_tx_start": oldest,               # da quando la storia dei Form 4 copre tutto
+        # i salti di prezzo: quelli corretti perché scorpori noti, e quelli da controllare
+        "_adjusted": adjusted,
+        "_jumps": flagged,
         "si_pct": si_pct,
         "shares": raw.get("shares"),
         # utili contro attese degli ultimi tre anni e la prossima trimestrale
@@ -554,7 +563,7 @@ def driver(subs):
 def card_view(d, months=CARD_TX_MONTHS, days=CARD_TX_DAYS, last_n=CARD_TX_LAST):
     """Quello che finisce nel file della scheda.
 
-    I calcoli usano cinque anni di storia. Il sito, delle operazioni, legge
+    I calcoli usano dieci anni di storia. Il sito, delle operazioni, legge
     solo due cose: quelle degli ultimi 90 giorni (il riassunto della voce
     insider) e le ultime 25 (la tabella). La scheda porta quelle, più il
     numero di operazioni degli ultimi due anni in `tx_n`. Con le due liste
@@ -681,8 +690,14 @@ def write_all(results, cfg, outdir=OUTDIR, forward=None, si_status=None, av=None
         "event": ev,
         # insider abituali o opportunisti (Cohen, Malloy e Pomorski 2012), alla prova
         "habits": hb,
+        # salti di prezzo: gli scorpori corretti (config.json, corporate_actions) e i
+        # giorni sotto il settore di più di 25 punti, da controllare a mano
+        "price_jumps": {
+            "adjusted": [dict(a, t=d["company"]["ticker"]) for d in results for a in d.get("_adjusted") or []],
+            "flagged": [dict(j, t=d["company"]["ticker"]) for d in results for j in d.get("_jumps") or []],
+        },
         # quante aziende hanno già lo storico dei Form 4 completo: con il
-        # passaggio a cinque anni la storia si riempie a rate, un giro dopo l'altro
+        # passaggio a cinque e poi a dieci anni la storia si riempie a rate, un giro dopo l'altro
         "history": {
             "complete": sum(1 for d in results if (d.get("history") or {}).get("tx_complete")),
             "total": len(results),
