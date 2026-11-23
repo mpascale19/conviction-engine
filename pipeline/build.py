@@ -15,7 +15,7 @@ import os
 import time
 from datetime import date, datetime, timedelta, timezone
 
-from . import alphavantage, bonus, finra, history, market, predict, rules, score, stress
+from . import alphavantage, bonus, eventstudy, finra, history, market, predict, rules, score, stress
 from .rules import L
 from .extract import extract_all
 
@@ -611,6 +611,13 @@ def write_all(results, cfg, outdir=OUTDIR, forward=None, si_status=None, av=None
         print(f"! prova all'indietro delle voci: {e}")
         ic = None
 
+    # Che cosa succede dopo un acquisto, seduta per seduta: pipeline/eventstudy.py.
+    try:
+        ev = eventstudy.run(results, cfg)
+    except Exception as e:
+        print(f"! curva dopo un acquisto: {e}")
+        ev = None
+
     rows, touched = [], 0
     for d in results:
         t = d["company"]["ticker"]
@@ -650,6 +657,8 @@ def write_all(results, cfg, outdir=OUTDIR, forward=None, si_status=None, av=None
         # già nelle schede: nell'indice sarebbero quaranta righe in più
         "stress": {k: v for k, v in (st or {}).items() if k != "per"} or None,
         "ic": ic,
+        # la curva media dopo un acquisto, dai 20 giorni prima ai 120 dopo
+        "event": ev,
         # quante aziende hanno già lo storico dei Form 4 completo: con il
         # passaggio a cinque anni la storia si riempie a rate, un giro dopo l'altro
         "history": {
@@ -776,6 +785,7 @@ def main():
                 d = build_one(cfg, raw, mine)
                 d["group"] = group_name(g)
                 d["benchmark"] = g["benchmark"]
+                d["_bench_long"] = bench          # per la curva "dopo un acquisto" (eventstudy.py)
                 built.append(d)
             except Exception as e:
                 print(f"  !! {t} saltato: {e}")

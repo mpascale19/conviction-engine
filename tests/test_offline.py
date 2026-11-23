@@ -1541,6 +1541,8 @@ check("l'indice dice quante aziende hanno gli utili e quali ticker non risultano
       _ix["alphavantage"]["earnings"] == 1 and _ix["alphavantage"]["listing_on"] == "2026-12-01"
       and _ix["alphavantage"]["not_listed"] == ["EEEE"], _ix["alphavantage"])
 check("e per ogni azienda la data della prossima trimestrale", _ix["companies"][0]["next_report"] == "2099-02-01")
+check("l'indice ha il posto per la curva dopo un acquisto (vuoto se le campagne sono poche)",
+      "event" in _ix and _ix["event"] is None)
 _br = build.backtest_rows([{"company": {"ticker": "Z"}, "tx": [cfo],
                             "tracks": {"Y": {"buys": [{"date": "2025-01-15", "car": 1.0}]}},
                             "_earn_long": [{"date": "2024-12-01", "sp": 3.0}]},
@@ -1560,6 +1562,82 @@ _su = [x for x in PR.run(_ecos, cfg)["rows"] if x["id"] == "surprise"][0]
 check("la sorpresa sugli utili entra nella prova all'indietro", _su["ic"] == 1.0, _su)
 _su0 = [x for x in PR.run(_cos, cfg)["rows"] if x["id"] == "surprise"][0]
 check("senza utili la voce non si calcola, invece di valere zero", _su0["ic"] is None, _su0)
+
+# --------------------------------- dopo un acquisto, seduta per seduta
+print("\nDopo un acquisto (studio di evento)")
+from pipeline import eventstudy as EV
+
+
+def _sessions(n, start=date(2023, 1, 2)):
+    out, d = [], start
+    while len(out) < n:
+        if d.weekday() < 5:
+            out.append(d.isoformat())
+        d += timedelta(days=1)
+    return out
+
+
+_days = _sessions(400)
+_flat = [{"d": d, "c": 100.0} for d in _days]
+
+
+def _px_after(i0, daily):
+    """Un titolo piatto che dal giorno i0 in poi fa `daily` al giorno."""
+    out, c = [], 100.0
+    for i, d in enumerate(_days):
+        if i > i0:
+            c *= 1 + daily
+        out.append({"d": d, "c": c})
+    return out
+
+
+_p = EV.path(_px_after(100, 0.01), _flat, _days[100])
+check("la curva parte da zero venti sedute prima", _p[0] == 0.0 and len(_p) == EV.PRE + EV.POST + 1, len(_p))
+check("prima dell'acquisto un titolo piatto resta a zero", all(v == 0 for v in _p[:EV.PRE + 1]))
+check("ogni seduta somma il rendimento oltre il settore", abs(_p[EV.PRE + 10] - 10.0) < 1e-6, _p[EV.PRE + 10])
+check("i valori sono limitati a ±50 punti", max(_p) == 50.0)
+check("senza venti sedute prima la campagna non si misura", EV.path(_flat, _flat, _days[10]) is None)
+check("un acquisto lontano dalla prima seduta non si misura",
+      EV.path(_flat[50:], _flat, (date.fromisoformat(_days[50]) - timedelta(days=30)).isoformat()) is None)
+check("un buco nei prezzi del settore ferma la campagna",
+      len(EV.path(_flat, [b for b in _flat if b["d"] != _days[110]], _days[100])) == EV.PRE + 10)
+check("una campagna recente entra finché ha prezzi", len(EV.path(_flat, _flat, _days[-30])) == EV.PRE + 30)
+_ms = EV.mean_se([("2024-01-10", 1.0), ("2024-01-11", 3.0), ("2024-09-01", 5.0), ("2024-09-02", 7.0)])
+check("media e grappoli giusti", _ms[0] == 4.0 and _ms[2] == 4 and _ms[3] == 2, _ms)
+check("le campagne dello stesso blocco non contano come prove separate",
+      _ms[1] > (sum((v - 4) ** 2 for v in (1, 3, 5, 7)) / 3 / 4) ** .5, _ms)
+check("con un solo blocco l'incertezza non si calcola", EV.mean_se([("2024-01-10", 1.0), ("2024-01-11", 2.0)]) is None)
+
+# trenta aziende con una campagna ciascuna, in date diverse, che dopo l'acquisto
+# fanno +0,1% al giorno sul settore: la curva a +60 deve valere 6
+_ecos2 = []
+for _k in range(30):
+    _i0 = 40 + _k * 9
+    _ecos2.append({"company": {"ticker": f"E{_k}"},
+                   "tx": [{"date": _days[_i0], "who": "Uno", "kind": "BUY", "role": "Director"},
+                          {"date": _days[_i0 + 3], "who": "Due", "kind": "BUY", "role": "Director"},
+                          {"date": _days[_i0 + 4], "who": "Tre", "kind": "BUY", "role": "Director"}]
+                          if _k % 3 == 0 else
+                          [{"date": _days[_i0], "who": "Uno", "kind": "BUY", "role": "Chief Executive Officer"}],
+                   "_px_long": [[p["d"], p["c"]] for p in _px_after(_i0, 0.001)], "_bench_long": _flat})
+_ev = EV.run(_ecos2, cfg)
+_a = _ev["groups"]["all"]
+check("le campagne sono una per azienda", _ev["camp"] == 30 and _a["camp"] == 30, _ev["camp"])
+check("la curva media a +60 vale la somma dei rendimenti oltre il settore",
+      abs(_a["curve"]["mean"][EV.PRE + 60] - 6.0) < 0.01, _a["curve"]["mean"][EV.PRE + 60])
+check("prima dell'acquisto vale zero", _a["curve"]["mean"][EV.PRE - 1] == 0.0)
+check("la fascia contiene la media", _a["curve"]["lo"][EV.PRE + 60] <= 6.0 <= _a["curve"]["hi"][EV.PRE + 60])
+check("il tratto da +2 a +60 toglie i primi due giorni",
+      abs(_a["seg"]["to60"]["mean"] - 5.9) < 0.01 and _a["seg"]["before"]["mean"] == 0.0, _a["seg"])
+check("le campagne recenti escono dalla media quando finiscono i prezzi",
+      _a["curve"]["n"][EV.PRE] == 30 and _a["curve"]["n"][-1] < 30, (_a["curve"]["n"][EV.PRE], _a["curve"]["n"][-1]))
+check("cluster e dirigenti si separano come nel backtest",
+      _ev["groups"]["cluster"]["camp"] == 10 and _ev["groups"]["senior"]["camp"] == 20, {k: v["camp"] for k, v in _ev["groups"].items()})
+check("un gruppo sotto le venti campagne non disegna la curva",
+      all(v is None for v in _ev["groups"]["cluster"]["curve"]["mean"]))
+check("con meno di venti campagne in tutto niente curva", EV.run(_ecos2[:10], cfg) is None)
+check("e senza il prezzo del settore nemmeno",
+      EV.run([dict(c, _bench_long=[]) for c in _ecos2], cfg) is None)
 
 # il riepilogo deve contare ogni fallimento: l'elenco non va mai sostituito
 check("l'elenco dei fallimenti è ancora quello di partenza", bad is _BAD0)

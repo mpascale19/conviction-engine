@@ -192,6 +192,37 @@ Il sotto-punteggio **Guidance e tono** usa la media delle ultime quattro call
 estratte di quella azienda. Prima di questa parte la sua copertura era zero e il
 peso (20%) veniva ridistribuito sugli altri.
 
+## Dopo un acquisto, seduta per seduta
+
+Dal 23 novembre 2026, con i cinque anni di Form 4 completi, la pagina Backtest ha
+una curva in più (codice in `pipeline/eventstudy.py`). È lo "studio di evento"
+classico: tutte le campagne di acquisto allineate sul loro primo giorno, e la
+media del rendimento oltre il settore, sommato seduta per seduta, dai 20 giorni
+di borsa prima ai 120 dopo.
+
+- **L'unità è la campagna**, come nel backtest: gli acquisti dello stesso titolo
+  entro 90 giorni dal primo sono una prova sola. Il giorno zero è la prima
+  seduta dal primo acquisto.
+- **Il rendimento è oltre il settore**: ogni seduta, titolo meno ETF del suo
+  universo; la curva è la somma, ed è zero venti sedute prima.
+- **Le campagne recenti contano finché hanno prezzi**: per ogni seduta la pagina
+  dice su quante campagne è fatta la media, e un punto con meno di 20 campagne
+  non si disegna. I valori di una campagna sono limitati a ±50 punti.
+- **L'incertezza è a grappoli.** Campagne di aziende diverse negli stessi mesi
+  vivono la stessa borsa: l'errore standard raggruppa le campagne in blocchi di
+  87 giorni, come la prova all'indietro. La fascia è ±1,96 errori standard.
+- **Una tabella separa i tratti che contano**: i 20 giorni prima (gli insider
+  comprano dopo un calo?), il giorno zero e il +1 (il Form 4 arriva entro due
+  giorni lavorativi, quindi nessuno da fuori poteva comprare lì), e da +2 a +60
+  e a +120, cioè quello che chi legge i depositi poteva davvero prendere.
+- Si possono confrontare cluster e acquisti isolati, dirigenti apicali e altri,
+  e (quando gli utili coprono abbastanza campagne) dopo una trimestrale sopra o
+  sotto le attese.
+
+È una figura, non una regola: non cambia il punteggio. Serve a vedere la forma
+dell'effetto, e a separare quello che un insider sa da quello che un
+investitore da fuori può usare.
+
 ## Utili contro attese, calendario e titoli quotati (Alpha Vantage)
 
 Dal 23 novembre 2026 la stessa chiave di Alpha Vantage serve anche a tre cose
@@ -1174,6 +1205,7 @@ pipeline/score.py      la formula: sotto-punteggi, pesi, confidenza
 pipeline/extract.py    il passo dell'LLM sulle trascrizioni, con cache su disco
 pipeline/trascrizioni.py  il giro giornaliero di Alpha Vantage: trascrizioni in Word
 pipeline/alphavantage.py  utili contro attese, calendario e titoli quotati
+pipeline/eventstudy.py    la curva "dopo un acquisto" della pagina Backtest
 pipeline/build.py      mette tutto insieme e scrive site/data.json
 site/                  il sito pubblicato: legge data.json a ogni apertura
 tests/test_offline.py  i test che girano anche dentro GitHub Actions
