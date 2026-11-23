@@ -5,8 +5,16 @@
   <link>https://mpascale19.github.io/conviction-engine/?lang=en</link>
   <description>Open-market insider purchases at 200 US companies, from the Form 4 filings at the SEC, with the conviction score at that moment. A teaching tool, not investment advice.</description>
   <language>en</language>
-  <lastBuildDate>Fri, 20 Nov 2026 12:00:00 GMT</lastBuildDate>
+  <lastBuildDate>Mon, 23 Nov 2026 19:04:08 GMT</lastBuildDate>
   <atom:link href="https://mpascale19.github.io/conviction-engine/feed-en.xml" rel="self" type="application/rss+xml" />
+  <item>
+   <title>WMB: Turner Robb E (Director) buys $646,500</title>
+   <link>https://mpascale19.github.io/conviction-engine/?lang=en#WMB</link>
+   <description>WILLIAMS COMPANIES, INC. Open-market purchase on November 20, 2026: 10,000 shares at $64.65 on average, $646,500 in total. Company score at that moment: 49/100, no clear conviction.</description>
+   <category>purchase</category>
+   <guid isPermaLink="false">WMB-2026-11-20-turner-robb-e-buy</guid>
+   <pubDate>Mon, 23 Nov 2026 19:04:08 GMT</pubDate>
+  </item>
   <item>
    <title>TJX: PINTOFF CRAIG ADAM (Director) buys $199,823</title>
    <link>https://mpascale19.github.io/conviction-engine/?lang=en#TJX</link>

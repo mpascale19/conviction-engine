@@ -5,8 +5,16 @@
   <link>https://mpascale19.github.io/conviction-engine/?lang=it</link>
   <description>Gli acquisti sul mercato degli insider di 200 aziende americane, dai Form 4 depositati alla SEC, con il punteggio di convinzione del momento. Strumento didattico, non una raccomandazione di investimento.</description>
   <language>it</language>
-  <lastBuildDate>Fri, 20 Nov 2026 12:00:00 GMT</lastBuildDate>
+  <lastBuildDate>Mon, 23 Nov 2026 19:04:08 GMT</lastBuildDate>
   <atom:link href="https://mpascale19.github.io/conviction-engine/feed.xml" rel="self" type="application/rss+xml" />
+  <item>
+   <title>WMB: Turner Robb E (Director) compra per 646.500 $</title>
+   <link>https://mpascale19.github.io/conviction-engine/?lang=it#WMB</link>
+   <description>WILLIAMS COMPANIES, INC. Acquisto sul mercato del 20 novembre 2026: 10.000 azioni a 64,65 $ in media, 646.500 $ in tutto. Punteggio dell'azienda in quel momento: 49/100, nessuna convinzione chiara.</description>
+   <category>acquisto</category>
+   <guid isPermaLink="false">WMB-2026-11-20-turner-robb-e-buy</guid>
+   <pubDate>Mon, 23 Nov 2026 19:04:08 GMT</pubDate>
+  </item>
   <item>
    <title>TJX: PINTOFF CRAIG ADAM (Director) compra per 199.823 $</title>
    <link>https://mpascale19.github.io/conviction-engine/?lang=it#TJX</link>
