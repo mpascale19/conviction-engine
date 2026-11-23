@@ -199,9 +199,17 @@ che costano poco (codice in `pipeline/alphavantage.py`):
 
 | Richiesta | Che cosa dà | Quante richieste |
 |---|---|---|
-| `LISTING_STATUS` | i titoli quotati e quelli tolti dalla borsa | 2 alla settimana |
+| `LISTING_STATUS` | i titoli quotati oggi | 1 alla settimana |
 | `EARNINGS_CALENDAR` | le prossime trimestrali di tutte le aziende, per tre mesi | 1 al giorno |
 | `EARNINGS` | per ogni trimestre: utile per azione annunciato, attese degli analisti, sorpresa | 1 per azienda: la prima volta per tutte, poi dopo ogni sua trimestrale |
+
+L'elenco dei titoli *tolti* dalla borsa (`state=delisted`) non si chiede: il
+23 novembre 2026 Alpha Vantage rispondeva `{}`, anche al suo esempio ufficiale.
+Quella risposta vuota ha fatto cadere il primo giro, con le trascrizioni del
+giorno. Da allora ogni pezzo di questa parte, se va storto, finisce nel
+riepilogo come riga `ERR` e il giro continua con gli altri e con le
+trascrizioni; un elenco dei titoli con meno di metà dell'universo non si usa,
+perché farebbe comparire cento avvisi falsi.
 
 **Chi usa le 25 richieste.** Sono una quota sola, e passano tutte dal workflow
 **Scarica trascrizioni**, una volta al giorno. Prima l'elenco dei titoli, se ha
@@ -233,8 +241,8 @@ sito funziona come prima.
 
 - Nella scheda di ogni azienda: la scheda *Utili* con utile, attese e sorpresa
   degli ultimi trimestri, e la data della prossima trimestrale.
-- Un ticker che non risulta più quotato diventa un avviso nei problemi della
-  scheda, con la data in cui è stato tolto e l'invito a sostituirlo in
+- Un ticker che non compare più fra i titoli quotati diventa un avviso nei
+  problemi della scheda, con l'invito a controllare e a sostituirlo in
   `config.json`. È il caso BK→BNY, che sarebbe stato trovato da solo.
 - **Un bonus nuovo nella voce insider, stimato dai dati.** La domanda è: un
   insider che compra dopo una trimestrale sopra le attese conta di più? Ogni

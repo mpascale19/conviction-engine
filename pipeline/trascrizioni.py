@@ -260,8 +260,12 @@ def main():
     since = (date.today() - timedelta(days=alphavantage.REPORT_LOOKBACK)).isoformat()
     reports = {t: [e[0] for e in ((cards.get(t) or {}).get("events_hist") or [])
                    if "2.02" in (e[1] or []) and e[0] >= since] for t in ranked(index)}
-    av_used, log, stopped = alphavantage.update(alphavantage.DIR, ranked(index), key, a.limit,
-                                                reports=reports, per_day=a.earnings)
+    try:
+        av_used, log, stopped = alphavantage.update(alphavantage.DIR, ranked(index), key, a.limit,
+                                                    reports=reports, per_day=a.earnings)
+    except Exception as e:                    # questa parte non deve mai fermare le trascrizioni
+        av_used, stopped = 0, False
+        log = [f"ERR   Alpha Vantage (utili, calendario, titoli): {type(e).__name__}: {str(e)[:200]}"]
     used, got = av_used, 0
     for t, day in ([] if stopped else wanted(index, cards, have, a.per_company)):
         if used >= a.limit:

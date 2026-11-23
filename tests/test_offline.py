@@ -1291,9 +1291,11 @@ def _avget(params):
 
 _uni = ["BNY", "AAPL", "BK", "MSFT"]
 _u, _lg, _stop = AVM.update(_avd, _uni, "k", budget=25, today=date(2026, 11, 23), per_day=2, get=_avget)
-check("primo giorno: elenco (2), calendario (1) e due aziende di utili",
-      _u == 5 and _asked == ["LISTING_STATUS", "LISTING_STATUS/delisted", "EARNINGS_CALENDAR",
+check("primo giorno: elenco (1), calendario (1) e due aziende di utili",
+      _u == 4 and _asked == ["LISTING_STATUS", "EARNINGS_CALENDAR",
                              "EARNINGS/BNY", "EARNINGS/AAPL"] and not _stop, (_u, _asked))
+check("l'elenco dei titoli tolti non si chiede più (Alpha Vantage risponde {})",
+      "LISTING_STATUS/delisted" not in _asked)
 check("il riepilogo dice quali ticker non sono quotati", any("BK" in x and "MSFT" in x for x in _lg), _lg)
 check("e quante aziende restano per i giorni dopo", any("restano 2" in x for x in _lg), _lg)
 _asked.clear()
@@ -1306,11 +1308,11 @@ check("il giorno dopo solo il calendario: l'elenco aspetta una settimana",
       _asked == ["EARNINGS_CALENDAR"], _asked)
 _asked.clear()
 AVM.update(_avd, _uni, "k", budget=25, today=date(2026, 12, 1), per_day=5, get=_avget)
-check("dopo sette giorni l'elenco si rilegge", _asked[:2] == ["LISTING_STATUS", "LISTING_STATUS/delisted"], _asked)
+check("dopo sette giorni l'elenco si rilegge", _asked[:1] == ["LISTING_STATUS"], _asked)
 _asked.clear()
 _u, _, _ = AVM.update(tempfile.mkdtemp(), _uni, "k", budget=1, today=date(2026, 11, 23), get=_avget)
-check("con una richiesta sola: niente elenco (ne servono due), sì il calendario",
-      _u == 1 and _asked == ["EARNINGS_CALENDAR"], _asked)
+check("con una richiesta sola si usa quella e basta",
+      _u == 1 and _asked == ["LISTING_STATUS"], _asked)
 
 
 def _limget(params):
@@ -1320,7 +1322,52 @@ def _limget(params):
 
 
 _u, _lg, _stop = AVM.update(tempfile.mkdtemp(), _uni, "k", budget=25, today=date(2026, 11, 23), get=_limget)
-check("il limite raggiunto ferma il giro e lo dice", _stop and _u == 4 and _lg[-1].startswith("STOP"), (_u, _lg))
+check("il limite raggiunto ferma il giro e lo dice", _stop and _u == 3 and _lg[-1].startswith("STOP"), (_u, _lg))
+
+
+# 23/11/2026: il primo giro vero è caduto su una risposta "{}" di Alpha Vantage.
+# Ora un pezzo che non va si scrive nel riepilogo e il giro continua.
+def _emptyget(which):
+    def g(params):
+        if params["function"] in which:
+            _asked.append(params["function"])
+            return "{}"
+        return _avget(params)
+    return g
+
+
+_asked.clear()
+_d1 = tempfile.mkdtemp()
+_u, _lg, _stop = AVM.update(_d1, _uni, "k", budget=25, today=date(2026, 11, 23), per_day=2,
+                            get=_emptyget({"LISTING_STATUS"}))
+check("un elenco vuoto non ferma il giro: calendario e utili arrivano lo stesso",
+      not _stop and _asked == ["LISTING_STATUS", "EARNINGS_CALENDAR", "EARNINGS/BNY", "EARNINGS/AAPL"], _asked)
+check("e il riepilogo lo dice, con quello che ha risposto Alpha Vantage",
+      any(x.startswith("ERR   elenco") and "{}" in x for x in _lg), _lg)
+check("l'elenco non salvato si riprova al giro dopo",
+      AVM.load(_d1)["listing"] is None and "listing_on" not in json.load(open(os.path.join(_d1, "stato.json"))))
+_asked.clear()
+_u, _lg, _stop = AVM.update(tempfile.mkdtemp(), _uni, "k", budget=25, today=date(2026, 11, 23), per_day=2,
+                            get=_emptyget({"EARNINGS_CALENDAR"}))
+check("un calendario vuoto non ferma gli utili",
+      not _stop and _asked[-2:] == ["EARNINGS/BNY", "EARNINGS/AAPL"] and any(x.startswith("ERR   calendario") for x in _lg), _lg)
+_d2 = tempfile.mkdtemp()
+AVM.update(_d2, _uni, "k", budget=25, today=date(2026, 11, 23), per_day=0,
+           get=lambda p: _lst.splitlines()[0] + "\nBNY,x,NYSE,Stock,2000-01-01,null,Active\n"
+           if p["function"] == "LISTING_STATUS" else _avget(p))
+check("un elenco con meno di metà dell'universo non si usa: niente 150 falsi avvisi",
+      AVM.load(_d2)["listing"] is None)
+
+
+def _boom(params):
+    if params["function"] == "EARNINGS_CALENDAR":
+        raise RuntimeError("rete giù")
+    return _avget(params)
+
+
+_u, _lg, _stop = AVM.update(tempfile.mkdtemp(), _uni, "k", budget=25, today=date(2026, 11, 23), get=_boom)
+check("anche un errore inatteso si scrive e non fa cadere il programma",
+      not _stop and any("RuntimeError" in x for x in _lg), _lg)
 
 # quando rileggere gli utili di un'azienda che li ha già
 _st = {"earnings_on": {"AAA": "2026-10-01"}}
@@ -1341,8 +1388,9 @@ _av = AVM.load(_avd)
 check("il giro del sito legge utili, calendario ed elenco",
       set(_av["earnings"]) == set(_uni) and _av["next"]["AAPL"][0]["date"] == "2027-01-29"
       and _av["listing"]["on"] == "2026-12-01", _av.keys())
-check("un ticker tolto dalla borsa diventa un avviso con la data",
-      "2026-05-21" in (AVM.listing_problem(_av, "BK") or ""))
+check("un ticker che non è più nell'elenco diventa un avviso",
+      "tolto dalla borsa" in (AVM.listing_problem(_av, "BK") or "")
+      and "config.json" in (AVM.listing_problem(_av, "BK") or ""))
 check("uno che non compare dice di controllare il ticker", "cambiato ticker" in (AVM.listing_problem(_av, "MSFT") or ""))
 check("un ticker quotato non dà avvisi", AVM.listing_problem(_av, "BNY") is None)
 check("senza la cartella tutto è vuoto e niente si rompe",
