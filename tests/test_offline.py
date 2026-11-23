@@ -1694,6 +1694,15 @@ check("la differenza ha il suo errore standard", _hr["buy"]["diff"] and _hr["buy
 check("le operazioni di prima che si possano classificare non entrano", _hr["buy"]["none"]["n"] == 0, _hr["buy"]["none"])
 check("ogni insider conta una volta per mese",
       HB.run([dict(_hcos[1], tx=_hcos[1]["tx"] + [_t(_hcos[1]["tx"][-1]["date"][:8] + "28", "X", "BUY")])] + _hcos[2:], cfg)["buy"]["opp"]["n"] == 6)
+# 23/11/2026: una data con il fuso orario attaccato ("2026-05-12-05:00") faceva cadere la prova
+_hz = [dict(c) for c in _hcos]
+_hz[0] = dict(_hz[0], tx=[dict(t, date=t["date"] + "-05:00") for t in _hz[0]["tx"]])
+_hzr = HB.run(_hz, cfg)
+check("una data con il fuso orario non fa cadere la prova", _hzr and _hzr["buy"]["routine"]["n"] == 6, _hzr and _hzr["buy"])
+check("e lo studio di evento la regge", EV.mean_se([("2026-05-12-05:00", 1.0), ("2024-01-02", 2.0)]) is not None)
+_rz = dict(raws[0], tx=[dict(t, date=t["date"] + "-05:00") for t in raws[0]["tx"]])
+check("la scheda riporta le date senza fuso orario",
+      all(len(t["date"]) == 10 for t in build_one(cfg, _rz)["tx"]))
 check("senza aziende classificabili niente blocco", HB.run([dict(c, _tx_start=None) for c in _hcos], cfg) is None)
 check("con pochi casi un gruppo non ha media", "mean" not in HB.run(_hcos[:4], cfg)["buy"]["routine"])
 

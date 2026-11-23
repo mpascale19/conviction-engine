@@ -176,6 +176,13 @@ def build_one(cfg, raw, extracted=None):
     # finestra non ci sono prezzi per misurarla, e "da quando parte la storia"
     # direbbe una data falsa.
     oldest = (today - timedelta(days=31 * int(cfg.get("months_of_history") or 24))).isoformat()
+    # Alcuni Form 4 scrivono la data con il fuso orario attaccato
+    # ("2026-05-12-05:00", PTC): è una data XML valida, ma non una data ISO, e
+    # il 23/11/2026 ha fatto cadere la prova su abituali e opportunisti. Da qui
+    # in poi ogni data di operazione è AAAA-MM-GG.
+    for t in raw.get("tx") or []:
+        if isinstance(t.get("date"), str) and len(t["date"]) > 10:
+            t["date"] = t["date"][:10]
     tx = rules.enrich(sorted([t for t in (raw.get("tx") or []) if t["date"] >= oldest],
                              key=lambda t: t["date"]))
     # Abituali o opportunisti (pipeline/habits.py): l'etichetta va solo se la

@@ -136,9 +136,9 @@ def run(results, cfg):
             if car is None:
                 continue                  # 60 sedute non ancora passate
             g = lab.get(i, "none")
-            groups[side][g].append((t["date"], max(-eventstudy.CAP, min(eventstudy.CAP, car))))
+            groups[side][g].append((t["date"][:10], max(-eventstudy.CAP, min(eventstudy.CAP, car))))
             who[side][g].add((d["company"]["ticker"], t["who"]))
-            since = t["date"] if since is None or t["date"] < since else since
+            since = t["date"][:10] if since is None or t["date"][:10] < since else since
     if since is None:
         return None
     out = {"years": YEARS, "horizon": H, "from": since, "min": MIN_N}

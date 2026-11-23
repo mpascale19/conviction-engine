@@ -103,7 +103,7 @@ def path(px, bench, day, pre=PRE, post=POST):
 
 
 def _block(day):
-    return date.fromisoformat(day).toordinal() // BLOCK_DAYS
+    return date.fromisoformat(day[:10]).toordinal() // BLOCK_DAYS
 
 
 def mean_se(vals):
