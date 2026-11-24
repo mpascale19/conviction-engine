@@ -54,6 +54,7 @@ MAX_POINTS = 20          # nessun bonus stimato può superare ±20
 HAND = {"cluster": 18, "two": 8, "senior": 10, "beat": 0}
 FEATURES = ("cluster", "two", "senior", "beat")
 OPTIONAL = ("beat",)     # caratteristiche che non tutte le campagne hanno: si stimano sul sottoinsieme noto
+MIN_KNOWN = 0.5          # una di queste dà punti solo se il dato c'è in almeno metà delle campagne
 
 
 def _d(s):
@@ -70,7 +71,7 @@ def episodes(rows, min_people=3):
     for r in rows:
         e = by.setdefault((r["t"], r["d"]), {"t": r["t"], "d": r["d"], "car": r["car"],
                                              "people": 0, "senior": False, "buys": 0,
-                                             "beat": r.get("beat")})
+                                             "beat": r.get("beat"), "size": r.get("size")})
         e["people"] = max(e["people"], r.get("people") or 1)
         e["senior"] = e["senior"] or bool(r.get("senior"))
         e["buys"] += 1
@@ -99,6 +100,7 @@ def campaigns(rows, min_people=3, days=CAMPAIGN_DAYS):
         c["two"] = any(e["two"] for e in eps) and not c["cluster"]
         c["senior"] = any(e["senior"] for e in eps)
         c["beat"] = eps[0].get("beat")    # com'era andata l'ultima trimestrale prima del primo acquisto
+        c["size"] = eps[0].get("size")    # grande, media o piccola capitalizzazione
     return out
 
 
@@ -201,14 +203,20 @@ def estimate(camps, tau=TAU):
     for f in FEATURES:
         known = [c for c in camps if c.get(f) is not None]
         row = {"id": f, "n": sum(1 for c in known if c[f]), "hand": HAND[f]}
+        frozen = False
         if f in OPTIONAL:
             row["known"] = len(known)
+            # Con il dato su poche campagne la stima può dipendere da quali aziende
+            # lo hanno (Alpha Vantage ne copre una dozzina al giorno): si mostra,
+            # ma non dà punti. Il 24/11/2026 diceva -3 su 187 campagne su 1.163.
+            frozen = len(known) < MIN_KNOWN * len(camps)
+            row["frozen"] = frozen
         if f in coef:
             b, s = coef[f]
             shrink = tau * tau / (tau * tau + s * s)
             row.update({"raw": round(b, 2), "se": round(s, 2),
                         "shrink": round(shrink, 3), "post": round(b * shrink, 2),
-                        "points": _points(b * shrink),
+                        "points": 0 if frozen else _points(b * shrink),
                         "by_tau": {str(int(t)): _points(b * t * t / (t * t + s * s))
                                    for t in TAUS}})
         else:

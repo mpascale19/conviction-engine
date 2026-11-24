@@ -50,6 +50,9 @@ GROUPS = {
     "other": lambda c: not c["senior"],
     "beat": lambda c: c.get("beat") is True,
     "nobeat": lambda c: c.get("beat") is False,
+    "large": lambda c: (c.get("size") or "large") == "large",
+    "mid": lambda c: c.get("size") == "mid",
+    "small": lambda c: c.get("size") == "small",
 }
 
 # I tratti della tabella: (id, da, a). "da" è la seduta il cui valore si toglie.
@@ -73,7 +76,7 @@ def campaigns(results, cfg):
             ls = alphavantage.last_surprise(earn, t["date"]) if earn else None
             rows.append({"car": 0.0, "t": d["company"]["ticker"], "d": t["date"],
                          "people": len(near), "senior": rules.is_senior(t, titles),
-                         "beat": (ls["sp"] > 0) if ls else None})
+                         "beat": (ls["sp"] > 0) if ls else None, "size": d.get("size") or "large"})
     return bonus.campaigns(rows, cfg["rules"]["cluster_min_people"])
 
 

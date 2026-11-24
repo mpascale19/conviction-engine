@@ -1112,6 +1112,42 @@ giorno hanno sei mesi di storia alle spalle e 60 sedute davanti, invece delle
 sole date comuni a tutte: un titolo quotato da meno tempo entra quando può,
 senza tagliare la storia degli altri.
 
+## Quattrocento aziende: le medie e le piccole
+
+Il 24 novembre 2026, con la storia a dieci anni completa per le prime 200,
+l'universo è passato a 400: **100 medie capitalizzazioni** dall'S&P MidCap 400 e
+**100 piccole** dall'S&P SmallCap 600. Negli studi (Lakonishok e Lee, 2001, fra
+gli altri) gli acquisti degli insider dicono di più nelle società piccole, che
+gli analisti seguono meno: con queste si può vedere se vale anche qui. Il
+backtest e la curva "dopo un acquisto" hanno ora la divisione per dimensione.
+
+**Come sono scelte: una regola fissa, che chiunque può rifare** (i file sono in
+`input/indici/`, lo script è `input/indici/scegli.py`):
+
+- gli elenchi degli indici sono quelli di Wikipedia al 24 novembre 2026
+  ("List of S&P 400 companies", "List of S&P 600 companies"), con il settore GICS;
+- si tengono i settori delle prime 200: tecnologia, finanza, sanità,
+  industria, energia, consumi discrezionali, beni di prima necessità (fuori
+  immobiliare, utility, materiali e comunicazioni);
+- si tolgono le aziende già seguite, i ticker con un punto e, fra due classi
+  della stessa azienda, la seconda;
+- i 100 posti di ogni indice si dividono fra i settori in proporzione;
+- dentro un settore decide l'impronta SHA-1 di "conviction-engine|TICKER": un
+  sorteggio, non una scelta. Scegliere le aziende guardando gli acquisti degli
+  insider avrebbe gonfiato il backtest.
+
+**Il riferimento** di ogni azienda è l'ETF del suo indice: IJH per le medie, IJR
+per le piccole. Il rendimento "oltre il settore" per loro è oltre il loro
+indice. La storia dei Form 4 delle nuove si riempie a rate, come per le prime:
+circa un giorno di aggiornamenti.
+
+**Insieme, il bonus "dopo utili sopra le attese" si è fermato.** Su dieci anni
+la stima diceva −3 punti, ma il dato c'era solo nel 16% delle campagne (Alpha
+Vantage dà gli utili di una dozzina di aziende al giorno). Con così poche
+campagne la stima può dipendere da quali aziende hanno il dato: ora una voce
+così si mostra ma non dà punti finché il dato non c'è in almeno metà delle
+campagne (`bonus.MIN_KNOWN`).
+
 ## Duecento aziende
 
 Il 22 novembre 2026 l'universo è passato da 40 a 200 aziende. Il motivo è
@@ -1383,8 +1419,10 @@ voce diversa, e va decisa come tale.
 
 ## Gli universi di titoli
 
-`config.json` contiene dieci liste da venti titoli, e si aggiungono e si
-tolgono ticker scrivendo dentro (perché queste, vedi "Duecento aziende"):
+`config.json` contiene dieci liste da venti titoli e due da cento, e si
+aggiungono e si tolgono ticker scrivendo dentro (perché queste, vedi "Duecento
+aziende" e "Quattrocento aziende"). Le due da cento hanno `"dimensione"`:
+"mid" o "small".
 
 | Universo | Universe | Riferimento |
 |---|---|---|
@@ -1398,6 +1436,8 @@ tolgono ticker scrivendo dentro (perché queste, vedi "Duecento aziende"):
 | Energia | Energy | `XLE` |
 | Consumi discrezionali | Consumer discretionary | `XLY` |
 | Beni di prima necessità | Consumer staples | `XLP` |
+| Medie capitalizzazioni USA | US mid caps | `IJH` |
+| Piccole capitalizzazioni USA | US small caps | `IJR` |
 
 La divisione non è estetica. Il sotto-punteggio **Settore** confronta ogni
 azienda con le altre dello stesso gruppo: mettere un produttore di chip e una

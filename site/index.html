@@ -653,9 +653,9 @@ function renderGuide(){
      'entra da sola, finché quella prova non dice di sì. Gli utili arrivano a rate, dodici aziende al ' +
      'giorno, e poi si rileggono dopo ogni trimestrale.'],
     ['Che cos’è il radar?',
-     'L’elenco di tutte le società americane, non solo delle duecento, in cui amministratori e dirigenti hanno ' +
+     'L’elenco di tutte le società americane, non solo di quelle seguite, in cui amministratori e dirigenti hanno ' +
      'comprato sul mercato negli ultimi 90 giorni, prima i cluster. Viene dai file della SEC e si aggiorna ogni ' +
-     'mattina con i depositi del giorno prima. Le aziende fuori dalle duecento non hanno punteggio: il radar dice ' +
+     'mattina con i depositi del giorno prima. Le aziende non seguite non hanno punteggio: il radar dice ' +
      'dove guardare, non che cosa comprare.'],
     ['Che cosa sono il 13D e il 13F?',
      'Il 13D lo deposita chi supera il 5% di una società senza essere un investitore passivo: attivisti, ' +
@@ -737,9 +737,9 @@ function renderGuide(){
      'not enter the score by itself until that test says yes. Earnings arrive in instalments, twelve ' +
      'companies a day, and are then re-read after every quarterly report.'],
     ['What is the radar?',
-     'The list of all US companies, not just the two hundred, where directors and officers bought on the open ' +
+     'The list of all US companies, not just the ones followed, where directors and officers bought on the open ' +
      'market in the last 90 days, clusters first. It comes from the SEC files and updates every morning with ' +
-     'the previous day’s filings. Companies outside the two hundred have no score: the radar says where to ' +
+     'the previous day’s filings. Companies not followed have no score: the radar says where to ' +
      'look, not what to buy.'],
     ['What are the 13D and the 13F?',
      'A 13D is filed by whoever crosses 5% of a company without being a passive investor: activists, founders, ' +
@@ -1152,7 +1152,10 @@ function bonusCard(bt){
       (f.known != null ? T(' su ' + f.known + ' con il dato', ' of ' + f.known + ' with the data') : '') +
       '</div></td><td class="num">' + esc(meas) + '</td>' +
       '<td class="num" style="color:var(--ink3)">' + sg(f.hand, 0) + '</td>' +
-      '<td class="num"><b>' + (f.points ? sg(f.points, 0) : '0') + '</b></td>' +
+      '<td class="num"><b>' + (f.points ? sg(f.points, 0) : '0') + '</b>' +
+        (f.frozen ? '<div class="nm">' + T('fermo: dato in ' + Math.round(f.known / e.camp * 100) + '% delle campagne',
+                                            'on hold: data in ' + Math.round(f.known / e.camp * 100) + '% of campaigns') + '</div>' : '') +
+      '</td>' +
       '<td class="num" style="color:var(--ink3)">' + ['3', '5', '10'].map(function(t){
         var p = f.by_tau[t]; return p ? sg(p, 0) : '0'; }).join(' / ') + '</td></tr>';
   }).join('');
@@ -1164,14 +1167,16 @@ function bonusCard(bt){
       'incertezza; il bonus usato è quell’effetto ristretto verso zero quanto più è incerto, a un ' +
       'punto di punteggio per punto percentuale. L’ultima riga è nuova, dal 23 novembre 2026: a mano ' +
       'non valeva niente, e si stima solo sulle campagne per cui si sa com’era andata l’ultima ' +
-      'trimestrale (dati Alpha Vantage).',
+      'trimestrale (dati Alpha Vantage). Finché quelle campagne non sono almeno la metà, la stima si ' +
+      'mostra ma non dà punti: con pochi casi dipenderebbe da quali aziende hanno il dato.',
       'Until 22 November 2026 the insider input gave +18 to a cluster, +10 to a top executive and +8 to ' +
       'two buyers: numbers picked by hand. Now the campaigns above estimate them. The measured effect is ' +
       'the extra return at ' + bt.horizon + ' days, in percentage points, with its uncertainty; the bonus ' +
       'used is that effect shrunk towards zero the more uncertain it is, at one score point per ' +
       'percentage point. The last row is new, since 23 November 2026: by hand it was worth nothing, and ' +
       'it is estimated only on the campaigns for which the latest results are known (Alpha Vantage ' +
-      'data).') + '</p>' +
+      'data). Until those campaigns are at least half, the estimate is shown but gives no points: with few ' +
+      'cases it would depend on which companies have the data.') + '</p>' +
     '<div class="scroll"><table><thead><tr><th>' + T('Regola', 'Rule') + '</th>' +
     '<th class="num">' + T('Effetto misurato', 'Measured effect') + '</th>' +
     '<th class="num">' + T('A mano', 'By hand') + '</th>' +
@@ -1327,6 +1332,8 @@ function evSets(ev){
   if (ok('cluster') && ok('solo')) s.push({ id: 'cluster', label: T('Cluster o no', 'Cluster or not'), series: ['cluster', 'solo'] });
   if (ok('senior') && ok('other')) s.push({ id: 'senior', label: T('Dirigenti o altri', 'Executives or others'), series: ['senior', 'other'] });
   if (ok('beat') && ok('nobeat')) s.push({ id: 'beat', label: T('Dopo la trimestrale', 'After results'), series: ['beat', 'nobeat'] });
+  var sz = ['large', 'mid', 'small'].filter(ok);
+  if (sz.length > 1) s.push({ id: 'size', label: T('Per dimensione', 'By size'), series: sz });
   return s;
 }
 
@@ -1337,7 +1344,10 @@ function evName(id){
             senior: T('Con un dirigente apicale', 'With a top executive'),
             other: T('Senza dirigenti apicali', 'Without top executives'),
             beat: T('Dopo una trimestrale sopra le attese', 'After results above expectations'),
-            nobeat: T('Dopo una in linea o sotto', 'After results in line or below') })[id] || id;
+            nobeat: T('Dopo una in linea o sotto', 'After results in line or below'),
+            large: T('Grandi capitalizzazioni', 'Large caps'),
+            mid: T('Medie (S&P 400)', 'Mid caps (S&P 400)'),
+            small: T('Piccole (S&P 600)', 'Small caps (S&P 600)') })[id] || id;
 }
 
 function evCur(ev){
@@ -1682,6 +1692,7 @@ function thN(n){ return Number(n).toLocaleString(LOC); }
 /* Due termometri: tutto il mercato (dai data set della SEC, dal 2006) e le
    duecento aziende. thSel() dà quello scelto con i pulsanti, nella stessa forma. */
 var THS = 'all';
+function NCO(){ return (IDX && IDX.companies || []).length; }   // quante aziende segue il sito
 function thSel(scope){
   var b = IDX.thermometer;
   if (!b) return null;
@@ -1829,14 +1840,14 @@ function thCard(){
       'ultimi tre mesi, si contano gli amministratori e i dirigenti che hanno comprato azioni della propria azienda ' +
       'sul mercato e quelli che ne hanno vendute, una volta per persona e per mese. Il termometro è la quota di ' +
       'compratori. Qui le vendite dei piani 10b5-1 restano dentro, perché i data set non le distinguono per tutti ' +
-      'gli anni: la quota è più bassa di quella delle duecento aziende, ma è la stessa misura per vent’anni. Negli ' +
+      'gli anni: la quota è più bassa di quella delle aziende seguite, ma è la stessa misura per vent’anni. Negli ' +
       'studi classici (Seyhun, 1988 e 1992; Lakonishok e Lee, 2001) gli insider nel loro insieme comprano di più ' +
       'dopo i cali, e la borsa nei mesi dopo è andata meglio della media.',
       'All US companies, from the Form 4 data sets the SEC has published since 2006. At the end of each month, for ' +
       'the last three months, we count the directors and officers who bought shares in their own company on the ' +
       'open market and those who sold, once per person per month. The thermometer is the share of buyers. Sales ' +
       'under 10b5-1 plans stay in here, because the data sets do not flag them for every year: the share is lower ' +
-      'than for the two hundred companies, but it is the same measure for twenty years. In the classic studies ' +
+      'than for the companies followed, but it is the same measure for twenty years. In the classic studies ' +
       '(Seyhun, 1988 and 1992; Lakonishok and Lee, 2001) insiders as a whole buy more after falls, and the market ' +
       'did better than average in the months after.') : T(
       'Tutte le ' + th.companies + ' aziende insieme. Ogni fine mese si contano gli insider che negli ultimi tre ' +
@@ -2134,18 +2145,18 @@ function renderRadar(){
                ['senior', T('Con un dirigente apicale', 'With a top executive')], ['nostre', T('Solo quelle seguite', 'Followed only')]];
   app.innerHTML = navBar('radar') +
     '<div class="card hero"><h1>' + T('Radar: tutto il mercato', 'Radar: the whole market') + '</h1><p class="lead">' + T(
-      'Le duecento aziende del sito sono una scelta. Qui ci sono tutte le società americane in cui, negli ultimi ' +
+      'Le ' + NCO() + ' aziende del sito sono una scelta. Qui ci sono tutte le società americane in cui, negli ultimi ' +
       r.window + ' giorni, amministratori e dirigenti hanno comprato azioni sul mercato per almeno ' + money(r.min_value) +
       ' in tutto. Prima i cluster, poi le aziende con più compratori.',
-      'The two hundred companies on this site are a selection. Here are all the US companies where, in the last ' +
+      'The ' + NCO() + ' companies on this site are a selection. Here are all the US companies where, in the last ' +
       r.window + ' days, directors and officers bought shares on the open market for at least ' + money(r.min_value) +
       ' in all. Clusters first, then the companies with the most buyers.') + '</p>' + radarTiles(r) +
     '<p class="sub">' + T(
       'Dai file della SEC: i data set trimestrali dei Form 4 e, per i giorni dopo, l’indice giornaliero di EDGAR, ' +
       'letto la sera. Il radar è quindi di ieri sera, non dell’ultima ora. Senza punteggio: le aziende fuori dalle ' +
-      'duecento non hanno prezzi, short interest e call nel sistema.',
+      NCO() + ' non hanno prezzi, short interest e call nel sistema.',
       'From the SEC files: the quarterly Form 4 data sets and, for the days after, the EDGAR daily index, read in the ' +
-      'evening. So the radar is as of last night, not the last hour. No score: companies outside the two hundred have ' +
+      'evening. So the radar is as of last night, not the last hour. No score: companies outside the ' + NCO() + ' have ' +
       'no prices, short interest or calls in the system.') + '</p></div>' +
     '<div class="card"><div class="evp" role="group" aria-label="' + esc(T('Filtri', 'Filters')) + '">' + pills.map(function(p){
       return '<button type="button" class="gf" data-rf="' + p[0] + '" aria-pressed="' + (p[0] === RF) + '">' + esc(p[1]) + '</button>';
@@ -2196,9 +2207,9 @@ function radarHome(){
   var rd = IDX.radar;
   if (!rd || !rd.n) return '';
   return '<div class="card"><h2>' + T('Radar: tutto il mercato', 'Radar: the whole market') + '</h2><p class="sub">' + T(
-      'Fuori dalle duecento: ' + thN(rd.n) + ' società americane con acquisti degli insider negli ultimi 90 giorni, ' +
+      'Fuori dalle ' + NCO() + ' seguite: ' + thN(rd.n) + ' società americane con acquisti degli insider negli ultimi 90 giorni, ' +
       rd.clusters + ' con un cluster. Le prime:',
-      'Beyond the two hundred: ' + thN(rd.n) + ' US companies with insider buying in the last 90 days, ' + rd.clusters +
+      'Beyond the ' + NCO() + ' followed: ' + thN(rd.n) + ' US companies with insider buying in the last 90 days, ' + rd.clusters +
       ' with a cluster. The first ones:') + '</p>' +
     '<div class="scroll"><table class="t-narrow"><tbody>' + rd.top.map(function(c){
       return '<tr style="cursor:default"><td><span class="tk">' + esc(c.t || '—') + '</span> ' +
@@ -2238,14 +2249,14 @@ function actCard(){
         '</td>' + cell(a.seg[r[0]]) + '</tr>';
     }).join('') + '</tbody></table></div>' +
     '<p class="evr">' + esc(few ? T(
-      'Nelle duecento aziende, in dieci anni, i 13D iniziali con i prezzi per misurarli sono ' + a.events + ': meno dei ' +
+      'Nelle ' + NCO() + ' aziende, in dieci anni, i 13D iniziali con i prezzi per misurarli sono ' + a.events + ': meno dei ' +
       a.min + ' che servono per dire qualcosa. Le grandi società raramente ne ricevono: gli attivisti restano quasi ' +
       'sempre sotto il 5%. I numeri qui sopra sono casi, non una tendenza.',
-      'In the two hundred companies, over ten years, the initial 13Ds with prices to measure them are ' + a.events +
+      'In the ' + NCO() + ' companies, over ten years, the initial 13Ds with prices to measure them are ' + a.events +
       ': fewer than the ' + a.min + ' needed to say anything. Large companies rarely get them: activists almost always ' +
       'stay below 5%. The numbers above are cases, not a trend.')
-      : T('Nelle duecento aziende i 13D iniziali misurabili sono ' + a.events + ', dal ' + day(a.from) + '.',
-          'In the two hundred companies there are ' + a.events + ' measurable initial 13Ds, since ' + day(a.from) + '.')) + '</p>' +
+      : T('Nelle ' + NCO() + ' aziende i 13D iniziali misurabili sono ' + a.events + ', dal ' + day(a.from) + '.',
+          'In the ' + NCO() + ' companies there are ' + a.events + ' measurable initial 13Ds, since ' + day(a.from) + '.')) + '</p>' +
     (a.recent && a.recent.length ? '<h3 class="thh3">' + T('Gli ultimi', 'The latest') + '</h3>' +
       '<div class="scroll"><table class="t-narrow"><tbody>' + a.recent.map(function(e){
         return '<tr data-t="' + esc(e.t) + '"><td><span class="tk">' + esc(e.t) + '</span><div class="nm">' + esc(day(e.d)) +
@@ -2406,6 +2417,10 @@ function renderBacktest(){
       btRow(T('Dopo una trimestrale sopra le attese', 'After results above expectations'), bt.beat,
             T('l’ultima prima del primo acquisto, entro 100 giorni', 'the latest before the first purchase, within 100 days')) +
       btRow(T('Dopo una in linea o sotto', 'After results in line or below'), bt.nobeat) : '') +
+    (bt.mid || bt.small ?
+      btRow(T('Grandi capitalizzazioni', 'Large caps'), bt.large) +
+      btRow(T('Medie', 'Mid caps'), bt.mid, T('dall’S&P MidCap 400', 'from the S&P MidCap 400')) +
+      btRow(T('Piccole', 'Small caps'), bt.small, T('dall’S&P SmallCap 600', 'from the S&P SmallCap 600')) : '') +
     '</tbody></table></div>' +
     btVerdict('cluster', bt.cluster, bt.solo,
       T('Su questi dati il cluster rende più di un acquisto isolato: la regola regge.',

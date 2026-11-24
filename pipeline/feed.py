@@ -45,11 +45,11 @@ MONTHS_EN = ("January", "February", "March", "April", "May", "June", "July",
 
 CHANNEL = {
     "it": {"title": "Conviction Engine: acquisti degli insider",
-           "desc": "Gli acquisti sul mercato degli insider di 200 aziende americane, dai Form 4 "
+           "desc": "Gli acquisti sul mercato degli insider delle aziende americane seguite dal sito, dai Form 4 "
                    "depositati alla SEC, con il punteggio di convinzione del momento. "
                    "Strumento didattico, non una raccomandazione di investimento."},
     "en": {"title": "Conviction Engine: insider buying",
-           "desc": "Open-market insider purchases at 200 US companies, from the Form 4 filings "
+           "desc": "Open-market insider purchases at the US companies the site follows, from the Form 4 filings "
                    "at the SEC, with the conviction score at that moment. "
                    "A teaching tool, not investment advice."},
 }

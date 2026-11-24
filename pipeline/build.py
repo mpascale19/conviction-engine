@@ -527,6 +527,10 @@ def backtest(results, cfg):
             # dopo una trimestrale sopra le attese, o in linea e sotto (Alpha Vantage)
             "beat": bonus.summary(pick(lambda c: c.get("beat") is True)),
             "nobeat": bonus.summary(pick(lambda c: c.get("beat") is False)),
+            # per dimensione: negli studi il segnale è più forte nelle società piccole
+            "large": bonus.summary(pick(lambda c: (c.get("size") or "large") == "large")),
+            "mid": bonus.summary(pick(lambda c: c.get("size") == "mid")),
+            "small": bonus.summary(pick(lambda c: c.get("size") == "small")),
             "bonus": bonus.estimate(camps)}
 
 
@@ -559,7 +563,8 @@ def backtest_rows(results, cfg):
                          "people": len(near),
                          "senior": rules.is_senior(t, titles),
                          # None se non si sa com'era andata l'ultima trimestrale
-                         "beat": (ls["sp"] > 0) if ls else None})
+                         "beat": (ls["sp"] > 0) if ls else None,
+                         "size": d.get("size") or "large"})
     return rows
 
 
@@ -928,6 +933,7 @@ def main():
                 d = build_one(cfg, raw, mine)
                 d["group"] = group_name(g)
                 d["benchmark"] = g["benchmark"]
+                d["size"] = g.get("dimensione") or "large"   # "mid" e "small": le aziende aggiunte il 24/11/2026
                 d["_bench_long"] = bench          # per la curva "dopo un acquisto" (eventstudy.py)
                 # i grandi fondi trimestre per trimestre (pipeline/fondi.py)
                 d["_inst"] = fondi.series(periods, t.upper())

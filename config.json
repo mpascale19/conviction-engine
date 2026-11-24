@@ -269,6 +269,20 @@
     "ADM",
     "EL"
    ]
+  },
+  {
+   "nome": "Medie capitalizzazioni USA",
+   "nome_en": "US mid caps",
+   "benchmark": "IJH",
+   "dimensione": "mid",
+   "tickers": ["BILL", "BSY", "IPGP", "LFUS", "MANH", "MKSI", "OLED", "PATH", "QLYS", "RMBS", "SANM", "SMTC", "TWLO", "VIAV", "VNT", "AFG", "AMG", "CG", "EQH", "FAF", "FFIN", "FHI", "HLNE", "JEF", "OZK", "PNFP", "PRI", "RYAN", "SEIC", "STWD", "UBSI", "UNM", "ARWR", "AVTR", "BRKR", "CORT", "HAE", "HIMS", "JAZZ", "LNTH", "RGEN", "THC", "XRAY", "AAL", "AAON", "ACM", "ALSN", "ATI", "BAH", "CACI", "CLH", "CNH", "CRS", "CW", "DCI", "ESAB", "FCN", "ITT", "KEX", "LPX", "OC", "OSK", "PSN", "R", "RBA", "RBC", "SARO", "SPXC", "TREX", "WSO", "XPO", "AR", "CHRD", "CNX", "MTDR", "VAL", "ALV", "AN", "ARMK", "BBWI", "CHDN", "CHH", "GAP", "GHC", "GME", "GNTX", "H", "LAD", "LEA", "MAT", "RH", "SCI", "SGI", "TXRH", "VVV", "ACI", "CART", "CELH", "DAR", "USFD"]
+  },
+  {
+   "nome": "Piccole capitalizzazioni USA",
+   "nome_en": "US small caps",
+   "benchmark": "IJR",
+   "dimensione": "small",
+   "tickers": ["ACIW", "ARLO", "CLSK", "CNXN", "GDYN", "KN", "MIR", "PDFS", "PENG", "PI", "QRVO", "RAL", "VSAT", "AAMI", "ABR", "BBT", "CASH", "CFFN", "CNS", "DAVE", "FBNC", "FBP", "FCF", "FIBK", "MC", "MKTX", "NWBI", "OFG", "PFS", "RDN", "SAFT", "SFBS", "SPNT", "TRMK", "TRST", "UFCS", "WSFS", "ACAD", "AMN", "ICUI", "INVA", "LFST", "NEO", "NEOG", "OGN", "OMCL", "PRVA", "PTCT", "SDGR", "SUPN", "TGTX", "UFPT", "ALG", "ATMU", "AWI", "BRC", "CWST", "DNOW", "EPAC", "FA", "FWRD", "GFF", "HCSG", "MATX", "MRCY", "MWA", "MYRG", "NSP", "RXO", "VSEC", "ZWS", "AESI", "CLB", "CRC", "HLX", "NE", "NOG", "AAP", "ADNT", "AEO", "BFAM", "BKE", "CBRL", "CVCO", "DAN", "EYE", "GIII", "LGIH", "MNRO", "PRDO", "SHAK", "SHOO", "SKY", "UAA", "UTI", "CHEF", "ENR", "EPC", "FRPT", "UVV"]
   }
  ],
  "cik": {

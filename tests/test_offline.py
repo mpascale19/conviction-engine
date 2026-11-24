@@ -145,8 +145,12 @@ check("un'operazione più vecchia della finestra resta fuori",
       all(t["date"] >= "2020" for t in lb["tx"]) and lb["history"]["tx_from"] != "2014-09-26",
       lb["history"]["tx_from"])
 _all = [t for g in cfg["universi"] for t in g["tickers"]]
-check("config con dieci universi e duecento aziende", len(cfg["universi"]) == 10 and len(_all) == 200,
+check("config con dodici universi e quattrocento aziende", len(cfg["universi"]) == 12 and len(_all) == 400,
       [len(g["tickers"]) for g in cfg["universi"]])
+_dims = {g.get("dimensione", "large"): len(g["tickers"]) for g in cfg["universi"] if g.get("dimensione")}
+check("cento medie (IJH) e cento piccole (IJR)", _dims == {"mid": 100, "small": 100} and
+      {g["benchmark"] for g in cfg["universi"] if g.get("dimensione")} == {"IJH", "IJR"}, _dims)
+
 check("nessun ticker ripetuto fra gli universi", len(set(_all)) == len(_all),
       sorted({t for t in _all if _all.count(t) > 1}))
 check("ogni universo ha nome nelle due lingue, riferimento e almeno 5 aziende",
@@ -1510,9 +1514,22 @@ check("le altre tre stime non cambiano se il dato c'è o no",
 check("senza il dato il bonus non si stima e vale zero",
       _eb0["beat"]["raw"] is None and _eb0["beat"]["points"] == 0 and _eb0["beat"]["known"] == 0)
 check("a mano la sorpresa non valeva niente", BO.HAND["beat"] == 0 and score.HAND_BONUS["beat"] == 0)
+check("con il dato in due terzi delle campagne il bonus vale", not _eb["beat"]["frozen"])
+_cb3 = [dict(c, beat=None) if _i % 5 else c for _i, c in enumerate(_cb)]     # il dato in un quinto
+_ef = {r["id"]: r for r in BO.estimate(_cb3)["features"]}
+check("con il dato in meno di metà delle campagne la stima si mostra ma non dà punti",
+      _ef["beat"]["frozen"] and _ef["beat"]["points"] == 0 and _ef["beat"]["raw"] is not None, _ef["beat"])
+check("e le altre voci non si fermano", not _ef["cluster"].get("frozen") and _ef["cluster"]["points"] != 0)
 _camps_b = BO.campaigns([{"car": 1.0, "t": "A", "d": "2025-01-10", "people": 1, "beat": True},
                          {"car": 2.0, "t": "A", "d": "2025-02-10", "people": 1, "beat": False}])
 check("la campagna prende la sorpresa del primo acquisto", _camps_b[0]["beat"] is True and len(_camps_b) == 1)
+_cz = BO.campaigns([{"car": 1.0, "t": "A", "d": "2025-01-10", "people": 1, "size": "small"},
+                    {"car": 2.0, "t": "B", "d": "2025-01-10", "people": 1}])
+check("la campagna sa la dimensione dell'azienda (le vecchie sono grandi)",
+      [c.get("size") for c in _cz] == ["small", None])
+from pipeline import eventstudy as _esz
+check("lo studio di evento divide per dimensione",
+      _esz.GROUPS["large"]({}) and _esz.GROUPS["small"]({"size": "small"}) and not _esz.GROUPS["mid"]({"size": "small"}))
 
 # la voce insider: il bonus si applica e la ragione lo dice
 _pts = {"cluster": 0, "two": 0, "senior": 0, "beat": 7}
