@@ -1,0 +1,29 @@
+name: Comunicati dei dirigenti
+
+# Le frasi dei dirigenti nei comunicati allegati agli 8-K (vedi
+# pipeline/comunicati.py). Finisce tutto nella cache "comunicati-", da dove la
+# legge il giro orario del sito (update.yml).
+#
+# Il primo giro parte dai comunicati più recenti e va indietro: dieci anni per
+# 400 aziende sono qualche decina di migliaia di depositi, due richieste
+# ciascuno, quindi ci vogliono alcuni giri per arrivare in pari. Dopo, un giro
+# legge solo i comunicati nuovi e dura pochi minuti.
+#
+# Ogni tre ore, sfasato di mezz'ora da mercato.yml per non pesare sulla SEC
+# negli stessi minuti.
+
+on:
+  workflow_dispatch:
+    inputs:
+      minutes:
+        description: "Quanti minuti al massimo per questo giro"
+        default: "50"
+  schedule:
+    - cron: "53 */3 * * *"
+
+permissions:
+  contents: read
+
+concurrency:
+  group: comunicati
+  cancel-in-progress: false
