@@ -1,6 +1,6 @@
 {
- "generated_at": "2026-11-23T23:04:51+00:00",
- "changed_at": "2026-11-23T23:04:51+00:00",
+ "generated_at": "2026-11-24T00:02:20+00:00",
+ "changed_at": "2026-11-24T00:02:20+00:00",
  "groups": [
   {
    "nome": {
@@ -325,7 +325,7 @@
    {
     "id": "insider",
     "n": 200,
-    "rho": 0.728,
+    "rho": 0.727,
     "shift": 4.3
    },
    {
@@ -362,7 +362,7 @@
   "rho": {
    "med": 0.978,
    "p5": 0.933,
-   "min": 0.859
+   "min": 0.858
   },
   "top_overlap": {
    "med": 9,
@@ -6795,7 +6795,7 @@
     "s": 5512,
     "co": 1,
     "from": "2026-09-01",
-    "to": "2026-11-23",
+    "to": "2026-11-24",
     "pct": 32,
     "median": 28.4
    },
@@ -7845,7 +7845,7 @@
    "s": 269,
    "co": 200,
    "from": "2026-09-01",
-   "to": "2026-11-23",
+   "to": "2026-11-24",
    "pct": 69,
    "median": 10.1
   },
@@ -7929,8 +7929,8 @@
   "items": 43
  },
  "radar": {
-  "n": 592,
-  "clusters": 134,
+  "n": 581,
+  "clusters": 132,
   "through": "2026-11-20",
   "pending": 0,
   "top": [
@@ -7946,7 +7946,7 @@
     "t": "BBD",
     "name": "BANK BRADESCO",
     "buyers": 22,
-    "value": 99343130,
+    "value": 93585851,
     "cluster": true,
     "ours": false
    },
@@ -10340,7 +10340,7 @@
     "c": 304.13,
     "v": 2841454
    },
-   "tx": 1955,
+   "tx": 1967,
    "buyers": 0,
    "sellers": 1,
    "net_musd": -0.252,
@@ -11122,7 +11122,7 @@
     "c": 197.72,
     "v": 1185159
    },
-   "tx": 1691,
+   "tx": 1692,
    "buyers": 1,
    "sellers": 0,
    "net_musd": 4.998,
@@ -15823,6 +15823,40 @@
    "next_report": null
   },
   {
+   "ticker": "KR",
+   "name": "KROGER CO",
+   "group": {
+    "it": "Beni di prima necessità",
+    "en": "Consumer staples"
+   },
+   "score": 37,
+   "verdict": {
+    "it": "Leggermente ribassista",
+    "en": "Mildly bearish"
+   },
+   "confidence": "Media",
+   "covered_pct": 80,
+   "driver": {
+    "name": {
+     "it": "Insider",
+     "en": "Insiders"
+    },
+    "up": false
+   },
+   "last": {
+    "d": "2026-11-23",
+    "c": 67.15,
+    "v": 7680610
+   },
+   "tx": 1506,
+   "buyers": 0,
+   "sellers": 1,
+   "net_musd": -4.425,
+   "cluster": false,
+   "errors": 0,
+   "next_report": "2026-12-03"
+  },
+  {
    "ticker": "CHD",
    "name": "CHURCH & DWIGHT CO INC /DE/",
    "group": {
@@ -15957,40 +15991,6 @@
    "cluster": false,
    "errors": 0,
    "next_report": null
-  },
-  {
-   "ticker": "KR",
-   "name": "KROGER CO",
-   "group": {
-    "it": "Beni di prima necessità",
-    "en": "Consumer staples"
-   },
-   "score": 36,
-   "verdict": {
-    "it": "Leggermente ribassista",
-    "en": "Mildly bearish"
-   },
-   "confidence": "Media",
-   "covered_pct": 80,
-   "driver": {
-    "name": {
-     "it": "Insider",
-     "en": "Insiders"
-    },
-    "up": false
-   },
-   "last": {
-    "d": "2026-11-23",
-    "c": 67.15,
-    "v": 7680610
-   },
-   "tx": 1506,
-   "buyers": 0,
-   "sellers": 1,
-   "net_musd": -4.425,
-   "cluster": false,
-   "errors": 0,
-   "next_report": "2026-12-03"
   },
   {
    "ticker": "ROP",
