@@ -85,6 +85,16 @@ jobs:
           restore-keys: |
             mercato-
 
+      # I comunicati dei dirigenti: li scarica comunicati.yml ogni tre ore.
+      # Solo restore, come gli altri.
+      - name: Comunicati dei dirigenti
+        uses: actions/cache/restore@v4
+        with:
+          path: cache-comunicati
+          key: comunicati-${{ github.run_id }}
+          restore-keys: |
+            comunicati-
+
       - name: Test delle regole (senza rete)
         run: python -m tests.test_offline
 
