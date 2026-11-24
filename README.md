@@ -402,6 +402,39 @@ società senza essere un investitore passivo deposita lo Schedule 13D: attivisti
   2008) sulle duecento aziende: le grandi società ne ricevono pochi, e la
   pagina lo dice quando sono meno di 20. **Non sposta punti.**
 
+## Che cosa dicono i dirigenti: i comunicati
+
+Dal 24 novembre 2026, codice in `pipeline/comunicati.py`, workflow
+`comunicati.yml` ogni tre ore (cache `comunicati-`, che il giro orario legge e
+basta). Il terzo segnale, accanto a quello che gli insider **fanno** e a quello
+che il management dice nelle **call**.
+
+- **Da dove.** Le frasi fra virgolette dei dirigenti nei comunicati stampa che
+  l'azienda allega agli 8-K (allegato EX-99, di solito EX-99.1), negli 8-K con
+  item 2.02, 7.01 o 8.01. È la stessa frase che esce sui giornali, presa alla
+  fonte: gratis, legale, dieci anni di storia. I siti di notizie no: i termini
+  vietano di raschiarli e dai server di GitHub bloccano le richieste.
+- **Quali frasi.** Il paragrafo con la citazione deve nominare un ruolo (chief
+  executive, CEO, president, chair, chief financial, CFO, chief operating,
+  founder) e un verbo di attribuzione (said, stated, added…); conta anche il
+  paragrafo che continua la citazione ("continued Doe"). Le citazioni di
+  analisti e le parole fra virgolette delle avvertenze legali restano fuori.
+- **Il tono, senza modelli.** Il dizionario di Loughran e McDonald
+  (`input/lm/`, vedi il LEGGIMI): positive meno negative ogni 100 parole, con la
+  loro regola sulla negazione. Si misura anche tutto il comunicato.
+- **Il segnale è lo scarto dal solito**: tono meno la media degli otto
+  comunicati prima dell'azienda (almeno quattro), diviso per la loro deviazione
+  standard. Huang, Teoh e Zhang (2014) trovano che un tono anormalmente
+  positivo precede rendimenti più bassi.
+- **Due richieste per comunicato** (l'indice del deposito, poi l'allegato), una
+  volta sola, dal più recente al più vecchio. Qualche decina di migliaia di
+  comunicati per dieci anni: ci vogliono alcuni giri per arrivare in pari.
+- Nella scheda, alla voce **Comunicati**: le ultime frasi con il loro tono, e
+  accanto quello che gli insider hanno fatto negli ultimi 90 giorni ("parole e
+  fatti non vanno d'accordo" se il tono è più ottimista del solito e gli
+  insider vendono, o il contrario). Nella pagina Backtest, due voci candidate
+  nella prova all'indietro. **Non sposta punti.**
+
 ## Gli avvisi: il feed RSS degli acquisti
 
 Dal 23 novembre 2026 (codice in `pipeline/feed.py`). A ogni giro la pipeline

@@ -2243,6 +2243,113 @@ check("la pipeline scrive il radar e lo riassume nell'indice",
 check("e l'elenco delle corrispondenze dei 13F", _ixw["funds"]["map"]["BA"][0] == "c" and _ixw["funds"]["missing"] == [])
 check("il termometro ha anche la parte di mercato", _ixw["thermometer"] and "all" in _ixw["thermometer"])
 
+print("\nI comunicati dei dirigenti")
+import time as _time
+from pipeline import comunicati as CM
+from pipeline import predict as PRD
+_idxh = """<table class="tableFile" summary="Document Format Files">
+<tr><th scope="col">Seq</th><th scope="col">Description</th><th scope="col">Document</th><th scope="col">Type</th></tr>
+<tr><td scope="row">1</td><td scope="row">8-K</td><td scope="row"><a href="/Archives/edgar/data/1/000000000126000001/acme-8k.htm">acme-8k.htm</a> <span>iXBRL</span></td><td scope="row">8-K</td></tr>
+<tr><td scope="row">2</td><td scope="row">EX-99.2</td><td scope="row"><a href="/Archives/edgar/data/1/000000000126000001/slides.htm">slides.htm</a></td><td scope="row">EX-99.2</td></tr>
+<tr class="evenRow"><td scope="row">3</td><td scope="row">PRESS RELEASE</td><td scope="row"><a href="/Archives/edgar/data/1/000000000126000001/acme-ex991.htm">acme-ex991.htm</a></td><td scope="row">EX-99.1</td></tr>
+<tr><td scope="row">4</td><td scope="row">GRAPHIC</td><td scope="row"><a href="/x/logo.jpg">logo.jpg</a></td><td scope="row">GRAPHIC</td></tr>
+</table>"""
+check("dall'indice del deposito si prende l'EX-99.1, anche se non è il primo allegato",
+      CM.exhibit(_idxh) == "acme-ex991.htm", CM.exhibit(_idxh))
+check("un deposito senza EX-99 non ha comunicato", CM.exhibit(_idxh.replace("EX-99", "EX-10")) is None)
+_doc = """<html><head><style>p{x:1}</style></head><body><div><span>ACME Reports Record Quarter</span></div>
+<p><span>SPRINGFIELD, Oct. 28, 2026 &mdash; ACME Corp. today reported revenue of $2.1 billion.</span></p>
+<p><span>&#8220;We delivered an excellent quarter with strong demand across every region, and we are confident,&#8221; said Jane Doe, Chief Executive Officer of ACME.</span></p>
+<p>&#8220;Looking ahead, we remain focused on disciplined execution and expect continued growth in 2027.&#8221;</p>
+<p>John Roe, Chief Financial Officer, added, &#8220;Cash flow was not strong enough this quarter, and costs rose due to adverse tariff impacts.&#8221;</p>
+<p>&#8220;This is clearly the best stock in the whole sector this year,&#8221; said an analyst at the bank.</p>
+<p>Words such as &#8220;believe,&#8221; &#8220;expect&#8221; and similar expressions identify forward-looking statements.</p>
+</body></html>"""
+_rr = CM.read_release(_doc)
+check("si tengono le frasi dei dirigenti, anche quella che continua nel paragrafo dopo",
+      len(_rr["q"]) == 3 and _rr["q"][0]["t"].startswith("We delivered") and "Chief Executive" in _rr["q"][0]["a"]
+      and _rr["q"][1]["t"].startswith("Looking ahead") and _rr["q"][2]["t"].startswith("Cash flow"), _rr["q"])
+check("non quelle di un analista, né le parole fra virgolette delle avvertenze",
+      not any("analyst" in q["a"] or "best stock" in q["t"] or q["t"].startswith("believe") for q in _rr["q"]))
+check("lo stile della pagina non entra nel testo", "x:1" not in " ".join(CM.paragraphs(_doc)))
+check("gli a capo dentro un paragrafo HTML non lo spezzano",
+      CM.paragraphs("<p>&#8220;We had a\nvery good year,&#8221; said\nthe CEO.</p><p>Next</p>")
+      == ["\u201cWe had a very good year,\u201d said the CEO.", "Next"])
+_txt = "ACME REPORTS RESULTS\n\n\"We delivered an excellent quarter and we expect\ncontinued growth next year,\" said Jane Doe,\nChief Executive Officer.\n\nOther text."
+check("in un allegato di solo testo le righe a capo si riuniscono",
+      CM.quotes(CM.paragraphs(_txt))[0]["t"].startswith("We delivered an excellent quarter and we expect continued"),
+      CM.paragraphs(_txt))
+_tc = CM.tone_counts("results were not strong, then later on excellent, a loss, uncertainty",
+                     {"pos": {"strong", "excellent"}, "neg": {"loss"}, "unc": {"uncertainty"}})
+check("una parola positiva negata non conta, le altre sì",
+      (_tc["p"], _tc["n"], _tc["u"], _tc["w"]) == (1, 1, 1, 11), _tc)
+check("il tono netto è per 100 parole, e sotto le 25 parole non si misura",
+      CM.net({"w": 50, "p": 4, "n": 1}) == 6.0 and CM.net({"w": 20, "p": 4, "n": 1}) is None)
+# una serie: otto comunicati con tono 2, 3, 2, 3, ... poi uno molto più ottimista
+_store = {}
+for _k in range(9):
+    _p = 10 if _k == 8 else (2 if _k % 2 == 0 else 3)
+    _store[f"acc{_k}"] = {"d": f"2026-0{1 + _k // 3}-{10 + _k:02d}", "cik": "1", "doc": "ex.htm",
+                          "q": [{"t": f"frase {_k}", "a": "said the CEO"}],
+                          "qc": {"w": 100, "p": _p, "n": 0}, "rc": {"w": 1000, "p": 20, "n": 10}}
+_store["accX"] = {"d": "2026-02-01", "none": "senza EX-99"}
+_ser = CM.series(_store)
+check("la serie tiene solo i depositi letti, in ordine di data", len(_ser) == 9 and _ser[0]["acc"] == "acc0")
+check("lo scarto dal solito serve di almeno quattro comunicati prima",
+      [r["qz"] is None for r in _ser[:5]] == [True] * 4 + [False], [r["qz"] for r in _ser])
+check("e un comunicato molto più ottimista del solito ha uno scarto grande",
+      _ser[-1]["qz"] == round((10 - 2.5) / 0.5, 2), _ser[-1])
+check("un tono sempre uguale non ha scarto (deviazione zero)", _ser[-1]["rz"] is None)
+check("il segnale di un giorno è l'ultimo comunicato già pubblico",
+      CM.as_of(_ser, _ser[-1]["d"]) == _ser[-1]["qz"] and CM.as_of(_ser, "2026-03-17") == _ser[-2]["qz"])
+check("e dopo 120 giorni non vale più", CM.as_of(_ser, "2026-09-30") is None)
+_cd = CM.card(_ser, "2026-03-20", {"buyers": 0, "sellers": 2, "net_musd": -3.0})
+check("la scheda mostra gli ultimi comunicati, il più recente prima",
+      _cd["n"] == 9 and len(_cd["last"]) == CM.CARD_N and _cd["last"][0]["q"] == "frase 8"
+      and _cd["last"][0]["url"].endswith("/1/acc8/ex.htm"), _cd["last"][0])
+check("parole più ottimiste del solito e insider che vendono: non vanno d'accordo",
+      _cd["now"]["mood"] == "up" and _cd["say_do"] == {"mood": "up", "acts": "sell", "clash": True, "agree": False},
+      _cd.get("say_do"))
+check("con insider che comprano vanno d'accordo",
+      CM.card(_ser, "2026-03-20", {"buyers": 2, "sellers": 0, "net_musd": 1.0})["say_do"]["agree"])
+check("senza frasi dei dirigenti niente scheda", CM.card([dict(r, q=[]) for r in _ser], "2026-03-20") is None)
+# la raccolta, con la rete finta
+_cmd = tempfile.mkdtemp()
+_calls = []
+def _fake_get(u):
+    _calls.append(u)
+    if u.endswith("-index.htm"):
+        return _idxh if "000000000126000002" not in u else _idxh.replace("EX-99", "EX-10")
+    if "boom" in u:
+        raise RuntimeError("rete")
+    return _doc
+_tab = {"form": ["8-K", "8-K", "4", "8-K", "8-K"], "filingDate": ["2026-10-28", "2026-08-01", "2026-07-01", "2026-05-01", "2012-01-01"],
+        "accessionNumber": ["0000000001-26-000001", "0000000001-26-000002", "x", "0000000001-26-000003", "old"],
+        "items": ["2.02,9.01", "8.01", "", "5.02", "2.02"], "_cik": ["0000000001"] * 5}
+_lg = CM.update(_cmd, {"ACME": "0000000001"}, _time.time() + 60, today="2026-11-20", get=_fake_get, table=lambda c, s: _tab)
+_st = json.load(open(os.path.join(_cmd, "rel", "ACME.json")))
+check("si leggono solo gli 8-K con un comunicato (2.02, 7.01, 8.01) degli ultimi dieci anni",
+      sorted(_st) == ["0000000001-26-000001", "0000000001-26-000002"], sorted(_st))
+check("prima il più recente, e chi non ha EX-99 resta segnato per non rileggerlo",
+      "000000000126000001" in _calls[0] and _st["0000000001-26-000002"].get("none"), _calls[:2])
+_n0 = len(_calls)
+CM.update(_cmd, {"ACME": "0000000001"}, _time.time() + 60, today="2026-11-20", get=_fake_get, table=lambda c, s: _tab)
+check("al giro dopo non si rilegge niente", len(_calls) == _n0, _calls[_n0:])
+_cs = CM.status(_cmd)
+check("lo stato conta aziende, comunicati e quelli con frasi",
+      (_cs["companies"], _cs["releases"], _cs["with_quotes"], _cs["pending"]) == (1, 1, 1, 0), _cs)
+check("la prova all'indietro ha le due voci dei comunicati",
+      "statements" in PRD.SIGNALS and "release" in PRD.SIGNALS)
+_bs = build_one(cfg, dict(raws[0], ticker="BA"))
+_bs["statements"] = _cd
+_ixs = write_all([finish(cfg, _bs, [_bs["insider_90d"]])], cfg, tempfile.mkdtemp(), cm=_cmd)
+check("l'indice riassume i comunicati e chi dice una cosa e ne fa un'altra",
+      _ixs["statements"]["releases"] == 1 and _ixs["statements"]["now"]["up"] == 1
+      and _ixs["statements"]["now"]["clash"] == ["BA"], _ixs["statements"])
+_bs2 = build_one(cfg, dict(raws[0], ticker="BA"))
+check("senza la cartella dei comunicati l'indice ha il posto vuoto",
+      write_all([finish(cfg, _bs2, [_bs2["insider_90d"]])], cfg, tempfile.mkdtemp())["statements"] is None)
+
 # il riepilogo deve contare ogni fallimento: l'elenco non va mai sostituito
 check("l'elenco dei fallimenti è ancora quello di partenza", bad is _BAD0)
 print(f"\n{ok} controlli passati, {len(bad)} falliti")

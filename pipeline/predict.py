@@ -23,6 +23,14 @@ E un'altra, l'**ampiezza della proprietà** dei grandi fondi (pipeline/fondi.py)
 di quanto è cambiata, nell'ultimo 13F già pubblico quel giorno, la quota di
 gestori che possiedono il titolo (Chen, Hong e Stein, 2002).
 
+E due dai **comunicati** dei dirigenti (pipeline/comunicati.py): di quanto il
+tono dell'ultimo comunicato già pubblico quel giorno (entro 120 giorni) era
+sopra o sotto il solito per quell'azienda, in deviazioni standard; una volta
+per le sole frasi dei dirigenti ("statements"), una per tutto il comunicato
+("release"). Huang, Teoh e Zhang (2014) trovano che un tono anormalmente
+positivo è seguito da rendimenti più bassi: se fosse così anche qui, la
+correlazione sarebbe negativa.
+
 Per ogni data e per ogni universo si calcola la correlazione di rango
 (Spearman) fra il valore della voce in quel giorno e il rendimento delle 60
 sedute successive, fra le aziende dello stesso universo. Il confronto è nella
@@ -43,7 +51,7 @@ Il calcolo è deterministico: stessi dati, stesso risultato.
 import statistics as st
 from datetime import date, timedelta
 
-from . import alphavantage, fondi, rules, score
+from . import alphavantage, comunicati, fondi, rules, score
 
 H = 60          # sedute dopo cui si misura
 START = 126     # sei mesi di storia prima della prima data: il prezzo ne ha bisogno
@@ -51,7 +59,7 @@ STEP = 5        # una data ogni cinque sedute basta, le vicine dicono la stessa 
 EVENT_DAYS = 180
 MIN_CO = 5      # sotto le cinque aziende una correlazione non dice niente
 
-SIGNALS = ("price", "sector", "market", "events", "surprise", "breadth")
+SIGNALS = ("price", "sector", "market", "events", "surprise", "breadth", "statements", "release")
 
 
 def _ranks(xs):
@@ -147,6 +155,11 @@ def _signals_on(group, pos, day, cfg):
         fr = fondi.as_of(d.get("_inst") or [], day)
         if fr is not None and fr["dbr"] is not None:
             out["breadth"][t] = fr["dbr"]
+        # il tono dei comunicati rispetto al solito dell'azienda
+        rel = d.get("_rel") or []
+        if rel:
+            out["statements"][t] = comunicati.as_of(rel, day, "q")
+            out["release"][t] = comunicati.as_of(rel, day, "r")
     if len(summ) >= 4:
         for t, me in summ.items():
             out["sector"][t] = score.sector_score(me, list(summ.values()), cfg)[0]

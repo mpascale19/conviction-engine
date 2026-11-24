@@ -628,7 +628,8 @@ function renderGuide(){
      'a 60 giorni dei suoi acquisti passati, rispetto al settore: chi ci ha preso pesa di più. Gli ' +
      'acquisti si contano per campagna: dieci compere in tre settimane sono una prova sola.'],
     ['Da dove vengono i dati?',
-     'Form 4, 8-K, 13D, azioni in circolazione: SEC EDGAR. Tutto il mercato e i grandi fondi: i data set ' +
+     'Form 4, 8-K, 13D, azioni in circolazione, comunicati dei dirigenti (gli allegati EX-99 degli 8-K): ' +
+     'SEC EDGAR. Tutto il mercato e i grandi fondi: i data set ' +
      'dei Form 4 e dei 13F che la SEC pubblica ogni trimestre. Prezzi: Yahoo Finance, con stooq come riserva. ' +
      'Short interest: i file pubblici di FINRA. Utili contro attese, calendario delle trimestrali, ' +
      'elenco dei titoli quotati e trascrizioni: Alpha Vantage. Delle trascrizioni nel repository ' +
@@ -662,6 +663,13 @@ function renderGuide(){
      'fondatori, azionisti di controllo. Il 13F lo deposita ogni trimestre ogni gestore con più di 100 milioni ' +
      'in azioni americane: l’elenco di quello che possiede. Nella scheda di ogni azienda, alla voce Fondi, ci ' +
      'sono tutti e due; la pagina Backtest li mette alla prova. Per ora non spostano punti.'],
+    ['Che cosa sono i comunicati dei dirigenti?',
+     'Le frasi fra virgolette di CEO, CFO e presidenti nei comunicati stampa che l’azienda allega agli 8-K ' +
+     '(risultati, acquisizioni, guidance): le stesse che escono sui giornali, ma prese alla fonte, la SEC. Il ' +
+     'tono si misura con il dizionario finanziario di Loughran e McDonald, senza nessun modello: parole ' +
+     'positive meno negative, ogni 100 parole. Conta lo scarto dal solito di quell’azienda, perché certi CEO ' +
+     'sono sempre entusiasti. La scheda le mette accanto a quello che gli insider fanno. Non spostano punti: ' +
+     'la pagina Backtest le mette alla prova.'],
     ['Che cos’è il termometro degli insider?',
      'Una lettura del mercato, non di un’azienda. Fra tutti gli insider delle aziende seguite che negli ' +
      'ultimi tre mesi hanno comprato sul mercato o venduto fuori da un piano 10b5-1, la quota di quelli che ' +
@@ -712,7 +720,8 @@ function renderGuide(){
      'purchases against the sector: those who were right weigh more. Purchases are counted per ' +
      'campaign: ten buys in three weeks are a single piece of evidence.'],
     ['Where does the data come from?',
-     'Form 4, 8-K and 13D filings and shares outstanding: SEC EDGAR. The whole market and the large funds: ' +
+     'Form 4, 8-K and 13D filings, shares outstanding and the executives’ press releases (the EX-99 ' +
+     'exhibits of 8-Ks): SEC EDGAR. The whole market and the large funds: ' +
      'the Form 4 and 13F data sets the SEC publishes every quarter. Prices: Yahoo Finance, with stooq as a ' +
      'fallback. Short interest: FINRA’s public files. Earnings against estimates, the results calendar, ' +
      'the list of listed stocks and the transcripts: Alpha Vantage. Of the transcripts, only the ' +
@@ -746,6 +755,13 @@ function renderGuide(){
      'controlling shareholders. A 13F is filed every quarter by every manager with more than 100 million in US ' +
      'shares: the list of what it owns. Each company page has both, under Funds; the Backtest page puts them ' +
      'to the test. For now they move no points.'],
+    ['What are the executives’ statements?',
+     'The quoted sentences of CEOs, CFOs and presidents in the press releases a company attaches to its 8-Ks ' +
+     '(results, acquisitions, guidance): the same ones that appear in the news, but taken at the source, the ' +
+     'SEC. Tone is measured with the Loughran and McDonald finance dictionary, with no model: positive minus ' +
+     'negative words, per 100 words. What counts is the gap from that company’s usual tone, because some CEOs ' +
+     'are always enthusiastic. The company page sets them next to what insiders do. They move no points: the ' +
+     'Backtest page puts them to the test.'],
     ['What is the insider thermometer?',
      'A reading of the market, not of one company. Among all the insiders of the companies followed who in ' +
      'the last three months bought on the open market or sold outside a 10b5-1 plan, the share who bought. ' +
@@ -1255,7 +1271,9 @@ function icCard(){
   var names = { price: T('Contesto di prezzo', 'Price context'), sector: T('Settore', 'Sector'),
                 market: T('Mercato', 'Market'), events: T('Fatti rilevanti (8-K)', 'Material events (8-K)'),
                 surprise: T('Sorpresa sugli utili', 'Earnings surprise'),
-                breadth: T('Ampiezza dei grandi fondi (13F)', 'Breadth of fund ownership (13F)') };
+                breadth: T('Ampiezza dei grandi fondi (13F)', 'Breadth of fund ownership (13F)'),
+                statements: T('Tono dei dirigenti nei comunicati', 'Executives’ tone in press releases'),
+                release: T('Tono dei comunicati', 'Tone of press releases') };
   var notes = { price: T('dalle chiusure', 'from closing prices'),
                 sector: T('dai Form 4 di tutto l’universo', 'from the Form 4s of the whole universe'),
                 market: T('solo la storia dello short interest del titolo', 'only the stock’s own short-interest history'),
@@ -1263,7 +1281,13 @@ function icCard(){
                 surprise: T('non è nel punteggio: l’ultima trimestrale contro le attese',
                             'not in the score: the latest results against estimates'),
                 breadth: T('non è nel punteggio: quanti più gestori lo possiedono rispetto al trimestre prima',
-                           'not in the score: how many more managers own it than the quarter before') };
+                           'not in the score: how many more managers own it than the quarter before'),
+                statements: T('non è nel punteggio: le frasi dei dirigenti, rispetto al solito dell’azienda; ' +
+                              'la ricerca trova che un tono troppo ottimista precede rendimenti più bassi',
+                              'not in the score: the executives’ quotes, against the company’s usual tone; ' +
+                              'research finds that an unusually upbeat tone precedes lower returns'),
+                release: T('non è nel punteggio: tutto il comunicato, rispetto al solito dell’azienda',
+                           'not in the score: the whole release, against the company’s usual tone') };
   var rows = ic.rows.map(function(r){
     var read, col = 'var(--ink3)';
     if (r.ic == null) read = T('non ancora calcolabile', 'not computable yet');
@@ -1287,14 +1311,15 @@ function icCard(){
   return '<div class="card"><h2>' + T('Le altre voci, alla prova', 'The other inputs, put to the test') +
     '</h2><p class="sub">' + T(
       'Quattro voci del punteggio si possono ricostruire giorno per giorno nel passato senza inventare ' +
-      'niente, e con loro due che nel punteggio non ci sono, la sorpresa sugli utili e l’ampiezza dei grandi ' +
-      'fondi: se qui una delle due mostrasse un segnale, sarebbe la ragione per farla entrare. Per ogni data, dentro ogni universo, si guarda se le aziende con il valore più alto hanno ' +
+      'niente, e con loro alcune che nel punteggio non ci sono: la sorpresa sugli utili, l’ampiezza dei grandi ' +
+      'fondi e il tono dei comunicati dei dirigenti. Se qui una di queste mostrasse un segnale, sarebbe la ' +
+      'ragione per farla entrare. Per ogni data, dentro ogni universo, si guarda se le aziende con il valore più alto hanno ' +
       'poi reso di più delle altre nei ' + ic.horizon + ' giorni successivi: 1 vorrebbe dire sempre, 0 per ' +
       'niente, −1 sempre al contrario. Il confronto è fra aziende nella stessa data, quindi ' +
       'l’andamento del mercato si annulla. Date fra ' + fmtD(ic.from) + ' e ' + fmtD(ic.to) + '.',
       'Four inputs of the score can be rebuilt day by day in the past without inventing anything, and so ' +
-      'can two that are not in the score, the earnings surprise and the breadth of fund ownership: if either ' +
-      'showed a signal here, that would be the reason to bring it in. For each date, within each universe, we check whether the companies with the highest value went on to ' +
+      'can some that are not in the score: the earnings surprise, the breadth of fund ownership and the tone of ' +
+      'the executives’ press releases. If one of them showed a signal here, that would be the reason to bring it in. For each date, within each universe, we check whether the companies with the highest value went on to ' +
       'beat the others over the next ' + ic.horizon + ' days: 1 would mean always, 0 not at all, −1 ' +
       'always the opposite. The comparison is between companies on the same date, so the market’s ' +
       'direction cancels out. Dates between ' + fmtD(ic.from) + ' and ' + fmtD(ic.to) + '.') + '</p>' +
@@ -3167,6 +3192,53 @@ function paneEarnings(d){
     '</p></div>';
 }
 
+/* Che cosa dicono i dirigenti nei comunicati (pipeline/comunicati.py), accanto a
+   quello che gli insider fanno. Il tono non ha colore: dire "più ottimista" non
+   vuol dire "rialzista", e la prova all'indietro non ha ancora detto niente. */
+function zTxt(z){
+  if (z == null) return T('ancora senza confronto', 'no comparison yet');
+  return z >= 1 ? T('più ottimista del solito (' + sg(z, 1) + ')', 'more upbeat than usual (' + sg(z, 1) + ')')
+       : z <= -1 ? T('più cauto del solito (' + sg(z, 1) + ')', 'more cautious than usual (' + sg(z, 1) + ')')
+       : T('come al solito (' + sg(z, 1) + ')', 'as usual (' + sg(z, 1) + ')');
+}
+
+function paneStatements(d){
+  var s = d.statements || {}, now = s.now, sd = s.say_do;
+  var acts = sd ? ({ buy: T('gli insider comprano', 'insiders are buying'),
+                     sell: T('gli insider vendono fuori dai piani 10b5-1', 'insiders are selling outside 10b5-1 plans'),
+                     none: T('gli insider non hanno comprato né venduto liberamente', 'insiders have neither bought nor sold freely') })[sd.acts] : '';
+  var verdict = !sd ? '' : sd.clash ? T('Parole e fatti non vanno d’accordo.', 'Words and deeds do not agree.')
+              : sd.agree ? T('Parole e fatti vanno nella stessa direzione.', 'Words and deeds point the same way.') : '';
+  var head = now
+    ? '<p style="font-size:15px;margin:4px 0 0">' + T('L’ultimo comunicato, del ', 'The latest release, of ') +
+      esc(day(now.d)) + ', ' + T('è ', 'is ') + '<b>' + esc(zTxt(now.z)) + '</b>' +
+      (sd ? '; ' + esc(acts) + T(' (ultimi 90 giorni). ', ' (last 90 days). ') + esc(verdict) : '.') + '</p>'
+    : '<p class="sub">' + T('Nessun comunicato misurabile negli ultimi 120 giorni.',
+                            'No measurable release in the last 120 days.') + '</p>';
+  var rows = (s.last || []).map(function(r){
+    return '<div style="padding:12px 0;border-top:1px solid var(--line)">' +
+      '<div class="nm">' + esc(day(r.d)) + ' · ' + T('tono ', 'tone ') + (r.n == null ? '—' : sg(r.n, 1)) +
+      ' · ' + esc(zTxt(r.z)) + '</div>' +
+      '<blockquote lang="en" style="margin:6px 0 4px;font-style:italic">“' + esc(r.q) + '”</blockquote>' +
+      (r.a ? '<div class="nm">' + esc(r.a) + '</div>' : '') +
+      (r.url ? '<a href="' + esc(r.url) + '" target="_blank" rel="noopener">' +
+        T('Il comunicato su EDGAR', 'The release on EDGAR') + '</a>' : '') + '</div>';
+  }).join('');
+  return '<div class="card"><h2>' + T('Che cosa dicono i dirigenti', 'What the executives say') + '</h2>' + head +
+    '<p class="sub" style="margin-top:10px">' + T(
+      'Le frasi fra virgolette dei dirigenti nei comunicati allegati agli 8-K. Il tono è il numero di parole ' +
+      'positive meno quelle negative ogni 100, con il dizionario finanziario di Loughran e McDonald. Fra ' +
+      'parentesi lo scarto dal solito: quante deviazioni standard sopra o sotto la media dei comunicati ' +
+      'precedenti dell’azienda. Non entra nel punteggio: la pagina Backtest lo mette alla prova. ',
+      'The executives’ quoted sentences in the press releases attached to 8-Ks. Tone is positive minus ' +
+      'negative words per 100, with the Loughran and McDonald finance dictionary. In brackets the gap from ' +
+      'usual: how many standard deviations above or below the average of the company’s previous releases. ' +
+      'It is not in the score: the Backtest page puts it to the test. ') +
+      T(s.n + ' comunicati con frasi dei dirigenti dal ' + day(s.from) + '.',
+        s.n + ' releases with executives’ quotes since ' + day(s.from) + '.') + '</p>' +
+    '<div style="margin-top:6px">' + rows + '</div></div>';
+}
+
 function renderDetail(d){
   var s = d.score || {}, co = d.company || {}, last = (d.price || {}).last;
   var tabs = [['panoramica', T('Panoramica', 'Overview')], ['insider', T('Insider', 'Insiders')]];
@@ -3174,6 +3246,7 @@ function renderDetail(d){
   if ((d.calls || []).length) tabs.push(['call', T('Call', 'Calls')]);
   if ((d.earnings || []).length) tabs.push(['utili', T('Utili', 'Earnings')]);
   if ((d.inst || []).length || d.activists) tabs.push(['fondi', T('Fondi', 'Funds')]);
+  if (d.statements) tabs.push(['comunicati', T('Comunicati', 'Statements')]);
   tabs.push(['memo', T('Memo', 'Memo')]);
   if (!tabs.some(function(t){ return t[0] === TAB; })) TAB = 'panoramica';
   var pane = TAB === 'insider' ? paneInsider(d)
@@ -3181,6 +3254,7 @@ function renderDetail(d){
            : TAB === 'call' ? paneCalls(d)
            : TAB === 'utili' ? paneEarnings(d)
            : TAB === 'fondi' ? paneHolders(d)
+           : TAB === 'comunicati' ? paneStatements(d)
            : TAB === 'memo' ? paneMemo(d) : paneOverview(d);
 
   app.innerHTML = problems(d.errors) +

@@ -17,7 +17,7 @@ import os
 import time
 from datetime import date, datetime, timedelta, timezone
 
-from . import (alphavantage, attivisti, bonus, eventstudy, feed, finra, fondi, habits, history, market,
+from . import (alphavantage, attivisti, bonus, comunicati, eventstudy, feed, finra, fondi, habits, history, market,
                mercato, predict, rules, score, stress, thermometer)
 from .rules import L
 from .extract import extract_all
@@ -37,6 +37,7 @@ CARD_EARN_Q = 12        # quanti trimestri di utili contro attese porta la sched
 SITE_URL = "https://mpascale19.github.io/conviction-engine/"   # se config.json non dice altro
 MK_DIR = mercato.DIR    # tutto il mercato e i grandi fondi: li scarica il workflow mercato.yml
 CARD_INST_Q = 12        # quanti trimestri di 13F porta la scheda
+CM_DIR = comunicati.DIR # i comunicati dei dirigenti: li scarica il workflow comunicati.yml
 
 
 def load_config(path="config.json"):
@@ -635,7 +636,8 @@ def same_but_for_the_clock(path, data):
     return a == b
 
 
-def write_all(results, cfg, outdir=OUTDIR, forward=None, si_status=None, av=None, mk=None, periods=None):
+def write_all(results, cfg, outdir=OUTDIR, forward=None, si_status=None, av=None, mk=None, periods=None,
+              cm=None):
     ddir = os.path.join(outdir, "data")
     os.makedirs(ddir, exist_ok=True)
 
@@ -729,6 +731,21 @@ def write_all(results, cfg, outdir=OUTDIR, forward=None, si_status=None, av=None
                                                     if d["company"]["ticker"] not in mp),
                 "map": mp}
 
+    # I comunicati dei dirigenti: lo stato della raccolta, e quante aziende oggi
+    # parlano più ottimiste o più caute del solito (pipeline/comunicati.py).
+    stm = None
+    try:
+        stm = comunicati.status(cm) if cm else None
+        if stm is not None:
+            now = [d["statements"] for d in results if (d.get("statements") or {}).get("now")]
+            stm["now"] = {"up": sum(1 for x in now if x["now"]["mood"] == "up"),
+                          "down": sum(1 for x in now if x["now"]["mood"] == "down"),
+                          "usual": sum(1 for x in now if x["now"]["mood"] == "usual"),
+                          "clash": sorted(d["company"]["ticker"] for d in results
+                                          if ((d.get("statements") or {}).get("say_do") or {}).get("clash"))}
+    except Exception as e:
+        print(f"! comunicati: {e}")
+
     # Gli avvisi: il feed RSS degli acquisti, site/feed.xml e site/feed-en.xml.
     try:
         fd = feed.write(results, outdir, cfg.get("site_url") or SITE_URL, cfg["rules"]["cluster_days"])
@@ -793,6 +810,8 @@ def write_all(results, cfg, outdir=OUTDIR, forward=None, si_status=None, av=None
         "activists": act,
         # i grandi fondi (13F): da quando, e quale CUSIP per ogni azienda
         "funds": fd13,
+        # i comunicati dei dirigenti: quante aziende, quanti comunicati, quanti con frasi
+        "statements": stm,
         # salti di prezzo: gli scorpori corretti (config.json, corporate_actions) e i
         # giorni sotto il settore di più di 25 punti, da controllare a mano
         "price_jumps": {
@@ -946,6 +965,14 @@ def main():
                 # i grandi fondi trimestre per trimestre (pipeline/fondi.py)
                 d["_inst"] = fondi.series(periods, t.upper())
                 d["inst"] = d["_inst"][-CARD_INST_Q:] or None
+                # che cosa dicono i dirigenti nei comunicati (pipeline/comunicati.py)
+                try:
+                    d["_rel"] = comunicati.load(CM_DIR, t.upper())
+                    d["statements"] = comunicati.card(d["_rel"], date.today().isoformat(),
+                                                      d.get("insider_90d"))
+                except Exception as e:
+                    d["_rel"], d["statements"] = [], None
+                    print(f"  ! comunicati: {e}")
                 built.append(d)
             except Exception as e:
                 print(f"  !! {t} saltato: {e}")
@@ -991,7 +1018,8 @@ def main():
     except Exception as e:
         print(f"! registro delle previsioni: {e}")
 
-    index = write_all(results, cfg, a.out, forward=fwd, si_status=si_status, av=av, mk=mk, periods=periods)
+    index = write_all(results, cfg, a.out, forward=fwd, si_status=si_status, av=av, mk=mk, periods=periods,
+                      cm=CM_DIR)
     total = sum(len(g["tickers"]) for g in groups)
     print(f"\n{len(results)} aziende su {total}")
     for r in index["companies"][:12]:
