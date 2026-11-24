@@ -1,0 +1,93 @@
+{
+  "ticker": "ELV",
+  "quarter": "T3 '26",
+  "call_date": "2026-10-21",
+  "tone": 68,
+  "tone_why": {
+    "it": "Trimestre sopra le attese in tutti e tre i rami difficili (Medicaid, Medicare Advantage, polizze individuali ACA): utile rettificato per azione 6,99 $, con circa 0,50 $ di risultato operativo migliore del previsto e 1,85 $ di voci non operative. La guidance 2026 sale ad «almeno 29 $» e, soprattutto, la base da cui crescere nel 2027 sale di 0,75 $ ad almeno 26,75 $, con la crescita di almeno il 12% confermata. Il tono è sicuro, ma la crescita 2027 è spiegata a parole: alla domanda su cosa la sostenga l'amministratore delegato risponde «nessuna singola attività o ipotesi», i dettagli arrivano a gennaio, e su Medicaid i costi restano «elevati» e le tariffe «non hanno ancora recuperato».",
+    "en": "A quarter ahead of expectations in all three difficult lines (Medicaid, Medicare Advantage, individual ACA): adjusted EPS $6.99, with about $0.50 of operating outperformance and $1.85 of non-operating items. 2026 guidance rises to \"at least $29\" and, more importantly, the baseline for 2027 growth rises by $0.75 to at least $26.75, with growth of at least 12% confirmed. The tone is confident, but 2027 growth is explained in words: asked what drives it, the CEO says \"no single business or assumption\", details come in January, and in Medicaid costs remain \"elevated\" and rates \"have not fully caught up\"."
+  },
+  "guidance": [
+    {
+      "metric": {"it": "Utile per azione rettificato 2026", "en": "2026 adjusted EPS"},
+      "value": {"it": "almeno 29 $, con una voce fiscale straordinaria negativa nel T4", "en": "at least $29, with a one-off negative tax item in Q4"},
+      "direction": "alzata"
+    },
+    {
+      "metric": {"it": "Base di utile 2026 per la crescita", "en": "2026 earnings baseline"},
+      "value": {"it": "almeno 26,75 $, +0,75 $", "en": "at least $26.75, up $0.75"},
+      "direction": "alzata"
+    },
+    {
+      "metric": {"it": "Crescita dell'utile per azione 2027", "en": "2027 EPS growth"},
+      "value": {"it": "almeno 12% dalla base più alta; dettagli a gennaio", "en": "at least 12% off the higher baseline; details in January"},
+      "direction": "confermata"
+    },
+    {
+      "metric": {"it": "Flusso di cassa operativo 2026", "en": "2026 operating cash flow"},
+      "value": {"it": "almeno 6,5 miliardi $", "en": "at least $6.5bn"},
+      "direction": "alzata"
+    },
+    {
+      "metric": {"it": "Margini per ramo", "en": "Margins by line"},
+      "value": {"it": "Medicaid «leggermente sopra» la guidance, il 2026 è il punto più basso (obiettivo 2-4%); Medicare Advantage almeno 2% (obiettivo 3-5%); polizze ACA un po' più alte, almeno 1,2 milioni di iscritti a fine anno", "en": "Medicaid \"slightly ahead\" of guidance, 2026 is the trough (target 2-4%); Medicare Advantage at least 2% (target 3-5%); ACA modestly higher, at least 1.2m members at year end"},
+      "direction": "alzata"
+    }
+  ],
+  "qa": [
+    {
+      "question": {"it": "Su cosa si regge la crescita del 12% nel 2027: dipende da Medicaid, e che andamento dei costi ipotizzate?", "en": "What underpins 12% growth in 2027: does it depend on Medicaid, and what cost trend do you assume?"},
+      "answer_summary": {"it": "«Non dipendiamo da nessuna singola attività o ipotesi»: nessun numero sui costi né sul peso di Medicaid.", "en": "\"We're not relying on any single business, market or assumption\": no number on trend or on Medicaid's share."},
+      "directness": 2
+    },
+    {
+      "question": {"it": "Il rapporto sinistri di Medicaid è salito, sceso o rimasto uguale rispetto al T3 2025?", "en": "Was the Medicaid MLR up, down or flat versus Q3 2025?"},
+      "answer_summary": {"it": "Dà il dato consolidato (90,6%) e le cause, ma non risponde sul solo Medicaid.", "en": "Gives the consolidated figure (90.6%) and the drivers, but does not answer for Medicaid alone."},
+      "directness": 2
+    },
+    {
+      "question": {"it": "Per quale andamento dei costi avete fissato i prezzi commerciali del 2026 e del 2027?", "en": "What cost trend did you price commercial 2026 and 2027 for?"},
+      "answer_summary": {"it": "«Un andamento a due cifre basse», con dentro l'effetto delle dispute arbitrali (IDR), più forte nei piani autofinanziati.", "en": "\"A low double-digit trend\", including the arbitration (IDR) effect, stronger in the self-funded block."},
+      "directness": 5
+    },
+    {
+      "question": {"it": "Quanto tempo per riportare Medicaid al margine obiettivo?", "en": "How long until Medicaid is back at target margin?"},
+      "answer_summary": {"it": "Obiettivo 2-4% confermato, ma i tempi «dipendono da quanto in fretta le tariffe si allineano ai costi»; dettagli a gennaio.", "en": "2-4% target confirmed, but timing \"depends on how quickly rates align with cost\"; details in January."},
+      "directness": 3
+    },
+    {
+      "question": {"it": "Perché a fine anno meno iscritti ACA (1,2 milioni) che a fine trimestre (1,3)?", "en": "Why fewer ACA members at year end (1.2m) than at quarter end (1.3m)?"},
+      "answer_summary": {"it": "Prudenza: il T4 prevede uscite sopra la media mentre i clienti pagano premi più alti dopo la fine dei sussidi rafforzati.", "en": "Caution: Q4 allows for above-normal attrition as consumers pay higher premiums after enhanced subsidies expired."},
+      "directness": 4
+    }
+  ],
+  "language_changes": [
+    {
+      "topic": {"it": "Medicaid", "en": "Medicaid"},
+      "from": {"it": "margini sotto pressione, in attesa delle tariffe", "en": "margins under pressure, waiting for rates"},
+      "to": {"it": "«dalla stabilizzazione al miglioramento»: il 2026 è il punto più basso", "en": "\"moving from stabilization to improvement\": 2026 is the trough"},
+      "note": {"it": "Ma il margine 2026 sale solo «leggermente» nonostante tariffe più alte: i costi e la gravità dei casi assorbono parte del beneficio.", "en": "But the 2026 margin rises only \"slightly\" despite better rates: costs and acuity absorb part of the benefit."}
+    },
+    {
+      "topic": {"it": "Carelon", "en": "Carelon"},
+      "from": {"it": "un'attività di servizi a lato dell'assicurazione", "en": "a services business beside insurance"},
+      "to": {"it": "«contributo sempre più importante» agli utili, con un nuovo presidente (Jeff Park) e rinnovi oltre il 90%", "en": "an \"increasingly important contributor\" to earnings, with a new president (Jeff Park) and retention above 90%"},
+      "note": {"it": "CarelonRx: margine operativo 5,3%; nessuna cifra sulla crescita attesa nel 2027.", "en": "CarelonRx: 5.3% operating margin; no figure for expected 2027 growth."}
+    },
+    {
+      "topic": {"it": "Dispute arbitrali (IDR)", "en": "Arbitration disputes (IDR)"},
+      "from": {"it": "una pressione nei costi, già nei prezzi", "en": "a cost pressure, already priced in"},
+      "to": {"it": "un processo che «non funziona come dovrebbe», con premi «ben oltre il ragionevole»: l'azienda chiede cambi di legge", "en": "a process \"not operating as intended\", with awards \"way in excess of what is reasonable\": the company seeks legal changes"},
+      "note": {"it": "Il problema diventa anche politico: l'amministratrice delegata ne parla a lungo senza che le sia chiesto.", "en": "The issue becomes political too: the CEO speaks at length about it unprompted."}
+    },
+    {
+      "topic": {"it": "Clienti commerciali", "en": "Commercial clients"},
+      "from": {"it": "perdite di grandi clienti negli anni scorsi", "en": "large-client losses in prior years"},
+      "to": {"it": "«diversi grandi datori di lavoro sono tornati ad Anthem» dopo un anno altrove; 2028 «parte forte»", "en": "\"several large jumbo employers have moved back to Anthem\" after a year away; 2028 \"starting off strong\""},
+      "note": {"it": "Nessun numero di iscritti vinti, solo la coda iniziale di oltre un milione.", "en": "No number of members won, only the initial pipeline of over one million."}
+    }
+  ],
+  "file": "ELV_2026Q3.json",
+  "source": "Alpha Vantage transcript (non ridistribuito)",
+  "extracted_by": "Claude (estrazione manuale, stessa forma del passo automatico)"
+}

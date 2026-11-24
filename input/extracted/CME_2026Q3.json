@@ -1,0 +1,88 @@
+{
+  "ticker": "CME",
+  "quarter": "T3 '26",
+  "call_date": "2026-10-21",
+  "tone": 72,
+  "tone_why": {
+    "it": "Trimestre da record e tono molto sicuro. Volume medio giornaliero 29,4 milioni di contratti (+16%), con crescita a due cifre in tutte e sei le classi di attività; ricavi 1,7 miliardi $ (+13%), margine operativo rettificato 69,4%, utile per azione rettificato 3,02 $ (+13%), quasi 1 miliardo $ restituito agli azionisti. Il quarto trimestre parte con volumi +17% sul record dell'anno scorso. Le ombre sono regolatorie, non nei numeri: i contratti sulla capacità di calcolo aspettano la CFTC, il petrolio 24 ore su 24 è stato ritirato dopo le proteste degli operatori, la causa sui contratti perpetui è aperta. E sui dati di mercato (+20%) l'azienda non dà attese.",
+    "en": "A record quarter and a very confident tone. Average daily volume 29.4m contracts (+16%), with double-digit growth in all six asset classes; revenue $1.7bn (+13%), adjusted operating margin 69.4%, adjusted EPS $3.02 (+13%), nearly $1bn returned to shareholders. Q4 starts with volume +17% over last year's record. The shadows are regulatory, not in the numbers: compute futures await the CFTC, 24/7 oil was withdrawn after commercial pushback, the perpetuals lawsuit is open. And on market data (+20%) the company gives no expectations."
+  },
+  "guidance": [
+    {
+      "metric": {"it": "Volumi del quarto trimestre", "en": "Fourth-quarter volume"},
+      "value": {"it": "a inizio T4 +17% sul quarto trimestre record del 2025; +12% sull'anno record finora: «sulla strada per un altro anno record»", "en": "early Q4 +17% over the record Q4 2025; +12% over last year's record year to date: \"firmly on track for another record year\""},
+      "direction": "prima"
+    },
+    {
+      "metric": {"it": "Prezzi dal 1° ottobre", "en": "Pricing from 1 October"},
+      "value": {"it": "effetto dello 0,5-1% annuo sulle commissioni di compensazione e negoziazione (criptovalute, cereali, tassi, micro azioni); niente più blocco annuale dei prezzi", "en": "0.5-1% annualised effect on clearing and transaction fees (crypto, grains, rates, micro equities); no more annual pricing freeze"},
+      "direction": "prima"
+    },
+    {
+      "metric": {"it": "Lanci in calendario", "en": "Scheduled launches"},
+      "value": {"it": "CME Securities Clearing il 7 dicembre, prima dell'obbligo di compensazione dei Treasury; migrazione al cloud dei mercati da fine 2027", "en": "CME Securities Clearing on 7 December, ahead of the Treasury clearing mandate; cloud migration of the markets from late 2027"},
+      "direction": "confermata"
+    },
+    {
+      "metric": {"it": "Licenza S&P (tramite la joint venture)", "en": "S&P licence (through the joint venture)"},
+      "value": {"it": "con l'estensione di 25 anni concordata da Cboe, aumenti di prezzo dal 2027 invece che dal 2032; importi non ancora resi noti", "en": "with the 25-year extension agreed by Cboe, price escalation from 2027 rather than 2032; amounts not yet disclosed"},
+      "direction": "prima"
+    }
+  ],
+  "qa": [
+    {
+      "question": {"it": "Ci sono ostacoli al lancio dei contratti futures sulla capacità di calcolo?", "en": "Are there hurdles to launching compute futures?"},
+      "answer_summary": {"it": "I tempi li decide la CFTC (commenti fino al 9 novembre); forte domanda da operatori di data center, neocloud e banche. Nessuna data.", "en": "Timing is up to the CFTC (comments until 9 November); strong demand from data-centre operators, neoclouds and banks. No date."},
+      "directness": 3
+    },
+    {
+      "question": {"it": "Perché è stato ritirato il petrolio 24 ore su 24, e quale classe di attività sarà la prossima?", "en": "Why was 24/7 oil withdrawn, and which asset class is next?"},
+      "answer_summary": {"it": "Gli operatori commerciali non volevano un altro turno; i prodotti principali andranno 24 ore su 24 solo quando lo farà il sistema bancario.", "en": "Commercial participants did not want another desk; primary products go 24/7 only when the banking system does."},
+      "directness": 4
+    },
+    {
+      "question": {"it": "Perché il reddito netto da interessi è sceso dell'8%?", "en": "Why did net interest income fall 8%?"},
+      "answer_summary": {"it": "Saldi medi della camera di compensazione da 150 a 147 miliardi $ a circa 33 punti base, più cassa propria (27 milioni $ di interessi): risposta piena con i numeri.", "en": "Average clearing-house balances from $150bn to $147bn at about 33bp, plus more corporate cash ($27m earned): a full answer with numbers."},
+      "directness": 5
+    },
+    {
+      "question": {"it": "Se perdete la causa, quotereste voi i contratti perpetui sugli indici azionari?", "en": "If you lose the case, would you list perpetuals on equity indices?"},
+      "answer_summary": {"it": "«Attraverseremo quel ponte quando ci arriveremo»: nessuna decisione, molta fiducia nella causa.", "en": "\"We will cross that bridge when we get to it\": no decision, strong confidence in the case."},
+      "directness": 2
+    },
+    {
+      "question": {"it": "Qual è la crescita normale dei dati di mercato dopo trimestri al +20%?", "en": "What is the normal growth rate of market data after +20% quarters?"},
+      "answer_summary": {"it": "Spiega i tre motori (abbonati professionali, piattaforme retail, flussi e prezzi) ma «non diamo attese sulla crescita futura».", "en": "Explains the three drivers (professional subscribers, retail platforms, feeds and pricing) but \"we don't share specific expectations about future growth\"."},
+      "directness": 3
+    }
+  ],
+  "language_changes": [
+    {
+      "topic": {"it": "Trading 24 ore su 24", "en": "24/7 trading"},
+      "from": {"it": "criptovalute 24/7 lanciate a inizio anno, petrolio 10 barili in arrivo", "en": "24/7 crypto launched earlier this year, 10-barrel oil coming"},
+      "to": {"it": "oro e argento aggiunti, petrolio ritirato «finché gli operatori non saranno più a loro agio»; i prodotti principali aspettano le banche", "en": "gold and silver added, oil held back \"until people are more comfortable\"; primary products wait for the banks"},
+      "note": {"it": "Duffy accusa le piattaforme estere usate dagli americani tramite VPN senza controlli.", "en": "Duffy points at offshore platforms used by Americans through VPNs without policing."}
+    },
+    {
+      "topic": {"it": "Prezzi", "en": "Pricing"},
+      "from": {"it": "aumenti una volta l'anno, poi prezzi fermi", "en": "increases once a year, then a freeze"},
+      "to": {"it": "aumenti sparsi durante l'anno (aprile, ottobre) dove il mercato crea valore", "en": "increases spread over the year (April, October) where markets create value"},
+      "note": {"it": "Più leve sui prezzi, meno prevedibili per i clienti.", "en": "More pricing levers, less predictable for clients."}
+    },
+    {
+      "topic": {"it": "Infrastruttura", "en": "Infrastructure"},
+      "from": {"it": "mercati del bestiame da spostare a Dallas nell'attesa del cloud", "en": "livestock markets to move to Dallas while waiting for the cloud"},
+      "to": {"it": "spostamento non più necessario; mercati sul cloud di Google da fine 2027", "en": "move no longer needed; markets on Google Cloud from late 2027"},
+      "note": {"it": "I test di Dallas danno latenze uguali o migliori di quelle in sede.", "en": "Dallas tests show latency as good as or better than on-premises."}
+    },
+    {
+      "topic": {"it": "Mercati di previsione", "en": "Prediction markets"},
+      "from": {"it": "un mercato di previsione già attivo", "en": "a prediction market already live"},
+      "to": {"it": "«non ogni mercato deve avere un mercato di previsione»: i futures sulle singole azioni partono senza", "en": "\"not every market has to have a prediction market\": single stock futures start without one"},
+      "note": {"it": "Prudenza dichiarata, ma la porta resta aperta.", "en": "Stated caution, but the door stays open."}
+    }
+  ],
+  "file": "CME_2026Q3.json",
+  "source": "Alpha Vantage transcript (non ridistribuito)",
+  "extracted_by": "Claude (estrazione manuale, stessa forma del passo automatico)"
+}

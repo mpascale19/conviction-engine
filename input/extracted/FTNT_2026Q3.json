@@ -1,0 +1,98 @@
+{
+  "ticker": "FTNT",
+  "quarter": "T3 '26",
+  "call_date": "2026-10-28",
+  "tone": 58,
+  "tone_why": {
+    "it": "Numeri forti in superficie: fatturazione +29% a 2,34 miliardi $, ricavi +20%, prodotti +37%, margine operativo record 38,2%, flusso di cassa libero +52%, riacquisti alzati di 1,2 miliardi $ e guidance annuale alzata per la terza volta. Ma il fondatore Ken Xie e la direttrice finanziaria Christiane Ohlgart passano la call a spiegare due crepe: i ricavi da servizi crescono solo del 13%, perché i grandi clienti nuovi attivano i servizi più tardi, e la guidance dei servizi 2026 viene ritoccata; i prodotti rallentano rispetto al T2, perché è finito il vantaggio del magazzino comprato a prezzi vecchi e i tempi di consegna dei componenti si allungano. Un analista ricorda che il titolo «è sceso molto» su questo.",
+    "en": "Strong numbers on the surface: billings +29% to $2.34bn, revenue +20%, product +37%, record 38.2% operating margin, free cash flow +52%, buyback raised by $1.2bn and full-year guidance raised for the third time. But founder Ken Xie and CFO Christiane Ohlgart spend the call explaining two cracks: service revenue grows only 13%, because large new customers activate services later, and the 2026 service guidance is trimmed; product slows from Q2, because the benefit of inventory bought at old prices is over and component lead times are lengthening. One analyst notes the stock is \"down a lot\" on this."
+  },
+  "guidance": [
+    {
+      "metric": {"it": "Fatturazione 2026", "en": "2026 billings"},
+      "value": {"it": "9,568-9,718 miliardi $, +28% al centro: 1,14 miliardi sopra la prima guidance di febbraio", "en": "$9.568-9.718bn, +28% at the midpoint: $1.14bn above the initial February guide"},
+      "direction": "alzata"
+    },
+    {
+      "metric": {"it": "Ricavi 2026", "en": "2026 revenue"},
+      "value": {"it": "8,125-8,215 miliardi $, +20% al centro", "en": "$8.125-8.215bn, +20% at the midpoint"},
+      "direction": "alzata"
+    },
+    {
+      "metric": {"it": "Ricavi da servizi 2026", "en": "2026 service revenue"},
+      "value": {"it": "5,15-5,17 miliardi $, +13%: ritoccati per l'attivazione più lenta dei servizi nei grandi contratti", "en": "$5.15-5.17bn, +13%: trimmed for slower service activation in large deals"},
+      "direction": "ridotta"
+    },
+    {
+      "metric": {"it": "Quarto trimestre", "en": "Fourth quarter"},
+      "value": {"it": "fatturazione 2,775-2,925 miliardi $ (+20%), ricavi 2,155-2,245 miliardi $ (+15%), margine operativo 35,5-37,5%, utile per azione 0,93-0,95 $", "en": "billings $2.775-2.925bn (+20%), revenue $2.155-2.245bn (+15%), operating margin 35.5-37.5%, EPS $0.93-0.95"},
+      "direction": "prima"
+    },
+    {
+      "metric": {"it": "Margini e utile 2026", "en": "2026 margins and EPS"},
+      "value": {"it": "margine operativo 36,5-37,5%, utile per azione 3,54-3,58 $; margine lordo intorno all'80%, come a inizio anno", "en": "operating margin 36.5-37.5%, EPS $3.54-3.58; gross margin around 80%, as at the start of the year"},
+      "direction": "alzata"
+    },
+    {
+      "metric": {"it": "Prime indicazioni sul 2027", "en": "Early 2027 indications"},
+      "value": {"it": "fatturazione e ricavi più veloci del mercato (che cresce circa 16%); servizi in crescita più del 2026", "en": "billings and revenue faster than the market (growing about 16%); services growing faster than in 2026"},
+      "direction": "prima"
+    }
+  ],
+  "qa": [
+    {
+      "question": {"it": "Come pensare la crescita dei prodotti nel 2027, dopo un 2026 così forte?", "en": "How should we think about 2027 product growth after such a strong 2026?"},
+      "answer_summary": {"it": "«Tre mesi troppo presto» per la guidance: solo «più veloce del mercato».", "en": "\"Three months early\" for guidance: only \"faster than the market\"."},
+      "directness": 2
+    },
+    {
+      "question": {"it": "Quanto hanno pesato gli aumenti di prezzo, e a che punto siete?", "en": "How much did price increases contribute, and where are you in that journey?"},
+      "answer_summary": {"it": "Circa 10 punti di crescita della fatturazione (corretto a fine call); prezzi ora stabili, costi ancora in salita; la regola è tenere fisso il margine lordo.", "en": "About 10 points of billings growth (corrected at the end of the call); prices now stable, costs still rising; the rule is to hold gross margin."},
+      "directness": 4
+    },
+    {
+      "question": {"it": "Perché il T3 ha rallentato rispetto al T2? Siete limitati dalle forniture?", "en": "Why did Q3 slow from Q2? Are you supply constrained?"},
+      "answer_summary": {"it": "La domanda è forte; nel primo semestre aiutava il magazzino comprato prima dei rincari. Limiti di fornitura? «Un po' tutte e due le cose».", "en": "Demand is strong; in the first half inventory bought before the cost increases helped. Supply constrained? \"A little bit of both\"."},
+      "directness": 3
+    },
+    {
+      "question": {"it": "Perché parlare di servizi in accelerazione nel 2027, se nel secondo semestre 2026 non è successo?", "en": "Why talk about services accelerating in 2027 when it did not happen in the second half of 2026?"},
+      "answer_summary": {"it": "«Non ho usato la parola accelerazione», ma «tassi di crescita migliori»: il minimo è stato il T1, la conversione richiede tempo.", "en": "\"I haven't used the word acceleration\", but \"improved growth rates\": Q1 was the trough, conversion takes time."},
+      "directness": 3
+    },
+    {
+      "question": {"it": "Perché il margine lordo dei prodotti scende se i clienti comprano modelli più costosi?", "en": "Why does product gross margin fall if customers buy pricier models?"},
+      "answer_summary": {"it": "Nel primo semestre costi bassi dal magazzino e prezzi già alzati; ora i costi salgono, e «i prezzi si possono alzare solo fino a un certo punto».", "en": "First half: low costs from inventory and prices already raised; now costs rise, and \"you can only increase prices so much\"."},
+      "directness": 4
+    }
+  ],
+  "language_changes": [
+    {
+      "topic": {"it": "Prodotto principale", "en": "Core product"},
+      "from": {"it": "firewall e SASE come linee separate", "en": "firewall and SASE as separate lines"},
+      "to": {"it": "«SASE firewall»: un solo pilastro, fatturazione +31%, presentato come la base della sicurezza dell'IA", "en": "\"SASE firewall\": one pillar, billings +31%, presented as the foundation of AI security"},
+      "note": {"it": "Il nuovo nome unisce la parte che cresce di più con quella storica.", "en": "The new name joins the fastest-growing part with the legacy one."}
+    },
+    {
+      "topic": {"it": "Ricavi da servizi", "en": "Service revenue"},
+      "from": {"it": "crescita attesa in ripresa nella seconda metà del 2026", "en": "growth expected to recover in the second half of 2026"},
+      "to": {"it": "il minimo è stato il T1, ma la ripresa si sposta al 2027; «tassi migliori», non «accelerazione»", "en": "Q1 was the trough, but the recovery moves to 2027; \"improved growth rates\", not \"acceleration\""},
+      "note": {"it": "Si aggiungono altre cause: più sconti fra hardware e servizi, clienti USA che preferiscono hardware ammortizzabile, soluzioni sovrane con meno servizi.", "en": "Other causes are added: more discounting between hardware and services, US customers preferring depreciable hardware, sovereign deployments with fewer services."}
+    },
+    {
+      "topic": {"it": "Forniture", "en": "Supply"},
+      "from": {"it": "un vantaggio: sei mesi di magazzino e prezzi alzati prima dei costi", "en": "an advantage: six months of inventory and prices raised ahead of costs"},
+      "to": {"it": "magazzino finito, tempi di consegna più lunghi, costi «ancora in lenta salita»", "en": "inventory benefit gone, longer lead times, costs \"still increasing slowly\""},
+      "note": {"it": "La spiegazione arriva solo nelle risposte, non nel testo preparato.", "en": "The explanation comes only in the answers, not in the prepared remarks."}
+    },
+    {
+      "topic": {"it": "Grandi clienti", "en": "Large customers"},
+      "from": {"it": "piccole e medie imprese come base storica", "en": "small and mid-sized businesses as the historic base"},
+      "to": {"it": "contratti oltre il milione +51%, grandi aziende USA, neocloud e data center per l'IA", "en": "deals over $1m +51%, US large enterprise, neoclouds and AI data centres"},
+      "note": {"it": "Più prodotti venduti, ma i servizi arrivano dopo e a volte li offre il cliente stesso.", "en": "More product sold, but services come later and are sometimes offered by the customer itself."}
+    }
+  ],
+  "file": "FTNT_2026Q3.json",
+  "source": "Alpha Vantage transcript (non ridistribuito)",
+  "extracted_by": "Claude (estrazione manuale, stessa forma del passo automatico)"
+}

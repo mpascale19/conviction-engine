@@ -1,0 +1,98 @@
+{
+  "ticker": "URI",
+  "quarter": "T3 '26",
+  "call_date": "2026-10-21",
+  "tone": 76,
+  "tone_why": {
+    "it": "Trimestre da record in tutte le voci e tono molto sicuro. Ricavi +16% a 4,9 miliardi $, noleggi +18%, margine EBITDA rettificato 47,6% (+160 punti base), utile per azione rettificato 15,55 $ (+33%); il ramo specialistico cresce del 35%. La guidance annuale sale ancora (ricavi +450 milioni $, EBITDA +300 milioni $, investimenti +300 milioni $) e S&P porta il debito a investment grade. L'amministratore delegato Matt Flannery si dice «più ottimista che 6-12 mesi fa», anche togliendo i data center. Le cautele sono poche: niente cifre sul 2027 fino a gennaio, flotta usata a livelli di utilizzo «non i più prudenti», mercati locali solo «stabili».",
+    "en": "A record quarter on every line and a very confident tone. Revenue +16% to $4.9bn, rental +18%, adjusted EBITDA margin 47.6% (+160bp), adjusted EPS $15.55 (+33%); specialty grows 35%. Full-year guidance rises again (revenue +$450m, EBITDA +$300m, capex +$300m) and S&P upgrades the debt to investment grade. CEO Matt Flannery says he is \"more bullish than 6-12 months ago\", even excluding data centres. Caveats are few: no 2027 figures until January, fleet running at utilisation that is \"not the most prudent\", local markets only \"stable\"."
+  },
+  "guidance": [
+    {
+      "metric": {"it": "Ricavi totali 2026", "en": "2026 total revenue"},
+      "value": {"it": "18-18,2 miliardi $, +450 milioni al centro; senza l'usato oltre +13%, contro circa +6% della prima guidance", "en": "$18-18.2bn, +$450m at the midpoint; ex used better than +13%, versus about +6% in the initial guide"},
+      "direction": "alzata"
+    },
+    {
+      "metric": {"it": "EBITDA rettificato 2026", "en": "2026 adjusted EBITDA"},
+      "value": {"it": "8,3-8,4 miliardi $, +300 milioni; margine circa 70 punti base sopra l'obiettivo iniziale di margine piatto", "en": "$8.3-8.4bn, +$300m; margin about 70bp above the initial flat-margin goal"},
+      "direction": "alzata"
+    },
+    {
+      "metric": {"it": "Investimenti nella flotta 2026", "en": "2026 fleet capex"},
+      "value": {"it": "lordi 5,2-5,5 miliardi $ (+300 milioni), netti 3,75-4,05 miliardi $", "en": "gross $5.2-5.5bn (+$300m), net $3.75-4.05bn"},
+      "direction": "alzata"
+    },
+    {
+      "metric": {"it": "Flusso di cassa libero 2026", "en": "2026 free cash flow"},
+      "value": {"it": "2,15-2,45 miliardi $", "en": "$2.15-2.45bn"},
+      "direction": "confermata"
+    },
+    {
+      "metric": {"it": "Restituzione agli azionisti 2026", "en": "2026 shareholder returns"},
+      "value": {"it": "riacquisti per 1,5 miliardi $, circa 2 miliardi con i dividendi (circa 32 $ per azione)", "en": "$1.5bn of buybacks, about $2bn with dividends (about $32 a share)"},
+      "direction": "confermata"
+    },
+    {
+      "metric": {"it": "Vendite di flotta usata 2026", "en": "2026 used fleet sales"},
+      "value": {"it": "circa 2,8 miliardi $ di valore originario, recupero intorno al 50%, ricavi circa 1,45 miliardi $", "en": "about $2.8bn of OEC, recovery in the low 50s, proceeds about $1.45bn"},
+      "direction": "confermata"
+    }
+  ],
+  "qa": [
+    {
+      "question": {"it": "Con l'utilizzo della flotta vicino al massimo, nel 2027 punterete su più investimenti o su prezzi più alti?", "en": "With utilisation near its ceiling, will 2027 lean on more capex or higher rates?"},
+      "answer_summary": {"it": "Prezzi in salita anche nel 2027; forse un po' più di investimenti per abbassare l'utilizzo, ma i numeri a gennaio.", "en": "Rates rising in 2027 too; maybe a bit more capex to ease utilisation, but numbers in January."},
+      "directness": 3
+    },
+    {
+      "question": {"it": "Che inflazione vedete nei costi, e quanto del prezzo 2027 è già assicurato?", "en": "What cost inflation do you see, and how much 2027 rate is already secured?"},
+      "answer_summary": {"it": "Inflazione «molto reale» in lavoro, ricambi, gasolio e trasporti, compensata dalla produttività; nessuna cifra; i prezzi si gestiscono tutto l'anno.", "en": "Inflation \"very real\" in labour, parts, diesel and freight, offset by productivity; no figure; rates are managed all year."},
+      "directness": 2
+    },
+    {
+      "question": {"it": "La crescita del noleggio da terzi è un segnale che vi manca flotta?", "en": "Is re-rent growth a sign you are short of fleet?"},
+      "answer_summary": {"it": "«La seconda»: va con la domanda e l'alto utilizzo, ed è una delle ragioni dell'aumento degli investimenti.", "en": "\"The latter\": it goes with demand and high utilisation, and is one reason for the capex raise."},
+      "directness": 5
+    },
+    {
+      "question": {"it": "I concorrenti che raddoppiano la flotta rischiano di inondare il mercato?", "en": "Could competitors doubling their fleet flood the market?"},
+      "answer_summary": {"it": "Il settore ha mostrato «buona disciplina», nessuna preoccupazione eccessiva; accesso ai fornitori flessibile.", "en": "The industry has shown \"really good discipline\", not overly concerned; flexible access to suppliers."},
+      "directness": 4
+    },
+    {
+      "question": {"it": "La vostra visibilità è migliore o peggiore di 6-12 mesi fa?", "en": "Is your visibility better or worse than 6-12 months ago?"},
+      "answer_summary": {"it": "Migliore: «più ottimisti»; edilizia non residenziale a due cifre anche senza data center; i sondaggi dei clienti restano positivi.", "en": "Better: \"more bullish\"; non-residential double-digit even without data centres; customer surveys stay positive."},
+      "directness": 5
+    }
+  ],
+  "language_changes": [
+    {
+      "topic": {"it": "Crescita 2026", "en": "2026 growth"},
+      "from": {"it": "«un altro anno di crescita», circa +6% senza l'usato", "en": "\"another year of growth\", about +6% ex used"},
+      "to": {"it": "«meglio del previsto», oltre +13%, «un 2026 da record»", "en": "\"better than we expected\", better than +13%, \"a record 2026\""},
+      "note": {"it": "Seconda guidance alzata di fila; il motore restano i grandi progetti.", "en": "Second raised guide in a row; large projects remain the driver."}
+    },
+    {
+      "topic": {"it": "Bilancio", "en": "Balance sheet"},
+      "from": {"it": "politica finanziaria interna da emittente ad alto rendimento, per non limitare le acquisizioni", "en": "an internal policy as a high-yield issuer, so as not to constrain M&A"},
+      "to": {"it": "investment grade da S&P: «non cambia nulla» per le acquisizioni, ma costo del debito più basso", "en": "investment grade from S&P: \"doesn't change anything\" for M&A, but lower borrowing costs"},
+      "note": {"it": "Leva a 1,8 volte, sotto il massimo di 2,5.", "en": "Leverage at 1.8x, below the 2.5x top of the range."}
+    },
+    {
+      "topic": {"it": "Utilizzo della flotta", "en": "Fleet utilisation"},
+      "from": {"it": "alto utilizzo come segno di forza", "en": "high utilisation as a sign of strength"},
+      "to": {"it": "forse «non la cosa più prudente», fatto «per necessità»: nel 2027 potrebbe calare con più investimenti", "en": "maybe \"not the most prudent thing\", done \"out of necessity\": may ease in 2027 with more capex"},
+      "note": {"it": "Un modo di preparare investimenti 2027 più alti.", "en": "A way to prepare higher 2027 capex."}
+    },
+    {
+      "topic": {"it": "Mercati locali", "en": "Local markets"},
+      "from": {"it": "stabili, senza crescita", "en": "stable, without growth"},
+      "to": {"it": "ancora «stabili», ma con «un paio di punti» di crescita nel trimestre e sentimento «più positivo»", "en": "still \"stable\", but with \"a couple of points\" of growth in the quarter and \"more positive\" sentiment"},
+      "note": {"it": "Flannery non vuole dire se sia una svolta: «non lo sappiamo».", "en": "Flannery will not call it a turning point: \"we don't know\"."}
+    }
+  ],
+  "file": "URI_2026Q3.json",
+  "source": "Alpha Vantage transcript (non ridistribuito)",
+  "extracted_by": "Claude (estrazione manuale, stessa forma del passo automatico)"
+}

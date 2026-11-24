@@ -1,0 +1,98 @@
+{
+  "ticker": "WMB",
+  "quarter": "T3 '26",
+  "call_date": "2026-11-02",
+  "tone": 70,
+  "tone_why": {
+    "it": "Trimestre record e tono sicuro, con lo sguardo rivolto oltre il 2030. EBITDA rettificato oltre 2 miliardi $ (+6%, +9% nei nove mesi), utile per azione e flusso di cassa disponibile +10%; acquisizione di Momentum chiusa un mese prima, quattro progetti di gasdotti avviati, seconda fase di Socrates (centrali per data center) in servizio in anticipo. L'amministratore delegato Chad Zamarin annuncia «uno o due» nuovi progetti di energia entro fine anno, più grandi e con contratti più lunghi. I limiti: la leva resta tesa nel 2026-2027 (circa 3,75 volte, tetto interno 4), il costo dei soci finanziari è salito dopo l'accordo con Blackstone, e il gasdotto NESE rischia di non essere pronto per il prossimo inverno dopo una sentenza in New Jersey.",
+    "en": "A record quarter and a confident tone, looking beyond 2030. Adjusted EBITDA above $2bn (+6%, +9% for nine months), adjusted EPS and AFFO +10%; Momentum acquisition closed a month early, four pipeline projects in service, the second phase of Socrates (power for data centres) online ahead of schedule. CEO Chad Zamarin expects \"one to two\" more power projects by year end, larger and with longer contracts. The limits: leverage stays tight in 2026-2027 (about 3.75x, internal ceiling 4x), partner financing has become pricier since the Blackstone deal, and the NESE pipeline may miss next winter after a New Jersey court ruling."
+  },
+  "guidance": [
+    {
+      "metric": {"it": "EBITDA rettificato 2026", "en": "2026 adjusted EBITDA"},
+      "value": {"it": "nella metà alta della forchetta 8,3-8,5 miliardi $", "en": "in the upper half of the $8.3-8.5bn range"},
+      "direction": "confermata"
+    },
+    {
+      "metric": {"it": "Crescita dell'EBITDA fino al 2030", "en": "EBITDA growth through 2030"},
+      "value": {"it": "oltre l'11% annuo composto (alzata il trimestre scorso); il nuovo piano dei compensi dei dirigenti va dal 10% al 16%", "en": "11%+ compound annual (raised last quarter); the new executive pay plan runs from 10% to 16%"},
+      "direction": "confermata"
+    },
+    {
+      "metric": {"it": "Leva a fine 2026", "en": "Year-end 2026 leverage"},
+      "value": {"it": "circa 3,75 volte con Momentum su base annua, prima di nuovi progetti di energia; circa 2 miliardi $ di margine prima del tetto di 4 volte", "en": "about 3.75x with Momentum on a run-rate basis, before new power projects; about $2bn of room below the 4x ceiling"},
+      "direction": "prima"
+    },
+    {
+      "metric": {"it": "Investimenti per la crescita", "en": "Growth capex"},
+      "value": {"it": "invariati in attesa degli annunci sui nuovi progetti di energia", "en": "unchanged pending announcements of new power projects"},
+      "direction": "confermata"
+    },
+    {
+      "metric": {"it": "Nuovi progetti di energia", "en": "New power projects"},
+      "value": {"it": "uno o due annunci entro fine anno, con clienti nuovi e contratti molto più lunghi; altri nel 2027", "en": "one to two announcements by year end, with new customers and much longer contracts; more in 2027"},
+      "direction": "prima"
+    },
+    {
+      "metric": {"it": "SESI II (gasdotto Transco)", "en": "SESI II (Transco pipeline)"},
+      "value": {"it": "150 milioni di piedi cubi al giorno contrattati, fino a 390 possibili; rendimento atteso 4-6 volte l'EBITDA sul costo", "en": "150 MMcf/d contracted, up to 390 possible; expected 4-6x build multiple"},
+      "direction": "prima"
+    }
+  ],
+  "qa": [
+    {
+      "question": {"it": "I prossimi progetti di energia allargano la base di clienti?", "en": "Do the next power projects broaden the customer base?"},
+      "answer_summary": {"it": "Sì: nuovi grandi operatori di cloud di alta qualità e contratti più lunghi; nessun nome.", "en": "Yes: additional high-quality hyperscalers and longer contracts; no names."},
+      "directness": 4
+    },
+    {
+      "question": {"it": "Le elezioni, in particolare in Texas, influenzano i tempi dei progetti?", "en": "Do the elections, especially in Texas, affect project timing?"},
+      "answer_summary": {"it": "«Non è un ostacolo» per nessuna trattativa.", "en": "\"Not a gating issue\" for any discussion."},
+      "directness": 4
+    },
+    {
+      "question": {"it": "Che rapporto c'è fra i 5,9 miliardi $ di impegni per attrezzature e i 6 gigawatt di opportunità?", "en": "How do the $5.9bn of equipment commitments relate to the 6GW opportunity set?"},
+      "answer_summary": {"it": "Dati «un po' torbidi»: molti impegni hanno penali di cancellazione e garanzie dei clienti; «nessun legame forte» fra le due cifre.", "en": "Disclosures are \"a little murky\": many commitments carry cancellation fees and customer backstops; \"no real strong connection\" between the two figures."},
+      "directness": 3
+    },
+    {
+      "question": {"it": "A che punto è il gasdotto NESE dopo la sentenza?", "en": "Where does the NESE pipeline stand after the ruling?"},
+      "answer_summary": {"it": "La corte ha rinviato il permesso del New Jersey ma il progetto non è a rischio; può mancare il prossimo inverno, senza effetti finanziari rilevanti.", "en": "The court remanded the New Jersey permit but the project is not jeopardised; it may miss next winter, with no material financial impact."},
+      "directness": 4
+    },
+    {
+      "question": {"it": "«Uno o due progetti» vuol dire che uno è meno sicuro, o solo che può slittare al 2027?", "en": "Does \"one to two projects\" mean one is less certain, or only that it may slip into 2027?"},
+      "answer_summary": {"it": "Gli annunci non seguono il calendario, ma solo a contratto firmato e permessi pronti; «abbastanza fiduciosi» per fine anno.", "en": "Announcements do not follow the calendar, only once contracts are signed and permits ready; \"pretty good\" about year end."},
+      "directness": 3
+    }
+  ],
+  "language_changes": [
+    {
+      "topic": {"it": "Progetti di energia per data center", "en": "Power projects for data centres"},
+      "from": {"it": "progetti rapidi della taglia di Socrates", "en": "speed-to-power projects the size of Socrates"},
+      "to": {"it": "progetti con più fasi e più grandi, contratti «molto più lunghi», un portafoglio che arriva «ben dentro gli anni 2030»", "en": "larger, phased projects, \"significantly longer\" contracts, a backlog extending \"well into the 2030s\""},
+      "note": {"it": "Ammette che i primi progetti erano sovradimensionati: in futuro meno capacità di riserva.", "en": "Concedes the first projects were overengineered: less spare capacity in future."}
+    },
+    {
+      "topic": {"it": "Finanziamento", "en": "Financing"},
+      "from": {"it": "accordo con Blackstone al 6,35% come modello", "en": "the 6.35% Blackstone deal as the template"},
+      "to": {"it": "costo dei soci salito con i titoli di Stato; possibile anche «spingere un po' di più il bilancio» per un periodo", "en": "partner cost up with Treasury yields; may also \"run the balance sheet a little bit harder\" for a while"},
+      "note": {"it": "La tensione sulla leva è descritta come un problema solo del 2026-2027.", "en": "Leverage tightness is described as a 2026-2027 issue only."}
+    },
+    {
+      "topic": {"it": "Permessi", "en": "Permitting"},
+      "from": {"it": "NESE in avanzamento", "en": "NESE advancing"},
+      "to": {"it": "permesso del New Jersey rinviato dalla corte d'appello; l'azienda chiede la riforma dei permessi in votazione al Senato", "en": "New Jersey permit remanded by the appeals court; the company pushes the permitting reform up for a Senate vote"},
+      "note": {"it": "Il tema diventa politico: il consigliere legale prevede «più di 60 voti».", "en": "The issue turns political: the general counsel expects \"more than 60 votes\"."}
+    },
+    {
+      "topic": {"it": "Acquisizione di Momentum", "en": "Momentum acquisition"},
+      "from": {"it": "sinergie prudenti, attese dal 2028", "en": "conservative synergies, expected from 2028"},
+      "to": {"it": "chiusa un mese prima, «nessuna sorpresa», sinergie in arrivo «prima di quanto modellato»", "en": "closed a month early, \"no surprises\", synergies arriving \"ahead of what we modeled\""},
+      "note": {"it": "Nessuna cifra sulle sinergie anticipate.", "en": "No figure on the earlier synergies."}
+    }
+  ],
+  "file": "WMB_2026Q3.json",
+  "source": "Alpha Vantage transcript (non ridistribuito)",
+  "extracted_by": "Claude (estrazione manuale, stessa forma del passo automatico)"
+}

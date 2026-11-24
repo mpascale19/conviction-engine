@@ -1,0 +1,98 @@
+{
+  "ticker": "MKC",
+  "quarter": "T3 '26 (anno fiscale)",
+  "call_date": "2026-10-01",
+  "tone": 48,
+  "tone_why": {
+    "it": "Margini buoni, volumi deboli. Vendite +17% a cambi costanti, ma quasi tutto viene dall'acquisizione di McCormick de Mexico: la crescita organica è solo del 2%, e i consumatori nelle Americhe sono fermi (prezzi +2%, volumi in calo). Il margine lordo rettificato sale di 180 punti base e il risultato operativo del 22%, ma l'utile per azione (0,86 $) cresce solo dell'1% per le tasse più alte. La guidance resta «sostanzialmente invariata», però si sposta verso il basso: crescita organica fra il minimo e il centro della forchetta, inflazione dei costi al 6-7%, un problema di imballaggi che può togliere fino a 1 punto di volumi nel T4. E il direttore finanziario anticipa «più venti contrari per margini e utile per azione» nel 2027.",
+    "en": "Good margins, weak volumes. Sales +17% in constant currency, but almost all of it is the McCormick de Mexico acquisition: organic growth is only 2%, and Consumer Americas is flat (price +2%, volume down). Adjusted gross margin rises 180bp and operating income 22%, but EPS ($0.86) grows only 1% on a higher tax rate. Guidance stays \"broadly consistent\" but drifts lower: organic growth between the low end and midpoint, cost inflation at 6-7%, a packaging issue that may take up to 1 point of Q4 volume. And the CFO flags \"more headwinds for margins and earnings per share\" in 2027."
+  },
+  "guidance": [
+    {
+      "metric": {"it": "Crescita organica 2026", "en": "2026 organic growth"},
+      "value": {"it": "fra il minimo e il centro della forchetta, con circa 30 punti base tolti dal problema degli imballaggi; volumi stabili, prezzi positivi", "en": "between the low end and the midpoint of the range, including about 30bp from the packaging constraint; stable volumes, positive pricing"},
+      "direction": "ridotta"
+    },
+    {
+      "metric": {"it": "Inflazione dei costi 2026", "en": "2026 cost inflation"},
+      "value": {"it": "6-7%, prima «a una cifra media»", "en": "6-7%, previously \"mid-single digit\""},
+      "direction": "alzata"
+    },
+    {
+      "metric": {"it": "Margine lordo 2026", "en": "2026 gross margin"},
+      "value": {"it": "+100-120 punti base sul 2025, ora verso l'alto della forchetta (circa 35 punti base vengono da rimborsi dei dazi); compressione nel T4", "en": "+100-120bp versus 2025, now at the high end (about 35bp from tariff refunds); compression in Q4"},
+      "direction": "alzata"
+    },
+    {
+      "metric": {"it": "Risultato operativo e utile per azione 2026", "en": "2026 operating income and EPS"},
+      "value": {"it": "al centro della forchetta; il T4 risente di costi per il nuovo sistema gestionale, marketing e un confronto fiscale sfavorevole (23,9% l'anno scorso)", "en": "at the midpoint of the range; Q4 carries ERP costs, brand marketing and a tough tax comparison (23.9% last year)"},
+      "direction": "confermata"
+    },
+    {
+      "metric": {"it": "Volumi del T4", "en": "Q4 volume"},
+      "value": {"it": "attesi in miglioramento, ma un problema di fornitura degli imballaggi nelle Americhe può togliere fino a 1 punto ai volumi totali", "en": "expected to improve, but a packaging supply constraint in the Americas may take up to 1 point off total volume"},
+      "direction": "prima"
+    },
+    {
+      "metric": {"it": "Dopo l'acquisizione di Unilever Foods", "en": "After the Unilever Foods deal"},
+      "value": {"it": "leva da 4 a 3 volte in due anni, 1,5-2 miliardi $ per ridurre il debito, margine operativo del 21%; prime indicazioni sul 2027 a gennaio", "en": "leverage from 4x to 3x in two years, $1.5-2bn to pay down debt, 21% operating margin; first 2027 view in January"},
+      "direction": "confermata"
+    }
+  ],
+  "qa": [
+    {
+      "question": {"it": "Come giudica le azioni del T3 sui volumi nelle Americhe, visto che il miglioramento è stato più lento del previsto?", "en": "How do you assess the Q3 actions on Americas volumes, given improvement was slower than expected?"},
+      "answer_summary": {"it": "Ammette che il consumatore è peggiorato e che le azioni sono partite più lente con i distributori; elenca le leve per il T4, senza numeri.", "en": "Admits the consumer got worse and actions rolled out slower with retailers; lists the levers for Q4, without numbers."},
+      "directness": 3
+    },
+    {
+      "question": {"it": "Le pressioni sui costi peseranno anche sull'utile 2027?", "en": "Will cost pressures weigh on 2027 earnings too?"},
+      "answer_summary": {"it": "Secondo semestre +60 punti base di margine; per il 2027 «più venti contrari per margini e utile per azione», dettagli a gennaio.", "en": "Second half +60bp of margin; for 2027 \"more headwinds for margins and earnings per share\", details in January."},
+      "directness": 4
+    },
+    {
+      "question": {"it": "Il rallentamento dei clienti industriali USA viene da volumi più bassi o da progetti rinviati?", "en": "Did the US CPG slowdown come from lower volumes or delayed projects?"},
+      "answer_summary": {"it": "«Scelgo la prima»: cali di volume nel settore, più il calo del traffico nei fast food per l'epidemia di cyclospora.", "en": "\"I'll go with the first one\": industry volume declines, plus lower QSR traffic from the cyclospora outbreak."},
+      "directness": 5
+    },
+    {
+      "question": {"it": "I prezzi ai consumatori USA torneranno negativi nel 2027?", "en": "Will US consumer pricing turn negative in 2027?"},
+      "answer_summary": {"it": "«No», contributo dei prezzi più basso ma non negativo.", "en": "\"No\", a smaller price contribution but not negative."},
+      "directness": 5
+    },
+    {
+      "question": {"it": "Che cosa è successo esattamente con il fornitore di imballaggi?", "en": "What exactly happened with the packaging supplier?"},
+      "answer_summary": {"it": "Un problema di trasformazione di un componente, non di materia prima né di domanda; «è quanto diremo per ora».", "en": "A conversion issue on one component, not raw material or demand; \"that's about as far as we're going to go\"."},
+      "directness": 2
+    }
+  ],
+  "language_changes": [
+    {
+      "topic": {"it": "Consumatori nelle Americhe", "en": "Consumer Americas"},
+      "from": {"it": "miglioramento dei volumi atteso nel secondo semestre, in un ambiente simile al T2", "en": "volume improvement expected in the second half, in an environment like Q2"},
+      "to": {"it": "miglioramento «più graduale», ripresa delle miscele per ricette «un po' più lunga» del previsto", "en": "a \"more gradual\" improvement, the recipe-mix recovery \"a little bit longer\" than expected"},
+      "note": {"it": "Le pressioni sono definite «cicliche», ma la data della ripresa si sposta al 2027.", "en": "The pressures are called \"cyclical\", but the recovery date moves into 2027."}
+    },
+    {
+      "topic": {"it": "Costi", "en": "Costs"},
+      "from": {"it": "inflazione «a una cifra media», margini in crescita", "en": "\"mid-single-digit\" inflation, margins expanding"},
+      "to": {"it": "6-7%, noli più cari per carburante e capacità; nel 2027 «più venti contrari»", "en": "6-7%, pricier freight from fuel and capacity; \"more headwinds\" in 2027"},
+      "note": {"it": "L'amministratore delegato: «non c'è stata tregua sull'inflazione» negli ultimi anni.", "en": "The CEO: \"there hasn't been any reprieve on inflation\" in recent years."}
+    },
+    {
+      "topic": {"it": "Forniture", "en": "Supply"},
+      "from": {"it": "nessun problema di fornitura citato", "en": "no supply issue mentioned"},
+      "to": {"it": "un vincolo di settore su un tipo di imballaggio, fino a 1 punto di volumi nel T4", "en": "an industry constraint on one packaging type, up to 1 point of Q4 volume"},
+      "note": {"it": "Annunciato «per prudenza», con pochi dettagli e il marchio colpito non nominato.", "en": "Flagged \"to be prudent\", with few details and the affected brand not named."}
+    },
+    {
+      "topic": {"it": "Clienti industriali (Flavor Solutions)", "en": "Industrial customers (Flavor Solutions)"},
+      "from": {"it": "fiducia in molti progetti di riformulazione dei clienti", "en": "confidence in many customer reformulation projects"},
+      "to": {"it": "domanda più debole da grandi aziende alimentari e fast food, che durerà fino a fine anno", "en": "softer demand from large CPG and QSR customers, lasting through year end"},
+      "note": {"it": "Solo l'Asia-Pacifico (+8%) va meglio del previsto, ma rallenterà nel T4.", "en": "Only Asia Pacific (+8%) beats expectations, and it will slow in Q4."}
+    }
+  ],
+  "file": "MKC_2026Q3.json",
+  "source": "Alpha Vantage transcript (non ridistribuito)",
+  "extracted_by": "Claude (estrazione manuale, stessa forma del passo automatico)"
+}

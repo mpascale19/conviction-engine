@@ -1,0 +1,98 @@
+{
+  "ticker": "AIG",
+  "quarter": "T3 '26",
+  "call_date": "2026-11-03",
+  "tone": 56,
+  "tone_why": {
+    "it": "Trimestre solido nei numeri: utile rettificato per azione 2,60 $, rapporto combinato di base 88,4%, premi netti +8% (+11% nei nove mesi), reddito da investimenti +5% e 787 milioni $ restituiti agli azionisti. Ma l'amministratore delegato Eric Andersen ritira l'obiettivo di crescita dei premi «dal basso al medio dieci per cento» dato a febbraio, perché alcune parti del mercato «hanno continuato a deteriorarsi»: proprietà in Nord America e nel mercato E&S, nuovi concorrenti, prezzi internazionali -3%. Il messaggio è «non inseguiamo la crescita per la crescita»; la risposta sul quarto trimestre («simile al terzo») lascia capire una crescita quasi ferma.",
+    "en": "A solid quarter in the numbers: adjusted EPS $2.60, accident-year combined ratio ex-cat 88.4%, net premiums written +8% (+11% for nine months), net investment income +5% and $787m returned to shareholders. But CEO Eric Andersen withdraws the \"low- to mid-teens\" premium growth target given in February, because parts of the market \"continued to deteriorate\": North America property and the E&S market, new entrants, international pricing -3%. The message is \"we will not chase growth for growth's sake\"; the answer on the fourth quarter (\"similar to the third\") implies growth close to flat."
+  },
+  "guidance": [
+    {
+      "metric": {"it": "Crescita dei premi netti 2026", "en": "2026 net premiums written growth"},
+      "value": {"it": "l'obiettivo «dal basso al medio dieci per cento» di febbraio non vale più; resta «un anno eccellente di crescita» (+11% nei nove mesi)", "en": "the February \"low- to mid-teens\" target no longer applies; still \"an excellent year of growth\" (+11% for nine months)"},
+      "direction": "ridotta"
+    },
+    {
+      "metric": {"it": "Rapporto spese 2026 e 2027", "en": "2026 and 2027 expense ratio"},
+      "value": {"it": "circa 30,5% nel 2026; sotto il 30% per il 2027, soprattutto dalle spese generali", "en": "about 30.5% in 2026; below 30% for 2027, mostly from general operating expenses"},
+      "direction": "confermata"
+    },
+    {
+      "metric": {"it": "Riacquisti di azioni", "en": "Share buybacks"},
+      "value": {"it": "quarto trimestre come il terzo (527 milioni $): circa 2,2 miliardi $ nel 2026", "en": "fourth quarter in line with the third ($527m): about $2.2bn in 2026"},
+      "direction": "confermata"
+    },
+    {
+      "metric": {"it": "Rendimento del capitale (ROE)", "en": "Return on equity"},
+      "value": {"it": "11,4% nei nove mesi, dentro la fascia 10-13% dell'Investor Day; miglioramento descritto come «un percorso, non un salto»", "en": "11.4% for nine months, inside the 10-13% Investor Day range; improvement described as \"a journey, not a quantum leap\""},
+      "direction": "confermata"
+    },
+    {
+      "metric": {"it": "Interessi passivi", "en": "Interest expense"},
+      "value": {"it": "circa 112 milioni $ a trimestre dopo l'emissione di 1,3 miliardi in euro per la scadenza 2027", "en": "about $112m a quarter after the €-denominated $1.3bn issue pre-funding the 2027 maturity"},
+      "direction": "prima"
+    },
+    {
+      "metric": {"it": "Reddito da investimenti del T4", "en": "Q4 investment income"},
+      "value": {"it": "reddito fisso ancora in crescita (nuovi rendimenti 5,6% contro 4,86% del portafoglio); investimenti alternativi verso il rendimento di lungo periodo, dopo un T3 eccezionale", "en": "fixed income still growing (new money 5.6% vs 4.86% portfolio yield); alternatives back toward the long-term return after an exceptional Q3"},
+      "direction": "prima"
+    }
+  ],
+  "qa": [
+    {
+      "question": {"it": "Togliere la guidance implica premi piatti nel T4: ci sono fatti straordinari, o i venti contrari peggiorano?", "en": "Dropping the guide implies flat Q4 premiums: are there one-offs, or are the headwinds getting worse?"},
+      "answer_summary": {"it": "Nessun fatto straordinario, il T4 «molto simile al terzo»; ma niente numero per il trimestre né per il 2027.", "en": "No one-offs, Q4 \"very similar to the third\"; but no number for the quarter or for 2027."},
+      "directness": 3
+    },
+    {
+      "question": {"it": "Il cambio di mix verso l'internazionale e i privati peserà sui margini di sottoscrizione nel 2027?", "en": "Will the mix shift toward international and personal weigh on underwriting margins in 2027?"},
+      "answer_summary": {"it": "Spiega bene le cause (più responsabilità civile, prezzi della proprietà in calo) e dice che la perdita in Nord America resterà simile nel T4, ma non quantifica il 2027.", "en": "Explains the drivers well (more casualty, falling property prices) and says the North America loss ratio stays similar in Q4, but does not quantify 2027."},
+      "directness": 3
+    },
+    {
+      "question": {"it": "Il guadagno ha superato di molto i riacquisti: tenete liquidità per un'acquisizione?", "en": "Earnings far exceeded buybacks: are you holding cash for an acquisition?"},
+      "answer_summary": {"it": "«Risposta facile: no».", "en": "\"Easy answer: no.\""},
+      "directness": 5
+    },
+    {
+      "question": {"it": "Il passo avanti del portafoglio investimenti dovuto alla gestione attiva è finito?", "en": "Is the active-management step-up in the investment portfolio done?"},
+      "answer_summary": {"it": "In gran parte sì (90% del portafoglio rinnovato in due anni); resta una spinta lenta dalle scadenze reinvestite al 5,6%.", "en": "Mostly yes (90% of the portfolio turned over in two years); a slow lift remains from maturities reinvested at 5.6%."},
+      "directness": 5
+    },
+    {
+      "question": {"it": "Gli accordi di sindacazione dei broker che peso hanno nel vostro portafoglio?", "en": "How much of your book comes from broker-led syndications?"},
+      "answer_summary": {"it": "«Non è una cosa rilevante», ripetuto due volte, senza una cifra.", "en": "\"Not a big deal\", said twice, with no figure."},
+      "directness": 2
+    }
+  ],
+  "language_changes": [
+    {
+      "topic": {"it": "Crescita", "en": "Growth"},
+      "from": {"it": "premi netti in crescita «dal basso al medio dieci per cento» nel 2026", "en": "net premiums growing \"low- to mid-teens\" in 2026"},
+      "to": {"it": "«non inseguiremo la crescita per la crescita»: prima la redditività della sottoscrizione", "en": "\"we will not chase growth for growth's sake\": underwriting profitability first"},
+      "note": {"it": "La guidance non è stata sostituita con un'altra: resta solo un aggettivo, «eccellente».", "en": "The guidance was not replaced: only an adjective remains, \"excellent\"."}
+    },
+    {
+      "topic": {"it": "Concorrenza nel mercato E&S", "en": "E&S competition"},
+      "from": {"it": "pressione sui prezzi soprattutto nella proprietà", "en": "price pressure mostly in property"},
+      "to": {"it": "«sempre più» anche nella responsabilità civile, con nuovi intermediari e veicoli alternativi «non allineati come dovrebbero»", "en": "\"increasingly\" in casualty too, with new MGAs and sidecars \"not as aligned as they should be\""},
+      "note": {"it": "La pressione si allarga dalla proprietà alla responsabilità civile, il ramo dove AIG voleva crescere.", "en": "Pressure spreads from property to casualty, the line where AIG wanted to grow."}
+    },
+    {
+      "topic": {"it": "Organizzazione", "en": "Organisation"},
+      "from": {"it": "segmenti guidati da più livelli di dirigenti", "en": "segments led through several layers of executives"},
+      "to": {"it": "dal 2027 i capi dei segmenti, della sottoscrizione e della distribuzione rispondono direttamente all'amministratore delegato; tecnologia, dati e IA in un'unica struttura", "en": "from 2027 segment, underwriting and distribution heads report directly to the CEO; technology, data and AI in one organisation"},
+      "note": {"it": "Andersen accentra le decisioni nel suo primo anno pieno al vertice.", "en": "Andersen centralises decisions in his first full year at the top."}
+    },
+    {
+      "topic": {"it": "Intelligenza artificiale", "en": "Artificial intelligence"},
+      "from": {"it": "strumento interno per sottoscrizione e sinistri", "en": "an internal tool for underwriting and claims"},
+      "to": {"it": "anche un «rischio emergente» da assicurare: modelli linguistici e rischi normativi dei clienti, con scenari e gruppi di lavoro di settore", "en": "also an \"emerging risk\" to insure: clients' language-model and regulatory risks, with scenarios and industry working groups"},
+      "note": {"it": "Nessuna cifra su esposizioni o prezzi legati all'IA.", "en": "No figure on AI-related exposures or pricing."}
+    }
+  ],
+  "file": "AIG_2026Q3.json",
+  "source": "Alpha Vantage transcript (non ridistribuito)",
+  "extracted_by": "Claude (estrazione manuale, stessa forma del passo automatico)"
+}
