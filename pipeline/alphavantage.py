@@ -273,13 +273,19 @@ def update(folder, tickers, key, budget, today=None, reports=None, per_day=EARNI
         # 1. l'elenco dei titoli quotati: una richiesta alla settimana. Se va
         # storto si riprova al giro dopo; un elenco quasi vuoto non si salva,
         # altrimenti metà dell'universo diventerebbe "non quotato" sul sito.
+        # Si rilegge prima della settimana anche se l'universo ha ticker che
+        # l'ultimo elenco non ha cercato (il 24/11/2026 sono arrivate 200
+        # aziende nuove, e sul sito risultavano tutte "non quotate").
         last = state.get("listing_on")
-        if budget - used >= 1 and (not last or (today - date.fromisoformat(last)).days >= LISTING_DAYS):
+        asked = set(_read(p["listing"], {}).get("asked") or [])
+        if budget - used >= 1 and (not last or (today - date.fromisoformat(last)).days >= LISTING_DAYS
+                                   or set(tickers) - asked):
             try:
                 active = call({"function": "LISTING_STATUS"}, lambda x: parse_listing(x, tickers))
                 if len(active) < LISTING_MIN_SHARE * len(tickers):
                     raise ValueError(f"l'elenco ha solo {len(active)} dei {len(tickers)} ticker: non lo uso")
-                _write(p["listing"], {"on": today.isoformat(), "active": active, "delisted": {}})
+                _write(p["listing"], {"on": today.isoformat(), "active": active, "delisted": {},
+                                      "asked": sorted(set(tickers))})
                 state["listing_on"] = today.isoformat()
                 missing = [t for t in tickers if t not in active]
                 log.append(f"TITOLI elenco aggiornato: {len(active)} su {len(tickers)} quotati"
@@ -373,9 +379,15 @@ def next_report(av, ticker, today):
 
 
 def listing_problem(av, ticker):
-    """Una frase se il ticker non risulta quotato nell'ultimo elenco, altrimenti None."""
+    """Una frase se il ticker non risulta quotato nell'ultimo elenco, altrimenti None.
+
+    Un ticker che l'elenco non ha cercato (arrivato nell'universo dopo) non è
+    "non quotato": non si sa ancora. Gli elenchi salvati prima del 24/11/2026
+    non dicono quali ticker hanno cercato, e allora non danno avvisi finché
+    non vengono riletti.
+    """
     lst = av.get("listing")
-    if not lst or ticker in (lst.get("active") or {}):
+    if not lst or ticker in (lst.get("active") or {}) or ticker not in (lst.get("asked") or []):
         return None
     gone = (lst.get("delisted") or {}).get(ticker)
     if gone:

@@ -9,6 +9,12 @@ Per ciascun indice (S&P MidCap 400, S&P SmallCap 600):
   ciascun settore (resti più grandi);
 - dentro un settore l'ordine è quello dell'impronta SHA-1 di
   "conviction-engine|TICKER": un sorteggio che chiunque può rifare.
+
+Sostituzioni (stessa regola: il ticker successivo nello stesso settore e
+nello stesso ordine). Le liste di Wikipedia del 24/11/2026 avevano ancora
+due aziende già sparite dalla borsa:
+- QRVO -> BMI: Qorvo si è fusa in Skyworks (ottobre 2026);
+- HLX -> KNTK: Helix si è fusa con Hornbeck Offshore (settembre 2026).
 """
 import hashlib, json, sys
 

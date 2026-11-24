@@ -1490,6 +1490,10 @@ check("un ticker che non è più nell'elenco diventa un avviso",
       and "config.json" in (AVM.listing_problem(_av, "BK") or ""))
 check("uno che non compare dice di controllare il ticker", "cambiato ticker" in (AVM.listing_problem(_av, "MSFT") or ""))
 check("un ticker quotato non dà avvisi", AVM.listing_problem(_av, "BNY") is None)
+check("un ticker che l'elenco non ha cercato non è «non quotato»",
+      AVM.listing_problem(_av, "ZZZZ") is None)
+check("un elenco vecchio, che non dice cosa ha cercato, non dà avvisi",
+      AVM.listing_problem({"listing": {"on": "2026-11-23", "active": {"BNY": {}}}}, "AAL") is None)
 check("senza la cartella tutto è vuoto e niente si rompe",
       AVM.load(os.path.join(_avd, "non-esiste")) == {"earnings": {}, "next": {}, "calendar_on": None, "listing": None})
 
@@ -1561,7 +1565,8 @@ check("senza dati di Alpha Vantage la scheda resta com'era",
       build_one(cfg, dict(raws[0], ticker="FFFF"))["earnings"] is None)
 _fin = finish(cfg, _eb1, [_eb1["insider_90d"]] * 4)
 check("e fra le fonti compare Alpha Vantage", any(x["n"] == 6 for x in _fin["sources"]), _fin["sources"])
-_ix = write_all([_fin], cfg, tempfile.mkdtemp(), av=_av)
+_avE = dict(_av, listing=dict(_av["listing"], asked=list(_av["listing"]["asked"]) + ["EEEE"]))
+_ix = write_all([_fin], cfg, tempfile.mkdtemp(), av=_avE)
 check("l'indice dice quante aziende hanno gli utili e quali ticker non risultano quotati",
       _ix["alphavantage"]["earnings"] == 1 and _ix["alphavantage"]["listing_on"] == "2026-12-01"
       and _ix["alphavantage"]["not_listed"] == ["EEEE"], _ix["alphavantage"])
