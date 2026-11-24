@@ -1568,6 +1568,7 @@ check("l'indice dice quante aziende hanno gli utili e quali ticker non risultano
 check("e per ogni azienda la data della prossima trimestrale", _ix["companies"][0]["next_report"] == "2099-02-01")
 check("l'indice ha il posto per la curva dopo un acquisto (vuoto se le campagne sono poche)",
       "event" in _ix and _ix["event"] is None)
+check("e per quella dopo una vendita", "event_sell" in _ix and _ix["event_sell"] is None)
 _br = build.backtest_rows([{"company": {"ticker": "Z"}, "tx": [cfo],
                             "tracks": {"Y": {"buys": [{"date": "2025-01-15", "car": 1.0}]}},
                             "_earn_long": [{"date": "2024-12-01", "sp": 3.0}]},
@@ -1663,6 +1664,37 @@ check("un gruppo sotto le venti campagne non disegna la curva",
 check("con meno di venti campagne in tutto niente curva", EV.run(_ecos2[:10], cfg) is None)
 check("e senza il prezzo del settore nemmeno",
       EV.run([dict(c, _bench_long=[]) for c in _ecos2], cfg) is None)
+
+# le vendite: trenta aziende che dopo una vendita discrezionale fanno -0,1% al giorno,
+# e altre trenta con vendite programmate che restano piatte
+print("\nDopo una vendita (studio di evento)")
+_scos = []
+for _k in range(30):
+    _i0 = 40 + _k * 9
+    _role = "Chief Executive Officer" if _k % 2 else "Director"
+    _scos.append({"company": {"ticker": f"V{_k}"}, "size": "small" if _k < 5 else "large",
+                  "tx": [{"date": _days[_i0], "who": "Uno", "kind": "SELL_D", "role": _role},
+                         {"date": _days[_i0 + 1], "who": "Uno", "kind": "BUY", "role": _role}],
+                  "_px_long": [[p["d"], p["c"]] for p in _px_after(_i0, -0.001)], "_bench_long": _flat})
+    _scos.append({"company": {"ticker": f"Q{_k}"},
+                  "tx": [{"date": _days[_i0], "who": "Due", "kind": "SELL_P", "role": "Director"}],
+                  "_px_long": [[p["d"], p["c"]] for p in _flat], "_bench_long": _flat})
+_es = EV.run_sell(_scos, cfg)
+_sa, _sp = _es["groups"]["all"], _es["groups"]["plan"]
+check("le vendite discrezionali e quelle programmate si contano a parte",
+      _es["camp"] == 30 and _sa["camp"] == 30 and _sp["camp"] == 30, (_es["camp"], _sa["camp"], _sp["camp"]))
+check("dopo la vendita la curva scende come il titolo",
+      abs(_sa["curve"]["mean"][EV.PRE + 60] + 6.0) < 0.01, _sa["curve"]["mean"][EV.PRE + 60])
+check("le programmate, piatte, restano a zero", _sp["seg"]["to60"]["mean"] == 0.0, _sp["seg"])
+check("i dirigenti apicali che vendono si separano dagli altri",
+      _es["groups"]["senior"]["camp"] == 15 and _es["groups"]["other"]["camp"] == 15)
+check("e le vendite programmate non entrano nei gruppi delle discrezionali",
+      _es["groups"]["large"]["camp"] + _es["groups"]["small"]["camp"] == 30)
+check("gli acquisti restano fuori dalle vendite, e le vendite fuori dagli acquisti",
+      EV.run(_scos, cfg)["camp"] == 30 and _es["camp"] == 30)
+check("il blocco delle vendite si riconosce", _es["side"] == "sell")
+check("con meno di venti vendite discrezionali niente curva",
+      EV.run_sell([c for c in _scos if c["company"]["ticker"].startswith("Q")] + _scos[:20:2], cfg) is None)
 
 # --------------------------------- abituali o opportunisti
 print("\nAbituali o opportunisti (Cohen, Malloy e Pomorski)")

@@ -29,7 +29,15 @@ Come si calcola:
 Il giorno zero è il giorno dell'operazione, non quello in cui la si viene a
 sapere: il Form 4 arriva entro due giorni lavorativi. Chi legge i Form 4 può
 comprare al più presto dal giorno +2, e la tabella dei tratti lo separa.
+
+**Le vendite** (run_sell) si misurano allo stesso modo, con le stesse regole
+per campagne, cluster e dirigenti. Le vendite discrezionali sono la prova; le
+vendite programmate da un piano 10b5-1 sono il confronto, perché la data la
+decide un piano firmato mesi prima e non dovrebbero dire niente. È anche la
+prova della penalità di −10 punti per un dirigente apicale che vende, che fino
+a qui era scritta a mano senza nessun dato dietro.
 """
+from bisect import bisect_left
 from datetime import date
 
 from . import alphavantage, bonus, rules
@@ -55,6 +63,19 @@ GROUPS = {
     "small": lambda c: c.get("size") == "small",
 }
 
+# Per le vendite: tutto sulle discrezionali, più le programmate come confronto.
+GROUPS_SELL = {
+    "all": lambda c: not c["plan"],
+    "plan": lambda c: c["plan"],
+    "cluster": lambda c: not c["plan"] and c["cluster"],
+    "solo": lambda c: not c["plan"] and not c["cluster"],
+    "senior": lambda c: not c["plan"] and c["senior"],
+    "other": lambda c: not c["plan"] and not c["senior"],
+    "large": lambda c: not c["plan"] and (c.get("size") or "large") == "large",
+    "mid": lambda c: not c["plan"] and c.get("size") == "mid",
+    "small": lambda c: not c["plan"] and c.get("size") == "small",
+}
+
 # I tratti della tabella: (id, da, a). "da" è la seduta il cui valore si toglie.
 SEGMENTS = (("before", -PRE, -1),          # i 20 giorni prima dell'acquisto
             ("first", -1, PUBLIC_DAY - 1),  # giorno zero e +1: il Form 4 non è ancora pubblico
@@ -62,13 +83,14 @@ SEGMENTS = (("before", -PRE, -1),          # i 20 giorni prima dell'acquisto
             ("to120", PUBLIC_DAY - 1, 120))
 
 
-def campaigns(results, cfg):
-    """Le campagne di acquisto di tutte le aziende, con le caratteristiche del backtest."""
+def campaigns(results, cfg, kind="BUY"):
+    """Le campagne di un tipo di operazione (acquisti, o un tipo di vendita) di tutte le aziende,
+    con le caratteristiche del backtest. Il cluster conta le persone che fanno la stessa cosa."""
     nd = cfg["rules"]["cluster_days"]
     titles = cfg["rules"]["senior_titles"]
     rows = []
     for d in results:
-        tx = [t for t in (d.get("tx") or []) if t["kind"] == "BUY"]
+        tx = [t for t in (d.get("tx") or []) if t["kind"] == kind]
         earn = d.get("_earn_long") or []
         for t in tx:
             day = date.fromisoformat(t["date"])
@@ -80,20 +102,22 @@ def campaigns(results, cfg):
     return bonus.campaigns(rows, cfg["rules"]["cluster_min_people"])
 
 
-def path(px, bench, day, pre=PRE, post=POST):
+def path(px, bench, day, pre=PRE, post=POST, dates=None, bmap=None):
     """Il rendimento cumulato oltre il settore, in punti percentuali, dalla seduta -pre in poi.
 
     `px` e `bench`: [{d, c}] in ordine di data. -> lista di valori per le sedute
     -pre, -pre+1, ... finché ci sono dati (al massimo fino a +post), o None se la
     campagna non si può misurare (prezzi che non arrivano a -pre, giorno zero
-    troppo lontano dal giorno dell'acquisto).
+    troppo lontano dal giorno dell'acquisto). `dates` e `bmap` (le date di `px`
+    e il settore per data) si possono passare già pronti quando lo stesso titolo
+    ha molte campagne, come succede con le vendite.
     """
-    i0 = next((i for i, p in enumerate(px) if p["d"] >= day), None)
-    if i0 is None or i0 - pre < 0:
+    i0 = bisect_left(dates or [p["d"] for p in px], day) if px else None
+    if i0 is None or i0 >= len(px) or i0 - pre < 0:
         return None
     if (date.fromisoformat(px[i0]["d"]) - date.fromisoformat(day[:10])).days > rules.START_GAP_DAYS:
         return None
-    b = {p["d"]: p["c"] for p in bench}
+    b = bmap if bmap is not None else {p["d"]: p["c"] for p in bench}
     out, cum = [0.0], 0.0
     for i in range(i0 - pre + 1, min(i0 + post, len(px) - 1) + 1):
         p0, p1 = px[i - 1], px[i]
@@ -158,24 +182,51 @@ def _segments(evs):
     return out
 
 
-def run(results, cfg):
-    """-> il blocco "event" dell'indice, o None se le campagne misurabili sono troppo poche."""
+def _measure(results, camps):
+    """Campagne -> campagne con la loro curva, solo quelle che si possono misurare."""
     by_t = {d["company"]["ticker"]: d for d in results}
+    prices = {}
     evs = []
-    for c in campaigns(results, cfg):
+    for c in camps:
         d = by_t.get(c["t"])
-        px = [{"d": x[0], "c": x[1]} for x in (d.get("_px_long") or []) if x[1]]
-        bench = d.get("_bench_long") or []
-        p = path(px, bench, c["d"]) if px and bench else None
+        if c["t"] not in prices:
+            px = [{"d": x[0], "c": x[1]} for x in (d.get("_px_long") or []) if x[1]]
+            bench = d.get("_bench_long") or []
+            prices[c["t"]] = (px, bench, [p["d"] for p in px], {p["d"]: p["c"] for p in bench})
+        px, bench, dates, bmap = prices[c["t"]]
+        p = path(px, bench, c["d"], dates=dates, bmap=bmap) if px and bench else None
         if p is not None:
             evs.append(dict(c, path=p))
-    if len(evs) < MIN_EVENTS:
+    return evs
+
+
+def run(results, cfg):
+    """-> il blocco "event" dell'indice, o None se le campagne misurabili sono troppo poche."""
+    return _block_of(_measure(results, campaigns(results, cfg)), GROUPS)
+
+
+def run_sell(results, cfg):
+    """-> il blocco "event_sell": la stessa curva dopo una vendita discrezionale, con le
+    vendite programmate come confronto. None se le discrezionali misurabili sono troppo poche."""
+    disc = [dict(c, plan=False) for c in campaigns(results, cfg, "SELL_D")]
+    plan = [dict(c, plan=True) for c in campaigns(results, cfg, "SELL_P")]
+    evs = _measure(results, disc + plan)
+    if sum(1 for e in evs if not e["plan"]) < MIN_EVENTS:
+        return None
+    out = _block_of(evs, GROUPS_SELL, count=lambda e: not e["plan"])
+    out["side"] = "sell"
+    return out
+
+
+def _block_of(evs, groups_def, count=lambda e: True):
+    main = [e for e in evs if count(e)]
+    if len(main) < MIN_EVENTS:
         return None
     groups = {}
-    for gid, f in GROUPS.items():
+    for gid, f in groups_def.items():
         sub = [e for e in evs if f(e)]
         groups[gid] = {"camp": len(sub), "curve": _curve(sub), "seg": _segments(sub)}
     return {"pre": PRE, "post": POST, "public_day": PUBLIC_DAY, "min": MIN_EVENTS,
-            "block_days": BLOCK_DAYS, "camp": len(evs),
-            "from": min(e["d"] for e in evs), "to": max(e["d"] for e in evs),
+            "block_days": BLOCK_DAYS, "camp": len(main),
+            "from": min(e["d"] for e in main), "to": max(e["d"] for e in main),
             "groups": groups}

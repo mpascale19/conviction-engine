@@ -675,6 +675,13 @@ def write_all(results, cfg, outdir=OUTDIR, forward=None, si_status=None, av=None
         print(f"! curva dopo un acquisto: {e}")
         ev = None
 
+    # La stessa curva dopo una vendita discrezionale, con le programmate come confronto.
+    try:
+        ev_sell = eventstudy.run_sell(results, cfg)
+    except Exception as e:
+        print(f"! curva dopo una vendita: {e}")
+        ev_sell = None
+
     # Il termometro degli insider sul mercato: pipeline/thermometer.py. Con i
     # data set della SEC (pipeline/mercato.py) anche su tutto il mercato, dal 2006.
     try:
@@ -772,6 +779,7 @@ def write_all(results, cfg, outdir=OUTDIR, forward=None, si_status=None, av=None
         "ic": ic,
         # la curva media dopo un acquisto, dai 20 giorni prima ai 120 dopo
         "event": ev,
+        "event_sell": ev_sell,
         # insider abituali o opportunisti (Cohen, Malloy e Pomorski 2012), alla prova
         "habits": hb,
         # quanti insider comprano e quanti vendono, tutte le aziende insieme, e che cosa

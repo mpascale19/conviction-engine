@@ -1191,7 +1191,8 @@ function bonusCard(bt){
       'se i dati li giustificano. L’unica scelta fatta a mano è la prudenza: quanto ci si aspetta ' +
       'che valga, al massimo plausibile, un effetto vero (' + e.tau + ' punti). L’ultima colonna ' +
       'mostra che cosa darebbero 3 e 10. La penalità per la vendita di un dirigente apicale (−10) ' +
-      'resta scritta a mano, perché il backtest guarda solo gli acquisti.',
+      'resta scritta a mano, perché il backtest guarda solo gli acquisti: la curva «Dopo una vendita», ' +
+      'più sopra, mostra se i dati la giustificano.',
       'An estimated bonus close to zero does not say the rule is wrong: it says that ' + e.camp +
       ' campaigns are not enough to know. I tested it on made-up data where the true effects are 10, 4 ' +
       'and 6 points: with 5,000 campaigns the estimator recovers them, with 26 it shrinks them to +2, ' +
@@ -1199,7 +1200,7 @@ function bonusCard(bt){
       'data justifies it. The only hand-made choice is the prudence: how large a true effect can ' +
       'plausibly be at most (' + e.tau + ' points). The last column shows what 3 and 10 would give. The ' +
       'penalty for a top executive selling (−10) stays hand-written, because the backtest only ' +
-      'looks at purchases.') + '</p></div>';
+      'looks at purchases: the «After a sale» curve further up shows whether the data justify it.') + '</p></div>';
 }
 
 /* Gli utili contro le attese arrivano a rate, dodici aziende al giorno: finché
@@ -1325,9 +1326,35 @@ function icCard(){
    scritte restano leggibili invece di rimpicciolirsi con tutto il disegno. */
 var EVG = 'all';                 // il confronto scelto
 var EVK = null;                  // la seduta sotto il puntatore (o la tastiera)
+var EVS = 'buy';                 // acquisti o vendite (pipeline/eventstudy.py, run_sell)
+
+/* I dati della curva scelta. Le vendite hanno la stessa forma degli acquisti. */
+function evHas(k){ var e = IDX && IDX[k]; return !!(e && e.groups && e.groups.all); }
+function evSell(){ return EVS === 'sell' && evHas('event_sell') || !evHas('event') && evHas('event_sell'); }
+function evData(){ return evSell() ? IDX.event_sell : (IDX && IDX.event); }
+
+/* Le parole che cambiano fra acquisti e vendite. */
+function evW(){
+  return evSell()
+    ? { first: T('prima vendita', 'first sale'), from: T('sedute dalla prima vendita', 'trading days from the first sale'),
+        camps: T('campagne di vendita discrezionali', 'discretionary selling campaigns'),
+        after: T('dopo la prima vendita', 'after the first sale') }
+    : { first: T('primo acquisto', 'first purchase'), from: T('sedute dal primo acquisto', 'trading days from the first purchase'),
+        camps: T('campagne di acquisto', 'buying campaigns'),
+        after: T('dopo il primo acquisto', 'after the first purchase') };
+}
 
 function evSets(ev){
   var g = ev.groups, ok = function(id){ return g[id] && g[id].camp >= ev.min; };
+  if (evSell()) {
+    var v = [{ id: 'all', label: T('Vendite discrezionali', 'Discretionary sales'), series: ['all'] }];
+    if (ok('plan')) v.push({ id: 'plan', label: T('Libere o programmate', 'Free or planned'), series: ['all', 'plan'] });
+    if (ok('senior') && ok('other')) v.push({ id: 'senior', label: T('Dirigenti o altri', 'Executives or others'), series: ['senior', 'other'] });
+    if (ok('cluster') && ok('solo')) v.push({ id: 'cluster', label: T('Cluster o no', 'Cluster or not'), series: ['cluster', 'solo'] });
+    var vz = ['large', 'mid', 'small'].filter(ok);
+    if (vz.length > 1) v.push({ id: 'size', label: T('Per dimensione', 'By size'), series: vz });
+    return v;
+  }
   var s = [{ id: 'all', label: T('Tutte le campagne', 'All campaigns'), series: ['all'] }];
   if (ok('cluster') && ok('solo')) s.push({ id: 'cluster', label: T('Cluster o no', 'Cluster or not'), series: ['cluster', 'solo'] });
   if (ok('senior') && ok('other')) s.push({ id: 'senior', label: T('Dirigenti o altri', 'Executives or others'), series: ['senior', 'other'] });
@@ -1338,6 +1365,15 @@ function evSets(ev){
 }
 
 function evName(id){
+  if (evSell()) {
+    var v = ({ all: T('Vendite discrezionali', 'Discretionary sales'),
+               plan: T('Vendite programmate (piano 10b5-1)', 'Planned sales (10b5-1 plan)'),
+               cluster: T('Cluster (3 o più venditori)', 'Cluster (3 or more sellers)'),
+               solo: T('Senza cluster', 'No cluster'),
+               senior: T('Vende un dirigente apicale', 'A top executive sells'),
+               other: T('Vendono altri', 'Others sell') })[id];
+    if (v) return v;
+  }
   return ({ all: T('Tutte le campagne', 'All campaigns'),
             cluster: T('Cluster (3 o più persone)', 'Cluster (3 or more people)'),
             solo: T('Senza cluster', 'No cluster'),
@@ -1360,6 +1396,22 @@ function evReading(ev){
   var s = ev.groups.all.seg, b = s.before, a = s.to60;
   if (!b || b.mean == null || !a || a.mean == null) return '';
   var strong = function(x){ return x.t != null && Math.abs(x.t) >= 2; };
+  if (evSell()) {
+    var after = strong(a)
+      ? (a.mean < 0 ? T('il titolo fa peggio del settore, più di quanto il caso spieghi di solito',
+                        'the stock lags its sector, more than chance usually explains')
+                    : T('il titolo fa meglio del settore, più di quanto il caso spieghi di solito: vendere non annunciava un calo',
+                        'the stock beats its sector, more than chance usually explains: selling did not foreshadow a fall'))
+      : T('ancora dentro quello che il caso può spiegare', 'still within what chance can explain');
+    return T('Nei 20 giorni di borsa prima della prima vendita discrezionale il titolo ha fatto in media ' + sg(b.mean, 1) +
+      '% rispetto al suo settore' + (b.mean > 0 ? ': gli insider vendono dopo un rialzo' : '') + '. ' +
+      'Da quando il Form 4 è pubblico (seduta +' + ev.public_day + ') a +60: ' + sg(a.mean, 1) + '%, ' + after +
+      ' (t = ' + nu(a.t.toFixed(1)) + ').',
+      'In the 20 trading days before the first discretionary sale the stock returned on average ' + sg(b.mean, 1) +
+      '% against its sector' + (b.mean > 0 ? ': insiders sell after a rise' : '') + '. ' +
+      'From when the Form 4 is public (day +' + ev.public_day + ') to +60: ' + sg(a.mean, 1) + '%, ' + after +
+      ' (t = ' + a.t.toFixed(1) + ').');
+  }
   var it = 'Nei 20 giorni di borsa prima del primo acquisto il titolo ha fatto in media ' + sg(b.mean, 1) +
     '% rispetto al suo settore' + (b.mean < 0 ? ': gli insider comprano dopo un calo' : '') + '. ' +
     'Da quando il Form 4 è pubblico (seduta +' + ev.public_day + ') a +60: ' + sg(a.mean, 1) + '%, ' +
@@ -1374,9 +1426,15 @@ function evReading(ev){
 }
 
 function evCard(){
-  var ev = IDX.event;
+  var ev = evData();
   if (!ev || !ev.groups || !ev.groups.all) return '';
-  var cur = evCur(ev), sets = evSets(ev);
+  var cur = evCur(ev), sets = evSets(ev), w = evW(), sell = evSell();
+  var side = evHas('event') && evHas('event_sell') ? '<div class="evp" role="group" aria-label="' +
+    esc(T('Acquisti o vendite', 'Purchases or sales')) + '">' + [['buy', T('Dopo un acquisto', 'After a purchase')],
+      ['sell', T('Dopo una vendita', 'After a sale')]].map(function(x){
+      return '<button type="button" class="gf" data-evs="' + x[0] + '" aria-pressed="' + ((x[0] === 'sell') === sell) +
+        '">' + esc(x[1]) + '</button>';
+    }).join('') + '</div>' : '';
   var pills = sets.length > 1 ? '<div class="evp" role="group" aria-label="' +
     esc(T('Che cosa confrontare', 'What to compare')) + '">' + sets.map(function(s){
       return '<button type="button" class="gf" data-evg="' + s.id + '" aria-pressed="' +
@@ -1386,8 +1444,20 @@ function evCard(){
     return '<span><i style="background:var(--c' + (i + 1) + ')"></i>' + esc(evName(id)) +
       ' <span class="nm">· ' + ev.groups[id].camp + ' ' + T('campagne', 'campaigns') + '</span></span>';
   }).join('') + '</div>';
-  return '<div class="card"><h2>' + T('Dopo un acquisto, seduta per seduta', 'After a purchase, day by day') +
-    '</h2><p class="sub">' + T(
+  var intro = sell ? T(
+      'Tutte le campagne di vendita discrezionale allineate sul loro primo giorno (la linea verticale), e la media ' +
+      'di quanto il titolo ha fatto meglio o peggio del suo settore, sommando seduta dopo seduta da 20 ' +
+      'giorni di borsa prima a 120 dopo. Le vendite programmate da un piano 10b5-1 sono il confronto: la data ' +
+      'la decide un piano firmato mesi prima, quindi non dovrebbero dire niente. Le campagne si formano come ' +
+      'per gli acquisti. La fascia chiara è l’incertezza: dove contiene lo zero, il caso basta a spiegare la curva.',
+      'Every discretionary selling campaign lined up on its first day (the vertical line), and the average of how ' +
+      'much the stock did better or worse than its sector, adding up day after day from 20 trading days before ' +
+      'to 120 after. Sales scheduled under a 10b5-1 plan are the comparison: their date is set by a plan signed ' +
+      'months earlier, so they should say nothing. Campaigns are formed as for purchases. The light band is the ' +
+      'uncertainty: where it contains zero, chance is enough to explain the curve.') : null;
+  return '<div class="card"><h2>' + (sell ? T('Dopo una vendita, seduta per seduta', 'After a sale, day by day')
+      : T('Dopo un acquisto, seduta per seduta', 'After a purchase, day by day')) +
+    '</h2>' + side + '<p class="sub">' + (intro || T(
       'Tutte le campagne di acquisto allineate sul loro primo giorno (la linea verticale), e la media ' +
       'di quanto il titolo ha fatto meglio o peggio del suo settore, sommando seduta dopo seduta da 20 ' +
       'giorni di borsa prima a 120 dopo. La fascia chiara è l’incertezza: dove contiene lo zero, il caso ' +
@@ -1395,7 +1465,7 @@ function evCard(){
       'Every buying campaign lined up on its first day (the vertical line), and the average of how much ' +
       'the stock did better or worse than its sector, adding up day after day from 20 trading days before ' +
       'to 120 after. The light band is the uncertainty: where it contains zero, chance is enough to ' +
-      'explain the curve.') + '</p>' +
+      'explain the curve.')) + '</p>' +
     '<p class="evr">' + esc(evReading(ev)) + '</p>' + pills + legend +
     '<div class="evw" id="evw"><div class="evtip" id="evtip" hidden></div></div>' +
     evSegTable(ev, cur) +
@@ -1403,17 +1473,19 @@ function evCard(){
     '</summary>' + evTable(ev, cur) + '</details>' +
     '<p class="sub" style="margin-top:12px">' + T(
       'Il giorno zero è quello dell’operazione: il Form 4 che la rende pubblica arriva entro due giorni ' +
-      'lavorativi, quindi chi legge i depositi può comprare al più presto dalla seduta +' + ev.public_day +
+      'lavorativi, quindi chi legge i depositi può agire al più presto dalla seduta +' + ev.public_day +
       '. Ogni campagna entra nella media finché ha prezzi: quelle recenti escono prima, e il numero di ' +
       'campagne di ogni seduta è nei numeri qui sopra. L’incertezza tiene conto che campagne degli stessi ' +
       'mesi vivono la stessa borsa (errori a grappoli, blocchi di ' + ev.block_days + ' giorni). ' +
-      ev.camp + ' campagne dal ' + day(ev.from) + ' al ' + day(ev.to) + '.',
+      ev.camp + ' ' + w.camps + ' dal ' + day(ev.from) + ' al ' + day(ev.to) + '.' + (sell ? ' Dichiarare il piano ' +
+      '10b5-1 nel Form 4 è obbligatorio solo dal 2023: prima, qualche vendita programmata può risultare discrezionale.' : ''),
       'Day zero is the trade date: the Form 4 that makes it public arrives within two business days, so ' +
-      'someone reading the filings can buy at the earliest from day +' + ev.public_day + '. Each campaign ' +
+      'someone reading the filings can act at the earliest from day +' + ev.public_day + '. Each campaign ' +
       'counts in the average while it has prices: recent ones drop out sooner, and the number of ' +
       'campaigns behind each day is in the numbers above. The uncertainty allows for campaigns in the same ' +
       'months living through the same market (clustered errors, ' + ev.block_days + '-day blocks). ' +
-      ev.camp + ' campaigns from ' + day(ev.from) + ' to ' + day(ev.to) + '.') + '</p></div>';
+      ev.camp + ' ' + w.camps + ' from ' + day(ev.from) + ' to ' + day(ev.to) + '.' + (sell ? ' Flagging a 10b5-1 ' +
+      'plan in the Form 4 has been mandatory only since 2023: before, some planned sales may look discretionary.' : '')) + '</p></div>';
 }
 
 /* I quattro tratti che contano, con la loro incertezza. */
@@ -1461,7 +1533,7 @@ function evTable(ev, cur){
 /* Il disegno. Linee di 2px, fascia dell'incertezza al 12%, griglia sottile;
    il colore sta solo sui segni, le scritte restano nei colori del testo. */
 function evDraw(){
-  var ev = IDX && IDX.event, box = document.getElementById('evw');
+  var ev = evData(), box = document.getElementById('evw'), w = evW();
   if (!ev || !box) return;
   var cur = evCur(ev), pre = ev.pre, post = ev.post;
   var W = Math.max(280, box.clientWidth), narrow = W < 480;
@@ -1487,9 +1559,9 @@ function evDraw(){
       (k > 0 ? '+' + k : k < 0 ? '−' + (-k) : '0') + '</text>';
   });
   g += '<text x="' + (W - m.r) + '" y="' + (H - 4) + '" text-anchor="end" class="evax">' +
-    esc(T('sedute dal primo acquisto', 'trading days from the first purchase')) + '</text>';
+    esc(w.from) + '</text>';
   g += '<line x1="' + X(0) + '" x2="' + X(0) + '" y1="' + (m.t - 8) + '" y2="' + (H - m.b) + '" stroke="var(--ink3)" stroke-width="1"/>' +
-    '<text x="' + (X(0) + 5) + '" y="' + (m.t - 10 + 9) + '" class="evax">' + esc(T('primo acquisto', 'first purchase')) + '</text>';
+    '<text x="' + (X(0) + 5) + '" y="' + (m.t - 10 + 9) + '" class="evax">' + esc(w.first) + '</text>';
   // fasce e linee, interrotte dove la media manca
   var runs = function(d){
     var out = [], r = [];
@@ -1525,8 +1597,7 @@ function evDraw(){
   }
   g += '<g id="evhair" style="display:none"><line id="evhl" y1="' + m.t + '" y2="' + (H - m.b) + '" stroke="var(--ink2)" stroke-width="1"/>' +
     ser.map(function(s, i){ return '<circle id="evhd' + i + '" r="4" fill="' + s.c + '" stroke="var(--card)" stroke-width="2"/>'; }).join('') + '</g>';
-  var label = T('Rendimento cumulato oltre il settore, da 20 sedute prima a 120 dopo il primo acquisto',
-                'Cumulative return over the sector, from 20 trading days before to 120 after the first purchase');
+  var label = T('Rendimento cumulato oltre il settore, da 20 sedute prima a 120 ', 'Cumulative return over the sector, from 20 trading days before to 120 ') + w.after;
   var svg = '<svg width="' + W + '" height="' + H + '" viewBox="0 0 ' + W + ' ' + H + '" role="img" tabindex="0" aria-label="' +
     esc(label + '. ' + evReading(ev)) + '">' + g + '<rect id="evhit" x="' + m.l + '" y="0" width="' + (W - m.l - m.r) +
     '" height="' + H + '" fill="transparent"/></svg>';
@@ -1550,7 +1621,7 @@ function evDraw(){
         T('campagne', 'campaigns') + '</span></div>';
     });
     tip.innerHTML = '<div class="evth">' + esc(T('Seduta ', 'Day ')) + (k > 0 ? '+' + k : k < 0 ? '−' + (-k) : '0') +
-      (k === 0 ? ' · ' + esc(T('primo acquisto', 'first purchase')) : '') + '</div>' + lines.join('');
+      (k === 0 ? ' · ' + esc(w.first) : '') + '</div>' + lines.join('');
     tip.hidden = false;
     var tw = tip.offsetWidth, left = x + 14;
     if (left + tw > W - 4) left = Math.max(4, x - 14 - tw);
@@ -1580,6 +1651,9 @@ function evMount(){
   evDraw();
   [].forEach.call(app.querySelectorAll('[data-evg]'), function(b){
     b.addEventListener('click', function(){ EVG = b.dataset.evg; renderBacktest(); });
+  });
+  [].forEach.call(app.querySelectorAll('[data-evs]'), function(b){
+    b.addEventListener('click', function(){ EVS = b.dataset.evs; EVG = 'all'; renderBacktest(); });
   });
 }
 

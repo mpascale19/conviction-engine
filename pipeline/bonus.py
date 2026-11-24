@@ -38,7 +38,8 @@ caratteristiche come controllo. Così le tre stime di prima non cambiano per il
 fatto che il dato nuovo c'è o non c'è.
 
 Che cosa non si stima qui: la penalità per la vendita di un dirigente apicale
-(il backtest guarda solo gli acquisti) e il flusso netto, che è una misura
+(il backtest guarda solo gli acquisti; la prova è la curva dopo una vendita in
+eventstudy.run_sell) e il flusso netto, che è una misura
 continua e non un bonus.
 """
 from datetime import date
