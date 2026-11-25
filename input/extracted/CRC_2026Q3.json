@@ -1,0 +1,98 @@
+{
+  "ticker": "CRC",
+  "quarter": "T3 '26",
+  "call_date": "2026-11-02",
+  "tone": 70,
+  "tone_why": {
+    "it": "Tono sicuro e costruttivo. Produzione a 152.000 barili equivalenti al giorno (+2% sul trimestre), EBITDAX rettificato 341 milioni $ sopra il massimo della guidance, dividendo alzato per il quinto anno di fila, debito a 1 volta l'EBITDAX. L'amministratore delegato Francisco Leon parla di un'azienda che «va a pieno regime»: acquisizione dell'oleodotto Crimson chiusa, vendita degli asset dello Utah, accordo con Bloom Energy per oltre un gigawatt di energia con cattura della CO2, una seconda fase di riduzione dei costi. Le ombre: prezzo realizzato del petrolio al minimo della forchetta (91,3% del Brent) per i vincoli di trasporto, costi operativi +39 milioni $ per l'energia più cara, e una sentenza che annulla l'approvazione ambientale del primo progetto di stoccaggio della CO2.",
+    "en": "A confident, constructive tone. Production of 152,000 boe/d (+2% sequentially), adjusted EBITDAX of $341m above the top of guidance, the dividend raised for the fifth year in a row, leverage at 1x. CEO Francisco Leon describes a company \"firing on all cylinders\": the Crimson pipeline deal closed, the Utah assets sold, an agreement with Bloom Energy for over a gigawatt of power with carbon capture, a second phase of cost cuts. The shadows: oil realisations at the low end of the range (91.3% of Brent) on transport constraints, operating costs +$39m on pricier energy, and a court ruling that sets aside the environmental approval of the first carbon storage project."
+  },
+  "guidance": [
+    {
+      "metric": {"it": "Quarto trimestre", "en": "Fourth quarter"},
+      "value": {"it": "a 102 $ di Brent: produzione circa 151.000 barili equivalenti al giorno, EBITDAX rettificato circa 316 milioni $, investimenti circa 120 milioni $; prezzo realizzato circa 92% del Brent", "en": "at $102 Brent: production about 151,000 boe/d, adjusted EBITDAX about $316m, capex about $120m; realisations about 92% of Brent"},
+      "direction": "prima"
+    },
+    {
+      "metric": {"it": "Anno 2026", "en": "Full year 2026"},
+      "value": {"it": "EBITDAX rettificato circa 1,34 miliardi $ a 92 $ di Brent, record; produzione media circa 152.000 barili equivalenti al giorno; investimenti dentro la guidance", "en": "adjusted EBITDAX about $1.34bn at $92 Brent, a record; average production about 152,000 boe/d; capex within guidance"},
+      "direction": "confermata"
+    },
+    {
+      "metric": {"it": "Piano 2027", "en": "2027 plan"},
+      "value": {"it": "sei impianti di perforazione in California, produzione lorda piatta da inizio a fine anno, 450-475 milioni $ di perforazione e manutenzione dei pozzi; produzione più forte nel secondo semestre", "en": "six rigs in California, flat gross production entry to exit, $450-475m of drilling and workover capital; production second-half weighted"},
+      "direction": "prima"
+    },
+    {
+      "metric": {"it": "Oleodotto San Pablo Bay", "en": "San Pablo Bay pipeline"},
+      "value": {"it": "riapertura nel T1 2027, senza permessi né investimenti in più; prezzi realizzati verso il 94-96% circa; ogni punto vale circa 40 milioni $ di EBITDA all'anno; contributo pieno nel secondo semestre 2027", "en": "restart in Q1 2027, with no extra permits or capital; realisations toward the mid-90s; each point is worth about $40m of annual EBITDA; meaningful contribution in H2 2027"},
+      "direction": "prima"
+    },
+    {
+      "metric": {"it": "Margini di energia elettrica e commercializzazione", "en": "Power and marketing margins"},
+      "value": {"it": "riferimento annuo normale: 30-40 milioni $ per l'elettricità e 30-50 milioni $ per la commercializzazione del gas, prima dei nuovi contratti", "en": "normal annual reference: $30-40m for electricity and $30-50m for gas marketing, before new contracts"},
+      "direction": "prima"
+    },
+    {
+      "metric": {"it": "Seconda fase di riduzione dei costi", "en": "Second cost-reduction phase"},
+      "value": {"it": "revisione di tutta l'organizzazione nel 2027-2028, con IA e sistemi unificati; obiettivi alla prossima call", "en": "an organisation-wide review over 2027-2028, with AI and unified systems; targets at the next call"},
+      "direction": "prima"
+    }
+  ],
+  "qa": [
+    {
+      "question": {"it": "Come si sviluppa l'accordo con Bloom Energy, chi sono i clienti e che economia ha per voi?", "en": "How does the Bloom Energy deal develop, who are the customers and what are your economics?"},
+      "answer_summary": {"it": "Bloom fornisce le celle, sviluppatori terzi le possiedono, CRC dà gas, terreni, rete e stoccaggio della CO2; clienti: utility e hyperscaler. Nessuna cifra sui ritorni.", "en": "Bloom supplies the cells, third-party developers own them, CRC provides gas, land, grid and CO2 storage; customers: utilities and hyperscalers. No figure on returns."},
+      "directness": 3
+    },
+    {
+      "question": {"it": "Quando riparte San Pablo Bay e quando si vedranno i benefici?", "en": "When does San Pablo Bay restart and when will the benefits show?"},
+      "answer_summary": {"it": "T1 2027, nessun permesso né investimento; circa 40 milioni $ di EBITDA per punto di prezzo realizzato; già +11 milioni $ nel T4.", "en": "Q1 2027, no permits or capital needed; about $40m of EBITDA per point of realisation; already +$11m in Q4."},
+      "directness": 5
+    },
+    {
+      "question": {"it": "Quanto ci vorrà per il permesso del data center di Golden Valley?", "en": "How long until the Golden Valley data-centre permit?"},
+      "answer_summary": {"it": "«Circa 12-18 mesi»; un accordo preliminare con un hyperscaler atteso a inizio 2027.", "en": "\"About 12 to 18 months\"; a preliminary agreement with a hyperscaler expected in early 2027."},
+      "directness": 5
+    },
+    {
+      "question": {"it": "Quanto valgono le altre integrazioni fra giacimenti, e quanto capitale servono?", "en": "How much are the other field integrations worth, and how much capital do they need?"},
+      "answer_summary": {"it": "Molte opportunità su gas, energia e impianti, ma «non siamo pronti a dare un numero complessivo».", "en": "Many opportunities across gas, power and facilities, but \"we aren't ready to put an aggregate number\" on them."},
+      "directness": 2
+    },
+    {
+      "question": {"it": "Con quale ritmo farete riacquisti nel T4 e nel 2027, con i soldi della vendita nello Utah?", "en": "At what pace will you buy back stock in Q4 and 2027, with the Utah sale proceeds?"},
+      "answer_summary": {"it": "Le azioni sono sottovalutate e continueranno a comprare, ma il ritmo dipende da prezzo e alternative; restano 570 milioni $ autorizzati. Nessun ritmo.", "en": "The shares are undervalued and they will keep buying, but the pace depends on price and alternatives; $570m remains authorised. No pace given."},
+      "directness": 3
+    }
+  ],
+  "language_changes": [
+    {
+      "topic": {"it": "Strategia", "en": "Strategy"},
+      "from": {"it": "crescere per acquisizioni (Aera, Berry)", "en": "growing through acquisitions (Aera, Berry)"},
+      "to": {"it": "dall'integrazione all'ottimizzazione: «la fase 1 ha unito le aziende, la fase 2 decide come deve funzionare l'azienda unita»", "en": "from integration to optimisation: \"Phase 1 brought the companies together, Phase 2 is about how the combined company should work\""},
+      "note": {"it": "Dopo 400 milioni $ di sinergie, una nuova promessa di costi più bassi, senza cifra fino a febbraio.", "en": "After $400m of synergies, a new promise of lower costs, with no figure until February."}
+    },
+    {
+      "topic": {"it": "Energia elettrica", "en": "Power"},
+      "from": {"it": "centrali a gas con cattura della CO2", "en": "gas plants with carbon capture"},
+      "to": {"it": "anche celle a combustibile con Bloom, oltre un gigawatt, e un campus per data center: «molecole fuori dalla terra, elettroni nella rete, carbonio di nuovo sotto terra»", "en": "fuel cells with Bloom too, over a gigawatt, and a data-centre campus: \"molecules out of the ground, electrons onto the grid, carbon back into the ground\""},
+      "note": {"it": "Modello «leggero in capitale»: partner e terzi finanziano gli impianti.", "en": "A \"capital-light\" model: partners and third parties fund the plants."}
+    },
+    {
+      "topic": {"it": "Prezzi realizzati", "en": "Realisations"},
+      "from": {"it": "un problema temporaneo di trasporto", "en": "a temporary transport problem"},
+      "to": {"it": "il T3 come punto più basso; reclamo formale al regolatore e richiesta di risarcimento delle perdite", "en": "Q3 as the low point; a formal complaint to the regulator and a claim to recover losses"},
+      "note": {"it": "Il possibile risarcimento non è nella guidance.", "en": "Any recovery is not in the guidance."}
+    },
+    {
+      "topic": {"it": "Politica californiana", "en": "California politics"},
+      "from": {"it": "un contesto regolatorio difficile", "en": "a difficult regulatory backdrop"},
+      "to": {"it": "«molto ottimisti» con qualunque nuovo governatore; una sentenza favorevole sulla stimolazione dei pozzi, ma una contraria sul progetto CTV I", "en": "\"very optimistic\" whoever the new governor is; a favourable ruling on well stimulation, but an adverse one on the CTV I project"},
+      "note": {"it": "La sentenza su CTV I è citata solo nelle risposte, dichiarata senza effetti rilevanti.", "en": "The CTV I ruling is mentioned only in the answers, declared not material."}
+    }
+  ],
+  "file": "CRC_2026Q3.json",
+  "source": "Alpha Vantage transcript (non ridistribuito)",
+  "extracted_by": "Claude (estrazione manuale, stessa forma del passo automatico)"
+}

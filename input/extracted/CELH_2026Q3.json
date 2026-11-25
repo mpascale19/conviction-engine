@@ -1,0 +1,93 @@
+{
+  "ticker": "CELH",
+  "quarter": "T3 '26",
+  "call_date": "2026-11-05",
+  "tone": 55,
+  "tone_why": {
+    "it": "Un portafoglio a due velocità. Ricavi +17% a 847 milioni $, con Alani Nu al trimestre migliore di sempre (+24%, vendite al dettaglio +58%, trainate dalla bevanda stagionale Witch's Brew) e un margine EBITDA rettificato al 23,4%. Ma il marchio principale CELSIUS cala ancora (vendite −6%, al dettaglio −7%) e la ripresa è rinviata al 2027, con l'innovazione «rimandata apposta» quest'anno; Rockstar è solo «verso la stabilità». Il margine lordo scende al 46,8% (51,3% un anno fa) per alluminio e gasolio, e l'obiettivo di tornare al 50% e oltre «richiederà più tempo». Circa 20-25 milioni $ di spedizioni sono stati anticipati dal T4 al T3, e il T4 avrà la crescita più bassa dell'anno.",
+    "en": "A two-speed portfolio. Revenue +17% to $847m, with Alani Nu posting its best quarter ever (+24%, retail sales +58%, driven by the Witch's Brew seasonal drink) and an adjusted EBITDA margin of 23.4%. But the core CELSIUS brand is still declining (sales −6%, retail −7%) and its recovery is pushed to 2027, with innovation \"purposely delayed\" this year; Rockstar is only \"working toward stability\". Gross margin falls to 46.8% (51.3% a year ago) on aluminium and diesel, and the goal of getting back to the low 50s \"is going to take a little longer\". About $20-25m of shipments moved from Q4 into Q3, and Q4 will show the lowest growth of the year."
+  },
+  "guidance": [
+    {
+      "metric": {"it": "Ricavi del T4", "en": "Q4 revenue"},
+      "value": {"it": "crescita riportata sotto quella dei primi tre trimestri: confronto difficile (circa 25 milioni $ di scorte dell'anno scorso) e circa 25 milioni $ di spedizioni già anticipate al T3", "en": "reported growth below the first three quarters: tough comparison (about $25m of last year's inventory build) and about $25m of shipments already pulled into Q3"},
+      "direction": "prima"
+    },
+    {
+      "metric": {"it": "Margine lordo 2026", "en": "2026 gross margin"},
+      "value": {"it": "«nella parte alta dei 40» per alluminio e gasolio; il ritorno al 50% e oltre richiederà più tempo del previsto", "en": "\"in the high 40s\" on aluminium and diesel; the return to the low 50s will take longer than expected"},
+      "direction": "ridotta"
+    },
+    {
+      "metric": {"it": "Marchio CELSIUS nel 2027", "en": "CELSIUS brand in 2027"},
+      "value": {"it": "ritorno alla crescita, con nuovi gusti, nuove linee e nuovi formati; vicino al pareggio sulle vendite settimanali a fine anno", "en": "return to growth, with new flavours, lines and pack sizes; close to break-even on weekly sales by year end"},
+      "direction": "confermata"
+    },
+    {
+      "metric": {"it": "Mercati esteri", "en": "International markets"},
+      "value": {"it": "oltre il 15% dei ricavi in cinque anni (+56% nel trimestre); Alani Nu in alcuni mercati esteri nel 2027", "en": "over 15% of revenue in five years (+56% in the quarter); Alani Nu in select international markets in 2027"},
+      "direction": "confermata"
+    },
+    {
+      "metric": {"it": "Sconti alla distribuzione (2027-2028)", "en": "Trade investment (2027-2028)"},
+      "value": {"it": "in calo in percentuale delle vendite lorde con il nuovo programma di prezzi e formati per tutti e tre i marchi", "en": "falling as a share of gross sales with the new pricing and pack programme across all three brands"},
+      "direction": "prima"
+    }
+  ],
+  "qa": [
+    {
+      "question": {"it": "Che cosa aspettarsi dal marchio CELSIUS nel T4 e nel 2027?", "en": "What should we expect from the CELSIUS brand in Q4 and 2027?"},
+      "answer_summary": {"it": "Vendite settimanali fra 50 e 55 milioni $: se reggono, crescita leggera o pareggio in alcune settimane di fine anno; la svolta vera nel 2027. Nessuna cifra annuale.", "en": "Weekly sales of $50-55m: if they hold, slight growth or break-even in some year-end weeks; the real turn in 2027. No annual figure."},
+      "directness": 3
+    },
+    {
+      "question": {"it": "Come e quando recupera il margine lordo, con l'inflazione che non cala? Alzerete i prezzi?", "en": "How and when does gross margin recover with stubborn inflation? Will you raise prices?"},
+      "answer_summary": {"it": "Seguiranno il settore senza guidarlo; la leva vera è ridurre gli sconti; con le materie prime ferme il ritorno al 50% e oltre «richiederà più tempo». Nessuna data.", "en": "They will follow the category, not lead it; the real lever is lower trade spend; with commodities stuck, the low 50s \"will take a little longer\". No date."},
+      "directness": 3
+    },
+    {
+      "question": {"it": "Il calo di CELSIUS include i 25 milioni $ anticipati? Senza, sarebbe peggiore?", "en": "Does the CELSIUS decline include the $25m pulled forward? Would it be worse without it?"},
+      "answer_summary": {"it": "L'amministratore delegato parla dei dati alla cassa, il direttore finanziario dei ricavi contabili; il calo sottostante non viene quantificato.", "en": "The CEO talks about register scans, the CFO about reported revenue; the underlying decline is not quantified."},
+      "directness": 2
+    },
+    {
+      "question": {"it": "Quando le vendite al dettaglio di Alani Nu e i ricavi riportati torneranno ad avvicinarsi?", "en": "When will Alani Nu retail sales and reported revenue converge?"},
+      "answer_summary": {"it": "Dal T2 2027: oggi la differenza è di 24-25 punti per la distribuzione con PepsiCo e i prodotti non energetici.", "en": "From Q2 2027: the gap is 24-25 points today because of PepsiCo distribution and non-energy products."},
+      "directness": 5
+    },
+    {
+      "question": {"it": "La crescita di CELSIUS nel 2027 dipende dal lancio di Energy+?", "en": "Does CELSIUS growth in 2027 depend on the Energy+ launch?"},
+      "answer_summary": {"it": "No: Energy+ è un'aggiunta, la crescita «non dipende al 100%» da lui; elenca gusti e formati nuovi.", "en": "No: Energy+ is incremental, growth is \"not 100% reliant\" on it; lists new flavours and packs."},
+      "directness": 4
+    }
+  ],
+  "language_changes": [
+    {
+      "topic": {"it": "Marchio CELSIUS", "en": "CELSIUS brand"},
+      "from": {"it": "riorganizzazione degli scaffali per tornare a crescere", "en": "shelf reorganisation to return to growth"},
+      "to": {"it": "«non è ancora dove vogliamo»: un marchio «si costruisce con il consumatore, non sullo scaffale»; svolta nel 2027", "en": "\"not yet where we want it\": a brand \"is built with the consumer, not on the shelf\"; turn in 2027"},
+      "note": {"it": "L'innovazione era stata sospesa per integrare Alani Nu e Rockstar.", "en": "Innovation had been paused to integrate Alani Nu and Rockstar."}
+    },
+    {
+      "topic": {"it": "Margine lordo", "en": "Gross margin"},
+      "from": {"it": "espansione verso il 50% e oltre, compensata dalle materie prime", "en": "expansion toward the low 50s, offset by commodities"},
+      "to": {"it": "alluminio e gasolio ancora in salita: obiettivo più lontano «di quanto pensavamo un anno fa»", "en": "aluminium and diesel still rising: the goal further away \"than we had anticipated a year ago\""},
+      "note": {"it": "La leva indicata passa dai costi agli sconti alla distribuzione.", "en": "The lever moves from costs to trade spend."}
+    },
+    {
+      "topic": {"it": "Organizzazione", "en": "Organisation"},
+      "from": {"it": "un'unica struttura per tutto il portafoglio", "en": "a single structure for the whole portfolio"},
+      "to": {"it": "tre unità per marchio, ciascuna con un presidente; nuovo presidente per CELSIUS dall'esterno", "en": "three brand-led units, each with a president; a new outside president for CELSIUS"},
+      "note": {"it": "Annunciata anche la scomparsa del responsabile della catena di fornitura, sostituito ad interim.", "en": "The passing of the chief supply chain officer is also announced, with an interim replacement."}
+    },
+    {
+      "topic": {"it": "Rockstar", "en": "Rockstar"},
+      "from": {"it": "un marchio da stabilizzare dopo l'acquisizione", "en": "a brand to stabilise after the acquisition"},
+      "to": {"it": "«primi germogli»: i prodotti tenuti sono vicini all'anno scorso, ma «non annunciamo il ritorno alla crescita»", "en": "\"green shoots\": the retained products are close to last year, but \"we are not calling a return to growth\""},
+      "note": {"it": "Vendite al dettaglio totali ancora −13%.", "en": "Total retail sales still −13%."}
+    }
+  ],
+  "file": "CELH_2026Q3.json",
+  "source": "Alpha Vantage transcript (non ridistribuito)",
+  "extracted_by": "Claude (estrazione manuale, stessa forma del passo automatico)"
+}

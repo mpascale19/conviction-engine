@@ -1,0 +1,93 @@
+{
+  "ticker": "STWD",
+  "quarter": "T3 '26",
+  "call_date": "2026-11-06",
+  "tone": 38,
+  "tone_why": {
+    "it": "Trimestre difficile e un annuncio pesante. Utile distribuibile 0,31 $ per azione (0,41 $ senza le perdite realizzate), contro un dividendo di 0,48 $; riserve per perdite sui crediti +369 milioni $ a circa 1 miliardo $, per il rialzo dei tassi (Treasury a 10 anni +80 punti base nel trimestre); prestiti a rischio alto (classi 4 e 5) +730 milioni $, quasi tutti erogati prima del 2023 e per metà su immobili residenziali. Il presidente Barry Sternlicht annuncia che il consiglio valuterà un taglio del dividendo, «il mercato se lo aspetta». Il management difende il valore: ampia liquidità (1,1 miliardi $), attività diversificate, 108 milioni $ di riacquisti, e un prezzo di borsa che implicherebbe un calo del 73% del valore delle garanzie.",
+    "en": "A difficult quarter and a heavy announcement. Distributable earnings of $0.31 per share ($0.41 excluding realised losses), against a $0.48 dividend; credit-loss reserves +$369m to about $1bn, driven by higher rates (10-year Treasury +80bp in the quarter); high-risk loans (risk ratings 4 and 5) +$730m, almost all originated before 2023 and half of them multifamily. Chairman Barry Sternlicht says the board will consider a dividend cut, \"the market is obviously expecting it\". Management defends the value: ample liquidity ($1.1bn), diversified businesses, $108m of buybacks, and a share price that would imply a 73% fall in collateral values."
+  },
+  "guidance": [
+    {
+      "metric": {"it": "Dividendo", "en": "Dividend"},
+      "value": {"it": "il consiglio discuterà una riduzione, da riportare su quando torneranno gli utili dei prestiti in sofferenza; nessuna cifra", "en": "the board will discuss a reduction, to be raised again as earnings return from the troubled loans; no figure"},
+      "direction": "ridotta"
+    },
+    {
+      "metric": {"it": "Utile distribuibile di base", "en": "Base distributable earnings"},
+      "value": {"it": "0,41 $ per azione come base ragionevole, forse un po' di più; il ritorno a 0,48 $ richiede più tempo del previsto il trimestre scorso", "en": "$0.41 per share as a reasonable base, perhaps slightly higher; getting back to $0.48 will take longer than expected last quarter"},
+      "direction": "ridotta"
+    },
+    {
+      "metric": {"it": "Risoluzione dei prestiti problematici 2026", "en": "2026 problem-loan resolutions"},
+      "value": {"it": "oltre 800-850 milioni $, più del 40% dei prestiti non produttivi e degli immobili riacquisiti; in gran parte già fatto", "en": "over $800-850m, more than 40% of non-accrual loans and REO; mostly already done"},
+      "direction": "confermata"
+    },
+    {
+      "metric": {"it": "Rimborsi dei prestiti", "en": "Loan repayments"},
+      "value": {"it": "circa 1,2 miliardi $ a trimestre «per il prevedibile futuro»", "en": "about $1.2bn a quarter \"for the foreseeable future\""},
+      "direction": "prima"
+    },
+    {
+      "metric": {"it": "Servizi di gestione dei prestiti in difficoltà (LNR)", "en": "Special servicing (LNR)"},
+      "value": {"it": "ricavi in forte crescita fra fine 2027 e inizio 2028, dalle sofferenze dei massimi dei tassi di settembre", "en": "significant revenue growth in late 2027 to early 2028, from the stress of the September rate highs"},
+      "direction": "prima"
+    }
+  ],
+  "qa": [
+    {
+      "question": {"it": "Le riserve di questo trimestre sono un «tutto in una volta», o arriveranno altri trimestri di accantonamenti?", "en": "Is this quarter's reserve a kitchen sink, or will more quarters of provisions follow?"},
+      "answer_summary": {"it": "Il modello usa già i tassi a termine e «non lo controlliamo noi»; il futuro dipende dai tassi, «non possiamo dirlo».", "en": "The model already uses forward rates and \"we do not control\" it; the future depends on rates, \"we cannot tell you\"."},
+      "directness": 2
+    },
+    {
+      "question": {"it": "Quando riprendete gli immobili residenziali, il valore regge?", "en": "When you take back multifamily assets, does the value hold?"},
+      "answer_summary": {"it": "Le perdite sarebbero piccole rispetto alle dimensioni; vendite recenti a rendimenti intorno al 5%; «ci saranno insolvenze» nel residenziale.", "en": "Losses would be small relative to size; recent sales at caps around 5%; \"we will have defaults\" in multifamily."},
+      "directness": 3
+    },
+    {
+      "question": {"it": "L'utile di base di 0,41 $ tende a salire o a scendere?", "en": "Is the $0.41 base earnings rate biased up or down?"},
+      "answer_summary": {"it": "«Una base ragionevole», forse un po' più alta, esclusi gli imprevisti.", "en": "\"A reasonable number\" as a base, perhaps a little higher, barring the unknown."},
+      "directness": 4
+    },
+    {
+      "question": {"it": "Nel T4 vedete nuovi segnali di insolvenza?", "en": "Are you seeing new signs of default in Q4?"},
+      "answer_summary": {"it": "L'effetto dei massimi dei tassi di settembre-ottobre non è ancora noto; se i tassi restano dove sono, si aspettano un calo dei declassamenti.", "en": "The effect of the September-October rate highs is not known yet; if rates stay where they are, they expect downgrades to slow."},
+      "directness": 3
+    },
+    {
+      "question": {"it": "Se il mercato non riconosce il valore delle parti, che leve userete?", "en": "If the market will not recognise the sum of the parts, which levers will you pull?"},
+      "answer_summary": {"it": "Possibili scorpori (affitti a lungo termine), acquisizioni e riacquisti; nessuna decisione.", "en": "Possible spin-offs (net lease), acquisitions and buybacks; no decision."},
+      "directness": 3
+    }
+  ],
+  "language_changes": [
+    {
+      "topic": {"it": "Dividendo", "en": "Dividend"},
+      "from": {"it": "un percorso per tornare a coprire i 0,48 $ in pochi trimestri", "en": "a path back to covering $0.48 within a few quarters"},
+      "to": {"it": "«dobbiamo valutare cosa fare con il dividendo»: «mi fa male, ma è la cosa giusta»", "en": "\"we will have to examine what we are going to do with our dividend\": \"it hurts me, but it is the right thing to do\""},
+      "note": {"it": "Annunciato a fine discorso, senza una cifra.", "en": "Announced at the end of the remarks, without a figure."}
+    },
+    {
+      "topic": {"it": "Riserve per perdite", "en": "Loss reserves"},
+      "from": {"it": "riserve in calo, nessuna nuova insolvenza", "en": "reserves stable, no new defaults"},
+      "to": {"it": "riserve quasi raddoppiate da un modello «meccanico» guidato dai tassi; più prestiti nelle classi di rischio alte", "en": "reserves nearly doubled by a \"mechanical\" rate-driven model; more loans in the high-risk classes"},
+      "note": {"it": "Il management insiste che è il modello, non i singoli prestiti; ma le classi 4 e 5 crescono davvero.", "en": "Management insists it is the model, not specific loans; but ratings 4 and 5 do grow."}
+    },
+    {
+      "topic": {"it": "Valutazione", "en": "Valuation"},
+      "from": {"it": "un'azienda diversificata sottovalutata", "en": "an undervalued diversified company"},
+      "to": {"it": "il prezzo implica un recupero del 42% sui prestiti problematici, contro vendite reali al 71-72%; possibili scorpori", "en": "the price implies a 42% recovery on problem loans, against actual sales at 71-72%; possible spin-offs"},
+      "note": {"it": "Nuova misura dell'utile «di base» introdotta proprio in questo trimestre.", "en": "A new \"run-rate\" earnings measure introduced this very quarter."}
+    },
+    {
+      "topic": {"it": "Contesto", "en": "Backdrop"},
+      "from": {"it": "un mercato immobiliare in ripresa", "en": "a recovering property market"},
+      "to": {"it": "immobili «in guarigione» ma tassi ostili; lunghi commenti del presidente su tassi, data center e politica", "en": "real estate \"healing\" but hostile rates; long chairman remarks on rates, data centres and politics"},
+      "note": {"it": "Il presidente si aspetta che un'economia più lenta porti tassi più bassi, a vantaggio della società.", "en": "The chairman expects a slower economy to bring lower rates, to the company's benefit."}
+    }
+  ],
+  "file": "STWD_2026Q3.json",
+  "source": "Alpha Vantage transcript (non ridistribuito)",
+  "extracted_by": "Claude (estrazione manuale, stessa forma del passo automatico)"
+}

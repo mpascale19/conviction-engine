@@ -1,0 +1,98 @@
+{
+  "ticker": "PNFP",
+  "quarter": "T3 '26",
+  "call_date": "2026-10-21",
+  "tone": 74,
+  "tone_why": {
+    "it": "Tono molto sicuro, quasi da comizio: l'amministratore delegato Kevin Blair ripete «stesso schema» a ogni passaggio per dire che la fusione con Synovus funziona. Utile rettificato per azione 2,69 $ (+19% sull'anno, +23% nei nove mesi), prestiti +1,7 miliardi $ e depositi +2,1 miliardi $ nel trimestre, perdite su crediti dentro la fascia di 20-25 punti base, 96 nuovi bancari (222 da inizio anno) e il 95% dei bancari trattenuti. La guidance 2026 resta invariata, con prestiti verso l'alto della forchetta e BHG alzata. Le cautele: il margine d'interesse scende di 4 punti base al 3,40%, sul 2027 è atteso «un po' di pressione», e i riacquisti restano fermi finché il capitale non arriva al 10,25%.",
+    "en": "A very confident, almost rally-like tone: CEO Kevin Blair repeats \"same pattern\" at every turn to say the Synovus merger is working. Adjusted EPS of $2.69 (+19% year on year, +23% for nine months), loans +$1.7bn and deposits +$2.1bn in the quarter, charge-offs inside the 20-25bp range, 96 new bankers (222 year to date) and 95% banker retention. 2026 guidance is unchanged, with loans toward the top of the range and BHG raised. The caveats: the net interest margin falls 4bp to 3.40%, \"slight pressure\" is expected in 2027, and buybacks stay paused until capital reaches 10.25%."
+  },
+  "guidance": [
+    {
+      "metric": {"it": "Prestiti e depositi 2026", "en": "2026 loans and deposits"},
+      "value": {"it": "prestiti verso l'alto della forchetta 9-11%; depositi verso il centro dell'8-10%, circa 9 miliardi $ nell'anno", "en": "loans toward the top of the 9-11% range; deposits toward the midpoint of 8-10%, about $9bn for the year"},
+      "direction": "confermata"
+    },
+    {
+      "metric": {"it": "Margine d'interesse", "en": "Net interest margin"},
+      "value": {"it": "3,44-3,46% nel 2026 (il massimo della forchetta un po' più basso); nel T4 in lieve aumento; nel 2027 «lieve pressione»", "en": "3.44-3.46% for 2026 (the top of the range nudged down); slightly higher in Q4; \"slight pressure\" in 2027"},
+      "direction": "ridotta"
+    },
+    {
+      "metric": {"it": "Reddito da BHG 2026", "en": "2026 BHG income"},
+      "value": {"it": "150-160 milioni $, prima 110-120", "en": "$150-160m, previously $110-120m"},
+      "direction": "alzata"
+    },
+    {
+      "metric": {"it": "Ricavi, costi e perdite su crediti 2026", "en": "2026 revenue, costs and charge-offs"},
+      "value": {"it": "ricavi rettificati poco sopra il centro della forchetta; costi rettificati poco sopra il centro di 2,675-2,775 miliardi $; perdite su crediti 20-25 punti base; aliquota fiscale al centro del 20-21%", "en": "adjusted revenue just over the midpoint; adjusted expenses just above the middle of $2.675-2.775bn; charge-offs 20-25bp; tax rate in the middle of 20-21%"},
+      "direction": "confermata"
+    },
+    {
+      "metric": {"it": "Nuovi bancari 2026", "en": "2026 banker hires"},
+      "value": {"it": "sopra il massimo dell'obiettivo iniziale di 225-250", "en": "above the top of the original 225-250 target"},
+      "direction": "alzata"
+    },
+    {
+      "metric": {"it": "Integrazione e capitale", "en": "Integration and capital"},
+      "value": {"it": "conversione dei sistemi e del marchio a marzo 2027; obiettivo di capitale primario 10,25% in pochi trimestri, poi si valutano i riacquisti; guidance 2027 a dicembre", "en": "systems and brand conversion in March 2027; CET1 target of 10.25% in a few quarters, then buybacks considered; 2027 guidance in December"},
+      "direction": "confermata"
+    }
+  ],
+  "qa": [
+    {
+      "question": {"it": "Perché il massimo della forchetta del margine scende, e come vanno i prezzi di prestiti e depositi?", "en": "Why was the top of the margin range nudged down, and how is loan and deposit pricing?"},
+      "answer_summary": {"it": "Meno commissioni e meno ammortamento delle rettifiche della fusione nel T3, attesi in recupero; nuovi prestiti al 6,5% e depositi al 2,7%, uno scarto più ampio di 10 punti base.", "en": "Lower loan fees and purchase-accounting accretion in Q3, expected to reverse; new loans at 6.5% and deposits at 2.7%, a spread 10bp wider."},
+      "directness": 5
+    },
+    {
+      "question": {"it": "Il margine scenderà verso il 3,30% nel 2027?", "en": "Will the margin drift toward 3.30% in 2027?"},
+      "answer_summary": {"it": "No, non subito: la crescita in più rende circa il 3,30%, quindi circa un punto base di pressione, più l'effetto delle nuove emissioni di debito.", "en": "No, not immediately: incremental growth earns about 3.30%, so about one basis point of pressure, plus the effect of new debt issuance."},
+      "directness": 5
+    },
+    {
+      "question": {"it": "Gli investitori temono che l'uscita di alcuni dirigenti storici di Pinnacle fra 12-18 mesi faccia inciampare la fusione: è un rischio?", "en": "Investors fear that some legacy Pinnacle leaders leaving in 12-18 months could trip up the merger: is that a risk?"},
+      "answer_summary": {"it": "«È qualcuno che cerca di spaventare»: il responsabile commerciale resta un altro anno e poi come consulente; 222 assunzioni e piani di successione.", "en": "\"That's somebody trying to fearmonger\": the chief banking officer stays another year and then as an adviser; 222 hires and succession plans."},
+      "directness": 4
+    },
+    {
+      "question": {"it": "Quando riprenderanno i riacquisti di azioni?", "en": "When will buybacks restart?"},
+      "answer_summary": {"it": "Prima il capitale al 10,25%, in pochi trimestri; poi si valuterà. Nessuna data.", "en": "First capital at 10.25%, in a few quarters; then they will decide. No date."},
+      "directness": 3
+    },
+    {
+      "question": {"it": "I nuovi bancari assunti si ripagano?", "en": "Do the new hires pay for themselves?"},
+      "answer_summary": {"it": "Nel primo anno coprono circa l'88% del loro stipendio in contanti, fra il primo e il terzo anno da due a tre volte.", "en": "In year one they cover about 88% of their cash compensation, two to three times in years one to three."},
+      "directness": 5
+    }
+  ],
+  "language_changes": [
+    {
+      "topic": {"it": "Fusione con Synovus", "en": "Synovus merger"},
+      "from": {"it": "dimostrare che la fusione può funzionare", "en": "proving the merger can work"},
+      "to": {"it": "«tre di fila sono uno schema»: dal «se funzionerà» al «perché funziona così bene»", "en": "\"three in a row forms a pattern\": from whether it will work to \"why it is working so well\""},
+      "note": {"it": "«Stesso schema» ripetuto oltre dieci volte: un messaggio costruito per gli investitori scettici.", "en": "\"Same pattern\" repeated more than ten times: a message built for sceptical investors."}
+    },
+    {
+      "topic": {"it": "Concorrenza", "en": "Competition"},
+      "from": {"it": "domande sulla pressione dei prezzi", "en": "questions on pricing pressure"},
+      "to": {"it": "la concorrenza «è come il meteo»: si vince sulla fiducia e sui bancari, non «sull'ultimo punto base»", "en": "competition \"is like the weather\": you win on trust and bankers, not \"on the last basis point\""},
+      "note": {"it": "Supportato dai numeri: scarto fra prestiti e depositi nuovi più ampio.", "en": "Backed by numbers: a wider spread on new loans versus deposits."}
+    },
+    {
+      "topic": {"it": "Intelligenza artificiale", "en": "Artificial intelligence"},
+      "from": {"it": "non citata", "en": "not mentioned"},
+      "to": {"it": "l'IA scrive circa l'80% dei test della conversione dei sistemi e taglia i tempi del 70%, sempre con una persona che approva", "en": "AI writes about 80% of the conversion test scripts and cuts time by about 70%, always with a person approving"},
+      "note": {"it": "Un dettaglio concreto, legato al rischio della conversione di marzo.", "en": "A concrete detail, tied to the risk of the March conversion."}
+    },
+    {
+      "topic": {"it": "Clienti", "en": "Clients"},
+      "from": {"it": "un aumento atteso delle uscite durante la fusione", "en": "expected attrition during the merger"},
+      "to": {"it": "meno chiusure di conti che l'anno scorso e prima banca per soddisfazione dei clienti nel suo territorio", "en": "fewer account closures than last year and first in client satisfaction in its footprint"},
+      "note": {"it": "I clienti però vedono costi in crescita e margini sotto pressione.", "en": "Clients, though, see rising costs and margin pressure."}
+    }
+  ],
+  "file": "PNFP_2026Q3.json",
+  "source": "Alpha Vantage transcript (non ridistribuito)",
+  "extracted_by": "Claude (estrazione manuale, stessa forma del passo automatico)"
+}

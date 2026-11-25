@@ -1,0 +1,93 @@
+{
+  "ticker": "MTDR",
+  "quarter": "T3 '26",
+  "call_date": "2026-11-03",
+  "tone": 66,
+  "tone_why": {
+    "it": "Tono entusiasta, ma con pochi numeri. Il fondatore Joseph Foran elenca buone notizie: produzione +10% da inizio anno a oltre 230.000 barili equivalenti al giorno, riserve oltre i 700 milioni, il gas venduto tramite il nuovo gasdotto Hugh Brinson invece di pagare per smaltirlo a Waha (oltre 200 milioni $ di differenza di cassa), il pozzo esplorativo nella Woodford sopra le attese. Il debito preso per le acquisizioni (Cardinal, Paloma, Ridge Runner) scende di 150 milioni $ su 500-600. Ma alle domande su investimenti 2027, valore della società di trasporto San Mateo e potenziale della Woodford le risposte restano vaghe («è un po' presto», «vediamo qualche pozzo in più»), e il prezzo del petrolio è appena sceso molto.",
+    "en": "An enthusiastic tone, but light on numbers. Founder Joseph Foran lists good news: production +10% year to date to over 230,000 boe/d, reserves above 700 million, gas sold through the new Hugh Brinson pipeline instead of paying to dispose of it at Waha (over $200m of cash-flow swing), the Woodford exploration well beating expectations. Debt taken on for the acquisitions (Cardinal, Paloma, Ridge Runner) is down $150m out of $500-600m. But on 2027 capex, the value of the San Mateo midstream business and the Woodford potential the answers stay vague (\"a little early\", \"let us have a few more wells\"), and oil has just fallen sharply."
+  },
+  "guidance": [
+    {
+      "metric": {"it": "Crescita della produzione 2027", "en": "2027 production growth"},
+      "value": {"it": "«a una cifra media» ai prezzi attuali di materie prime e servizi; investimenti 2027 a febbraio", "en": "\"mid-single digit\" at current commodity and service prices; 2027 capex in February"},
+      "direction": "prima"
+    },
+    {
+      "metric": {"it": "Debito delle acquisizioni", "en": "Acquisition debt"},
+      "value": {"it": "150 milioni $ ripagati su 500-600; altri rimborsi nel 2026, il resto «certamente» nel 2027", "en": "$150m repaid out of $500-600m; more repayments in 2026, the rest \"certainly\" in 2027"},
+      "direction": "confermata"
+    },
+    {
+      "metric": {"it": "EBITDA di San Mateo", "en": "San Mateo EBITDA"},
+      "value": {"it": "+17% nel 2026 (da circa 325 milioni $ del 2025); Cardinal fino a circa 100 milioni $ in più nel 2028; terzo impianto a Marlin, circa 25 milioni $ in questo trimestre e il resto in più anni", "en": "+17% in 2026 (from about $325m in 2025); Cardinal up to about $100m more in 2028; a third plant at Marlin, about $25m this quarter and the rest over several years"},
+      "direction": "confermata"
+    },
+    {
+      "metric": {"it": "Programma di perforazione", "en": "Drilling programme"},
+      "value": {"it": "110-112 pozzi netti nel 2026; fino a 25 pozzi sulle aree Paloma e 10-12 sulle nuove aree federali nel prossimo anno, i primi forse dal T1 2027", "en": "110-112 net wells in 2026; up to 25 wells on Paloma acreage and 10-12 on the new federal acreage over the next year, the first possibly from Q1 2027"},
+      "direction": "prima"
+    },
+    {
+      "metric": {"it": "Dividendo", "en": "Dividend"},
+      "value": {"it": "1,75 $ l'anno, l'ottavo aumento in cinque anni (+17%)", "en": "$1.75 a year, the eighth increase in five years (+17%)"},
+      "direction": "alzata"
+    }
+  ],
+  "qa": [
+    {
+      "question": {"it": "La crescita «a una cifra media» del 2027 si ottiene con lo stesso budget del 2026?", "en": "Can the 2027 \"mid-single-digit\" growth come from a flat budget versus 2026?"},
+      "answer_summary": {"it": "Il petrolio è cambiato molto in 48 ore: «è un po' presto» per il budget; elencano risparmi operativi. Nessuna cifra.", "en": "Oil prices moved sharply in 48 hours: \"a little early\" for the budget; they list efficiency savings. No figure."},
+      "directness": 2
+    },
+    {
+      "question": {"it": "Quando renderete visibile il valore di San Mateo, per esempio con una quotazione?", "en": "When will you unlock San Mateo's value, for example through a listing?"},
+      "answer_summary": {"it": "Lo quoteranno «al momento giusto», senza perdere il controllo dei flussi; «aperti a ogni idea». Nessuna data.", "en": "They will take it public \"at the optimal time\", without losing flow control; \"open to any and all ideas\". No date."},
+      "directness": 2
+    },
+    {
+      "question": {"it": "Quanto costerà l'espansione dell'impianto Marlin?", "en": "How much will the Marlin plant expansion cost?"},
+      "answer_summary": {"it": "Circa 25 milioni $ in questo trimestre e il resto distribuito su più anni; il totale a febbraio.", "en": "About $25m this quarter and the rest spread over several years; the total in February."},
+      "directness": 3
+    },
+    {
+      "question": {"it": "Come cambia l'efficienza del capitale con i pozzi nella Woodford e nelle nuove aree?", "en": "How does capital efficiency change with the Woodford and the new acreage wells?"},
+      "answer_summary": {"it": "Costo di perforazione e completamento intorno a 640 $ al piede vicino alle nuove aree; produzione dei primi 12 mesi +20-30%; 800.000 barili attesi dal primo pozzo Woodford.", "en": "Drilling and completion cost around $640 per foot near the new acreage; 12-month cumulative production +20-30%; 800,000 barrels expected from the first Woodford well."},
+      "directness": 4
+    },
+    {
+      "question": {"it": "Quanto può essere grande la Woodford, e fin dove possono scendere i costi?", "en": "How large could the Woodford be, and how far can costs fall?"},
+      "answer_summary": {"it": "«Vediamo qualche pozzo in più»: per ora c'è un solo pozzo, oltre 100.000 barili in 100 giorni.", "en": "\"Let us have a few more wells\": for now there is one well, over 100,000 barrels in 100 days."},
+      "directness": 2
+    }
+  ],
+  "language_changes": [
+    {
+      "topic": {"it": "Gas naturale", "en": "Natural gas"},
+      "from": {"it": "gas venduto a Waha, a volte pagando perché venisse ritirato", "en": "gas sold at Waha, sometimes paying for it to be taken"},
+      "to": {"it": "gas sul gasdotto Hugh Brinson fino al Golfo, pagato 2,99 $", "en": "gas on the Hugh Brinson pipeline to the Gulf, paid $2.99"},
+      "note": {"it": "Presentata come la notizia più importante; alcune cifre nella trascrizione sono confuse.", "en": "Presented as the most important news; some figures in the transcript are garbled."}
+    },
+    {
+      "topic": {"it": "Debito", "en": "Debt"},
+      "from": {"it": "500-600 milioni $ presi a prestito per tre acquisizioni", "en": "$500-600m borrowed for three acquisitions"},
+      "to": {"it": "«abbiamo ripagato quello che avevamo promesso», 150 milioni $ finora", "en": "\"we have paid down what we promised\", $150m so far"},
+      "note": {"it": "Il fondatore sa che il debito preoccupa: lo ripete anche nei saluti.", "en": "The founder knows debt is a concern: he repeats it in his closing remarks too."}
+    },
+    {
+      "topic": {"it": "San Mateo (trasporto e lavorazione)", "en": "San Mateo (midstream)"},
+      "from": {"it": "uno strumento per garantire lo sbocco del gas", "en": "a tool to secure gas takeaway"},
+      "to": {"it": "un attivo «sottovalutato dal mercato» da quotare quando sarà il momento; «la sgranatrice del cotone»", "en": "an asset \"undervalued right now in the market\" to list when the time is right; \"the cotton gin\""},
+      "note": {"it": "Tre domande su quattro analisti toccano San Mateo: il mercato chiede di più.", "en": "Several analysts ask about San Mateo: the market wants more."}
+    },
+    {
+      "topic": {"it": "Esplorazione", "en": "Exploration"},
+      "from": {"it": "un pozzo di prova nella Woodford", "en": "a test well in the Woodford"},
+      "to": {"it": "«la prima Woodford orizzontale riuscita nel New Mexico», con una posizione costruita a basso costo", "en": "\"the first successful Woodford horizontal well in New Mexico\", with a position built cheaply"},
+      "note": {"it": "Su un solo pozzo; il potenziale non è quantificato.", "en": "Based on a single well; the potential is not quantified."}
+    }
+  ],
+  "file": "MTDR_2026Q3.json",
+  "source": "Alpha Vantage transcript (non ridistribuito)",
+  "extracted_by": "Claude (estrazione manuale, stessa forma del passo automatico)"
+}

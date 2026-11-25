@@ -1,0 +1,93 @@
+{
+  "ticker": "AN",
+  "quarter": "T3 '26",
+  "call_date": "2026-10-30",
+  "tone": 57,
+  "tone_why": {
+    "it": "Tono misurato in un mercato «fiacco». L'utile rettificato per azione cresce appena del 2% a 5,11 $ (settimo trimestre di fila in crescita), ma quasi tutto grazie ai riacquisti di azioni (+0,64 $) e alle attività ricorrenti: assistenza e ricambi da record (617 milioni $ di margine lordo) e la finanziaria interna AutoNation Finance (15 milioni $ di utile, rendimento del capitale 24%). Le vendite di auto calano (nuove −3%, usate −5%), i margini sulle nuove scendono, e il direttore finanziario ammette che i costi di luglio e agosto «potevano andare meglio» e che sull'usato «non avevamo il giusto mix» e si sono tenute scorte troppo a lungo. Nuovo programma di riacquisti da 1 miliardo $.",
+    "en": "A measured tone in a \"sluggish\" market. Adjusted EPS grows just 2% to $5.11 (the seventh straight quarter of growth), but almost entirely thanks to buybacks (+$0.64) and the recurring businesses: record after-sales ($617m of gross profit) and the captive AutoNation Finance ($15m of profit, 24% return on equity). Vehicle sales fall (new −3%, used −5%), new-vehicle margins slip, and the CFO admits July and August costs \"could have been better\" and that in used cars \"we didn't have the right mix\" and held stock too long. A new $1bn buyback authorisation."
+  },
+  "guidance": [
+    {
+      "metric": {"it": "Riacquisti di azioni", "en": "Share buybacks"},
+      "value": {"it": "nuova autorizzazione da 1 miliardo $, in tutto circa 1,4 miliardi $ disponibili; uso preferito della cassa in più; 2026 sopra i 785 milioni $ del 2025", "en": "a new $1bn authorisation, about $1.4bn available in total; the preferred use of incremental cash; 2026 above 2025's $785m"},
+      "direction": "alzata"
+    },
+    {
+      "metric": {"it": "Flusso di cassa libero rettificato 2026", "en": "2026 adjusted free cash flow"},
+      "value": {"it": "in linea con i 965 milioni $ del 2025 (senza i rimborsi assicurativi del 2025)", "en": "in line with 2025's $965m (excluding 2025 insurance proceeds)"},
+      "direction": "confermata"
+    },
+    {
+      "metric": {"it": "Investimenti 2026", "en": "2026 capex"},
+      "value": {"it": "280-290 milioni $, circa 40 milioni $ sotto l'obiettivo iniziale di 325", "en": "$280-290m, about $40m below the original $325m target"},
+      "direction": "ridotta"
+    },
+    {
+      "metric": {"it": "Cassa di AutoNation Finance", "en": "AutoNation Finance cash flow"},
+      "value": {"it": "circa 120 milioni $ nel 2026, almeno 150 milioni $ nel 2027", "en": "about $120m in 2026, at least $150m in 2027"},
+      "direction": "prima"
+    },
+    {
+      "metric": {"it": "Margine sulle auto usate", "en": "Used-vehicle margin"},
+      "value": {"it": "«una strada chiara» verso circa 2.000 $ per auto e oltre (oggi 1.524 $); il problema è l'esecuzione", "en": "\"an absolutely clear path\" to about $2,000 per unit and above (now $1,524); the challenge is execution"},
+      "direction": "confermata"
+    }
+  ],
+  "qa": [
+    {
+      "question": {"it": "Vedete pressioni sui prezzi nell'assistenza, e la crescita del margine lordo tornerà ad accelerare?", "en": "Are you seeing price pressure in parts and service, and will gross profit growth re-accelerate?"},
+      "answer_summary": {"it": "Più ingressi in officina ma meno ore per intervento e più lavori rinviati; il parco auto più redditizio tocca il minimo nel 2027. Nessuna cifra sulla crescita.", "en": "More traffic but fewer hours per repair order and more deferred work; the most profitable car parc bottoms in 2027. No growth figure."},
+      "directness": 4
+    },
+    {
+      "question": {"it": "Con le scorte di auto nuove alte, i margini resteranno sotto pressione?", "en": "With new-vehicle inventory high, will margins stay under pressure?"},
+      "answer_summary": {"it": "Ridurranno gli ordini ai produttori senza «sconti eccessivi»; il mercato resterà molto competitivo nel T4.", "en": "They will take less production from manufacturers without \"excessive discounting\"; the market will stay very competitive in Q4."},
+      "directness": 3
+    },
+    {
+      "question": {"it": "Il margine sulle auto nuove resterà stabile, o qualcosa è cambiato?", "en": "Will new-vehicle margins stay stable, or has something changed?"},
+      "answer_summary": {"it": "Un po' di calo sui marchi americani legato alle scorte; atteso un aiuto dalle auto di lusso nel T4.", "en": "Some decline on domestic brands tied to inventory; a lift expected from premium luxury in Q4."},
+      "directness": 3
+    },
+    {
+      "question": {"it": "Carvana sta guadagnando quote: vi toglie clienti?", "en": "Carvana is gaining share: is it taking your customers?"},
+      "answer_summary": {"it": "«Nessun impatto misurabile»: quote ancora piccole; miglioramenti graduali dal T4, senza una data per la svolta.", "en": "\"No determinable impact\": shares still tiny; progressive improvements from Q4, with no date for a turn."},
+      "directness": 4
+    },
+    {
+      "question": {"it": "Le nuove regole della FTC sulle commissioni hanno pesato sui margini?", "en": "Has the FTC enforcement on fees hurt margins?"},
+      "answer_summary": {"it": "«Nessun impatto»: i prezzi tutto compreso erano già trasparenti; anzi un vantaggio.", "en": "\"No impact at all\": all-in pricing was already transparent; if anything an advantage."},
+      "directness": 5
+    }
+  ],
+  "language_changes": [
+    {
+      "topic": {"it": "Misura del successo", "en": "Measure of success"},
+      "from": {"it": "il margine lordo per auto venduta", "en": "gross profit per vehicle sold"},
+      "to": {"it": "«mi sentirete parlare meno di margine per auto»: rendimento del capitale e valore del cliente nel tempo", "en": "\"you'll probably hear me talk less about GPU\": return on capital and customer lifetime value"},
+      "note": {"it": "Il cambio arriva in un trimestre in cui i margini per auto nuova scendono.", "en": "The shift comes in a quarter when new-vehicle margins fall."}
+    },
+    {
+      "topic": {"it": "Costi ed esecuzione", "en": "Costs and execution"},
+      "from": {"it": "gestione dei costi fra le migliori del settore", "en": "cost management near the top of the peer group"},
+      "to": {"it": "costi di luglio-agosto che «potevano andare meglio», errori nel mix dell'usato, cambi organizzativi", "en": "July-August costs that \"could have been better\", used-car mix mistakes, organisational changes"},
+      "note": {"it": "Ammissioni rare e precise, con le correzioni già avviate a settembre.", "en": "Rare, specific admissions, with fixes started in September."}
+    },
+    {
+      "topic": {"it": "Finanziaria interna", "en": "Captive finance"},
+      "from": {"it": "un'attività nuova in crescita", "en": "a new business growing"},
+      "to": {"it": "«un motore di utili importante»: portafoglio vicino ai 3 miliardi $, rendimento del capitale 24%, insolvenze sotto il modello", "en": "\"a meaningful earnings engine\": portfolio near $3bn, 24% ROE, delinquencies below model"},
+      "note": {"it": "Sposta una parte dei guadagni dalle commissioni immediate agli interessi nel tempo.", "en": "It shifts part of the earnings from upfront commissions to interest over time."}
+    },
+    {
+      "topic": {"it": "Tecnologia", "en": "Technology"},
+      "from": {"it": "riduzione dei costi con il digitale", "en": "digital cost reduction"},
+      "to": {"it": "un nuovo responsabile per tecnologia e IA e uno «strato digitale» sopra la rete fisica dei concessionari", "en": "a new chief technology and AI officer and a \"digital layer\" on top of the physical dealer network"},
+      "note": {"it": "La ricerca dei clienti con assistenti di IA è citata come una pressione sui prezzi.", "en": "Customers searching through AI agents is cited as a source of price pressure."}
+    }
+  ],
+  "file": "AN_2026Q3.json",
+  "source": "Alpha Vantage transcript (non ridistribuito)",
+  "extracted_by": "Claude (estrazione manuale, stessa forma del passo automatico)"
+}

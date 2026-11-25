@@ -1,0 +1,93 @@
+{
+  "ticker": "AAON",
+  "quarter": "T3 '26",
+  "call_date": "2026-11-09",
+  "tone": 72,
+  "tone_why": {
+    "it": "Trimestre da record e guidance alzata di molto: vendite +84% a 707 milioni $, risultato operativo e utile per azione più che raddoppiati (0,83 $), margine lordo in salita al 26,7%, primo trimestre con flusso di cassa libero positivo in due anni. La crescita 2026 passa dal 55-60% al 72-75%. Il marchio AAON cresce del 20% in un mercato edilizio debole («non ci porta il mercato, prendiamo quote»); BASX, i sistemi di raffreddamento per data center, triplica i ricavi con 1,4 miliardi $ di ordini in portafoglio. L'ombra è contabile: l'azienda ha trovato da sola errori che sottostimavano i ricavi del primo semestre, ha corretto i conti e dichiara una debolezza rilevante nei controlli interni. L'amministratore delegato Matt Tobolski se ne assume la responsabilità all'inizio e alla fine della call.",
+    "en": "A record quarter and a big guidance raise: sales +84% to $707m, operating income and EPS more than doubled ($0.83), gross margin up to 26.7%, the first free-cash-flow-positive quarter in two years. 2026 growth moves from 55-60% to 72-75%. The AAON brand grows 20% in a weak construction market (\"we are not being carried by the market, we are taking share\"); BASX, the data-centre cooling business, triples revenue with $1.4bn of backlog. The shadow is accounting: the company self-identified errors that understated first-half revenue, restated, and discloses a material weakness in internal controls. CEO Matt Tobolski takes responsibility at the start and at the end of the call."
+  },
+  "guidance": [
+    {
+      "metric": {"it": "Crescita delle vendite 2026", "en": "2026 sales growth"},
+      "value": {"it": "72-75%, prima 55-60%", "en": "72-75%, previously 55-60%"},
+      "direction": "alzata"
+    },
+    {
+      "metric": {"it": "Margini e costi 2026", "en": "2026 margins and costs"},
+      "value": {"it": "margine lordo circa 26%, spese generali circa 13% delle vendite, ammortamenti circa 100 milioni $; nel T4 margine un po' più basso per meno giorni di produzione, non per l'inflazione", "en": "gross margin about 26%, SG&A about 13% of sales, D&A about $100m; Q4 margin slightly lower on fewer production days, not inflation"},
+      "direction": "prima"
+    },
+    {
+      "metric": {"it": "Ordini BASX nel T4", "en": "Q4 BASX bookings"},
+      "value": {"it": "pari o sopra al T4 2025; crescita BASX di circa il 140% nell'anno", "en": "at or above Q4 2025; BASX growth of about 140% for the year"},
+      "direction": "prima"
+    },
+    {
+      "metric": {"it": "Investimenti e cassa 2027", "en": "2027 capex and cash"},
+      "value": {"it": "investimenti in netto calo alla fine del programma di espansione; flusso di cassa libero «significativamente più forte»; nessuna guidance formale sul 2027", "en": "capex stepping down meaningfully at the end of the expansion programme; free cash flow \"significantly stronger\"; no formal 2027 guidance"},
+      "direction": "prima"
+    },
+    {
+      "metric": {"it": "Nuovi segmenti", "en": "New segments"},
+      "value": {"it": "dalla call del T4 i conti per marchio (AAON e BASX), con i dati storici ricalcolati sui conti corretti", "en": "from the Q4 call, results by brand (AAON and BASX), with historicals recast on the corrected basis"},
+      "direction": "confermata"
+    }
+  ],
+  "qa": [
+    {
+      "question": {"it": "Perché il margine lordo del T4 implicito nella guidance scende? C'è inflazione dei costi?", "en": "Why does the guidance imply a lower Q4 gross margin? Is cost inflation squeezing?"},
+      "answer_summary": {"it": "«Non è inflazione»: meno giorni di produzione per festività e inventario di fine anno.", "en": "\"Really not inflation\": fewer production days from holidays and the year-end inventory count."},
+      "directness": 5
+    },
+    {
+      "question": {"it": "Quanto è sicuro il portafoglio ordini dei data center dopo le elezioni, con le pressioni in alcuni stati?", "en": "How firm is the data-centre backlog after the election, with pressure in some states?"},
+      "answer_summary": {"it": "Meno di un terzo in stati con pressioni sui data center; progetti già autorizzati, non speculativi; oltre l'80% con clienti molto solidi.", "en": "Less than a third in states with data-centre pressure; permitted, not speculative projects; over 80% with very strong balance sheets."},
+      "directness": 5
+    },
+    {
+      "question": {"it": "Il salto del margine di Coil Products contiene ricavi recuperati da prezzi rivisti?", "en": "Does the Coil Products margin jump include catch-up revenue from revised prices?"},
+      "answer_summary": {"it": "No: è il margine dei prodotti fatti e spediti nel trimestre, e indica il livello futuro; la parte maggiore viene dai prezzi.", "en": "No: it is the margin on product made and shipped in the quarter, and it reflects the run rate; pricing is the larger driver."},
+      "directness": 5
+    },
+    {
+      "question": {"it": "Quando tornerà AAON Oklahoma al margine obiettivo «dal medio all'alto 30%»?", "en": "When will AAON Oklahoma get back to its mid-to-high-30s target margin?"},
+      "answer_summary": {"it": "Nel portafoglio ci sono prezzi più alti, ma «non si accende un interruttore»: miglioramento nel corso del 2027, senza una data.", "en": "Higher prices sit in the backlog, but \"we can't flip a switch\": improvement through 2027, without a date."},
+      "directness": 3
+    },
+    {
+      "question": {"it": "Con il calo del titolo, farete riacquisti di azioni?", "en": "Given the share pullback, will you buy back stock?"},
+      "answer_summary": {"it": "Restano 70 milioni $ autorizzati; li useranno «in modo opportunistico». Nessun impegno.", "en": "$70m of authorisation remains; it will be used \"opportunistically\". No commitment."},
+      "directness": 3
+    }
+  ],
+  "language_changes": [
+    {
+      "topic": {"it": "Controlli contabili", "en": "Accounting controls"},
+      "from": {"it": "crescita rapida presentata come un successo operativo", "en": "rapid growth presented as an operating success"},
+      "to": {"it": "«i processi finanziari non hanno tenuto il passo»: conti del primo semestre corretti e debolezza rilevante nei controlli", "en": "\"our financial processes and controls did not keep pace\": first-half restatement and a material weakness"},
+      "note": {"it": "Gli errori alzavano i ricavi corretti (+10,7 milioni $), non li gonfiavano; l'azienda dice che riguardano soprattutto i tempi di registrazione.", "en": "The corrections raised revenue (+$10.7m), they did not inflate it; the company says they are mostly timing-related."}
+    },
+    {
+      "topic": {"it": "Marchio AAON", "en": "AAON brand"},
+      "from": {"it": "un'attività tradizionale accanto alla crescita dei data center", "en": "a legacy business beside data-centre growth"},
+      "to": {"it": "«non voglio che la forza di AAON si perda» nell'attenzione ai data center: +20% e quote prese in un mercato debole", "en": "\"I don't want the strength of AAON getting lost\" in the data-centre attention: +20% and share gains in a weak market"},
+      "note": {"it": "Gli ordini dei clienti nazionali crescono quasi del 70%.", "en": "National account orders grow nearly 70%."}
+    },
+    {
+      "topic": {"it": "Data center (BASX)", "en": "Data centres (BASX)"},
+      "from": {"it": "domanda forte, ordini variabili da un trimestre all'altro", "en": "strong demand, orders lumpy quarter to quarter"},
+      "to": {"it": "«restiamo ancorati a quello che vediamo dai clienti» nonostante «il rumore»: ordini +116% sul trimestre, nessun cambiamento nella domanda", "en": "\"staying grounded in what we are actually seeing from our customers\" despite \"the noise\": orders +116% sequentially, no change in demand"},
+      "note": {"it": "Risposta difensiva ai timori del mercato sui data center, con dati di ordini e solidità dei clienti.", "en": "A defensive answer to market fears on data centres, with order data and customer strength."}
+    },
+    {
+      "topic": {"it": "Investimenti", "en": "Investment"},
+      "from": {"it": "costruire capacità in anticipo sulla crescita, con costi e complessità", "en": "building capacity ahead of growth, with cost and complexity"},
+      "to": {"it": "«stiamo vedendo la leva operativa»: lo stabilimento di Memphis a un terzo dell'uso, investimenti in calo nel 2027", "en": "\"we're seeing the operating leverage\": the Memphis plant at a third of utilisation, capex falling in 2027"},
+      "note": {"it": "Il racconto passa dagli investimenti al ritorno sugli investimenti.", "en": "The story shifts from investing to returns on investment."}
+    }
+  ],
+  "file": "AAON_2026Q3.json",
+  "source": "Alpha Vantage transcript (non ridistribuito)",
+  "extracted_by": "Claude (estrazione manuale, stessa forma del passo automatico)"
+}
