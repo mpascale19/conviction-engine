@@ -3213,12 +3213,13 @@ function paneStatements(d){
     ? '<p style="font-size:15px;margin:4px 0 0">' + T('L’ultimo comunicato, del ', 'The latest release, of ') +
       esc(day(now.d)) + ', ' + T('è ', 'is ') + '<b>' + esc(zTxt(now.z)) + '</b>' +
       (sd ? '; ' + esc(acts) + T(' (ultimi 90 giorni). ', ' (last 90 days). ') + esc(verdict) : '.') + '</p>'
-    : '<p class="sub">' + T('Nessun comunicato misurabile negli ultimi 120 giorni.',
-                            'No measurable release in the last 120 days.') + '</p>';
+    : '<p class="sub">' + T('Nessun comunicato sui risultati misurabile negli ultimi 120 giorni.',
+                            'No measurable results release in the last 120 days.') + '</p>';
   var rows = (s.last || []).map(function(r){
     return '<div style="padding:12px 0;border-top:1px solid var(--line)">' +
       '<div class="nm">' + esc(day(r.d)) + ' · ' + T('tono ', 'tone ') + (r.n == null ? '—' : sg(r.n, 1)) +
-      ' · ' + esc(zTxt(r.z)) + '</div>' +
+      ' · ' + esc(r.earn === false ? T('non sui risultati: fuori dal confronto', 'not about results: outside the comparison')
+                                   : zTxt(r.z)) + '</div>' +
       '<blockquote lang="en" style="margin:6px 0 4px;font-style:italic">“' + esc(r.q) + '”</blockquote>' +
       (r.a ? '<div class="nm">' + esc(r.a) + '</div>' : '') +
       (r.url ? '<a href="' + esc(r.url) + '" target="_blank" rel="noopener">' +
@@ -3228,12 +3229,15 @@ function paneStatements(d){
     '<p class="sub" style="margin-top:10px">' + T(
       'Le frasi fra virgolette dei dirigenti nei comunicati allegati agli 8-K. Il tono è il numero di parole ' +
       'positive meno quelle negative ogni 100, con il dizionario finanziario di Loughran e McDonald. Fra ' +
-      'parentesi lo scarto dal solito: quante deviazioni standard sopra o sotto la media dei comunicati ' +
-      'precedenti dell’azienda. Non entra nel punteggio: la pagina Backtest lo mette alla prova. ',
+      'parentesi lo scarto dal solito: quante deviazioni standard sopra o sotto la media dei comunicati sui ' +
+      'risultati precedenti dell’azienda. Lo scarto si calcola solo sui risultati trimestrali: un annuncio di ' +
+      'nomine o di un’acquisizione è per natura più entusiasta. Non entra nel punteggio: la pagina Backtest lo ' +
+      'mette alla prova. ',
       'The executives’ quoted sentences in the press releases attached to 8-Ks. Tone is positive minus ' +
       'negative words per 100, with the Loughran and McDonald finance dictionary. In brackets the gap from ' +
-      'usual: how many standard deviations above or below the average of the company’s previous releases. ' +
-      'It is not in the score: the Backtest page puts it to the test. ') +
+      'usual: how many standard deviations above or below the average of the company’s previous results ' +
+      'releases. The gap is computed on quarterly results only: an announcement of appointments or of an ' +
+      'acquisition is upbeat by nature. It is not in the score: the Backtest page puts it to the test. ') +
       T(s.n + ' comunicati con frasi dei dirigenti dal ' + day(s.from) + '.',
         s.n + ' releases with executives’ quotes since ' + day(s.from) + '.') + '</p>' +
     '<div style="margin-top:6px">' + rows + '</div></div>';

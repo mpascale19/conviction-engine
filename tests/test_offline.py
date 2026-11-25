@@ -2289,11 +2289,26 @@ check("il tono netto è per 100 parole, e sotto le 25 parole non si misura",
 _store = {}
 for _k in range(9):
     _p = 10 if _k == 8 else (2 if _k % 2 == 0 else 3)
-    _store[f"acc{_k}"] = {"d": f"2026-0{1 + _k // 3}-{10 + _k:02d}", "cik": "1", "doc": "ex.htm",
+    _store[f"acc{_k}"] = {"d": f"2026-0{1 + _k // 3}-{10 + _k:02d}", "cik": "1", "doc": "ex.htm", "i": ["2.02", "9.01"],
                           "q": [{"t": f"frase {_k}", "a": "said the CEO"}],
                           "qc": {"w": 100, "p": _p, "n": 0}, "rc": {"w": 1000, "p": 20, "n": 10}}
 _store["accX"] = {"d": "2026-02-01", "none": "senza EX-99"}
 _ser = CM.series(_store)
+# un annuncio di nomine, entusiasta, lo stesso giorno dell'ultimo comunicato sui risultati
+_store2 = dict(_store, accN={"d": "2026-03-18", "cik": "1", "doc": "nomine.htm", "i": ["5.02", "7.01"],
+                             "q": [{"t": "exceptional leaders", "a": "said the chair"}],
+                             "qc": {"w": 100, "p": 30, "n": 0}, "rc": {"w": 1000, "p": 20, "n": 10}})
+_ser2 = CM.series(_store2)
+_nom = next(r for r in _ser2 if r["acc"] == "accN")
+check("un comunicato che non è sui risultati ha il suo tono ma nessuno scarto dal solito",
+      _nom["qn"] == 30.0 and _nom["qz"] is None and not _nom["earn"], _nom)
+check("e non sposta né la base dei risultati né il segnale del giorno",
+      [r["qz"] for r in _ser2 if r["earn"]] == [r["qz"] for r in _ser]
+      and CM.as_of(_ser2, "2026-03-20") == _ser[-1]["qz"])
+_cd2 = CM.card(_ser2, "2026-03-20")
+check("nella scheda si vede, ma «oggi» resta l'ultimo comunicato sui risultati",
+      any(x["q"] == "exceptional leaders" and not x["earn"] for x in _cd2["last"])
+      and _cd2["now"]["z"] == _ser[-1]["qz"], _cd2["now"])
 check("la serie tiene solo i depositi letti, in ordine di data", len(_ser) == 9 and _ser[0]["acc"] == "acc0")
 check("lo scarto dal solito serve di almeno quattro comunicati prima",
       [r["qz"] is None for r in _ser[:5]] == [True] * 4 + [False], [r["qz"] for r in _ser])

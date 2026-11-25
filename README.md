@@ -423,8 +423,11 @@ che il management dice nelle **call**.
   (`input/lm/`, vedi il LEGGIMI): positive meno negative ogni 100 parole, con la
   loro regola sulla negazione. Si misura anche tutto il comunicato.
 - **Il segnale è lo scarto dal solito**: tono meno la media degli otto
-  comunicati prima dell'azienda (almeno quattro), diviso per la loro deviazione
-  standard. Huang, Teoh e Zhang (2014) trovano che un tono anormalmente
+  comunicati sui risultati prima dell'azienda (almeno quattro), diviso per la
+  loro deviazione standard. Si calcola **solo sui comunicati sui risultati**
+  (item 2.02): un annuncio di nomine o di un'acquisizione è per natura più
+  entusiasta e falserebbe il confronto (dal 25/11/2026: Home Depot risultava
+  "più ottimista del solito" per l'annuncio del nuovo CEO). Huang, Teoh e Zhang (2014) trovano che un tono anormalmente
   positivo precede rendimenti più bassi.
 - **Due richieste per comunicato** (l'indice del deposito, poi l'allegato), una
   volta sola, dal più recente al più vecchio. Qualche decina di migliaia di

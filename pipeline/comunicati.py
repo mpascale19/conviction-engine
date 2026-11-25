@@ -31,6 +31,15 @@ di incertezza. Una parola positiva preceduta entro tre parole da no, not,
 none, neither, never o nobody non conta (la loro regola sulla negazione).
 Tono netto = (positive − negative) per 100 parole.
 
+**Solo i comunicati sui risultati fanno il segnale.** Lo scarto dal solito si
+calcola soltanto sugli 8-K con item 2.02, i risultati trimestrali, confrontati
+con i risultati precedenti: un annuncio di nomine o di un'acquisizione è per
+natura più entusiasta, e mescolato ai risultati falserebbe il confronto (dal
+25/11/2026; prima Home Depot, con risultati e cambio di vertice lo stesso
+giorno, risultava "più ottimista del solito" per l'annuncio sulle nomine). Le
+frasi degli altri comunicati restano nella scheda, con il loro tono ma senza
+scarto.
+
 **Il segnale è la sorpresa, non il tono.** Alcuni CEO sono sempre
 entusiasti: conta quanto un comunicato è più ottimista o più cauto **del
 solito per quell'azienda**. Per ogni comunicato: tono meno la media dei
@@ -332,16 +341,19 @@ def update(folder, companies, until, today=None, get=None, table=None, max_new=N
 def series(store):
     """{accessione: conti} -> i comunicati in ordine di data, con tono e scarto dal solito.
 
-    Ogni elemento: {d, acc, doc, cik, q, qn, qz, rn, rz}. `qn` e `rn`: tono
-    netto delle frasi dei dirigenti e di tutto il comunicato; `qz` e `rz`: di
-    quante deviazioni standard il tono è sopra o sotto la media dei
-    comunicati precedenti dell'azienda (None se ce ne sono meno di quattro).
+    Ogni elemento: {d, acc, doc, cik, earn, q, qn, qz, rn, rz}. `earn`: è un
+    comunicato sui risultati (item 2.02). `qn` e `rn`: tono netto delle frasi
+    dei dirigenti e di tutto il comunicato; `qz` e `rz`: di quante deviazioni
+    standard il tono è sopra o sotto la media dei comunicati sui risultati
+    precedenti dell'azienda. None se non è un comunicato sui risultati, o se
+    prima ce ne sono meno di quattro.
     """
     rows = []
     for acc, v in (store or {}).items():
         if not isinstance(v, dict) or "q" not in v:
             continue
         rows.append({"d": v["d"], "acc": acc, "doc": v.get("doc"), "cik": v.get("cik"),
+                     "earn": "2.02" in (v.get("i") or []),
                      "q": v.get("q") or [], "qn": net(v.get("qc")), "rn": net(v.get("rc"))})
     rows.sort(key=lambda r: (r["d"], r["acc"]))
     for k in ("q", "r"):
@@ -349,7 +361,7 @@ def series(store):
         for r in rows:
             x = r[k + "n"]
             r[k + "z"] = None
-            if x is not None:
+            if x is not None and r["earn"]:
                 base = prev[-BASE_MAX:]
                 if len(base) >= BASE_MIN:
                     sd = st.pstdev(base)
@@ -396,7 +408,7 @@ def card(rows, today, insider=None):
     last = []
     for r in reversed(with_q[-CARD_N:]):
         q = r["q"][0]
-        last.append({"d": r["d"], "n": r["qn"], "z": r["qz"], "rz": r["rz"],
+        last.append({"d": r["d"], "n": r["qn"], "z": r["qz"], "rz": r["rz"], "earn": r["earn"],
                      "q": q["t"][:320] + ("…" if len(q["t"]) > 320 else ""), "a": q["a"],
                      "url": doc_url(r["cik"], r["acc"], r["doc"]) if r.get("cik") and r.get("doc") else None})
     lo = (date.fromisoformat(today) - timedelta(days=WINDOW)).isoformat()
