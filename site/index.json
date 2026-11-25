@@ -1,6 +1,6 @@
 {
- "generated_at": "2026-11-25T11:29:23+00:00",
- "changed_at": "2026-11-25T11:29:23+00:00",
+ "generated_at": "2026-11-25T12:24:23+00:00",
+ "changed_at": "2026-11-25T12:24:23+00:00",
  "groups": [
   {
    "nome": {
@@ -468,19 +468,19 @@
    },
    {
     "id": "statements",
-    "ic": -0.001,
-    "se": 0.01,
-    "t": -0.07,
-    "blocks": 27,
-    "dates": 3539
+    "ic": 0.003,
+    "se": 0.008,
+    "t": 0.37,
+    "blocks": 34,
+    "dates": 4618
    },
    {
     "id": "release",
-    "ic": 0.003,
-    "se": 0.01,
-    "t": 0.32,
-    "blocks": 28,
-    "dates": 3585
+    "ic": 0.016,
+    "se": 0.013,
+    "t": 1.21,
+    "blocks": 35,
+    "dates": 4682
    }
   ]
  },
@@ -17549,15 +17549,15 @@
  },
  "statements": {
   "companies": 399,
-  "releases": 19669,
-  "with_quotes": 12289,
-  "from": "2019-10-18",
-  "pending": 9109,
-  "updated": "2026-11-25T09:09:13+00:00",
+  "releases": 24544,
+  "with_quotes": 15206,
+  "from": "2017-11-20",
+  "pending": 3149,
+  "updated": "2026-11-25T11:33:44+00:00",
   "now": {
    "up": 57,
    "down": 70,
-   "usual": 179,
+   "usual": 180,
    "clash": [
     "ABT",
     "AR",
