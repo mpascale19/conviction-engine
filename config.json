@@ -282,7 +282,7 @@
    "nome_en": "US small caps",
    "benchmark": "IJR",
    "dimensione": "small",
-   "tickers": ["ACIW", "ARLO", "CLSK", "CNXN", "GDYN", "KN", "MIR", "PDFS", "PENG", "PI", "BMI", "RAL", "VSAT", "AAMI", "ABR", "BBT", "CASH", "CFFN", "CNS", "DAVE", "FBNC", "FBP", "FCF", "FIBK", "MC", "MKTX", "NWBI", "OFG", "PFS", "RDN", "SAFT", "SFBS", "SPNT", "TRMK", "TRST", "UFCS", "WSFS", "ACAD", "AMN", "ICUI", "INVA", "LFST", "NEO", "NEOG", "OGN", "OMCL", "PRVA", "PTCT", "SDGR", "INDV", "TGTX", "UFPT", "ALG", "ATMU", "AWI", "BRC", "CWST", "DNOW", "EPAC", "FA", "FWRD", "GFF", "HCSG", "MATX", "MRCY", "MWA", "MYRG", "NSP", "RXO", "VSEC", "ZWS", "AESI", "CLB", "CRC", "KNTK", "NE", "NOG", "AAP", "ADNT", "AEO", "BFAM", "BKE", "CBRL", "CVCO", "DAN", "EYE", "GIII", "LGIH", "MNRO", "PRDO", "SHAK", "SHOO", "SKY", "UAA", "UTI", "CHEF", "ENR", "EPC", "FRPT", "UVV"]
+   "tickers": ["ACIW", "ARLO", "CLSK", "CNXN", "GDYN", "KN", "MIR", "PDFS", "PENG", "PI", "BMI", "RAL", "VSAT", "AAMI", "ABR", "BBT", "CASH", "CFFN", "CNS", "DAVE", "FBNC", "FBP", "FCF", "FIBK", "MC", "MKTX", "NWBI", "OFG", "PFS", "RDN", "SAFT", "SFBS", "SPNT", "TRMK", "TRST", "UFCS", "WSFS", "ACAD", "AMN", "ICUI", "INVA", "LFST", "NEO", "NEOG", "OGN", "OMCL", "PRVA", "PTCT", "SDGR", "SUPN", "TGTX", "UFPT", "ALG", "ATMU", "AWI", "BRC", "CWST", "DNOW", "EPAC", "FA", "FWRD", "GFF", "HCSG", "MATX", "MRCY", "MWA", "MYRG", "NSP", "RXO", "VSEC", "ZWS", "AESI", "CLB", "CRC", "KNTK", "NE", "NOG", "AAP", "ADNT", "AEO", "BFAM", "BKE", "CBRL", "CVCO", "DAN", "EYE", "GIII", "LGIH", "MNRO", "PRDO", "SHAK", "SHOO", "SKY", "UAA", "UTI", "CHEF", "ENR", "EPC", "FRPT", "UVV"]
   }
  ],
  "cik": {
@@ -307,7 +307,8 @@
   "max_filings_per_ticker": 2000,
  "site_url": "https://mpascale19.github.io/conviction-engine/",
  "cusip": {
-  "_nota": "13F (pipeline/fondi.py): il CUSIP giusto di un'azienda, se il riconoscimento per nome sbaglia. Esempio: \"BA\": \"097023105\". L'indice del sito, alla voce funds.map, dice quale CUSIP è stato scelto."
+  "_nota": "13F (pipeline/fondi.py): il CUSIP giusto di un'azienda, se il riconoscimento per nome sbaglia. Esempio: \"BA\": \"097023105\". L'indice del sito, alla voce funds.map, dice quale CUSIP è stato scelto.",
+  "FBNC": "318910106"
  },
  "nomi_13f": {
   "_nota": "13F: altri nomi con cui un'azienda compare nei 13F vecchi, oltre a quelli già in pipeline/fondi.py (ALIASES). Esempio: \"META\": [\"FACEBOOK INC\"]."

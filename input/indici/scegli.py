@@ -15,8 +15,11 @@ nello stesso ordine). Le liste di Wikipedia del 24/11/2026 avevano ancora
 due aziende già sparite dalla borsa:
 - QRVO -> BMI: Qorvo si è fusa in Skyworks (ottobre 2026);
 - HLX -> KNTK: Helix si è fusa con Hornbeck Offshore (settembre 2026).
-- SUPN -> INDV: Supernus si è fusa con Indivior ed è uscita dal Nasdaq
-  (novembre 2026); il ticker successivo nell'ordine è proprio Indivior.
+
+SUPN resta: il 2 novembre 2026 Supernus si è fusa con Indivior, e la società
+unita (Supernus, Inc., la ex Indivior) è quotata al Nasdaq ancora come SUPN
+dal 3 novembre. INDV è esistito un solo giorno. (Il 25/11 l'avevo sostituita
+per errore con INDV, che la SEC non trova più.)
 """
 import hashlib, json, sys
 
