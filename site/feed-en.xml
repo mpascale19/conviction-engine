@@ -5,8 +5,136 @@
   <link>https://mpascale19.github.io/conviction-engine/?lang=en</link>
   <description>Open-market insider purchases at the US companies the site follows, from the Form 4 filings at the SEC, with the conviction score at that moment. A teaching tool, not investment advice.</description>
   <language>en</language>
-  <lastBuildDate>Thu, 26 Nov 2026 16:28:32 GMT</lastBuildDate>
+  <lastBuildDate>Thu, 26 Nov 2026 17:31:29 GMT</lastBuildDate>
   <atom:link href="https://mpascale19.github.io/conviction-engine/feed-en.xml" rel="self" type="application/rss+xml" />
+  <item>
+   <title>UMBF: Peterman Tamara (Director) buys $27,500</title>
+   <link>https://mpascale19.github.io/conviction-engine/?lang=en#UMBF</link>
+   <description>UMB FINANCIAL CORP. Open-market purchase on November 2, 2026: 201 shares at $137.02 on average, $27,500 in total. Company score at that moment: 54/100, no clear conviction.</description>
+   <category>purchase</category>
+   <guid isPermaLink="false">UMBF-2026-11-02-peterman-tamara-buy</guid>
+   <pubDate>Thu, 26 Nov 2026 17:31:29 GMT</pubDate>
+  </item>
+  <item>
+   <title>UMBF: GRAVES GREG M (Director) buys $40,000</title>
+   <link>https://mpascale19.github.io/conviction-engine/?lang=en#UMBF</link>
+   <description>UMB FINANCIAL CORP. Open-market purchase on November 2, 2026: 292 shares at $137.02 on average, $40,000 in total. Company score at that moment: 54/100, no clear conviction.</description>
+   <category>purchase</category>
+   <guid isPermaLink="false">UMBF-2026-11-02-graves-greg-m-buy</guid>
+   <pubDate>Thu, 26 Nov 2026 17:31:29 GMT</pubDate>
+  </item>
+  <item>
+   <title>TFC: Lyons Michael P. (President &amp; CEO) buys $1.2m</title>
+   <link>https://mpascale19.github.io/conviction-engine/?lang=en#TFC</link>
+   <description>TRUIST FINANCIAL CORP. Open-market purchase on October 28, 2026: 25,000 shares at $48.36 on average, $1.2m in total. Company score at that moment: 52/100, no clear conviction.</description>
+   <category>purchase</category>
+   <guid isPermaLink="false">TFC-2026-10-28-lyons-michael-p-buy</guid>
+   <pubDate>Thu, 26 Nov 2026 17:31:29 GMT</pubDate>
+  </item>
+  <item>
+   <title>TEAM: Cannon-Brookes Michael (CEO, Co-Founder) buys $1.9m</title>
+   <link>https://mpascale19.github.io/conviction-engine/?lang=en#TEAM</link>
+   <description>Atlassian Corp. Open-market purchase on November 25, 2026: 13,400 shares at $138.85 on average, $1.9m in total. Company score at that moment: 60/100, mildly bullish.</description>
+   <category>purchase</category>
+   <guid isPermaLink="false">TEAM-2026-11-25-cannon-brookes-michael-buy</guid>
+   <pubDate>Thu, 26 Nov 2026 17:31:29 GMT</pubDate>
+  </item>
+  <item>
+   <title>TEAM: Cannon-Brookes Michael (CEO, Co-Founder) buys $2.0m</title>
+   <link>https://mpascale19.github.io/conviction-engine/?lang=en#TEAM</link>
+   <description>Atlassian Corp. Open-market purchase on November 13, 2026: 13,400 shares at $150.06 on average, $2.0m in total. Company score at that moment: 60/100, mildly bullish.</description>
+   <category>purchase</category>
+   <guid isPermaLink="false">TEAM-2026-11-13-cannon-brookes-michael-buy</guid>
+   <pubDate>Thu, 26 Nov 2026 17:31:29 GMT</pubDate>
+  </item>
+  <item>
+   <title>TEAM: Cannon-Brookes Michael (CEO, Co-Founder) buys $2.0m</title>
+   <link>https://mpascale19.github.io/conviction-engine/?lang=en#TEAM</link>
+   <description>Atlassian Corp. Open-market purchase on November 12, 2026: 13,400 shares at $149.58 on average, $2.0m in total. Company score at that moment: 60/100, mildly bullish.</description>
+   <category>purchase</category>
+   <guid isPermaLink="false">TEAM-2026-11-12-cannon-brookes-michael-buy</guid>
+   <pubDate>Thu, 26 Nov 2026 17:31:29 GMT</pubDate>
+  </item>
+  <item>
+   <title>TEAM: Cannon-Brookes Michael (CEO, Co-Founder) buys $2.0m</title>
+   <link>https://mpascale19.github.io/conviction-engine/?lang=en#TEAM</link>
+   <description>Atlassian Corp. Open-market purchase on November 11, 2026: 13,400 shares at $150.30 on average, $2.0m in total. Company score at that moment: 60/100, mildly bullish.</description>
+   <category>purchase</category>
+   <guid isPermaLink="false">TEAM-2026-11-11-cannon-brookes-michael-buy</guid>
+   <pubDate>Thu, 26 Nov 2026 17:31:29 GMT</pubDate>
+  </item>
+  <item>
+   <title>SYY: Ondrof Thomas Gerard (Director) buys $191,550</title>
+   <link>https://mpascale19.github.io/conviction-engine/?lang=en#SYY</link>
+   <description>SYSCO CORP. Open-market purchase on November 4, 2026: 2,500 shares at $76.62 on average, $191,550 in total. Company score at that moment: 50/100, no clear conviction.</description>
+   <category>purchase</category>
+   <guid isPermaLink="false">SYY-2026-11-04-ondrof-thomas-gerard-buy</guid>
+   <pubDate>Thu, 26 Nov 2026 17:31:29 GMT</pubDate>
+  </item>
+  <item>
+   <title>KMI: KINDER RICHARD D (Executive Chairman) buys $15.0m</title>
+   <link>https://mpascale19.github.io/conviction-engine/?lang=en#KMI</link>
+   <description>KINDER MORGAN, INC. Open-market purchase on November 6, 2026: 500,000 shares at $29.99 on average, $15.0m in total. Company score at that moment: 66/100, moderate bullish conviction.</description>
+   <category>purchase</category>
+   <guid isPermaLink="false">KMI-2026-11-06-kinder-richard-d-buy</guid>
+   <pubDate>Thu, 26 Nov 2026 17:31:29 GMT</pubDate>
+  </item>
+  <item>
+   <title>HUBS: Halligan Brian (Chief Executive Officer) buys $5.0m</title>
+   <link>https://mpascale19.github.io/conviction-engine/?lang=en#HUBS</link>
+   <description>HUBSPOT INC. Open-market purchase on November 13, 2026: 22,985 shares at $217.44 on average, $5.0m in total. Company score at that moment: 50/100, no clear conviction.</description>
+   <category>purchase</category>
+   <guid isPermaLink="false">HUBS-2026-11-13-halligan-brian-buy</guid>
+   <pubDate>Thu, 26 Nov 2026 17:31:29 GMT</pubDate>
+  </item>
+  <item>
+   <title>ETN: Foster David B (See Remarks below.) buys $48,540</title>
+   <link>https://mpascale19.github.io/conviction-engine/?lang=en#ETN</link>
+   <description>Eaton Corp plc. Open-market purchase on November 20, 2026: 150 shares at $323.60 on average, $48,540 in total. Part of a cluster of purchases. Company score at that moment: 60/100, mildly bullish.</description>
+   <category>purchase</category>
+   <guid isPermaLink="false">ETN-2026-11-20-foster-david-b-buy</guid>
+   <pubDate>Thu, 26 Nov 2026 17:31:29 GMT</pubDate>
+  </item>
+  <item>
+   <title>ETN: Johnson Gerald (Director) buys $101,646</title>
+   <link>https://mpascale19.github.io/conviction-engine/?lang=en#ETN</link>
+   <description>Eaton Corp plc. Open-market purchase on November 16, 2026: 300 shares at $338.82 on average, $101,646 in total. Part of a cluster of purchases. Company score at that moment: 60/100, mildly bullish.</description>
+   <category>purchase</category>
+   <guid isPermaLink="false">ETN-2026-11-16-johnson-gerald-buy</guid>
+   <pubDate>Thu, 26 Nov 2026 17:31:29 GMT</pubDate>
+  </item>
+  <item>
+   <title>ETN: Foster David B (See Remarks below.) buys $69,248</title>
+   <link>https://mpascale19.github.io/conviction-engine/?lang=en#ETN</link>
+   <description>Eaton Corp plc. Open-market purchase on November 16, 2026: 200 shares at $346.24 on average, $69,248 in total. Part of a cluster of purchases. Company score at that moment: 60/100, mildly bullish.</description>
+   <category>purchase</category>
+   <guid isPermaLink="false">ETN-2026-11-16-foster-david-b-buy</guid>
+   <pubDate>Thu, 26 Nov 2026 17:31:29 GMT</pubDate>
+  </item>
+  <item>
+   <title>ETN: 3 insiders buy within 30 days</title>
+   <link>https://mpascale19.github.io/conviction-engine/?lang=en#ETN</link>
+   <description>Eaton Corp plc. Since November 16, 2026 these people have bought shares on the open market: Johnson Gerald, Foster David B, RUIZ STERNADT PAULO. Several people buying together is the signal the score calls a cluster. Company score at that moment: 60/100, mildly bullish.</description>
+   <category>cluster</category>
+   <guid isPermaLink="false">ETN-2026-11-16-cluster</guid>
+   <pubDate>Thu, 26 Nov 2026 17:31:29 GMT</pubDate>
+  </item>
+  <item>
+   <title>ELV: PERU RAMIRO G (Director) buys $383,860</title>
+   <link>https://mpascale19.github.io/conviction-engine/?lang=en#ELV</link>
+   <description>Elevance Health, Inc. Open-market purchase on November 19, 2026: 1,000 shares at $383.86 on average, $383,860 in total. Company score at that moment: 51/100, no clear conviction.</description>
+   <category>purchase</category>
+   <guid isPermaLink="false">ELV-2026-11-19-peru-ramiro-g-buy</guid>
+   <pubDate>Thu, 26 Nov 2026 17:31:29 GMT</pubDate>
+  </item>
+  <item>
+   <title>CVS: Shah Prem S (EVP and Group President) buys $2.0m</title>
+   <link>https://mpascale19.github.io/conviction-engine/?lang=en#CVS</link>
+   <description>CVS HEALTH Corp. Open-market purchase on November 6, 2026: 23,855 shares at $83.89 on average, $2.0m in total. Company score at that moment: 62/100, mildly bullish.</description>
+   <category>purchase</category>
+   <guid isPermaLink="false">CVS-2026-11-06-shah-prem-s-buy</guid>
+   <pubDate>Thu, 26 Nov 2026 17:31:29 GMT</pubDate>
+  </item>
   <item>
    <title>UTI: DEVINCENZI ROBERT THOMAS (Director) buys $19,678</title>
    <link>https://mpascale19.github.io/conviction-engine/?lang=en#UTI</link>
@@ -678,134 +806,6 @@
    <category>purchase</category>
    <guid isPermaLink="false">TJX-2026-11-20-pintoff-craig-adam-buy</guid>
    <pubDate>Thu, 26 Nov 2026 09:31:19 GMT</pubDate>
-  </item>
-  <item>
-   <title>TEAM: Cannon-Brookes Michael (CEO, Co-Founder) buys $1.9m</title>
-   <link>https://mpascale19.github.io/conviction-engine/?lang=en#TEAM</link>
-   <description>Atlassian Corp. Open-market purchase on November 23, 2026: 13,400 shares at $139.62 on average, $1.9m in total. Company score at that moment: 60/100, mildly bullish.</description>
-   <category>purchase</category>
-   <guid isPermaLink="false">TEAM-2026-11-23-cannon-brookes-michael-buy</guid>
-   <pubDate>Thu, 26 Nov 2026 09:31:19 GMT</pubDate>
-  </item>
-  <item>
-   <title>TEAM: Cannon-Brookes Michael (CEO, Co-Founder) buys $1.8m</title>
-   <link>https://mpascale19.github.io/conviction-engine/?lang=en#TEAM</link>
-   <description>Atlassian Corp. Open-market purchase on November 20, 2026: 13,400 shares at $136.14 on average, $1.8m in total. Company score at that moment: 60/100, mildly bullish.</description>
-   <category>purchase</category>
-   <guid isPermaLink="false">TEAM-2026-11-20-cannon-brookes-michael-buy</guid>
-   <pubDate>Thu, 26 Nov 2026 09:31:19 GMT</pubDate>
-  </item>
-  <item>
-   <title>MTDR: Foran Joseph Wm (Chairman and CEO) buys $143,490</title>
-   <link>https://mpascale19.github.io/conviction-engine/?lang=en#MTDR</link>
-   <description>Matador Resources Co. Open-market purchase on November 23, 2026: 3,000 shares at $47.83 on average, $143,490 in total. Part of a cluster of purchases. Company score at that moment: 55/100, mildly bullish.</description>
-   <category>purchase</category>
-   <guid isPermaLink="false">MTDR-2026-11-23-foran-joseph-wm-buy</guid>
-   <pubDate>Thu, 26 Nov 2026 09:31:19 GMT</pubDate>
-  </item>
-  <item>
-   <title>ETN: RUIZ STERNADT PAULO (See Remarks below.) buys $96,789</title>
-   <link>https://mpascale19.github.io/conviction-engine/?lang=en#ETN</link>
-   <description>Eaton Corp plc. Open-market purchase on November 20, 2026: 300 shares at $322.63 on average, $96,789 in total. Part of a cluster of purchases. Company score at that moment: 60/100, mildly bullish.</description>
-   <category>purchase</category>
-   <guid isPermaLink="false">ETN-2026-11-20-ruiz-sternadt-paulo-buy</guid>
-   <pubDate>Thu, 26 Nov 2026 09:31:19 GMT</pubDate>
-  </item>
-  <item>
-   <title>AN: Szlosek Thomas A (EVP &amp; CFO) buys $99,953</title>
-   <link>https://mpascale19.github.io/conviction-engine/?lang=en#AN</link>
-   <description>AUTONATION, INC. Open-market purchase on November 5, 2026: 540 shares at $185.10 on average, $99,953 in total. Part of a cluster of purchases. Company score at that moment: 51/100, no clear conviction.</description>
-   <category>purchase</category>
-   <guid isPermaLink="false">AN-2026-11-05-szlosek-thomas-a-buy</guid>
-   <pubDate>Thu, 26 Nov 2026 09:31:19 GMT</pubDate>
-  </item>
-  <item>
-   <title>AN: Szlosek Thomas A (EVP &amp; CFO) buys $200,165</title>
-   <link>https://mpascale19.github.io/conviction-engine/?lang=en#AN</link>
-   <description>AUTONATION, INC. Open-market purchase on November 3, 2026: 1,097 shares at $182.47 on average, $200,165 in total. Part of a cluster of purchases. Company score at that moment: 51/100, no clear conviction.</description>
-   <category>purchase</category>
-   <guid isPermaLink="false">AN-2026-11-03-szlosek-thomas-a-buy</guid>
-   <pubDate>Thu, 26 Nov 2026 09:31:19 GMT</pubDate>
-  </item>
-  <item>
-   <title>AN: EDMUNDS C COLEMAN (EVP, Gen Counsel &amp; Corp Sec) buys $100,850</title>
-   <link>https://mpascale19.github.io/conviction-engine/?lang=en#AN</link>
-   <description>AUTONATION, INC. Open-market purchase on November 3, 2026: 550 shares at $183.36 on average, $100,850 in total. Part of a cluster of purchases. Company score at that moment: 51/100, no clear conviction.</description>
-   <category>purchase</category>
-   <guid isPermaLink="false">AN-2026-11-03-edmunds-c-coleman-buy</guid>
-   <pubDate>Thu, 26 Nov 2026 09:31:19 GMT</pubDate>
-  </item>
-  <item>
-   <title>AN: Szlosek Thomas A (EVP &amp; CFO) buys $99,825</title>
-   <link>https://mpascale19.github.io/conviction-engine/?lang=en#AN</link>
-   <description>AUTONATION, INC. Open-market purchase on November 2, 2026: 551 shares at $181.17 on average, $99,825 in total. Part of a cluster of purchases. Company score at that moment: 51/100, no clear conviction.</description>
-   <category>purchase</category>
-   <guid isPermaLink="false">AN-2026-11-02-szlosek-thomas-a-buy</guid>
-   <pubDate>Thu, 26 Nov 2026 09:31:19 GMT</pubDate>
-  </item>
-  <item>
-   <title>AN: Manley Michael Mark (CEO and Director) buys $1.0m</title>
-   <link>https://mpascale19.github.io/conviction-engine/?lang=en#AN</link>
-   <description>AUTONATION, INC. Open-market purchase on November 2, 2026: 5,600 shares at $184.11 on average, $1.0m in total. Part of a cluster of purchases. Company score at that moment: 51/100, no clear conviction.</description>
-   <category>purchase</category>
-   <guid isPermaLink="false">AN-2026-11-02-manley-michael-mark-buy</guid>
-   <pubDate>Thu, 26 Nov 2026 09:31:19 GMT</pubDate>
-  </item>
-  <item>
-   <title>AN: 4 insiders buy within 30 days</title>
-   <link>https://mpascale19.github.io/conviction-engine/?lang=en#AN</link>
-   <description>AUTONATION, INC. Since November 2, 2026 these people have bought shares on the open market: Szlosek Thomas A, Manley Michael Mark, EDMUNDS C COLEMAN, TRAVISANO JACQUELINE A. Several people buying together is the signal the score calls a cluster. Company score at that moment: 51/100, no clear conviction.</description>
-   <category>cluster</category>
-   <guid isPermaLink="false">AN-2026-11-02-cluster</guid>
-   <pubDate>Thu, 26 Nov 2026 09:31:19 GMT</pubDate>
-  </item>
-  <item>
-   <title>AMG: Cates G. Staley (Director) buys $1.0m</title>
-   <link>https://mpascale19.github.io/conviction-engine/?lang=en#AMG</link>
-   <description>AFFILIATED MANAGERS GROUP, INC. Open-market purchase on November 12, 2026: 2,500 shares at $400.00 on average, $1.0m in total. Company score at that moment: 56/100, mildly bullish.</description>
-   <category>purchase</category>
-   <guid isPermaLink="false">AMG-2026-11-12-cates-g-staley-buy</guid>
-   <pubDate>Thu, 26 Nov 2026 09:31:19 GMT</pubDate>
-  </item>
-  <item>
-   <title>ALG: Bauer Robert P (Director) buys $132,580</title>
-   <link>https://mpascale19.github.io/conviction-engine/?lang=en#ALG</link>
-   <description>ALAMO GROUP INC. Open-market purchase on November 23, 2026: 1,000 shares at $132.58 on average, $132,580 in total. Company score at that moment: 49/100, no clear conviction.</description>
-   <category>purchase</category>
-   <guid isPermaLink="false">ALG-2026-11-23-bauer-robert-p-buy</guid>
-   <pubDate>Thu, 26 Nov 2026 09:31:19 GMT</pubDate>
-  </item>
-  <item>
-   <title>TEAM: Cannon-Brookes Michael (CEO, Co-Founder) buys $1.8m</title>
-   <link>https://mpascale19.github.io/conviction-engine/?lang=en#TEAM</link>
-   <description>Atlassian Corp. Open-market purchase on November 19, 2026: 13,400 shares at $137.74 on average, $1.8m in total. Company score at that moment: 60/100, mildly bullish.</description>
-   <category>purchase</category>
-   <guid isPermaLink="false">TEAM-2026-11-19-cannon-brookes-michael-buy</guid>
-   <pubDate>Thu, 26 Nov 2026 07:43:17 GMT</pubDate>
-  </item>
-  <item>
-   <title>TEAM: Cannon-Brookes Michael (CEO, Co-Founder) buys $1.9m</title>
-   <link>https://mpascale19.github.io/conviction-engine/?lang=en#TEAM</link>
-   <description>Atlassian Corp. Open-market purchase on November 18, 2026: 13,400 shares at $140.44 on average, $1.9m in total. Company score at that moment: 60/100, mildly bullish.</description>
-   <category>purchase</category>
-   <guid isPermaLink="false">TEAM-2026-11-18-cannon-brookes-michael-buy</guid>
-   <pubDate>Thu, 26 Nov 2026 07:43:17 GMT</pubDate>
-  </item>
-  <item>
-   <title>TEAM: Cannon-Brookes Michael (CEO, Co-Founder) buys $2.0m</title>
-   <link>https://mpascale19.github.io/conviction-engine/?lang=en#TEAM</link>
-   <description>Atlassian Corp. Open-market purchase on November 17, 2026: 13,400 shares at $146.31 on average, $2.0m in total. Company score at that moment: 60/100, mildly bullish.</description>
-   <category>purchase</category>
-   <guid isPermaLink="false">TEAM-2026-11-17-cannon-brookes-michael-buy</guid>
-   <pubDate>Thu, 26 Nov 2026 07:43:17 GMT</pubDate>
-  </item>
-  <item>
-   <title>TEAM: Cannon-Brookes Michael (CEO, Co-Founder) buys $2.0m</title>
-   <link>https://mpascale19.github.io/conviction-engine/?lang=en#TEAM</link>
-   <description>Atlassian Corp. Open-market purchase on November 16, 2026: 13,400 shares at $149.16 on average, $2.0m in total. Company score at that moment: 60/100, mildly bullish.</description>
-   <category>purchase</category>
-   <guid isPermaLink="false">TEAM-2026-11-16-cannon-brookes-michael-buy</guid>
-   <pubDate>Thu, 26 Nov 2026 07:43:17 GMT</pubDate>
   </item>
  </channel>
 </rss>
