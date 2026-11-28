@@ -5,8 +5,136 @@
   <link>https://mpascale19.github.io/conviction-engine/?lang=it</link>
   <description>Gli acquisti sul mercato degli insider delle aziende americane seguite dal sito, dai Form 4 depositati alla SEC, con il punteggio di convinzione del momento. Strumento didattico, non una raccomandazione di investimento.</description>
   <language>it</language>
-  <lastBuildDate>Fri, 27 Nov 2026 23:18:03 GMT</lastBuildDate>
+  <lastBuildDate>Sat, 28 Nov 2026 00:10:51 GMT</lastBuildDate>
   <atom:link href="https://mpascale19.github.io/conviction-engine/feed.xml" rel="self" type="application/rss+xml" />
+  <item>
+   <title>SANM: Loparco Michael J (Director) compra per 148.686 $</title>
+   <link>https://mpascale19.github.io/conviction-engine/?lang=it#SANM</link>
+   <description>SANMINA CORP. Acquisto sul mercato del 24 novembre 2026: 1.066 azioni a 139,48 $ in media, 148.686 $ in tutto. Punteggio dell'azienda in quel momento: 57/100, leggermente rialzista.</description>
+   <category>acquisto</category>
+   <guid isPermaLink="false">SANM-2026-11-24-loparco-michael-j-buy</guid>
+   <pubDate>Sat, 28 Nov 2026 00:10:51 GMT</pubDate>
+  </item>
+  <item>
+   <title>SANM: Trivedi Shanker (Director) compra per 23.160 $</title>
+   <link>https://mpascale19.github.io/conviction-engine/?lang=it#SANM</link>
+   <description>SANMINA CORP. Acquisto sul mercato del 16 novembre 2026: 150 azioni a 154,40 $ in media, 23.160 $ in tutto. Punteggio dell'azienda in quel momento: 57/100, leggermente rialzista.</description>
+   <category>acquisto</category>
+   <guid isPermaLink="false">SANM-2026-11-16-trivedi-shanker-buy</guid>
+   <pubDate>Sat, 28 Nov 2026 00:10:51 GMT</pubDate>
+  </item>
+  <item>
+   <title>SANM: Trivedi Shanker (Director) compra per 29.950 $</title>
+   <link>https://mpascale19.github.io/conviction-engine/?lang=it#SANM</link>
+   <description>SANMINA CORP. Acquisto sul mercato del 13 novembre 2026: 190 azioni a 157,63 $ in media, 29.950 $ in tutto. Punteggio dell'azienda in quel momento: 57/100, leggermente rialzista.</description>
+   <category>acquisto</category>
+   <guid isPermaLink="false">SANM-2026-11-13-trivedi-shanker-buy</guid>
+   <pubDate>Sat, 28 Nov 2026 00:10:51 GMT</pubDate>
+  </item>
+  <item>
+   <title>PNFP: INGRAM DAVID B (Director) compra per 991.600 $</title>
+   <link>https://mpascale19.github.io/conviction-engine/?lang=it#PNFP</link>
+   <description>Pinnacle Financial Partners, Inc. Acquisto sul mercato del 28 ottobre 2026: 10.000 azioni a 99,16 $ in media, 991.600 $ in tutto. Punteggio dell'azienda in quel momento: 54/100, nessuna convinzione chiara.</description>
+   <category>acquisto</category>
+   <guid isPermaLink="false">PNFP-2026-10-28-ingram-david-b-buy</guid>
+   <pubDate>Sat, 28 Nov 2026 00:10:51 GMT</pubDate>
+  </item>
+  <item>
+   <title>PEP: POHLAD ROBERT C (Director) compra per 23,7 milioni $</title>
+   <link>https://mpascale19.github.io/conviction-engine/?lang=it#PEP</link>
+   <description>PEPSICO INC. Acquisto sul mercato del 14 ottobre 2026: 184.646 azioni a 128,28 $ in media, 23,7 milioni $ in tutto. Punteggio dell'azienda in quel momento: 49/100, nessuna convinzione chiara.</description>
+   <category>acquisto</category>
+   <guid isPermaLink="false">PEP-2026-10-14-pohlad-robert-c-buy</guid>
+   <pubDate>Sat, 28 Nov 2026 00:10:51 GMT</pubDate>
+  </item>
+  <item>
+   <title>INTC: TAN LIP BU (CEO) compra per 9,7 milioni $</title>
+   <link>https://mpascale19.github.io/conviction-engine/?lang=it#INTC</link>
+   <description>INTEL CORP. Acquisto sul mercato del 2 novembre 2026: 150.000 azioni a 64,73 $ in media, 9,7 milioni $ in tutto. Punteggio dell'azienda in quel momento: 55/100, leggermente rialzista.</description>
+   <category>acquisto</category>
+   <guid isPermaLink="false">INTC-2026-11-02-tan-lip-bu-buy</guid>
+   <pubDate>Sat, 28 Nov 2026 00:10:51 GMT</pubDate>
+  </item>
+  <item>
+   <title>CLX: Breber Pierre R (Director) compra per 400.251 $</title>
+   <link>https://mpascale19.github.io/conviction-engine/?lang=it#CLX</link>
+   <description>CLOROX CO. Acquisto sul mercato del 4 novembre 2026: 4.000 azioni a 100,06 $ in media, 400.251 $ in tutto. Punteggio dell'azienda in quel momento: 52/100, nessuna convinzione chiara.</description>
+   <category>acquisto</category>
+   <guid isPermaLink="false">CLX-2026-11-04-breber-pierre-r-buy</guid>
+   <pubDate>Sat, 28 Nov 2026 00:10:51 GMT</pubDate>
+  </item>
+  <item>
+   <title>CAT: MacLennan David (Director) compra per 208.635 $</title>
+   <link>https://mpascale19.github.io/conviction-engine/?lang=it#CAT</link>
+   <description>CATERPILLAR INC. Acquisto sul mercato del 12 novembre 2026: 350 azioni a 596,10 $ in media, 208.635 $ in tutto. Punteggio dell'azienda in quel momento: 54/100, nessuna convinzione chiara.</description>
+   <category>acquisto</category>
+   <guid isPermaLink="false">CAT-2026-11-12-maclennan-david-buy</guid>
+   <pubDate>Sat, 28 Nov 2026 00:10:51 GMT</pubDate>
+  </item>
+  <item>
+   <title>CAT: Fish James C Jr (Director) compra per 620.390 $</title>
+   <link>https://mpascale19.github.io/conviction-engine/?lang=it#CAT</link>
+   <description>CATERPILLAR INC. Acquisto sul mercato del 2 novembre 2026: 1.000 azioni a 620,39 $ in media, 620.390 $ in tutto. Punteggio dell'azienda in quel momento: 54/100, nessuna convinzione chiara.</description>
+   <category>acquisto</category>
+   <guid isPermaLink="false">CAT-2026-11-02-fish-james-c-jr-buy</guid>
+   <pubDate>Sat, 28 Nov 2026 00:10:51 GMT</pubDate>
+  </item>
+  <item>
+   <title>BKR: RICE JOHN G (Director) compra per 531.000 $</title>
+   <link>https://mpascale19.github.io/conviction-engine/?lang=it#BKR</link>
+   <description>Baker Hughes Co. Acquisto sul mercato del 3 novembre 2026: 10.000 azioni a 53,10 $ in media, 531.000 $ in tutto. Punteggio dell'azienda in quel momento: 59/100, leggermente rialzista.</description>
+   <category>acquisto</category>
+   <guid isPermaLink="false">BKR-2026-11-03-rice-john-g-buy</guid>
+   <pubDate>Sat, 28 Nov 2026 00:10:51 GMT</pubDate>
+  </item>
+  <item>
+   <title>BA: JOHRI AKHIL (Director) compra per 500.067 $</title>
+   <link>https://mpascale19.github.io/conviction-engine/?lang=it#BA</link>
+   <description>BOEING CO. Acquisto sul mercato del 17 novembre 2026: 3.000 azioni a 166,69 $ in media, 500.067 $ in tutto. Fa parte di un cluster di acquisti. Punteggio dell'azienda in quel momento: 50/100, nessuna convinzione chiara.</description>
+   <category>acquisto</category>
+   <guid isPermaLink="false">BA-2026-11-17-johri-akhil-buy</guid>
+   <pubDate>Sat, 28 Nov 2026 00:10:51 GMT</pubDate>
+  </item>
+  <item>
+   <title>BA: MOLLENKOPF STEVEN M (Director) compra per 510.427 $</title>
+   <link>https://mpascale19.github.io/conviction-engine/?lang=it#BA</link>
+   <description>BOEING CO. Acquisto sul mercato del 30 ottobre 2026: 2.950 azioni a 173,03 $ in media, 510.427 $ in tutto. Fa parte di un cluster di acquisti. Punteggio dell'azienda in quel momento: 50/100, nessuna convinzione chiara.</description>
+   <category>acquisto</category>
+   <guid isPermaLink="false">BA-2026-10-30-mollenkopf-steven-m-buy</guid>
+   <pubDate>Sat, 28 Nov 2026 00:10:51 GMT</pubDate>
+  </item>
+  <item>
+   <title>BA: 3 insider comprano entro 30 giorni</title>
+   <link>https://mpascale19.github.io/conviction-engine/?lang=it#BA</link>
+   <description>BOEING CO. Dal 30 ottobre 2026 hanno comprato azioni sul mercato: Buckley Mortimer J, MOLLENKOPF STEVEN M, JOHRI AKHIL. Più persone che comprano insieme sono il segnale che il punteggio chiama cluster. Punteggio dell'azienda in quel momento: 50/100, nessuna convinzione chiara.</description>
+   <category>cluster</category>
+   <guid isPermaLink="false">BA-2026-10-30-cluster</guid>
+   <pubDate>Sat, 28 Nov 2026 00:10:51 GMT</pubDate>
+  </item>
+  <item>
+   <title>BA: Buckley Mortimer J (Director) compra per 998.421 $</title>
+   <link>https://mpascale19.github.io/conviction-engine/?lang=it#BA</link>
+   <description>BOEING CO. Acquisto sul mercato del 30 ottobre 2026: 5.820 azioni a 171,55 $ in media, 998.421 $ in tutto. Fa parte di un cluster di acquisti. Punteggio dell'azienda in quel momento: 50/100, nessuna convinzione chiara.</description>
+   <category>acquisto</category>
+   <guid isPermaLink="false">BA-2026-10-30-buckley-mortimer-j-buy</guid>
+   <pubDate>Sat, 28 Nov 2026 00:10:51 GMT</pubDate>
+  </item>
+  <item>
+   <title>AIG: Inglis John C (Director) compra per 10.000 $</title>
+   <link>https://mpascale19.github.io/conviction-engine/?lang=it#AIG</link>
+   <description>AMERICAN INTERNATIONAL GROUP, INC. Acquisto sul mercato del 9 novembre 2026: 128 azioni a 78,41 $ in media, 10.000 $ in tutto. Punteggio dell'azienda in quel momento: 49/100, nessuna convinzione chiara.</description>
+   <category>acquisto</category>
+   <guid isPermaLink="false">AIG-2026-11-09-inglis-john-c-buy</guid>
+   <pubDate>Sat, 28 Nov 2026 00:10:51 GMT</pubDate>
+  </item>
+  <item>
+   <title>ADM: McAtee David R II (Director) compra per 196.756 $</title>
+   <link>https://mpascale19.github.io/conviction-engine/?lang=it#ADM</link>
+   <description>Archer-Daniels-Midland Co. Acquisto sul mercato del 5 novembre 2026: 2.800 azioni a 70,27 $ in media, 196.756 $ in tutto. Punteggio dell'azienda in quel momento: 58/100, leggermente rialzista.</description>
+   <category>acquisto</category>
+   <guid isPermaLink="false">ADM-2026-11-05-mcatee-david-r-ii-buy</guid>
+   <pubDate>Sat, 28 Nov 2026 00:10:51 GMT</pubDate>
+  </item>
   <item>
    <title>URI: Taussig Alexander R. (Director) compra per 150.086 $</title>
    <link>https://mpascale19.github.io/conviction-engine/?lang=it#URI</link>
@@ -520,14 +648,6 @@
    <pubDate>Fri, 27 Nov 2026 20:22:06 GMT</pubDate>
   </item>
   <item>
-   <title>UTI: DEVINCENZI ROBERT THOMAS (Director) compra per 19.678 $</title>
-   <link>https://mpascale19.github.io/conviction-engine/?lang=it#UTI</link>
-   <description>UNIVERSAL TECHNICAL INSTITUTE INC. Acquisto sul mercato del 28 settembre 2026: 1.000 azioni a 19,68 $ in media, 19.678 $ in tutto. Punteggio dell'azienda in quel momento: 48/100, nessuna convinzione chiara.</description>
-   <category>acquisto</category>
-   <guid isPermaLink="false">UTI-2026-09-28-devincenzi-robert-thomas-buy</guid>
-   <pubDate>Fri, 27 Nov 2026 19:21:17 GMT</pubDate>
-  </item>
-  <item>
    <title>UFCS: MILLIGAN GEORGE D (Director) compra per 237.050 $</title>
    <link>https://mpascale19.github.io/conviction-engine/?lang=it#UFCS</link>
    <description>UNITED FIRE GROUP INC. Acquisto sul mercato del 6 novembre 2026: 5.000 azioni a 47,41 $ in media, 237.050 $ in tutto. Punteggio dell'azienda in quel momento: 54/100, nessuna convinzione chiara.</description>
@@ -686,126 +806,6 @@
    <category>acquisto</category>
    <guid isPermaLink="false">SYY-2026-11-04-ondrof-thomas-gerard-buy</guid>
    <pubDate>Fri, 27 Nov 2026 17:34:24 GMT</pubDate>
-  </item>
-  <item>
-   <title>STWD: ZELNICK STRAUSS (Director) compra per 2,0 milioni $</title>
-   <link>https://mpascale19.github.io/conviction-engine/?lang=it#STWD</link>
-   <description>STARWOOD PROPERTY TRUST, INC. Acquisto sul mercato del 16 novembre 2026: 172.711 azioni a 11,71 $ in media, 2,0 milioni $ in tutto. Fa parte di un cluster di acquisti. Punteggio dell'azienda in quel momento: 51/100, nessuna convinzione chiara.</description>
-   <category>acquisto</category>
-   <guid isPermaLink="false">STWD-2026-11-16-zelnick-strauss-buy</guid>
-   <pubDate>Fri, 27 Nov 2026 17:34:24 GMT</pubDate>
-  </item>
-  <item>
-   <title>STWD: STERNLICHT BARRY S (CEO, Chairman of the Board) compra per 4,8 milioni $</title>
-   <link>https://mpascale19.github.io/conviction-engine/?lang=it#STWD</link>
-   <description>STARWOOD PROPERTY TRUST, INC. Acquisto sul mercato del 12 novembre 2026: 415.000 azioni a 11,59 $ in media, 4,8 milioni $ in tutto. Fa parte di un cluster di acquisti. Punteggio dell'azienda in quel momento: 51/100, nessuna convinzione chiara.</description>
-   <category>acquisto</category>
-   <guid isPermaLink="false">STWD-2026-11-12-sternlicht-barry-s-buy</guid>
-   <pubDate>Fri, 27 Nov 2026 17:34:24 GMT</pubDate>
-  </item>
-  <item>
-   <title>STWD: STERNLICHT BARRY S (CEO, Chairman of the Board) compra per 9,9 milioni $</title>
-   <link>https://mpascale19.github.io/conviction-engine/?lang=it#STWD</link>
-   <description>STARWOOD PROPERTY TRUST, INC. Acquisto sul mercato del 11 novembre 2026: 830.000 azioni a 11,91 $ in media, 9,9 milioni $ in tutto. Fa parte di un cluster di acquisti. Punteggio dell'azienda in quel momento: 51/100, nessuna convinzione chiara.</description>
-   <category>acquisto</category>
-   <guid isPermaLink="false">STWD-2026-11-11-sternlicht-barry-s-buy</guid>
-   <pubDate>Fri, 27 Nov 2026 17:34:24 GMT</pubDate>
-  </item>
-  <item>
-   <title>KMI: KINDER RICHARD D (Executive Chairman) compra per 15,0 milioni $</title>
-   <link>https://mpascale19.github.io/conviction-engine/?lang=it#KMI</link>
-   <description>KINDER MORGAN, INC. Acquisto sul mercato del 6 novembre 2026: 500.000 azioni a 29,99 $ in media, 15,0 milioni $ in tutto. Punteggio dell'azienda in quel momento: 66/100, convinzione rialzista moderata.</description>
-   <category>acquisto</category>
-   <guid isPermaLink="false">KMI-2026-11-06-kinder-richard-d-buy</guid>
-   <pubDate>Fri, 27 Nov 2026 17:34:24 GMT</pubDate>
-  </item>
-  <item>
-   <title>HUBS: Halligan Brian (Chief Executive Officer) compra per 5,0 milioni $</title>
-   <link>https://mpascale19.github.io/conviction-engine/?lang=it#HUBS</link>
-   <description>HUBSPOT INC. Acquisto sul mercato del 13 novembre 2026: 22.985 azioni a 217,44 $ in media, 5,0 milioni $ in tutto. Punteggio dell'azienda in quel momento: 50/100, nessuna convinzione chiara.</description>
-   <category>acquisto</category>
-   <guid isPermaLink="false">HUBS-2026-11-13-halligan-brian-buy</guid>
-   <pubDate>Fri, 27 Nov 2026 17:34:24 GMT</pubDate>
-  </item>
-  <item>
-   <title>ETN: Foster David B (See Remarks below.) compra per 48.540 $</title>
-   <link>https://mpascale19.github.io/conviction-engine/?lang=it#ETN</link>
-   <description>Eaton Corp plc. Acquisto sul mercato del 20 novembre 2026: 150 azioni a 323,60 $ in media, 48.540 $ in tutto. Fa parte di un cluster di acquisti. Punteggio dell'azienda in quel momento: 60/100, leggermente rialzista.</description>
-   <category>acquisto</category>
-   <guid isPermaLink="false">ETN-2026-11-20-foster-david-b-buy</guid>
-   <pubDate>Fri, 27 Nov 2026 17:34:24 GMT</pubDate>
-  </item>
-  <item>
-   <title>ETN: Johnson Gerald (Director) compra per 101.646 $</title>
-   <link>https://mpascale19.github.io/conviction-engine/?lang=it#ETN</link>
-   <description>Eaton Corp plc. Acquisto sul mercato del 16 novembre 2026: 300 azioni a 338,82 $ in media, 101.646 $ in tutto. Fa parte di un cluster di acquisti. Punteggio dell'azienda in quel momento: 60/100, leggermente rialzista.</description>
-   <category>acquisto</category>
-   <guid isPermaLink="false">ETN-2026-11-16-johnson-gerald-buy</guid>
-   <pubDate>Fri, 27 Nov 2026 17:34:24 GMT</pubDate>
-  </item>
-  <item>
-   <title>ETN: Foster David B (See Remarks below.) compra per 69.248 $</title>
-   <link>https://mpascale19.github.io/conviction-engine/?lang=it#ETN</link>
-   <description>Eaton Corp plc. Acquisto sul mercato del 16 novembre 2026: 200 azioni a 346,24 $ in media, 69.248 $ in tutto. Fa parte di un cluster di acquisti. Punteggio dell'azienda in quel momento: 60/100, leggermente rialzista.</description>
-   <category>acquisto</category>
-   <guid isPermaLink="false">ETN-2026-11-16-foster-david-b-buy</guid>
-   <pubDate>Fri, 27 Nov 2026 17:34:24 GMT</pubDate>
-  </item>
-  <item>
-   <title>ETN: 3 insider comprano entro 30 giorni</title>
-   <link>https://mpascale19.github.io/conviction-engine/?lang=it#ETN</link>
-   <description>Eaton Corp plc. Dal 16 novembre 2026 hanno comprato azioni sul mercato: Johnson Gerald, Foster David B, RUIZ STERNADT PAULO. Più persone che comprano insieme sono il segnale che il punteggio chiama cluster. Punteggio dell'azienda in quel momento: 60/100, leggermente rialzista.</description>
-   <category>cluster</category>
-   <guid isPermaLink="false">ETN-2026-11-16-cluster</guid>
-   <pubDate>Fri, 27 Nov 2026 17:34:24 GMT</pubDate>
-  </item>
-  <item>
-   <title>ELV: PERU RAMIRO G (Director) compra per 383.860 $</title>
-   <link>https://mpascale19.github.io/conviction-engine/?lang=it#ELV</link>
-   <description>Elevance Health, Inc. Acquisto sul mercato del 19 novembre 2026: 1.000 azioni a 383,86 $ in media, 383.860 $ in tutto. Punteggio dell'azienda in quel momento: 51/100, nessuna convinzione chiara.</description>
-   <category>acquisto</category>
-   <guid isPermaLink="false">ELV-2026-11-19-peru-ramiro-g-buy</guid>
-   <pubDate>Fri, 27 Nov 2026 17:34:24 GMT</pubDate>
-  </item>
-  <item>
-   <title>CVS: Shah Prem S (EVP and Group President) compra per 2,0 milioni $</title>
-   <link>https://mpascale19.github.io/conviction-engine/?lang=it#CVS</link>
-   <description>CVS HEALTH Corp. Acquisto sul mercato del 6 novembre 2026: 23.855 azioni a 83,89 $ in media, 2,0 milioni $ in tutto. Punteggio dell'azienda in quel momento: 62/100, leggermente rialzista.</description>
-   <category>acquisto</category>
-   <guid isPermaLink="false">CVS-2026-11-06-shah-prem-s-buy</guid>
-   <pubDate>Fri, 27 Nov 2026 17:34:24 GMT</pubDate>
-  </item>
-  <item>
-   <title>STWD: Pollack Jonathan Lee (Director) compra per 2,0 milioni $</title>
-   <link>https://mpascale19.github.io/conviction-engine/?lang=it#STWD</link>
-   <description>STARWOOD PROPERTY TRUST, INC. Acquisto sul mercato del 11 novembre 2026: 169.800 azioni a 11,86 $ in media, 2,0 milioni $ in tutto. Fa parte di un cluster di acquisti. Punteggio dell'azienda in quel momento: 51/100, nessuna convinzione chiara.</description>
-   <category>acquisto</category>
-   <guid isPermaLink="false">STWD-2026-11-11-pollack-jonathan-lee-buy</guid>
-   <pubDate>Fri, 27 Nov 2026 16:26:17 GMT</pubDate>
-  </item>
-  <item>
-   <title>STWD: 3 insider comprano entro 30 giorni</title>
-   <link>https://mpascale19.github.io/conviction-engine/?lang=it#STWD</link>
-   <description>STARWOOD PROPERTY TRUST, INC. Dal 11 novembre 2026 hanno comprato azioni sul mercato: Pollack Jonathan Lee, STERNLICHT BARRY S, ZELNICK STRAUSS. Più persone che comprano insieme sono il segnale che il punteggio chiama cluster. Punteggio dell'azienda in quel momento: 51/100, nessuna convinzione chiara.</description>
-   <category>cluster</category>
-   <guid isPermaLink="false">STWD-2026-11-11-cluster</guid>
-   <pubDate>Fri, 27 Nov 2026 16:26:17 GMT</pubDate>
-  </item>
-  <item>
-   <title>SPXC: Deck Brian A (Director) compra per 140.750 $</title>
-   <link>https://mpascale19.github.io/conviction-engine/?lang=it#SPXC</link>
-   <description>SPX Technologies, Inc. Acquisto sul mercato del 6 novembre 2026: 1.000 azioni a 140,75 $ in media, 140.750 $ in tutto. Punteggio dell'azienda in quel momento: 51/100, nessuna convinzione chiara.</description>
-   <category>acquisto</category>
-   <guid isPermaLink="false">SPXC-2026-11-06-deck-brian-a-buy</guid>
-   <pubDate>Fri, 27 Nov 2026 16:26:17 GMT</pubDate>
-  </item>
-  <item>
-   <title>SPXC: Deck Brian A (Director) compra per 493.020 $</title>
-   <link>https://mpascale19.github.io/conviction-engine/?lang=it#SPXC</link>
-   <description>SPX Technologies, Inc. Acquisto sul mercato del 3 novembre 2026: 3.000 azioni a 164,34 $ in media, 493.020 $ in tutto. Punteggio dell'azienda in quel momento: 51/100, nessuna convinzione chiara.</description>
-   <category>acquisto</category>
-   <guid isPermaLink="false">SPXC-2026-11-03-deck-brian-a-buy</guid>
-   <pubDate>Fri, 27 Nov 2026 16:26:17 GMT</pubDate>
   </item>
  </channel>
 </rss>
